@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eat</string>
+    <string name="app_name">Eat All time</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Tovo Group</string>
@@ -331,4 +331,9 @@
     <string name="account">Account</string>
     <string name="explore">Explore</string>
     <string name="no_item_found">No item found</string>
+    <string name="bill_details">Bill details</string>
+    <string name="inr">INR.</string>
+    <string name="order_total">Ordre total</string>
+    <string name="deliver_to">Deliver to</string>
+    <string name="change">Change</string>
 </resources>

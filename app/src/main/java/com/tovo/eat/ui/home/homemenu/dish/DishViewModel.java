@@ -12,6 +12,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.LatLngPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
@@ -68,18 +69,14 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
         return getDataManager().getCartDetails();
     }
 
-
-
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-
-
-     //   AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this.getApplicationContext() );
+     //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new Response.Listener<DishResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212"),new Response.Listener<DishResponse>() {
                 @Override
                 public void onResponse(DishResponse response) {
                     if (response != null) {
@@ -93,13 +90,12 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                         DishViewModel.this.getNavigator().dishListLoaded();
 
 
-
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    //Log.e("", error.getMessage());
+                    Log.e("", error.getMessage());
                 }
             });
 

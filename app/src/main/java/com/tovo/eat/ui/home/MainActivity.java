@@ -30,6 +30,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.databinding.NavHeaderMainBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     public static Intent newIntent(Context context) {
-       /* Intent intent = new Intent(context, MainActivity.class);
+       /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
         return new Intent(context, MainActivity.class);
     }
@@ -92,6 +93,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
+    }
+
+    @Override
+    public void openCart() {
+        Intent intent = CartActivity.newIntent(MainActivity.this);
+        startActivity(intent);
     }
 
     @Override
@@ -334,7 +341,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
    /* public void logOut() {
         mMainViewModel.logout();
-        Intent loginIntent = SignInActivityMain.newIntent(MainActivity.this);
+        Intent loginIntent = SignInActivityMain.newIntent(CartActivity.this);
         startActivity(loginIntent);
         finish();
     }*/
@@ -513,9 +520,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         }*/
-
-
-
 
 
     }

@@ -10,12 +10,12 @@ public class CartRequestPojo {
     @SerializedName("eat_id")
     @Expose
     private Integer eatId;
-    @SerializedName("kitchen_id")
+    @SerializedName("makeit_userid")
     @Expose
-    private Integer kitchenId;
-    @SerializedName("kitchen_Name")
+    private Integer makeit_userid;
+    @SerializedName("makeit_username")
     @Expose
-    private String kitchenName;
+    private String makeit_username;
     @SerializedName("kitchen_type")
     @Expose
     private String kitchenType;
@@ -34,20 +34,20 @@ public class CartRequestPojo {
         this.eatId = eatId;
     }
 
-    public Integer getKitchenId() {
-        return kitchenId;
+    public Integer getMakeit_userid() {
+        return makeit_userid;
     }
 
-    public void setKitchenId(Integer kitchenId) {
-        this.kitchenId = kitchenId;
+    public void setMakeit_userid(Integer makeit_userid) {
+        this.makeit_userid = makeit_userid;
     }
 
-    public String getKitchenName() {
-        return kitchenName;
+    public String getMakeit_username() {
+        return makeit_username;
     }
 
-    public void setKitchenName(String kitchenName) {
-        this.kitchenName = kitchenName;
+    public void setMakeit_username(String makeit_username) {
+        this.makeit_username = makeit_username;
     }
 
     public String getKitchenType() {
@@ -76,54 +76,46 @@ public class CartRequestPojo {
 
     public static class Result {
 
-        @SerializedName("kitchen_Name")
+        @SerializedName("makeit_username")
         @Expose
-        private String kitchenName;
-        @SerializedName("product_id")
+        private String makeit_username;
+        @SerializedName("productid")
         @Expose
-        private Integer productId;
+        private Integer productid;
         @SerializedName("product_quantity")
         @Expose
         private Integer productQuantity;
-        @SerializedName("product_type")
+        @SerializedName("producttype")
         @Expose
-        private String productType;
-        @SerializedName("product_Name")
+        private String producttype;
+        @SerializedName("product_name")
         @Expose
-        private String productName;
-        @SerializedName("product_price")
+        private String product_name;
+        @SerializedName("price")
         @Expose
-        private Integer productPrice;
-        @SerializedName("product_image")
+        private Integer price;
+        @SerializedName("image")
         @Expose
-        private String productImage;
+        private String image;
 
-        @SerializedName("kitchen_id")
+        @SerializedName("makeit_userid")
         @Expose
-        private Integer kitchenId;
+        private Integer makeit_userid;
 
-        public Integer getKitchenId() {
-            return kitchenId;
+        public String getMakeit_username() {
+            return makeit_username;
         }
 
-        public void setKitchenId(Integer kitchenId) {
-            this.kitchenId = kitchenId;
+        public void setMakeit_username(String makeit_username) {
+            this.makeit_username = makeit_username;
         }
 
-        public String getKitchenName() {
-            return kitchenName;
+        public Integer getProductid() {
+            return productid;
         }
 
-        public void setKitchenName(String kitchenName) {
-            this.kitchenName = kitchenName;
-        }
-
-        public Integer getProductId() {
-            return productId;
-        }
-
-        public void setProductId(Integer productId) {
-            this.productId = productId;
+        public void setProductid(Integer productid) {
+            this.productid = productid;
         }
 
         public Integer getProductQuantity() {
@@ -134,37 +126,44 @@ public class CartRequestPojo {
             this.productQuantity = productQuantity;
         }
 
-        public String getProductType() {
-            return productType;
+        public String getProducttype() {
+            return producttype;
         }
 
-        public void setProductType(String productType) {
-            this.productType = productType;
+        public void setProducttype(String producttype) {
+            this.producttype = producttype;
         }
 
-        public String getProductName() {
-            return productName;
+        public String getProduct_name() {
+            return product_name;
         }
 
-        public void setProductName(String productName) {
-            this.productName = productName;
+        public void setProduct_name(String product_name) {
+            this.product_name = product_name;
         }
 
-        public Integer getProductPrice() {
-            return productPrice;
+        public Integer getPrice() {
+            return price;
         }
 
-        public void setProductPrice(Integer productPrice) {
-            this.productPrice = productPrice;
+        public void setPrice(Integer price) {
+            this.price = price;
         }
 
-        public String getProductImage() {
-            return productImage;
+        public String getImage() {
+            return image;
         }
 
-        public void setProductImage(String productImage) {
-            this.productImage = productImage;
+        public void setImage(String image) {
+            this.image = image;
         }
 
+        public Integer getMakeit_userid() {
+            return makeit_userid;
+        }
+
+        public void setMakeit_userid(Integer makeit_userid) {
+            this.makeit_userid = makeit_userid;
+        }
     }
 }

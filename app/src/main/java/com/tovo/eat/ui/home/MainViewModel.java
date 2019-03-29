@@ -83,13 +83,21 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 */
 
 
-    public void totalCart() {
+    public void gotoCart() {
+        getNavigator().openCart();
 
+    }
+
+
+    public void totalCart() {
 
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
-        int count=0;
+        if (cartRequestPojo == null)
+            cartRequestPojo = new CartRequestPojo();
+
+        int count = 0;
 
         if (cartRequestPojo.getResult() != null) {
 
@@ -97,22 +105,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                 cart.set(false);
 
-
             } else {
 
-
-                for (int i=0;i<cartRequestPojo.getResult().size();i++){
+                for (int i = 0; i < cartRequestPojo.getResult().size(); i++) {
 
                     cart.set(true);
 
-                    count=count+cartRequestPojo.getResult().get(i).getProductQuantity();
+                    count = count + cartRequestPojo.getResult().get(i).getProductQuantity();
 
                     numOfCarts.set(String.valueOf(count));
 
                 }
-
-
-
 
             }
 

@@ -29,6 +29,8 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tovo.eat.R;
+import com.tovo.eat.ui.cart.CartDishAdapter;
+import com.tovo.eat.ui.cart.CartDishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -67,6 +69,17 @@ public final class BindingUtils {
             adapter.addItems(dishes);
         }
     }
+
+
+    @BindingAdapter({"adapter"})
+    public static void addCartDishItems(RecyclerView recyclerView, List<CartRequestPojo.Result> dishes) {
+        CartDishAdapter adapter = (CartDishAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes);
+        }
+    }
+
 
 
 

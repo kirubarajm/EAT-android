@@ -24,13 +24,13 @@ public class AppConstants {
     public static final String FCM_RECEIVER= "ALERT";
 
     public static final String TEMP_URL_MY = "http://192.168.1.243/tovo/";
-    public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/";
+    public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
     public static final String TEMP_URL = "http://192.168.1.100:4000/sales/";
 
    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
     public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
     public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_MY+ "kitchens.json";
-    public static final String EAT_DISH_LIST_URL =TEMP_URL_MY+ "dishes.json";
+    public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
 
 
     public static final String PACKAGE_NAME = "com.tovo.sales";

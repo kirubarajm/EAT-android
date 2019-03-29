@@ -27,4 +27,8 @@ public interface MainNavigator {
 
     void openNavDrawer();
 
+
+    void openCart();
+
+
 }
