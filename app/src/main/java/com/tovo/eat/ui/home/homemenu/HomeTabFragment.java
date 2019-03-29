@@ -1,0 +1,93 @@
+package com.tovo.eat.ui.home.homemenu;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.view.View;
+
+import com.tovo.eat.BR;
+import com.tovo.eat.R;
+import com.tovo.eat.databinding.FragmentHomeBinding;
+import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.MainActivity;
+
+import javax.inject.Inject;
+
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator {
+
+
+    public static final String TAG = HomeTabFragment.class.getSimpleName();
+
+    @Inject
+    HomeTabViewModel mHomeTabViewModel;
+    @Inject
+    HomeTabAdapter mHomeTabAdapter;
+
+    private FragmentHomeBinding mFragmentHomeBinding;
+
+    public static HomeTabFragment newInstance() {
+        Bundle args = new Bundle();
+        HomeTabFragment fragment = new HomeTabFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public int getBindingVariable() {
+        return BR.homeTabViewModel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    public HomeTabViewModel getViewModel() {
+        return mHomeTabViewModel;
+    }
+
+    @Override
+    public void handleError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mHomeTabViewModel.setNavigator(this);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mFragmentHomeBinding = getViewDataBinding();
+        setUp();
+    }
+
+    private void setUp() {
+        mHomeTabAdapter.setCount(2);
+        mFragmentHomeBinding.myaccViewPager.setAdapter(mHomeTabAdapter);
+        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("KITCHEN"));
+        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("DISH"));
+        mFragmentHomeBinding.myaccViewPager.setOffscreenPageLimit(mFragmentHomeBinding.myaccTabLayout.getTabCount());
+        mFragmentHomeBinding.myaccViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mFragmentHomeBinding.myaccTabLayout));
+        mFragmentHomeBinding.myaccTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mFragmentHomeBinding.myaccViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+}

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tovo.eat.ui.home.MainViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/clRootView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:id="@+id/activityMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <!-- android:stateListAnimator="@animator/always_elevate"
+                     android:theme="@style/AppTheme.Overlay"-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:id="@+id/main_tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+
+                                <ImageView
+                                    android:id="@+id/nav_icon"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:onClick="@{()->viewModel.openDrawer()}"
+                                    android:src="@drawable/ic_menu_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:orientation="vertical">
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:text="@string/deliver_now"
+                                        android:textSize="16sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <TextView
+
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif-medium"
+                                            android:text="@string/current_location"
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp" />
+
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="10dp"
+                                            android:fontFamily="sans-serif-medium"
+                                            android:rotation="90"
+                                            android:text=">"
+                                            android:textColor="@color/eat_color"
+                                            android:textSize="22sp" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:background="@drawable/gradient_view" />
+                        </LinearLayout>
+
+
+                        <!-- Main content -->
+
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:id="@+id/content_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+
+            </android.support.design.widget.CoordinatorLayout>
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/navigationView"
+                style="@style/Widget.Design.NavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/white"
+                app:itemBackground="@color/white"
+                app:itemIconTint="@color/black_effective"
+                app:itemTextColor="@color/black_effective"
+                app:menu="@menu/activity_main_drawer">
+
+                <!--     <TextView
+                         android:id="@+id/tvAppVersion"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="bottom|end"
+                         android:padding="5dp"
+                         android:text="@{mainView.appVersion}" />-->
+            </android.support.design.widget.NavigationView>
+
+        </android.support.v4.widget.DrawerLayout>
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/address_looking_up"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/bo_view"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/gradient_view"
+                android:rotation="180" />
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimary"
+                app:itemIconTint="@color/dark_gray"
+                app:itemTextColor="@color/dark_gray"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_navigation_menu" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_shopping_cart_black_24dp"
+                app:backgroundTint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/text_count"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:text="@{viewModel.numOfCarts}"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/badge_circle"
+                android:elevation="7dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

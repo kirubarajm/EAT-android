@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="kitchenItemViewModel"
+            type="com.tovo.eat.ui.home.homemenu.kitchen.KitchenItemViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <com.tovo.eat.utilities.RoundCornerImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                cusrsiveImageUrl="@{kitchenItemViewModel.kitchen_image}"
+                android:src="@drawable/imagenotavailable" />
+
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{kitchenItemViewModel.kitchen_name}"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:visibility="@{kitchenItemViewModel.isFavourite?View.VISIBLE:View.GONE}"
+                        android:src="@drawable/ic_star_black_24dp"
+                        android:tint="@color/eat_color"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{kitchenItemViewModel.kitchen_type}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+
+                    <ImageView
+                        android:layout_margin="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{kitchenItemViewModel.ratings}"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp"/>
+
+
+
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_brightness_1_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{kitchenItemViewModel.eta}"
+                        android:textColor="@color/dark_gray"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="14sp"/>
+
+
+
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_brightness_1_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{kitchenItemViewModel.offer}"
+                        android:textColor="@color/dark_gray"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="14sp"/>
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/gray"/>
+
+    </LinearLayout>
+
+</layout>

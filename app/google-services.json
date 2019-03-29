@@ -1,0 +1,117 @@
+{
+  "project_info": {
+    "project_number": "288619871706",
+    "firebase_url": "https://tovologies-1550475998119.firebaseio.com",
+    "project_id": "tovologies-1550475998119",
+    "storage_bucket": "tovologies-1550475998119.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288619871706:android:1fdd36ac77ac92c3",
+        "android_client_info": {
+          "package_name": "com.tovo.eat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288619871706:android:a811f88c8759fc40",
+        "android_client_info": {
+          "package_name": "com.tovo.sales"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288619871706:android:1ebf8e94a9446662",
+        "android_client_info": {
+          "package_name": "com.tovologies.moveit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288619871706-a0eeqq7s353qs48nfr12ilkbbjtmob8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tovologies.moveit",
+            "certificate_hash": "eb1593881a47f3964d2ed4114df54f33127189b2"
+          }
+        },
+        {
+          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
