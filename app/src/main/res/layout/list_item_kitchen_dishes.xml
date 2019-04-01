@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="dishItemViewModel"
-            type="com.tovo.eat.ui.home.homemenu.dish.DishItemViewModel" />
+            name="kitchenDishItemViewModel"
+            type="com.tovo.eat.ui.home.kitchendish.KitchenDishItemViewModel" />
 
     </data>
 
@@ -26,7 +26,7 @@
 
 
             <com.tovo.eat.utilities.RoundCornerImageView
-                cusrsiveImageUrl="@{dishItemViewModel.image}"
+                cusrsiveImageUrl="@{kitchenDishItemViewModel.image}"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
@@ -47,7 +47,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{dishItemViewModel.product_name}"
+                        android:text="@{kitchenDishItemViewModel.product_name}"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -70,7 +70,7 @@
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{dishItemViewModel.sprice}" />
+                            android:text="@{kitchenDishItemViewModel.sprice}" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -79,7 +79,7 @@
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{dishItemViewModel.makeit_username}"
+                    android:text="@{kitchenDishItemViewModel.makeit_username}"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 
@@ -92,9 +92,9 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/stoke"
-                    android:onClick="@{()->dishItemViewModel.enableAdd()}"
+                    android:onClick="@{()->kitchenDishItemViewModel.enableAdd()}"
                     android:orientation="horizontal"
-                    android:visibility="@{dishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
+                    android:visibility="@{kitchenDishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
@@ -121,12 +121,12 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/stoke"
                     android:orientation="horizontal"
-                    android:visibility="@{dishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                    android:visibility="@{kitchenDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{()->dishItemViewModel.subClicked()}"
+                        android:onClick="@{()->kitchenDishItemViewModel.subClicked()}"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
@@ -149,7 +149,7 @@
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
-                        android:text="@{dishItemViewModel.sQuantity}"
+                        android:text="@{kitchenDishItemViewModel.sQuantity}"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -162,7 +162,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{()->dishItemViewModel.addClicked()}"
+                        android:onClick="@{()->kitchenDishItemViewModel.addClicked()}"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"

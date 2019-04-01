@@ -84,8 +84,12 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
+
         @Override
-        public void onItemClick() {
+        public void onItemClick(Integer id) {
+
+            mLiveProductsAdapterListener.onItemClickData(id);
+
 
         }
     }
@@ -105,7 +109,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenResponse.Result blogUrl);
+        void onItemClickData(Integer kitchenId);
     }
 
 }

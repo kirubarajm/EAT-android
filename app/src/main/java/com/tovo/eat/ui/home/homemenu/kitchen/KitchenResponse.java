@@ -33,64 +33,63 @@ public class KitchenResponse {
 
     public class Result {
 
-        @SerializedName("kitchen_Name")
+        @SerializedName("makeituserid")
         @Expose
-        private String kitchenName;
-        @SerializedName("kitchen_type")
+        private Integer makeituserid;
+        @SerializedName("makeitusername")
         @Expose
-        private String kitchenType;
-        @SerializedName("ratings")
+        private String makeitusername;
+        @SerializedName("makeitbrandname")
         @Expose
-        private Double ratings;
+        private String makeitbrandname;
+        @SerializedName("makeitimg")
+        @Expose
+        private String makeitimg;
+        @SerializedName("distance")
+        @Expose
+        private String distance;
         @SerializedName("eta")
         @Expose
         private String eta;
-        @SerializedName("offer")
-        @Expose
-        private String offer;
-        @SerializedName("favourite")
-        @Expose
-        private String favourite;
-        @SerializedName("kitchen_url")
-        @Expose
-        private String kitchenUrl;
 
-
-        @SerializedName("kitchen_id")
-        @Expose
-        private Integer kitchenId;
-
-
-        public Integer getKitchenId() {
-            return kitchenId;
+        public Integer getMakeituserid() {
+            return makeituserid;
         }
 
-        public void setKitchenId(Integer kitchenId) {
-            this.kitchenId = kitchenId;
+        public void setMakeituserid(Integer makeituserid) {
+            this.makeituserid = makeituserid;
         }
 
-        public String getKitchenName() {
-            return kitchenName;
+        public String getMakeitusername() {
+            return makeitusername;
         }
 
-        public void setKitchenName(String kitchenName) {
-            this.kitchenName = kitchenName;
+        public void setMakeitusername(String makeitusername) {
+            this.makeitusername = makeitusername;
         }
 
-        public String getKitchenType() {
-            return kitchenType;
+        public String getMakeitbrandname() {
+            return makeitbrandname;
         }
 
-        public void setKitchenType(String kitchenType) {
-            this.kitchenType = kitchenType;
+        public void setMakeitbrandname(String makeitbrandname) {
+            this.makeitbrandname = makeitbrandname;
         }
 
-        public Double getRatings() {
-            return ratings;
+        public String getMakeitimg() {
+            return makeitimg;
         }
 
-        public void setRatings(Double ratings) {
-            this.ratings = ratings;
+        public void setMakeitimg(String makeitimg) {
+            this.makeitimg = makeitimg;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
         }
 
         public String getEta() {
@@ -99,30 +98,6 @@ public class KitchenResponse {
 
         public void setEta(String eta) {
             this.eta = eta;
-        }
-
-        public String getOffer() {
-            return offer;
-        }
-
-        public void setOffer(String offer) {
-            this.offer = offer;
-        }
-
-        public String getFavourite() {
-            return favourite;
-        }
-
-        public void setFavourite(String favourite) {
-            this.favourite = favourite;
-        }
-
-        public String getKitchenUrl() {
-            return kitchenUrl;
-        }
-
-        public void setKitchenUrl(String kitchenUrl) {
-            this.kitchenUrl = kitchenUrl;
         }
 
     }

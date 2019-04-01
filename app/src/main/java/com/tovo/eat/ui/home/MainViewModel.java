@@ -94,6 +94,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
+        cart.set(false);
+
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
 
@@ -109,11 +111,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                 for (int i = 0; i < cartRequestPojo.getResult().size(); i++) {
 
-                    cart.set(true);
+
 
                     count = count + cartRequestPojo.getResult().get(i).getProductQuantity();
 
-                    numOfCarts.set(String.valueOf(count));
+                    if (count==0){
+
+                        cart.set(false);
+                    }else {
+                        numOfCarts.set(String.valueOf(count));
+                        cart.set(true);
+                    }
 
                 }
 

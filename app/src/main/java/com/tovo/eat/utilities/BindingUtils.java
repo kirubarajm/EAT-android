@@ -35,6 +35,8 @@ import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
@@ -55,6 +57,16 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(sales);
+        }
+    }
+
+
+    @BindingAdapter({"adapter"})
+    public static void addKitchenDishItems(RecyclerView recyclerView,List<KitchenDishResponse.Result> response) {
+        KitchenDishAdapter adapter = (KitchenDishAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response.get(0).getProductlist(),response);
         }
     }
 
@@ -96,15 +108,15 @@ public final class BindingUtils {
     }
 
 
-    /*@BindingAdapter("imageUrl")
+    @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-               *//* with(context).load(url).placeholder(R.drawable. images_loading)
+        Glide.with(context).load(url).placeholder(R.drawable. images_loading)
                 .error(R.drawable.imagenotavailable)
-                .into(imageView);*//*
+                .into(imageView);
 
         Glide.with(context).load(url).into(imageView);
-    }*/
+    }
 
 
     @BindingAdapter("cusrsiveImageUrl")

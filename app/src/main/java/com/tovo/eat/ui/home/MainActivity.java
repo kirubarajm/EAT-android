@@ -21,7 +21,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -54,6 +58,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private MainViewModel mMainViewModel;
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
+
+
+    private ViewGroup mRrootLayout;
+    private int _xDelta;
+    private int _yDelta;
 
 
     public static Intent newIntent(Context context) {
@@ -209,6 +218,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         mMainViewModel.totalCart();
 
+       /* mRrootLayout = (ViewGroup) findViewById(R.id.root);
+        RelativeLayout relativeLayout =  mRrootLayout.findViewById(R.id.cart_view);
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(260,260);
+        relativeLayout.setLayoutParams(layoutParams);
+        relativeLayout.setOnTouchListener(this);*/
     }
 
 
@@ -395,7 +410,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
    /* private void showSalesFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        DishFragment fragment = new DishFragment();
+        KitchenDishActivity fragment = new KitchenDishActivity();
         transaction.replace(R.id.content_main, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -523,4 +538,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
+
+    /*public boolean onTouch(View view, MotionEvent event) {
+        final int X = (int) event.getRawX();
+        final int Y = (int) event.getRawY();
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                _xDelta = X - lParams.leftMargin;
+                _yDelta = Y - lParams.topMargin;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
+                        .getLayoutParams();
+                layoutParams.leftMargin = X - _xDelta;
+                layoutParams.topMargin = Y - _yDelta;
+                layoutParams.rightMargin = -250;
+                layoutParams.bottomMargin = -250;
+                view.setLayoutParams(layoutParams);
+                break;
+        }
+        mRrootLayout.invalidate();
+        return true;
+    }*/
+
 }

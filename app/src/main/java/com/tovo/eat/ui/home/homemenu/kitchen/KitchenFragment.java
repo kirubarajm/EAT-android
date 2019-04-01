@@ -13,6 +13,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
@@ -134,21 +135,15 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     //    mKitchenViewModel.fetchRepos();
     }
 
+
     @Override
-    public void onItemClickData(KitchenResponse.Result blogUrl) {
+    public void onItemClickData(Integer kitchenId) {
+
+        Intent intent= KitchenDishActivity.newIntent(getContext());
+        intent.putExtra("kitchenId",kitchenId);
+        startActivity(intent);
+
 
     }
-
-
-
-    /*
-    @Override
-    public void inCompleted() {
-
-
-        mKitchenViewModel.directionActivty(getBaseActivity());
-
-
-    }*/
 }
 

@@ -21,7 +21,10 @@
         android:id="@+id/action_cut"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/home" />
-
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/explore" />
     <item
 
         android:id="@+id/action_copy"
@@ -33,9 +36,6 @@
         android:icon="@drawable/ic_perm_identity_black_24dp"
         android:title="@string/account" />
 
-    <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/explore" />
+
 
 </menu>

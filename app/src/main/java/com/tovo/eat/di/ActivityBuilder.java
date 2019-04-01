@@ -22,6 +22,8 @@ import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -43,8 +45,8 @@ public abstract class ActivityBuilder {
     abstract MainActivity bindMainActivity();
 
 
-   /* @ContributesAndroidInjector(modules = SplashScreenModule.class)
-    abstract SplashScreenActivity bindSplashScreenActivity();*/
+    @ContributesAndroidInjector(modules = KitchenDishModule.class)
+    abstract KitchenDishActivity bindKitchenDishActivity();
 
 
 }

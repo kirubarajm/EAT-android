@@ -17,6 +17,7 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,6 +25,7 @@
             android:id="@+id/drawerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
             android:fitsSystemWindows="true">
 
             <android.support.design.widget.CoordinatorLayout
@@ -180,6 +182,7 @@
             android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
 
         <LinearLayout
+            android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -192,37 +195,179 @@
                 android:background="@drawable/gradient_view"
                 android:rotation="180" />
 
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottom_navigation"
+            <!--  <android.support.design.widget.BottomNavigationView
+                  android:id="@+id/bottom_navigation"
+                  android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:layout_gravity="bottom"
+                  android:background="@color/colorPrimary"
+                  app:itemIconTint="@color/dark_gray"
+                  app:itemTextColor="@color/dark_gray"
+                  app:labelVisibilityMode="labeled"
+                  app:menu="@menu/bottom_navigation_menu" />-->
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                app:itemIconTint="@color/dark_gray"
-                app:itemTextColor="@color/dark_gray"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_navigation_menu" />
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+
+                <LinearLayout
+                    android:id="@+id/home"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:src="@drawable/ic_home_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/home"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/explore"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:src="@drawable/ic_search_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/explore"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:src="@drawable/ic_shopping_cart_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+                            <com.tovo.eat.utilities.fonts.CircularTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:text="@string/cart"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="35dp"
+                            android:background="@drawable/badge_circle"
+                            android:elevation="7dp"
+                            android:gravity="center"
+                            android:text="@{viewModel.numOfCarts}"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/account"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:src="@drawable/ic_perm_identity_black_24dp"
+                        android:tint="@color/dark_gray" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/account"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:onClick="@{()->viewModel.gotoCart()}"
+        <!--<RelativeLayout
+            android:id="@+id/cart_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="60dp"
+            android:onClick="@{()->viewModel.gotoCart()}"
             android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_cart"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
+                android:background="@drawable/badge_circle"
+                android:clickable="false"
                 android:src="@drawable/ic_shopping_cart_black_24dp"
                 app:backgroundTint="@color/colorPrimaryDark" />
 
@@ -230,16 +375,16 @@
                 android:id="@+id/text_count"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:text="@{viewModel.numOfCarts}"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:background="@drawable/badge_circle"
                 android:elevation="7dp"
                 android:gravity="center"
+                android:text="@{viewModel.numOfCarts}"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
 
     </RelativeLayout>
