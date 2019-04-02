@@ -111,6 +111,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
+    public void openHome() {
+
+    }
+
+    @Override
+    public void openExplore() {
+
+    }
+
+    @Override
+    public void openAccount() {
+
+    }
+
+    @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }

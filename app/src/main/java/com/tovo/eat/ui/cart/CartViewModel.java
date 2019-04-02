@@ -74,6 +74,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
 
+    public void saveToCartPojo(String cartJsonString){
+
+
+        getDataManager().setCartDetails(cartJsonString);
+    }
+
+
+
+
     public String getCartPojoDetails(){
 
         return getDataManager().getCartDetails();
@@ -90,7 +99,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             cartRequestPojo = new CartRequestPojo();
         }else {
 
-           // makeit_username.set(cartRequestPojo.getMakeit_username());
+            makeit_username.set(cartRequestPojo.getMakeit_username());
+            makeit_image.set(cartRequestPojo.getKitchenImage());
+
+
 
             if (cartRequestPojo.getResult() != null) {
                 dishItemsLiveData.setValue(cartRequestPojo.getResult());

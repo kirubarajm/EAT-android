@@ -50,7 +50,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         super(dataManager);
     }
 
-   /* public MainViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+   /* public EditAddressViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         questionCardData = new MutableLiveData<>();
         loadQuestionCards();
@@ -88,6 +88,19 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     }
 
+    public void gotoAccount(){
+        getNavigator().openAccount();
+    }
+
+    public void gotoExplore(){
+        getNavigator().openExplore();
+    }
+
+
+
+    public void gotoHome(){
+        getNavigator().openHome();
+    }
 
     public void totalCart() {
 

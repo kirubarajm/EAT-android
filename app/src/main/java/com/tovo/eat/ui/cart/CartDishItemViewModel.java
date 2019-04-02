@@ -40,6 +40,8 @@ public class CartDishItemViewModel {
         this.mListener = mListener;
         this.dishList = dishList;
         //  this.date.set(mSalesList.getDate());
+
+
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 

@@ -51,6 +51,9 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         final Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);*/
 
+
+
+
         mFragmentDishBinding = getViewDataBinding();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);

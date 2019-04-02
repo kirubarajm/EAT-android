@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".ui.cart.CartActivity" />
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
+        <activity android:name=".ui.address.add.AddAddressActivity" />
+        <activity android:name=".ui.address.edit.EditAddressActivity" />
 
 
     </application>

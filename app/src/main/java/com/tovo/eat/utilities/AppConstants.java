@@ -29,9 +29,16 @@ public class AppConstants {
 
    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
     public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
-    public static final String EAT_KITCHEN_LIST_URL ="http://192.168.1.100:3000/eat/"+ "kitchenlist";
+    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_LIVE+ "kitchenlist";
     public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
-    public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL+ "products";
+    public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL_LIVE+ "products";
+
+
+
+
+
+
+
 
 
     public static final String PACKAGE_NAME = "com.tovo.sales";

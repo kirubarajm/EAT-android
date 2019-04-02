@@ -17,6 +17,12 @@
 package com.tovo.eat.di;
 
 
+import com.tovo.eat.ui.address.add.AddAddressActivity;
+import com.tovo.eat.ui.address.add.AddAddressModule;
+import com.tovo.eat.ui.address.edit.EditAddressActivity;
+import com.tovo.eat.ui.address.edit.EditAddressModule;
+import com.tovo.eat.ui.cart.CartActivity;
+import com.tovo.eat.ui.cart.CartModule;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
@@ -49,4 +55,13 @@ public abstract class ActivityBuilder {
     abstract KitchenDishActivity bindKitchenDishActivity();
 
 
+    @ContributesAndroidInjector(modules = CartModule.class)
+    abstract CartActivity bindCartActivity();
+
+
+    @ContributesAndroidInjector(modules = AddAddressModule.class)
+    abstract AddAddressActivity bindAddAddressActivity();
+
+    @ContributesAndroidInjector(modules = EditAddressModule.class)
+    abstract EditAddressActivity bindEditAddressActivity();
 }

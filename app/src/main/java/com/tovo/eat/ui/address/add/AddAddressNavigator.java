@@ -14,26 +14,15 @@
  *  limitations under the License
  */
 
-package com.tovo.eat.ui.home;
+package com.tovo.eat.ui.address.add;
 
 /**
  * Created by amitshekhar on 09/07/17.
  */
 
-public interface MainNavigator {
+public interface AddAddressNavigator {
 
     void handleError(Throwable throwable);
 
-
-    void openNavDrawer();
-
-
-    void openCart();
-
-
-    void openHome();
-    void openExplore();
-
-    void openAccount();
 
 }

@@ -14,26 +14,26 @@
  *  limitations under the License
  */
 
-package com.tovo.eat.ui.home;
+package com.tovo.eat.ui.address.add;
+
+import android.arch.lifecycle.ViewModelProvider;
+
+import com.tovo.eat.data.DataManager;
+import com.tovo.eat.utilities.ViewModelProviderFactory;
+
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * Created by amitshekhar on 09/07/17.
+ * Created by amitshekhar on 14/09/17.
  */
-
-public interface MainNavigator {
-
-    void handleError(Throwable throwable);
+@Module
+public class AddAddressModule {
 
 
-    void openNavDrawer();
-
-
-    void openCart();
-
-
-    void openHome();
-    void openExplore();
-
-    void openAccount();
+    @Provides
+    AddAddressViewModel provideAddAddressViewModel(DataManager dataManager) {
+        return new AddAddressViewModel(dataManager);
+    }
 
 }

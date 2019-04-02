@@ -14,7 +14,127 @@
         </variable>
     </data>
 
-    <ScrollView
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:layout_alignParentTop="true"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <ImageView
+                    imageUrl="@{kitchenDishViewModel.kitchenImage}"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7" />
+
+
+                <!--
+                  <android.support.v7.widget.Toolbar
+                      android:id="@+id/toolbar"
+                      android:layout_width="match_parent"
+                      android:layout_height="?attr/actionBarSize"
+                      app:layout_collapseMode="pin"
+                      app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{kitchenDishViewModel.kitchenName}"
+                            android:textAllCaps="true"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{kitchenDishViewModel.kitchenCategory}"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:layoutAnimation="@anim/lay_fall_down"
+                    app:adapter="@{kitchenDishViewModel.dishFullItemViewModels}"
+                    tools:listitem="@layout/list_item_kitchen_dishes" />
+
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+
+        <!--   <include
+               android:id="@+id/secondary"
+               layout="@layout/kitchen_dish_sub"
+               bind:kitchenDishViewModel="@{kitchenDishViewModel}" />-->
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</layout>
+
+
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -26,7 +146,7 @@
             android:layout_height="match_parent">
 
 
-            <!--<android.support.design.widget.AppBarLayout
+            &lt;!&ndash;<android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
@@ -87,101 +207,101 @@
                        app:popupTheme="@style/AppTheme.PopupOverlay" />&ndash;&gt;
 
              </android.support.design.widget.CollapsingToolbarLayout>
-         </android.support.design.widget.AppBarLayout>-->
+         </android.support.design.widget.AppBarLayout>&ndash;&gt;
 
 
-            <!--<include
-                android:id="@+id/secondary"
-                layout="@layout/kitchen_dish_sub"
-                bind:kitchenDishViewModelSub="@{kitchenDishViewModel}" />-->
+          &lt;!&ndash;<include
+              android:id="@+id/secondary"
+              layout="@layout/kitchen_dish_sub"
+              bind:kitchenDishViewModelSub="@{kitchenDishViewModel}" />&ndash;&gt;
 
-            <!--  <android.support.design.widget.CollapsingToolbarLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  app:contentScrim="?attr/colorPrimary"
-                  app:expandedTitleGravity="top"
-                  app:expandedTitleMarginStart="@dimen/shrine_toolbar_offset_start"
-                  app:expandedTitleMarginTop="@dimen/shrine_toolbar_offset_top"
-                  app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-                  <ImageView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginTop="@dimen/shrine_toolbar_image_offset_top"
-                      app:layout_collapseMode="parallax"
-                      app:layout_collapseParallaxMultiplier="0.5" />
-
-                  <android.support.v7.widget.Toolbar
-                      android:id="@+id/AppBar"
-                      android:layout_width="match_parent"
-                      android:layout_height="@dimen/shrine_toolbar_collapsed_height"
-                      app:layout_collapseMode="pin" />
-              </android.support.design.widget.CollapsingToolbarLayout>-->
-
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
-
-            <LinearLayout
+          &lt;!&ndash;  <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginStart="@dimen/shrine_toolbar_offset_start"
+                app:expandedTitleMarginTop="@dimen/shrine_toolbar_offset_top"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <ImageView
-                    android:id="@+id/expandedImage"
-                    imageUrl="@{kitchenDishViewModel.kitchenImage}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/shrine_toolbar_image_offset_top"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.5" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/AppBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/shrine_toolbar_collapsed_height"
+                    app:layout_collapseMode="pin" />
+            </android.support.design.widget.CollapsingToolbarLayout>&ndash;&gt;
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="vertical">
+          <ImageView
+              android:layout_width="30dp"
+              android:layout_height="wrap_content"
+              android:layout_alignParentTop="true"
+              android:layout_margin="3dp"
+              android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{kitchenDishViewModel.kitchenName}"
-                        android:textAlignment="center"
-                        android:textSize="25sp"
-                        android:textStyle="bold" />
-
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{kitchenDishViewModel.kitchenCategory}"
-                        android:textAlignment="center"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
-                </LinearLayout>
+              <ImageView
+                  android:id="@+id/expandedImage"
+                  imageUrl="@{kitchenDishViewModel.kitchenImage}"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
 
 
-                <LinearLayout
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="70dp"
+                  android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerview_orders"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="1dp"
-                        android:background="@android:color/white"
-                        android:layoutAnimation="@anim/lay_fall_down"
-                        app:adapter="@{kitchenDishViewModel.dishFullItemViewModels}"
-                        tools:listitem="@layout/list_item_kitchen_dishes" />
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+                  <com.tovo.eat.utilities.fonts.CircularTextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@{kitchenDishViewModel.kitchenName}"
+                      android:textAlignment="center"
+                      android:textSize="25sp"
+                      android:textStyle="bold" />
 
-</layout>
+                  <com.tovo.eat.utilities.fonts.CircularTextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@{kitchenDishViewModel.kitchenCategory}"
+                      android:textAlignment="center"
+                      android:textSize="20sp"
+                      android:textStyle="bold" />
+
+
+              </LinearLayout>
+
+
+              <LinearLayout
+                  android:id="@+id/title"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+                  <android.support.v7.widget.RecyclerView
+                      android:id="@+id/recyclerview_orders"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:layout_marginTop="1dp"
+                      android:background="@android:color/white"
+                      android:layoutAnimation="@anim/lay_fall_down"
+                      app:adapter="@{kitchenDishViewModel.dishFullItemViewModels}"
+                      tools:listitem="@layout/list_item_kitchen_dishes" />
+              </LinearLayout>
+          </LinearLayout>
+      </RelativeLayout>
+  </ScrollView>-->
+
+

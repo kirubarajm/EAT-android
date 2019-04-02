@@ -17,12 +17,8 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 
-public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewModel> implements CartNavigator {
+public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewModel> implements CartNavigator,CartDishAdapter.LiveProductsAdapterListener {
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-    @Inject
-    ViewModelProvider.Factory mViewModelFactory;
 
     @Inject
     LinearLayoutManager mLayoutManager;
@@ -32,8 +28,8 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
 
     private ActivityCartBinding mActivityCartBinding;
 
-
-    private CartViewModel mCartViewModel;
+    @Inject
+    CartViewModel mCartViewModel;
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
@@ -53,7 +49,7 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
 
     @Override
     public CartViewModel getViewModel() {
-        mCartViewModel = ViewModelProviders.of(this, mViewModelFactory).get(CartViewModel.class);
+
         return mCartViewModel;
     }
 
@@ -67,7 +63,7 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
         super.onCreate(savedInstanceState);
         mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
-
+        adapter.setListener(this);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
@@ -107,4 +103,25 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
         //  mDishViewModel.fetchRepos();
     }
 
+    @Override
+    public void onItemClickData(CartDishResponse.Result blogUrl) {
+
+    }
+
+    @Override
+    public void sendCart() {
+
+    }
+
+    @Override
+    public void saveToCart(String cart) {
+
+        mCartViewModel.saveToCartPojo(cart);
+    }
+
+
+    @Override
+    public String getCartData() {
+        return mCartViewModel.getCartPojoDetails();
+    }
 }

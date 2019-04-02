@@ -59,20 +59,34 @@ public class DishItemViewModel {
                 results.addAll(cartRequestPojo.getResult());
 
                 for (int i = 0; i < results.size(); i++) {
-                    if (results.get(i).getMakeit_userid().equals(dishList.getMakeitUserid())) {
-                        if (results.get(i).getProductid().equals(dishList.getProductid())) {
-                            isAddClicked.set(true);
-                            this.makeit_username.set(dishList.getMakeitUsername());
-                            this.producttype.set(dishList.getProducttype());
-                            this.image.set(dishList.getImage());
-                            this.product_name.set(dishList.getProductName());
-                            this.product_id.set(dishList.getProductid());
-                            this.makeit_userid.set(dishList.getMakeitUserid());
-                            this.sprice.set(String.valueOf(dishList.getPrice()));
-                            this.price.set((dishList.getPrice()));
-                            quantity.set(results.get(i).getProductQuantity());
-                            sQuantity.set(String.valueOf(quantity.get()));
 
+
+                    if (results.get(i).getMakeit_userid() != null) {
+
+                        if (results.get(i).getMakeit_userid().equals(dishList.getMakeitUserid())) {
+                            if (results.get(i).getProductid().equals(dishList.getProductid())) {
+                                isAddClicked.set(true);
+                                this.makeit_username.set(dishList.getMakeitUsername());
+                                this.producttype.set(dishList.getProducttype());
+                                this.image.set(dishList.getImage());
+                                this.product_name.set(dishList.getProductName());
+                                this.product_id.set(dishList.getProductid());
+                                this.makeit_userid.set(dishList.getMakeitUserid());
+                                this.sprice.set(String.valueOf(dishList.getPrice()));
+                                this.price.set((dishList.getPrice()));
+                                quantity.set(results.get(i).getProductQuantity());
+                                sQuantity.set(String.valueOf(quantity.get()));
+
+                            } else {
+                                this.makeit_username.set(dishList.getMakeitUsername());
+                                this.producttype.set(dishList.getProducttype());
+                                this.image.set(dishList.getImage());
+                                this.product_name.set(dishList.getProductName());
+                                this.product_id.set(dishList.getProductid());
+                                this.makeit_userid.set(dishList.getMakeitUserid());
+                                this.sprice.set(String.valueOf(dishList.getPrice()));
+                                this.price.set((dishList.getPrice()));
+                            }
                         } else {
                             this.makeit_username.set(dishList.getMakeitUsername());
                             this.producttype.set(dishList.getProducttype());
@@ -83,7 +97,8 @@ public class DishItemViewModel {
                             this.sprice.set(String.valueOf(dishList.getPrice()));
                             this.price.set((dishList.getPrice()));
                         }
-                    } else {
+
+                    }else {
                         this.makeit_username.set(dishList.getMakeitUsername());
                         this.producttype.set(dishList.getProducttype());
                         this.image.set(dishList.getImage());
@@ -92,9 +107,8 @@ public class DishItemViewModel {
                         this.makeit_userid.set(dishList.getMakeitUserid());
                         this.sprice.set(String.valueOf(dishList.getPrice()));
                         this.price.set((dishList.getPrice()));
+
                     }
-
-
                 }
             }
 

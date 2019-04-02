@@ -14,26 +14,31 @@
  *  limitations under the License
  */
 
-package com.tovo.eat.ui.home;
+package com.tovo.eat.ui.address.edit;
+
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+
+import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.base.BaseViewModel;
+
 
 /**
- * Created by amitshekhar on 09/07/17.
+ * Created by amitshekhar on 07/07/17.
  */
 
-public interface MainNavigator {
-
-    void handleError(Throwable throwable);
+public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
-    void openNavDrawer();
+    public final ObservableBoolean cart = new ObservableBoolean();
+
+    private final ObservableField<String> numOfCarts = new ObservableField<>();
 
 
-    void openCart();
+    public EditAddressViewModel(DataManager dataManager) {
+        super(dataManager);
+    }
 
 
-    void openHome();
-    void openExplore();
-
-    void openAccount();
 
 }

@@ -17,10 +17,15 @@
 package com.tovo.eat.ui.cart;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.home.MainViewModel;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.utilities.ViewModelProviderFactory;
+
+import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,14 +36,31 @@ import dagger.Provides;
 @Module
 public class CartModule {
 
+   /* @Provides
+    ViewModelProvider.Factory cartViewModelProvider(CartViewModel cartViewModel) {
+        return new ViewModelProviderFactory<>(cartViewModel);
+    }*/
+
+
+   DataManager dataManager;
+
     @Provides
-    ViewModelProvider.Factory mainViewModelProvider(MainViewModel mainViewModel) {
-        return new ViewModelProviderFactory<>(mainViewModel);
+    CartViewModel provideMainViewModel(DataManager dataManager) {
+
+        this.dataManager=dataManager;
+
+        return new CartViewModel(dataManager);
     }
 
     @Provides
-    MainViewModel provideMainViewModel(DataManager dataManager) {
-        return new MainViewModel(dataManager);
+    CartDishAdapter provideCartDishAdapter() {
+        return new CartDishAdapter(new ArrayList<>(),dataManager);
     }
+
+    @Provides
+    LinearLayoutManager provideLinearLayoutManager(CartActivity activity) {
+        return new LinearLayoutManager(activity);
+    }
+
 
 }

@@ -91,6 +91,11 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void sendCart();
 
+
+        void saveToCart(String cart);
+
+        String getCartData();
+
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements CartDishItemViewModel.DishItemViewModelListener {
@@ -122,11 +127,14 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         }
 
+
+
         @Override
         public String addQuantity() {
             // mLiveProductsItemViewModel.isAddClicked.set(true);
 
-          return dataManager.getCartDetails();
+        //  return dataManager.getCartDetails();
+          return mLiveProductsAdapterListener.getCartData();
 
         }
 
@@ -143,8 +151,9 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void saveCart(String jsonCartDetails) {
 
-            dataManager.setCartDetails(jsonCartDetails);
-            mLiveProductsAdapterListener.sendCart();
+          //  dataManager.setCartDetails(jsonCartDetails);
+
+            mLiveProductsAdapterListener.saveToCart(jsonCartDetails);
 
         }
 
@@ -152,6 +161,9 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void checkAllCart() {
             mLiveProductsAdapterListener.sendCart();
         }
+
+
+
     }
 
 }

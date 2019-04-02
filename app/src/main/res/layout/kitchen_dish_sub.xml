@@ -8,7 +8,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="kitchenDishViewModelSub"
+            name="kitchenDishViewModel"
             type="com.tovo.eat.ui.home.kitchendish.KitchenDishViewModel">
 
         </variable>
@@ -34,7 +34,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layoutAnimation="@anim/lay_fall_down"
-                app:adapter="@{kitchenDishViewModelSub.dishFullItemViewModels}"
+                app:adapter="@{kitchenDishViewModel.dishFullItemViewModels}"
                 tools:listitem="@layout/list_item_kitchen_dishes" />
 
 
