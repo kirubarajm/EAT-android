@@ -36,7 +36,16 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public final ObservableBoolean cart = new ObservableBoolean();
 
-    private final ObservableField<String> numOfCarts = new ObservableField<>();
+    public final ObservableField<String> locationAddress = new ObservableField<>();
+    public final ObservableField<String> area = new ObservableField<>();
+
+
+
+
+
+
+
+
 
 
     public AddAddressViewModel(DataManager dataManager) {

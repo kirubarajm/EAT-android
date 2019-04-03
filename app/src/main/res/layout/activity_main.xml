@@ -321,6 +321,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:onClick="@{()->viewModel.gotoAccount()}"
                     android:id="@+id/account"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
