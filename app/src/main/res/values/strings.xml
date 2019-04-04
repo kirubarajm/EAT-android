@@ -337,9 +337,13 @@
     <string name="deliver_to">Deliver to</string>
     <string name="change">Change</string>
     <string name="set_delivery_address">Set Delivery Address</string>
-    <string name="location_area">Location/Area</string>
-    <string name="house_flat_no">House/Flat.No</string>
-    <string name="area">Area</string>
-    <string name="landmark">Landmark</string>
+    <string name="location_area">Location/Area*</string>
+    <string name="house_flat_no">House/Flat.No*</string>
+    <string name="area">Area*</string>
+    <string name="landmark">Landmark*</string>
     <string name="save">Save</string>
+    <string name="add_new_address">Add new address</string>
+    <string name="fields_are_mandatory">* Fields are mandatory</string>
+    <string name="office">Office</string>
+    <string name="other">Other</string>
 </resources>

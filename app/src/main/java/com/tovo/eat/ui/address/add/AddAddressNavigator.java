@@ -25,4 +25,9 @@ public interface AddAddressNavigator {
     void handleError(Throwable throwable);
 
 
+    void addressSaved();
+
+    void emptyFields();
+
+
 }

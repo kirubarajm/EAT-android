@@ -317,8 +317,6 @@ public class DishItemViewModel {
                             cartRequestPojoResult.setMakeit_userid(makeit_userid.get());
                             cartRequestPojoResult.setProductQuantity(quantity.get());
                             results.add(cartRequestPojoResult);
-
-
                         }
                     }
 

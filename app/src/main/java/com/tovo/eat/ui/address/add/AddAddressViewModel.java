@@ -18,13 +18,11 @@ package com.tovo.eat.ui.address.add;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.utilities.CartRequestPojo;
 
 
 /**
@@ -38,20 +36,62 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public final ObservableField<String> locationAddress = new ObservableField<>();
     public final ObservableField<String> area = new ObservableField<>();
+    public final ObservableField<String> house = new ObservableField<>();
+
+    public TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
 
 
 
-
-
-
-
-
+        }
+    };
 
 
     public AddAddressViewModel(DataManager dataManager) {
         super(dataManager);
     }
 
+    public void saveAddress(String locationAddress, String house, String area, String landmark) {
+
+        if (locationAddress.equals("")) {
+
+        }
+
+        if (house.equals("")) {
 
 
+        }
+
+        if (area.equals("")) {
+
+        }
+
+        if (landmark.equals("")) {
+
+        }
+
+        if (!locationAddress.equals("") && !house.equals("") && !area.equals("") && !landmark.equals("")) {
+
+            getNavigator().addressSaved();
+
+
+        }else {
+
+            getNavigator().emptyFields();
+
+        }
+
+
+    }
 }
