@@ -7,16 +7,13 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -43,59 +40,21 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     public ActivityAddAddressBinding mActivityAddAddressBinding;
     @Inject
     public AddAddressViewModel mAddAddressViewModel;
-
+    protected LocationManager locationManager;
+    protected android.location.LocationListener locationListener;
     SupportMapFragment mapFragment;
     GoogleMap map;
     LatLng center;
     CardView cardView;
     boolean isFirstTime;
+    Location mLocation;
 
-
-    private GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
-            .ConnectionCallbacks() {
-
-        @Override
-        public void onConnected(Bundle bundle) {
-            LocationRequest request = new LocationRequest();
-           /* request.setInterval(mFirebaseRemoteConfig.getLong("LOCATION_REQUEST_INTERVAL"));
-            request.setFastestInterval(mFirebaseRemoteConfig.getLong
-                    ("LOCATION_REQUEST_INTERVAL_FASTEST"));*/
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                    request, AddAddressActivity.this);
-
-
-        }
-
-        @Override
-        public void onConnectionSuspended(int reason) {
-            // TODO: Handle gracefully
-        }
-    };
 
     public static Intent newIntent(Context context) {
 
         return new Intent(context, AddAddressActivity.class);
     }
 
-    private void startLocationTracking() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(mLocationRequestCallback)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
 
     @Override
     public int getBindingVariable() {
@@ -121,8 +80,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void addressSaved() {
 
-
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        finish();
 
     }
 
@@ -132,10 +91,15 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
 
+    }
 
-
-
-
+    @Override
+    public void myLocationn() {
+        if (mLocation != null) {
+            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+            initCameraIdle();
+        }
     }
 
 
@@ -144,6 +108,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         super.onCreate(savedInstanceState);
         mActivityAddAddressBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
+        //  startLocationTracking();
+
+        isFirstTime = true;
+
+        /*buildGoogleAPIClient();*/
 
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
@@ -154,13 +123,19 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
 
-                startLocationTracking();
 
-              /*  LatLng latLng = new LatLng(13.007479, 80.206195);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                initCameraIdle();*/
+                LatLng latLng = new LatLng(13.007479, 80.206195);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                initCameraIdle();
             }
         });
+
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
 
     }
@@ -190,6 +165,10 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
                 mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
                 mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
+
+
+                mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
+
 
                 StringBuilder strAddress = new StringBuilder();
                 for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
@@ -244,12 +223,40 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void onLocationChanged(Location location) {
-        if (isFirstTime) {
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
-            initCameraIdle();
-            isFirstTime = true;
-        }
+
+        mLocation = location;
+
+        if (location != null)
+            if (isFirstTime) {
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                initCameraIdle();
+                isFirstTime = false;
+            }
 
     }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
 }

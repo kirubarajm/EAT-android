@@ -30,4 +30,6 @@ public interface AddAddressNavigator {
     void emptyFields();
 
 
+    void myLocationn();
+
 }
