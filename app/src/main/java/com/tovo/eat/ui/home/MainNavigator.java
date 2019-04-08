@@ -36,4 +36,7 @@ public interface MainNavigator {
 
     void openAccount();
 
+
+    void selectAddress();
+
 }

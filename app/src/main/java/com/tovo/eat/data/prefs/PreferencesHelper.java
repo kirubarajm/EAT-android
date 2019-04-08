@@ -48,14 +48,42 @@ public interface PreferencesHelper {
 
     void setCurrentUserProfilePicUrl(String profilePicUrl);
 
-
-    void setIsLoggedIn(boolean isLoggedIn);
     boolean getIsLoggedIn();
 
+    void setIsLoggedIn(boolean isLoggedIn);
 
+    String getCartDetails();
 
     void setCartDetails(String jsonCart);
-    String getCartDetails();
+
+    String getCurrentAddressTitle();
+
+    void setCurrentAddressTitle(String title);
+
+
+    String getCurrentAddressArea();
+
+    void setCurrentAddressArea(String area);
+
+
+
+    String getCurrentLat();
+
+
+    void setCurrentLat(double lat);
+
+
+    String getCurrentLng();
+
+
+    void setCurrentLng(double lng);
+
+
+
+
+
+
+
 
 
 

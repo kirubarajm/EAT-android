@@ -206,6 +206,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         Log.e("response",response.getMessage());
                         getNavigator().addressSaved();
 
+                        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()));
+
+
                     }
                 }, new Response.ErrorListener() {
                     @Override

@@ -11,8 +11,8 @@
         <import type="android.view.View" />
 
          <variable
-             name="addressListViewModel"
-             type="com.tovo.eat.ui.address.list.AddressListViewModel" />
+             name="selectAddressListViewModel"
+             type="com.tovo.eat.ui.address.select.SelectAddressListViewModel" />
 
     </data>
 
@@ -37,7 +37,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:onClick="@{()->addressListViewModel.goBack()}"
+                    android:onClick="@{()->selectAddressListViewModel.goBack()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
@@ -78,7 +78,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layoutAnimation="@anim/lay_fall_down"
-                app:adapter="@{addressListViewModel.addrressListItemViewModels}"
+                app:adapter="@{selectAddressListViewModel.addrressListItemViewModels}"
                 tools:listitem="@layout/list_item_address" />
 
 
@@ -86,7 +86,7 @@
 
 
         <LinearLayout
-            android:onClick="@{()->addressListViewModel.addAddress()}"
+            android:onClick="@{()->selectAddressListViewModel.addAddress()}"
             android:background="@drawable/shadow"
             android:id="@+id/addAddress"
             android:layout_width="match_parent"

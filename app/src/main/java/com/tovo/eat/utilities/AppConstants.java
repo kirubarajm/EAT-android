@@ -33,6 +33,7 @@ public class AppConstants {
     public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
     public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL_LIVE+ "products";
     public static final String EAT_ADD_ADDRESS_URL =TEMP_URL_LIVE+ "address";
+    public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
 
 
 

@@ -64,6 +64,14 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
 
 
+    public  String datas(){
+
+        return getDataManager().getCartDetails();
+
+
+    }
+
+
     public String getCartPojoDetails(){
 
         return getDataManager().getCartDetails();

@@ -20,6 +20,8 @@ import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.add.AddAddressModule;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressModule;
+import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.cart.CartModule;
 import com.tovo.eat.ui.home.MainActivity;
@@ -60,4 +62,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = EditAddressModule.class)
     abstract EditAddressActivity bindEditAddressActivity();
+
+
+    @ContributesAndroidInjector(modules = AddressListModule.class)
+    abstract AddressListActivity bindAddressListActivity();
+
 }

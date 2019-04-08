@@ -20,16 +20,12 @@ import android.content.Context;
 
 import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
-import com.tovo.eat.data.model.api.LoginRequest;
-import com.tovo.eat.data.model.api.LoginResponse;
 import com.tovo.eat.data.prefs.PreferencesHelper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import retrofit2.Call;
 
 /**
  * Created by amitshekhar on 07/07/17.
@@ -85,8 +81,8 @@ public class AppDataManager implements DataManager {
              Long userId,
              LoggedInMode loggedInMode,
              String userName,
-             String email,boolean isLoggedIn
-             ) {
+             String email, boolean isLoggedIn
+            ) {
         setAccessToken(accessToken);
         setCurrentUserId(userId);
         setCurrentUserLoggedInMode(loggedInMode);
@@ -94,7 +90,17 @@ public class AppDataManager implements DataManager {
         setCurrentUserEmail(email);
         setIsLoggedIn(isLoggedIn);
 
-        /*setCurrentUserProfilePicUrl(profilePicPath)*/;
+        /*setCurrentUserProfilePicUrl(profilePicPath)*/
+        ;
+    }
+
+    @Override
+    public void updateCurrentAddress(String title, String area, double lat, double lng) {
+        setCurrentAddressTitle(title);
+        setCurrentAddressArea(area);
+        setCurrentLat(lat);
+        setCurrentLng(lng);
+
     }
 
    /* @Override
@@ -156,20 +162,16 @@ public class AppDataManager implements DataManager {
     public void setCurrentUserName(String userName) {
         mPreferencesHelper.setCurrentUserName(userName);
     }
-/*
-    @Override
-    public String getCurrentUserProfilePicUrl() {
-        return null;
-    }
-*/
+
+    /*
+        @Override
+        public String getCurrentUserProfilePicUrl() {
+            return null;
+        }
+    */
     @Override
     public void setCurrentUserProfilePicUrl(String profilePicUrl) {
 
-    }
-
-    @Override
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        mPreferencesHelper.setIsLoggedIn(isLoggedIn);
     }
 
     @Override
@@ -178,12 +180,58 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void setCartDetails(String jsonCart) {
-        mPreferencesHelper.setCartDetails(jsonCart);
+    public void setIsLoggedIn(boolean isLoggedIn) {
+        mPreferencesHelper.setIsLoggedIn(isLoggedIn);
+    }
+
+    @Override
+    public String getCurrentAddressTitle() {
+        return mPreferencesHelper.getCurrentAddressTitle();
+    }
+
+    @Override
+    public void setCurrentAddressTitle(String title) {
+        mPreferencesHelper.setCurrentAddressTitle(title);
+    }
+
+    @Override
+    public String getCurrentAddressArea() {
+        return mPreferencesHelper.getCurrentAddressArea();
+    }
+
+    @Override
+    public void setCurrentAddressArea(String area) {
+        mPreferencesHelper.setCurrentAddressArea(area);
+    }
+
+    @Override
+    public String getCurrentLat() {
+        return mPreferencesHelper.getCurrentLat();
+    }
+
+    @Override
+    public void setCurrentLat(double lat) {
+        mPreferencesHelper.setCurrentLat(lat);
+    }
+
+    @Override
+    public String getCurrentLng() {
+        return mPreferencesHelper.getCurrentLng();
+    }
+
+    @Override
+    public void setCurrentLng(double lng) {
+        mPreferencesHelper.setCurrentLng(lng);
+
     }
 
     @Override
     public String getCartDetails() {
         return mPreferencesHelper.getCartDetails();
+    }
+
+    @Override
+    public void setCartDetails(String jsonCart) {
+        mPreferencesHelper.setCartDetails(jsonCart);
     }
 }

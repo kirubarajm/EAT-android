@@ -34,6 +34,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.databinding.NavHeaderMainBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
@@ -124,8 +125,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openAccount() {
 
-        Intent intent = AddAddressActivity.newIntent(MainActivity.this);
+        Intent intent = AddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
+    }
+
+    @Override
+    public void selectAddress() {
+
+
+        Intent intent=AddressListActivity.newIntent(MainActivity.this);
+        startActivity(intent);
+
+
     }
 
     @Override

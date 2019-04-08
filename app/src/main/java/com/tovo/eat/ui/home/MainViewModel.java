@@ -83,22 +83,26 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 */
 
 
+    public void selectAddress() {
+        getNavigator().selectAddress();
+
+    }
+
     public void gotoCart() {
         getNavigator().openCart();
 
     }
 
-    public void gotoAccount(){
+    public void gotoAccount() {
         getNavigator().openAccount();
     }
 
-    public void gotoExplore(){
+    public void gotoExplore() {
         getNavigator().openExplore();
     }
 
 
-
-    public void gotoHome(){
+    public void gotoHome() {
         getNavigator().openHome();
     }
 
@@ -125,13 +129,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 for (int i = 0; i < cartRequestPojo.getResult().size(); i++) {
 
 
-
                     count = count + cartRequestPojo.getResult().get(i).getProductQuantity();
 
-                    if (count==0){
+                    if (count == 0) {
 
                         cart.set(false);
-                    }else {
+                    } else {
                         numOfCarts.set(String.valueOf(count));
                         cart.set(true);
                     }

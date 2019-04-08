@@ -141,6 +141,9 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void onItemClickData(DishResponse.Result blogUrl) {
 
+
+
+
     }
 
     @Override

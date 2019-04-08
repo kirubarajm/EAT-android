@@ -19,7 +19,6 @@ package com.tovo.eat.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.di.PreferenceInfo;
 import com.tovo.eat.utilities.AppConstants;
@@ -43,7 +42,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_PROFILE_PIC_URL = "PREF_KEY_CURRENT_USER_PROFILE_PIC_URL";
 
     private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
+
+
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
+
+
+    private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
+    private static final String PREF_KEY_ADDRESS_AREA = "ADDRESS_AREA";
+    private static final String PREF_KEY_CURRENT_LAT = "CURRENT_LAT";
+    private static final String PREF_KEY_CURRENT_LNG = "CURRENT_LNG";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -122,23 +129,63 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        mPrefs.edit().putBoolean(PREF_KEY_IS_USER_LOGGED_IN,isLoggedIn).apply();
-    }
-
-    @Override
     public boolean getIsLoggedIn() {
         return mPrefs.getBoolean(PREF_KEY_IS_USER_LOGGED_IN, false);
     }
 
     @Override
-    public void setCartDetails(String jsonCart) {
-        mPrefs.edit().putString(PREF_KEY_CART, jsonCart).apply();
+    public void setIsLoggedIn(boolean isLoggedIn) {
+        mPrefs.edit().putBoolean(PREF_KEY_IS_USER_LOGGED_IN, isLoggedIn).apply();
+    }
+
+    @Override
+    public String getCurrentAddressTitle() {
+        return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, null);
+    }
+
+    @Override
+    public void setCurrentAddressTitle(String title) {
+        mPrefs.edit().putString(PREF_KEY_ADDRESS_TITLE, title).apply();
+    }
+
+    @Override
+    public String getCurrentAddressArea() {
+        return mPrefs.getString(PREF_KEY_ADDRESS_AREA, null);
+    }
+
+    @Override
+    public void setCurrentAddressArea(String area) {
+        mPrefs.edit().putString(PREF_KEY_ADDRESS_AREA, area).apply();
+    }
+
+    @Override
+    public String getCurrentLat() {
+        return mPrefs.getString(PREF_KEY_CURRENT_LAT, null);
+    }
+
+    @Override
+    public void setCurrentLat(double lat) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lat)).apply();
+    }
+
+    @Override
+    public String getCurrentLng() {
+        return mPrefs.getString(PREF_KEY_CURRENT_LNG, null);
+    }
+
+    @Override
+    public void setCurrentLng(double lng) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lng)).apply();
     }
 
     @Override
     public String getCartDetails() {
         return mPrefs.getString(PREF_KEY_CART, null);
+    }
+
+    @Override
+    public void setCartDetails(String jsonCart) {
+        mPrefs.edit().putString(PREF_KEY_CART, jsonCart).apply();
     }
 
     public boolean getPrefKeyIsUserLoggedIn() {

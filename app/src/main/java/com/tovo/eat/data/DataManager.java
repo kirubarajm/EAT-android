@@ -39,6 +39,14 @@ public interface DataManager extends  PreferencesHelper {
 
      void updateUserInfo(String accessToken, Long userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
+
+
+
+     void updateCurrentAddress(String title,String area,double lat,double lng);
+
+
+
+
     enum LoggedInMode {
         LOGGED_IN_MODE_LOGGED_OUT(0),
         LOGGED_IN_MODE_GOOGLE(1),

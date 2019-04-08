@@ -29,6 +29,7 @@
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
         <activity android:name=".ui.address.add.AddAddressActivity" />
         <activity android:name=".ui.address.edit.EditAddressActivity" />
+        <activity android:name=".ui.address.list.AddressListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

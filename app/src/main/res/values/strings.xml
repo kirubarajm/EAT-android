@@ -342,10 +342,11 @@
     <string name="area">Area*</string>
     <string name="landmark">Landmark*</string>
     <string name="save">Save</string>
-    <string name="add_new_address">Add new address</string>
+
     <string name="fields_are_mandatory">* Fields are mandatory</string>
     <string name="office">Work</string>
     <string name="other">Other</string>
     <string name="manage_address">Manage Address</string>
     <string name="add_new_address">Add new address</string>
+    <string name="edit">Edit</string>
 </resources>
