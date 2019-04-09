@@ -26,6 +26,8 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.CartRequestPojo;
 
+import java.util.StringTokenizer;
+
 
 /**
  * Created by amitshekhar on 07/07/17.
@@ -44,6 +46,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
+    public final ObservableField<String> addressTitle = new ObservableField<>();
+
+    public final ObservableField<String> toolbarTitle = new ObservableField<>();
+
+    public final ObservableBoolean titleVisible=new ObservableBoolean();
+
+
+
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager) {
@@ -59,6 +69,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public int getAction() {
         return action;
     }
+
+
 
     public ObservableField<String> getAppVersion() {
         return appVersion;
@@ -92,6 +104,20 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getNavigator().openCart();
 
     }
+
+
+
+
+
+    public String updateAddressTitle(){
+
+
+        return getDataManager().getCurrentAddressTitle();
+
+    }
+
+
+
 
     public void gotoAccount() {
         getNavigator().openAccount();

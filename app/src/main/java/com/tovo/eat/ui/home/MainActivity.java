@@ -21,11 +21,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -33,8 +30,8 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.databinding.NavHeaderMainBinding;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
-import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.ui.account.MyAccountFragment;
+import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
@@ -108,35 +105,57 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart() {
-        Intent intent = CartActivity.newIntent(MainActivity.this);
-        startActivity(intent);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        CartActivity fragment = new CartActivity();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
+
+        mMainViewModel.toolbarTitle.set("Cart");
+        mMainViewModel.titleVisible.set(true);
+
     }
 
     @Override
     public void openHome() {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HomeTabFragment fragment = new HomeTabFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
+
+        mMainViewModel.toolbarTitle.set("Home");
+        mMainViewModel.titleVisible.set(false);
 
     }
 
     @Override
     public void openExplore() {
 
+        mMainViewModel.toolbarTitle.set("Explore");
+        mMainViewModel.titleVisible.set(true);
     }
 
     @Override
     public void openAccount() {
 
-        Intent intent = AddressListActivity.newIntent(MainActivity.this);
-        startActivity(intent);
+       /* Intent intent = AddressListActivity.newIntent(MainActivity.this);
+        startActivity(intent);*/
+
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        MyAccountFragment fragment = new MyAccountFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
+
+        mMainViewModel.toolbarTitle.set("My Account");
+        mMainViewModel.titleVisible.set(true);
+
     }
 
     @Override
     public void selectAddress() {
-
-
-        Intent intent=AddressListActivity.newIntent(MainActivity.this);
+        Intent intent = SelectSelectAddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
-
-
     }
 
     @Override
@@ -161,19 +180,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         }
-        //super.onBackPressed();
 
-      /*  FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            //fm.popBackStack();
-            showExitDialog();
-            // SharedPreference sharedPreference = new SharedPreference(this);
-            // sharedPreference.clearSession();
-            // finish();
-        } else {
-
-            super.onBackPressed();
-        }*/
     }
 
 
@@ -262,6 +269,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (mDrawer != null) {
             mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
+
+
+        if (mMainViewModel.updateAddressTitle()!=null) {
+            mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
+        }
+
     }
 
     private void lockDrawer() {
@@ -402,11 +415,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         //getSupportFragmentManager()
         // .beginTransaction()
-        // .replace(R.id.frame_food,new TrainingFragment(),null)
+        // .replace(R.id.frame_food,new MyAccountFragment(),null)
         // .addToBackStack(null).commit();
 
      *//*   FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        TrainingFragment fragment = new TrainingFragment();
+        MyAccountFragment fragment = new MyAccountFragment();
         transaction.replace(R.id.frame_food, fragment);
         transaction.commit();*//*
 
@@ -450,7 +463,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 .beginTransaction()
                 .addToBackStack(null)
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.clRootView, TrainingFragment.newInstance(), TrainingFragment.TAG)
+                .add(R.id.clRootView, MyAccountFragment.newInstance(), MyAccountFragment.TAG)
                 .commit();
     }*/
 
@@ -548,25 +561,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.totalCart();
 
 
-/*
-        int totalCart = mMainViewModel.totalCart();
-        Log.e("Cart", String.valueOf(totalCart));
-
-
-        if (totalCart==0){
-
-
-
-
-        }else{
-
-
-
-
-        }*/
-
-
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+
 
     /*public boolean onTouch(View view, MotionEvent event) {
         final int X = (int) event.getRawX();
@@ -596,5 +598,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mRrootLayout.invalidate();
         return true;
     }*/
+
 
 }

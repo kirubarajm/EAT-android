@@ -36,7 +36,7 @@ import dagger.Provides;
 @Module
 public class CartModule {
 
-   /* @Provides
+ /*   @Provides
     ViewModelProvider.Factory cartViewModelProvider(CartViewModel cartViewModel) {
         return new ViewModelProviderFactory<>(cartViewModel);
     }*/
@@ -59,7 +59,7 @@ public class CartModule {
 
     @Provides
     LinearLayoutManager provideLinearLayoutManager(CartActivity activity) {
-        return new LinearLayoutManager(activity);
+        return new LinearLayoutManager(activity.getContext());
     }
 
 

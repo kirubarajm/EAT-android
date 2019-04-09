@@ -16,14 +16,18 @@
 
 package com.tovo.eat.di;
 
+import com.tovo.eat.ui.account.MyAccountProvider;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.add.AddAddressModule;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressModule;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.list.AddressListModule;
+import com.tovo.eat.ui.address.select.SelectAddressListModule;
+import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.cart.CartModule;
+import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
@@ -35,9 +39,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
+
 @Module
 public abstract class ActivityBuilder {
 
@@ -47,6 +49,8 @@ public abstract class ActivityBuilder {
             HomeTabProvider.class,
             KitchenProvider.class,
             DishProvider.class,
+            MyAccountProvider.class,
+            CartProvider.class
 
     })
     abstract MainActivity bindMainActivity();
@@ -54,8 +58,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = KitchenDishModule.class)
     abstract KitchenDishActivity bindKitchenDishActivity();
 
-    @ContributesAndroidInjector(modules = CartModule.class)
-    abstract CartActivity bindCartActivity();
+
 
     @ContributesAndroidInjector(modules = AddAddressModule.class)
     abstract AddAddressActivity bindAddAddressActivity();
@@ -66,5 +69,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = AddressListModule.class)
     abstract AddressListActivity bindAddressListActivity();
+
+
+    @ContributesAndroidInjector(modules = SelectAddressListModule.class)
+    abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
+
 
 }

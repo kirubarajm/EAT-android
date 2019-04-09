@@ -5,19 +5,24 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
+import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 
-public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewModel> implements CartNavigator,CartDishAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator,CartDishAdapter.LiveProductsAdapterListener {
 
 
     @Inject
@@ -31,11 +36,6 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
     @Inject
     CartViewModel mCartViewModel;
 
-    public static Intent newIntent(Context context) {
-       /* Intent intent = new Intent(context, CartActivity.class);
-        return intent;*/
-        return new Intent(context, CartActivity.class);
-    }
 
     @Override
     public int getBindingVariable() {
@@ -58,12 +58,30 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
 
     }
 
+
+    public static CartActivity newInstance() {
+        Bundle args = new Bundle();
+        CartActivity fragment = new CartActivity();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityCartBinding = getViewDataBinding();
+       // mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
+
+        //   ((MainActivity) getActivity()).setActionBarTitle("My Account");
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mActivityCartBinding = getViewDataBinding();
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
@@ -71,8 +89,9 @@ public class CartActivity extends BaseActivity<ActivityCartBinding, CartViewMode
         subscribeToLiveData();
 
         mCartViewModel.fetchRepos();
-
     }
+
+
 
 
     @Override

@@ -10,13 +10,13 @@
         <import type="android.view.View" />
 
          <variable
-             name="addressListItemViewModel"
-             type="com.tovo.eat.ui.address.list.AddressListItemViewModel" />
+             name="selectAddressListItemViewModel"
+             type="com.tovo.eat.ui.address.select.SelectAddressListItemViewModel" />
 
     </data>
 
     <LinearLayout
-        android:onClick="@{()->addressListItemViewModel.onItemClick()}"
+        android:onClick="@{()->selectAddressListItemViewModel.onItemClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -32,14 +32,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:visibility="@{addressListItemViewModel.isHome?View.VISIBLE:View.GONE}"
+                    android:visibility="@{selectAddressListItemViewModel.isHome?View.VISIBLE:View.GONE}"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_home_black_24dp" />
 
 
                 <ImageView
-                    android:visibility="@{addressListItemViewModel.isWork?View.VISIBLE:View.GONE}"
+                    android:visibility="@{selectAddressListItemViewModel.isWork?View.VISIBLE:View.GONE}"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_business_black_24dp" />
@@ -56,13 +56,13 @@
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{addressListItemViewModel.addressTitle}"
+                        android:text="@{selectAddressListItemViewModel.addressTitle}"
                         android:textSize="20sp" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{addressListItemViewModel.address}"
+                        android:text="@{selectAddressListItemViewModel.address}"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -83,7 +83,7 @@
 
 
         <com.tovo.eat.utilities.fonts.CircularTextView
-            android:onClick="@{()->addressListItemViewModel.editAddress()}"
+            android:onClick="@{()->selectAddressListItemViewModel.editAddress()}"
             android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

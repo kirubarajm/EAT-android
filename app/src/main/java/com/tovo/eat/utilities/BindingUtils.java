@@ -31,6 +31,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tovo.eat.R;
 import com.tovo.eat.ui.address.list.AddressListAdapter;
 import com.tovo.eat.ui.address.list.AddressListResponse;
+import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
+import com.tovo.eat.ui.address.select.SelectAddressListResponse;
 import com.tovo.eat.ui.cart.CartDishAdapter;
 import com.tovo.eat.ui.cart.CartDishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
@@ -96,7 +98,7 @@ public final class BindingUtils {
 
 
 
-    @BindingAdapter({"adapter"})
+       @BindingAdapter({"adapter"})
     public static void addAddressListItems(RecyclerView recyclerView,List<AddressListResponse.Result> response) {
         AddressListAdapter adapter = (AddressListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -104,6 +106,17 @@ public final class BindingUtils {
             adapter.addItems(response);
         }
     }
+
+
+    @BindingAdapter({"adapter"})
+    public static void addSelectAddressListItems(RecyclerView recyclerView,List<SelectAddressListResponse.Result> response) {
+        SelectAddressListAdapter adapter = (SelectAddressListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response);
+        }
+    }
+
 
 
 

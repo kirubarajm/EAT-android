@@ -75,7 +75,6 @@ public class SelectAddressListItemViewModel {
 
      //   void editAddress(Integer aid,String addressTitle,String address,String flatno,String locality,String pincode, Double lat, Double lon, String landmark,String addressType);
 
-
         void onItemClick(SelectAddressListResponse.Result result);
         void editAddress(SelectAddressListResponse.Result result);
 

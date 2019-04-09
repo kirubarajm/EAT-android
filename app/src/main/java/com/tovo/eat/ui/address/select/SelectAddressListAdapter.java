@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemAddressBinding;
+import com.tovo.eat.databinding.ListItemAddressSelectBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -30,12 +31,12 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemAddressBinding blogViewBinding = ListItemAddressBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemAddressSelectBinding blogViewBinding = ListItemAddressSelectBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemAddressBinding blogViewBinding1 = ListItemAddressBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemAddressSelectBinding blogViewBinding1 = ListItemAddressSelectBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding1);
         }
@@ -89,10 +90,10 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
     public class LiveProductsViewHolder extends BaseViewHolder implements SelectAddressListItemViewModel.addressListItemViewModelListener {
 
-        ListItemAddressBinding mListItemLiveProductsBinding;
+        ListItemAddressSelectBinding mListItemLiveProductsBinding;
         SelectAddressListItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemAddressBinding binding) {
+        public LiveProductsViewHolder(ListItemAddressSelectBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -102,7 +103,7 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
             if (item_list.isEmpty()) return;
             final SelectAddressListResponse.Result blog = item_list.get(position);
             mLiveProductsItemViewModel = new SelectAddressListItemViewModel(this, blog);
-        //    mListItemLiveProductsBinding.setAddressListItemViewModel(mLiveProductsItemViewModel);
+            mListItemLiveProductsBinding.setSelectAddressListItemViewModel(mLiveProductsItemViewModel);
 
             mListItemLiveProductsBinding.executePendingBindings();
         }

@@ -30,6 +30,7 @@
         <activity android:name=".ui.address.add.AddAddressActivity" />
         <activity android:name=".ui.address.edit.EditAddressActivity" />
         <activity android:name=".ui.address.list.AddressListActivity" />
+        <activity android:name=".ui.address.select.SelectSelectAddressListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

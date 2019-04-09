@@ -19,30 +19,30 @@ import java.util.List;
 public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListNavigator> {
 
 
-    public ObservableList<SelectAddressListResponse.Result> addrressListItemViewModels = new ObservableArrayList<>();
+    public ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels = new ObservableArrayList<>();
 
-    private MutableLiveData<List<SelectAddressListResponse.Result>>addrressListItemsLiveData;
+    private MutableLiveData<List<SelectAddressListResponse.Result>>selectAddrressListItemsLiveData;
 
 
-    public ObservableList<SelectAddressListResponse.Result> getAddrressListItemViewModels() {
-        return addrressListItemViewModels;
+    public ObservableList<SelectAddressListResponse.Result> getSelectAddrressListItemViewModels() {
+        return selectAddrressListItemViewModels;
     }
 
-    public void setAddrressListItemViewModels(ObservableList<SelectAddressListResponse.Result> addrressListItemViewModels) {
-        this.addrressListItemViewModels = addrressListItemViewModels;
+    public void setSelectAddrressListItemViewModels(ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels) {
+        this.selectAddrressListItemViewModels = selectAddrressListItemViewModels;
     }
 
-    public MutableLiveData<List<SelectAddressListResponse.Result>> getAddrressListItemsLiveData() {
-        return addrressListItemsLiveData;
+    public MutableLiveData<List<SelectAddressListResponse.Result>> getSelectAddrressListItemsLiveData() {
+        return selectAddrressListItemsLiveData;
     }
 
-    public void setAddrressListItemsLiveData(MutableLiveData<List<SelectAddressListResponse.Result>> addrressListItemsLiveData) {
-        this.addrressListItemsLiveData = addrressListItemsLiveData;
+    public void setSelectAddrressListItemsLiveData(MutableLiveData<List<SelectAddressListResponse.Result>> selectAddrressListItemsLiveData) {
+        this.selectAddrressListItemsLiveData = selectAddrressListItemsLiveData;
     }
 
     public SelectAddressListViewModel(DataManager dataManager) {
         super(dataManager);
-        addrressListItemsLiveData = new MutableLiveData<>();
+        selectAddrressListItemsLiveData = new MutableLiveData<>();
 
     //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
@@ -56,8 +56,8 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
     public void addDishItemsToList(List<SelectAddressListResponse.Result> ordersItems) {
-        addrressListItemViewModels.clear();
-        addrressListItemViewModels.addAll(ordersItems);
+        selectAddrressListItemViewModels.clear();
+        selectAddrressListItemViewModels.addAll(ordersItems);
 
     }
 
@@ -78,6 +78,14 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
+    public void updateCurrentAddress(String title,String address,double lat,double lng){
+
+        getDataManager().updateCurrentAddress(title,address,lat,lng);
+
+    }
+
+
+
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -92,7 +100,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
 
 
-                        addrressListItemsLiveData.setValue(response.getResult());
+                        selectAddrressListItemsLiveData.setValue(response.getResult());
                         Log.e("----response:---------", response.toString());
 
 

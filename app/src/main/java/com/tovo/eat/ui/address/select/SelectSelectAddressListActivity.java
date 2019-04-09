@@ -8,13 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityAddressListBinding;
+import com.tovo.eat.databinding.ActivityAddressSelectBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
-public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddressListBinding, SelectAddressListViewModel> implements SelectAddressListNavigator, SelectAddressListAdapter.LiveProductsAdapterListener {
+public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddressSelectBinding, SelectAddressListViewModel> implements SelectAddressListNavigator, SelectAddressListAdapter.LiveProductsAdapterListener {
 
     @Inject
     SelectAddressListViewModel mSelectAddressListViewModel;
@@ -23,7 +23,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Inject
     SelectAddressListAdapter adapter;
 
-    ActivityAddressListBinding mActivityAddressListBinding;
+    ActivityAddressSelectBinding mActivityAddressSelectBinding;
 
     public static Intent newIntent(Context context) {
 
@@ -33,18 +33,18 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityAddressListBinding = getViewDataBinding();
+        mActivityAddressSelectBinding = getViewDataBinding();
         mSelectAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityAddressListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
-        mActivityAddressListBinding.recyclerviewList.setAdapter(adapter);
+        mActivityAddressSelectBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
+        mActivityAddressSelectBinding.recyclerviewList.setAdapter(adapter);
         subscribeToLiveData();
 
 
-        mActivityAddressListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mActivityAddressSelectBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSelectAddressListViewModel.fetchRepos();
@@ -57,12 +57,12 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     @Override
     public int getBindingVariable() {
-        return BR.addressListViewModel;
+        return BR.selectAddressListViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_address_list;
+        return R.layout.activity_address_select;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     @Override
     public void listLoaded() {
-        mActivityAddressListBinding.refreshList.setRefreshing(false);
+        mActivityAddressSelectBinding.refreshList.setRefreshing(false);
 
     }
 
@@ -101,7 +101,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
 
     private void subscribeToLiveData() {
-        mSelectAddressListViewModel.getAddrressListItemsLiveData().observe(this,
+        mSelectAddressListViewModel.getSelectAddrressListItemsLiveData().observe(this,
                 addrressListItemViewModel -> mSelectAddressListViewModel.addDishItemsToList(addrressListItemViewModel));
     }
 
@@ -113,8 +113,9 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     }
 
     @Override
-    public void onItemClickData(SelectAddressListResponse.Result blogUrl) {
-
+    public void onItemClickData(SelectAddressListResponse.Result address) {
+        mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon());
+        finish();
     }
 
     @Override
