@@ -273,6 +273,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         if (mMainViewModel.updateAddressTitle()!=null) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
+        }else {
+
+            mMainViewModel.addressTitle.set("Select Address");
+
         }
 
     }

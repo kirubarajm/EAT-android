@@ -100,7 +100,7 @@ public class KitchenDishResponse {
 
     }
 
-    public class Result {
+    public static class Result {
 
         @SerializedName("makeituserid")
         @Expose

@@ -51,6 +51,18 @@ public class KitchenResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+        @SerializedName("favid")
+        @Expose
+        private String favid;
+
+
+        public String getFavid() {
+            return favid;
+        }
+
+        public void setFavid(String favid) {
+            this.favid = favid;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;

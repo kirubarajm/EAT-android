@@ -149,6 +149,11 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     }
 
+    @Override
+    public void dishRefresh() {
+        subscribeToLiveData();
+    }
+
 
 }
 

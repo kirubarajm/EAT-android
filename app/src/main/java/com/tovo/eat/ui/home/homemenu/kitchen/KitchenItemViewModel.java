@@ -45,15 +45,27 @@ public class KitchenItemViewModel {
         } else {
             this.kitchen_name.set(mKitchenList.getMakeitbrandname());
         }
-      /*  if (favourite.get()==null){
-            this.isFavourite.set(false);
+
+
+        if (mKitchenList.getFavid() != null) {
+            if (mKitchenList.getFavid().equalsIgnoreCase("0")) {
+                this.isFavourite.set(false);
+            } else {
+                this.isFavourite.set(true);
+            }
         }else {
-            this.isFavourite.set(true);
+            this.isFavourite.set(false);
         }
-*/
     }
 
-        public void onItemClick() {
+    public void fav(){
+        mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getFavid());
+
+    }
+
+
+
+    public void onItemClick() {
         mListener.onItemClick(mKitchenList.getMakeituserid());
 
         //  mListener.onItemClick(isJobCompleted,Integer.parseInt(sales_emp_id.toString()) , Integer.parseInt(makeit_userid.toString()), date.toString(), name.toString(), email.toString(), phoneno.toString(), brandname.toString(),address.toString(),lat.toString(),lng.toString(),localityid.toString());
@@ -64,6 +76,9 @@ public class KitchenItemViewModel {
         // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
 
         void onItemClick(Integer id);
+
+        void addFavourites(Integer id,String fav);
+
     }
 
 }

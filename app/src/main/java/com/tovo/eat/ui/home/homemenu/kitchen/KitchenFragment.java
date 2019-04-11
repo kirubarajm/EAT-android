@@ -145,5 +145,14 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
 
     }
+
+    @Override
+    public void addFav(Integer id, String fav) {
+
+
+
+
+
+    }
 }
 

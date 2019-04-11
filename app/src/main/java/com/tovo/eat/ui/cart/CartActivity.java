@@ -18,6 +18,8 @@ import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 
+import org.json.JSONException;
+
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
@@ -88,7 +90,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
         subscribeToLiveData();
 
-        mCartViewModel.fetchRepos();
+
+            mCartViewModel.fetchRepos();
+
     }
 
 
@@ -111,7 +115,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
     private void subscribeToLiveData() {
-        mCartViewModel.getKitchenItemsLiveData().observe(this,
+        mCartViewModel.getDishItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));
     }
 

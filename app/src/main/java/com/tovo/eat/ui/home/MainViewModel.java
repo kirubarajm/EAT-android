@@ -111,7 +111,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public String updateAddressTitle(){
 
-
         return getDataManager().getCurrentAddressTitle();
 
     }
@@ -144,18 +143,18 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         int count = 0;
 
-        if (cartRequestPojo.getResult() != null) {
+        if (cartRequestPojo.getCartitems() != null) {
 
-            if (cartRequestPojo.getResult().size() == 0) {
+            if (cartRequestPojo.getCartitems().size() == 0) {
 
                 cart.set(false);
 
             } else {
 
-                for (int i = 0; i < cartRequestPojo.getResult().size(); i++) {
+                for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
 
-                    count = count + cartRequestPojo.getResult().get(i).getProductQuantity();
+                    count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
 
                     if (count == 0) {
 

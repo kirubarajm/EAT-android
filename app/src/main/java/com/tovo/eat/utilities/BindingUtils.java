@@ -35,6 +35,7 @@ import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
 import com.tovo.eat.ui.address.select.SelectAddressListResponse;
 import com.tovo.eat.ui.cart.CartDishAdapter;
 import com.tovo.eat.ui.cart.CartDishResponse;
+import com.tovo.eat.ui.cart.CartPageResponse;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -88,7 +89,7 @@ public final class BindingUtils {
 
 
     @BindingAdapter({"adapter"})
-    public static void addCartDishItems(RecyclerView recyclerView, List<CartRequestPojo.Result> dishes) {
+    public static void addCartDishItems(RecyclerView recyclerView, List<CartPageResponse.Item> dishes) {
         CartDishAdapter adapter = (CartDishAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();

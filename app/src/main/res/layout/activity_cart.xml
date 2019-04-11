@@ -56,7 +56,7 @@
                             <com.tovo.eat.utilities.fonts.CircularTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{cartViewModel.makeit_username}"
+                                android:text="@{cartViewModel.makeit_brand_name}"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -78,7 +78,7 @@
                             android:textSize="14sp" />
 
 
-                        <LinearLayout
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
@@ -91,7 +91,7 @@
                                 android:textColor="@color/dark_gray"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        </LinearLayout>-->
 
 
                     </LinearLayout>
@@ -108,6 +108,7 @@
 
 
             <android.support.v7.widget.RecyclerView
+                android:visibility="visible"
                 android:id="@+id/recyclerview_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +146,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_total"
+                        android:text="@string/total_amount"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -174,7 +175,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="190"
+                                android:text="@{cartViewModel.total}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
@@ -193,7 +194,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_total"
+                        android:text="@string/gst"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -222,7 +223,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="190"
+                                android:text="@{cartViewModel.gst}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
@@ -241,7 +242,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_total"
+                        android:text="@string/delivery_charge"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -270,7 +271,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="190"
+                                android:text="@{cartViewModel.delivery_charge}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
@@ -279,6 +280,15 @@
                     </RelativeLayout>
 
                 </LinearLayout>
+
+
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -289,7 +299,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_total"
+                        android:text="@string/grand_total"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -318,7 +328,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="190"
+                                android:text="@{cartViewModel.grand_total}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />

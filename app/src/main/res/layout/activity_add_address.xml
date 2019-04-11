@@ -202,11 +202,11 @@
                         </RelativeLayout>-->
 
 
-                        <CheckBox
+                       <!-- <CheckBox
                             android:visibility="@{addAddressViewModel.typeHome? View.VISIBLE: View.GONE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true" />
+                            android:checked="true" />-->
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -222,6 +222,7 @@
                     </LinearLayout>
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:background="@{addAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -235,6 +236,7 @@
                         android:textSize="14sp" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:background="@{addAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

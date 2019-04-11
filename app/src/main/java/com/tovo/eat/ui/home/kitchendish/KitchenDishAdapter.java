@@ -16,10 +16,9 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    List<KitchenDishResponse.Result> response;
     private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
-    List<KitchenDishResponse.Result> response;
-
     private DataManager dataManager;
 
 
@@ -76,10 +75,10 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenDishResponse.Productlist> blogList,List<KitchenDishResponse.Result> response) {
+    public void addItems(List<KitchenDishResponse.Productlist> blogList, List<KitchenDishResponse.Result> response) {
         item_list.addAll(blogList);
 
-        this.response=response;
+        this.response = response;
 
         notifyDataSetChanged();
     }
@@ -94,6 +93,8 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         void sendCart();
+
+        void dishRefresh();
 
 
     }
@@ -130,7 +131,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             final KitchenDishResponse.Productlist blog = item_list.get(position);
             final KitchenDishResponse.Result result = response.get(0);
 
-            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog,result);
+            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, result);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -175,6 +176,11 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void checkAllCart() {
             mLiveProductsAdapterListener.sendCart();
+        }
+
+        @Override
+        public void refresh() {
+            mLiveProductsAdapterListener.dishRefresh();
         }
     }
 

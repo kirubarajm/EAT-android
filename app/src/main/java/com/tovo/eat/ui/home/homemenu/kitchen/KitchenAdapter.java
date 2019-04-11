@@ -92,6 +92,11 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         }
+
+        @Override
+        public void addFavourites(Integer id,String fav) {
+            mLiveProductsAdapterListener.addFav(id,fav);
+        }
     }
 
     public void clearItems() {
@@ -110,6 +115,10 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(Integer kitchenId);
+
+
+
+        void addFav(Integer id,String fav);
     }
 
 }

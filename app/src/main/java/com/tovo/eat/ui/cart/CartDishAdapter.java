@@ -17,17 +17,17 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<CartRequestPojo.Result> item_list;
+    private List<CartPageResponse.Item> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
     private DataManager dataManager;
 
 
-    public CartDishAdapter(List<CartRequestPojo.Result> item_list) {
+    public CartDishAdapter(List<CartPageResponse.Item> item_list) {
         this.item_list = item_list;
     }
 
-    public CartDishAdapter(List<CartRequestPojo.Result> item_list, DataManager dataManager) {
+    public CartDishAdapter(List<CartPageResponse.Item> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -76,7 +76,7 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<CartRequestPojo.Result> blogList) {
+    public void addItems(List<CartPageResponse.Item> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -111,7 +111,7 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final CartRequestPojo.Result blog = item_list.get(position);
+            final CartPageResponse.Item blog = item_list.get(position);
             mLiveProductsItemViewModel = new CartDishItemViewModel(this, blog);
             mListItemLiveProductsBinding.setCartDishItemViewModel(mLiveProductsItemViewModel);
 

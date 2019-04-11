@@ -88,12 +88,10 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void onItemClickData(DishResponse.Result blogUrl);
 
 
-
         void sendCart();
 
 
-
-
+        void dishRefresh();
 
     }
 
@@ -129,7 +127,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public String addQuantity() {
             // mLiveProductsItemViewModel.isAddClicked.set(true);
 
-          return dataManager.getCartDetails();
+            return dataManager.getCartDetails();
 
         }
 
@@ -155,6 +153,11 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void checkAllCart() {
             mLiveProductsAdapterListener.sendCart();
+        }
+
+        @Override
+        public void refresh() {
+            mLiveProductsAdapterListener.dishRefresh();
         }
     }
 
