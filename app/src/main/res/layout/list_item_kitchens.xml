@@ -55,12 +55,14 @@
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:onClick="@{()->kitchenItemViewModel.fav()}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:src="@{kitchenItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}" />
+
                 </RelativeLayout>
 
 
@@ -69,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{kitchenItemViewModel.kitchen_type}"
                     android:textColor="@color/dark_gray"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
 
                 <LinearLayout
@@ -89,51 +91,77 @@
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{kitchenItemViewModel.ratings}"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                     <ImageView
                         android:layout_width="5dp"
                         android:layout_height="5dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_brightness_1_black_24dp"
                         android:tint="@color/dark_gray" />
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:text="@{kitchenItemViewModel.eta}"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                     <ImageView
                         android:layout_width="5dp"
                         android:layout_height="5dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_brightness_1_black_24dp"
                         android:tint="@color/dark_gray" />
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/inr"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@{kitchenItemViewModel.offer}"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
+
+
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:text="@string/for_two"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp" />
+
 
 
                 </LinearLayout>

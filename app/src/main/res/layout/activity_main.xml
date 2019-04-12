@@ -326,6 +326,7 @@
                             android:background="@drawable/badge_circle"
                             android:elevation="7dp"
                             android:gravity="center"
+                            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}"
                             android:text="@{viewModel.numOfCarts}"
                             android:textColor="@color/white"
                             android:textSize="12sp" />

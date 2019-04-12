@@ -19,6 +19,7 @@ public class KitchenItemViewModel {
     public final ObservableField<String> kitchen_image = new ObservableField<>();
     public final ObservableField<String> offer = new ObservableField<>();
 
+
     public final ObservableBoolean isFavourite = new ObservableBoolean();
 
 
@@ -39,6 +40,9 @@ public class KitchenItemViewModel {
         //  this.favourite.set(mKitchenList.getFavourite());
         //  this.offer.set(mKitchenList.getOffer());
 
+        this.ratings.set(String.valueOf(mKitchenList.getRating()));
+
+        this.offer .set(String.valueOf(mKitchenList.getCostfortwo()));
 
         if (mKitchenList.getMakeitbrandname() == null) {
             this.kitchen_name.set(mKitchenList.getMakeitusername());
@@ -46,23 +50,34 @@ public class KitchenItemViewModel {
             this.kitchen_name.set(mKitchenList.getMakeitbrandname());
         }
 
-
-        if (mKitchenList.getFavid() != null) {
-            if (mKitchenList.getFavid().equalsIgnoreCase("0")) {
+        if (mKitchenList.getIsfav() != null) {
+            if (mKitchenList.getIsfav().equalsIgnoreCase("0")) {
                 this.isFavourite.set(false);
             } else {
                 this.isFavourite.set(true);
             }
-        }else {
+        } else {
             this.isFavourite.set(false);
         }
     }
 
-    public void fav(){
-        mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getFavid());
+    public void fav() {
+        mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
+
+
+        if (mKitchenList.getIsfav().equalsIgnoreCase("0")) {
+            mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
+        } else if (mKitchenList.getIsfav().equalsIgnoreCase("1")) {
+            if (mKitchenList.getFavid() != null)
+                mListener.removeFavourites(mKitchenList.getFavid());
+
+        } else {
+            isFavourite.set(false);
+        }
+
+
 
     }
-
 
 
     public void onItemClick() {
@@ -77,7 +92,8 @@ public class KitchenItemViewModel {
 
         void onItemClick(Integer id);
 
-        void addFavourites(Integer id,String fav);
+        void addFavourites(Integer id, String fav);
+        void removeFavourites(Integer favId);
 
     }
 

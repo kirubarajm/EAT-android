@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.tovo.eat.BR;
@@ -104,6 +105,12 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mFragmentKitchenBinding.refreshList.setRefreshing(false);
     }
 
+    @Override
+    public void toastMessage(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+    }
+
 
 
 
@@ -146,13 +153,26 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     }
 
+
+
     @Override
     public void addFav(Integer id, String fav) {
 
 
 
-
+        mKitchenViewModel.addFavourite(id,fav);
 
     }
+
+
+    @Override
+    public void removeDishFavourite(Integer favId) {
+        mKitchenViewModel.removeFavourite(favId);
+    }
+
+
+
+
+
 }
 

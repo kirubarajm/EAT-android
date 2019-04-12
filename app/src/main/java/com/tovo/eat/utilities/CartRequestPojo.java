@@ -40,6 +40,18 @@ public class CartRequestPojo {
         @Expose
         private Integer quantity;
 
+        @SerializedName("price")
+        @Expose
+        private Integer price;
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+
         public Integer getProductid() {
             return productid;
         }

@@ -12,6 +12,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.LatLngPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -72,6 +73,82 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
     }
 
 
+    public void removeFavourite(Integer favId){
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL+favId, CommonResponse.class, null,new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                        getNavigator().toastMessage(response.getMessage());
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public void addFavourite(Integer dishId, String fav){
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(12),String.valueOf(dishId)),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                        getNavigator().toastMessage(response.getMessage());
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+
+
+
     public String getCartPojoDetails(){
 
         return getDataManager().getCartDetails();
@@ -84,7 +161,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212"),new Response.Listener<DishResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212",12),new Response.Listener<DishResponse>() {
                 @Override
                 public void onResponse(DishResponse response) {
                     if (response != null) {
@@ -104,6 +181,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
+                    DishViewModel.this.getNavigator().dishListLoaded();
                 }
             });
 

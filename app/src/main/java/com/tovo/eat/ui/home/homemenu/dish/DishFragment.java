@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -107,9 +108,10 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mFragmentDishBinding.refreshList.setRefreshing(false);
     }
 
-
-
-
+    @Override
+    public void toastMessage(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 
 
    /* @Override
@@ -159,16 +161,24 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         subscribeToLiveData();
     }
 
-
-
-    /*
     @Override
-    public void inCompleted() {
+    public void productNotAvailable() {
+
+        Toast.makeText(getContext(), "Entered quantity not available now", Toast.LENGTH_SHORT).show();
 
 
-        mDishViewModel.directionActivty(getBaseActivity());
+    }
+
+    @Override
+    public void addDishFavourite(Integer dishId, String fav) {
+        mDishViewModel.addFavourite(dishId,fav);
+    }
+
+    @Override
+    public void removeDishFavourite(Integer favId) {
+        mDishViewModel.removeFavourite(favId);
+    }
 
 
-    }*/
 }
 

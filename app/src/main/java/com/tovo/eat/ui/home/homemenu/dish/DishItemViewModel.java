@@ -15,6 +15,12 @@ import java.util.List;
 public class DishItemViewModel {
 
     public final ObservableField<String> makeit_username = new ObservableField<>();
+    public final ObservableField<String> makeitBrandName = new ObservableField<>();
+    public final ObservableField<String> cusines = new ObservableField<>();
+    public final ObservableField<String> locality = new ObservableField<>();
+
+    public final ObservableBoolean isFavourite = new ObservableBoolean();
+
     public final ObservableField<String> producttype = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
@@ -40,6 +46,24 @@ public class DishItemViewModel {
         this.mListener = mListener;
         this.dishList = dishList;
         //  this.date.set(mSalesList.getDate());
+
+
+        if (dishList.getBrandname() == null) {
+            this.makeitBrandName.set(dishList.getMakeitUsername());
+        } else {
+            this.makeitBrandName.set(dishList.getBrandname());
+        }
+
+        if (dishList.getIsfav().equals("1")) {
+            isFavourite.set(true);
+        } else  {
+            isFavourite.set(false);
+        }
+
+
+        this.locality.set(dishList.getLocalityname());
+
+
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
@@ -52,6 +76,10 @@ public class DishItemViewModel {
             this.makeit_userid.set(dishList.getMakeitUserid());
             this.sprice.set(String.valueOf(dishList.getPrice()));
             this.price.set((dishList.getPrice()));
+
+            this.cusines.set(dishList.getCusinename());
+
+
         } else {
 
             if (cartRequestPojo.getCartitems() != null) {
@@ -76,6 +104,7 @@ public class DishItemViewModel {
                                 this.price.set((dishList.getPrice()));
                                 quantity.set(results.get(i).getQuantity());
                                 sQuantity.set(String.valueOf(quantity.get()));
+                                this.cusines.set(dishList.getCusinename());
 
                             } else {
                                 this.makeit_username.set(dishList.getMakeitUsername());
@@ -86,6 +115,7 @@ public class DishItemViewModel {
                                 this.makeit_userid.set(dishList.getMakeitUserid());
                                 this.sprice.set(String.valueOf(dishList.getPrice()));
                                 this.price.set((dishList.getPrice()));
+                                this.cusines.set(dishList.getCusinename());
                             }
                         } else {
                             this.makeit_username.set(dishList.getMakeitUsername());
@@ -96,9 +126,10 @@ public class DishItemViewModel {
                             this.makeit_userid.set(dishList.getMakeitUserid());
                             this.sprice.set(String.valueOf(dishList.getPrice()));
                             this.price.set((dishList.getPrice()));
+                            this.cusines.set(dishList.getCusinename());
                         }
 
-                    }else {
+                    } else {
                         this.makeit_username.set(dishList.getMakeitUsername());
                         this.producttype.set(dishList.getProducttype());
                         this.image.set(dishList.getImage());
@@ -107,6 +138,7 @@ public class DishItemViewModel {
                         this.makeit_userid.set(dishList.getMakeitUserid());
                         this.sprice.set(String.valueOf(dishList.getPrice()));
                         this.price.set((dishList.getPrice()));
+                        this.cusines.set(dishList.getCusinename());
 
                     }
                 }
@@ -124,7 +156,23 @@ public class DishItemViewModel {
 
     public void addClicked() throws NullPointerException {
 
-        quantity.set(quantity.get() + 1);
+
+
+
+
+        int checkQuantity=quantity.get();
+
+
+        if (checkQuantity+1<=dishList.getQuantity()){
+            quantity.set(quantity.get() + 1);
+
+        }else {
+            mListener.productNotAvailable();
+            return;
+        }
+
+
+
 
         sQuantity.set(String.valueOf(quantity.get()));
 
@@ -156,9 +204,12 @@ public class DishItemViewModel {
                         if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
 
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
+
                                 cartRequestPojoCartitem.setQuantity(quantity.get());
                                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
+                                cartRequestPojoCartitem.setPrice(dishList.getPrice());
                                 results.set(i, cartRequestPojoCartitem);
+
 
                             }
                         }
@@ -204,7 +255,7 @@ public class DishItemViewModel {
             results.addAll(cartRequestPojo.getCartitems());
         }
 
-        if (cartRequestPojo.getMakeitUserid() != null)  {
+        if (cartRequestPojo.getMakeitUserid() != null) {
 
             if (cartRequestPojo.getCartitems() != null) {
 
@@ -220,6 +271,7 @@ public class DishItemViewModel {
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
                                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
                                 cartRequestPojoCartitem.setQuantity(quantity.get());
+                                cartRequestPojoCartitem.setPrice(dishList.getPrice());
                                 results.set(i, cartRequestPojoCartitem);
                             }
                         }
@@ -271,6 +323,7 @@ public class DishItemViewModel {
 
             cartRequestPojoCartitem.setProductid(dishList.getProductid());
             cartRequestPojoCartitem.setQuantity(quantity.get());
+            cartRequestPojoCartitem.setPrice(dishList.getPrice());
             results.clear();
             results.add(cartRequestPojoCartitem);
 
@@ -286,9 +339,10 @@ public class DishItemViewModel {
 
                         if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
 
-                                cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                                cartRequestPojoCartitem.setQuantity(quantity.get());
-                                results.add(cartRequestPojoCartitem);
+                            cartRequestPojoCartitem.setProductid(dishList.getProductid());
+                            cartRequestPojoCartitem.setQuantity(quantity.get());
+                            cartRequestPojoCartitem.setPrice(dishList.getPrice());
+                            results.add(cartRequestPojoCartitem);
 
 
                         } else {
@@ -299,7 +353,8 @@ public class DishItemViewModel {
                             cartRequestPojo.setMakeitUserid(dishList.getMakeitUserid());
                             cartRequestPojoCartitem.setProductid(dishList.getProductid());
                             cartRequestPojoCartitem.setQuantity(quantity.get());
-                           // totalSize = 1;
+                            cartRequestPojoCartitem.setPrice(dishList.getPrice());
+                            // totalSize = 1;
                             results.add(cartRequestPojoCartitem);
                             break;
 
@@ -310,12 +365,14 @@ public class DishItemViewModel {
 
                     cartRequestPojoCartitem.setProductid(dishList.getProductid());
                     cartRequestPojoCartitem.setQuantity(quantity.get());
+                    cartRequestPojoCartitem.setPrice(dishList.getPrice());
                     results.add(cartRequestPojoCartitem);
 
                 }
             } else {
                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
                 cartRequestPojoCartitem.setQuantity(quantity.get());
+                cartRequestPojoCartitem.setPrice(dishList.getPrice());
                 results.add(cartRequestPojoCartitem);
 
 
@@ -334,6 +391,20 @@ public class DishItemViewModel {
         Log.e("cart", json);
 
 
+    }
+
+
+    public void fav() {
+
+        if (dishList.getIsfav().equalsIgnoreCase("0")) {
+            mListener.addFavourites(dishList.getProductid(), dishList.getIsfav());
+        } else if (dishList.getIsfav().equalsIgnoreCase("1")) {
+            if (dishList.getFavid() != null)
+                mListener.removeFavourites(dishList.getFavid());
+
+        } else {
+            isFavourite.set(false);
+        }
     }
 
 
@@ -363,6 +434,12 @@ public class DishItemViewModel {
 
         void refresh();
 
+        void addFavourites(Integer dishId, String fav);
+
+        void removeFavourites(Integer favId);
+
+
+        void productNotAvailable();
 
     }
 

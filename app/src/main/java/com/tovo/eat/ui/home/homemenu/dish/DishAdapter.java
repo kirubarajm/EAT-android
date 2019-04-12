@@ -92,6 +92,13 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         void dishRefresh();
+        void productNotAvailable();
+
+
+        void  addDishFavourite(Integer dishId, String fav);
+        void  removeDishFavourite(Integer favId);
+
+
 
     }
 
@@ -158,6 +165,27 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void refresh() {
             mLiveProductsAdapterListener.dishRefresh();
+        }
+
+        @Override
+        public void addFavourites(Integer dishId, String fav) {
+
+            mLiveProductsAdapterListener.addDishFavourite(dishId,fav);
+
+
+
+        }
+
+        @Override
+        public void removeFavourites(Integer favId) {
+
+            mLiveProductsAdapterListener.removeDishFavourite(favId);
+
+        }
+
+        @Override
+        public void productNotAvailable() {
+            mLiveProductsAdapterListener.productNotAvailable();
         }
     }
 

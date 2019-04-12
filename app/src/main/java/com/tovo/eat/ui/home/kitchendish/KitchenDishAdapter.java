@@ -91,12 +91,13 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void onItemClickData(KitchenDishResponse.Result blogUrl);
 
-
         void sendCart();
 
         void dishRefresh();
 
+        void  addDishFavourite(Integer dishId, String fav);
 
+        void productNotAvailable();
     }
 
 
@@ -176,6 +177,21 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void checkAllCart() {
             mLiveProductsAdapterListener.sendCart();
+        }
+
+        @Override
+        public void addFavourites(Integer dishId, String fav) {
+            mLiveProductsAdapterListener.addDishFavourite(dishId,fav);
+        }
+
+        @Override
+        public void removeFavourites(Integer favId) {
+
+        }
+
+        @Override
+        public void productNotAvailable() {
+            mLiveProductsAdapterListener.productNotAvailable();
         }
 
         @Override

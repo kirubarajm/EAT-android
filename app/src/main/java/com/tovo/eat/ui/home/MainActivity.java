@@ -396,10 +396,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
-
-
-
    /* public void logOut() {
         mMainViewModel.logout();
         Intent loginIntent = SignInActivityMain.newIntent(CartActivity.this);
@@ -530,9 +526,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-
         if (requestCode == 10001) {
-
 
             if (grantResults.length > 0) {
                 for (int i = 0; i < permissions.length; i++) {
@@ -549,22 +543,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         }
                     }
 
-
                 }
 
             }
-
-
         }
-
     }
 
     @Override
     public void checkCart() {
-
         mMainViewModel.totalCart();
-
-
     }
 
     @Override

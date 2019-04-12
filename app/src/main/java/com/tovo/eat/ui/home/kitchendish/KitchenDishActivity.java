@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -147,11 +148,24 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void sendCart() {
 
+        mKitchenDishViewModel.totalCart();
+
+
     }
 
     @Override
     public void dishRefresh() {
         subscribeToLiveData();
+    }
+
+    @Override
+    public void addDishFavourite(Integer dishId, String fav) {
+
+    }
+
+    @Override
+    public void productNotAvailable() {
+        Toast.makeText(KitchenDishActivity.this, "Entered quantity not available now", Toast.LENGTH_SHORT).show();
     }
 
 

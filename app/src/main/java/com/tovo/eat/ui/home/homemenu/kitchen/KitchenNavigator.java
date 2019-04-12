@@ -10,4 +10,6 @@ public interface KitchenNavigator {
 
     void kitchenListLoaded();
 
+
+    void toastMessage(String msg);
 }

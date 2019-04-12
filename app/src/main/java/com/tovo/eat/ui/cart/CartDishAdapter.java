@@ -95,7 +95,10 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void saveToCart(String cart);
 
         String getCartData();
+        void productNotAvailable();
 
+
+        void reloadCart();
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements CartDishItemViewModel.DishItemViewModelListener {
@@ -162,6 +165,15 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsAdapterListener.sendCart();
         }
 
+        @Override
+        public void productNotAvailable() {
+            mLiveProductsAdapterListener.productNotAvailable();
+        }
+
+        @Override
+        public void reload() {
+         mLiveProductsAdapterListener.reloadCart();
+        }
 
 
     }

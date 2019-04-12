@@ -42,25 +42,40 @@ public class KitchenResponse {
         @SerializedName("makeitbrandname")
         @Expose
         private String makeitbrandname;
+        @SerializedName("rating")
+        @Expose
+        private Double rating;
+        @SerializedName("region")
+        @Expose
+        private Integer region;
+        @SerializedName("costfortwo")
+        @Expose
+        private Integer costfortwo;
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
         @SerializedName("distance")
         @Expose
         private String distance;
         @SerializedName("eta")
         @Expose
         private String eta;
+
+
+
         @SerializedName("favid")
         @Expose
-        private String favid;
+        private Integer favid;
 
 
-        public String getFavid() {
+        public Integer getFavid() {
             return favid;
         }
 
-        public void setFavid(String favid) {
+        public void setFavid(Integer favid) {
             this.favid = favid;
         }
 
@@ -88,12 +103,44 @@ public class KitchenResponse {
             this.makeitbrandname = makeitbrandname;
         }
 
+        public Double getRating() {
+            return rating;
+        }
+
+        public void setRating(Double rating) {
+            this.rating = rating;
+        }
+
+        public Integer getRegion() {
+            return region;
+        }
+
+        public void setRegion(Integer region) {
+            this.region = region;
+        }
+
+        public Integer getCostfortwo() {
+            return costfortwo;
+        }
+
+        public void setCostfortwo(Integer costfortwo) {
+            this.costfortwo = costfortwo;
+        }
+
         public String getMakeitimg() {
             return makeitimg;
         }
 
         public void setMakeitimg(String makeitimg) {
             this.makeitimg = makeitimg;
+        }
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
         }
 
         public String getDistance() {
@@ -111,7 +158,6 @@ public class KitchenResponse {
         public void setEta(String eta) {
             this.eta = eta;
         }
-
     }
 
 

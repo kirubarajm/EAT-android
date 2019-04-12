@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -17,6 +18,7 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import org.json.JSONException;
 
@@ -146,5 +148,16 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public String getCartData() {
         return mCartViewModel.getCartPojoDetails();
+    }
+
+    @Override
+    public void productNotAvailable() {
+        Toast.makeText(getContext(), "Entered quantity not available now", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void reloadCart() {
+        subscribeToLiveData();
     }
 }

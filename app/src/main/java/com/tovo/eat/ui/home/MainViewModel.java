@@ -51,6 +51,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
 
     public final ObservableBoolean titleVisible=new ObservableBoolean();
+    public final ObservableBoolean cartAvailable=new ObservableBoolean();
 
 
 

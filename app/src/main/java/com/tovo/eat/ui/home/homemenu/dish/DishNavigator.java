@@ -10,4 +10,7 @@ public interface DishNavigator {
 
     void dishListLoaded();
 
+
+    void toastMessage(String msg);
+
 }

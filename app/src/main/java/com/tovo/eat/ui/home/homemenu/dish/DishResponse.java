@@ -35,19 +35,24 @@ public class DishResponse {
 
 
     public class Result {
-
+        @SerializedName("productid")
+        @Expose
+        private Integer productid;
         @SerializedName("makeit_userid")
         @Expose
         private Integer makeitUserid;
         @SerializedName("makeit_username")
         @Expose
         private String makeitUsername;
+        @SerializedName("brandname")
+        @Expose
+        private String brandname;
+        @SerializedName("makeit_image")
+        @Expose
+        private String makeitImage;
         @SerializedName("product_name")
         @Expose
         private String productName;
-        @SerializedName("productid")
-        @Expose
-        private Integer productid;
         @SerializedName("image")
         @Expose
         private String image;
@@ -57,9 +62,35 @@ public class DishResponse {
         @SerializedName("producttype")
         @Expose
         private String producttype;
+        @SerializedName("quantity")
+        @Expose
+        private Integer quantity;
+        @SerializedName("favid")
+        @Expose
+        private Integer favid;
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+        @SerializedName("cusinename")
+        @Expose
+        private String cusinename;
+        @SerializedName("localityname")
+        @Expose
+        private String localityname;
         @SerializedName("distance")
         @Expose
         private Double distance;
+        @SerializedName("eta")
+        @Expose
+        private String eta;
+
+        public Integer getProductid() {
+            return productid;
+        }
+
+        public void setProductid(Integer productid) {
+            this.productid = productid;
+        }
 
         public Integer getMakeitUserid() {
             return makeitUserid;
@@ -77,20 +108,28 @@ public class DishResponse {
             this.makeitUsername = makeitUsername;
         }
 
+        public String getBrandname() {
+            return brandname;
+        }
+
+        public void setBrandname(String brandname) {
+            this.brandname = brandname;
+        }
+
+        public String getMakeitImage() {
+            return makeitImage;
+        }
+
+        public void setMakeitImage(String makeitImage) {
+            this.makeitImage = makeitImage;
+        }
+
         public String getProductName() {
             return productName;
         }
 
         public void setProductName(String productName) {
             this.productName = productName;
-        }
-
-        public Integer getProductid() {
-            return productid;
-        }
-
-        public void setProductid(Integer productid) {
-            this.productid = productid;
         }
 
         public String getImage() {
@@ -117,12 +156,60 @@ public class DishResponse {
             this.producttype = producttype;
         }
 
+        public Integer getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
+        }
+
+        public Integer getFavid() {
+            return favid;
+        }
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
+        }
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
+
+        public String getCusinename() {
+            return cusinename;
+        }
+
+        public void setCusinename(String cusinename) {
+            this.cusinename = cusinename;
+        }
+
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
+
         public Double getDistance() {
             return distance;
         }
 
         public void setDistance(Double distance) {
             this.distance = distance;
+        }
+
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
         }
 
     }

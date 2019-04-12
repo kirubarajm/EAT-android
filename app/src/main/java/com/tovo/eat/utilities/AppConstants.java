@@ -25,16 +25,18 @@ public class AppConstants {
 
     public static final String TEMP_URL_MY = "http://192.168.1.243/tovo/";
     public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
-    public static final String TEMP_URL = "http://192.168.1.100:3000/eat/";
+    public static final String TEMP_URL = "http://192.168.1.225:4000/eat/";
 
    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
     public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
-    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_LIVE+ "kitchenlist";
-    public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
+    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL+ "kitchenlist";
+    public static final String EAT_DISH_LIST_URL =TEMP_URL+ "dishlist";
     public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL_LIVE+ "products";
     public static final String EAT_ADD_ADDRESS_URL =TEMP_URL_LIVE+ "address";
     public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
     public static final String EAT_CART_DETAILS_URL =TEMP_URL_LIVE+ "cartdetails/";
+
+    public static final String EAT_FAV_URL =TEMP_URL+ "fav/";
 
 
 

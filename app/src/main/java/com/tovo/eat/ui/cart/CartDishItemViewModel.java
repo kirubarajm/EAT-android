@@ -49,6 +49,8 @@ public class CartDishItemViewModel {
         image.set(dishList.getImage());
 
 
+        isAddClicked.set(true);
+
 
         if (dishList.getVegtype().equalsIgnoreCase("0")) {
 
@@ -57,16 +59,24 @@ public class CartDishItemViewModel {
             veg_type.set("Non-Veg");
 
         }
-
         producttype.set("Mediterranean");
-
 
 
     }
 
     public void addClicked() throws NullPointerException {
 
-        quantity.set(quantity.get() + 1);
+
+        int checkQuantity=quantity.get();
+
+
+        if (checkQuantity+1<=dishList.getQuantity()){
+            quantity.set(quantity.get() + 1);
+
+        }else {
+            mListener.productNotAvailable();
+            return;
+        }
 
         sQuantity.set(String.valueOf(quantity.get()));
 
@@ -122,6 +132,7 @@ public class CartDishItemViewModel {
 
         Log.e("cart", json);
 
+        mListener.reload();
 
     }
 
@@ -191,6 +202,8 @@ public class CartDishItemViewModel {
 
         }
 
+        mListener.reload();
+
     }
 
     public void enableAdd() {
@@ -251,6 +264,9 @@ public class CartDishItemViewModel {
         Log.e("cart", json);
 
 
+        mListener.reload();
+
+
     }
 
 
@@ -278,6 +294,10 @@ public class CartDishItemViewModel {
 
         void checkAllCart();
 
+        void productNotAvailable();
+
+
+        void reload();
     }
 
 }

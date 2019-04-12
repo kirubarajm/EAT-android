@@ -11,6 +11,24 @@ public class LatLngPojo {
     @SerializedName("lon")
     @Expose
     private String lon;
+    @SerializedName("eatuserid")
+    @Expose
+    private Integer eatId;
+
+
+    public LatLngPojo(String lat, String lon, Integer eatId) {
+        this.lat = lat;
+        this.lon = lon;
+        this.eatId = eatId;
+    }
+
+    public Integer getEatId() {
+        return eatId;
+    }
+
+    public void setEatId(Integer eatId) {
+        this.eatId = eatId;
+    }
 
     public String getLat() {
         return lat;
