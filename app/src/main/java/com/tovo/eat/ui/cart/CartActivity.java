@@ -117,8 +117,24 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void selectAddress() {
 
-        Intent intent= SelectSelectAddressListActivity.newIntent(getContext());
+        Intent intent = SelectSelectAddressListActivity.newIntent(getContext());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean paymentStatus(String mode) {
+
+        if (mode.equals(getString(R.string.cash_on_delivery))) {
+            Toast.makeText(getBaseActivity(), mode, Toast.LENGTH_SHORT).show();
+            return true;
+
+        } else if (mode.equals(getString(R.string.pay_online))) {
+            Toast.makeText(getBaseActivity(), mode, Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            Toast.makeText(getBaseActivity(), "nothing selected", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private void subscribeToLiveData() {
@@ -130,7 +146,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void onResume() {
         super.onResume();
-          mCartViewModel.setAddressTitle();
+        mCartViewModel.setAddressTitle();
+        mCartViewModel.fetchRepos();
     }
 
     @Override
@@ -162,9 +179,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void reloadCart() {
-        subscribeToLiveData();
+       mCartViewModel.fetchRepos();
     }
-
-
 
 }

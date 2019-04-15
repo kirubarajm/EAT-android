@@ -5,6 +5,7 @@ public interface KitchenDishNavigator {
     void handleError(Throwable throwable);
 
 
+    void toastMessage(String msg);
 
     void dishListLoaded();
 

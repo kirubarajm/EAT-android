@@ -32,10 +32,12 @@ public interface MainNavigator {
 
 
     void openHome();
+
     void openExplore();
 
     void openAccount();
 
+    void toastMsg(String msg);
 
     void selectAddress();
 

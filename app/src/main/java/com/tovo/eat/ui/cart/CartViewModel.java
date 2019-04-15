@@ -38,13 +38,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> address = new ObservableField<>();
 
 
-    public final ObservableBoolean payment=new ObservableBoolean();
-
-
-    private String sPaymentMode = "";
-
-
+    public final ObservableBoolean payment = new ObservableBoolean();
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
+    private String sPaymentMode = "";
     private MutableLiveData<List<CartPageResponse.Item>> dishItemsLiveData;
 
 
@@ -57,12 +53,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
 
-    public void selectAddress(){
+    public void selectAddress() {
         getNavigator().selectAddress();
     }
 
 
-    public void setAddressTitle(){
+    public void setAddressTitle() {
 
         address.set(getDataManager().getCurrentAddressTitle());
 
@@ -154,7 +150,31 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
 
+    public void paymentModeCheck() {
 
+        if (getNavigator().paymentStatus(sPaymentMode)) {
+
+            cashMode();
+
+        } else {
+
+            onlineMode();
+
+        }
+
+    }
+
+
+    public void cashMode() {
+
+
+    }
+
+
+    public void onlineMode() {
+
+
+    }
 
 
     public void paymentRadioGroup(RadioGroup radioGroup, int buttonId) {

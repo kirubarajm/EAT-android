@@ -47,6 +47,9 @@ public interface DataManager extends  PreferencesHelper {
 
 
 
+     void kitchenId(Integer id);
+
+
     enum LoggedInMode {
         LOGGED_IN_MODE_LOGGED_OUT(0),
         LOGGED_IN_MODE_GOOGLE(1),
@@ -59,8 +62,5 @@ public interface DataManager extends  PreferencesHelper {
         public int getType() {
             return mType;
         }
-
-
-
     }
 }

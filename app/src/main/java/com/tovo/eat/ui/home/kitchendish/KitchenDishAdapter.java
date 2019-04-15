@@ -98,6 +98,9 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void  addDishFavourite(Integer dishId, String fav);
 
         void productNotAvailable();
+
+        void  removeDishFavourite(Integer favId);
+
     }
 
 
@@ -186,7 +189,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void removeFavourites(Integer favId) {
-
+            mLiveProductsAdapterListener.removeDishFavourite(favId);
         }
 
         @Override

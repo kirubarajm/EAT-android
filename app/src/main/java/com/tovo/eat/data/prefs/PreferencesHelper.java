@@ -80,12 +80,10 @@ public interface PreferencesHelper {
 
 
 
+    Integer getMakeitID();
 
 
-
-
-
-
+    void setMakeitID(Integer lng);
 
 
 }

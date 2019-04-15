@@ -71,6 +71,7 @@ public final class BindingUtils {
         KitchenDishAdapter adapter = (KitchenDishAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
+
             adapter.addItems(response.get(0).getProductlist(),response);
         }
     }

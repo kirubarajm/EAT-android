@@ -13,10 +13,12 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.CartListener;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.FilterListener;
 
 import javax.inject.Inject;
 
-public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener {
+public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener , FilterListener {
 
     @Inject
     DishViewModel mDishViewModel;
@@ -41,15 +43,17 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void onAttach(Context context) {
         cartListener=(CartListener)context;
+
         super.onAttach(context);
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
-
+        ((MainActivity) getActivity()).setFilterListener(DishFragment.this);
     }
 
     @Override
@@ -151,7 +155,6 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void sendCart() {
 
-
         cartListener.checkCart();
 
     }
@@ -180,5 +183,13 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     }
 
 
+    @Override
+    public void filterList() {
+
+
+        mDishViewModel.fetchRepos();
+
+
+    }
 }
 

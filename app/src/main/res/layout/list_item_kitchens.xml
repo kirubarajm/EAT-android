@@ -61,7 +61,8 @@
                         android:layout_marginLeft="20dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:src="@{kitchenItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}" />
+                        android:src="@{kitchenItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
+                        android:layout_marginStart="20dp" />
 
                 </RelativeLayout>
 

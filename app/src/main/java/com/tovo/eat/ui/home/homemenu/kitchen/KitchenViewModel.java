@@ -66,8 +66,12 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
+    public void saveMakeitId(Integer id){
 
 
+        getDataManager().kitchenId(id);
+
+    }
 
 
 
@@ -149,16 +153,13 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-
-
-     //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, new LatLngPojo("12.9760","80.2212"), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, new LatLngPojo("12.9760","80.2212",12), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {
+
                         kitchenItemsLiveData.setValue(response.getResult());
                         Log.e("----response:---------", response.toString());
 

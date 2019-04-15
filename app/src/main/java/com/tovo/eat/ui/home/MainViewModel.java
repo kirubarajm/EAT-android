@@ -26,8 +26,6 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.CartRequestPojo;
 
-import java.util.StringTokenizer;
-
 
 /**
  * Created by amitshekhar on 07/07/17.
@@ -39,22 +37,16 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableBoolean cart = new ObservableBoolean();
 
     //private final MutableLiveData<List<QuestionCardData>> questionCardData;
-
+    public final ObservableField<String> addressTitle = new ObservableField<>();
+    public final ObservableField<String> toolbarTitle = new ObservableField<>();
+    public final ObservableBoolean titleVisible = new ObservableBoolean();
+    public final ObservableBoolean cartAvailable = new ObservableBoolean();
     //private final ObservableList<QuestionCardData> questionDataList = new ObservableArrayList<>();
     private final ObservableField<String> appVersion = new ObservableField<>();
     private final ObservableField<String> userEmail = new ObservableField<>();
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
-    public final ObservableField<String> addressTitle = new ObservableField<>();
-
-    public final ObservableField<String> toolbarTitle = new ObservableField<>();
-
-    public final ObservableBoolean titleVisible=new ObservableBoolean();
-    public final ObservableBoolean cartAvailable=new ObservableBoolean();
-
-
-
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager) {
@@ -70,7 +62,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public int getAction() {
         return action;
     }
-
 
 
     public ObservableField<String> getAppVersion() {
@@ -102,21 +93,23 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void gotoCart() {
-        getNavigator().openCart();
+
+        if (cart.get()) {
+            getNavigator().openCart();
+        } else {
+
+            getNavigator().toastMsg("No items in cart");
+        }
+
 
     }
 
 
-
-
-
-    public String updateAddressTitle(){
+    public String updateAddressTitle() {
 
         return getDataManager().getCurrentAddressTitle();
 
     }
-
-
 
 
     public void gotoAccount() {
@@ -136,12 +129,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-
         cart.set(false);
-
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
-
         int count = 0;
 
         if (cartRequestPojo.getCartitems() != null) {
@@ -168,11 +158,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 }
 
             }
-
-
         }
     }
-
 
     public ObservableField<String> getUserEmail() {
         return userEmail;

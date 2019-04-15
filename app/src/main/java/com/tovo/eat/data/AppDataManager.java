@@ -103,6 +103,11 @@ public class AppDataManager implements DataManager {
 
     }
 
+    @Override
+    public void kitchenId(Integer id) {
+        setMakeitID(id);
+    }
+
    /* @Override
     public Call<LoginResponse> users(String name, String job) {
         return null;
@@ -223,6 +228,16 @@ public class AppDataManager implements DataManager {
     public void setCurrentLng(double lng) {
         mPreferencesHelper.setCurrentLng(lng);
 
+    }
+
+    @Override
+    public Integer getMakeitID() {
+        return mPreferencesHelper.getMakeitID();
+    }
+
+    @Override
+    public void setMakeitID(Integer lng) {
+        mPreferencesHelper.setMakeitID(lng);
     }
 
     @Override

@@ -14,8 +14,9 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.databinding.FragmentKitchenDishBinding;
-import com.tovo.eat.databinding.KitchenDishSubBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
 
 import javax.inject.Inject;
 
@@ -113,6 +114,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     }
 
+    @Override
+    public void toastMessage(String msg) {
+
+    }
 
 
     @Override
@@ -122,11 +127,11 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
 
     private void subscribeToLiveData() {
-      /*  mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,
+        mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,
                kitchenItemViewModel -> mKitchenDishViewModel.addDishItemsToList(kitchenItemViewModel));
 
 
-        mKitchenDishViewModel.getDishItemFullViewModels().observe(this,
+      /*  mKitchenDishViewModel.getDishItemFullViewModels().observe(this,
                 kitchenItemViewModel2 -> mKitchenDishViewModel.addKitchenDishItemsToList(kitchenItemViewModel2));*/
 
     }
@@ -159,13 +164,19 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     }
 
     @Override
-    public void addDishFavourite(Integer dishId, String fav) {
+    public void addDishFavourite(Integer favId, String fav) {
 
+        mKitchenDishViewModel.addFavourite(favId);
     }
 
     @Override
     public void productNotAvailable() {
         Toast.makeText(KitchenDishActivity.this, "Entered quantity not available now", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeDishFavourite(Integer favId) {
+        mKitchenDishViewModel.removeFavourite(favId);
     }
 
 

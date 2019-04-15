@@ -14,11 +14,14 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.FilterListener;
+import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener {
+public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, FilterListener {
 
 
     @Inject
@@ -45,7 +48,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         super.onCreate(savedInstanceState);
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
-
+        ((MainActivity) getActivity()).setFilterListener(KitchenFragment.this);
     }
 
     @Override
@@ -146,6 +149,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     @Override
     public void onItemClickData(Integer kitchenId) {
 
+        mKitchenViewModel.saveMakeitId(kitchenId);
+
         Intent intent= KitchenDishActivity.newIntent(getContext());
         intent.putExtra("kitchenId",kitchenId);
         startActivity(intent);
@@ -158,10 +163,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     @Override
     public void addFav(Integer id, String fav) {
 
-
-
         mKitchenViewModel.addFavourite(id,fav);
-
     }
 
 
@@ -170,9 +172,10 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mKitchenViewModel.removeFavourite(favId);
     }
 
-
-
-
+    @Override
+    public void filterList() {
+        mKitchenViewModel.fetchRepos();
+    }
 
 }
 

@@ -50,6 +50,33 @@ public class KitchenDishResponse {
         @Expose
         private String productimage;
 
+
+
+
+        @SerializedName("favid")
+        @Expose
+        private Integer favid;
+
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
+
+        public Integer getFavid() {
+            return favid;
+        }
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
+        }
+
         public Integer getPrice() {
             return price;
         }
@@ -117,9 +144,23 @@ public class KitchenDishResponse {
         @SerializedName("favid")
         @Expose
         private String favid;
+
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+
         @SerializedName("productlist")
         @Expose
         private List<Productlist> productlist = null;
+
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;

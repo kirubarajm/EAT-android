@@ -62,14 +62,17 @@ public class KitchenItemViewModel {
     }
 
     public void fav() {
-        mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
 
 
         if (mKitchenList.getIsfav().equals("0")) {
+            isFavourite.set(true);
             mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
-        } else if (mKitchenList.getIsfav().equalsIgnoreCase("1")) {
-            if (mKitchenList.getFavid() != null)
+        } else if (mKitchenList.getIsfav().equals("1")) {
+
+            if (mKitchenList.getFavid() != null) {
+                isFavourite.set(false);
                 mListener.removeFavourites(mKitchenList.getFavid());
+            }
 
         } else {
             isFavourite.set(false);

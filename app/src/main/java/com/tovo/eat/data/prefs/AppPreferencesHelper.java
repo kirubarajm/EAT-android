@@ -47,6 +47,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
 
 
+    private static final String PREF_KEY_SELECTED_MAKEIT_ID = "SELECTED_MAKEIT_ID";
+
+
     private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
     private static final String PREF_KEY_ADDRESS_AREA = "ADDRESS_AREA";
     private static final String PREF_KEY_CURRENT_LAT = "CURRENT_LAT";
@@ -176,6 +179,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentLng(double lng) {
         mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lng)).apply();
+    }
+
+    @Override
+    public Integer getMakeitID() {
+        return mPrefs.getInt(PREF_KEY_SELECTED_MAKEIT_ID, 0);
+    }
+
+    @Override
+    public void setMakeitID(Integer id) {
+        mPrefs.edit().putInt(PREF_KEY_SELECTED_MAKEIT_ID, id).apply();
     }
 
     @Override

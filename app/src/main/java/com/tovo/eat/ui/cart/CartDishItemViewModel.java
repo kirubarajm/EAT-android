@@ -40,7 +40,6 @@ public class CartDishItemViewModel {
         this.mListener = mListener;
         this.dishList = dishList;
 
-
         product_name.set(dishList.getProductName());
         sprice.set(String.valueOf(dishList.getPrice()));
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
@@ -60,7 +59,6 @@ public class CartDishItemViewModel {
 
         }
         producttype.set("Mediterranean");
-
 
     }
 
@@ -296,8 +294,8 @@ public class CartDishItemViewModel {
 
         void productNotAvailable();
 
-
         void reload();
+
     }
 
 }

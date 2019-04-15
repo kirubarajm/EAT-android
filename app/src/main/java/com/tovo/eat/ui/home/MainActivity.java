@@ -34,6 +34,7 @@ import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
+import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 
 import java.util.ArrayList;
@@ -52,6 +53,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     private ActivityMainBinding mActivityMainBinding;
+
+
+
+   public FilterListener filterListener;
+
+
+    public void setFilterListener(FilterListener filterListener) {
+        this.filterListener = filterListener;
+    }
+
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
     private MainViewModel mMainViewModel;
@@ -153,6 +164,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
+    public void toastMsg(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void selectAddress() {
         Intent intent = SelectSelectAddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
@@ -237,6 +253,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
+
+
+
 
 
         checkAndRequestPermissions();

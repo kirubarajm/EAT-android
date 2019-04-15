@@ -14,4 +14,7 @@ public interface CartNavigator {
 
     void selectAddress();
 
+
+    boolean paymentStatus(String mode);
+
 }

@@ -26,6 +26,9 @@ public class KitchenDishItemViewModel {
     public final ObservableField<Integer> product_id = new ObservableField<>();
     public final ObservableField<Integer> makeit_userid = new ObservableField<>();
 
+
+    public final ObservableBoolean isFavourite = new ObservableBoolean();
+
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final KitchenDishResponse.Productlist dishList;
@@ -44,10 +47,13 @@ public class KitchenDishItemViewModel {
         this.originalResult = response;
         this.mListener = mListener;
         this.dishList = dishList;
+        this.response = response;
+
 
         //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+
 
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());
@@ -109,21 +115,31 @@ public class KitchenDishItemViewModel {
         if (quantity.get() != null)
             if (quantity.get() == 0) {
                 isAddClicked.set(false);
-
             }
+
+
+        if (dishList.getIsfav() != null) {
+            if (dishList.getIsfav().equals("0")) {
+                this.isFavourite.set(false);
+            } else {
+                this.isFavourite.set(true);
+            }
+        } else {
+            this.isFavourite.set(false);
+        }
 
     }
 
     public void addClicked() throws NullPointerException {
 
 
-        int checkQuantity=quantity.get();
+        int checkQuantity = quantity.get();
 
 
-        if (checkQuantity+1<=dishList.getQuantity()){
+        if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
 
-        }else {
+        } else {
             mListener.productNotAvailable();
             return;
         }
@@ -356,16 +372,16 @@ public class KitchenDishItemViewModel {
 
 
     public void fav() {
-       /* if (dishList.getIsfav().equalsIgnoreCase("0")) {
-            mListener.addFavourites(dishList.getProductid(), dishList.getIsfav());
+        if (dishList.getIsfav().equalsIgnoreCase("0")) {
+            mListener.addFavourites(dishList.getFavid(), dishList.getIsfav());
         } else if (dishList.getIsfav().equalsIgnoreCase("1")) {
             if (dishList.getFavid() != null)
                 mListener.removeFavourites(dishList.getFavid());
 
         } else {
             isFavourite.set(false);
-        }*/
-     //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
+        }
+        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
 
 
@@ -392,6 +408,7 @@ public class KitchenDishItemViewModel {
         void saveCart(String jsonCartDetails);
 
         void checkAllCart();
+
         void addFavourites(Integer dishId, String fav);
 
         void removeFavourites(Integer favId);

@@ -15,8 +15,10 @@ import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
@@ -106,15 +108,80 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         return getDataManager().getCartDetails();
     }
 
-    public void addFavourite(Integer makeitId,Integer dishId, String fav){
+
+    public void removeFavourite(Integer favId){
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL+favId, CommonResponse.class, null,new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
 
 
+                        getNavigator().toastMessage(response.getMessage());
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public void addFavourite(Integer kitchenId){
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(12),String.valueOf(kitchenId)),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                        getNavigator().toastMessage(response.getMessage());
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
 
 
 
 
     }
+
 
 
 
@@ -181,15 +248,15 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
+        Integer kitchenId= getDataManager().getMakeitID();
+
+
         //  setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest("12.9760", "80.2212", 1), new Response.Listener<KitchenDishResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),kitchenId), new Response.Listener<KitchenDishResponse>() {
             @Override
             public void onResponse(KitchenDishResponse response) {
                 if (response != null) {
-
                     //     dishItemsLiveData.setValue(response.getResult().get(0).getProductlist());
-
-
                     //     dishItemFullViewModels.setValue(response.getResult());
 
 
