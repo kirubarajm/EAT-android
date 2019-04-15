@@ -31,6 +31,7 @@
         <activity android:name=".ui.address.edit.EditAddressActivity" />
         <activity android:name=".ui.address.list.AddressListActivity" />
         <activity android:name=".ui.address.select.SelectSelectAddressListActivity" />
+        <activity android:name=".ui.account.favorites.FavoritesTabActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

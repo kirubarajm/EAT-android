@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.account.favorites.FavoritesTabActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="favTabViewModel"
+            type="com.tovo.eat.ui.account.favorites.FavoritesTabActivityViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_favorites"
+            style="@style/AppTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/black" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_favorites"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_favorites"
+            android:background="@color/white"
+            android:clipToPadding="false" />
+
+    </RelativeLayout>
+
+
+
+
+</layout>

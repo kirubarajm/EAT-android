@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="favDishViewModel"
+            type="com.tovo.eat.ui.account.favorites.favdish.FavoritesDishViewModel">
+
+        </variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DBDBDB">
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshList_dishes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_dishes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                android:layoutAnimation="@anim/lay_fall_down"
+                app:dishAdapter="@{favDishViewModel.dishViewModels}"
+                tools:listitem="@layout/list_item_fav_dishes"/>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+
+
+</layout>

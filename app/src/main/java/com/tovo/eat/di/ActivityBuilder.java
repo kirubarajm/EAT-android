@@ -17,6 +17,11 @@
 package com.tovo.eat.di;
 
 import com.tovo.eat.ui.account.MyAccountProvider;
+import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
+import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
+import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
+import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.add.AddAddressModule;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
@@ -25,16 +30,14 @@ import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
-import com.tovo.eat.ui.cart.CartActivity;
-import com.tovo.eat.ui.cart.CartModule;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -50,6 +53,7 @@ public abstract class ActivityBuilder {
             KitchenProvider.class,
             DishProvider.class,
             MyAccountProvider.class,
+            FavoritesTabActivityProvider.class,
             CartProvider.class
 
     })
@@ -57,7 +61,6 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = KitchenDishModule.class)
     abstract KitchenDishActivity bindKitchenDishActivity();
-
 
 
     @ContributesAndroidInjector(modules = AddAddressModule.class)
@@ -73,6 +76,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = SelectAddressListModule.class)
     abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
+
+    @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class,FavoritesDishProvider.class,
+            FavoritesKitchenProvider.class,})
+    abstract FavoritesTabActivity bindFavListActivity();
 
 
 }
