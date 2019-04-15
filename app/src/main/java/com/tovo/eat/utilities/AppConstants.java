@@ -38,10 +38,7 @@ public class AppConstants {
 
     public static final String EAT_FAV_URL =TEMP_URL_LIVE+ "fav/";
 
-
-
-
-
+    public static final String EAT_DISH_LIST ="http://192.168.1.225:3000/eat/fav/dishlist/";
 
 
 
