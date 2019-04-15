@@ -2,8 +2,11 @@ package com.tovo.eat.ui.cart;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,6 +34,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery_charge = new ObservableField<>();
     public final ObservableField<String> makeit_brand_name = new ObservableField<>();
+    public final ObservableField<String> buttonText = new ObservableField<>();
+    public final ObservableField<String> address = new ObservableField<>();
+
+
+    public final ObservableBoolean payment=new ObservableBoolean();
+
+
+    private String sPaymentMode = "";
 
 
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
@@ -41,10 +52,22 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
 
-
         fetchRepos();
 
     }
+
+
+    public void selectAddress(){
+        getNavigator().selectAddress();
+    }
+
+
+    public void setAddressTitle(){
+
+        address.set(getDataManager().getCurrentAddressTitle());
+
+    }
+
 
     public ObservableList<CartPageResponse.Item> getCartDishItemViewModels() {
         return cartDishItemViewModels;
@@ -127,61 +150,25 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             j.printStackTrace();
         }
 
-        /*GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CART_DETAILS_URL, CartPageResponse.class, CartRequestPojo.class, new Response.Listener<CartPageResponse>() {
 
-            @Override
-            public void onResponse(CartPageResponse response) {
-
-                dishItemsLiveData.setValue(response.getResult().get(0).getItem());
-
-
-                if (response.getResult().get(0).getMakeitusername() == null) {
-
-                    makeit_username.set(response.getResult().get(0).getMakeitusername());
-                } else {
-
-                    makeit_username.set(response.getResult().get(0).getMakeitbrandname());
-
-                }
-
-                makeit_image.set(response.getResult().get(0).getMakeitimg());
-                //  makeit_category.set(response.getResult().get(0).getCategory());
-
-                total.set(String.valueOf(response.getResult().get(0).getAmountdetails().getTotalamount()));
-                grand_total.set(String.valueOf(response.getResult().get(0).getAmountdetails().getGrandtotal()));
-                gst.set(String.valueOf(response.getResult().get(0).getAmountdetails().getGstcharge()));
-                delivery_charge.set(String.valueOf(response.getResult().get(0).getAmountdetails().getDeliveryCharge()));
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Log.e("Error", error.getMessage());
-
-            }
-        });
-
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);*/
-
-
-       /* Gson sGson = new GsonBuilder().create();
-        CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-
-        if (cartRequestPojo == null) {
-            cartRequestPojo = new CartRequestPojo();
-        }else {
-
-            makeit_username.set(cartRequestPojo.getMakeit_username());
-            makeit_image.set(cartRequestPojo.getKitchenImage());
+    }
 
 
 
-            if (cartRequestPojo.getResult() != null) {
-                dishItemsLiveData.setValue(cartRequestPojo.getResult());
-            }
-        }*/
+
+
+    public void paymentRadioGroup(RadioGroup radioGroup, int buttonId) {
+
+
+        RadioButton rb = (RadioButton) radioGroup.findViewById(buttonId);
+        if (null != rb) {
+            //  Toast.makeText(DirectionTestTestActivity.this,String.valueOf(rb.getT) , Toast.LENGTH_SHORT).show();
+            sPaymentMode = rb.getText().toString();
+            buttonText.set(sPaymentMode);
+            getNavigator().paymentMode(sPaymentMode);
+
+
+        }
 
     }
 

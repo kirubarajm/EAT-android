@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white">
 
             <LinearLayout
@@ -36,10 +36,10 @@
 
 
                     <com.tovo.eat.utilities.RoundCornerImageView
-                        app:cusrsiveImageUrl="@{cartViewModel.makeit_image}"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_margin="10dp" />
+                        android:layout_margin="10dp"
+                        app:cusrsiveImageUrl="@{cartViewModel.makeit_image}" />
 
 
                     <LinearLayout
@@ -108,7 +108,6 @@
 
 
             <android.support.v7.widget.RecyclerView
-                android:visibility="visible"
                 android:id="@+id/recyclerview_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,14 +115,57 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layoutAnimation="@anim/lay_fall_down"
+                android:visibility="visible"
                 app:adapter="@{cartViewModel.cartDishItemViewModels}"
                 tools:listitem="@layout/list_item_cart_dishes" />
 
 
             <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rounded_edittext"
+                android:id="@+id/promo"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="5"
                 android:layout_below="@+id/recyclerview_orders"
+                android:orientation="horizontal">
+
+
+
+                <EditText
+                    android:layout_weight="5"
+                    android:id="@+id/ed_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/promo_code" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apply"
+                    android:textColor="@color/eat_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="10dp" />
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/promo"
                 android:layout_margin="20dp"
                 android:orientation="vertical">
 
@@ -282,11 +324,10 @@
                 </LinearLayout>
 
 
-
                 <View
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/gray" />
 
 
@@ -358,7 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginLeft="5dp"
-                        android:text="Home"
+                        android:text="@{cartViewModel.address}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -369,20 +410,69 @@
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_alignParentEnd="true"
-                            android:background="@drawable/stoke"
+                            android:onClick="@{()->cartViewModel.selectAddress()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/change"
-                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/stoke"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
                             android:paddingTop="10dp"
+                            android:paddingRight="20dp"
                             android:paddingBottom="10dp"
-                            android:layout_alignParentRight="true" />
+                            android:text="@string/change"
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
 
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:onCheckedChanged="@{cartViewModel::paymentRadioGroup}"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/cash"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_on_delivery"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/online"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/pay_online"
+                        android:textSize="18sp" />
+                </RadioGroup>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/curve_stroke"
+                    android:orientation="vertical"
+                    android:visibility="@{cartViewModel.payment?View.VISIBLE:View.GONE}">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="7dp"
+                        android:text="@{cartViewModel.buttonText}"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/eat_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 

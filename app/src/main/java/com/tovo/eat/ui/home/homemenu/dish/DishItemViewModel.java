@@ -42,7 +42,6 @@ public class DishItemViewModel {
 
     public DishItemViewModel(DishItemViewModelListener mListener, DishResponse.Result dishList) {
 
-
         this.mListener = mListener;
         this.dishList = dishList;
         //  this.date.set(mSalesList.getDate());

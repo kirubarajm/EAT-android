@@ -9,7 +9,7 @@ public class KitchenItemViewModel {
 
     //   public final ObservableField<Integer> sales_emp_id = new ObservableField<Integer>();
 
-    public final ObservableField<String> ratings = new ObservableField<String>();
+    public final ObservableField<String> ratings = new ObservableField<>();
 
     public final ObservableField<String> kitchen_name = new ObservableField<>();
 
@@ -51,7 +51,7 @@ public class KitchenItemViewModel {
         }
 
         if (mKitchenList.getIsfav() != null) {
-            if (mKitchenList.getIsfav().equalsIgnoreCase("0")) {
+            if (mKitchenList.getIsfav().equals("0")) {
                 this.isFavourite.set(false);
             } else {
                 this.isFavourite.set(true);
@@ -65,7 +65,7 @@ public class KitchenItemViewModel {
         mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
 
 
-        if (mKitchenList.getIsfav().equalsIgnoreCase("0")) {
+        if (mKitchenList.getIsfav().equals("0")) {
             mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
         } else if (mKitchenList.getIsfav().equalsIgnoreCase("1")) {
             if (mKitchenList.getFavid() != null)

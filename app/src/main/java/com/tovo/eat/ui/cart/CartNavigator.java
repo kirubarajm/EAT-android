@@ -10,4 +10,8 @@ public interface CartNavigator {
 
     void dishListLoaded();
 
+    void paymentMode(String mode);
+
+    void selectAddress();
+
 }

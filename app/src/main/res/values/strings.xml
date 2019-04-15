@@ -363,4 +363,9 @@
     <string name="mins">Mins</string>
     <string name="for_two">for two</string>
     <string name="comma">,</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="pay_online">Pay online</string>
+    <string name="proceed_to_pay">Proceed to pay</string>
+    <string name="promo_code">Promo Code</string>
+    <string name="apply">Apply</string>
 </resources>

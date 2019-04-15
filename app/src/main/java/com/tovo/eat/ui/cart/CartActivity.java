@@ -1,13 +1,9 @@
 package com.tovo.eat.ui.cart;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
@@ -15,31 +11,28 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
-import com.tovo.eat.ui.account.MyAccountFragment;
-import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
-
-import org.json.JSONException;
 
 import javax.inject.Inject;
 
-import dagger.android.DispatchingAndroidInjector;
-
-public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator,CartDishAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener {
 
 
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
     CartDishAdapter adapter;
-
-
-    private ActivityCartBinding mActivityCartBinding;
-
     @Inject
     CartViewModel mCartViewModel;
+    private ActivityCartBinding mActivityCartBinding;
 
+    public static CartActivity newInstance() {
+        Bundle args = new Bundle();
+        CartActivity fragment = new CartActivity();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public int getBindingVariable() {
@@ -62,19 +55,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
-
-    public static CartActivity newInstance() {
-        Bundle args = new Bundle();
-        CartActivity fragment = new CartActivity();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // mActivityCartBinding = getViewDataBinding();
+        // mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
 
@@ -93,11 +77,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         subscribeToLiveData();
 
 
-            mCartViewModel.fetchRepos();
+        mCartViewModel.fetchRepos();
 
     }
-
-
 
 
     @Override
@@ -115,6 +97,29 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         //   mFragmentDishBinding.refreshList.setRefreshing(false);
     }
 
+    @Override
+    public void paymentMode(String mode) {
+
+
+        if (mode.equals(getString(R.string.cash_on_delivery))) {
+            mCartViewModel.payment.set(true);
+        } else if (mode.equals(getString(R.string.pay_online))) {
+
+            mCartViewModel.payment.set(true);
+
+        } else {
+            mCartViewModel.payment.set(false);
+        }
+
+
+    }
+
+    @Override
+    public void selectAddress() {
+
+        Intent intent= SelectSelectAddressListActivity.newIntent(getContext());
+        startActivity(intent);
+    }
 
     private void subscribeToLiveData() {
         mCartViewModel.getDishItemsLiveData().observe(this,
@@ -125,7 +130,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void onResume() {
         super.onResume();
-        //  mDishViewModel.fetchRepos();
+          mCartViewModel.setAddressTitle();
     }
 
     @Override
@@ -140,7 +145,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void saveToCart(String cart) {
-
         mCartViewModel.saveToCartPojo(cart);
     }
 
@@ -160,4 +164,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void reloadCart() {
         subscribeToLiveData();
     }
+
+
+
 }
