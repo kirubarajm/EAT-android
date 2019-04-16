@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="chatItemViewModel"
+            type="com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatItemViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                visibleGone="@{chatItemViewModel.typeString}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginRight="100dp"
+                android:background="@drawable/chat_message_left_side"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txt_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:text="@{chatItemViewModel.answer}"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+            <TextView
+                visibleGone="@{chatItemViewModel.typeString}"
+                android:layout_below="@+id/linear1"
+                android:layout_width="wrap_content"
+                android:paddingLeft="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:text="@{chatItemViewModel.createdAtFinal}"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                visibleView="@{chatItemViewModel.typeString}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/chat_message_right_side"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:text="@{chatItemViewModel.answer}"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:paddingLeft="5dp"
+                visibleView="@{chatItemViewModel.typeString}"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:text="@{chatItemViewModel.createdAtFinal}"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

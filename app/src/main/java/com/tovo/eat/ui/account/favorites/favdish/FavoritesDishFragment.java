@@ -11,6 +11,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentFavoritesDishBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 
+
 import javax.inject.Inject;
 
 public class FavoritesDishFragment extends BaseFragment<FragmentFavoritesDishBinding, FavoritesDishViewModel> implements FavoritesDishNavigator,
@@ -63,9 +64,9 @@ FavoriteDishAdapter.LiveProductsAdapterListener{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentPersonalBinding = getViewDataBinding();
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mFragmentPersonalBinding.recyclerviewDishes.setLayoutManager(new LinearLayoutManager(getContext()));
-        mFragmentPersonalBinding.recyclerviewDishes.setAdapter(mFavoriteDishAdapter);
+        //mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //mFragmentPersonalBinding.recyclerviewDishes.setLayoutManager(new LinearLayoutManager(getContext()));
+        //mFragmentPersonalBinding.recyclerviewDishes.setAdapter(mFavoriteDishAdapter);
         subscribeToLiveData();
         
     }

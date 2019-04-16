@@ -7,6 +7,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -171,7 +172,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+                    //Log.e("", error.getMessage());
                 }
             });
 
@@ -180,7 +181,4 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
             e.printStackTrace();
         }
     }
-
-
-
 }

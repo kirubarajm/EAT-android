@@ -1,0 +1,79 @@
+package com.tovo.eat.ui.account.feedbackandsupport.feedback;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
+import com.tovo.eat.BR;
+import com.tovo.eat.R;
+import com.tovo.eat.databinding.ActivityFeedbackBinding;
+import com.tovo.eat.ui.base.BaseActivity;
+
+import javax.inject.Inject;
+
+public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, FeedbackActivityViewModel> implements FeedbackActivityNavigator {
+
+    @Inject
+    FeedbackActivityViewModel mFeedbackAndSupportActivityViewModel;
+    ActivityFeedbackBinding mActivityFeedbackBinding;
+
+
+    public static Intent newIntent(Context context) {
+
+        return new Intent(context, FeedbackActivity.class);
+    }
+
+    @Override
+    public void handleError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void submit() {
+        mFeedbackAndSupportActivityViewModel.insertFeedbackServiceCall();
+    }
+
+    @Override
+    public int getBindingVariable() {
+        return BR.feedbackViewModel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_feedback;
+    }
+
+    @Override
+    public FeedbackActivityViewModel getViewModel() {
+        return mFeedbackAndSupportActivityViewModel;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivityFeedbackBinding = getViewDataBinding();
+
+        Toolbar toolbar = findViewById(R.id.toolbar_feedback_support);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        mActivityFeedbackBinding.toolbarFeedbackSupport.setTitle("FeedBack and Support");
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
+
+}

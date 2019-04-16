@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="repliesViewModel"
+            type="com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivityViewModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar1"
+            style="@style/Toolbar"
+            android:background="@color/primary_new"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/green">
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/toolbar1"
+            android:background="@drawable/toolbar_shadow" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_queries"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view1"
+            android:background="@color/white"
+            app:onRefreshListener="@{()->repliesViewModel.onRefreshLayout()}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_replies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rel_header"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
+                app:adapter="@{repliesViewModel.repliesItemViewModels}"
+                tools:listitem="@layout/list_item_replies" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+
+</layout>

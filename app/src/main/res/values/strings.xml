@@ -372,4 +372,11 @@
     <string name="select_payment_mode">Select payment mode</string>
     <string name="filter_sort">Filter/Sort</string>
     <string name="clear_all">Clear all</string>
+    <string name="support">Support</string>
+    <string name="feedBack">FeedBack</string>
+    <string name="any_doubts_write_to_us">Any doubts? Write to us</string>
+    <string name="no_replies_found">No replies found</string>
+    <string name="no_chat_found">No chat found</string>
+    <string name="type_here">Enter Reply</string>
+    <string name="send_referrals">Send Referrals</string>
 </resources>

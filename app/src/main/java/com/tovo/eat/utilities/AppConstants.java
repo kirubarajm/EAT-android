@@ -94,4 +94,34 @@ public class AppConstants {
     public AppConstants() {
         // This utility class is not publicly instantiable
     }
+
+    ///////Server Ip Ports
+    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:4000";////ip port(suresh)
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:3000";////ip port(suresh)
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
+
+    public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
+    public static final String URL_QUERY_REPLIES_COUNT = URL_SERVER_IP_PORT + "/repliescount";/////POST method
+    public static final String URL_QUERY_QUERIES_LIST = URL_SERVER_IP_PORT + "/querylist";/////POST method
+    public static final String URL_REPLIES_CHAT = URL_SERVER_IP_PORT + "/queryreplies/";/////GET method
+    public static final String URL_CHAT_ANSWER = URL_SERVER_IP_PORT + "/queryanswer/";/////GET method
+    public static final String URL_CHAT_REPLIES_READ = URL_SERVER_IP_PORT + "/repliesread/";/////GET method
+
+    public static final int ADMIN =0;
+    public static final int MAKEIT =1;
+    public static final int MOVEIT =2;
+    public static final int SALES=3;
+    public static final int EAT =4;
+
+    public static final int EAT_CHAT_ID =4;
+
+
+
+
+
+
+    ////ToAST
+    public static final String TOAST_ENTER_REPLY_TO_SEND = "Enter reply to send";
+    public static final String TOAST_ENTER_QUERY_TO_SEND ="Enter query to send";
 }
