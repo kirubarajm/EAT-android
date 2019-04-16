@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="feedBackSupportViewModel"
+            type="com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivityViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_feedback_support"
+            style="@style/Toolbar"
+            android:background="@color/primary_new"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/colorAccent">
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:id="@+id/vi1"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@+id/toolbar_feedback_support"
+            android:background="@drawable/toolbar_shadow" />
+
+
+        <LinearLayout
+            android:id="@+id/linear_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/vi1"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <RelativeLayout
+                android:id="@+id/rel_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feedBack"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:onClick="@{()->feedBackSupportViewModel.feedbackClick()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/support"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:onClick="@{()->feedBackSupportViewModel.supportClick()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

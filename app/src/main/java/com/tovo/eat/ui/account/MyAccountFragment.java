@@ -12,6 +12,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentMyAccountBinding;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
@@ -117,6 +118,8 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
     @Override
     public void feedbackAndSupport() {
 
+        Intent intent = FeedbackAndSupportActivity.newIntent(getContext());
+        startActivity(intent);
     }
 
     @Override

@@ -21,9 +21,12 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +34,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tovo.eat.R;
 import com.tovo.eat.ui.account.favorites.favdish.FavoriteDishAdapter;
 import com.tovo.eat.ui.account.favorites.favdish.FavoriteDishResponse;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
 import com.tovo.eat.ui.address.list.AddressListAdapter;
 import com.tovo.eat.ui.address.list.AddressListResponse;
 import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
@@ -130,8 +137,64 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter({"adapter"})
+    public static void addRepliesItems(RecyclerView recyclerView, List<RepliesResponse.Result> blogs) {
+        RepliesAdapter adapter = (RepliesAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addOrderItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addChatItems(RecyclerView recyclerView, List<ChatResponse.Result> blogs) {
+        ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addChatItems(blogs);
+        }
+    }
 
 
+    @BindingAdapter("visibleView")
+    public static void setViewVisiblityVisible(LinearLayout imageView, String type) {
+        Context context = imageView.getContext();
+        if (type.equals("0")) {
+            imageView.setVisibility(View.INVISIBLE);
+        }else {
+            imageView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @BindingAdapter("visibleGone")
+    public static void setViewVisiblityGone(LinearLayout imageView, String type) {
+        Context context = imageView.getContext();
+        if (type.equals("0")) {
+            imageView.setVisibility(View.VISIBLE);
+        }else {
+            imageView.setVisibility(View.INVISIBLE   );
+        }
+    }
+
+    @BindingAdapter("visibleView")
+    public static void setViewVisiblityVisible(TextView imageView, String type) {
+        Context context = imageView.getContext();
+        if (type.equals("0")) {
+            imageView.setVisibility(View.INVISIBLE);
+        }else {
+            imageView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @BindingAdapter("visibleGone")
+    public static void setViewVisiblityGone(TextView imageView, String type) {
+        Context context = imageView.getContext();
+        if (type.equals("0")) {
+            imageView.setVisibility(View.VISIBLE);
+        }else {
+            imageView.setVisibility(View.INVISIBLE   );
+        }
+    }
 
     @BindingAdapter("imageUrl")
     public static void setImageUrl(RoundCornerImageView imageView, String url) {

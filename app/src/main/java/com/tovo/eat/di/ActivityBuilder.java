@@ -22,6 +22,18 @@ import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
 import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
+import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivityModule;
+import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivityModule;
+import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivityModule;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivityModule;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivityModule;
+import com.tovo.eat.ui.account.referrals.ReferralsActivity;
+import com.tovo.eat.ui.account.referrals.ReferralsActivityModule;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.add.AddAddressModule;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
@@ -77,9 +89,27 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = SelectAddressListModule.class)
     abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
 
-    @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class,FavoritesDishProvider.class,
+    @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
             FavoritesKitchenProvider.class,})
     abstract FavoritesTabActivity bindFavListActivity();
+
+    @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class})
+    abstract FeedbackAndSupportActivity bindFeedbackSupportActivity();
+
+    @ContributesAndroidInjector(modules = {SupportActivityModule.class})
+    abstract SupportActivity bindQueriesActivity();
+
+    @ContributesAndroidInjector(modules = {RepliesActivityModule.class})
+    abstract RepliesActivity bindRepliesActivity();
+
+    @ContributesAndroidInjector(modules = {ChatActivityModule.class})
+    abstract ChatActivity bindChatActivity();
+
+    @ContributesAndroidInjector(modules = {FeedbackActivityModule.class})
+    abstract FeedbackActivity bindFeedbackActivity();
+
+   @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
+    abstract ReferralsActivity bindReferralskActivity();
 
 
 }

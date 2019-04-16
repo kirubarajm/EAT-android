@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="chatViewModel"
+            type="com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar1"
+            style="@style/Toolbar"
+            android:background="@color/primary_new"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/green" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/toolbar1"
+            android:background="@drawable/toolbar_shadow" />
+
+        <TextView
+            android:id="@+id/txt_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_margin="10dp"
+            android:background="@drawable/chat_question_background"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_question"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_chat"
+            android:layout_above="@+id/linear_send"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txt_date"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            app:onRefreshListener="@{()->chatViewModel.onRefreshLayout()}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="100dp"
+                app:adapter="@{chatViewModel.chatItemViewModels}"
+                tools:listitem="@layout/list_item_chat" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20sp"
+            android:background="@drawable/chat_send_message_background"
+            android:gravity="center"
+            android:padding="5dp"
+            android:weightSum="3">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edt_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2.5"
+                android:background="@color/transparent"
+                android:hint="@string/type_here" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:onClick="@{()->chatViewModel.sendClick()}"
+                android:padding="10dp"
+                android:text="Send"
+                android:textColor="@color/green" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
