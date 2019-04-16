@@ -117,7 +117,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(12),String.valueOf(dishId)),new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(1),String.valueOf(dishId)),new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -161,7 +161,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212",12),new Response.Listener<DishResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212",1),new Response.Listener<DishResponse>() {
                 @Override
                 public void onResponse(DishResponse response) {
                     if (response != null) {

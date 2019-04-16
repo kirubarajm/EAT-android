@@ -9,4 +9,7 @@ public interface KitchenDishNavigator {
 
     void dishListLoaded();
 
+    void viewCart();
+
+
 }

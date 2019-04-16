@@ -125,6 +125,15 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         //mFragmentDishBinding.refreshList.setRefreshing(false);
     }
 
+    @Override
+    public void viewCart() {
+
+        Intent intent=MainActivity.newIntent(KitchenDishActivity.this);
+        intent.putExtra("cart",true);
+        startActivity(intent);
+
+    }
+
 
     private void subscribeToLiveData() {
         mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,

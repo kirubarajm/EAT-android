@@ -2,6 +2,7 @@ package com.tovo.eat.ui.address.select;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.util.Log;
 
 
 public class SelectAddressListItemViewModel {
@@ -65,6 +66,7 @@ public class SelectAddressListItemViewModel {
     public void onItemClick() {
       //  mListener.onItemClick(addressList.getAid(),addressList.getAddressTitle(),addressList.getAddress(),addressList.getFlatno(),addressList.getLocality(),addressList.getPincode(),addressList.getLat(),addressList.getLon(),addressList.getLandmark(),addressList.getAddressType());
         mListener.onItemClick(addressList);
+        Log.e("dssf",addressList.toString());
 
     }
 

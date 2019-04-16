@@ -95,9 +95,10 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateCurrentAddress(String title, String area, double lat, double lng) {
+    public void updateCurrentAddress(String title, String address, double lat, double lng,String area) {
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
+        setCurrentAddress(address);
         setCurrentLat(lat);
         setCurrentLng(lng);
 
@@ -106,6 +107,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void kitchenId(Integer id) {
         setMakeitID(id);
+    }
+
+    @Override
+    public void currentOrderId(Integer orderId) {
+
     }
 
    /* @Override
@@ -210,6 +216,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public String getCurrentAddress() {
+        return mPreferencesHelper.getCurrentAddress();
+    }
+
+    @Override
+    public void setCurrentAddress(String address) {
+        mPreferencesHelper.setCurrentAddress(address);
+    }
+
+    @Override
     public String getCurrentLat() {
         return mPreferencesHelper.getCurrentLat();
     }
@@ -238,6 +254,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setMakeitID(Integer lng) {
         mPreferencesHelper.setMakeitID(lng);
+    }
+
+    @Override
+    public Integer getOrderId() {
+        return  mPreferencesHelper.getOrderId();
+    }
+
+    @Override
+    public void setOrderId(Integer orderId) {
+        mPreferencesHelper.setOrderId(orderId);
     }
 
     @Override

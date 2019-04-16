@@ -153,7 +153,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(12),String.valueOf(kitchenId)),new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(1),String.valueOf(kitchenId)),new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -210,7 +210,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
                     count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
-                    price=price+cartRequestPojo.getCartitems().get(i).getPrice();
+                    price=price+((cartRequestPojo.getCartitems().get(i).getPrice())*cartRequestPojo.getCartitems().get(i).getQuantity());
 
                 }
 
@@ -236,8 +236,6 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                 }
             }
-
-
         }
     }
 
@@ -305,5 +303,10 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
     }
 
+
+    public void viewCart(){
+
+        getNavigator().viewCart();
+    }
 
 }

@@ -19,12 +19,19 @@ package com.tovo.eat.ui.home;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.MvvmApp;
 
 
 /**
@@ -41,16 +48,24 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableBoolean titleVisible = new ObservableBoolean();
     public final ObservableBoolean cartAvailable = new ObservableBoolean();
+    public final ObservableField<String> kitchenName = new ObservableField<>();
+    public final ObservableField<String> eta = new ObservableField<>();
+    public final ObservableField<String> kitchenImage = new ObservableField<>();
+    public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     //private final ObservableList<QuestionCardData> questionDataList = new ObservableArrayList<>();
     private final ObservableField<String> appVersion = new ObservableField<>();
     private final ObservableField<String> userEmail = new ObservableField<>();
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
+    private int orderId;
+
+
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
+        orderId = 0;
     }
 
    /* public EditAddressViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
@@ -108,6 +123,63 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public String updateAddressTitle() {
 
         return getDataManager().getCurrentAddressTitle();
+
+    }
+
+
+    public void trackLiveOrder() {
+
+        getNavigator().trackLiveOrder(orderId);
+
+
+    }
+
+
+    public void liveOrders() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        setIsLoading(true);
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + 1, LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
+            @Override
+            public void onResponse(LiveOrderResponsePojo response) {
+                if (response != null) {
+                    setIsLoading(false);
+
+                    if (response.getResult().size() != 0) {
+
+                        isLiveOrder.set(true);
+
+
+                        kitchenImage.set(response.getResult().get(0).getMakeitimage());
+
+                        if (response.getResult().get(0).getMakeitbrandname() != null) {
+                            kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                        } else {
+
+                            kitchenName.set(response.getResult().get(0).getMakeitusername());
+                        }
+
+                        eta.set(response.getResult().get(0).getEta());
+
+                        orderId = response.getResult().get(0).getOrderid();
+
+                    }else {
+                        isLiveOrder.set(false);
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", error.getMessage());
+                setIsLoading(false);
+            }
+        });
+
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
 
     }
 

@@ -290,6 +290,7 @@ public class KitchenDishItemViewModel {
             cartRequestPojo.setCartitems(null);
 
             cartRequestPojoCartitem.setProductid(dishList.getProductid());
+            cartRequestPojoCartitem.setPrice(dishList.getPrice());
             cartRequestPojoCartitem.setQuantity(quantity.get());
             results.clear();
             results.add(cartRequestPojoCartitem);

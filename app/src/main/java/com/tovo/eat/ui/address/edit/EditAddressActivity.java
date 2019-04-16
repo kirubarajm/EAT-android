@@ -24,6 +24,7 @@ public class EditAddressActivity extends BaseActivity<ActivityAddAddressBinding,
         return new Intent(context, EditAddressActivity.class);
     }
 
+
     @Override
     public int getBindingVariable() {
         return BR.addAddressViewModel;

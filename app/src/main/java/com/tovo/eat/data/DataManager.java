@@ -42,12 +42,15 @@ public interface DataManager extends  PreferencesHelper {
 
 
 
-     void updateCurrentAddress(String title,String area,double lat,double lng);
+     void updateCurrentAddress(String title,String address,double lat,double lng,String area);
 
 
 
 
      void kitchenId(Integer id);
+
+
+     void currentOrderId(Integer orderId);
 
 
     enum LoggedInMode {

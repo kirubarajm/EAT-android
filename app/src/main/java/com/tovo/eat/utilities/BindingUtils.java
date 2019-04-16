@@ -155,6 +155,7 @@ public final class BindingUtils {
     }
 
 
+
     @BindingAdapter("cusrsiveImageUrl")
     public static void setCursiveImageUrl(RoundCornerImageView imageView, String url) {
         Context context = imageView.getContext();

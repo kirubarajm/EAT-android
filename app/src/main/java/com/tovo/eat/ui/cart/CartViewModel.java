@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -13,14 +14,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartViewModel extends BaseViewModel<CartNavigator> {
@@ -167,6 +172,80 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void cashMode() {
 
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+
+        List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
+        List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
+
+        PlaceOrderRequestPojo placeOrderRequestPojo=new PlaceOrderRequestPojo();
+
+        PlaceOrderRequestPojo.Orderitem orderitem=new PlaceOrderRequestPojo.Orderitem();
+
+
+        Gson sGson = new GsonBuilder().create();
+        CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+
+        cartitems.addAll(cartRequestPojo.getCartitems());
+
+        for (int i = 0; i < cartitems.size(); i++) {
+
+            orderitem.setProductid(cartitems.get(i).getProductid());
+            orderitem.setQuantity(cartitems.get(i).getQuantity());
+            orderitem.setPrice(cartitems.get(i).getPrice());
+            orderitems.add(orderitem);
+        }
+
+
+        placeOrderRequestPojo.setOrderitems(orderitems);
+
+        placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+
+        PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(1,getDataManager().getCurrentAddressArea(),delivery_charge.get(),1,0,Double.parseDouble(gst.get()),0,0,cartRequestPojo.getMakeitUserid(),1,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentAddress(),Double.parseDouble(grand_total.get()),orderitems );
+
+
+        Gson gson = new Gson();
+        String json = gson.toJson(placeOrderRequestPojo1);
+
+        Log.e("sfsdfd",json);
+
+        setIsLoading(true);
+
+
+        JsonObjectRequest jsonObjectRequest= null;
+        try {
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+
+                        getDataManager().currentOrderId(response.getInt("orderid"));
+
+
+                        getDataManager().setCartDetails("");
+
+
+                        getNavigator().orderCompleted();
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
 
     }
 
@@ -180,7 +259,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void paymentRadioGroup(RadioGroup radioGroup, int buttonId) {
 
 
-        RadioButton rb = (RadioButton) radioGroup.findViewById(buttonId);
+        RadioButton rb = radioGroup.findViewById(buttonId);
         if (null != rb) {
             //  Toast.makeText(DirectionTestTestActivity.this,String.valueOf(rb.getT) , Toast.LENGTH_SHORT).show();
             sPaymentMode = rb.getText().toString();

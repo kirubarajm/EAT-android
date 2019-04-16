@@ -372,4 +372,6 @@
     <string name="select_payment_mode">Select payment mode</string>
     <string name="filter_sort">Filter/Sort</string>
     <string name="clear_all">Clear all</string>
+    <string name="track">TRACK</string>
+    <string name="eta">ETA</string>
 </resources>

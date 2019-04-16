@@ -80,18 +80,17 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public void setCurrentAddress(AddressListResponse.Result request){
-        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), request.getLat(), request.getLon());
+        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), request.getLat(), request.getLon(),request.getLocality());
     }
 
 
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-     //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+12, AddressListResponse.class,new Response.Listener<AddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+1, AddressListResponse.class,new Response.Listener<AddressListResponse>() {
                 @Override
                 public void onResponse(AddressListResponse response) {
                     if (response != null) {
@@ -109,7 +108,6 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                     Log.e("", error.getMessage());
                 }
             });
-
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

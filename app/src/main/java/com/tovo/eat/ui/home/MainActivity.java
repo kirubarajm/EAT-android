@@ -48,37 +48,29 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener {
 
+    public FilterListener filterListener;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     private ActivityMainBinding mActivityMainBinding;
-
-
-
-   public FilterListener filterListener;
-
-
-    public void setFilterListener(FilterListener filterListener) {
-        this.filterListener = filterListener;
-    }
-
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
     private MainViewModel mMainViewModel;
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
-
-
     private ViewGroup mRrootLayout;
     private int _xDelta;
     private int _yDelta;
-
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
         return new Intent(context, MainActivity.class);
+    }
+
+    public void setFilterListener(FilterListener filterListener) {
+        this.filterListener = filterListener;
     }
 
     @Override
@@ -175,6 +167,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
+    public void trackLiveOrder(Integer orderId) {
+
+
+        Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
@@ -254,8 +255,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
-
-
+        mMainViewModel.liveOrders();
 
 
         checkAndRequestPermissions();
@@ -264,12 +264,36 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         ///mToolbar.setTitle("Home");
         setUp();
 
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            HomeTabFragment fragment = new HomeTabFragment();
-            transaction.replace(R.id.content_main, fragment);
-            transaction.commit();
+
+        Intent intent = getIntent();
+
+        if (intent.getExtras() != null) {
+
+            if (intent.getExtras().getBoolean("cart")) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                CartActivity fragment = new CartActivity();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+            } else {
+                if (savedInstanceState == null) {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    HomeTabFragment fragment = new HomeTabFragment();
+                    transaction.replace(R.id.content_main, fragment);
+                    transaction.commit();
+                }
+            }
+        }else {
+
+            if (savedInstanceState == null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                HomeTabFragment fragment = new HomeTabFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+            }
+
+
         }
+
 
         mMainViewModel.totalCart();
 
@@ -285,14 +309,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        mMainViewModel.liveOrders();
+
         if (mDrawer != null) {
             mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
 
 
-        if (mMainViewModel.updateAddressTitle()!=null) {
+        if (mMainViewModel.updateAddressTitle() != null) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
-        }else {
+        } else {
 
             mMainViewModel.addressTitle.set("Select Address");
 

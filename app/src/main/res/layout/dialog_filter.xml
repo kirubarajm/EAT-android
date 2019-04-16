@@ -155,7 +155,7 @@
                         android:textAllCaps="true"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-                    
+
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="match_parent"

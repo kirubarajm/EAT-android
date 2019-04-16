@@ -49,11 +49,14 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_SELECTED_MAKEIT_ID = "SELECTED_MAKEIT_ID";
 
+    private static final String PREF_KEY_ORDER_ID = "ORDER_ID";
+
 
     private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
     private static final String PREF_KEY_ADDRESS_AREA = "ADDRESS_AREA";
     private static final String PREF_KEY_CURRENT_LAT = "CURRENT_LAT";
     private static final String PREF_KEY_CURRENT_LNG = "CURRENT_LNG";
+    private static final String PREF_KEY_CURRENT_ADDRESS = "CURRENT_ADDRESS";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -162,6 +165,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public String getCurrentAddress() {
+        return  mPrefs.getString(PREF_KEY_CURRENT_ADDRESS, null);
+    }
+
+    @Override
+    public void setCurrentAddress(String address) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_ADDRESS, address).apply();
+    }
+
+    @Override
     public String getCurrentLat() {
         return mPrefs.getString(PREF_KEY_CURRENT_LAT, null);
     }
@@ -178,7 +191,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setCurrentLng(double lng) {
-        mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lng)).apply();
+        mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, String.valueOf(lng)).apply();
     }
 
     @Override
@@ -189,6 +202,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setMakeitID(Integer id) {
         mPrefs.edit().putInt(PREF_KEY_SELECTED_MAKEIT_ID, id).apply();
+    }
+
+    @Override
+    public Integer getOrderId() {
+        return mPrefs.getInt(PREF_KEY_ORDER_ID, 0);
+    }
+
+    @Override
+    public void setOrderId(Integer orderId) {
+        mPrefs.edit().putInt(PREF_KEY_ORDER_ID, orderId).apply();
     }
 
     @Override

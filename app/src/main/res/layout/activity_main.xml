@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom"
+            android:layout_alignParentTop="true"
             android:fitsSystemWindows="true">
 
             <android.support.design.widget.CoordinatorLayout
@@ -57,17 +58,16 @@
 
 
                             <LinearLayout
-                                android:layout_marginLeft="20dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
                                 android:layout_marginTop="10dp"
                                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:layout_marginStart="20dp">
+                                android:orientation="horizontal">
 
                                 <ImageView
-                                    android:visibility="gone"
                                     android:id="@+id/nav_icon"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -78,29 +78,29 @@
                                     android:layout_marginRight="15dp"
                                     android:onClick="@{()->viewModel.openDrawer()}"
                                     android:src="@drawable/ic_menu_black_24dp"
-                                    android:tint="@color/dark_gray" />
+                                    android:tint="@color/dark_gray"
+                                    android:visibility="gone" />
 
 
                                 <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/title_toolbar"
-                                    android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}"
-                                    android:layout_gravity="center_vertical"
-                                    android:minLines="2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/eat_color"
+                                    android:layout_gravity="center_vertical"
+                                    android:minLines="2"
                                     android:text="@{viewModel.toolbarTitle}"
+                                    android:textColor="@color/eat_color"
                                     android:textSize="20sp"
-                                    android:textStyle="bold"/>
-
+                                    android:textStyle="bold"
+                                    android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}" />
 
 
                                 <LinearLayout
-                                    android:visibility="@{viewModel.titleVisible?View.GONE:View.VISIBLE}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:visibility="@{viewModel.titleVisible?View.GONE:View.VISIBLE}">
 
 
                                     <TextView
@@ -119,19 +119,19 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:fontFamily="sans-serif-medium"
-                                            android:text="@{viewModel.addressTitle}"
                                             android:onClick="@{()->viewModel.selectAddress()}"
+                                            android:text="@{viewModel.addressTitle}"
                                             android:textColor="@color/black"
                                             android:textSize="18sp" />
 
 
                                         <TextView
-                                            android:onClick="@{()->viewModel.selectAddress()}"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginLeft="10dp"
                                             android:fontFamily="sans-serif-medium"
+                                            android:onClick="@{()->viewModel.selectAddress()}"
                                             android:rotation="90"
                                             android:text=">"
                                             android:textColor="@color/eat_color"
@@ -155,6 +155,7 @@
                         android:id="@+id/content_main"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+
 
                 </LinearLayout>
 
@@ -193,12 +194,105 @@
             android:layout_gravity="center"
             android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
 
+
         <LinearLayout
             android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/live_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.isLiveOrder?View.VISIBLE:View.GONE}">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/gradient_view"
+                    android:rotation="180" />
+                <!--android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}"-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/curve_stroke"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:imageUrl="@{viewModel.kitchenImage}" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:minLines="2"
+                        android:text="@{viewModel.kitchenName}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center"
+                        android:minLines="2"
+                        android:text="@string/eta"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:minLines="2"
+                        android:text="@{viewModel.eta}"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center|end"
+                        android:minLines="2"
+                        android:onClick="@{()->viewModel.trackLiveOrder()}"
+                        android:text="@string/track"
+                        android:textColor="@color/eat_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <View
                 android:id="@+id/bo_view"
@@ -227,11 +321,11 @@
 
 
                 <LinearLayout
-                    android:onClick="@{()->viewModel.gotoHome()}"
                     android:id="@+id/home"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoHome()}"
                     android:orientation="vertical">
 
                     <ImageView
@@ -254,11 +348,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="@{()->viewModel.gotoExplore()}"
                     android:id="@+id/explore"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoExplore()}"
                     android:orientation="vertical">
 
                     <ImageView
@@ -281,18 +375,18 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="@{()->viewModel.gotoCart()}"
                     android:id="@+id/cart"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoCart()}"
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:gravity="center_horizontal"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
 
                         <LinearLayout
                             android:layout_width="50dp"
@@ -326,21 +420,21 @@
                             android:background="@drawable/badge_circle"
                             android:elevation="7dp"
                             android:gravity="center"
-                            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}"
                             android:text="@{viewModel.numOfCarts}"
                             android:textColor="@color/white"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="@{()->viewModel.gotoAccount()}"
                     android:id="@+id/account"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">
 
                     <ImageView

@@ -78,9 +78,9 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-    public void updateCurrentAddress(String title,String address,double lat,double lng){
+    public void updateCurrentAddress(String title,String address,double lat,double lng,String area){
 
-        getDataManager().updateCurrentAddress(title,address,lat,lng);
+        getDataManager().updateCurrentAddress(title,address,lat,lng,area);
 
     }
 
@@ -93,7 +93,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+12, SelectAddressListResponse.class,new Response.Listener<SelectAddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+1, SelectAddressListResponse.class,new Response.Listener<SelectAddressListResponse>() {
                 @Override
                 public void onResponse(SelectAddressListResponse response) {
                     if (response != null) {

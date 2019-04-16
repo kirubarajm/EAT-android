@@ -124,6 +124,7 @@
 
 
         <LinearLayout
+            android:visibility="@{kitchenDishViewModel.cart?View.VISIBLE:View.GONE}"
             android:id="@+id/cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +135,6 @@
             app:layout_anchor="@+id/frame"
             app:layout_anchorGravity="left|bottom">
 
-
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,7 +143,6 @@
                 android:text="@{kitchenDishViewModel.cartItems}"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:layout_width="wrap_content"
@@ -181,6 +180,7 @@
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
+                android:onClick="@{()->kitchenDishViewModel.viewCart()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

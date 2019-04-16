@@ -65,6 +65,10 @@ public interface PreferencesHelper {
 
     void setCurrentAddressArea(String area);
 
+    String getCurrentAddress();
+
+    void setCurrentAddress(String area);
+
 
 
     String getCurrentLat();
@@ -83,7 +87,16 @@ public interface PreferencesHelper {
     Integer getMakeitID();
 
 
-    void setMakeitID(Integer lng);
+    void setMakeitID(Integer id);
+
+
+
+    Integer getOrderId();
+
+
+    void setOrderId(Integer orderId);
+
+
 
 
 }
