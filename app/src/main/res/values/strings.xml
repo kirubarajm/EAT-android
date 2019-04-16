@@ -372,10 +372,10 @@
     <string name="select_payment_mode">Select payment mode</string>
     <string name="filter_sort">Filter/Sort</string>
     <string name="clear_all">Clear all</string>
-<<<<<<< HEAD
+
     <string name="track">TRACK</string>
     <string name="eta">ETA</string>
-=======
+
     <string name="support">Support</string>
     <string name="feedBack">FeedBack</string>
     <string name="any_doubts_write_to_us">Any doubts? Write to us</string>
@@ -383,5 +383,5 @@
     <string name="no_chat_found">No chat found</string>
     <string name="type_here">Enter Reply</string>
     <string name="send_referrals">Send Referrals</string>
->>>>>>> 92db718a7d380f399721dce91a73e9dedb100d45
+
 </resources>
