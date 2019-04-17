@@ -9,4 +9,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
         super(dataManager);
     }
 
+    public void sendReferrals(){
+        getNavigator().sendReferralsClick();
+    }
 }

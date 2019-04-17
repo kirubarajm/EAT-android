@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.tovo.eat.BR;
@@ -13,7 +11,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentMyAccountBinding;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
+import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 
@@ -95,7 +94,8 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
 
     @Override
     public void orderHistory() {
-
+        Intent intent = OrderHistoryActivity.newIntent(getContext());
+        startActivity(intent);
     }
 
     @Override
@@ -111,7 +111,8 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
 
     @Override
     public void referrals() {
-
+        Intent intent = ReferralsActivity.newIntent(getContext());
+        startActivity(intent);
     }
 
     @Override

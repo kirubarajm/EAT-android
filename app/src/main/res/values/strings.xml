@@ -383,7 +383,11 @@
     <string name="no_chat_found">No chat found</string>
     <string name="type_here">Enter Reply</string>
     <string name="send_referrals">Send Referrals</string>
+<<<<<<< HEAD
     <string name="order_details">Order Details</string>
     <string name="my_account">My Account</string>
+=======
+    <string name="no_history_found">No history found</string>
+>>>>>>> 8b4a26e6754719d75870c5d51159f0cf7a72e5f6
 
 </resources>
