@@ -6,89 +6,41 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PlaceOrderRequestPojo {
-
     @SerializedName("userid")
     @Expose
     private Integer userid;
-    @SerializedName("locality")
-    @Expose
-    private String locality;
-    @SerializedName("delivery_charge")
-    @Expose
-    private String deliveryCharge;
     @SerializedName("ordertype")
     @Expose
     private Integer ordertype;
-    @SerializedName("orderstatus")
-    @Expose
-    private Integer orderstatus;
-    @SerializedName("gst")
-    @Expose
-    private Double gst;
     @SerializedName("payment_type")
     @Expose
     private Integer paymentType;
-    @SerializedName("lock_status")
+    @SerializedName("makeit_userid")
     @Expose
-    private Integer lockStatus;
-    @SerializedName("makeit_user_id")
-    @Expose
-    private Integer makeitUserId;
+    private Integer makeitUserid;
     @SerializedName("payment_status")
     @Expose
     private Integer paymentStatus;
-    @SerializedName("cus_lat")
+    @SerializedName("address_type")
     @Expose
-    private String cusLat;
-    @SerializedName("cus_lon")
-    @Expose
-    private String cusLon;
-    @SerializedName("cus_address")
-    @Expose
-    private String cusAddress;
-    @SerializedName("price")
-    @Expose
-    private Double price;
+    private Integer addressType;
     @SerializedName("orderitems")
     @Expose
     private List<Orderitem> orderitems = null;
 
 
+    public PlaceOrderRequestPojo() {
+    }
 
-
-
-
-    public PlaceOrderRequestPojo(Integer userid, String locality, String deliveryCharge, Integer ordertype, Integer orderstatus, Double gst, Integer paymentType, Integer lockStatus, Integer makeitUserId, Integer paymentStatus, String cusLat, String cusLon, String cusAddress, Double price, List<Orderitem> orderitems) {
+    public PlaceOrderRequestPojo(Integer userid, Integer ordertype, Integer paymentType, Integer makeitUserid, Integer paymentStatus, Integer addressType, List<Orderitem> orderitems) {
         this.userid = userid;
-        this.locality = locality;
-        this.deliveryCharge = deliveryCharge;
         this.ordertype = ordertype;
-        this.orderstatus = orderstatus;
-        this.gst = gst;
         this.paymentType = paymentType;
-        this.lockStatus = lockStatus;
-        this.makeitUserId = makeitUserId;
+        this.makeitUserid = makeitUserid;
         this.paymentStatus = paymentStatus;
-        this.cusLat = cusLat;
-        this.cusLon = cusLon;
-        this.cusAddress = cusAddress;
-        this.price = price;
+        this.addressType = addressType;
         this.orderitems = orderitems;
     }
-
-
-    public PlaceOrderRequestPojo() {
-
-    }
-
-
-
-
-
-
-
-
-
 
     public Integer getUserid() {
         return userid;
@@ -96,22 +48,6 @@ public class PlaceOrderRequestPojo {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
-    }
-
-    public String getLocality() {
-        return locality;
-    }
-
-    public void setLocality(String locality) {
-        this.locality = locality;
-    }
-
-    public String getDeliveryCharge() {
-        return deliveryCharge;
-    }
-
-    public void setDeliveryCharge(String deliveryCharge) {
-        this.deliveryCharge = deliveryCharge;
     }
 
     public Integer getOrdertype() {
@@ -122,22 +58,6 @@ public class PlaceOrderRequestPojo {
         this.ordertype = ordertype;
     }
 
-    public Integer getOrderstatus() {
-        return orderstatus;
-    }
-
-    public void setOrderstatus(Integer orderstatus) {
-        this.orderstatus = orderstatus;
-    }
-
-    public Double getGst() {
-        return gst;
-    }
-
-    public void setGst(Double gst) {
-        this.gst = gst;
-    }
-
     public Integer getPaymentType() {
         return paymentType;
     }
@@ -146,20 +66,12 @@ public class PlaceOrderRequestPojo {
         this.paymentType = paymentType;
     }
 
-    public Integer getLockStatus() {
-        return lockStatus;
+    public Integer getMakeitUserid() {
+        return makeitUserid;
     }
 
-    public void setLockStatus(Integer lockStatus) {
-        this.lockStatus = lockStatus;
-    }
-
-    public Integer getMakeitUserId() {
-        return makeitUserId;
-    }
-
-    public void setMakeitUserId(Integer makeitUserId) {
-        this.makeitUserId = makeitUserId;
+    public void setMakeitUserid(Integer makeitUserid) {
+        this.makeitUserid = makeitUserid;
     }
 
     public Integer getPaymentStatus() {
@@ -170,36 +82,12 @@ public class PlaceOrderRequestPojo {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getCusLat() {
-        return cusLat;
+    public Integer getAddressType() {
+        return addressType;
     }
 
-    public void setCusLat(String cusLat) {
-        this.cusLat = cusLat;
-    }
-
-    public String getCusLon() {
-        return cusLon;
-    }
-
-    public void setCusLon(String cusLon) {
-        this.cusLon = cusLon;
-    }
-
-    public String getCusAddress() {
-        return cusAddress;
-    }
-
-    public void setCusAddress(String cusAddress) {
-        this.cusAddress = cusAddress;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setAddressType(Integer addressType) {
+        this.addressType = addressType;
     }
 
     public List<Orderitem> getOrderitems() {
@@ -210,9 +98,6 @@ public class PlaceOrderRequestPojo {
         this.orderitems = orderitems;
     }
 
-
-
-
     public static class Orderitem {
 
         @SerializedName("productid")
@@ -221,22 +106,12 @@ public class PlaceOrderRequestPojo {
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
-        @SerializedName("price")
-        @Expose
-        private Integer price;
 
 
         public Orderitem() {
 
         }
 
-        public Integer getPrice() {
-            return price;
-        }
-
-        public void setPrice(Integer price) {
-            this.price = price;
-        }
 
         public Orderitem(Integer productid, Integer quantity) {
             this.productid = productid;

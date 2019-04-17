@@ -12,6 +12,18 @@ public class CommonResponse {
     @Expose
     private String message;
 
+    @SerializedName("favid")
+    @Expose
+    private Integer favid;
+
+    public Integer getFavid() {
+        return favid;
+    }
+
+    public void setFavid(Integer favid) {
+        this.favid = favid;
+    }
+
     public String getSuccess() {
         return success;
     }

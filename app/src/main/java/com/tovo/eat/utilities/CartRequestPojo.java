@@ -10,7 +10,7 @@ public class CartRequestPojo {
     @SerializedName("makeit_userid")
     @Expose
     private Integer makeitUserid;
-    @SerializedName("cartitems")
+    @SerializedName("orderitems")
     @Expose
     private List<Cartitem> cartitems = null;
 

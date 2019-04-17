@@ -43,11 +43,11 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
     public ObservableBoolean cart = new ObservableBoolean();
 
 
-    public ObservableBoolean fav = new ObservableBoolean();
-
-
+    public ObservableBoolean isFavourite = new ObservableBoolean();
     public ObservableField<KitchenDishResponse> kitchenDishModells = new ObservableField<>();
-
+    int favId;
+    int makeitId;
+    String isFav;
     private MutableLiveData<List<KitchenDishResponse.Productlist>> dishItemsLiveData;
 
 
@@ -109,7 +109,20 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
     }
 
 
-    public void removeFavourite(Integer favId){
+    public void fav() {
+        if (isFavourite.get()) {
+            removeFavourite(favId);
+            isFavourite.set(false);
+
+        } else  {
+            addFavourite(makeitId);
+            isFavourite.set(true);
+        }
+        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
+    }
+
+
+    public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -117,7 +130,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL+favId, CommonResponse.class, null,new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -143,9 +156,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
     }
 
 
-
-
-    public void addFavourite(Integer kitchenId){
+    public void addFavourite(Integer kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -153,7 +164,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(1),String.valueOf(kitchenId)),new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(1), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -177,13 +188,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         }
 
 
-
-
-
     }
-
-
-
 
 
     public void totalCart() {
@@ -197,7 +202,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             cartRequestPojo = new CartRequestPojo();
 
         int count = 0;
-        int price=0;
+        int price = 0;
 
         if (cartRequestPojo.getCartitems() != null) {
 
@@ -210,7 +215,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
                     count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
-                    price=price+((cartRequestPojo.getCartitems().get(i).getPrice())*cartRequestPojo.getCartitems().get(i).getQuantity());
+                    price = price + ((cartRequestPojo.getCartitems().get(i).getPrice()) * cartRequestPojo.getCartitems().get(i).getQuantity());
 
                 }
 
@@ -246,11 +251,11 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
-        Integer kitchenId= getDataManager().getMakeitID();
+        Integer kitchenId = getDataManager().getMakeitID();
 
 
         //  setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),kitchenId), new Response.Listener<KitchenDishResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId), new Response.Listener<KitchenDishResponse>() {
             @Override
             public void onResponse(KitchenDishResponse response) {
                 if (response != null) {
@@ -262,6 +267,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     dishFullItemViewModels.addAll(response.getResult());
 
+                    makeitId = response.getResult().get(0).getMakeituserid();
 
                     if (response.getResult().get(0).getMakeitbrandname() == null) {
 
@@ -274,13 +280,20 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     kitchenImage.set(response.getResult().get(0).getMakeitimg());
 
-                    if (response.getResult().get(0).getFavid() != null)
-                        if (response.getResult().get(0).getFavid().equals("0")) {
-                            fav.set(false);
-                        } else {
 
-                            fav.set(true);
-                        }
+                    isFav = response.getResult().get(0).getIsfav();
+
+
+                    if (response.getResult().get(0).getFavid() != null) {
+                        favId = response.getResult().get(0).getFavid();
+                        favId = response.getResult().get(0).getFavid();
+                    }
+                    if (response.getResult().get(0).getIsfav().equals("0")) {
+                        isFavourite.set(false);
+                    } else {
+
+                        isFavourite.set(true);
+                    }
 
 
                     Log.e("----response:---------", response.toString());
@@ -304,7 +317,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
     }
 
 
-    public void viewCart(){
+    public void viewCart() {
 
         getNavigator().viewCart();
     }

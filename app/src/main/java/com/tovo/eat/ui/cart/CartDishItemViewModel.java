@@ -27,11 +27,9 @@ public class CartDishItemViewModel {
     private final DishItemViewModelListener mListener;
     private final CartPageResponse.Item dishList;
 
-    private final List<CartRequestPojo.Cartitem > results = new ArrayList<>();
-
-    private CartRequestPojo cartRequestPojo = new CartRequestPojo();
-
+    private final List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     private final CartRequestPojo.Cartitem cartRequestPojoResult = new CartRequestPojo.Cartitem();
+    private CartRequestPojo cartRequestPojo = new CartRequestPojo();
 
 
     public CartDishItemViewModel(DishItemViewModelListener mListener, CartPageResponse.Item dishList) {
@@ -54,7 +52,7 @@ public class CartDishItemViewModel {
         if (dishList.getVegtype().equalsIgnoreCase("0")) {
 
             veg_type.set("Veg");
-        }else {
+        } else {
             veg_type.set("Non-Veg");
 
         }
@@ -65,13 +63,13 @@ public class CartDishItemViewModel {
     public void addClicked() throws NullPointerException {
 
 
-        int checkQuantity=quantity.get();
+        int checkQuantity = quantity.get();
 
 
-        if (checkQuantity+1<=dishList.getQuantity()){
+        if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
 
-        }else {
+        } else {
             mListener.productNotAvailable();
             return;
         }
@@ -104,6 +102,7 @@ public class CartDishItemViewModel {
                     if (dishList.getProductid().equals(results.get(i).getProductid())) {
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
+                        cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.set(i, cartRequestPojoResult);
 
 
@@ -113,6 +112,7 @@ public class CartDishItemViewModel {
 
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
+                        cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.add(cartRequestPojoResult);
 
 
@@ -167,20 +167,18 @@ public class CartDishItemViewModel {
 
 
                     if (dishList.getProductid().equals(results.get(i).getProductid())) {
-                        cartRequestPojoResult.setProductid(dishList.getProductid());
-                        cartRequestPojoResult.setQuantity(quantity.get());
-                        results.set(i, cartRequestPojoResult);
 
 
-                    } else {
-                        cartRequestPojo.setCartitems(null);
-                        results.clear();
+                        if (quantity.get() == 0) {
+                            results.remove(i);
+                        } else {
 
-                        cartRequestPojoResult.setProductid(dishList.getProductid());
-                        cartRequestPojoResult.setQuantity(quantity.get());
-                        results.add(cartRequestPojoResult);
+                            cartRequestPojoResult.setProductid(dishList.getProductid());
+                            cartRequestPojoResult.setQuantity(quantity.get());
+                            cartRequestPojoResult.setPrice(dishList.getPrice());
+                            results.set(i, cartRequestPojoResult);
 
-
+                        }
                     }
                 }
 
@@ -235,15 +233,15 @@ public class CartDishItemViewModel {
                     if (dishList.getProductid().equals(results.get(i).getProductid())) {
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
+                        cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.set(i, cartRequestPojoResult);
 
 
                     } else {
-                        cartRequestPojo.setCartitems(null);
-                        results.clear();
 
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
+                        cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.add(cartRequestPojoResult);
 
 

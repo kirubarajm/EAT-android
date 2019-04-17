@@ -143,7 +143,7 @@ public class KitchenDishResponse {
         private String makeitimg;
         @SerializedName("favid")
         @Expose
-        private String favid;
+        private Integer favid;
 
         @SerializedName("isfav")
         @Expose
@@ -194,11 +194,11 @@ public class KitchenDishResponse {
             this.makeitimg = makeitimg;
         }
 
-        public Object getFavid() {
+        public Integer getFavid() {
             return favid;
         }
 
-        public void setFavid(String favid) {
+        public void setFavid(Integer favid) {
             this.favid = favid;
         }
 

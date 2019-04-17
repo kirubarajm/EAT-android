@@ -59,6 +59,9 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
         mFragmentMyAccountBinding = getViewDataBinding();
         mMyAccountViewModel.setNavigator(this);
 
+
+
+
         //   ((MainActivity) getActivity()).setActionBarTitle("My Account");
 
     }
@@ -68,6 +71,7 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
         super.onViewCreated(view, savedInstanceState);
         // mFragmentMyAccountBinding = getViewDataBinding();
 
+        mMyAccountViewModel.toolbarTitle.set(getString(R.string.my_account));
     }
 
     @Override

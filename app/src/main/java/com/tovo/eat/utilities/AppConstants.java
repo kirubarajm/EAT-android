@@ -37,9 +37,11 @@ public class AppConstants {
     public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
     public static final String EAT_CART_DETAILS_URL =TEMP_URL_LIVE+ "cartdetails/";
 
-    public static final String EAT_CREATE_ORDER_URL =TEMP_URL_LIVE+ "order/add";
+    public static final String EAT_CREATE_ORDER_URL =TEMP_URL_LIVE+ "proceedtopay";
 
-    public static final String EAT_LIVE_ORDER_URL =TEMP_URL+ "liveorders/";
+    public static final String EAT_ORDER_DETAILS_URL =TEMP_URL_LIVE+ "order/";
+
+    public static final String EAT_LIVE_ORDER_URL =TEMP_URL_LIVE+ "liveorders/";
 
     public static final String EAT_FAV_URL =TEMP_URL_LIVE+ "fav/";
 
@@ -47,6 +49,7 @@ public class AppConstants {
 
 
 
+    
 
     public static final String PACKAGE_NAME = "com.tovo.sales";
 

@@ -64,8 +64,6 @@ public class KitchenResponse {
         @Expose
         private String eta;
 
-
-
         @SerializedName("favid")
         @Expose
         private Integer favid;

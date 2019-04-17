@@ -187,6 +187,11 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void productNotAvailable() {
             mLiveProductsAdapterListener.productNotAvailable();
         }
+
+        @Override
+        public Integer getEatId() {
+            return 1;
+        }
     }
 
 }

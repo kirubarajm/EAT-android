@@ -1,0 +1,159 @@
+package com.tovo.eat.ui.track;
+
+
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.MvvmApp;
+
+public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator> {
+
+
+    public final ObservableField<String> lng = new ObservableField<>();
+    public final ObservableField<String> addressTitle = new ObservableField<>();
+    public final ObservableField<String> kitchenName = new ObservableField<>();
+    public final ObservableField<String> moveitName = new ObservableField<>();
+    public final ObservableField<String> moveitPhone = new ObservableField<>();
+    public final ObservableField<String> eta = new ObservableField<>();
+
+
+    public final ObservableField<String> orderReceivedStatus = new ObservableField<>();
+    public final ObservableField<String> orderPreparedStatus = new ObservableField<>();
+    public final ObservableField<String> orderDeliveryStatus = new ObservableField<>();
+
+
+    public final ObservableBoolean isReeceived = new ObservableBoolean();
+    public final ObservableBoolean isPrepared = new ObservableBoolean();
+    public final ObservableBoolean isDeliverd = new ObservableBoolean();
+
+
+    String deliveryManNumber;
+
+
+    public OrderTrackingViewModel(DataManager dataManager) {
+        super(dataManager);
+        getOrderDetails();
+    }
+
+    public void callDeliveryMan() {
+
+        getNavigator().callDeliveryMan(deliveryManNumber);
+
+    }
+
+    public void backClick() {
+        getNavigator().clickBack();
+
+    }
+
+    public void getOrderDetails() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_DETAILS_URL + getDataManager().getOrderId(), OrderTrackingResponse.class, new Response.Listener<OrderTrackingResponse>() {
+                @Override
+                public void onResponse(OrderTrackingResponse response) {
+                    if (response != null) {
+                        Log.e("----response:---------", response.toString());
+
+
+                        addressTitle.set(response.getResult().get(0).getLocality());
+
+                        if (response.getResult().get(0).getMakeitdetail().getBrandName() != null) {
+                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getBrandName());
+
+                        } else {
+                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
+                        }
+
+                        eta.set(response.getResult().get(0).getLocality());
+
+                        if (response.getResult().get(0).getMoveitdetail().getName() != null) {
+                            moveitName.set(response.getResult().get(0).getMoveitdetail().getName());
+                            moveitPhone.set(response.getResult().get(0).getMoveitdetail().getPhoneno());
+                            deliveryManNumber = response.getResult().get(0).getMoveitdetail().getPhoneno();
+
+                        }
+                        getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
+
+
+                       /* 0 -orderput   - est user
+                        1- order accept - makeit user
+                        2- order Prepare - makeit user
+                        3- order packed - makeit user
+                        4- kitchen reached - Move it
+                        5- order pickedup - Move it
+                        6- order delivered - Move it*/
+
+
+                        if (response.getResult().get(0).getOrderstatus() == 1) {
+                            isReeceived.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Preparing your order");
+
+                        } else if (response.getResult().get(0).getOrderstatus() == 2) {
+                            isReeceived.set(true);
+                            isPrepared.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Order Prepared");
+
+                        } else if (response.getResult().get(0).getOrderstatus() == 3) {
+                            isReeceived.set(true);
+                            isPrepared.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Order Prepared");
+                        } else if (response.getResult().get(0).getOrderstatus() == 4) {
+                            isReeceived.set(true);
+                            isPrepared.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Order Prepared");
+                        } else if (response.getResult().get(0).getOrderstatus() == 5) {
+                            isReeceived.set(true);
+                            isPrepared.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Order Prepared");
+                            orderDeliveryStatus.set("On the way");
+
+                            getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+
+                        } else if (response.getResult().get(0).getOrderstatus() == 6) {
+                            isReeceived.set(true);
+                            isPrepared.set(true);
+                            isDeliverd.set(true);
+                            orderReceivedStatus.set("Order received");
+                            orderPreparedStatus.set("Order Prepared");
+                            orderDeliveryStatus.set("Order delivered");
+                            getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                        }
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+}

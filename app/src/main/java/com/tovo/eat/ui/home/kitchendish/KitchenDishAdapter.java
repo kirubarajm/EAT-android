@@ -201,6 +201,11 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void refresh() {
             mLiveProductsAdapterListener.dishRefresh();
         }
+
+        @Override
+        public Integer getEatId() {
+            return 1;
+        }
     }
 
 }

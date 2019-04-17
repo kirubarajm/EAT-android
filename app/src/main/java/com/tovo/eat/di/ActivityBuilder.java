@@ -50,6 +50,8 @@ import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
+import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.ui.track.OrderTrackingModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -110,6 +112,12 @@ public abstract class ActivityBuilder {
 
    @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
     abstract ReferralsActivity bindReferralskActivity();
+
+
+
+    @ContributesAndroidInjector(modules = OrderTrackingModule.class)
+    abstract OrderTrackingActivity bindOrderTrackingActivity();
+
 
 
 }

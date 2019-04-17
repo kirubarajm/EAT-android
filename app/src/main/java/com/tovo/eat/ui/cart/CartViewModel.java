@@ -41,6 +41,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> makeit_brand_name = new ObservableField<>();
     public final ObservableField<String> buttonText = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> toolbarTitle = new ObservableField<>();
 
 
     public final ObservableBoolean payment = new ObservableBoolean();
@@ -194,16 +195,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             orderitem.setProductid(cartitems.get(i).getProductid());
             orderitem.setQuantity(cartitems.get(i).getQuantity());
-            orderitem.setPrice(cartitems.get(i).getPrice());
             orderitems.add(orderitem);
         }
 
 
         placeOrderRequestPojo.setOrderitems(orderitems);
 
-        placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+        placeOrderRequestPojo.setMakeitUserid(cartRequestPojo.getMakeitUserid());
 
-        PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(1,getDataManager().getCurrentAddressArea(),delivery_charge.get(),1,0,Double.parseDouble(gst.get()),0,0,cartRequestPojo.getMakeitUserid(),1,getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentAddress(),Double.parseDouble(grand_total.get()),orderitems );
+        PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(1,1,0,cartRequestPojo.getMakeitUserid(),0,1,orderitems );
 
 
         Gson gson = new Gson();

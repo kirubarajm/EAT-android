@@ -36,6 +36,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.track.OrderTrackingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,9 +170,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void trackLiveOrder(Integer orderId) {
 
+       // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
-
+        Intent intent= OrderTrackingActivity.newIntent(MainActivity.this);
+        startActivity(intent);
 
     }
 
@@ -310,6 +312,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onResume() {
         super.onResume();
 
+        mMainViewModel.totalCart();
 
         mMainViewModel.liveOrders();
 

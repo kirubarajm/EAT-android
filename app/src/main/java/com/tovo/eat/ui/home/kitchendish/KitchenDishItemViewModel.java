@@ -4,9 +4,17 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +48,9 @@ public class KitchenDishItemViewModel {
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
 
     KitchenDishResponse.Result response = new KitchenDishResponse.Result();
+
+
+    Integer favID;
 
 
     public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response) {
@@ -117,15 +128,10 @@ public class KitchenDishItemViewModel {
                 isAddClicked.set(false);
             }
 
-
-        if (dishList.getIsfav() != null) {
-            if (dishList.getIsfav().equals("0")) {
-                this.isFavourite.set(false);
-            } else {
-                this.isFavourite.set(true);
-            }
-        } else {
+        if (dishList.getIsfav().equals("0")) {
             this.isFavourite.set(false);
+        } else {
+            this.isFavourite.set(true);
         }
 
     }
@@ -237,12 +243,20 @@ public class KitchenDishItemViewModel {
                         if (originalResult.getMakeituserid().equals(cartRequestPojo.getMakeitUserid())) {
 
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
+
+                                if (quantity.get() == 0) {
+
+                                    results.remove(i);
+                                }
+                            } else {
                                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
                                 cartRequestPojoCartitem.setQuantity(quantity.get());
                                 cartRequestPojoCartitem.setPrice(dishList.getPrice());
                                 results.set(i, cartRequestPojoCartitem);
                             }
+
                         }
+
                     }
 
                 }
@@ -251,6 +265,14 @@ public class KitchenDishItemViewModel {
 
         }
 
+
+        if (quantity.get() == 0) {
+            isAddClicked.set(false);
+
+
+        }
+
+
         cartRequestPojo.setCartitems(results);
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
@@ -258,10 +280,6 @@ public class KitchenDishItemViewModel {
 
         Log.e("cart", json);
 
-        if (quantity.get() == 0) {
-            isAddClicked.set(false);
-
-        }
         mListener.refresh();
     }
 
@@ -326,13 +344,13 @@ public class KitchenDishItemViewModel {
 
                             cartRequestPojo.setMakeitUserid(response.getMakeituserid());
 
-
+                            results.clear();
                             cartRequestPojo.setCartitems(null);
 
                             cartRequestPojoCartitem.setProductid(dishList.getProductid());
                             cartRequestPojoCartitem.setQuantity(quantity.get());
                             cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                            results.clear();
+
 
                             results.add(cartRequestPojoCartitem);
 
@@ -373,16 +391,92 @@ public class KitchenDishItemViewModel {
 
 
     public void fav() {
+
+
+        if (isFavourite.get()) {
+            removeFavourite();
+            isFavourite.set(false);
+        } else {
+            addFavourite(dishList.getProductid());
+            isFavourite.set(true);
+        }
+
+       /*
         if (dishList.getIsfav().equalsIgnoreCase("0")) {
-            mListener.addFavourites(dishList.getFavid(), dishList.getIsfav());
+            mListener.addFavourites(dishList.getProductid(), dishList.getIsfav());
+            isFavourite.set(true);
         } else if (dishList.getIsfav().equalsIgnoreCase("1")) {
             if (dishList.getFavid() != null)
                 mListener.removeFavourites(dishList.getFavid());
-
+            isFavourite.set(false);
         } else {
             isFavourite.set(false);
-        }
+        }*/
         //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
+    }
+
+
+    public void removeFavourite() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void addFavourite(Integer kitchenId) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(mListener.getEatId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+                        favID = response.getFavid();
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
@@ -418,6 +512,10 @@ public class KitchenDishItemViewModel {
         void productNotAvailable();
 
         void refresh();
+
+
+        Integer getEatId();
+
 
     }
 

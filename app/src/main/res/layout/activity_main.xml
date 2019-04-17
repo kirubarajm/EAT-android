@@ -50,6 +50,7 @@
 
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/main_tool_bar"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
@@ -82,7 +83,7 @@
                                     android:visibility="gone" />
 
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
+                               <!-- <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/title_toolbar"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -92,11 +93,11 @@
                                     android:textColor="@color/eat_color"
                                     android:textSize="20sp"
                                     android:textStyle="bold"
-                                    android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}" />
+                                    android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}" />-->
 
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:orientation="vertical"
@@ -140,6 +141,52 @@
 
                                     </LinearLayout>
                                 </LinearLayout>
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <LinearLayout
+                                        android:layout_marginRight="15dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginEnd="15dp">
+
+                                        <ImageView
+                                            android:layout_marginRight="10dp"
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:gravity="center"
+                                            android:src="@drawable/ic_star_black_24dp"
+                                            android:tint="@color/dark_gray"
+                                            android:layout_marginEnd="10dp" />
+
+
+                                        <ImageView
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:gravity="center"
+                                            android:src="@drawable/ic_sort_black_24dp"
+                                            android:tint="@color/dark_gray" />
+
+
+                                    </LinearLayout>
+
+
+
+
+
+                                </RelativeLayout>
+
+
+
 
                             </LinearLayout>
 
@@ -314,24 +361,26 @@
 
 
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
 
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/home"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoHome()}"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
                         android:gravity="center"
                         android:src="@drawable/ic_home_black_24dp"
                         android:tint="@color/dark_gray" />
@@ -350,14 +399,14 @@
                 <LinearLayout
                     android:id="@+id/explore"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoExplore()}"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:src="@drawable/ic_search_black_24dp"
@@ -377,7 +426,7 @@
                 <LinearLayout
                     android:id="@+id/cart"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoCart()}"
                     android:orientation="vertical">
@@ -394,8 +443,8 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center"
                                 android:src="@drawable/ic_shopping_cart_black_24dp"
@@ -416,7 +465,7 @@
                         <TextView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginLeft="35dp"
+                            android:layout_marginLeft="30dp"
                             android:background="@drawable/badge_circle"
                             android:elevation="7dp"
                             android:gravity="center"
@@ -432,14 +481,14 @@
                 <LinearLayout
                     android:id="@+id/account"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:src="@drawable/ic_perm_identity_black_24dp"

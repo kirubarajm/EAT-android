@@ -65,6 +65,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+
         //   ((MainActivity) getActivity()).setActionBarTitle("My Account");
 
     }
@@ -73,6 +75,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivityCartBinding = getViewDataBinding();
+
+        mCartViewModel.toolbarTitle.set(getString(R.string.cart));
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
