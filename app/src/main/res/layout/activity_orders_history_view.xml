@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="OrdersHistryViewModel"
+            type="com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityViewModelView" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_history_view"
+            style="@style/Toolbar"
+            android:background="@color/primary_new"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/green">
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/toolbar_history_view"
+            android:background="@color/black" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view">
+
+            <RelativeLayout
+                android:id="@+id/rel_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/rel_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="30dp">
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:id="@+id/txt_kitchen_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="JAI Kitchen" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:id="@+id/txt_delivered"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_kitchen_name"
+                        android:text="Delivered:" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:id="@+id/txt_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_delivered"
+                        android:layout_marginTop="40dp"
+                        android:text="Home" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:id="@+id/txt_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_home"
+                        android:text="@{OrdersHistryViewModel.address}" />
+                </RelativeLayout>
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:id="@+id/txt_order_delivered_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rel_1"
+                    android:text="Order delivered on 4 March 2019 At 2.20pm" />
+
+                <View
+                    android:id="@+id/view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/txt_order_delivered_date_time"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/black" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:id="@+id/txt_order_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_1"
+                    android:layout_marginTop="10dp"
+                    android:text="Order details" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/txt_order_details"
+                    android:layout_marginTop="5dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerview_orders_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:background="@android:color/white"
+                        app:adapter="@{OrdersHistryViewModel.ordersItemViewModels}"
+                        tools:listitem="@layout/list_item_orders_history_item" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rel_repeat_this_order"
+                android:layout_margin="10dp">
+
+                <LinearLayout
+                    android:id="@+id/linear_amt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:text="Total cart amount" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingRight="5dp"
+                        android:text="INR.240" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_amt"
+                    android:layout_marginTop="10dp"
+                    android:text="Paid through google upi" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rel_repeat_this_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:padding="10dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stoke"
+                    android:text="Repeat This Order"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

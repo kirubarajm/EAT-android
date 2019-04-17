@@ -38,12 +38,15 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
+import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.address.list.AddressListAdapter;
 import com.tovo.eat.ui.address.list.AddressListResponse;
 import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
 import com.tovo.eat.ui.address.select.SelectAddressListResponse;
 import com.tovo.eat.ui.cart.CartDishAdapter;
-import com.tovo.eat.ui.cart.CartDishResponse;
 import com.tovo.eat.ui.cart.CartPageResponse;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
@@ -76,16 +79,14 @@ public final class BindingUtils {
 
 
     @BindingAdapter({"adapter"})
-    public static void addKitchenDishItems(RecyclerView recyclerView,List<KitchenDishResponse.Result> response) {
+    public static void addKitchenDishItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {
         KitchenDishAdapter adapter = (KitchenDishAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
 
-            adapter.addItems(response.get(0).getProductlist(),response);
+            adapter.addItems(response.get(0).getProductlist(), response);
         }
     }
-
-
 
 
     @BindingAdapter({"adapter"})
@@ -117,9 +118,8 @@ public final class BindingUtils {
     }
 
 
-
-       @BindingAdapter({"adapter"})
-    public static void addAddressListItems(RecyclerView recyclerView,List<AddressListResponse.Result> response) {
+    @BindingAdapter({"adapter"})
+    public static void addAddressListItems(RecyclerView recyclerView, List<AddressListResponse.Result> response) {
         AddressListAdapter adapter = (AddressListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
@@ -129,7 +129,7 @@ public final class BindingUtils {
 
 
     @BindingAdapter({"adapter"})
-    public static void addSelectAddressListItems(RecyclerView recyclerView,List<SelectAddressListResponse.Result> response) {
+    public static void addSelectAddressListItems(RecyclerView recyclerView, List<SelectAddressListResponse.Result> response) {
         SelectAddressListAdapter adapter = (SelectAddressListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
@@ -161,7 +161,7 @@ public final class BindingUtils {
         Context context = imageView.getContext();
         if (type.equals("0")) {
             imageView.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             imageView.setVisibility(View.VISIBLE);
         }
     }
@@ -171,8 +171,8 @@ public final class BindingUtils {
         Context context = imageView.getContext();
         if (type.equals("0")) {
             imageView.setVisibility(View.VISIBLE);
-        }else {
-            imageView.setVisibility(View.INVISIBLE   );
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -181,7 +181,7 @@ public final class BindingUtils {
         Context context = imageView.getContext();
         if (type.equals("0")) {
             imageView.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             imageView.setVisibility(View.VISIBLE);
         }
     }
@@ -191,8 +191,8 @@ public final class BindingUtils {
         Context context = imageView.getContext();
         if (type.equals("0")) {
             imageView.setVisibility(View.VISIBLE);
-        }else {
-            imageView.setVisibility(View.INVISIBLE   );
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -210,13 +210,12 @@ public final class BindingUtils {
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-        Glide.with(context).load(url).placeholder(R.drawable. images_loading)
+        Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
         Glide.with(context).load(url).into(imageView);
     }
-
 
 
     @BindingAdapter("cusrsiveImageUrl")
@@ -231,38 +230,49 @@ public final class BindingUtils {
     }
 
 
-
-
     @BindingAdapter("setBitmap")
     public static void setBitmap(ImageView imageView, Bitmap bitmap) {
         Context context = imageView.getContext();
-       imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(bitmap);
     }
 
 
-
-
-
-    @BindingAdapter({ "setWebViewClient" })
+    @BindingAdapter({"setWebViewClient"})
     public static void setWebViewClient(WebView view, WebViewClient client) {
         view.setWebViewClient(client);
     }
 
-    @BindingAdapter({ "loadUrl" })
+    @BindingAdapter({"loadUrl"})
     public static void loadUrl(WebView view, String url) {
         view.loadUrl(url);
     }
 
 
-
-    @BindingAdapter({ "videoUrl" })
+    @BindingAdapter({"videoUrl"})
     public static void setVideourl(VideoView view, String url) {
-        if (url!=null) {
+        if (url != null) {
             view.setVideoURI(Uri.parse(url));
             view.requestFocus();
         }
     }
 
+    @BindingAdapter({"adapter"})
+    public static void addOrdersHistoryItems(RecyclerView recyclerView, List<OrdersResponse.Result> blogs) {
+        OrdersHistoryActivityAdapter adapter = (OrdersHistoryActivityAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addOrderItems(blogs);
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addOrdersHistoryViewItems(RecyclerView recyclerView, List<OrdersHistoryActivityResponse.Result.Item> blogs) {
+        OrdersHistoryActivityItemAdapter adapter = (OrdersHistoryActivityItemAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addOrderItems(blogs);
+        }
+    }
 
 
 }

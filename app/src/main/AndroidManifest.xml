@@ -38,6 +38,8 @@
         <activity android:name=".ui.account.feedbackandsupport.support.replies.RepliesActivity" />
         <activity android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity" />
         <activity android:name=".ui.account.referrals.ReferralsActivity" />
+        <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
+        <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ordersListItemViewModel"
+            type="com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListItemModel"></variable>
+    </data>
+
+    <RelativeLayout
+        android:onClick="@{()->ordersListItemViewModel.onItemClick()}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rel_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/txt_cust_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ordersListItemViewModel.orderid}" />
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/txt_place_rupees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_cust_name"
+                android:layout_marginTop="5dp"
+                android:text="@{ordersListItemViewModel.cus_address}" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_1"
+            android:layout_marginTop="30dp">
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/txt_order_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mutton biriyani, Dosa" />
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/txt_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_order_name"
+                android:layout_marginTop="5dp"
+                android:text="7 March 2019 | 2.30pm" />
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/txt_view_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_order_name"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:text="View Details"
+                android:layout_marginEnd="5dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/rel_2"
+            android:background="@color/black" />
+
+    </RelativeLayout>
+</layout>

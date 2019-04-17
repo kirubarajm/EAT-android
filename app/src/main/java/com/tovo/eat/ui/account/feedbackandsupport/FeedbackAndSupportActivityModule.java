@@ -9,7 +9,6 @@ import dagger.Provides;
 @Module
 public class FeedbackAndSupportActivityModule {
 
-
     @Provides
     FeedbackAndSupportActivityViewModel provideFeedbackAndSupportViewModel(DataManager dataManager) {
         return new FeedbackAndSupportActivityViewModel(dataManager);

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.tovo.eat.BR;
+import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityReferralsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
@@ -31,8 +32,23 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     }
 
     @Override
+    public void sendReferralsClick() {
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+            String shareMessage = "Let me recommend you this application";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "choose one"));
+        } catch (Exception e) {
+            e.toString();
+        }
+    }
+
+    @Override
     public int getBindingVariable() {
-        return BR.feedBackSupportViewModel;
+        return BR.referralsViewModel;
     }
 
     @Override
@@ -70,5 +86,4 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         }
         return true;
     }
-
 }

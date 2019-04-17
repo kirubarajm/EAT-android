@@ -32,6 +32,10 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivit
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivityModule;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivityModule;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivityModule;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityViewModule;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivityModule;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
@@ -110,6 +114,12 @@ public abstract class ActivityBuilder {
 
    @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
     abstract ReferralsActivity bindReferralskActivity();
+
+   @ContributesAndroidInjector(modules = {OrderHistoryActivityModule.class})
+    abstract OrderHistoryActivity bindOrdersHistoryActivity();
+
+  @ContributesAndroidInjector(modules = {OrderHistoryActivityViewModule.class})
+    abstract OrderHistoryActivityView bindOrdersHistoryViewActivity();
 
 
 }
