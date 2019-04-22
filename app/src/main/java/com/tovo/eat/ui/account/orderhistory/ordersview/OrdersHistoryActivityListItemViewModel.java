@@ -36,6 +36,8 @@ public class OrdersHistoryActivityListItemViewModel {
     public final ObservableField<String> quantity = new ObservableField<>();
     public final ObservableField<String> productid = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
+    public final ObservableField<String> moveitName = new ObservableField<>();
+    public final ObservableField<String> makeitName = new ObservableField<>();
 
     private  OrdersHistoryActivityResponse.Result.Item mOrderLists;
 

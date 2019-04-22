@@ -10,7 +10,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
@@ -19,8 +18,8 @@ import java.util.List;
 
 public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryActivityNavigator> {
 
-    public ObservableList<OrdersResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<OrdersResponse.Result>> ordersItemsLiveData;
+    public ObservableList<OrdersHistoryListResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<OrdersHistoryListResponse.Result>> ordersItemsLiveData;
 
     public OrderHistoryActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -28,16 +27,16 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
         fetchRepos(0);
     }
 
-    public void addOrdersListItemsToList(List<OrdersResponse.Result> ordersItems) {
+    public void addOrdersListItemsToList(List<OrdersHistoryListResponse.Result> ordersItems) {
         ordersItemViewModels.clear();
         ordersItemViewModels.addAll(ordersItems);
     }
 
-    public ObservableList<OrdersResponse.Result> getOrdersItemViewModels() {
+    public ObservableList<OrdersHistoryListResponse.Result> getOrdersItemViewModels() {
         return ordersItemViewModels;
     }
 
-    public MutableLiveData<List<OrdersResponse.Result>> getOrders() {
+    public MutableLiveData<List<OrdersHistoryListResponse.Result>> getOrders() {
         return ordersItemsLiveData;
     }
 
@@ -49,10 +48,9 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
             if (val == 0) {
                 setIsLoading(true);
             }
-
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST, OrdersResponse.class, new Response.Listener<OrdersResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
                 @Override
-                public void onResponse(OrdersResponse response) {
+                public void onResponse(OrdersHistoryListResponse response) {
                     try {
                         if (response != null && response.getResult() != null) {
                             ordersItemsLiveData.setValue(response.getResult());

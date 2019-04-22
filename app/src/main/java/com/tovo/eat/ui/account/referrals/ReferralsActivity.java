@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.tovo.eat.BR;
-import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityReferralsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
@@ -20,6 +19,7 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     @Inject
     ReferralsActivityViewModel mFeedbackAndSupportActivityViewModel;
     ActivityReferralsBinding mActivityReferralsBinding;
+    String stringReferral = "";
 
     public static Intent newIntent(Context context) {
 
@@ -38,12 +38,23 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
             String shareMessage = "Let me recommend you this application";
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+            //shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
+            shareMessage = shareMessage + stringReferral;
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             startActivity(Intent.createChooser(shareIntent, "choose one"));
         } catch (Exception e) {
             e.toString();
         }
+    }
+
+    @Override
+    public void success(String strMessage) {
+        stringReferral = strMessage;
+    }
+
+    @Override
+    public void failure(String strMessage) {
+        stringReferral = strMessage;
     }
 
     @Override
@@ -74,7 +85,6 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         mActivityReferralsBinding.toolbarReferrals.setTitle("Referrals");
-
     }
 
     @Override

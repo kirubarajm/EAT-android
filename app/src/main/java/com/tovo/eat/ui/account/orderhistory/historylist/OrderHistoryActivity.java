@@ -10,8 +10,6 @@ import android.util.Log;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryListBinding;
-import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
-import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
 
@@ -87,7 +85,7 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     }
 
     @Override
-    public void listItem(OrdersResponse.Result mOrderList) {
+    public void listItem(OrdersHistoryListResponse.Result mOrderList) {
         Log.e("mOrderList",mOrderList.toString());
 
         Intent intent = OrderHistoryActivityView.newIntent(this);
