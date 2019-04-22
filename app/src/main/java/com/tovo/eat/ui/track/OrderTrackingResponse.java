@@ -12,6 +12,35 @@ public class OrderTrackingResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
+
+
+    @SerializedName("message")
+    @Expose
+    private String message;
+
+
+
+    @SerializedName("status")
+    @Expose
+    private Boolean status;
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -36,13 +65,13 @@ public class OrderTrackingResponse {
 
         @SerializedName("gst")
         @Expose
-        private Integer gst;
+        private Double gst;
         @SerializedName("price")
         @Expose
-        private Integer price;
+        private Double price;
         @SerializedName("quantity")
         @Expose
-        private Integer quantity;
+        private Double quantity;
         @SerializedName("productid")
         @Expose
         private Integer productid;
@@ -50,27 +79,27 @@ public class OrderTrackingResponse {
         @Expose
         private String productName;
 
-        public Integer getGst() {
+        public Double getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(Double gst) {
             this.gst = gst;
         }
 
-        public Integer getPrice() {
+        public Double getPrice() {
             return price;
         }
 
-        public void setPrice(Integer price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
 
-        public Integer getQuantity() {
+        public Double getQuantity() {
             return quantity;
         }
 
-        public void setQuantity(Integer quantity) {
+        public void setQuantity(Double quantity) {
             this.quantity = quantity;
         }
 
@@ -295,7 +324,7 @@ public class OrderTrackingResponse {
         private Integer orderstatus;
         @SerializedName("gst")
         @Expose
-        private Integer gst;
+        private Double gst;
         @SerializedName("coupon")
         @Expose
         private Object coupon;
@@ -343,7 +372,7 @@ public class OrderTrackingResponse {
         private String createdAt;
         @SerializedName("price")
         @Expose
-        private Integer price;
+        private Double price;
         @SerializedName("payment_status")
         @Expose
         private Integer paymentStatus;
@@ -365,6 +394,21 @@ public class OrderTrackingResponse {
         @SerializedName("moveitdetail")
         @Expose
         private Moveitdetail moveitdetail;
+
+
+        @SerializedName("eta")
+        @Expose
+        private String eta;
+
+
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
+        }
+
         @SerializedName("items")
         @Expose
         private List<Item> items = null;
@@ -425,11 +469,11 @@ public class OrderTrackingResponse {
             this.orderstatus = orderstatus;
         }
 
-        public Integer getGst() {
+        public Double getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(Double gst) {
             this.gst = gst;
         }
 
@@ -553,11 +597,11 @@ public class OrderTrackingResponse {
             this.createdAt = createdAt;
         }
 
-        public Integer getPrice() {
+        public Double getPrice() {
             return price;
         }
 
-        public void setPrice(Integer price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
 

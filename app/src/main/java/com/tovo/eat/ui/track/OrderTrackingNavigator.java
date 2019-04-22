@@ -9,6 +9,10 @@ public interface OrderTrackingNavigator {
 
     void orderPickedUp(Integer MoveitId);
 
-void clickBack();
+    void clickBack();
+
+
+
+    void showToast(String msg);
 
 }

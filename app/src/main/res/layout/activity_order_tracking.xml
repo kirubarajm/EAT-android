@@ -311,6 +311,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="@{orderTrackingViewModel.track?View.VISIBLE:View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -331,6 +332,7 @@
                             android:textStyle="normal" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:onClick="@{()->orderTrackingViewModel.callDeliveryMan()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"

@@ -142,7 +142,10 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     @Override
     public void onResume() {
         super.onResume();
-    //    mKitchenViewModel.fetchRepos();
+
+        ((MainActivity)getActivity()).statusUpdate();
+
+        mKitchenViewModel.fetchRepos();
     }
 
 
@@ -155,9 +158,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         intent.putExtra("kitchenId",kitchenId);
         startActivity(intent);
 
-
     }
-
 
 
     @Override

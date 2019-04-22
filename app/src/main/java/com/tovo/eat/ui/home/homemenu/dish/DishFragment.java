@@ -141,7 +141,10 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void onResume() {
         super.onResume();
-     //  mDishViewModel.fetchRepos();
+
+        ((MainActivity)getActivity()).statusUpdate();
+
+       mDishViewModel.fetchRepos();
     }
 
     @Override

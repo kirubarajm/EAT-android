@@ -164,6 +164,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         orderId = response.getResult().get(0).getOrderid();
 
+                        getDataManager().setOrderId(orderId);
+
+
+
                     }else {
                         isLiveOrder.set(false);
                     }

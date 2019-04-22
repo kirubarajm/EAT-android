@@ -114,7 +114,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     @Override
     public void onItemClickData(SelectAddressListResponse.Result address) {
-        mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality());
+        mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality(),address.getAid());
         finish();
     }
 

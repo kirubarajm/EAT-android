@@ -42,7 +42,7 @@ public interface DataManager extends  PreferencesHelper {
 
 
 
-     void updateCurrentAddress(String title,String address,double lat,double lng,String area);
+     void updateCurrentAddress(String title,String address,double lat,double lng,String area,Integer aid);
 
 
 

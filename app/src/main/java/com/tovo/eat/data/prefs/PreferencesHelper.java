@@ -99,4 +99,8 @@ public interface PreferencesHelper {
 
 
 
+    Integer getAddressId();
+
+
+    void setAddressId(Integer orderId);
 }

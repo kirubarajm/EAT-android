@@ -57,6 +57,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_LAT = "CURRENT_LAT";
     private static final String PREF_KEY_CURRENT_LNG = "CURRENT_LNG";
     private static final String PREF_KEY_CURRENT_ADDRESS = "CURRENT_ADDRESS";
+    private static final String PREF_KEY_CURRENT_ADDRESS_ID = "CURRENT_ADDRESS_ID";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -212,6 +213,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setOrderId(Integer orderId) {
         mPrefs.edit().putInt(PREF_KEY_ORDER_ID, orderId).apply();
+    }
+
+    @Override
+    public Integer getAddressId() {
+        return mPrefs.getInt(PREF_KEY_CURRENT_ADDRESS_ID, 0);
+    }
+
+    @Override
+    public void setAddressId(Integer orderId) {
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
     }
 
     @Override

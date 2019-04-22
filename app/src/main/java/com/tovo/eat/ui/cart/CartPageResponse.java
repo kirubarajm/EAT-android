@@ -10,6 +10,35 @@ public class CartPageResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
+
+
+    @SerializedName("message")
+    @Expose
+    private String message;
+
+
+
+    @SerializedName("status")
+    @Expose
+    private Boolean status;
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -44,6 +73,7 @@ public class CartPageResponse {
         @SerializedName("delivery_charge")
         @Expose
         private Integer deliveryCharge;
+
 
         public Double getGrandtotal() {
             return grandtotal;
@@ -153,6 +183,20 @@ public class CartPageResponse {
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
+
+        @SerializedName("availablity")
+        @Expose
+        private boolean availablity;
+
+        public boolean isAvailablity() {
+            return availablity;
+        }
+
+        public void setAvailablity(boolean availablity) {
+            this.availablity = availablity;
+        }
+
+
 
         public Integer getMakeitUserid() {
             return makeitUserid;

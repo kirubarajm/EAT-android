@@ -21,7 +21,9 @@ public class CartDishItemViewModel {
 
     public final ObservableField<String> sprice = new ObservableField<>();
     public final ObservableField<String> sQuantity = new ObservableField<>();
+    public final ObservableField<String> availability = new ObservableField<>();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
+    public final ObservableBoolean isAvailable = new ObservableBoolean();
     private final ObservableField<Integer> price = new ObservableField<>();
     private final ObservableField<Integer> quantity = new ObservableField<>();
     private final DishItemViewModelListener mListener;
@@ -38,15 +40,35 @@ public class CartDishItemViewModel {
         this.mListener = mListener;
         this.dishList = dishList;
 
+
+
+
+
+
         product_name.set(dishList.getProductName());
         sprice.set(String.valueOf(dishList.getPrice()));
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
 
+
+        if (dishList.isAvailablity()){
+            isAvailable.set(true);
+        }else {
+
+
+            if (dishList.getQuantity()>0) {
+
+                availability.set(dishList.getQuantity() + " Only left");
+            }
+
+        }
+
+
         image.set(dishList.getImage());
 
 
         isAddClicked.set(true);
+
 
 
         if (dishList.getVegtype().equalsIgnoreCase("0")) {
@@ -98,13 +120,11 @@ public class CartDishItemViewModel {
 
                 for (int i = 0; i < totalSize; i++) {
 
-
                     if (dishList.getProductid().equals(results.get(i).getProductid())) {
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
                         cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.set(i, cartRequestPojoResult);
-
 
                     } else {
                         cartRequestPojo.setCartitems(null);
@@ -114,7 +134,6 @@ public class CartDishItemViewModel {
                         cartRequestPojoResult.setQuantity(quantity.get());
                         cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.add(cartRequestPojoResult);
-
 
                     }
                 }

@@ -308,13 +308,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
+
+
+    public void statusUpdate(){
+        mMainViewModel.totalCart();
+
+        mMainViewModel.liveOrders();
+
+    }
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        mMainViewModel.totalCart();
 
-        mMainViewModel.liveOrders();
+        statusUpdate();
 
         if (mDrawer != null) {
             mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

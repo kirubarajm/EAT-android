@@ -83,10 +83,19 @@
                     android:textSize="14sp" />
 
 
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:visibility="@{cartDishItemViewModel.isAvailable?View.GONE:View.VISIBLE}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{cartDishItemViewModel.availability}"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+
+
                 <LinearLayout
                     android:id="@+id/add"
                     android:onClick="@{()->cartDishItemViewModel.enableAdd()}"
-                    android:background="@drawable/stoke"
+                    android:background="@drawable/curve_stroke"
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:visibility="@{cartDishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
@@ -114,7 +123,7 @@
                 <LinearLayout
                     android:visibility="@{cartDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}"
                     android:id="@+id/num_picker"
-                    android:background="@drawable/stoke"
+                    android:background="@drawable/curve_stroke"
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

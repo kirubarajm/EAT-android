@@ -24,21 +24,36 @@ public class PlaceOrderRequestPojo {
     @SerializedName("address_type")
     @Expose
     private Integer addressType;
+
+    @SerializedName("aid")
+    @Expose
+    private Integer aid;
+
     @SerializedName("orderitems")
     @Expose
     private List<Orderitem> orderitems = null;
 
+
     public PlaceOrderRequestPojo() {
     }
 
-    public PlaceOrderRequestPojo(Integer userid, Integer ordertype, Integer paymentType, Integer makeitUserid, Integer paymentStatus, Integer addressType, List<Orderitem> orderitems) {
+    public PlaceOrderRequestPojo(Integer userid, Integer ordertype, Integer paymentType, Integer makeitUserid, Integer paymentStatus, Integer aid, List<Orderitem> orderitems) {
         this.userid = userid;
         this.ordertype = ordertype;
         this.paymentType = paymentType;
         this.makeitUserId = makeitUserid;
         this.paymentStatus = paymentStatus;
-        this.addressType = addressType;
+        this.aid = aid;
         this.orderitems = orderitems;
+    }
+
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
     }
 
     public Integer getUserid() {

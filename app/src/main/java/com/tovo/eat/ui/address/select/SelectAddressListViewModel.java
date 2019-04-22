@@ -78,9 +78,9 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-    public void updateCurrentAddress(String title,String address,double lat,double lng,String area){
+    public void updateCurrentAddress(String title,String address,double lat,double lng,String area,Integer aid){
 
-        getDataManager().updateCurrentAddress(title,address,lat,lng,area);
+        getDataManager().updateCurrentAddress(title,address,lat,lng,area,aid);
 
     }
 
