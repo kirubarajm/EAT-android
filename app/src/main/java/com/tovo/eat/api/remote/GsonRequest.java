@@ -86,6 +86,7 @@ public class GsonRequest extends Request {
     public Map<String, String> addHeaders(){
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+       // headers.put("Content-Type", "application/json");
         return  headers;
     }
 

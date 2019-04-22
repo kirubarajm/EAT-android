@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CartViewModel extends BaseViewModel<CartNavigator> {
 
@@ -145,7 +148,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            }){
+
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+
+                    return headers;
+                }
+            };
             MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
         } catch (JSONException j) {
 
@@ -154,7 +169,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     }
-
 
     public void paymentModeCheck() {
 
@@ -239,7 +253,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            }){
+
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+
+                    return headers;
+                }
+            };
         } catch (JSONException e) {
             e.printStackTrace();
         }

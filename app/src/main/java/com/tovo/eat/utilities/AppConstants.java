@@ -36,9 +36,9 @@ public class AppConstants {
     public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL_LIVE+ "products";
     public static final String EAT_ADD_ADDRESS_URL =TEMP_URL_LIVE+ "address";
     public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
-    public static final String EAT_CART_DETAILS_URL =TEMP_URL+ "cartdetails/";
+    public static final String EAT_CART_DETAILS_URL =TEMP_URL_LIVE+ "cartdetails/";
 
-    public static final String EAT_CREATE_ORDER_URL =TEMP_URL+ "proceedtopay";
+    public static final String EAT_CREATE_ORDER_URL =TEMP_URL_LIVE+ "proceedtopay";
 
     public static final String EAT_ORDER_DETAILS_URL =TEMP_URL_LIVE+ "order/";
 
@@ -49,7 +49,7 @@ public class AppConstants {
     public static final String EAT_DISH_LIST ="http://192.168.1.225:3000/eat/fav/dishlist/";
 
 
-    
+
     public static final String PACKAGE_NAME = "com.tovo.sales";
 
     public static final String GEOFENCES_ADDED_KEY = PACKAGE_NAME + ".GEOFENCES_ADDED_KEY";
