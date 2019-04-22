@@ -201,7 +201,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         placeOrderRequestPojo.setOrderitems(orderitems);
 
-        placeOrderRequestPojo.setMakeitUserid(cartRequestPojo.getMakeitUserid());
+        placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
         PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(1,1,0,cartRequestPojo.getMakeitUserid(),0,1,orderitems );
 

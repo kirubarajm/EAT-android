@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CartRequestPojo {
 
-    @SerializedName("makeit_userid")
+    @SerializedName("makeit_user_id")
     @Expose
     private Integer makeitUserid;
     @SerializedName("orderitems")

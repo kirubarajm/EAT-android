@@ -24,7 +24,8 @@ public class AppConstants {
     public static final String FCM_RECEIVER= "ALERT";
 
     public static final String TEMP_URL_MY = "http://192.168.1.243/tovo/";
-    public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
+   // public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
+    public static final String TEMP_URL_LIVE = "http://192.168.1.225:4000/eat/";
     public static final String TEMP_URL = "http://192.168.1.225:3000/eat/";
 
    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";

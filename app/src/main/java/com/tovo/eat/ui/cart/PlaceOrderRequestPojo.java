@@ -15,9 +15,9 @@ public class PlaceOrderRequestPojo {
     @SerializedName("payment_type")
     @Expose
     private Integer paymentType;
-    @SerializedName("makeit_userid")
+    @SerializedName("makeit_user_id")
     @Expose
-    private Integer makeitUserid;
+    private Integer makeitUserId;
     @SerializedName("payment_status")
     @Expose
     private Integer paymentStatus;
@@ -28,7 +28,6 @@ public class PlaceOrderRequestPojo {
     @Expose
     private List<Orderitem> orderitems = null;
 
-
     public PlaceOrderRequestPojo() {
     }
 
@@ -36,7 +35,7 @@ public class PlaceOrderRequestPojo {
         this.userid = userid;
         this.ordertype = ordertype;
         this.paymentType = paymentType;
-        this.makeitUserid = makeitUserid;
+        this.makeitUserId = makeitUserid;
         this.paymentStatus = paymentStatus;
         this.addressType = addressType;
         this.orderitems = orderitems;
@@ -66,12 +65,12 @@ public class PlaceOrderRequestPojo {
         this.paymentType = paymentType;
     }
 
-    public Integer getMakeitUserid() {
-        return makeitUserid;
+    public Integer getMakeitUserId() {
+        return makeitUserId;
     }
 
-    public void setMakeitUserid(Integer makeitUserid) {
-        this.makeitUserid = makeitUserid;
+    public void setMakeitUserId(Integer makeitUserId) {
+        this.makeitUserId = makeitUserId;
     }
 
     public Integer getPaymentStatus() {
