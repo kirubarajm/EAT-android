@@ -102,9 +102,9 @@ public class AppConstants {
     }
 
     ///////Server Ip Ports
-    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:4000";////ip port(suresh)
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:3000";////ip port(suresh)
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
     public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
@@ -115,6 +115,7 @@ public class AppConstants {
     public static final String URL_CHAT_REPLIES_READ = URL_SERVER_IP_PORT + "/repliesread/";/////GET method
     public static final String URL_ORDERS_HISTORY_LIST = URL_SERVER_IP_PORT + "/eat/orders/1";/////GET method
     public static final String URL_ORDERS_HISTORY_VIEW = URL_SERVER_IP_PORT + "/eat/order/1";/////GET method
+    public static final String URL_REFERRALS = URL_SERVER_IP_PORT + "/eat/referral/1";/////GET method
 
     public static final int ADMIN =0;
     public static final int MAKEIT =1;

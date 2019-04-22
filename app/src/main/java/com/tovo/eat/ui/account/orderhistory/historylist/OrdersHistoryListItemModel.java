@@ -2,8 +2,6 @@ package com.tovo.eat.ui.account.orderhistory.historylist;
 
 import android.databinding.ObservableField;
 
-import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
-
 public class OrdersHistoryListItemModel {
 
     public final ObservableField<String> orderid = new ObservableField<>();
@@ -34,13 +32,20 @@ public class OrdersHistoryListItemModel {
     public final ObservableField<String> lock_status = new ObservableField<>();
     public final ObservableField<String> updated_at = new ObservableField<>();
     public final ObservableField<String> order_assigned_time = new ObservableField<>();
+    public final ObservableField<String> moveitName = new ObservableField<>();
+    public final ObservableField<String> makeitName = new ObservableField<>();
+    public final ObservableField<String> productsItems = new ObservableField<>();
 
-    public  OrdersHistoryListItemModel.OrdersItemViewModelListener mListener;
-    private  OrdersResponse.Result mOrderList;
 
+    public OrdersHistoryListItemModel.OrdersItemViewModelListener mListener;
+    String strProItems = "";
+    private OrdersHistoryListResponse.Result mOrderList;
 
+    public OrdersHistoryListItemModel(OrdersHistoryListResponse.Result orders, OrdersHistoryListItemModel.OrdersItemViewModelListener listener) {
 
-    public OrdersHistoryListItemModel(OrdersResponse.Result orders, OrdersHistoryListItemModel.OrdersItemViewModelListener listener) {
+        this.mListener = listener;
+        this.mOrderList = orders;
+
         this.orderid.set(String.valueOf(orders.getOrderid()));
         this.userid.set(String.valueOf(orders.getUserid()));
         this.ordertime.set(String.valueOf(orders.getOrdertime()));
@@ -70,8 +75,23 @@ public class OrdersHistoryListItemModel {
         this.updated_at.set(String.valueOf(orders.getUpdatedAt()));
         this.order_assigned_time.set(String.valueOf(orders.getOrderAssignedTime()));
 
-        this.mListener = listener;
-        this.mOrderList = orders;
+
+        this.moveitName.set(mOrderList.getMoveitdetail().getName());
+
+        this.makeitName.set(mOrderList.getMakeitdetail().getName());
+
+
+        if (orders.getItems() != null && orders.getItems().size() > 0) {
+            StringBuilder strItems = new StringBuilder();
+            for (int i = 0; i < orders.getItems().size(); i++) {
+                if (orders.getItems().get(i).productName != null) {
+                    strItems.append(",").append(orders.getItems().get(i).productName);
+                    strProItems = strItems.substring(1);
+                    this.productsItems.set(String.valueOf(strProItems));
+                }
+            }
+        }
+
     }
 
 
@@ -81,6 +101,6 @@ public class OrdersHistoryListItemModel {
 
     public interface OrdersItemViewModelListener {
 
-        void onItemClick(OrdersResponse.Result mOrderList);
+        void onItemClick(OrdersHistoryListResponse.Result mOrderList);
     }
 }

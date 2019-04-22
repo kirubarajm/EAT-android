@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyOrdersHistoryBinding;
 import com.tovo.eat.databinding.ListItemOrdersHistoryListBinding;
-import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
 import com.tovo.eat.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -18,10 +17,10 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<OrdersResponse.Result> orderLists;
+    List<OrdersHistoryListResponse.Result> orderLists;
     OrdersHistoryAdapterListener mOrdersAdapterListener;
 
-    public OrdersHistoryActivityAdapter(List<OrdersResponse.Result> orderLists) {
+    public OrdersHistoryActivityAdapter(List<OrdersHistoryListResponse.Result> orderLists) {
         this.orderLists = orderLists;
     }
 
@@ -106,19 +105,16 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
         @Override
         public void onBind(int position) {
             if (orderLists.isEmpty()) return;
-            final OrdersResponse.Result order = orderLists.get(position);
+            final OrdersHistoryListResponse.Result order = orderLists.get(position);
             ordersItemViewModel = new OrdersHistoryListItemModel(order, this);
             mBinding.setOrdersListItemViewModel(ordersItemViewModel);
             mBinding.executePendingBindings();
         }
 
         @Override
-        public void onItemClick(OrdersResponse.Result mOrderList) {
-            Log.e("error",String.valueOf(mOrderList));
-            if (mOrderList.getOrderstatus().equals("6"))
-            {
-                mOrdersAdapterListener.listItem(mOrderList);
-            }else {
+        public void onItemClick(OrdersHistoryListResponse.Result mOrderList) {
+            if (mOrderList!=null) {
+                Log.e("error", String.valueOf(mOrderList));
                 mOrdersAdapterListener.listItem(mOrderList);
             }
         }
@@ -130,7 +126,7 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
         orderLists.clear();
     }
 
-    public void addOrderItems(List<OrdersResponse.Result> blogList) {
+    public void addOrderItems(List<OrdersHistoryListResponse.Result> blogList) {
         orderLists.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -142,7 +138,7 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
 
 
     public interface OrdersHistoryAdapterListener {
-        void listItem(OrdersResponse.Result mOrderList);
+        void listItem(OrdersHistoryListResponse.Result mOrderList);
     }
 
 }

@@ -49,7 +49,7 @@
                 android:id="@+id/txt_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mutton biriyani, Dosa" />
+                android:text="@{ordersListItemViewModel.productsItems}" />
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_date_time"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_order_name"
                 android:layout_marginTop="5dp"
-                android:text="7 March 2019 | 2.30pm" />
+                android:text="@{ordersListItemViewModel.moveit_actual_delivered_time}" />
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_view_details"

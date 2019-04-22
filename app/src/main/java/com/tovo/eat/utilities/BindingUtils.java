@@ -38,7 +38,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
-import com.tovo.eat.ui.account.orderhistory.OrdersResponse;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
@@ -257,7 +257,7 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"adapter"})
-    public static void addOrdersHistoryItems(RecyclerView recyclerView, List<OrdersResponse.Result> blogs) {
+    public static void addOrdersHistoryItems(RecyclerView recyclerView, List<OrdersHistoryListResponse.Result> blogs) {
         OrdersHistoryActivityAdapter adapter = (OrdersHistoryActivityAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
