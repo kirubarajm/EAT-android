@@ -47,6 +47,7 @@ public class OrdersHistoryActivityListItemViewModel {
         quantity.set(String.valueOf(mOrderList.getQuantity()));
         productid.set(String.valueOf(mOrderList.getProductid()));
         product_name.set(String.valueOf(mOrderList.getProductName()));
+        price.set(String.valueOf(mOrderList.getPrice()));
 
         mOrderLists=mOrderList;
     }

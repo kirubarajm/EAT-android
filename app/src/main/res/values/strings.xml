@@ -387,9 +387,17 @@
     <string name="order_details">Order Details</string>
     <string name="my_account">My Account</string>
     <string name="no_history_found">No history found</string>
+<<<<<<< HEAD
     <string name="sort">Sort</string>
     <string name="regionals">Regionals</string>
     <string name="cuisines">Cuisines</string>
 
 
+=======
+    <string name="verify">Verify</string>
+    <string name="otp_continue">Continue</string>
+    <string name="enter_phone_num">ENTER PHONE NUMBER</string>
+    <string name="login_message">We will send you a one time sms message. Carrier charges might apply</string>
+    <string name="enter_pass">Enter Password</string>
+>>>>>>> e3fdfc84c1d119e1a508c6d01938b75603928915
 </resources>

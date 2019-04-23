@@ -55,6 +55,10 @@ import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
+import com.tovo.eat.ui.signup.SignUpActivity;
+import com.tovo.eat.ui.signup.SignUpActivityModule;
+import com.tovo.eat.ui.signup.opt.OtpActivity;
+import com.tovo.eat.ui.signup.opt.OtpActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.ui.track.OrderTrackingModule;
 
@@ -116,20 +120,22 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {FeedbackActivityModule.class})
     abstract FeedbackActivity bindFeedbackActivity();
 
-   @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
+    @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
     abstract ReferralsActivity bindReferralskActivity();
 
-   @ContributesAndroidInjector(modules = {OrderHistoryActivityModule.class})
+    @ContributesAndroidInjector(modules = {OrderHistoryActivityModule.class})
     abstract OrderHistoryActivity bindOrdersHistoryActivity();
 
-  @ContributesAndroidInjector(modules = {OrderHistoryActivityViewModule.class})
+    @ContributesAndroidInjector(modules = {OrderHistoryActivityViewModule.class})
     abstract OrderHistoryActivityView bindOrdersHistoryViewActivity();
-
-
 
     @ContributesAndroidInjector(modules = OrderTrackingModule.class)
     abstract OrderTrackingActivity bindOrderTrackingActivity();
 
+    @ContributesAndroidInjector(modules = SignUpActivityModule.class)
+    abstract SignUpActivity bindSignUpActivity();
 
+    @ContributesAndroidInjector(modules = OtpActivityModule.class)
+    abstract OtpActivity bindOtpActivity();
 
 }
