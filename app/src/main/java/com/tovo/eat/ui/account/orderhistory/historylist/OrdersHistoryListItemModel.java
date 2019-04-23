@@ -32,10 +32,11 @@ public class OrdersHistoryListItemModel {
     public final ObservableField<String> lock_status = new ObservableField<>();
     public final ObservableField<String> updated_at = new ObservableField<>();
     public final ObservableField<String> order_assigned_time = new ObservableField<>();
+
     public final ObservableField<String> moveitName = new ObservableField<>();
     public final ObservableField<String> makeitName = new ObservableField<>();
     public final ObservableField<String> productsItems = new ObservableField<>();
-
+    public final ObservableField<String> makeitLocality = new ObservableField<>();
 
     public OrdersHistoryListItemModel.OrdersItemViewModelListener mListener;
     String strProItems = "";
@@ -69,17 +70,16 @@ public class OrdersHistoryListItemModel {
         this.makeit_expected_preparing_time.set(String.valueOf(orders.getMakeitExpectedPreparingTime()));
         this.makeit_actual_preparing_time.set(String.valueOf(orders.getMakeitActualPreparingTime()));
         this.created_at.set(String.valueOf(orders.getCreatedAt()));
-        this.price.set(String.valueOf(orders.getPrice()));
+        this.price.set("INR."+orders.getPrice());
         this.payment_status.set(String.valueOf(orders.getPaymentStatus()));
         this.lock_status.set(String.valueOf(orders.getLockStatus()));
         this.updated_at.set(String.valueOf(orders.getUpdatedAt()));
         this.order_assigned_time.set(String.valueOf(orders.getOrderAssignedTime()));
 
-
         this.moveitName.set(mOrderList.getMoveitdetail().getName());
 
         this.makeitName.set(mOrderList.getMakeitdetail().getName());
-
+        this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()+" | ");
 
         if (orders.getItems() != null && orders.getItems().size() > 0) {
             StringBuilder strItems = new StringBuilder();
@@ -91,9 +91,7 @@ public class OrdersHistoryListItemModel {
                 }
             }
         }
-
     }
-
 
     public void onItemClick() {
         mListener.onItemClick(mOrderList);

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.orderhistory.historylist;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -20,6 +21,7 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
 
     public ObservableList<OrdersHistoryListResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<OrdersHistoryListResponse.Result>> ordersItemsLiveData;
+    public final ObservableField<String> makeItLocality = new ObservableField<>();
 
     public OrderHistoryActivityViewModel(DataManager dataManager) {
         super(dataManager);

@@ -62,18 +62,12 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
         mActivityOrdersHostiryViewBinding.toolbarHistoryView.setTitle("Orders History Details");
-
-
         mOrdersHistoryActivityItemAdapter.setListener(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setLayoutManager(new LinearLayoutManager(this));
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setAdapter(mOrdersHistoryActivityItemAdapter);
-
-
         subscribeToLiveData();
-
     }
 
     private void subscribeToLiveData() {

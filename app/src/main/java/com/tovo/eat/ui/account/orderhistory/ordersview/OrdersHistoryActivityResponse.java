@@ -56,7 +56,7 @@ public class OrdersHistoryActivityResponse {
         public Integer orderstatus;
         @SerializedName("gst")
         @Expose
-        public Integer gst;
+        public Float gst;
         @SerializedName("coupon")
         @Expose
         public Object coupon;
@@ -104,7 +104,7 @@ public class OrdersHistoryActivityResponse {
         public String createdAt;
         @SerializedName("price")
         @Expose
-        public Integer price;
+        public Float price;
         @SerializedName("payment_status")
         @Expose
         public Integer paymentStatus;
@@ -187,11 +187,11 @@ public class OrdersHistoryActivityResponse {
             this.orderstatus = orderstatus;
         }
 
-        public Integer getGst() {
+        public Float getGst() {
             return gst;
         }
 
-        public void setGst(Integer gst) {
+        public void setGst(Float gst) {
             this.gst = gst;
         }
 
@@ -315,11 +315,11 @@ public class OrdersHistoryActivityResponse {
             this.createdAt = createdAt;
         }
 
-        public Integer getPrice() {
+        public Float getPrice() {
             return price;
         }
 
-        public void setPrice(Integer price) {
+        public void setPrice(Float price) {
             this.price = price;
         }
 

@@ -55,14 +55,14 @@
                         android:id="@+id/txt_kitchen_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="JAI Kitchen" />
+                        android:text="@{OrdersHistryViewModel.kitchenName}" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_delivered"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_kitchen_name"
-                        android:text="Delivered:" />
+                        android:text="Delivered" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_home"
@@ -148,7 +148,7 @@
                         android:layout_weight="1"
                         android:gravity="right|center"
                         android:paddingRight="5dp"
-                        android:text="INR.240" />
+                        android:text="@{OrdersHistryViewModel.price}" />
                 </LinearLayout>
 
                 <TextView
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_amt"
                     android:layout_marginTop="10dp"
-                    android:text="Paid through google upi" />
+                    android:text="@{OrdersHistryViewModel.strPaymentType}" />
 
             </RelativeLayout>
 
@@ -178,7 +178,6 @@
                     android:textStyle="bold" />
 
             </RelativeLayout>
-
 
         </RelativeLayout>
 

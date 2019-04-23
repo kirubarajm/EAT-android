@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.orderhistory.ordersview;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
@@ -25,6 +26,9 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> kitchenName = new ObservableField<>();
     public final ObservableField<String> home = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> price = new ObservableField<>();
+    public final ObservableField<String> paymentType = new ObservableField<>();
+    public final ObservableField<String> strPaymentType = new ObservableField<>();
 
     public OrderHistoryActivityViewModelView(DataManager dataManager) {
         super(dataManager);
@@ -57,10 +61,18 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                         if (response != null && response.getResult() != null) {
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
 
-                            //kitchenName.set(response.getResult().get(0).);
-                            address.set(response.getResult().get(0).locality);
+                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
+                            address.set(response.getResult().get(0).getLocality());
+                            price.set(String.valueOf(response.getResult().get(0).getPrice()));
+                            paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
+                            if (paymentType.equals("0"))
+                            {
+                                strPaymentType.set("Cash On Delivery");
+                            }else {
+                                strPaymentType.set("Online Payment");
+                            }
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();

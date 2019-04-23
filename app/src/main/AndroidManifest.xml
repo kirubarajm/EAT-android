@@ -20,12 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
         <activity android:name=".ui.address.add.AddAddressActivity" />
@@ -44,6 +38,17 @@
 
         <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
         <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
+        <activity android:name=".ui.signup.SignUpActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.signup.opt.OtpActivity" />
 
 
         <meta-data
