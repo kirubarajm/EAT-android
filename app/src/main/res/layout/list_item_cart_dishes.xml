@@ -84,6 +84,7 @@
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_marginTop="5dp"
                     android:visibility="@{cartDishItemViewModel.isAvailable?View.GONE:View.VISIBLE}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,6 +94,7 @@
 
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:id="@+id/add"
                     android:onClick="@{()->cartDishItemViewModel.enableAdd()}"
                     android:background="@drawable/curve_stroke"

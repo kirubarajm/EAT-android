@@ -45,7 +45,6 @@
         <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
         <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyTmVwuXiVHPptHaVkfxRFqcmY1zkunEI" />

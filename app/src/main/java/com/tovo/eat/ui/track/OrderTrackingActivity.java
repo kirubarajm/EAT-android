@@ -1,9 +1,7 @@
 package com.tovo.eat.ui.track;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -14,16 +12,9 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -82,6 +74,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     double deliveryBoyLng;
     LatLng moveitLatLng;
     LatLng cusLatLng;
+    boolean liveTracking = true;
     private Marker currentLocationMarker;
     private Marker customerLocationMarker;
     private GoogleMap mMap;
@@ -89,10 +82,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     private DatabaseReference mFirebaseTransportRef;
     private LinkedList<Map<String, Object>> mTransportStatuses = new LinkedList<>();
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-
-
-    boolean liveTracking=true;
-
 
     public static Intent newIntent(Context context) {
         return new Intent(context, OrderTrackingActivity.class);
@@ -211,10 +200,27 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         mMap = googleMap;
 
         if (!liveTracking) {
-            liveTracking= true;
+            liveTracking = true;
             currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(moveitLatLng));
-            moveToCurrentLocation(moveitLatLng);
+          //  moveToCurrentLocation(moveitLatLng);
             customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
+
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(moveitLatLng);
+            builder.include(cusLatLng);
+            LatLngBounds bounds = builder.build();
+
+            //  int padding = 0; // offset from edges of the map in pixels
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.10);
+
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height, padding);
+            mMap.moveCamera(cu);
+
         }
 
 
@@ -387,13 +393,30 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         cusLatLng = new LatLng(Double.parseDouble(cusLat), Double.parseDouble(cusLng));
 
 
-        liveTracking=false;
+        liveTracking = false;
 
         if (mMap != null) {
-            liveTracking= true;
+            liveTracking = true;
             currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(moveitLatLng));
-            moveToCurrentLocation(moveitLatLng);
+          //  moveToCurrentLocation(moveitLatLng);
             customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
+
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(moveitLatLng);
+            builder.include(cusLatLng);
+            LatLngBounds bounds = builder.build();
+
+          //  int padding = 0; // offset from edges of the map in pixels
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.10);
+
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height, padding);
+            mMap.moveCamera(cu);
+
         }
     }
 
@@ -456,57 +479,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         });
     }
 
-    private boolean locationIsAtStatus(Location location, int statusIndex) {
-        if (mTransportStatuses.size() <= statusIndex) {
-            return false;
-        }
-        Map<String, Object> status = mTransportStatuses.get(statusIndex);
-        Location locationForStatus = new Location("");
-        locationForStatus.setLatitude((double) status.get("lat"));
-        locationForStatus.setLongitude((double) status.get("lng"));
-        float distance = location.distanceTo(locationForStatus);
-        Log.d(TAG, String.format("Distance from status %s is %sm", statusIndex, distance));
-        return distance < mFirebaseRemoteConfig.getLong("LOCATION_MIN_DISTANCE_CHANGED");
-    }
-
-
-    private void requestLocationUpdates(String MoveitId) {
-        LocationRequest request = new LocationRequest();
-        request.setInterval(10000);
-        request.setFastestInterval(5000);
-        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
-        final String path = getString(R.string.firebase_path) + "/" + getString(R.string.transport_id);
-        int permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        if (permission == PackageManager.PERMISSION_GRANTED) {
-            // Request location updates and when an update is
-            // received, store the location in Firebase
-            client.requestLocationUpdates(request, new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-                    Location location = locationResult.getLastLocation();
-
-                    if (location != null) {
-                        Log.e("", "location update " + location);
-                        ref.setValue(location);
-
-                        String filter = "location";
-                        Intent intent = new Intent(filter);
-                        intent.putExtra("lat", location.getLatitude());
-                        intent.putExtra("lon", location.getLongitude());
-                        intent.putExtra("SSS", "String value");
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-                    }
-                }
-            }, null);
-        }
-
-
-    }
 
 }
 

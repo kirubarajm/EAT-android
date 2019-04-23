@@ -87,13 +87,10 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void onItemClickData(DishResponse.Result blogUrl);
 
-
         void sendCart();
-
 
         void dishRefresh();
         void productNotAvailable();
-
 
         void  addDishFavourite(Integer dishId, String fav);
         void  removeDishFavourite(Integer favId);

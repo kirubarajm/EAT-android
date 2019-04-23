@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="filterViewModel"
+            type="com.tovo.eat.ui.filter.FilterViewModel">
+
+        </variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DBDBDB">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="10dp"
+                    android:tint="@color/dark_gray"
+                    android:rotation="180"
+                    android:src="@drawable/ic_sort_black_24dp" />
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/filter_sort"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="end"
+                    android:textSize="12sp"
+                    android:text="@string/clear_all"
+                    android:textAlignment="viewEnd"
+                    android:textAllCaps="true"
+                    android:textColor="@color/eat_color"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:background="#E9E8E8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:onClick="@{()->filterViewModel.sort()}"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="end"
+                        android:text="@string/sort"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
+                        android:textStyle="bold" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:onClick="@{()->filterViewModel.regional()}"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="end"
+                        android:text="@string/regionals"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
+                        android:textStyle="bold" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:onClick="@{()->filterViewModel.cusines()}"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="end"
+                        android:text="@string/cuisines"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                   <!-- <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="end"
+                        android:text="Cuisines"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
+                        android:textStyle="bold" />-->
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="1dp"
+                        android:id="@+id/recyclerview_filters"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:filteradapter="@{filterViewModel.filterItems}"
+                        android:layoutAnimation="@anim/lay_fall_down"
+                        android:background="@android:color/white"
+                        tools:listitem="@layout/list_item_filters">
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.tovo.eat.utilities.fonts.CircularTextView
+          android:paddingBottom="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/curve_stroke"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textSize="12sp"
+            android:text="@string/apply"
+            android:textAllCaps="true"
+            android:textColor="@color/eat_color"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true" />
+
+
+
+    </RelativeLayout>
+
+</layout>

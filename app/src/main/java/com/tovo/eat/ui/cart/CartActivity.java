@@ -68,7 +68,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
 
-        //   ((MainActivity) getActivity()).setActionBarTitle("My Account");
+        //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
 
@@ -132,7 +132,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public boolean paymentStatus(String mode) {
 
-        if (mode.equals(getString(R.string.cash_on_delivery))) {
+        /*if (mode.equals(getString(R.string.cash_on_delivery))) {
             Toast.makeText(getBaseActivity(), mode, Toast.LENGTH_SHORT).show();
             return true;
 
@@ -142,7 +142,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         } else {
             Toast.makeText(getBaseActivity(), "nothing selected", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
+        return true;
+
     }
 
     @Override

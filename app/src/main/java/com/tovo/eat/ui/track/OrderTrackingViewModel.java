@@ -67,7 +67,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                     if (response != null) {
                         Log.e("----response:---------", response.toString());
 
-                        /*if (response.getStatus()) {*/
+                        if (response.getStatus()) {
 
                             addressTitle.set(response.getResult().get(0).getLocality());
 
@@ -147,11 +147,11 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
 
-                       /* }else {
+                        }else {
 
                            getNavigator().showToast(response.getMessage());
 
-                        }*/
+                        }
                     }
                 }
             }, new Response.ErrorListener() {

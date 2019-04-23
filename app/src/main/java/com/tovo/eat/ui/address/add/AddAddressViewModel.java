@@ -194,7 +194,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             }
 
 
-            request.setUserid(1);
+            request.setUserid(getDataManager().getCurrentUserId());
 
             try {
                 setIsLoading(true);
@@ -206,7 +206,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         Log.e("response",response.getMessage());
                         getNavigator().addressSaved();
 
-                        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()),request.getLocality());
+                        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()),request.getLocality(),1);
 
 
                     }

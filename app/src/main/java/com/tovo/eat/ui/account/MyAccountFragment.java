@@ -14,12 +14,13 @@ import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
 
-public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, MyAccountViewModel> implements MyAccountNavigator {
+public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccountBinding, MyAccountViewModel> implements MyAccountNavigator {
 
 
     public static final String TAG = MyAccountFragment.class.getSimpleName();
@@ -61,7 +62,7 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
 
 
 
-        //   ((MainActivity) getActivity()).setActionBarTitle("My Account");
+        //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
 
@@ -77,7 +78,7 @@ public class MyAccountFragment extends BaseFragment<FragmentMyAccountBinding, My
     public void onResume() {
         super.onResume();
 
-        //  ((MainActivity) getActivity()).setActionBarTitle("My Account");
+        //  ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
 

@@ -142,7 +142,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openAccount() {
 
-       /* Intent intent = AddressListActivity.newIntent(MainActivity.this);
+       /* Intent intent = AddressListActivity.newIntent(FilterActivity.this);
         startActivity(intent);*/
 
 
@@ -476,11 +476,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         //getSupportFragmentManager()
         // .beginTransaction()
-        // .replace(R.id.frame_food,new MyAccountFragment(),null)
+        // .replace(R.id.frame_food,new FilterFragment(),null)
         // .addToBackStack(null).commit();
 
      *//*   FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        MyAccountFragment fragment = new MyAccountFragment();
+        FilterFragment fragment = new FilterFragment();
         transaction.replace(R.id.frame_food, fragment);
         transaction.commit();*//*
 
@@ -524,7 +524,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 .beginTransaction()
                 .addToBackStack(null)
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.clRootView, MyAccountFragment.newInstance(), MyAccountFragment.TAG)
+                .add(R.id.clRootView, FilterFragment.newInstance(), FilterFragment.TAG)
                 .commit();
     }*/
 

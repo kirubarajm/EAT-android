@@ -17,7 +17,7 @@ public class MyAccountModule {
 
 
    /* @Provides
-    ViewModelProvider.Factory provideTrainingViewModel(MyAccountViewModel blogViewModel) {
+    ViewModelProvider.Factory provideTrainingViewModel(FilterViewModel blogViewModel) {
         return new ViewModelProviderFactory<>(blogViewModel);
     }*/
 

@@ -7,7 +7,7 @@ public class AddressRequestPojo {
 
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private long userid;
     @SerializedName("address_title")
     @Expose
     private String addressTitle;
@@ -36,11 +36,11 @@ public class AddressRequestPojo {
     @Expose
     private Integer addressType;
 
-    public Integer getUserid() {
+    public long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(long userid) {
         this.userid = userid;
     }
 

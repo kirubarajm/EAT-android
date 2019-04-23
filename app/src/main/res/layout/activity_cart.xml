@@ -75,6 +75,7 @@
                             android:layout_height="80dp"
                             android:layout_margin="10dp"
                             app:cusrsiveImageUrl="@{cartViewModel.makeit_image}" />
+                        .
 
 
                         <LinearLayout
@@ -106,11 +107,13 @@
                             </RelativeLayout>
 
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                           <!-- <com.tovo.eat.utilities.fonts.CircularTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/dark_gray"
-                                android:textSize="14sp" />
+                                android:singleLine="true"
+                                android:text="fdgiludg"
+                                android:textSize="14sp" />-->
 
 
                             <!--<LinearLayout

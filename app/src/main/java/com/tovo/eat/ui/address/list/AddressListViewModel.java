@@ -80,7 +80,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public void setCurrentAddress(AddressListResponse.Result request){
-        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), request.getLat(), request.getLon(),request.getLocality());
+        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), request.getLat(), request.getLon(),request.getLocality(),request.getAid());
     }
 
 

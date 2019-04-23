@@ -47,6 +47,7 @@ import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartProvider;
+import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
@@ -72,7 +73,8 @@ public abstract class ActivityBuilder {
             DishProvider.class,
             MyAccountProvider.class,
             FavoritesTabActivityProvider.class,
-            CartProvider.class
+            CartProvider.class,
+            FilterProvider.class
 
     })
     abstract MainActivity bindMainActivity();

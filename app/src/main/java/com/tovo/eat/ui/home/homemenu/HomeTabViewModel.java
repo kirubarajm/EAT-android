@@ -23,8 +23,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     public String updateAddressTitle() {
-
-
         addressTitle.set(getDataManager().getCurrentAddressTitle());
         return getDataManager().getCurrentAddressTitle();
 

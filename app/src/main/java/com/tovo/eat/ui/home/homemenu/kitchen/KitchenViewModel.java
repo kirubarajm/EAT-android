@@ -156,7 +156,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, new LatLngPojo("12.9760","80.2212",1), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class,new LatLngPojo(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(),1), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {

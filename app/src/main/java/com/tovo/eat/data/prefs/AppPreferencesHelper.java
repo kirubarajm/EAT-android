@@ -147,7 +147,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentAddressTitle() {
-        return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, null);
+        return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, "Select Address");
     }
 
     @Override

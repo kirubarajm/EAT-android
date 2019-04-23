@@ -48,6 +48,8 @@ import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
 import com.tovo.eat.ui.address.select.SelectAddressListResponse;
 import com.tovo.eat.ui.cart.CartDishAdapter;
 import com.tovo.eat.ui.cart.CartPageResponse;
+import com.tovo.eat.ui.filter.FilterAdapter;
+import com.tovo.eat.ui.filter.FilterItems;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -145,6 +147,21 @@ public final class BindingUtils {
             adapter.addOrderItems(blogs);
         }
     }
+
+
+
+
+    @BindingAdapter({"filteradapter"})
+    public static void addFilterItems(RecyclerView recyclerView, List<FilterItems> filterItems) {
+       FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(filterItems,1);
+        }
+    }
+
+
+
 
     @BindingAdapter({"adapter"})
     public static void addChatItems(RecyclerView recyclerView, List<ChatResponse.Result> blogs) {

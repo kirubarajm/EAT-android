@@ -3,31 +3,48 @@ package com.tovo.eat.utilities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class LatLngPojo {
 
+    @SerializedName("search")
+    @Expose
+    private String search;
     @SerializedName("lat")
     @Expose
     private String lat;
     @SerializedName("lon")
     @Expose
     private String lon;
+    @SerializedName("price")
+    @Expose
+    private String price;
     @SerializedName("eatuserid")
     @Expose
-    private Integer eatId;
+    private Integer eatuserid;
+    @SerializedName("regionlist")
+    @Expose
+    private List<Regionlist> regionlist = null;
+    @SerializedName("cusinelist")
+    @Expose
+    private List<Cusinelist> cusinelist = null;
 
 
-    public LatLngPojo(String lat, String lon, Integer eatId) {
+    public LatLngPojo(String lat, String lon, Integer eatuserid) {
         this.lat = lat;
         this.lon = lon;
-        this.eatId = eatId;
+        this.eatuserid = eatuserid;
     }
 
-    public Integer getEatId() {
-        return eatId;
+
+
+
+    public String getSearch() {
+        return search;
     }
 
-    public void setEatId(Integer eatId) {
-        this.eatId = eatId;
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public String getLat() {
@@ -46,9 +63,67 @@ public class LatLngPojo {
         this.lon = lon;
     }
 
+    public String getPrice() {
+        return price;
+    }
 
-    public LatLngPojo(String lat, String lon) {
-        this.lat = lat;
-        this.lon = lon;
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public Integer getEatuserid() {
+        return eatuserid;
+    }
+
+    public void setEatuserid(Integer eatuserid) {
+        this.eatuserid = eatuserid;
+    }
+
+    public List<Regionlist> getRegionlist() {
+        return regionlist;
+    }
+
+    public void setRegionlist(List<Regionlist> regionlist) {
+        this.regionlist = regionlist;
+    }
+
+    public List<Cusinelist> getCusinelist() {
+        return cusinelist;
+    }
+
+    public void setCusinelist(List<Cusinelist> cusinelist) {
+        this.cusinelist = cusinelist;
+    }
+    public class Regionlist {
+
+        @SerializedName("region")
+        @Expose
+        private Integer region;
+
+        public Integer getRegion() {
+            return region;
+        }
+
+        public void setRegion(Integer region) {
+            this.region = region;
+        }
+
+    }
+
+
+    public class Cusinelist {
+
+        @SerializedName("cusine")
+        @Expose
+        private Integer cusine;
+
+        public Integer getCusine() {
+            return cusine;
+        }
+
+        public void setCusine(Integer cusine) {
+            this.cusine = cusine;
+        }
+
     }
 }

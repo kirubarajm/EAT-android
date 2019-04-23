@@ -41,23 +41,17 @@ public class CartDishItemViewModel {
         this.dishList = dishList;
 
 
-
-
-
-
         product_name.set(dishList.getProductName());
         sprice.set(String.valueOf(dishList.getPrice()));
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
 
 
-        if (dishList.isAvailablity()){
+        if (dishList.isAvailablity()) {
             isAvailable.set(true);
-        }else {
-
-
-            if (dishList.getQuantity()>0) {
-
+        } else {
+            if (dishList.getQuantity() > 0) {
+                isAvailable.set(false);
                 availability.set(dishList.getQuantity() + " Only left");
             }
 
@@ -70,7 +64,6 @@ public class CartDishItemViewModel {
         isAddClicked.set(true);
 
 
-
         if (dishList.getVegtype().equalsIgnoreCase("0")) {
 
             veg_type.set("Veg");
@@ -78,7 +71,7 @@ public class CartDishItemViewModel {
             veg_type.set("Non-Veg");
 
         }
-        producttype.set("Mediterranean");
+        producttype.set("Mediterranean"+" | "+veg_type.get());
 
     }
 

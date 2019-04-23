@@ -161,19 +161,14 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo("12.9760","80.2212",1),new Response.Listener<DishResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(),1),new Response.Listener<DishResponse>() {
                 @Override
                 public void onResponse(DishResponse response) {
                     if (response != null) {
 
-
-
                         dishItemsLiveData.setValue(response.getResult());
                         Log.e("----response:---------", response.toString());
-
-
                         DishViewModel.this.getNavigator().dishListLoaded();
-
 
                     }
                 }
