@@ -102,11 +102,7 @@ public class AppConstants {
 
     ///////Server Ip Ports
     //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-<<<<<<< HEAD
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.225:4000";////ip port(suresh)
-=======
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
->>>>>>> e3fdfc84c1d119e1a508c6d01938b75603928915
+
     public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
