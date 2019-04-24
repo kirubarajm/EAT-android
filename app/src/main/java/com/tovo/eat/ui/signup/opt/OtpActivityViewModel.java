@@ -14,7 +14,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         super(dataManager);
     }
 
-    public void usersLoginMain() {
+    public void continueClick() {
         getNavigator().usersLoginMain();
     }
 

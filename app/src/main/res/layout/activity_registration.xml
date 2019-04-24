@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.signin.SignActivityMain">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="registrationViewModel"
+            type="com.tovo.eat.ui.registration.RegistrationActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.tovo.eat.utilities.fonts.CircularTextView
+            android:id="@+id/txt_name_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/enter_email_password" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_name_email"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_email"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:maxLength="50"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_password"
+                    android:inputType="textWebPassword"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_re_type_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_re_type_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/re_type_password"
+                    android:inputType="textWebPassword"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlayout_meal"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp">
+
+                <Spinner
+                    android:id="@+id/spn_hometown"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+                <View
+                    android:layout_below="@+id/spn_hometown"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginEnd="30dp">
+                </View>
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_meal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:background="@drawable/verify_btn_bck"
+                android:onClick="@{()->registrationViewModel.userProceed()}"
+                android:text="@string/proceed"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

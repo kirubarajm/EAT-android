@@ -1,29 +1,18 @@
-package com.tovo.eat.ui.signup.namegender;
-
-import android.text.TextUtils;
+package com.tovo.eat.ui.orderrating;
 
 import com.android.volley.Response;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 
-public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivityNavigator> {
+public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActivityNavigator> {
 
     Response.ErrorListener errorListener;
 
-    public NameGenderActivityViewModel(DataManager dataManager) {
+    public OrderRatingActivityViewModel(DataManager dataManager) {
         super(dataManager);
     }
 
-    public void proceed() {
-        getNavigator().proceedClick();
-    }
 
-    public boolean isEmailAndPasswordValid(String phoneNumber, String password) {
-        if (TextUtils.isEmpty(phoneNumber)) {
-            return false;
-        }
-        return !TextUtils.isEmpty(password);
-    }
 
 /*
     public void users(String phoneNumber, String password) {

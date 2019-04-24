@@ -106,6 +106,8 @@ public class AppConstants {
     public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
+    public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
+
     public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
     public static final String URL_QUERY_REPLIES_COUNT = URL_SERVER_IP_PORT + "/repliescount";/////POST method
     public static final String URL_QUERY_QUERIES_LIST = URL_SERVER_IP_PORT + "/querylist";/////POST method
@@ -125,11 +127,16 @@ public class AppConstants {
     public static final int EAT_CHAT_ID =4;
 
 
-
-
-
-
     ////ToAST
     public static final String TOAST_ENTER_REPLY_TO_SEND = "Enter reply to send";
     public static final String TOAST_ENTER_QUERY_TO_SEND ="Enter query to send";
+    public static final String TOAST_ENTER_MOBILE_NO ="Enter mobile number";
+    public static final String TOAST_ENTER_VALID_MOBILE_NO ="Enter valid mobile number";
+    public static final String TOAST_ENTER_OTP ="Enter OTP";
+    public static final String TOAST_ENTER_NAME ="Enter Name";
+    public static final String TOAST_ENTER_EMAIL ="Enter Email";
+    public static final String TOAST_ENTER_INVALID_EMAIL ="Invalid Email Address";
+    public static final String TOAST_ENTER_PASSWORD ="Enter password";
+    public static final String TOAST_ENTER_RE_ENTER_PASSWORD ="ReType password";
+    public static final String TOAST_PASSWORD_NOT_MATCHING ="Password not matching";
 }
