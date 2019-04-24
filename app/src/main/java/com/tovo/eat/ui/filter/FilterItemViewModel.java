@@ -7,9 +7,9 @@ import android.databinding.ObservableField;
 public class FilterItemViewModel {
 
 
-    public final ObservableField<String> addressTitle = new ObservableField<>();
+    public final ObservableField<String> filterTitle = new ObservableField<>();
 
-    public final ObservableBoolean isWork = new ObservableBoolean();
+    public final ObservableBoolean isClicked = new ObservableBoolean();
 
 
     public final FilterItemViewModelListener mListener;
@@ -24,15 +24,19 @@ public class FilterItemViewModel {
         this.filterItems = filterItems;
         this.type = type;
 
-        //    addressTitle.set(addressList.getAddressTitle());
+        filterTitle.set(filterItems.getTitle());
 
 
     }
 
 
     public void onItemClick() {
-        //  mListener.onItemClick(addressList.getAid(),addressList.getAddressTitle(),addressList.getAddress(),addressList.getFlatno(),addressList.getLocality(),addressList.getPincode(),addressList.getLat(),addressList.getLon(),addressList.getLandmark(),addressList.getAddressType());
         mListener.onItemClick(type, id);
+        if (isClicked.get()){
+            isClicked.set(false);
+        }else {
+            isClicked.set(true);
+        }
     }
 
     public interface FilterItemViewModelListener {

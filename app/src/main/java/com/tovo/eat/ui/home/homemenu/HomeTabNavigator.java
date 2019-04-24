@@ -5,4 +5,8 @@ public interface HomeTabNavigator {
     void handleError(Throwable throwable);
 
     void selectAddress();
+
+    void filter();
+
+
 }

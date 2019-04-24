@@ -164,7 +164,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(1), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -269,7 +269,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     makeitId = response.getResult().get(0).getMakeituserid();
 
-                    if (response.getResult().get(0).getMakeitbrandname() == null) {
+                    if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
 
                         kitchenName.set(response.getResult().get(0).getMakeitusername());
 

@@ -33,9 +33,9 @@ public interface PreferencesHelper {
 
     void setCurrentUserEmail(String email);
 
-    Long getCurrentUserId();
+    Integer getCurrentUserId();
 
-    void setCurrentUserId(Long userId);
+    void setCurrentUserId(Integer userId);
 
     int getCurrentUserLoggedInMode();
 
@@ -70,7 +70,6 @@ public interface PreferencesHelper {
     void setCurrentAddress(String area);
 
 
-
     String getCurrentLat();
 
 
@@ -83,12 +82,10 @@ public interface PreferencesHelper {
     void setCurrentLng(double lng);
 
 
-
     Integer getMakeitID();
 
 
     void setMakeitID(Integer id);
-
 
 
     Integer getOrderId();
@@ -97,10 +94,20 @@ public interface PreferencesHelper {
     void setOrderId(Integer orderId);
 
 
-
-
     Integer getAddressId();
 
 
     void setAddressId(Integer orderId);
+
+
+    String getMaster();
+
+    void setMaster(String master);
+
+
+
+    String getFilterSort();
+
+    void setFilterSort(String master);
+
 }

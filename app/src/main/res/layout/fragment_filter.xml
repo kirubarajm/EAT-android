@@ -17,7 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DBDBDB">
+        android:background="@color/filter_unselected">
 
 
         <LinearLayout
@@ -67,7 +67,7 @@
 
 
             <LinearLayout
-                android:background="#E9E8E8"
+                android:background="@color/filter_unselected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -81,13 +81,18 @@
                     android:orientation="vertical">
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:background="@{filterViewModel.isSortClicked?@color/filter_selected:@color/filter_unselected}"
+                        android:layout_marginTop="10dp"
                         android:onClick="@{()->filterViewModel.sort()}"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:gravity="end"
                         android:text="@string/sort"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textSize="12sp"
@@ -95,13 +100,18 @@
                         android:textStyle="bold" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:onClick="@{()->filterViewModel.regional()}"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:gravity="end"
                         android:text="@string/regionals"
+                        android:background="@{filterViewModel.isRegionalClicked?@color/filter_selected:@color/filter_unselected}"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textSize="12sp"
@@ -110,11 +120,16 @@
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:background="@{filterViewModel.isCuisinesClicked?@color/filter_selected:@color/filter_unselected}"
+                        android:layout_marginTop="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:onClick="@{()->filterViewModel.cusines()}"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:gravity="end"
                         android:text="@string/cuisines"
                         android:textAlignment="center"

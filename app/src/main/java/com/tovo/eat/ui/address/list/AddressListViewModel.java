@@ -90,7 +90,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+1, AddressListResponse.class,new Response.Listener<AddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+getDataManager().getCurrentUserId(), AddressListResponse.class,new Response.Listener<AddressListResponse>() {
                 @Override
                 public void onResponse(AddressListResponse response) {
                     if (response != null) {

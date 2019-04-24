@@ -83,6 +83,7 @@
 
 
                     <ImageView
+                        android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:layout_gravity="center_vertical"
@@ -92,6 +93,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}"
                         android:singleLine="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

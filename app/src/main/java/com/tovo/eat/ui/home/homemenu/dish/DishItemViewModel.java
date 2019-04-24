@@ -55,7 +55,7 @@ public class DishItemViewModel {
         //  this.date.set(mSalesList.getDate());
 
 
-        if (dishList.getBrandname() == null) {
+        if (dishList.getBrandname().isEmpty()) {
             this.makeitBrandName.set(dishList.getMakeitUsername());
         } else {
             this.makeitBrandName.set(dishList.getBrandname());

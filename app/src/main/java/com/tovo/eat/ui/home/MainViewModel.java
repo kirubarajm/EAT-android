@@ -31,6 +31,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.MasterPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
 
@@ -65,14 +66,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
-        orderId = 0;
+        masterRequest();
     }
 
-   /* public EditAddressViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        super(dataManager, schedulerProvider);
-        questionCardData = new MutableLiveData<>();
-        loadQuestionCards();
-    }*/
 
     public int getAction() {
         return action;
@@ -82,24 +78,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public ObservableField<String> getAppVersion() {
         return appVersion;
     }
-
-    /*public MutableLiveData<List<QuestionCardData>> getQuestionCardData() {
-        return questionCardData;
-    }*/
-
-/*
-    public ObservableList<QuestionCardData> getQuestionDataList() {
-        return questionDataList;
-    }
-*/
-
-/*
-    public void setQuestionDataList(List<QuestionCardData> questionCardDatas) {
-        action = ACTION_ADD_ALL;
-        questionDataList.clear();
-        questionDataList.addAll(questionCardDatas);
-    }
-*/
 
 
     public void selectAddress() {
@@ -140,7 +118,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + 1, LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + getDataManager().getCurrentUserId(), LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
             @Override
             public void onResponse(LiveOrderResponsePojo response) {
                 if (response != null) {
@@ -167,8 +145,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         getDataManager().setOrderId(orderId);
 
 
-
-                    }else {
+                    } else {
                         isLiveOrder.set(false);
                     }
 
@@ -307,4 +284,35 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public ObservableField<String> getNumOfCarts() {
         return numOfCarts;
     }
+
+
+    public void masterRequest() {
+
+
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER, MasterPojo.class, new Response.Listener<MasterPojo>() {
+            @Override
+            public void onResponse(MasterPojo response) {
+                if (response != null) {
+
+                    Gson gson = new Gson();
+                    String master = gson.toJson(response);
+                    getDataManager().saveMaster("");
+                    getDataManager().saveMaster(master);
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", error.getMessage());
+                setIsLoading(false);
+            }
+        });
+
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+
+    }
+
+
 }

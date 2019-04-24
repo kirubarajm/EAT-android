@@ -120,7 +120,6 @@ public class KitchenDishItemViewModel {
 
                 }
             }
-
         }
 
         if (quantity.get() != null)
@@ -133,6 +132,11 @@ public class KitchenDishItemViewModel {
         } else {
             this.isFavourite.set(true);
         }
+
+
+
+
+
 
     }
 

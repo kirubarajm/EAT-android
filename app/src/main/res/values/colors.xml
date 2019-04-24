@@ -11,6 +11,13 @@
     <color name="light_gray">#ECEBEB</color>
     <color name="gray">#DBDADA</color>
     <color name="semi_gray">#979797</color>
+
+    <color name="filter_selected">#CACACA</color>
+    <color name="filter_unselected">#ECEBEB</color>
+
+
+
+
     <color name="dark_gray">#696969</color>
     <color name="bg_color">#f7f7f7</color>
     <color name="black">#000000</color>

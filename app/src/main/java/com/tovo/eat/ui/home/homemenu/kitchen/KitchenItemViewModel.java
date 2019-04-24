@@ -21,6 +21,7 @@ public class KitchenItemViewModel {
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean isRated = new ObservableBoolean();
 
 
     public final KitchenItemViewModelListener mListener;
@@ -40,11 +41,19 @@ public class KitchenItemViewModel {
         //  this.favourite.set(mKitchenList.getFavourite());
         //  this.offer.set(mKitchenList.getOffer());
 
-        this.ratings.set(String.valueOf(mKitchenList.getRating()));
+
+        if (mKitchenList.getRating()!=null){
+            isRated.set(true);
+            this.ratings.set(String.valueOf(mKitchenList.getRating()));
+        }else {
+            isRated.set(false);
+        }
+
+
 
         this.offer .set(String.valueOf(mKitchenList.getCostfortwo()));
 
-        if (mKitchenList.getMakeitbrandname() == null) {
+        if (mKitchenList.getMakeitbrandname() .isEmpty()) {
             this.kitchen_name.set(mKitchenList.getMakeitusername());
         } else {
             this.kitchen_name.set(mKitchenList.getMakeitbrandname());

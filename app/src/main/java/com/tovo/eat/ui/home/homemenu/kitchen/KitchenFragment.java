@@ -42,7 +42,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -17,13 +17,14 @@ import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 
 import javax.inject.Inject;
 
 
-public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterViewModel> implements FilterNavigator {
+public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBinding, FilterViewModel> implements FilterNavigator, FilterAdapter.FiltersAdapterListener {
 
 
     public static final String TAG = FilterFragment.class.getSimpleName();
@@ -36,7 +37,6 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterVi
     FilterAdapter adapter;
     @Inject
     LinearLayoutManager mLayoutManager;
-
 
 
 
@@ -66,10 +66,9 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragmentFilterBinding = getViewDataBinding();
         mFilterViewModel.setNavigator(this);
 
-
+        adapter.setListener(this);
 
 
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
@@ -79,12 +78,13 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // mFragmentMyAccountBinding = getViewDataBinding();
+        mFragmentFilterBinding = getViewDataBinding();
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentFilterBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
-        mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
+
+      //  mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
 
     }
 
@@ -102,7 +102,12 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterVi
     @Override
     public void clearFilters() {
 
+        mFilterViewModel.clearAll();
     }
 
 
+    @Override
+    public void onItemClickData(Integer type, Integer id) {
+
+    }
 }

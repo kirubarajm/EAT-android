@@ -44,8 +44,9 @@ public class AppConstants {
     public static final String EAT_LIVE_ORDER_URL =TEMP_URL_LIVE+ "liveorders/";
 
     public static final String EAT_FAV_URL =TEMP_URL_LIVE+ "fav/";
+    public static final String EAT_MASTER ="http://192.168.1.100:3000/masters";
 
-    public static final String EAT_DISH_LIST ="http://192.168.1.225:3000/eat/fav/dishlist/";
+    public static final String EAT_DISH_LIST ="http://192.168.1.100:3000/eat/fav/dishlist/";
 
 
 

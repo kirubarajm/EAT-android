@@ -93,7 +93,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+1, SelectAddressListResponse.class,new Response.Listener<SelectAddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+getDataManager().getCurrentUserId(), SelectAddressListResponse.class,new Response.Listener<SelectAddressListResponse>() {
                 @Override
                 public void onResponse(SelectAddressListResponse response) {
                     if (response != null) {

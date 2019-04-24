@@ -50,6 +50,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SELECTED_MAKEIT_ID = "SELECTED_MAKEIT_ID";
 
     private static final String PREF_KEY_ORDER_ID = "ORDER_ID";
+    private static final String PREF_KEY_MASTER= "MASTER";
+    private static final String PREF_KEY_FILTER= "FILTER";
 
 
     private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
@@ -90,15 +92,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Long getCurrentUserId() {
-        long userId = mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
-        return userId == AppConstants.NULL_INDEX ? null : userId;
+    public Integer getCurrentUserId() {
+       /* long userId = mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
+        return userId == AppConstants.NULL_INDEX ? null : userId;*/
+       return 2;
     }
 
     @Override
-    public void setCurrentUserId(Long userId) {
-        long id = userId == null ? AppConstants.NULL_INDEX : userId;
-        mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, id).apply();
+    public void setCurrentUserId(Integer userId) {
+       // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();
     }
 
     @Override
@@ -223,6 +226,26 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setAddressId(Integer orderId) {
         mPrefs.edit().putInt(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
+    }
+
+    @Override
+    public String getMaster() {
+        return mPrefs.getString(PREF_KEY_MASTER, null);
+    }
+
+    @Override
+    public void setMaster(String master) {
+        mPrefs.edit().putString(PREF_KEY_MASTER, master).apply();
+    }
+
+    @Override
+    public String getFilterSort() {
+        return mPrefs.getString(PREF_KEY_FILTER, "");
+    }
+
+    @Override
+    public void setFilterSort(String master) {
+        mPrefs.edit().putString(PREF_KEY_FILTER, master).apply();
     }
 
     @Override

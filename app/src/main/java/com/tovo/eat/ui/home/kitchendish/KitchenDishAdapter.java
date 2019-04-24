@@ -204,7 +204,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public Integer getEatId() {
-            return 1;
+            return dataManager.getCurrentUserId();
         }
     }
 

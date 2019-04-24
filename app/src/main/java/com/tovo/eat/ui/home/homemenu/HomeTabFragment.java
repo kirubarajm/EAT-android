@@ -12,6 +12,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.home.MainActivity;
 
 import javax.inject.Inject;
@@ -59,6 +60,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void selectAddress() {
         Intent intent = SelectSelectAddressListActivity.newIntent(getContext());
         startActivity(intent);
+    }
+
+    @Override
+    public void filter() {
+
+        FilterFragment bottomSheetFragment = new FilterFragment();
+        bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
     }
 
     @Override

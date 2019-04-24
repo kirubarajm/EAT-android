@@ -78,7 +78,7 @@ public class AppDataManager implements DataManager {
     @Override
     public void updateUserInfo
             (String accessToken,
-             Long userId,
+             Integer userId,
              LoggedInMode loggedInMode,
              String userName,
              String email, boolean isLoggedIn
@@ -108,6 +108,15 @@ public class AppDataManager implements DataManager {
         setAddressId(aid);
     }
 
+    @Override
+    public void saveMaster(String master) {
+        setMaster(master);
+    }
+
+    @Override
+    public void saveFilterSort(String filters) {
+        setFilterSort(filters);
+    }
 
 
     @Override
@@ -151,12 +160,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Long getCurrentUserId() {
+    public Integer getCurrentUserId() {
         return mPreferencesHelper.getCurrentUserId();
     }
 
     @Override
-    public void setCurrentUserId(Long userId) {
+    public void setCurrentUserId(Integer userId) {
         mPreferencesHelper.setCurrentUserId(userId);
     }
 
@@ -280,6 +289,26 @@ public class AppDataManager implements DataManager {
     @Override
     public void setAddressId(Integer orderId) {
         mPreferencesHelper.setAddressId(orderId);
+    }
+
+    @Override
+    public String getMaster() {
+        return mPreferencesHelper.getMaster();
+    }
+
+    @Override
+    public void setMaster(String master) {
+        mPreferencesHelper.setMaster(master);
+    }
+
+    @Override
+    public String getFilterSort() {
+        return mPreferencesHelper.getFilterSort();
+    }
+
+    @Override
+    public void setFilterSort(String filters) {
+mPreferencesHelper.setFilterSort(filters);
     }
 
     @Override

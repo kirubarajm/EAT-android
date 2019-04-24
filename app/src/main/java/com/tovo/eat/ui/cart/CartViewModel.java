@@ -230,7 +230,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-        PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(1,1,0,cartRequestPojo.getMakeitUserid(),0,getDataManager().getAddressId(),orderitems );
+        PlaceOrderRequestPojo placeOrderRequestPojo1=   new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(),1,0,cartRequestPojo.getMakeitUserid(),0,getDataManager().getAddressId(),orderitems );
 
 
         Gson gson = new Gson();

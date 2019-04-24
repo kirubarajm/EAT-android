@@ -15,7 +15,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-
     public void selectAddress() {
         getNavigator().selectAddress();
 
@@ -29,6 +28,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-
+    public void filter() {
+        getNavigator().filter();
+    }
 
 }

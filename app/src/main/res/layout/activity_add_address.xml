@@ -73,11 +73,18 @@
             </FrameLayout>
         </FrameLayout>
 
-        <LinearLayout
+
+
+        <ScrollView
             android:id="@+id/address"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="vertical">
 
@@ -304,6 +311,8 @@
 
         </LinearLayout>
 
+
+        </ScrollView>
 
         <ImageView
             android:layout_width="25dp"
