@@ -81,20 +81,17 @@ public class FilterFragment extends BaseFragment<FragmentFilterBinding, FilterVi
         super.onViewCreated(view, savedInstanceState);
         // mFragmentMyAccountBinding = getViewDataBinding();
 
-
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentFilterBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
-
         mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         //  ((FilterActivity) getActivity()).setActionBarTitle("My Account");
-
     }
 
     @Override

@@ -70,7 +70,6 @@ public class DishItemViewModel {
 
         this.locality.set(dishList.getLocalityname());
 
-
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
@@ -93,26 +92,42 @@ public class DishItemViewModel {
                 results.clear();
                 results.addAll(cartRequestPojo.getCartitems());
 
-                for (int i = 0; i < results.size(); i++) {
+
+                int totalSize = results.size();
+                if (totalSize != 0) {
 
 
-                    if (cartRequestPojo.getMakeitUserid() != null) {
+                    for (int i = 0; i < results.size(); i++) {
 
-                        if (cartRequestPojo.getMakeitUserid().equals(dishList.getMakeitUserid())) {
-                            if (results.get(i).getProductid().equals(dishList.getProductid())) {
-                                isAddClicked.set(true);
-                                this.makeit_username.set(dishList.getMakeitUsername());
-                                this.producttype.set(dishList.getProducttype());
-                                this.image.set(dishList.getImage());
-                                this.product_name.set(dishList.getProductName());
-                                this.product_id.set(dishList.getProductid());
-                                this.makeit_userid.set(dishList.getMakeitUserid());
-                                this.sprice.set(String.valueOf(dishList.getPrice()));
-                                this.price.set((dishList.getPrice()));
-                                quantity.set(results.get(i).getQuantity());
-                                sQuantity.set(String.valueOf(quantity.get()));
-                                this.cusines.set(dishList.getCusinename());
 
+                        if (cartRequestPojo.getMakeitUserid() != null) {
+
+                            if (cartRequestPojo.getMakeitUserid().equals(dishList.getMakeitUserid())) {
+                                if (results.get(i).getProductid().equals(dishList.getProductid())) {
+                                    isAddClicked.set(true);
+                                    this.makeit_username.set(dishList.getMakeitUsername());
+                                    this.producttype.set(dishList.getProducttype());
+                                    this.image.set(dishList.getImage());
+                                    this.product_name.set(dishList.getProductName());
+                                    this.product_id.set(dishList.getProductid());
+                                    this.makeit_userid.set(dishList.getMakeitUserid());
+                                    this.sprice.set(String.valueOf(dishList.getPrice()));
+                                    this.price.set((dishList.getPrice()));
+                                    quantity.set(results.get(i).getQuantity());
+                                    sQuantity.set(String.valueOf(quantity.get()));
+                                    this.cusines.set(dishList.getCusinename());
+
+                                } else {
+                                    this.makeit_username.set(dishList.getMakeitUsername());
+                                    this.producttype.set(dishList.getProducttype());
+                                    this.image.set(dishList.getImage());
+                                    this.product_name.set(dishList.getProductName());
+                                    this.product_id.set(dishList.getProductid());
+                                    this.makeit_userid.set(dishList.getMakeitUserid());
+                                    this.sprice.set(String.valueOf(dishList.getPrice()));
+                                    this.price.set((dishList.getPrice()));
+                                    this.cusines.set(dishList.getCusinename());
+                                }
                             } else {
                                 this.makeit_username.set(dishList.getMakeitUsername());
                                 this.producttype.set(dishList.getProducttype());
@@ -124,6 +139,7 @@ public class DishItemViewModel {
                                 this.price.set((dishList.getPrice()));
                                 this.cusines.set(dishList.getCusinename());
                             }
+
                         } else {
                             this.makeit_username.set(dishList.getMakeitUsername());
                             this.producttype.set(dishList.getProducttype());
@@ -134,20 +150,21 @@ public class DishItemViewModel {
                             this.sprice.set(String.valueOf(dishList.getPrice()));
                             this.price.set((dishList.getPrice()));
                             this.cusines.set(dishList.getCusinename());
+
                         }
-
-                    } else {
-                        this.makeit_username.set(dishList.getMakeitUsername());
-                        this.producttype.set(dishList.getProducttype());
-                        this.image.set(dishList.getImage());
-                        this.product_name.set(dishList.getProductName());
-                        this.product_id.set(dishList.getProductid());
-                        this.makeit_userid.set(dishList.getMakeitUserid());
-                        this.sprice.set(String.valueOf(dishList.getPrice()));
-                        this.price.set((dishList.getPrice()));
-                        this.cusines.set(dishList.getCusinename());
-
                     }
+                }else {
+                    this.makeit_username.set(dishList.getMakeitUsername());
+                    this.producttype.set(dishList.getProducttype());
+                    this.image.set(dishList.getImage());
+                    this.product_name.set(dishList.getProductName());
+                    this.product_id.set(dishList.getProductid());
+                    this.makeit_userid.set(dishList.getMakeitUserid());
+                    this.sprice.set(String.valueOf(dishList.getPrice()));
+                    this.price.set((dishList.getPrice()));
+                    this.cusines.set(dishList.getCusinename());
+
+
                 }
             }
 
@@ -211,8 +228,6 @@ public class DishItemViewModel {
                                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
                                 cartRequestPojoCartitem.setPrice(dishList.getPrice());
                                 results.set(i, cartRequestPojoCartitem);
-
-
                             }
                         }
                     }
