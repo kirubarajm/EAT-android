@@ -186,6 +186,7 @@
                     android:id="@+id/btn_sign_in"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
+                    android:onClick="@{()->otpViewModel.usersLoginMain()}"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/verify_btn_bck"
                     android:text="@string/otp_continue"

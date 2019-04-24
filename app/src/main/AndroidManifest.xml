@@ -49,6 +49,7 @@
 
         </activity>
         <activity android:name=".ui.signup.opt.OtpActivity" />
+        <activity android:name=".ui.signup.namegender.NameGenderActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

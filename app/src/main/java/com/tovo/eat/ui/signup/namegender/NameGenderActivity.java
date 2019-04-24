@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.signup.opt;
+package com.tovo.eat.ui.signup.namegender;
 
 
 import android.content.Context;
@@ -9,23 +9,23 @@ import android.view.MenuItem;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityOtpBinding;
+import com.tovo.eat.databinding.ActivityNameGenderBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
-import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.ui.signup.opt.OtpActivity;
 
 import javax.inject.Inject;
 
-public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel>
-        implements OtpActivityNavigator {
+public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, NameGenderActivityViewModel>
+        implements NameGenderActivityNavigator {
 
     @Inject
-    OtpActivityViewModel mLoginViewModelMain;
-    private ActivityOtpBinding mActivityOtpBinding;
+    NameGenderActivityViewModel mLoginViewModelMain;
+    private ActivityNameGenderBinding mActivityNameGenderBinding;
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, OtpActivity.class);
+        return new Intent(context, NameGenderActivity.class);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void usersLoginMain() {
-       /* String strPhoneNumber = mActivityOtpBinding.edtPhoneNo.getText().toString();
-        String strPassword = mActivityOtpBinding.edtPassword.getText().toString();
+       /* String strPhoneNumber = mActivityNameGenderBinding.edtPhoneNo.getText().toString();
+        String strPassword = mActivityNameGenderBinding.edtPassword.getText().toString();
         if (mLoginViewModelMain.isEmailAndPasswordValid(strPhoneNumber, strPassword)) {
             hideKeyboard();
             //mLoginViewModelMain.users(strPhoneNumber, strPassword);
@@ -49,23 +49,23 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void openMainActivity() {
-        Intent intent = NameGenderActivity.newIntent(OtpActivity.this);
+        Intent intent = MainActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.otpViewModel;
+        return BR.nameGenderViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_otp;
+        return R.layout.activity_name_gender;
     }
 
     @Override
-    public OtpActivityViewModel getViewModel() {
+    public NameGenderActivityViewModel getViewModel() {
         return mLoginViewModelMain;
     }
 
@@ -77,20 +77,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityOtpBinding = getViewDataBinding();
+        mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle!=null) {
-            String strKey = bundle.getString("key");
-        }
-        Toolbar toolbar = findViewById(R.id.toolbar_otp);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        toolbar.setTitle("OTP");
     }
 
     @Override
@@ -100,7 +89,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = SignUpActivity.newIntent(OtpActivity.this);
+        Intent intent = SignUpActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();
         return true;
