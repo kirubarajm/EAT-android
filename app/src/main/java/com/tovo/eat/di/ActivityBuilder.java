@@ -57,6 +57,8 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.SignUpActivityModule;
+import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.ui.signup.namegender.NameGenderActivityModule;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
@@ -137,5 +139,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = OtpActivityModule.class)
     abstract OtpActivity bindOtpActivity();
+
+   @ContributesAndroidInjector(modules = NameGenderActivityModule.class)
+    abstract NameGenderActivity bindNameGenderActivity();
 
 }

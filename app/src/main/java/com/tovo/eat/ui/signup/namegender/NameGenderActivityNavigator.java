@@ -1,6 +1,6 @@
-package com.tovo.eat.ui.signup.opt;
+package com.tovo.eat.ui.signup.namegender;
 
-public interface OtpActivityNavigator {
+public interface NameGenderActivityNavigator {
 
     void handleError(Throwable throwable);
 
