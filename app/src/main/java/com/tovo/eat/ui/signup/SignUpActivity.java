@@ -5,13 +5,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySignupBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
+import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -33,33 +34,23 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void usersLoginMain() {
-       /* String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
-        String strPassword = mActivitySignupBinding.edtPassword.getText().toString();
-        if (mLoginViewModelMain.isEmailAndPasswordValid(strPhoneNumber, strPassword)) {
-            hideKeyboard();
-            //mLoginViewModelMain.users(strPhoneNumber, strPassword);
-        } else {
-            Toast.makeText(getApplicationContext(), getString(R.string.invalidEmail), Toast.LENGTH_SHORT).show();
-        }*/
-
-        Intent intent = OtpActivity.newIntent(SignUpActivity.this);
+        /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
         intent.putExtra("key","value");
         startActivity(intent);
-        finish();
-
-    }
-
-    @Override
-    public void openLoginMainActivity() {
-        Intent intent = MainActivity.newIntent(SignUpActivity.this);
-        startActivity(intent);
-        finish();
+        finish();*/
+        String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
+        /*if (validForMobileNo()) {*/
+            mLoginViewModelMain.users(strPhoneNumber);
+            /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
+            startActivity(intent);
+            finish();*/
+      /*  }*/
     }
 
     @Override
     public void loginSuccess(String strSucess) {
        /* if (strSucess.equalsIgnoreCase(AppConstants.TRUE)) {
-            openLoginMainActivity();
+            openMainActivity();
             Toast.makeText(getApplicationContext(), AppConstants.LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), AppConstants.INVALID_CREDENTIALS, Toast.LENGTH_SHORT).show();
@@ -102,7 +93,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         super.onCreate(savedInstanceState);
         mActivitySignupBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
-        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
+        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
     }
 
     @Override
@@ -110,4 +101,16 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         finish();
     }
 
+    private boolean validForMobileNo() {
+        if (mActivitySignupBinding.edtPhoneNo.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_MOBILE_NO, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (mActivitySignupBinding.edtPhoneNo.getText().length() < 10) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_VALID_MOBILE_NO, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
 }

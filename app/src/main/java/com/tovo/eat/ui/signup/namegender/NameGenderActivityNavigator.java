@@ -4,8 +4,8 @@ public interface NameGenderActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void usersLoginMain();
+    void proceedClick();
 
-    void openMainActivity();
+    void openActivity();
 
 }

@@ -1,12 +1,24 @@
 package com.tovo.eat.ui.signup;
 
+import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.MvvmApp;
 
 public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigator> {
 
+    public final ObservableField<String> passwordstatus = new ObservableField<>();
+    public final ObservableField<String> otpverification = new ObservableField<>();
+    public final ObservableField<String> genderstatus = new ObservableField<>();
+    public final ObservableField<String> otp = new ObservableField<>();
     Response.ErrorListener errorListener;
 
     public SignUpActivityViewModel(DataManager dataManager) {
@@ -17,37 +29,16 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         getNavigator().usersLoginMain();
     }
 
-    public boolean isEmailAndPasswordValid(String phoneNumber, String password) {
-        if (TextUtils.isEmpty(phoneNumber)) {
-            return false;
-        }
-        return !TextUtils.isEmpty(password);
-    }
-
-/*
-    public void users(String phoneNumber, String password) {
+    public void users(String phoneNumber) {
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_IN, SignInResponse.class, new SignInRequest(phoneNumber, password), new Response.Listener<SignInResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
             @Override
-            public void onResponse(SignInResponse response) {
+            public void onResponse(SignUpResponse response) {
                 if (response != null) {
-                    Log.i("", "" + response.getSuccess());
-                    String strMessage = response.getSuccess();
-                    Log.e("strMessage", strMessage);
-                    if (strMessage.equalsIgnoreCase(AppConstants.TRUE)) {
-                        long strUserId = response.getResult().get(0).getUserid();
-                        String strUserName = response.getResult().get(0).getName();
-                        String strEmail = String.valueOf(response.getResult().get(0).getEmail());
-                        String strPassword = String.valueOf(response.getResult().get(0).getPassword());
-                        String strPhoneNumber = String.valueOf(response.getResult().get(0).getPhoneno());
-                        getDataManager().updateUserInfo(strPassword, strUserId, DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER, strUserName, strEmail, strPhoneNumber);
-                        getNavigator().loginSuccess(response.getSuccess());
-                        setIsLoading(false);
-                    } else {
-                        getNavigator().loginError(response.getSuccess());
-                        setIsLoading(false);
-                    }
+                    passwordstatus.set(String.valueOf(response.getPasswordstatus()));
+                    otpverification.set(String.valueOf(response.getOtpverification()));
+                    genderstatus.set(String.valueOf(response.getGenderstatus()));
                 }
             }
         }, errorListener = new Response.ErrorListener() {
@@ -59,5 +50,4 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
-*/
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -14,6 +15,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -44,6 +46,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             Toast.makeText(getApplicationContext(), getString(R.string.invalidEmail), Toast.LENGTH_SHORT).show();
         }*/
 
+       if (validForOtp())
         openMainActivity();
     }
 
@@ -80,10 +83,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         mActivityOtpBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
-        Bundle bundle = getIntent().getExtras();
+        /*Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
             String strKey = bundle.getString("key");
-        }
+        }*/
         Toolbar toolbar = findViewById(R.id.toolbar_otp);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -103,6 +106,16 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         Intent intent = SignUpActivity.newIntent(OtpActivity.this);
         startActivity(intent);
         finish();
+        return true;
+    }
+
+    private boolean validForOtp(){
+        if (mActivityOtpBinding.edt1.getText().toString().equals("") && mActivityOtpBinding.edt2.getText().toString().equals("") && mActivityOtpBinding.edt4.getText().toString().equals("")
+        && mActivityOtpBinding.edt4.getText().toString().equals("") && mActivityOtpBinding.edt5.getText().toString().equals(""))
+        {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_OTP, Toast.LENGTH_SHORT).show();
+            return false;
+        }
         return true;
     }
 }

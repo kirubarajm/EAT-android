@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.signup.namegender;
+package com.tovo.eat.ui.registration;
 
 import android.text.TextUtils;
 
@@ -6,16 +6,16 @@ import com.android.volley.Response;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 
-public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivityNavigator> {
+public class RegistrationActivityViewModel extends BaseViewModel<RegistrationActivityNavigator> {
 
     Response.ErrorListener errorListener;
 
-    public NameGenderActivityViewModel(DataManager dataManager) {
+    public RegistrationActivityViewModel(DataManager dataManager) {
         super(dataManager);
     }
 
-    public void proceed() {
-        getNavigator().proceedClick();
+    public void userProceed() {
+        getNavigator().usersLoginMain();
     }
 
     public boolean isEmailAndPasswordValid(String phoneNumber, String password) {

@@ -399,5 +399,10 @@
     <string name="enter_pass">Enter Password</string>
     <string name="enter_name">ENTER YOUR NAME</string>
     <string name="proceed">PROCEED</string>
+    <string name="type_your_feedback">Type your feedback here</string>
+    <string name="re_type_password">RETYPE PASSWORD</string>
+    <string name="enter_email_password">ENTER EMAIL AND PASSWORD</string>
+
+
 
 </resources>

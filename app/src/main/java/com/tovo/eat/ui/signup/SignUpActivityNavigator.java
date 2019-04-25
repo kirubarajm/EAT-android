@@ -6,8 +6,6 @@ public interface SignUpActivityNavigator {
 
     void usersLoginMain();
 
-    void openLoginMainActivity();
-
     void loginSuccess(String strSuccess);
 
     void loginError(String strError);

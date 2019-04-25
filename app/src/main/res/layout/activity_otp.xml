@@ -58,7 +58,6 @@
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -167,10 +166,10 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:lines="1"
+                            android:imeOptions="actionDone"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
-
 
                 </LinearLayout>
 
@@ -185,8 +184,8 @@
                 <Button
                     android:id="@+id/btn_sign_in"
                     android:layout_width="160dp"
-                    android:layout_height="50dp"
-                    android:onClick="@{()->otpViewModel.usersLoginMain()}"
+                    android:layout_height="40dp"
+                    android:onClick="@{()->otpViewModel.continueClick()}"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/verify_btn_bck"
                     android:text="@string/otp_continue"
@@ -197,7 +196,6 @@
             </RelativeLayout>
 
         </RelativeLayout>
-
 
     </RelativeLayout>
 
