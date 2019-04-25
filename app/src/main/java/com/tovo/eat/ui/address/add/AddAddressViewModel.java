@@ -25,9 +25,12 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -207,6 +210,22 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         getNavigator().addressSaved();
 
                         getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()),request.getLocality(),1);
+
+
+
+                        FilterRequestPojo filterRequestPojo;
+
+                        Gson sGson = new GsonBuilder().create();
+                        filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
+
+                        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                        filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                        filterRequestPojo.setLat(getDataManager().getCurrentLng());
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(filterRequestPojo);
+                        getDataManager().setFilterSort(json);
+
 
 
                     }

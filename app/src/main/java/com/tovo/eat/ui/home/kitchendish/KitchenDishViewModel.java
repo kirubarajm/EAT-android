@@ -255,7 +255,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
         //  setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId), new Response.Listener<KitchenDishResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId,getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
             @Override
             public void onResponse(KitchenDishResponse response) {
                 if (response != null) {
@@ -322,4 +322,8 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         getNavigator().viewCart();
     }
 
+
+    public void back(){
+        getNavigator().back();
+    }
 }

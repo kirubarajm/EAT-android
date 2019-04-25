@@ -8,9 +8,12 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.LatLngPojo;
@@ -66,10 +69,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
 
     public  String datas(){
-
         return getDataManager().getCartDetails();
-
-
     }
 
 
@@ -155,37 +155,76 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
     }
 
     public void fetchRepos() {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-     //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+        if (getDataManager().getCurrentLat()==null){
 
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, new LatLngPojo(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()),new Response.Listener<DishResponse>() {
-                @Override
-                public void onResponse(DishResponse response) {
-                    if (response != null) {
+           // getNavigator().noAddressFound();
 
-                        dishItemsLiveData.setValue(response.getResult());
-                        Log.e("----response:---------", response.toString());
-                        DishViewModel.this.getNavigator().dishListLoaded();
 
+        }else {
+
+
+         //   getNavigator().addressAdded();
+
+            if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+            //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+            FilterRequestPojo filterRequestPojo;
+
+
+            if (getDataManager().getFilterSort() != null) {
+
+                Gson sGson = new GsonBuilder().create();
+                filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
+
+                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(filterRequestPojo);
+                getDataManager().setFilterSort(json);
+            } else {
+                filterRequestPojo = new FilterRequestPojo();
+
+                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(filterRequestPojo);
+                getDataManager().setFilterSort(json);
+            }
+
+
+            try {
+                setIsLoading(true);
+                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, DishResponse.class, filterRequestPojo, new Response.Listener<DishResponse>() {
+                    @Override
+                    public void onResponse(DishResponse response) {
+                        if (response != null) {
+                            dishItemsLiveData.setValue(response.getResult());
+                            Log.e("----response:---------", response.toString());
+                            DishViewModel.this.getNavigator().dishListLoaded();
+
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
-                    DishViewModel.this.getNavigator().dishListLoaded();
-                }
-            });
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("", error.getMessage());
+                        DishViewModel.this.getNavigator().dishListLoaded();
+                    }
+                });
 
 
+                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
 
 
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
     }
 

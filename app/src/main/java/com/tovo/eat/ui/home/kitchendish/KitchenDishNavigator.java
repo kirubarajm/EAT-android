@@ -12,4 +12,7 @@ public interface KitchenDishNavigator {
     void viewCart();
 
 
+    void back();
+
+
 }

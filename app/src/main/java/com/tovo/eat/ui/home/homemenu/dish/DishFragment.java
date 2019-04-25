@@ -1,8 +1,10 @@
 package com.tovo.eat.ui.home.homemenu.dish;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -12,13 +14,15 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.filter.FilterFragment;
+import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 
 import javax.inject.Inject;
 
-public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener , FilterListener {
+public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener , FilterListener, StartFilter {
 
     @Inject
     DishViewModel mDishViewModel;
@@ -47,6 +51,20 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         super.onAttach(context);
     }
 
+   /* public static <T> getInterface(StartFilter interfaceClass, Fragment thisFragment) {
+           final Fragment parent = thisFragment.getParentFragment();
+           if (parent != null && interfaceClass.isAssignableFrom(parent)) {
+               return interfaceClass.c(parent);
+           }
+
+           final Activity activity = thisFragment.getActivity();
+           if (activity != null && interfaceClass.isAssignableFrom(activity)) {
+               return interfaceClass.cast(activity);
+           }
+
+           return null;
+       }*/
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +72,11 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
         ((MainActivity) getActivity()).setFilterListener(DishFragment.this);
+
+
+      //  StartFilter myInterface =getInterface(StartFilter.class, this);
+
+
     }
 
     @Override
@@ -110,6 +133,19 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void dishListLoaded() {
         mFragmentDishBinding.refreshList.setRefreshing(false);
+    }
+
+    @Override
+    public void addressAdded() {
+
+
+
+
+    }
+
+    @Override
+    public void noAddressFound() {
+        Toast.makeText(getContext(), "Please Add your address", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -192,6 +228,12 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
         mDishViewModel.fetchRepos();
 
+
+    }
+
+    @Override
+    public void applyFilter() {
+        mDishViewModel.fetchRepos();
 
     }
 }

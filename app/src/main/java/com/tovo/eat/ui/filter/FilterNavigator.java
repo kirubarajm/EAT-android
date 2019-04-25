@@ -8,4 +8,6 @@ public interface FilterNavigator {
     void clearFilters();
 
 
+    void applyFilter();
+
 }

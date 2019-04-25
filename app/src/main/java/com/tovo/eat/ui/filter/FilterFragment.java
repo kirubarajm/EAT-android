@@ -1,25 +1,19 @@
 package com.tovo.eat.ui.filter;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-
 import com.tovo.eat.databinding.FragmentFilterBinding;
-import com.tovo.eat.databinding.FragmentMyAccountBinding;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
-import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
-import com.tovo.eat.ui.account.referrals.ReferralsActivity;
-import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
-import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
+import com.tovo.eat.ui.home.homemenu.FilterListener;
 
 import javax.inject.Inject;
 
@@ -39,6 +33,57 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     LinearLayoutManager mLayoutManager;
 
 
+    StartFilter startFilter;
+
+    FilterListener filterListener;
+
+
+
+    public void setFilterListener(FilterListener filterListener) {
+        this.filterListener = filterListener;
+    }
+
+
+
+    /*public static <T> getInterface(Class<T> interfaceClass, Fragment thisFragment) {
+        final Fragment parent = thisFragment.getParentFragment();
+        if (parent != null && interfaceClass.isAssignableFrom(parent)) {
+            return interfaceClass.cast(parent);
+        }
+
+        final Activity activity = thisFragment.getActivity();
+        if (activity != null && interfaceClass.isAssignableFrom(activity)) {
+            return interfaceClass.cast(activity);
+        }
+
+        return null;
+    }*/
+    public final StartFilter getContract() {
+        return startFilter;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof StartFilter) {
+            //init the listener
+            startFilter = (StartFilter) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement InteractionListener");
+        }
+
+
+
+      /*  try {
+            startFilter=(StartFilter)context;
+        } catch (ClassCastException e) {
+            throw new IllegalStateException(context.getClass().getSimpleName()
+                    + " does not implement " + getClass().getSimpleName() + "'s contract interface.", e);
+        }
+        super.onAttach(context);*/
+
+    }
 
     public static FilterFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,6 +116,10 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         adapter.setListener(this);
 
 
+      //  startFilter=(StartFilter)getContext();
+
+
+
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
@@ -84,7 +133,9 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         mFragmentFilterBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
 
-      //  mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
+        //  mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
+
+        mFilterViewModel.sort();
 
     }
 
@@ -101,13 +152,36 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void clearFilters() {
+        startFilter.applyFilter();
+        dismiss();
 
-        mFilterViewModel.clearAll();
+    }
+
+    @Override
+    public void applyFilter() {
+        dismiss();
+        startFilter.applyFilter();
+
     }
 
 
     @Override
-    public void onItemClickData(Integer type, Integer id) {
+    public void onItemClickData(Integer id) {
 
+    }
+
+    @Override
+    public void addToFilter(Integer id) {
+        mFilterViewModel.addToFilter(id);
+    }
+
+    @Override
+    public void removeFromFilter(Integer id) {
+        mFilterViewModel.removeFromFilter(id);
+    }
+
+    @Override
+    public Integer getSelectedOption() {
+        return mFilterViewModel.getSelectedOptions();
     }
 }

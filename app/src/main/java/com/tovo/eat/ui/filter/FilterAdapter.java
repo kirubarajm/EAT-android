@@ -88,7 +88,11 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface FiltersAdapterListener {
 
-        void onItemClickData(Integer type, Integer id);
+        void onItemClickData(Integer id);
+        void addToFilter(Integer id);
+        void removeFromFilter(Integer id);
+
+        Integer getSelectedOption();
 
 
     }
@@ -106,8 +110,8 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final FilterItems blog = item_list.get(position);
-            mFilterItemViewModel = new FilterItemViewModel(this, blog, type);
-       //     mListItemLiveProductsBinding.setFilterItemViewModel(mFilterItemViewModel);
+            mFilterItemViewModel = new FilterItemViewModel(this, blog);
+            mListItemLiveProductsBinding.setFilterItemViewModel(mFilterItemViewModel);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -118,8 +122,32 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(Integer type, Integer id) {
-            mFiltersAdapterListener.onItemClickData(type, id);
+        public void onItemClick(Integer id) {
+            mFiltersAdapterListener.onItemClickData(id);
+        }
+
+        @Override
+        public void addfilter(Integer id) {
+
+
+            mFiltersAdapterListener.addToFilter(id);
+
+        }
+
+        @Override
+        public void removeFilter(Integer id) {
+            mFiltersAdapterListener.removeFromFilter(id);
+
+        }
+
+        @Override
+        public Integer getSelectedOptions() {
+            return mFiltersAdapterListener.getSelectedOption();
+        }
+
+        @Override
+        public String getFilters() {
+            return dataManager.getFilterSort();
         }
     }
 

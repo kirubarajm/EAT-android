@@ -7,10 +7,14 @@ public interface DishNavigator {
     void gotoJobCompleted();
     void gotoInJobCompleted();
 
-
     void dishListLoaded();
-
-
+    void addressAdded();
+    void noAddressFound();
     void toastMessage(String msg);
+
+
+
+
+
 
 }

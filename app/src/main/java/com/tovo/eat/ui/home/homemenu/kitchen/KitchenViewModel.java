@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
@@ -152,33 +155,75 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
 
     public void fetchRepos() {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class,new LatLngPojo(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse>() {
-                @Override
-                public void onResponse(KitchenResponse response) {
-                    if (response != null) {
+        if (getDataManager().getCurrentLat()==null){
 
-                        kitchenItemsLiveData.setValue(response.getResult());
-                        Log.e("----response:---------", response.toString());
+         //   getNavigator().noAddressFound1();
 
 
-                        KitchenViewModel.this.getNavigator().kitchenListLoaded();
+        }else {
 
+
+       //    getNavigator().addressAdded1();
+
+
+            if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+
+            FilterRequestPojo filterRequestPojo;
+
+            if (getDataManager().getFilterSort() != null) {
+
+                Gson sGson = new GsonBuilder().create();
+                filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
+
+                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(filterRequestPojo);
+                getDataManager().setFilterSort(json);
+            } else {
+                filterRequestPojo = new FilterRequestPojo();
+
+                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                Gson gson = new Gson();
+                String json = gson.toJson(filterRequestPojo);
+                getDataManager().setFilterSort(json);
+            }
+
+
+            try {
+                setIsLoading(true);
+                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, filterRequestPojo, new Response.Listener<KitchenResponse>() {
+                    @Override
+                    public void onResponse(KitchenResponse response) {
+                        if (response != null) {
+
+                            kitchenItemsLiveData.setValue(response.getResult());
+                            Log.e("----response:---------", response.toString());
+
+
+                            KitchenViewModel.this.getNavigator().kitchenListLoaded();
+
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    //Log.e("", error.getMessage());
-                }
-            });
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Log.e("", error.getMessage());
+                    }
+                });
 
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

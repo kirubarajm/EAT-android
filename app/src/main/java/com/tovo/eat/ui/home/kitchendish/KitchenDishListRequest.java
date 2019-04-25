@@ -15,6 +15,28 @@ public class KitchenDishListRequest {
     @Expose
     private Integer makeit_userid;
 
+
+
+    @SerializedName("eatuserid")
+    @Expose
+    private Integer eatuserid;
+
+
+    public Integer getEatuserid() {
+        return eatuserid;
+    }
+
+    public void setEatuserid(Integer eatuserid) {
+        this.eatuserid = eatuserid;
+    }
+
+    public KitchenDishListRequest(String lat, String lon, Integer makeit_userid, Integer eatuserid) {
+        this.lat = lat;
+        this.lon = lon;
+        this.makeit_userid = makeit_userid;
+        this.eatuserid = eatuserid;
+    }
+
     public String getLat() {
         return lat;
     }

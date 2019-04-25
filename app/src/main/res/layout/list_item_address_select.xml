@@ -9,16 +9,16 @@
 
         <import type="android.view.View" />
 
-         <variable
-             name="selectAddressListItemViewModel"
-             type="com.tovo.eat.ui.address.select.SelectAddressListItemViewModel" />
+        <variable
+            name="selectAddressListItemViewModel"
+            type="com.tovo.eat.ui.address.select.SelectAddressListItemViewModel" />
 
     </data>
 
     <LinearLayout
-        android:onClick="@{()->selectAddressListItemViewModel.onItemClick()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{()->selectAddressListItemViewModel.onItemClick()}"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -31,19 +31,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:visibility="@{selectAddressListItemViewModel.isHome?View.VISIBLE:View.GONE}"
+                <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_home_black_24dp" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_home_black_24dp"
+                        android:visibility="@{selectAddressListItemViewModel.isHome?View.VISIBLE:View.GONE}" />
 
 
-                <ImageView
-                    android:visibility="@{selectAddressListItemViewModel.isWork?View.VISIBLE:View.GONE}"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_business_black_24dp" />
-
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_business_black_24dp"
+                        android:visibility="@{selectAddressListItemViewModel.isWork?View.VISIBLE:View.GONE}" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,11 +58,11 @@
                     android:orientation="vertical">
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{selectAddressListItemViewModel.addressTitle}"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
@@ -83,15 +88,15 @@
 
 
         <com.tovo.eat.utilities.fonts.CircularTextView
-            android:onClick="@{()->selectAddressListItemViewModel.editAddress()}"
-            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:onClick="@{()->selectAddressListItemViewModel.editAddress()}"
             android:text="@string/edit"
             android:textColor="@color/eat_color"
             android:textSize="20sp"
-            android:layout_marginStart="50dp" />
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"

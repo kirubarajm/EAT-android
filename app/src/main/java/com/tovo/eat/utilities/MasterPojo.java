@@ -76,10 +76,10 @@ public class MasterPojo {
 
     public class Cuisinelist {
 
-        @SerializedName("cusineid")
+        @SerializedName("cuisineid")
         @Expose
         private Integer cusineid;
-        @SerializedName("cusinename")
+        @SerializedName("cuisinename")
         @Expose
         private String cusinename;
 

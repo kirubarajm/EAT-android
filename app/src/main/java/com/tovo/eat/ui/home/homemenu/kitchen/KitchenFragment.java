@@ -1,7 +1,6 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Intent;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,19 +8,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
-import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, FilterListener {
+public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, FilterListener, StartFilter {
 
 
     @Inject
@@ -39,7 +37,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         fragment.setArguments(args);
         return fragment;
     }
-
 
 
     @Override
@@ -65,8 +62,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
                 mKitchenViewModel.fetchRepos();
             }
         });
-
-
 
 
     }
@@ -108,6 +103,16 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     }
 
     @Override
+    public void addressAdded1() {
+
+    }
+
+    @Override
+    public void noAddressFound1() {
+        Toast.makeText(getContext(), "Please Add your address", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void toastMessage(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -132,17 +137,15 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     private void subscribeToLiveData() {
         mKitchenViewModel.getKitchenItemsLiveData().observe(this,
-               kitchenItemViewModel -> mKitchenViewModel.addKitchenItemsToList(kitchenItemViewModel));
+                kitchenItemViewModel -> mKitchenViewModel.addKitchenItemsToList(kitchenItemViewModel));
     }
-
-
 
 
     @Override
     public void onResume() {
         super.onResume();
 
-        ((MainActivity)getActivity()).statusUpdate();
+        ((MainActivity) getActivity()).statusUpdate();
 
         mKitchenViewModel.fetchRepos();
     }
@@ -153,8 +156,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
         mKitchenViewModel.saveMakeitId(kitchenId);
 
-        Intent intent= KitchenDishActivity.newIntent(getContext());
-        intent.putExtra("kitchenId",kitchenId);
+        Intent intent = KitchenDishActivity.newIntent(getContext());
+        intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
     }
@@ -163,7 +166,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     @Override
     public void addFav(Integer id, String fav) {
 
-        mKitchenViewModel.addFavourite(id,fav);
+        mKitchenViewModel.addFavourite(id, fav);
     }
 
 
@@ -177,5 +180,9 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mKitchenViewModel.fetchRepos();
     }
 
+    @Override
+    public void applyFilter() {
+        mKitchenViewModel.fetchRepos();
+    }
 }
 

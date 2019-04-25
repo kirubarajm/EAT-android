@@ -30,8 +30,8 @@ public class AppConstants {
 
    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
     public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
-    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_LIVE+ "makeitfilter";
-    public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishfilter";
+    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_LIVE+ "kitchenlist";
+    public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
     public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL_LIVE+ "products";
     public static final String EAT_ADD_ADDRESS_URL =TEMP_URL_LIVE+ "address";
     public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
@@ -44,7 +44,7 @@ public class AppConstants {
     public static final String EAT_LIVE_ORDER_URL =TEMP_URL_LIVE+ "liveorders/";
 
     public static final String EAT_FAV_URL =TEMP_URL_LIVE+ "fav/";
-    public static final String EAT_MASTER ="http://192.168.1.100:3000/masters";
+    public static final String EAT_MASTER ="http://13.232.246.20:3000/masters";
 
     public static final String EAT_DISH_LIST ="http://192.168.1.100:3000/eat/fav/dishlist/";
 

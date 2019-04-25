@@ -180,7 +180,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentLat() {
-        return mPrefs.getString(PREF_KEY_CURRENT_LAT, null);
+        return mPrefs.getString(PREF_KEY_CURRENT_LAT, "12.9760");
     }
 
     @Override
@@ -190,7 +190,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentLng() {
-        return mPrefs.getString(PREF_KEY_CURRENT_LNG, null);
+        return mPrefs.getString(PREF_KEY_CURRENT_LNG, "80.2212");
     }
 
     @Override
@@ -240,7 +240,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getFilterSort() {
-        return mPrefs.getString(PREF_KEY_FILTER, "");
+        return mPrefs.getString(PREF_KEY_FILTER, null);
     }
 
     @Override

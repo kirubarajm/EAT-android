@@ -29,6 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MasterPojo;
@@ -313,6 +314,41 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     }
+
+
+
+    public void saveRequestData(){
+
+
+        FilterRequestPojo filterRequestPojo;
+
+
+        if (getDataManager().getFilterSort()!=null) {
+
+            Gson sGson = new GsonBuilder().create();
+            filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
+
+            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+            filterRequestPojo.setLat(getDataManager().getCurrentLat());
+            filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+            Gson gson = new Gson();
+            String json = gson.toJson(filterRequestPojo);
+            getDataManager().setFilterSort(json);
+        }else {
+            filterRequestPojo=new FilterRequestPojo();
+
+            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+            filterRequestPojo.setLat(getDataManager().getCurrentLat());
+            filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+            Gson gson = new Gson();
+            String json = gson.toJson(filterRequestPojo);
+            getDataManager().setFilterSort(json);
+        }
+
+    }
+
 
 
 }

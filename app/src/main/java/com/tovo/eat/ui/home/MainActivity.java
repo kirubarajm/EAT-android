@@ -34,6 +34,7 @@ import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
+import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
@@ -47,7 +48,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener , StartFilter {
 
     public FilterListener filterListener;
     @Inject
@@ -170,9 +171,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void trackLiveOrder(Integer orderId) {
 
-       // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
 
-        Intent intent= OrderTrackingActivity.newIntent(MainActivity.this);
+        Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
         startActivity(intent);
 
     }
@@ -284,7 +285,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     transaction.commit();
                 }
             }
-        }else {
+        } else {
 
             if (savedInstanceState == null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -298,7 +299,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         mMainViewModel.totalCart();
-
+        mMainViewModel.saveRequestData();
        /* mRrootLayout = (ViewGroup) findViewById(R.id.root);
         RelativeLayout relativeLayout =  mRrootLayout.findViewById(R.id.cart_view);
 
@@ -308,16 +309,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
-
-    public void statusUpdate(){
+    public void statusUpdate() {
         mMainViewModel.totalCart();
 
         mMainViewModel.liveOrders();
 
     }
-
-
 
 
     @Override
@@ -620,6 +617,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onRestart();
     }
 
+    @Override
+    public void applyFilter() {
+
+        Intent intent = getIntent();
+
+        if (intent.getExtras() != null) {
+
+            if (intent.getExtras().getBoolean("cart")) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                CartActivity fragment = new CartActivity();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+            } else {
+
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    HomeTabFragment fragment = new HomeTabFragment();
+                    transaction.replace(R.id.content_main, fragment);
+                    transaction.commit();
+
+            }
+        } else {
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                HomeTabFragment fragment = new HomeTabFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+
+
+
+        }
+    }
 
 
     /*public boolean onTouch(View view, MotionEvent event) {

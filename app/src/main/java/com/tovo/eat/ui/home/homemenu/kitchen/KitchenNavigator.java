@@ -9,7 +9,8 @@ public interface KitchenNavigator {
 
 
     void kitchenListLoaded();
-
+    void addressAdded1();
+    void noAddressFound1();
 
     void toastMessage(String msg);
 }

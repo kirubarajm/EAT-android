@@ -134,6 +134,11 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     }
 
+    @Override
+    public void back() {
+        finish();
+    }
+
 
     private void subscribeToLiveData() {
         mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,

@@ -3,6 +3,9 @@ package com.tovo.eat.ui.filter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 public class FilterItemViewModel {
 
@@ -17,33 +20,97 @@ public class FilterItemViewModel {
 
     Integer type, id;
 
-    public FilterItemViewModel(FilterItemViewModelListener mListener, FilterItems filterItems, Integer type) {
+    public FilterItemViewModel(FilterItemViewModelListener mListener, FilterItems filterItems) {
 
 
         this.mListener = mListener;
         this.filterItems = filterItems;
-        this.type = type;
+        this.type = mListener.getSelectedOptions();
+
+        id = filterItems.getId();
+
+        FilterRequestPojo filterRequestPojo;
+
+        if (mListener.getFilters() != null) {
+            Gson sGson = new GsonBuilder().create();
+            filterRequestPojo = sGson.fromJson(mListener.getFilters(), FilterRequestPojo.class);
+
+            if (type == 1) {
+
+                if (filterRequestPojo.getSortlist() != null) {
+
+                    for (int i = 0; i < filterRequestPojo.getSortlist().size(); i++) {
+
+
+                        int sort=filterRequestPojo.getSortlist().get(i).getSort();
+
+                        if (sort==id) {
+                            isClicked.set(true);
+                        }
+
+                    }
+                }
+            } else if (type == 2) {
+
+                if (filterRequestPojo.getRegionlist() != null) {
+                    for (int i = 0; i < filterRequestPojo.getRegionlist().size(); i++) {
+
+
+                        if (filterRequestPojo.getRegionlist().get(i).getRegion().equals(id)) {
+
+                            isClicked.set(true);
+                        }
+
+                    }
+                }
+
+            } else if (type == 3) {
+
+                if (filterRequestPojo.getCusinelist() != null) {
+                    for (int i = 0; i < filterRequestPojo.getCusinelist().size(); i++) {
+
+                        if (filterRequestPojo.getCusinelist().get(i).getCusine().equals(id)) {
+
+                            isClicked.set(true);
+                        }
+
+                    }
+                }
+            }
+
+        }
 
         filterTitle.set(filterItems.getTitle());
-
-
     }
 
 
     public void onItemClick() {
-        mListener.onItemClick(type, id);
-        if (isClicked.get()){
+
+        if (isClicked.get()) {
             isClicked.set(false);
-        }else {
+
+            mListener.removeFilter(id);
+
+        } else {
             isClicked.set(true);
+            mListener.addfilter(id);
         }
     }
 
-    public interface FilterItemViewModelListener {
 
-        void onItemClick(Integer type, Integer id);
+    interface FilterItemViewModelListener {
 
+        void onItemClick(Integer id);
+
+        void addfilter(Integer id);
+
+        void removeFilter(Integer id);
+
+        Integer getSelectedOptions();
+
+        String getFilters();
 
     }
+
 
 }

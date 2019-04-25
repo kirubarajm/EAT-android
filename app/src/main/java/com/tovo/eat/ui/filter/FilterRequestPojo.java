@@ -6,28 +6,31 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class FilterRequestPojo {
-
     @SerializedName("search")
     @Expose
     private String search;
+
+
+
+
     @SerializedName("lat")
     @Expose
     private String lat;
     @SerializedName("lon")
     @Expose
     private String lon;
-    @SerializedName("price")
-    @Expose
-    private String price;
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
     @SerializedName("regionlist")
     @Expose
     private List<Regionlist> regionlist = null;
-    @SerializedName("cusinelist")
+    @SerializedName("cuisinelist")
     @Expose
     private List<Cusinelist> cusinelist = null;
+    @SerializedName("sortlist")
+    @Expose
+    private List<Sortlist> sortlist = null;
 
     public String getSearch() {
         return search;
@@ -51,14 +54,6 @@ public class FilterRequestPojo {
 
     public void setLon(String lon) {
         this.lon = lon;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public Integer getEatuserid() {
@@ -85,8 +80,38 @@ public class FilterRequestPojo {
         this.cusinelist = cusinelist;
     }
 
+    public List<Sortlist> getSortlist() {
+        return sortlist;
+    }
 
-    public class Regionlist {
+    public void setSortlist(List<Sortlist> sortlist) {
+        this.sortlist = sortlist;
+    }
+
+    public static class Cusinelist {
+        public Cusinelist(Integer cusine) {
+            this.cusine = cusine;
+        }
+
+        @SerializedName("cuisine")
+        @Expose
+        private Integer cusine;
+
+        public Integer getCusine() {
+            return cusine;
+        }
+
+        public void setCusine(Integer cusine) {
+            this.cusine = cusine;
+        }
+
+    }
+
+    public static class Regionlist {
+
+        public Regionlist(Integer region) {
+            this.region = region;
+        }
 
         @SerializedName("region")
         @Expose
@@ -102,18 +127,23 @@ public class FilterRequestPojo {
 
     }
 
-    public class Cusinelist {
+    public static class Sortlist {
 
-        @SerializedName("cusine")
-        @Expose
-        private Integer cusine;
 
-        public Integer getCusine() {
-            return cusine;
+        public Sortlist(Integer sort) {
+            this.sort = sort;
         }
 
-        public void setCusine(Integer cusine) {
-            this.cusine = cusine;
+        @SerializedName("sort")
+        @Expose
+        private Integer sort;
+
+        public Integer getSort() {
+            return sort;
+        }
+
+        public void setSort(Integer sort) {
+            this.sort = sort;
         }
 
     }
