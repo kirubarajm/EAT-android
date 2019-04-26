@@ -69,7 +69,7 @@ public class DishItemViewModel {
 
 
 
-        
+
         this.locality.set(dishList.getLocalityname());
 
         Gson sGson = new GsonBuilder().create();
