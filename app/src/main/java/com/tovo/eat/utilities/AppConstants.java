@@ -103,11 +103,14 @@ public class AppConstants {
 
     ///////Server Ip Ports
     //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-
     public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
     public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
+    public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
+    public static final String URL_NAME_GENDER_INSERT = URL_SERVER_IP_PORT + "/eat/edit";/////put method
+    public static final String URL_APP_FEEDBACK = URL_SERVER_IP_PORT + "/eat/feedback";/////POST method
+    public static final String URL_LOGIN_MAIN = URL_SERVER_IP_PORT + "/eat/checklogin";/////POST method
 
     public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
     public static final String URL_QUERY_REPLIES_COUNT = URL_SERVER_IP_PORT + "/repliescount";/////POST method

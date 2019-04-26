@@ -1,13 +1,17 @@
-package com.tovo.eat.ui.signup;
+package com.tovo.eat.ui.signup.opt;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SignUpResponse {
+public class OtpResponse {
+
 
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("passwordstatus")
     @Expose
     public Boolean passwordstatus;
@@ -17,9 +21,9 @@ public class SignUpResponse {
     @SerializedName("genderstatus")
     @Expose
     public Boolean genderstatus;
-    @SerializedName("oid")
+    @SerializedName("userid")
     @Expose
-    public Integer oid;
+    public Integer userid;
 
 
     public Boolean getSuccess() {
@@ -28,6 +32,14 @@ public class SignUpResponse {
 
     public void setSuccess(Boolean success) {
         this.success = success;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Boolean getPasswordstatus() {
@@ -54,11 +66,11 @@ public class SignUpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Integer getOid() {
-        return oid;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setOid(Integer oid) {
-        this.oid = oid;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 }

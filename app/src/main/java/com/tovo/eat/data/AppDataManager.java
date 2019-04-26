@@ -95,6 +95,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void updateUserInfo(Integer userId) {
+        setCurrentUserId(userId);
+    }
+
+    @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);

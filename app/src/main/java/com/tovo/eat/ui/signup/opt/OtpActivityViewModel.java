@@ -1,13 +1,27 @@
 package com.tovo.eat.ui.signup.opt;
 
-import android.text.TextUtils;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.signup.SignUpRequest;
+import com.tovo.eat.ui.signup.SignUpResponse;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.MvvmApp;
 
 public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
+    public final ObservableBoolean otp = new ObservableBoolean();
+    public final ObservableField<String> userId = new ObservableField<>();
+    public boolean passwordstatus;
+    public boolean otpStatus;
+    public boolean genderstatus;
     Response.ErrorListener errorListener;
 
     public OtpActivityViewModel(DataManager dataManager) {
@@ -18,47 +32,65 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         getNavigator().usersLoginMain();
     }
 
-    public boolean isEmailAndPasswordValid(String phoneNumber, String password) {
-        if (TextUtils.isEmpty(phoneNumber)) {
-            return false;
-        }
-        return !TextUtils.isEmpty(password);
-    }
-
-/*
-    public void users(String phoneNumber, String password) {
-        if(!MvvmApp.getInstance().onCheckNetWork()) return;
+    public void login(String strPhoneNumber){
+        String strPassword = "pondy";
+        strPhoneNumber = "9856321470";
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_IN, SignInResponse.class, new SignInRequest(phoneNumber, password), new Response.Listener<SignInResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber,strPassword), new Response.Listener<LoginResponse>() {
             @Override
-            public void onResponse(SignInResponse response) {
+            public void onResponse(LoginResponse response) {
                 if (response != null) {
-                    Log.i("", "" + response.getSuccess());
-                    String strMessage = response.getSuccess();
-                    Log.e("strMessage", strMessage);
-                    if (strMessage.equalsIgnoreCase(AppConstants.TRUE)) {
-                        long strUserId = response.getResult().get(0).getUserid();
-                        String strUserName = response.getResult().get(0).getName();
-                        String strEmail = String.valueOf(response.getResult().get(0).getEmail());
-                        String strPassword = String.valueOf(response.getResult().get(0).getPassword());
-                        String strPhoneNumber = String.valueOf(response.getResult().get(0).getPhoneno());
-                        getDataManager().updateUserInfo(strPassword, strUserId, DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER, strUserName, strEmail, strPhoneNumber);
-                        getNavigator().loginSuccess(response.getSuccess());
-                        setIsLoading(false);
-                    } else {
-                        getNavigator().loginError(response.getSuccess());
-                        setIsLoading(false);
-                    }
+                    getNavigator().openHomeActivity();
                 }
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                getNavigator().loginError(error.getMessage());
                 setIsLoading(false);
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
-*/
+
+    public void loginClick(){
+          getNavigator().login();
+    }
+
+    public void users(String phoneNumber, int otp, int otpId) {
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        setIsLoading(true);
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
+            @Override
+            public void onResponse(OtpResponse response) {
+                if (response != null) {
+                    Log.e("response", String.valueOf(response.getUserid()));
+                    passwordstatus = response.getPasswordstatus();
+                    otpStatus = response.getOtpstatus();
+                    genderstatus = response.getGenderstatus();
+                    userId.set(String.valueOf(response.getUserid()));
+
+                    if (otpStatus) {
+                        if (genderstatus) {
+                            getNavigator().openHomeActivity();
+                        } else {
+                            getNavigator().nameGenderScreen();
+                        }
+                    }
+                }
+                getDataManager().updateUserInfo(response.getUserid());
+
+                int userId=getDataManager().getCurrentUserId();
+                Log.e("userId", String.valueOf(userId));
+            }
+        }, errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                setIsLoading(false);
+            }
+        });
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+    }
+
 }

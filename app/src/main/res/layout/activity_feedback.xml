@@ -82,7 +82,7 @@
                     android:gravity="center">
 
                     <android.support.v7.widget.AppCompatRatingBar
-                        android:id="@+id/rate_kitchen"
+                        android:id="@+id/rate_app"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
@@ -115,9 +115,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/type_your_feedback"
-                        android:inputType="phone"
+                        android:inputType="textLongMessage"
                         android:lines="1"
-                        android:maxLength="13"
+                        android:maxLength="200"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -134,6 +134,7 @@
                     android:layout_height="50dp"
                     android:layout_marginBottom="30sp"
                     android:background="@drawable/curve_stroke"
+                    android:onClick="@{()->feedbackViewModel.submitClick()}"
                     android:text="@string/submit"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"

@@ -6,5 +6,8 @@ public interface FeedbackActivityNavigator {
 
     void submit();
 
+    void feedBackSucess(String strMessage);
+
+    void feedBackFailure(String strMessage);
 
 }
