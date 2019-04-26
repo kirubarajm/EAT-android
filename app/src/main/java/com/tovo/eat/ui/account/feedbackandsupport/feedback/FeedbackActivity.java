@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -19,7 +20,8 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     @Inject
     FeedbackActivityViewModel mFeedbackAndSupportActivityViewModel;
     ActivityFeedbackBinding mActivityFeedbackBinding;
-
+    int rate = 0;
+    String message = "";
 
     public static Intent newIntent(Context context) {
 
@@ -33,7 +35,21 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
 
     @Override
     public void submit() {
-        mFeedbackAndSupportActivityViewModel.insertFeedbackServiceCall();
+        rate = (int) mActivityFeedbackBinding.rateApp.getRating();
+        message = mActivityFeedbackBinding.edtFeedback.getText().toString();
+
+        if (validForSubmit())
+            mFeedbackAndSupportActivityViewModel.insertFeedbackServiceCall(rate, message);
+    }
+
+    @Override
+    public void feedBackSucess(String strMessage) {
+        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void feedBackFailure(String strMessage) {
+        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -55,6 +71,7 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityFeedbackBinding = getViewDataBinding();
+        mFeedbackAndSupportActivityViewModel.setNavigator(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar_feedback_support);
         setSupportActionBar(toolbar);
@@ -76,4 +93,15 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         return true;
     }
 
+    private boolean validForSubmit() {
+        if (rate == 0) {
+            Toast.makeText(getApplicationContext(), "Please give rating", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (mActivityFeedbackBinding.edtFeedback.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), "Please fill your feedback", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 }

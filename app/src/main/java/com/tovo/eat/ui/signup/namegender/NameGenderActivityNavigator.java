@@ -6,6 +6,6 @@ public interface NameGenderActivityNavigator {
 
     void proceedClick();
 
-    void openActivity();
+    void openActivity(String strMessage);
 
 }

@@ -403,6 +403,7 @@
     <string name="re_type_password">RETYPE PASSWORD</string>
     <string name="enter_email_password">ENTER EMAIL AND PASSWORD</string>
 
-
+    <string name="female">&#xe91a;</string>
+    <string name="male">&#xe91b;</string>
 
 </resources>

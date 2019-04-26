@@ -6,6 +6,10 @@ public interface OtpActivityNavigator {
 
     void usersLoginMain();
 
-    void openMainActivity();
+    void openHomeActivity();
+
+    void nameGenderScreen();
+
+    void login();
 
 }

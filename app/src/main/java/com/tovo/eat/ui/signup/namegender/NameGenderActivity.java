@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -22,6 +23,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
     @Inject
     NameGenderActivityViewModel mLoginViewModelMain;
+    boolean aBooleanAlpha = true;
     private ActivityNameGenderBinding mActivityNameGenderBinding;
 
     public static Intent newIntent(Context context) {
@@ -35,12 +37,14 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
     @Override
     public void proceedClick() {
+        String name = mActivityNameGenderBinding.edtName.getText().toString();
         if (validForProceed())
-        openActivity();
+            mLoginViewModelMain.insertNameGenderServiceCall(5, name, 1);
     }
 
     @Override
-    public void openActivity() {
+    public void openActivity(String strMessage) {
+        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         Intent intent = MainActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();
@@ -71,7 +75,26 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         super.onCreate(savedInstanceState);
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+        genderClick();
+    }
 
+    private void genderClick() {
+        mActivityNameGenderBinding.relMale.setAlpha(1);
+        mActivityNameGenderBinding.relFemale.setAlpha(.5f);
+        mActivityNameGenderBinding.relMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityNameGenderBinding.relMale.setAlpha(1);
+                mActivityNameGenderBinding.relFemale.setAlpha(.5f);
+            }
+        });
+        mActivityNameGenderBinding.relFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityNameGenderBinding.relMale.setAlpha(.5f);
+                mActivityNameGenderBinding.relFemale.setAlpha(1);
+            }
+        });
     }
 
     @Override
@@ -87,9 +110,8 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         return true;
     }
 
-    private boolean validForProceed(){
-        if (mActivityNameGenderBinding.edtName.getText().toString().equals(""))
-        {
+    private boolean validForProceed() {
+        if (mActivityNameGenderBinding.edtName.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_NAME, Toast.LENGTH_SHORT).show();
             return false;
         }

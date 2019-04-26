@@ -77,17 +77,31 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:elevation="5dp"
+                    <RelativeLayout
+                        android:id="@+id/rel_male"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_perm_identity_black_24dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="MALE" />
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/img_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="@string/male"
+                            android:textSize="60sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_male"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:text="MALE" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,16 +111,29 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/rel_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_perm_identity_black_24dp" />
+                        android:gravity="center">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="FEMALE" />
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/img_female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="@string/female"
+                            android:textSize="60sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_female"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:text="FEMALE" />
+                    </RelativeLayout>
 
                 </LinearLayout>
 

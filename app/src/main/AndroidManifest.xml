@@ -20,12 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
         <activity android:name=".ui.address.add.AddAddressActivity" />
@@ -37,7 +32,10 @@
         <activity android:name=".ui.account.feedbackandsupport.support.SupportActivity" />
         <activity android:name=".ui.account.feedbackandsupport.support.replies.chat.ChatActivity" />
         <activity android:name=".ui.account.feedbackandsupport.support.replies.RepliesActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity" />
+        <activity android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity" >
+
+
+        </activity>
         <activity android:name=".ui.account.referrals.ReferralsActivity" />
 
         <activity android:name=".ui.track.OrderTrackingActivity" />
@@ -45,11 +43,19 @@
         <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
         <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
         <activity android:name=".ui.signup.SignUpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
         <activity android:name=".ui.signup.opt.OtpActivity" />
-        <activity android:name=".ui.signup.namegender.NameGenderActivity" />
+        <activity android:name=".ui.signup.namegender.NameGenderActivity" >
+
+        </activity>
         <activity android:name=".ui.registration.RegistrationActivity" >
         </activity>
         <activity android:name=".ui.orderrating.OrderRatingActivity" />

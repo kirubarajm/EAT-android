@@ -1,8 +1,6 @@
 package com.tovo.eat.ui.signup;
 
 import android.databinding.ObservableField;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,10 +13,11 @@ import com.tovo.eat.utilities.MvvmApp;
 
 public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigator> {
 
-    public final ObservableField<String> passwordstatus = new ObservableField<>();
-    public final ObservableField<String> otpverification = new ObservableField<>();
-    public final ObservableField<String> genderstatus = new ObservableField<>();
     public final ObservableField<String> otp = new ObservableField<>();
+    public boolean passwordstatus;
+    public boolean otpStatus;
+    public boolean genderstatus;
+    int OtpId;
     Response.ErrorListener errorListener;
 
     public SignUpActivityViewModel(DataManager dataManager) {
@@ -30,24 +29,42 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     }
 
     public void users(String phoneNumber) {
-        if(!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
             @Override
             public void onResponse(SignUpResponse response) {
                 if (response != null) {
-                    passwordstatus.set(String.valueOf(response.getPasswordstatus()));
-                    otpverification.set(String.valueOf(response.getOtpverification()));
-                    genderstatus.set(String.valueOf(response.getGenderstatus()));
+                    passwordstatus = response.getPasswordstatus();
+                    otpStatus = response.getOtpstatus();
+                    genderstatus = response.getGenderstatus();
+                    if (!passwordstatus) {
+                        OtpId = response.getOid();
+                    }
+                    if (passwordstatus) {
+                        getNavigator().otpScreenFalse(otpStatus, OtpId);
+                    } else {
+                        if (otpStatus) {
+                            if (genderstatus) {
+                                getNavigator().openHomeScreen(otpStatus);
+                            } else {
+                                getNavigator().genderScreenFalse(otpStatus);
+                            }
+                        } else {
+                            getNavigator().otpScreenFalse(otpStatus, OtpId);
+                        }
+                    }
+
                 }
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                getNavigator().loginError(error.getMessage());
+                getNavigator().loginError(false);
                 setIsLoading(false);
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
 }

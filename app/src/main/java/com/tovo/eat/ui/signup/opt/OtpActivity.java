@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -25,6 +26,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Inject
     OtpActivityViewModel mLoginViewModelMain;
     private ActivityOtpBinding mActivityOtpBinding;
+    String strPhoneNumber="";
+    String strOtpId="";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, OtpActivity.class);
@@ -37,24 +40,29 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void usersLoginMain() {
-       /* String strPhoneNumber = mActivityOtpBinding.edtPhoneNo.getText().toString();
-        String strPassword = mActivityOtpBinding.edtPassword.getText().toString();
-        if (mLoginViewModelMain.isEmailAndPasswordValid(strPhoneNumber, strPassword)) {
-            hideKeyboard();
-            //mLoginViewModelMain.users(strPhoneNumber, strPassword);
-        } else {
-            Toast.makeText(getApplicationContext(), getString(R.string.invalidEmail), Toast.LENGTH_SHORT).show();
-        }*/
-
+            //hideKeyboard();
+        //strPhoneNumber=mActivityOtpBinding.edtPassword.getText().toString();
        if (validForOtp())
-        openMainActivity();
+           mLoginViewModelMain.users(strPhoneNumber, 12345, Integer.parseInt(strOtpId));
     }
 
     @Override
-    public void openMainActivity() {
+    public void openHomeActivity() {
+        Intent intent = MainActivity.newIntent(OtpActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void nameGenderScreen() {
         Intent intent = NameGenderActivity.newIntent(OtpActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void login() {
+        mLoginViewModelMain.login(strPhoneNumber);
     }
 
     @Override
@@ -83,10 +91,21 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         mActivityOtpBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
-        /*Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-            String strKey = bundle.getString("key");
-        }*/
+            String booleanOtp = bundle.getString("booleanOpt");
+            strOtpId = bundle.getString("optId");
+            strPhoneNumber = bundle.getString("strPhoneNumber");
+            if (booleanOtp.equalsIgnoreCase("true")) {
+                //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
+                //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
+                mLoginViewModelMain.otp.set(true);
+            }else {
+                //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
+                //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
+                mLoginViewModelMain.otp.set(false);
+            }
+        }
         Toolbar toolbar = findViewById(R.id.toolbar_otp);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

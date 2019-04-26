@@ -6,7 +6,14 @@ public interface SignUpActivityNavigator {
 
     void usersLoginMain();
 
-    void loginSuccess(String strSuccess);
+    void loginSuccess(boolean passwordstatus,boolean otpStatus,boolean genderstatus);
 
-    void loginError(String strError);
+    void loginError(boolean strError);
+
+
+    void otpScreenFalse(boolean trurOrFalse,int passwordSuccess);
+
+    void genderScreenFalse(boolean passwordSuccess);
+
+    void openHomeScreen(boolean passwordSuccess);
 }

@@ -36,10 +36,15 @@ public interface DataManager extends PreferencesHelper {
 
     void updateApiHeader(Long userId, String accessToken);
 
+<<<<<<< HEAD
     void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
 
     void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid);
+=======
+     void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
+     void updateUserInfo( Integer userId);
+>>>>>>> 69c1ce417eb7de84257c518b9c0811b6c16446cd
 
 
     void saveMaster(String master);
