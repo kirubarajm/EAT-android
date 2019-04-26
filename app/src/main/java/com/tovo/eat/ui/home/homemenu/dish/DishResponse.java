@@ -74,6 +74,12 @@ public class DishResponse {
         @SerializedName("cusinename")
         @Expose
         private String cusinename;
+
+
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
+
         @SerializedName("localityname")
         @Expose
         private String localityname;
@@ -83,6 +89,15 @@ public class DishResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
 
         public Integer getProductid() {
             return productid;

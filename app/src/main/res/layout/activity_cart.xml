@@ -450,12 +450,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
-                                android:background="@drawable/stoke"
+                                android:background="@drawable/curve_stroke"
                                 android:onClick="@{()->cartViewModel.selectAddress()}"
                                 android:paddingLeft="20dp"
                                 android:paddingTop="10dp"
                                 android:paddingRight="20dp"
                                 android:paddingBottom="10dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/eat_color"
                                 android:text="@string/change"
                                 android:textStyle="bold" />
 

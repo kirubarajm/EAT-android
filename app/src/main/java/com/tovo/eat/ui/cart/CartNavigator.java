@@ -19,8 +19,11 @@ public interface CartNavigator {
 
     void orderCompleted();
 
-
-
     void showToast(String msg);
+
+
+    void emptyCart();
+
+
 
 }

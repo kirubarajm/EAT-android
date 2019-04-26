@@ -110,4 +110,16 @@ public interface PreferencesHelper {
 
     void setFilterSort(String master);
 
+
+
+
+
+    Integer getCurrentFragment();
+
+
+    void setCurrentFragment(Integer orderId);
+
+
+
+
 }

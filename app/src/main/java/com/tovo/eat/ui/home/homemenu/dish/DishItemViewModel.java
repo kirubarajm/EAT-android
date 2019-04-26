@@ -68,6 +68,8 @@ public class DishItemViewModel {
         }
 
 
+
+        
         this.locality.set(dishList.getLocalityname());
 
         Gson sGson = new GsonBuilder().create();
@@ -75,7 +77,7 @@ public class DishItemViewModel {
 
         if (cartRequestPojo == null) {
             this.makeit_username.set(dishList.getMakeitUsername());
-            this.producttype.set(dishList.getProducttype());
+            this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
             this.image.set(dishList.getImage());
             this.product_name.set(dishList.getProductName());
             this.product_id.set(dishList.getProductid());
@@ -106,7 +108,7 @@ public class DishItemViewModel {
                                 if (results.get(i).getProductid().equals(dishList.getProductid())) {
                                     isAddClicked.set(true);
                                     this.makeit_username.set(dishList.getMakeitUsername());
-                                    this.producttype.set(dishList.getProducttype());
+                                    this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
                                     this.image.set(dishList.getImage());
                                     this.product_name.set(dishList.getProductName());
                                     this.product_id.set(dishList.getProductid());
@@ -119,7 +121,7 @@ public class DishItemViewModel {
 
                                 } else {
                                     this.makeit_username.set(dishList.getMakeitUsername());
-                                    this.producttype.set(dishList.getProducttype());
+                                    this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
                                     this.image.set(dishList.getImage());
                                     this.product_name.set(dishList.getProductName());
                                     this.product_id.set(dishList.getProductid());
@@ -130,7 +132,7 @@ public class DishItemViewModel {
                                 }
                             } else {
                                 this.makeit_username.set(dishList.getMakeitUsername());
-                                this.producttype.set(dishList.getProducttype());
+                                this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
                                 this.image.set(dishList.getImage());
                                 this.product_name.set(dishList.getProductName());
                                 this.product_id.set(dishList.getProductid());
@@ -142,7 +144,7 @@ public class DishItemViewModel {
 
                         } else {
                             this.makeit_username.set(dishList.getMakeitUsername());
-                            this.producttype.set(dishList.getProducttype());
+                            this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
                             this.image.set(dishList.getImage());
                             this.product_name.set(dishList.getProductName());
                             this.product_id.set(dishList.getProductid());
@@ -155,7 +157,7 @@ public class DishItemViewModel {
                     }
                 }else {
                     this.makeit_username.set(dishList.getMakeitUsername());
-                    this.producttype.set(dishList.getProducttype());
+                    this.producttype.set(dishList.getRegionname()+" | "+dishList.getCusinename());
                     this.image.set(dishList.getImage());
                     this.product_name.set(dishList.getProductName());
                     this.product_id.set(dishList.getProductid());
@@ -454,6 +456,8 @@ public class DishItemViewModel {
                     if (response != null) {
 
 
+                        mListener.showToast(response.getMessage());
+
                     }
                 }
             }, new Response.ErrorListener() {
@@ -486,6 +490,8 @@ public class DishItemViewModel {
 
 
                         favID = response.getFavid();
+
+                        mListener.showToast(response.getMessage());
 
                     }
                 }
@@ -539,6 +545,10 @@ public class DishItemViewModel {
         void productNotAvailable();
 
         Integer getEatId();
+
+        void showToast(String msg);
+
+
 
     }
 

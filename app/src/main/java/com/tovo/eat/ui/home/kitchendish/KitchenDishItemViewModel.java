@@ -432,7 +432,7 @@ public class KitchenDishItemViewModel {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
+                        mListener.showToast(response.getMessage());
 
                     }
                 }
@@ -465,7 +465,7 @@ public class KitchenDishItemViewModel {
                     if (response != null) {
 
                         favID = response.getFavid();
-
+                        mListener.showToast(response.getMessage());
                     }
                 }
             }, new Response.ErrorListener() {
@@ -516,10 +516,8 @@ public class KitchenDishItemViewModel {
         void productNotAvailable();
 
         void refresh();
-
-
         Integer getEatId();
-
+        void showToast(String msg);
 
     }
 

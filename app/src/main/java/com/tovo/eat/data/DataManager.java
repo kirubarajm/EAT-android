@@ -17,7 +17,6 @@
 package com.tovo.eat.data;
 
 
-import com.google.android.gms.common.api.Api;
 import com.tovo.eat.data.prefs.PreferencesHelper;
 
 import io.reactivex.Observable;
@@ -26,7 +25,7 @@ import io.reactivex.Observable;
  * Created by amitshekhar on 07/07/17.
  */
 
-public interface DataManager extends  PreferencesHelper {
+public interface DataManager extends PreferencesHelper {
 
     Observable<Boolean> seedDatabaseOptions();
 
@@ -37,24 +36,23 @@ public interface DataManager extends  PreferencesHelper {
 
     void updateApiHeader(Long userId, String accessToken);
 
-     void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
+    void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
 
+    void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid);
 
 
-     void updateCurrentAddress(String title,String address,double lat,double lng,String area,Integer aid);
+    void saveMaster(String master);
+
+    void saveFilterSort(String filters);
+
+    void currentFragment(Integer id);
 
 
-
-     void saveMaster(String master);
-     void saveFilterSort(String filters);
+    void kitchenId(Integer id);
 
 
-
-     void kitchenId(Integer id);
-
-
-     void currentOrderId(Integer orderId);
+    void currentOrderId(Integer orderId);
 
 
     enum LoggedInMode {
@@ -63,9 +61,11 @@ public interface DataManager extends  PreferencesHelper {
         LOGGED_IN_MODE_FB(2),
         LOGGED_IN_MODE_SERVER(3);
         private final int mType;
+
         LoggedInMode(int type) {
             mType = type;
         }
+
         public int getType() {
             return mType;
         }

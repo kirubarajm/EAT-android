@@ -221,6 +221,14 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mDishViewModel.removeFavourite(favId);
     }
 
+    @Override
+    public void showToast(String msg) {
+
+
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+    }
+
 
     @Override
     public void filterList() {

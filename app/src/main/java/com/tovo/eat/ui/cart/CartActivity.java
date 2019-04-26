@@ -163,6 +163,16 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void emptyCart() {
+
+        FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
+        HomeTabFragment fragment = new HomeTabFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
+
+    }
+
     private void subscribeToLiveData() {
         mCartViewModel.getDishItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));

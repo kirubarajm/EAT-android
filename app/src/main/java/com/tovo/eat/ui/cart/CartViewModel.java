@@ -121,30 +121,42 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     Gson gson = new Gson();
                     CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
-
-
                     if (cartPageResponse.getStatus()) {
 
 
-                        dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+
+                        if (cartPageResponse.getResult().get(0).getItem().size()==0){
+
+                            getNavigator().emptyCart();
+
+                            getDataManager().setCartDetails(null);
 
 
-                        if (cartPageResponse.getResult().get(0).getMakeitbrandname() == null) {
+                        }else {
 
-                            makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
-                        } else {
 
-                            makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
+                            dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
+
+                            if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
+                            } else {
+
+                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
+
+                            }
+
+                            makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
+                            //  makeit_category.set(response.getResult().get(0).getCategory());
+
+                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
+                            grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
+                            gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                            delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
                         }
 
-                        makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
-                        //  makeit_category.set(response.getResult().get(0).getCategory());
 
-                        total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
-                        grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
-                        gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                        delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
                     }else {
 

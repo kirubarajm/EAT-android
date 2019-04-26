@@ -52,6 +52,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ORDER_ID = "ORDER_ID";
     private static final String PREF_KEY_MASTER= "MASTER";
     private static final String PREF_KEY_FILTER= "FILTER";
+    private static final String PREF_KEY_CURRENT_FRAGMENT= "CURRENT_FRAGMENT";
 
 
     private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
@@ -246,6 +247,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFilterSort(String master) {
         mPrefs.edit().putString(PREF_KEY_FILTER, master).apply();
+    }
+
+    @Override
+    public Integer getCurrentFragment() {
+        return mPrefs.getInt(PREF_KEY_CURRENT_FRAGMENT, 0);
+    }
+
+    @Override
+    public void setCurrentFragment(Integer id) {
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_FRAGMENT, id).apply();
     }
 
     @Override

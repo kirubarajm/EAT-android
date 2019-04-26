@@ -18,6 +18,8 @@ public class KitchenItemViewModel {
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchen_image = new ObservableField<>();
     public final ObservableField<String> offer = new ObservableField<>();
+    public final ObservableField<String> region = new ObservableField<>();
+
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
@@ -41,6 +43,7 @@ public class KitchenItemViewModel {
         //  this.favourite.set(mKitchenList.getFavourite());
         //  this.offer.set(mKitchenList.getOffer());
 
+        this.region.set(mKitchenList.getRegionname());
 
         if (mKitchenList.getRating()!=null){
             isRated.set(true);

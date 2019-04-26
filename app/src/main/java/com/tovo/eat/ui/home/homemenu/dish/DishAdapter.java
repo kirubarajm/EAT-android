@@ -90,12 +90,14 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void sendCart();
 
         void dishRefresh();
+
         void productNotAvailable();
 
-        void  addDishFavourite(Integer dishId, String fav);
-        void  removeDishFavourite(Integer favId);
+        void addDishFavourite(Integer dishId, String fav);
 
+        void removeDishFavourite(Integer favId);
 
+        void showToast(String msg);
 
     }
 
@@ -167,8 +169,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void addFavourites(Integer dishId, String fav) {
 
-            mLiveProductsAdapterListener.addDishFavourite(dishId,fav);
-
+            mLiveProductsAdapterListener.addDishFavourite(dishId, fav);
 
 
         }
@@ -188,6 +189,13 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public Integer getEatId() {
             return dataManager.getCurrentUserId();
+        }
+
+        @Override
+        public void showToast(String msg) {
+
+            mLiveProductsAdapterListener.showToast(msg);
+
         }
     }
 

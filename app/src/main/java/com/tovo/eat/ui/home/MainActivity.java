@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,21 +14,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
-import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
-import com.tovo.eat.databinding.NavHeaderMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
@@ -48,7 +42,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener , StartFilter {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter {
 
     public FilterListener filterListener;
     @Inject
@@ -96,17 +90,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-    @Override
-    public void openNavDrawer() {
-
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            mDrawer.openDrawer(GravityCompat.START);
-        }
-
-
-    }
 
     @Override
     public void openCart() {
@@ -185,21 +168,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-
-        if (this.mDrawer.isDrawerOpen(GravityCompat.START)) {
-            this.mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-
-
+/*
             FragmentManager fragmentManager = getSupportFragmentManager();
             Fragment fragment = fragmentManager.findFragmentByTag(HomeTabFragment.TAG);
             if (fragment == null) {
                 super.onBackPressed();
             } else {
                 onFragmentDetached(HomeTabFragment.TAG);
-            }
+            }*/
 
-        }
+
+        showExitDialog();
+
 
     }
 
@@ -247,7 +227,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                     .remove(fragment)
                     .commitNow();
-            unlockDrawer();
+
         }
     }
 
@@ -262,10 +242,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         checkAndRequestPermissions();
-
-
-        ///mToolbar.setTitle("Home");
-        setUp();
 
 
         Intent intent = getIntent();
@@ -324,10 +300,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         statusUpdate();
 
-        if (mDrawer != null) {
-            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
-
 
         if (mMainViewModel.updateAddressTitle() != null) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
@@ -335,213 +307,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             mMainViewModel.addressTitle.set("Select Address");
 
-        }
-
-    }
-
-    private void lockDrawer() {
-        if (mDrawer != null) {
-            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
-    }
-
-    private void setUp() {
-        mDrawer = mActivityMainBinding.drawerView;
-        //   mToolbar = mActivityMainBinding.toolbar;
-        mNavigationView = mActivityMainBinding.navigationView;
-        //mCardsContainerView = mActivityMainBinding.cardsContainer;
-
-        setSupportActionBar(mToolbar);
-        //this.setActionBarTitle("Home");
-//        mToolbar.setTitle("title");
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                mDrawer,
-                mToolbar,
-                R.string.open_drawer,
-                R.string.close_drawer) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                hideKeyboard();
-            }
-        };
-        mDrawer.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
-        setupNavMenu();
-        String version = getString(R.string.version) + " " + BuildConfig.VERSION_NAME;
-        mMainViewModel.updateAppVersion(version);
-        mMainViewModel.onNavMenuCreated();
-        //setupCardContainerView();
-        //subscribeToLiveData();
-        //showAboutFragment();
-    }
-
-
-
-/*
-    private void setupCardContainerView() {
-        int screenWidth = ScreenUtils.getScreenWidth(this);
-        int screenHeight = ScreenUtils.getScreenHeight(this);
-
-        mCardsContainerView.getBuilder()
-                .setDisplayViewCount(3)
-                .setHeightSwipeDistFactor(10)
-                .setWidthSwipeDistFactor(5)
-                .setSwipeDecor(new SwipeDecor()
-                        .setViewWidth((int) (0.90 * screenWidth))
-                        .setViewHeight((int) (0.75 * screenHeight))
-                        .setPaddingTop(20)
-                        .setSwipeRotationAngle(10)
-                        .setRelativeScale(0.01f));
-
-        mCardsContainerView.addItemRemoveListener(count -> {
-            if (count == 0) {
-                // reload the contents again after 1 sec delay
-                new Handler(getMainLooper()).postDelayed(() -> {
-                    //Reload once all the cards are removed
-                    mMainViewModel.loadQuestionCards();
-                }, 800);
-            } else {
-                mMainViewModel.removeQuestionCard();
-            }
-        });
-    }
-*/
-
-    private void setupNavMenu() {
-        NavHeaderMainBinding navHeaderMainBinding = DataBindingUtil.inflate(getLayoutInflater(),
-                R.layout.nav_header_main, mActivityMainBinding.navigationView, false);
-        mActivityMainBinding.navigationView.addHeaderView(navHeaderMainBinding.getRoot());
-        navHeaderMainBinding.setViewModel(mMainViewModel);
-
-       /* mNavigationView.setNavigationItemSelectedListener(
-                item -> {
-                    mDrawer.closeDrawer(GravityCompat.START);
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                           // showMenuFragment();
-                            return true;
-                        case R.id.nav_to_hub:
-                          //  showHubFragment();
-                            //RateUsDialog.newInstance().show(getSupportFragmentManager());
-                            return true;
-                        case R.id.sales:
-                            //startActivity(FeedActivity.newIntent(KitchenActivity.this));
-                          //  showSalesFragment();
-                            return true;
-                      *//*  case R.id.training:
-                            showTrainingFragment();
-                            //startActivity(new Intent(this,ForgotPasswordActivity.class));
-                            return true;*//*
-                        case R.id.faq:
-                          // showFaqsFragment();
-                            //startActivity(new Intent(this,ForgotPasswordActivity.class));
-                            return true;
-                        case R.id.log_out:
-                          //  logOut();
-                            //startActivity(new Intent(this,ForgotPasswordActivity.class));
-                            return true;
-                        default:
-                            return false;
-                    }
-                });*/
-    }
-
-
-   /* public void logOut() {
-        mMainViewModel.logout();
-        Intent loginIntent = SignInActivityMain.newIntent(CartActivity.this);
-        startActivity(loginIntent);
-        finish();
-    }*/
-
-
-   /* private void showMenuFragment() {
-        //lockDrawer();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        MenuFragment fragment = new MenuFragment();
-        transaction.replace(R.id.frame_food, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-
-        //getSupportFragmentManager()
-        // .beginTransaction()
-        // .replace(R.id.frame_food,new FilterFragment(),null)
-        // .addToBackStack(null).commit();
-
-     *//*   FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        FilterFragment fragment = new FilterFragment();
-        transaction.replace(R.id.frame_food, fragment);
-        transaction.commit();*//*
-
-    }*/
-
-    private void showHubFragment() {
-
-
-        Toast.makeText(this, "Functionality not available", Toast.LENGTH_SHORT).show();
-
-
-        /*lockDrawer();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.frame_food, ViewInventoryFragment.newInstance(), ViewInventoryFragment.TAG)
-                .commit();*/
-        //getSupportFragmentManager()
-        // .beginTransaction()
-        // .replace(R.id.frame_food,new ViewInventoryFragment(),null)
-        // .addToBackStack(null).commit();
-
-     /*   FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        ViewInventoryFragment fragment = new ViewInventoryFragment();
-        transaction.replace(R.id.frame_food, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();*/
-    }
-
-   /* private void showSalesFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        KitchenDishActivity fragment = new KitchenDishActivity();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }*/
-
-    /*private void showTrainingFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.clRootView, FilterFragment.newInstance(), FilterFragment.TAG)
-                .commit();
-    }*/
-
-
-    /*
-        private void subscribeToLiveData() {
-            mMainViewModel.getQuestionCardData().observe(this, questionCardDatas -> mMainViewModel.setQuestionDataList(questionCardDatas));
-        }
-    */
-    private void unlockDrawer() {
-        if (mDrawer != null) {
-            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
-    }
-
-    public void setActionBarTitle(String title) {
-        try {
-            mToolbar.setTitle(title);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
 
     }
@@ -620,64 +385,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void applyFilter() {
 
-        Intent intent = getIntent();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HomeTabFragment fragment = new HomeTabFragment();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
 
-        if (intent.getExtras() != null) {
-
-            if (intent.getExtras().getBoolean("cart")) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                CartActivity fragment = new CartActivity();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-            } else {
-
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    HomeTabFragment fragment = new HomeTabFragment();
-                    transaction.replace(R.id.content_main, fragment);
-                    transaction.commit();
-
-            }
-        } else {
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeTabFragment fragment = new HomeTabFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-
-
-
-        }
     }
-
-
-    /*public boolean onTouch(View view, MotionEvent event) {
-        final int X = (int) event.getRawX();
-        final int Y = (int) event.getRawY();
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                _xDelta = X - lParams.leftMargin;
-                _yDelta = Y - lParams.topMargin;
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
-                        .getLayoutParams();
-                layoutParams.leftMargin = X - _xDelta;
-                layoutParams.topMargin = Y - _yDelta;
-                layoutParams.rightMargin = -250;
-                layoutParams.bottomMargin = -250;
-                view.setLayoutParams(layoutParams);
-                break;
-        }
-        mRrootLayout.invalidate();
-        return true;
-    }*/
 
 
 }

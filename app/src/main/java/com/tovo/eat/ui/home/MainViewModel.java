@@ -278,9 +278,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-    public void openDrawer() {
-        getNavigator().openNavDrawer();
-    }
 
     public ObservableField<String> getNumOfCarts() {
         return numOfCarts;

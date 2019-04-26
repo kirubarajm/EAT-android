@@ -135,9 +135,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
-
                         getNavigator().toastMessage(response.getMessage());
-
 
                     }
                 }
@@ -318,10 +316,8 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
     public void viewCart() {
-
         getNavigator().viewCart();
     }
-
 
     public void back(){
         getNavigator().back();

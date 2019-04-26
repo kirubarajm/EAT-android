@@ -100,7 +100,8 @@ public class AppDataManager implements DataManager {
         setCurrentAddressArea(area);
         setCurrentAddress(address);
         setCurrentLat(lat);
-        setCurrentLng(lng); setCurrentAddressTitle(title);
+        setCurrentLng(lng);
+        setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
         setCurrentAddress(address);
         setCurrentLat(lat);
@@ -116,6 +117,12 @@ public class AppDataManager implements DataManager {
     @Override
     public void saveFilterSort(String filters) {
         setFilterSort(filters);
+    }
+
+    @Override
+    public void currentFragment(Integer id) {
+        setCurrentFragment(id);
+
     }
 
 
@@ -273,7 +280,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Integer getOrderId() {
-        return  mPreferencesHelper.getOrderId();
+        return mPreferencesHelper.getOrderId();
     }
 
     @Override
@@ -283,7 +290,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Integer getAddressId() {
-        return  mPreferencesHelper.getAddressId();
+        return mPreferencesHelper.getAddressId();
     }
 
     @Override
@@ -308,7 +315,17 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setFilterSort(String filters) {
-mPreferencesHelper.setFilterSort(filters);
+        mPreferencesHelper.setFilterSort(filters);
+    }
+
+    @Override
+    public Integer getCurrentFragment() {
+        return mPreferencesHelper.getCurrentFragment();
+    }
+
+    @Override
+    public void setCurrentFragment(Integer id) {
+        mPreferencesHelper.setCurrentFragment(id);
     }
 
     @Override

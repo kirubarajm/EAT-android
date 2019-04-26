@@ -37,7 +37,11 @@ public class FilterItemViewModel {
 
             if (type == 1) {
 
-                if (filterRequestPojo.getSortlist() != null) {
+                if (filterRequestPojo.getSortid().equals(id)){
+                    isClicked.set(true);
+                }
+
+               /* if (filterRequestPojo.getSortlist() != null) {
 
                     for (int i = 0; i < filterRequestPojo.getSortlist().size(); i++) {
 
@@ -47,9 +51,8 @@ public class FilterItemViewModel {
                         if (sort==id) {
                             isClicked.set(true);
                         }
-
                     }
-                }
+                }*/
             } else if (type == 2) {
 
                 if (filterRequestPojo.getRegionlist() != null) {
@@ -88,7 +91,6 @@ public class FilterItemViewModel {
 
         if (isClicked.get()) {
             isClicked.set(false);
-
             mListener.removeFilter(id);
 
         } else {
@@ -109,6 +111,8 @@ public class FilterItemViewModel {
         Integer getSelectedOptions();
 
         String getFilters();
+
+
 
     }
 

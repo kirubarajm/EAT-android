@@ -25,7 +25,6 @@ public interface MainNavigator {
     void handleError(Throwable throwable);
 
 
-    void openNavDrawer();
 
 
     void openCart();

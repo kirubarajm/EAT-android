@@ -1,28 +1,26 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
-import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
-import com.tovo.eat.utilities.LatLngPojo;
 import com.tovo.eat.utilities.MvvmApp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -181,6 +179,19 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 filterRequestPojo.setLat(getDataManager().getCurrentLat());
                 filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
+                if (filterRequestPojo.getCusinelist() != null) {
+
+                    if (filterRequestPojo.getCusinelist().size() == 0)
+                        filterRequestPojo.setCusinelist(null);
+                }
+
+                if (filterRequestPojo.getRegionlist() != null) {
+
+                    if (filterRequestPojo.getRegionlist().size() == 0)
+                        filterRequestPojo.setRegionlist(null);
+                }
+
+
                 Gson gson = new Gson();
                 String json = gson.toJson(filterRequestPojo);
                 getDataManager().setFilterSort(json);
@@ -197,6 +208,46 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
             }
 
 
+            try {
+                setIsLoading(true);
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        if (response != null) {
+                            KitchenResponse kitchenResponse;
+                            Gson sGson = new GsonBuilder().create();
+                            kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
+
+                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                            Log.e("----response:---------", response.toString());
+
+
+                            getNavigator().kitchenListLoaded();
+
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("", error.getMessage());
+                        getNavigator().kitchenListLoaded();
+                    }
+                });
+
+                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+
+
+/*
             try {
                 setIsLoading(true);
                 GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, filterRequestPojo, new Response.Listener<KitchenResponse>() {
@@ -222,7 +273,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
     }

@@ -71,13 +71,18 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             filterRegionlists.addAll(filterRequestPojo.getRegionlist());
 
         if (selectedId == 1) {
-
+            filterSorts.clear();
             filterSorts.add(new FilterRequestPojo.Sortlist(id));
             filterRequestPojo.setSortlist(null);
             filterRequestPojo.setSortlist(filterSorts);
+            filterRequestPojo.setSortid(id);
+
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
             getDataManager().setFilterSort(json);
+
+
+            sort();
 
 
         } else if (selectedId == 2) {
@@ -158,7 +163,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             getDataManager().setFilterSort(json);
 
 
-        } else if (selectedOptions.get() == 2) {
+        } else if (selectedOptions.get() == 3) {
 
             for (int i = 0; i < filterCuisinelists.size(); i++) {
 
@@ -187,8 +192,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
     }
 
-
-    public Integer getSelectedOptions(){
+    public Integer getSelectedOptions() {
         return selectedOptions.get();
     }
 
@@ -203,6 +207,10 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
         for (int i = 0; i < sorts.size(); i++) {
             filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
+        }
+
+        if (getDataManager().getCurrentFragment() == 1) {
+            filterItemList.remove(1);
         }
         filterItems.clear();
         filterItems.addAll(filterItemList);

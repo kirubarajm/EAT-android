@@ -54,6 +54,12 @@ public class KitchenResponse {
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
+
+
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
+
         @SerializedName("isfav")
         @Expose
         private String isfav;
@@ -68,6 +74,14 @@ public class KitchenResponse {
         @Expose
         private Integer favid;
 
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
 
         public Integer getFavid() {
             return favid;

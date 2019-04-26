@@ -11,8 +11,6 @@ public class FilterRequestPojo {
     private String search;
 
 
-
-
     @SerializedName("lat")
     @Expose
     private String lat;
@@ -22,6 +20,11 @@ public class FilterRequestPojo {
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
+
+    @SerializedName("sortid")
+    @Expose
+    private Integer sortid=0;
+
     @SerializedName("regionlist")
     @Expose
     private List<Regionlist> regionlist = null;
@@ -31,6 +34,15 @@ public class FilterRequestPojo {
     @SerializedName("sortlist")
     @Expose
     private List<Sortlist> sortlist = null;
+
+
+    public Integer getSortid() {
+        return sortid;
+    }
+
+    public void setSortid(Integer sortid) {
+        this.sortid = sortid;
+    }
 
     public String getSearch() {
         return search;
