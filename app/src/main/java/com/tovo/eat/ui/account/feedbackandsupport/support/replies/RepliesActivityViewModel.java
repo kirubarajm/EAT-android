@@ -21,9 +21,12 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
     public ObservableList<RepliesResponse.Result> repliesItemViewModels = new ObservableArrayList<>();
     Response.ErrorListener errorListener;
     private MutableLiveData<List<RepliesResponse.Result>> ordersItemsLiveData;
+    int userId;
 
     public RepliesActivityViewModel(DataManager dataManager) {
         super(dataManager);
+        userId = getDataManager().getCurrentUserId();
+
         ordersItemsLiveData = new MutableLiveData<>();
         fetchQueryListServiceCall(0);
     }
@@ -50,12 +53,11 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
     }
 
     public void fetchQueryListServiceCall(int val) {
-        //long userId = getDataManager().getCurrentUserId();
         //int UserId = Integer.parseInt(String.valueOf(userId));
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_QUERIES_LIST, RepliesResponse.class,
-                new RepliesRequest(AppConstants.EAT, 1), new Response.Listener<RepliesResponse>() {
+                new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
             @Override
             public void onResponse(RepliesResponse response) {
                 if (response != null) {

@@ -44,6 +44,8 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
 
     @Override
     public void feedBackSucess(String strMessage) {
+        mActivityFeedbackBinding.edtFeedback.setText("");
+        mActivityFeedbackBinding.rateApp.setRating(0);
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 

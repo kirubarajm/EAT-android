@@ -17,6 +17,9 @@ public class SignUpResponse {
     @SerializedName("genderstatus")
     @Expose
     public Boolean genderstatus;
+    @SerializedName("userid")
+    @Expose
+    public Integer userid;
     @SerializedName("oid")
     @Expose
     public Integer oid;
@@ -52,6 +55,14 @@ public class SignUpResponse {
 
     public void setGenderstatus(Boolean genderstatus) {
         this.genderstatus = genderstatus;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Integer getOid() {

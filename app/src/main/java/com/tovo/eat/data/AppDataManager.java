@@ -71,6 +71,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setLogout() {
+        updateUserInfo(null);
+    }
+
+    @Override
     public void updateApiHeader(Long userId, String accessToken) {
 
     }
@@ -142,7 +147,7 @@ public class AppDataManager implements DataManager {
     }
 
    /* @Override
-    public Call<LoginResponse> users(String name, String job) {
+    public Call<LoginResponse> userContinueClick(String name, String job) {
         return null;
     }
 

@@ -6,7 +6,7 @@ public class AppConstants {
 
     public static final String DB_NAME = "mindorks_mvvm.db";
 
-    public static final long NULL_INDEX = -1L;
+    public static final int NULL_INDEX = 0;
 
     public static final String PREF_NAME = "mindorks_pref";
 
@@ -105,8 +105,8 @@ public class AppConstants {
     }
 
     ///////Server Ip Ports
-    //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
     public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
@@ -121,18 +121,17 @@ public class AppConstants {
     public static final String URL_REPLIES_CHAT = URL_SERVER_IP_PORT + "/queryreplies/";/////GET method
     public static final String URL_CHAT_ANSWER = URL_SERVER_IP_PORT + "/queryanswer/";/////GET method
     public static final String URL_CHAT_REPLIES_READ = URL_SERVER_IP_PORT + "/repliesread/";/////GET method
-    public static final String URL_ORDERS_HISTORY_LIST = URL_SERVER_IP_PORT + "/eat/orders/1";/////GET method
-    public static final String URL_ORDERS_HISTORY_VIEW = URL_SERVER_IP_PORT + "/eat/order/1";/////GET method
-    public static final String URL_REFERRALS = URL_SERVER_IP_PORT + "/eat/referral/1";/////GET method
+    public static final String URL_ORDERS_HISTORY_LIST = URL_SERVER_IP_PORT + "/eat/orders/";/////GET method
+    public static final String URL_ORDERS_HISTORY_VIEW = URL_SERVER_IP_PORT + "/eat/order/";/////GET method
+    public static final String URL_REFERRALS = URL_SERVER_IP_PORT + "/eat/referral/";/////GET method
 
     public static final int ADMIN =0;
     public static final int MAKEIT =1;
     public static final int MOVEIT =2;
     public static final int SALES=3;
     public static final int EAT =4;
-
-    public static final int EAT_CHAT_ID =4;
-
+    public static final int MALE =1;
+    public static final int FEMALE =2;
 
     ////ToAST
     public static final String TOAST_ENTER_REPLY_TO_SEND = "Enter reply to send";
@@ -146,4 +145,6 @@ public class AppConstants {
     public static final String TOAST_ENTER_PASSWORD ="Enter password";
     public static final String TOAST_ENTER_RE_ENTER_PASSWORD ="ReType password";
     public static final String TOAST_PASSWORD_NOT_MATCHING ="Password not matching";
+    public static final String TOAST_LOGIN_SUCCESS ="Login success";
+    public static final String TOAST_LOGIN_FAILED ="Login failed";
 }

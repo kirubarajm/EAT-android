@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
@@ -55,14 +57,16 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
         mOrderHistoryActivityViewModelView.setNavigator(this);
         mOrdersHistoryActivityItemAdapter.setListener(this);
 
-        setTitle("Orders History Details");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
+        setTitle("Order history view");
+        Toolbar toolbar = findViewById(R.id.toolbar_history_view);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        mActivityOrdersHostiryViewBinding.toolbarHistoryView.setTitle("Orders History Details");
+        mActivityOrdersHostiryViewBinding.toolbarHistoryView.setTitle("Order history view");
+
+
         mOrdersHistoryActivityItemAdapter.setListener(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setLayoutManager(new LinearLayoutManager(this));
@@ -79,4 +83,15 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     public void listItem(OrdersHistoryActivityResponse.Result mOrderList) {
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
+
 }

@@ -33,6 +33,8 @@ public interface DataManager extends PreferencesHelper {
 
     void setUserAsLoggedOut();
 
+    void setLogout();
+
 
     void updateApiHeader(Long userId, String accessToken);
 

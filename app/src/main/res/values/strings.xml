@@ -405,5 +405,12 @@
 
     <string name="female">&#xe91a;</string>
     <string name="male">&#xe91b;</string>
+    <string name="icon_manage_address">&#xe906;</string>
+    <string name="icon_order_history">&#xe908;</string>
+    <string name="icon_referrals">&#xe909;</string>
+    <string name="icon_offers">&#xe90a;</string>
+    <string name="icon_favorites">&#xe900;</string>
+    <string name="icon_feedback_support">&#xe90b;</string>
+    <string name="icon_call">&#xe912;</string>
 
 </resources>

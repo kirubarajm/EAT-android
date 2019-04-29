@@ -16,6 +16,7 @@ import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.signup.SignUpActivity;
 
 import javax.inject.Inject;
 
@@ -119,6 +120,13 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void offers() {
 
+    }
+
+    @Override
+    public void logout() {
+        mMyAccountViewModel.logOutSession();
+        startActivity(SignUpActivity.newIntent(getActivity()));
+        getActivity().finish();
     }
 
     @Override

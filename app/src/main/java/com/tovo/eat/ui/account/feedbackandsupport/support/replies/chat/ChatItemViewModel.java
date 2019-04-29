@@ -55,8 +55,8 @@ public class ChatItemViewModel {
 
         try {
             String strDate = mBlog.getCreatedAt();
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-            DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+            DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String outputDateStr = "";
             //Date  date1 = new Date(strDate);
             Date date = currentFormat.parse(strDate);

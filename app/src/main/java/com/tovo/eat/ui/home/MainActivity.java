@@ -90,7 +90,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-
     @Override
     public void openCart() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

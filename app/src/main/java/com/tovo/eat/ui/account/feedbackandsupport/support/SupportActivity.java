@@ -1,7 +1,9 @@
 package com.tovo.eat.ui.account.feedbackandsupport.support;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -94,6 +96,19 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     public void onRefreshFailure() {
         mActivityQueriesBinding.swipeQueries.setRefreshing(false);
         //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void callAdmin() {
+        if (hasPermission(Manifest.permission.CALL_PHONE)) {
+            String number = "9597352662";
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(callIntent);
+        } else {
+            requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE}, 0);
+        }
     }
 
     @Override

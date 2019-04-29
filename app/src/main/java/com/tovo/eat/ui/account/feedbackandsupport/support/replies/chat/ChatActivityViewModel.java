@@ -29,8 +29,10 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
     List<ChatResponse.Result> chatListUserRead = new ArrayList<>();
     List<ChatRepliesReadRequest.Aidlist> chatListUserReadFinal = new ArrayList<>();
     ChatRepliesReadRequest.Aidlist aidlist;
+    int userId;
     public ChatActivityViewModel(DataManager dataManager) {
         super(dataManager);
+        userId = getDataManager().getCurrentUserId();
         chatItemsLiveData = new MutableLiveData<>();
     }
 
@@ -39,7 +41,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         if (val == 1) {
             setIsLoading(true);
         }
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REPLIES_CHAT + "1"/*strQid*/, ChatResponse.class, new Response.Listener<ChatResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REPLIES_CHAT + strQid, ChatResponse.class, new Response.Listener<ChatResponse>() {
             @Override
             public void onResponse(ChatResponse response) {
                 if (response != null && response.getResult().size() > 0) {
@@ -79,14 +81,11 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
     }
 
     public void insertAnswerServiceCall(String strMessage, String strQid) {
-        //long userId = getDataManager().getCurrentUserId();
-        //int UserId = Integer.parseInt(String.valueOf(userId));
-        //int qId = Integer.parseInt(strQid);
-
+        int qId = Integer.parseInt(strQid);
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ANSWER, ChatReplyResponse.class,
-                new ChatReplyRequest(1, strMessage,AppConstants.EAT, AppConstants.EAT_CHAT_ID, 1), new Response.Listener<ChatReplyResponse>() {
+                new ChatReplyRequest(qId, strMessage,AppConstants.EAT, AppConstants.ADMIN, userId), new Response.Listener<ChatReplyResponse>() {
             @Override
             public void onResponse(ChatReplyResponse response) {
                 if (response != null) {

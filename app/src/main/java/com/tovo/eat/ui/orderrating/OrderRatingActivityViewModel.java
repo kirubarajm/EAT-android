@@ -15,7 +15,7 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
 
 
 /*
-    public void users(String phoneNumber, String password) {
+    public void userContinueClick(String phoneNumber, String password) {
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_IN, SignInResponse.class, new SignInRequest(phoneNumber, password), new Response.Listener<SignInResponse>() {

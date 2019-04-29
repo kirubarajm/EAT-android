@@ -4,14 +4,11 @@ public interface SignUpActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void usersLoginMain();
-
-    void loginSuccess(boolean passwordstatus,boolean otpStatus,boolean genderstatus);
+    void verifyUser();
 
     void loginError(boolean strError);
 
-
-    void otpScreenFalse(boolean trurOrFalse,int passwordSuccess);
+    void otpScreenFalse(boolean trurOrFalse,int passwordSuccess,int UserId);
 
     void genderScreenFalse(boolean passwordSuccess);
 

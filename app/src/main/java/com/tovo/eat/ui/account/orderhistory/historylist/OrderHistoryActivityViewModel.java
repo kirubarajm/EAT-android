@@ -45,12 +45,12 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
     public void fetchRepos(int val) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-            //long userId = getDataManager().getCurrentUserId();
+            long userId = getDataManager().getCurrentUserId();
             //String strUserId = String.valueOf(userId);
             if (val == 0) {
                 setIsLoading(true);
             }
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST+userId, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
                 @Override
                 public void onResponse(OrdersHistoryListResponse response) {
                     try {

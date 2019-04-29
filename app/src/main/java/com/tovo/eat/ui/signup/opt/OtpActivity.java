@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -25,9 +24,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Inject
     OtpActivityViewModel mLoginViewModelMain;
+    String strPhoneNumber = "";
+    String strOtpId = "";
+    String UserId = "";
     private ActivityOtpBinding mActivityOtpBinding;
-    String strPhoneNumber="";
-    String strOtpId="";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, OtpActivity.class);
@@ -39,18 +39,24 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     }
 
     @Override
-    public void usersLoginMain() {
-            //hideKeyboard();
+    public void continueClick() {
+        //hideKeyboard();
         //strPhoneNumber=mActivityOtpBinding.edtPassword.getText().toString();
-       if (validForOtp())
-           mLoginViewModelMain.users(strPhoneNumber, 12345, Integer.parseInt(strOtpId));
+        if (validForOtp())
+            mLoginViewModelMain.userContinueClick(strPhoneNumber, 12345, Integer.parseInt(strOtpId));
     }
 
     @Override
-    public void openHomeActivity() {
-        Intent intent = MainActivity.newIntent(OtpActivity.this);
-        startActivity(intent);
-        finish();
+    public void openHomeActivity(boolean trueOrFalse) {
+        if (trueOrFalse) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
+            Intent intent = MainActivity.newIntent(OtpActivity.this);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_FAILED, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -62,7 +68,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void login() {
-        mLoginViewModelMain.login(strPhoneNumber);
+        if (validForPassword()) {
+            String strPassword = mActivityOtpBinding.edtPassword.getText().toString();
+            mLoginViewModelMain.login(strPhoneNumber, strPassword);
+        }
     }
 
     @Override
@@ -92,19 +101,22 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         mLoginViewModelMain.setNavigator(this);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null) {
+        if (bundle != null) {
             String booleanOtp = bundle.getString("booleanOpt");
             strOtpId = bundle.getString("optId");
             strPhoneNumber = bundle.getString("strPhoneNumber");
+            UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
                 //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
                 //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
                 mLoginViewModelMain.otp.set(true);
-            }else {
+            } else {
                 //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
                 //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
                 mLoginViewModelMain.otp.set(false);
             }
+
+            mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
         }
         Toolbar toolbar = findViewById(R.id.toolbar_otp);
         setSupportActionBar(toolbar);
@@ -128,11 +140,18 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         return true;
     }
 
-    private boolean validForOtp(){
+    private boolean validForOtp() {
         if (mActivityOtpBinding.edt1.getText().toString().equals("") && mActivityOtpBinding.edt2.getText().toString().equals("") && mActivityOtpBinding.edt4.getText().toString().equals("")
-        && mActivityOtpBinding.edt4.getText().toString().equals("") && mActivityOtpBinding.edt5.getText().toString().equals(""))
-        {
+                && mActivityOtpBinding.edt4.getText().toString().equals("") && mActivityOtpBinding.edt5.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_OTP, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validForPassword() {
+        if (mActivityOtpBinding.edtPassword.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

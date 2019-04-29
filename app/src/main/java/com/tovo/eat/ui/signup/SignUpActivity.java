@@ -35,61 +35,36 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     }
 
     @Override
-    public void usersLoginMain() {
+    public void verifyUser() {
         /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
         intent.putExtra("key","value");
         startActivity(intent);
         finish();*/
-        String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
-        /*if (validForMobileNo()) {*/
-        mLoginViewModelMain.users(strPhoneNumber);
+
+        if (validForMobileNo()) {
+            String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
+            mLoginViewModelMain.users(strPhoneNumber);
             /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
             startActivity(intent);
             finish();*/
-        /*  }*/
-    }
-
-    @Override
-    public void loginSuccess(boolean passwordstatus, boolean otpStatus, boolean genderstatus) {
-       /* if (strSucess.equalsIgnoreCase(AppConstants.TRUE)) {
-            openMainActivity();
-            Toast.makeText(getApplicationContext(), AppConstants.LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), AppConstants.INVALID_CREDENTIALS, Toast.LENGTH_SHORT).show();
-        }*/
-
-        if (passwordstatus) {
-
-        }
-        if (otpStatus) {
-
-        }
-        if (genderstatus) {
-
         }
     }
 
     @Override
     public void loginError(boolean strError) {
-        /*if (strError!=null && !strError.equals("")) {
-            if (strError.equalsIgnoreCase(AppConstants.TRUE)) {
-                Toast.makeText(getApplicationContext(), AppConstants.INVALID_CREDENTIALS, Toast.LENGTH_LONG).show();
-            }else {
-                Toast.makeText(getApplicationContext(), AppConstants.LOGIN_FAILED, Toast.LENGTH_LONG).show();
-            }
-        }*/
+        Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void otpScreenFalse(boolean trurOrFalse,int opt) {
+    public void otpScreenFalse(boolean trurOrFalse, int opt,int UserId) {
         String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
         Intent intent = OtpActivity.newIntent(SignUpActivity.this);
-        intent.putExtra("booleanOpt",String.valueOf(trurOrFalse));
-        intent.putExtra("optId",String.valueOf(opt));
-        intent.putExtra("strPhoneNumber",strPhoneNumber);
+        intent.putExtra("booleanOpt", String.valueOf(trurOrFalse));
+        intent.putExtra("optId", String.valueOf(opt));
+        intent.putExtra("strPhoneNumber", strPhoneNumber);
+        intent.putExtra("UserId", UserId);
         startActivity(intent);
         finish();
-
     }
 
     @Override

@@ -85,6 +85,7 @@
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
                             android:id="@+id/img_male"
+                            android:onClick="@{()->nameGenderViewModel.male()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -119,6 +120,7 @@
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
                             android:id="@+id/img_female"
+                            android:onClick="@{()->nameGenderViewModel.feMale()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"

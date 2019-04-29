@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <!-- view background color -->
     <!--<solid android:color="@color/bg_msg_from" >-->
-    <solid android:color="@color/green"/>
+    <solid android:color="@color/eat_color"/>
 
     <corners
         android:bottomLeftRadius="5dp"

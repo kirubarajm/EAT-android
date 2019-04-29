@@ -23,7 +23,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
     @Inject
     NameGenderActivityViewModel mLoginViewModelMain;
-    boolean aBooleanAlpha = true;
+    int gender;
     private ActivityNameGenderBinding mActivityNameGenderBinding;
 
     public static Intent newIntent(Context context) {
@@ -39,7 +39,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     public void proceedClick() {
         String name = mActivityNameGenderBinding.edtName.getText().toString();
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(5, name, 1);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, gender);
     }
 
     @Override
@@ -48,6 +48,20 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         Intent intent = MainActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void male() {
+        mActivityNameGenderBinding.relMale.setAlpha(1);
+        mActivityNameGenderBinding.relFemale.setAlpha(.5f);
+        gender = AppConstants.MALE;
+    }
+
+    @Override
+    public void female() {
+        mActivityNameGenderBinding.relMale.setAlpha(.5f);
+        mActivityNameGenderBinding.relFemale.setAlpha(1);
+        gender = AppConstants.FEMALE;
     }
 
     @Override
@@ -75,26 +89,10 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         super.onCreate(savedInstanceState);
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
-        genderClick();
-    }
 
-    private void genderClick() {
         mActivityNameGenderBinding.relMale.setAlpha(1);
         mActivityNameGenderBinding.relFemale.setAlpha(.5f);
-        mActivityNameGenderBinding.relMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivityNameGenderBinding.relMale.setAlpha(1);
-                mActivityNameGenderBinding.relFemale.setAlpha(.5f);
-            }
-        });
-        mActivityNameGenderBinding.relFemale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivityNameGenderBinding.relMale.setAlpha(.5f);
-                mActivityNameGenderBinding.relFemale.setAlpha(1);
-            }
-        });
+        gender=1;
     }
 
     @Override

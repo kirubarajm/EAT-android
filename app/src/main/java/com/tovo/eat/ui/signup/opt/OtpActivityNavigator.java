@@ -4,9 +4,9 @@ public interface OtpActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void usersLoginMain();
+    void continueClick();
 
-    void openHomeActivity();
+    void openHomeActivity(boolean trueOrFalse);
 
     void nameGenderScreen();
 

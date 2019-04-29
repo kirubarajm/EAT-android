@@ -23,7 +23,7 @@
             app:subtitleTextColor="@color/white"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/green" />
+            app:titleTextColor="@color/eat_color" />
 
         <View
             android:id="@+id/view1"
@@ -32,20 +32,20 @@
             android:layout_below="@+id/toolbar1"
             android:background="@drawable/toolbar_shadow" />
 
-        <TextView
+        <com.tovo.eat.utilities.fonts.CircularTextView
             android:id="@+id/txt_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view1"
             android:layout_margin="10dp"
             android:background="@drawable/chat_question_background"
-            android:gravity="center"
+            android:gravity="left|center"
             android:padding="10dp"
-            android:textColor="@color/green"
+            android:textColor="@color/eat_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.tovo.eat.utilities.fonts.CircularTextView
             android:id="@+id/txt_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 android:background="@color/transparent"
                 android:hint="@string/type_here" />
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -107,7 +107,7 @@
                 android:onClick="@{()->chatViewModel.sendClick()}"
                 android:padding="10dp"
                 android:text="Send"
-                android:textColor="@color/green" />
+                android:textColor="@color/eat_color" />
         </LinearLayout>
 
     </RelativeLayout>

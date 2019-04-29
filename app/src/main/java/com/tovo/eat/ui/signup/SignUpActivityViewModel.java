@@ -18,6 +18,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     public boolean otpStatus;
     public boolean genderstatus;
     int OtpId;
+    int userId;
     Response.ErrorListener errorListener;
 
     public SignUpActivityViewModel(DataManager dataManager) {
@@ -25,7 +26,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     }
 
     public void usersLoginMain() {
-        getNavigator().usersLoginMain();
+        getNavigator().verifyUser();
     }
 
     public void users(String phoneNumber) {
@@ -40,9 +41,13 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                     genderstatus = response.getGenderstatus();
                     if (!passwordstatus) {
                         OtpId = response.getOid();
+                    }else {
+                        userId = response.getUserid();
                     }
+
+
                     if (passwordstatus) {
-                        getNavigator().otpScreenFalse(otpStatus, OtpId);
+                        getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
                     } else {
                         if (otpStatus) {
                             if (genderstatus) {
@@ -51,10 +56,9 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                                 getNavigator().genderScreenFalse(otpStatus);
                             }
                         } else {
-                            getNavigator().otpScreenFalse(otpStatus, OtpId);
+                            getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
                         }
                     }
-
                 }
             }
         }, errorListener = new Response.ErrorListener() {
