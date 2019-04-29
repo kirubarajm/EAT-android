@@ -3,10 +3,15 @@ package com.tovo.eat.ui.home;
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -29,9 +34,12 @@ import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.filter.StartFilter;
+import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,27 +50,81 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener {
 
     public FilterListener filterListener;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+
+
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+
+
+
+    private MainViewModel mMainViewModel;
+
+    String DialogTag=DialogSelectAddress.newInstance().getTag();
+
+
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (mMainViewModel.isAddressAdded()) {
+                if (checkWifiConnect()) {
+                  /*  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    HomeTabFragment fragment = new HomeTabFragment();
+                    transaction.replace(R.id.content_main, fragment);
+                    transaction.commit();*/
+
+                } else {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    InternetErrorFragment fragment = new InternetErrorFragment();
+                    transaction.replace(R.id.content_main, fragment);
+                    transaction.commit();
+                }
+            } else {
+
+               /* Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+                if (oldFragment == null) {
+                    DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+                }*/
+
+            }
+        }
+    };
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
-    private MainViewModel mMainViewModel;
+
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
     private ViewGroup mRrootLayout;
     private int _xDelta;
     private int _yDelta;
+    private BroadcastReceiver mNetworkReceiver;
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
         return new Intent(context, MainActivity.class);
+    }
+
+    public static void noInternet(boolean status) {
+     /* if (status) {
+
+          FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+          HomeTabFragment fragment = new HomeTabFragment();
+          transaction.replace(R.id.content_main, fragment);
+          transaction.commit();
+
+      }else {
+
+
+
+
+      }*/
     }
 
     public void setFilterListener(FilterListener filterListener) {
@@ -90,30 +152,30 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-
     @Override
     public void openCart() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        CartActivity fragment = new CartActivity();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+        if (mMainViewModel.checkInternet()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            CartActivity fragment = new CartActivity();
+            transaction.replace(R.id.content_main, fragment);
+            transaction.commit();
 
-        mMainViewModel.toolbarTitle.set("Cart");
-        mMainViewModel.titleVisible.set(true);
-
+            mMainViewModel.toolbarTitle.set("Cart");
+            mMainViewModel.titleVisible.set(true);
+        }
     }
 
     @Override
     public void openHome() {
+        if (mMainViewModel.checkInternet()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            HomeTabFragment fragment = new HomeTabFragment();
+            transaction.replace(R.id.content_main, fragment);
+            transaction.commit();
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
-
-        mMainViewModel.toolbarTitle.set("Home");
-        mMainViewModel.titleVisible.set(false);
-
+            mMainViewModel.toolbarTitle.set("Home");
+            mMainViewModel.titleVisible.set(false);
+        }
     }
 
     @Override
@@ -129,14 +191,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
        /* Intent intent = AddressListActivity.newIntent(FilterActivity.this);
         startActivity(intent);*/
 
+        if (mMainViewModel.checkInternet()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            MyAccountFragment fragment = new MyAccountFragment();
+            transaction.replace(R.id.content_main, fragment);
+            transaction.commit();
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        MyAccountFragment fragment = new MyAccountFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+            mMainViewModel.toolbarTitle.set("My Account");
+            mMainViewModel.titleVisible.set(true);
 
-        mMainViewModel.toolbarTitle.set("My Account");
-        mMainViewModel.titleVisible.set(true);
+        }
+
 
     }
 
@@ -155,10 +220,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void trackLiveOrder(Integer orderId) {
 
         // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
+        if (mMainViewModel.checkInternet()) {
+            Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please check your internet...", Toast.LENGTH_SHORT).show();
 
-        Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
-        startActivity(intent);
-
+        }
     }
 
     @Override
@@ -182,7 +250,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
-
 
     private void showExitDialog() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -216,7 +283,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         alert11.show();
     }
 
-
     public void onFragmentDetached(String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
@@ -231,12 +297,62 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
+
+        if (mMainViewModel.isAddressAdded()) {
+            if (mMainViewModel.checkInternet()) {
+                Intent intent = getIntent();
+
+                if (intent.getExtras() != null) {
+                    if (intent.getExtras().getBoolean("cart")) {
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        CartActivity fragment = new CartActivity();
+                        transaction.replace(R.id.content_main, fragment);
+                        transaction.commit();
+                    } else {
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        HomeTabFragment fragment = new HomeTabFragment();
+                        transaction.replace(R.id.content_main, fragment);
+                        transaction.commit();
+                    }
+                } else {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    HomeTabFragment fragment = new HomeTabFragment();
+                    transaction.replace(R.id.content_main, fragment);
+                    transaction.commit();
+                }
+
+            } else {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+
+            }
+
+        } else {
+
+
+            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+            if (oldFragment == null) {
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+            }
+
+        }
+
+
+
+
+
+        // mNetworkReceiver = new NetworkChangeReceiver();
+        //registerNetworkBroadcastForNougat();
+
+
+        registerWifiReceiver();
 
         mMainViewModel.liveOrders();
 
@@ -244,59 +360,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         checkAndRequestPermissions();
 
 
-        Intent intent = getIntent();
-
-        if (intent.getExtras() != null) {
-
-            if (intent.getExtras().getBoolean("cart")) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                CartActivity fragment = new CartActivity();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-            } else {
-                if (savedInstanceState == null) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    HomeTabFragment fragment = new HomeTabFragment();
-                    transaction.replace(R.id.content_main, fragment);
-                    transaction.commit();
-                }
-            }
-        } else {
-
-            if (savedInstanceState == null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeTabFragment fragment = new HomeTabFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-            }
-
-
-        }
-
 
         mMainViewModel.totalCart();
         mMainViewModel.saveRequestData();
-       /* mRrootLayout = (ViewGroup) findViewById(R.id.root);
-        RelativeLayout relativeLayout =  mRrootLayout.findViewById(R.id.cart_view);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(260,260);
-        relativeLayout.setLayoutParams(layoutParams);
-        relativeLayout.setOnTouchListener(this);*/
     }
-
 
     public void statusUpdate() {
         mMainViewModel.totalCart();
-
         mMainViewModel.liveOrders();
 
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
 
+
+
+
+
+
+
+
+       /* if (!mMainViewModel.isAddressAdded()) {
+            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+            if (oldFragment == null) {
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+            }
+        }else {
+            if (checkWifiConnect()) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                HomeTabFragment fragment = new HomeTabFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+
+            } else {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+            }
+
+        }*/
 
         statusUpdate();
 
@@ -311,6 +417,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     private boolean checkAndRequestPermissions() {
 
@@ -390,6 +501,79 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
 
+    }
+
+    @Override
+    public void isInternet(boolean available) {
+        if (available) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            HomeTabFragment fragment = new HomeTabFragment();
+            transaction.replace(R.id.content_main, fragment);
+            transaction.commit();
+
+        }
+    }
+
+    public void internetcheck(boolean status) {
+
+        if (status) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            HomeTabFragment fragment = new HomeTabFragment();
+            transaction.replace(R.id.content_main, fragment);
+            transaction.commit();
+
+        } else {
+
+
+        }
+
+    }
+
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mWifiReceiver, filter);
+    }
+
+    private void unregisterWifiReceiver() {
+        unregisterReceiver(mWifiReceiver);
+    }
+
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null
+                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private void registerNetworkBroadcastForNougat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+    protected void unregisterNetworkChanges() {
+        try {
+            unregisterReceiver(mNetworkReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+      //  unregisterWifiReceiver();
     }
 
 

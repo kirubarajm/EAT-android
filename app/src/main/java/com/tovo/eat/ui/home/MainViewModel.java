@@ -114,6 +114,29 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
+
+
+
+    public boolean isAddressAdded(){
+
+        if (getDataManager().getCurrentAddressTitle()==null){
+
+            return false;
+        }else {
+
+            return true;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
     public void liveOrders() {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -278,7 +301,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
-
     public ObservableField<String> getNumOfCarts() {
         return numOfCarts;
     }
@@ -312,15 +334,21 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     }
 
+    public boolean checkInternet() {
+
+        return MvvmApp.getInstance().onCheckNetWork();
 
 
-    public void saveRequestData(){
+    }
+
+
+    public void saveRequestData() {
 
 
         FilterRequestPojo filterRequestPojo;
 
 
-        if (getDataManager().getFilterSort()!=null) {
+        if (getDataManager().getFilterSort() != null) {
 
             Gson sGson = new GsonBuilder().create();
             filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
@@ -332,8 +360,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
             getDataManager().setFilterSort(json);
-        }else {
-            filterRequestPojo=new FilterRequestPojo();
+        } else {
+            filterRequestPojo = new FilterRequestPojo();
 
             filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
             filterRequestPojo.setLat(getDataManager().getCurrentLat());
@@ -345,7 +373,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }
 
     }
-
 
 
 }

@@ -101,6 +101,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void  removeDishFavourite(Integer favId);
         void showToast(String msg);
+        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
     }
 
 
@@ -213,6 +214,11 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             mLiveProductsAdapterListener.showToast(msg);
 
+        }
+
+        @Override
+        public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+            mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
         }
 
     }

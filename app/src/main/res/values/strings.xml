@@ -82,7 +82,7 @@
     <!--empty state-->
     <string name="empty_screen">We do not have anything\nhere right now.</string>
     <string name="please_retry">Please Retry</string>
-    <string name="retry">Retry</string>
+
 
 
     <!--Forgot password-->
@@ -304,7 +304,7 @@
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
     <string name="select_option">Select option</string>
-    <string name="add">Add</string>
+
     <string name="type_in_your_remarks">Type in your remarks</string>
     <string name="acknowledged">Acknowledged</string>
 
@@ -405,5 +405,15 @@
 
     <string name="female">&#xe91a;</string>
     <string name="male">&#xe91b;</string>
+    <string name="oh_snap">Oh Snap!</string>
+    <string name="no_internet_connection_detected">No internet connection detected</string>
+    <string name="retry">Retry</string>
+    <string name="no_results_found">No results found</string>
+    <string name="add">Add</string>
+    <string name="add_your_address_to_find_nearest_kitchens">Add your address to find nearest kitchens..</string>
+    <string name="change_kitchen_title">You can only order items from one kitchen at a time</string>
+    <string name="change_kitchen_msg">Clear your cart if you would stll like to order this item</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear_cart_and_add">Clear cart and Add</string>
 
 </resources>

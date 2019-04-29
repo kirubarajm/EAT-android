@@ -50,15 +50,6 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     public KitchenViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
-
-    //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
-
         fetchRepos();
     }
 
@@ -220,7 +211,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
                             kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-                            Log.e("----response:---------", response.toString());
+                            Log.e("Kitchen----response:", response.toString());
 
 
                             getNavigator().kitchenListLoaded();

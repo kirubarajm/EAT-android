@@ -20,16 +20,17 @@
         android:layout_height="match_parent">
 
 
-
-
         <com.tovo.eat.utilities.fonts.CircularTextView
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_item_found"
+            android:text="@string/no_results_found"
             android:textSize="20sp"/>
 
 
     </RelativeLayout>
+
+
+
 
 </layout>

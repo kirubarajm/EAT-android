@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemDishesBinding;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemEmptyOrdersHistoryBinding;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryEmptyItemViewModel;
 import com.tovo.eat.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -39,10 +42,14 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
+
+
+
+
             default:
-                ListItemDishesBinding blogViewBinding1 = ListItemDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
-                return new LiveProductsViewHolder(blogViewBinding1);
+                return new EmptyViewHolder(blogViewBinding1);
         }
 
     }
@@ -99,6 +106,24 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void showToast(String msg);
 
+        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
+    }
+
+
+    public class EmptyViewHolder extends BaseViewHolder  {
+
+        private final ListItemEmptyBinding mBinding;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+
+        }
+
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements DishItemViewModel.DishItemViewModelListener {
@@ -109,6 +134,8 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
+
+
 
         @Override
         public void onBind(int position) {
@@ -195,6 +222,13 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void showToast(String msg) {
 
             mLiveProductsAdapterListener.showToast(msg);
+
+        }
+
+        @Override
+        public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+
+            mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
 
         }
     }

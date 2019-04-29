@@ -1,10 +1,11 @@
 package com.tovo.eat.ui.home.homemenu.dish;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -14,15 +15,18 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
+import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
+import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
+import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
 
-public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener , FilterListener, StartFilter {
+public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener, StartFilter, AddDishListener {
 
     @Inject
     DishViewModel mDishViewModel;
@@ -36,6 +40,8 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     CartListener cartListener;
 
+    InternetListener internetListener;
+
     public static DishFragment newInstance() {
         Bundle args = new Bundle();
         DishFragment fragment = new DishFragment();
@@ -46,8 +52,8 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void onAttach(Context context) {
-        cartListener=(CartListener)context;
-
+        cartListener = (CartListener) context;
+        internetListener = (InternetListener) context;
         super.onAttach(context);
     }
 
@@ -71,10 +77,10 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         super.onCreate(savedInstanceState);
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
-        ((MainActivity) getActivity()).setFilterListener(DishFragment.this);
+      //  ((MainActivity) getActivity()).setFilterListener(DishFragment.this);
 
 
-      //  StartFilter myInterface =getInterface(StartFilter.class, this);
+        //  StartFilter myInterface =getInterface(StartFilter.class, this);
 
 
     }
@@ -94,8 +100,6 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
                 mDishViewModel.fetchRepos();
             }
         });
-
-
 
 
     }
@@ -139,8 +143,6 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     public void addressAdded() {
 
 
-
-
     }
 
     @Override
@@ -168,25 +170,21 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     private void subscribeToLiveData() {
         mDishViewModel.getKitchenItemsLiveData().observe(this,
-               kitchenItemViewModel -> mDishViewModel.addDishItemsToList(kitchenItemViewModel));
+                kitchenItemViewModel -> mDishViewModel.addDishItemsToList(kitchenItemViewModel));
     }
-
-
 
 
     @Override
     public void onResume() {
         super.onResume();
 
-        ((MainActivity)getActivity()).statusUpdate();
+        ((MainActivity) getActivity()).statusUpdate();
 
-       mDishViewModel.fetchRepos();
+      //  mDishViewModel.fetchRepos();
     }
 
     @Override
     public void onItemClickData(DishResponse.Result blogUrl) {
-
-
 
 
     }
@@ -200,7 +198,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void dishRefresh() {
-        subscribeToLiveData();
+        mDishViewModel.fetchRepos();
     }
 
     @Override
@@ -213,7 +211,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void addDishFavourite(Integer dishId, String fav) {
-        mDishViewModel.addFavourite(dishId,fav);
+        mDishViewModel.addFavourite(dishId, fav);
     }
 
     @Override
@@ -224,25 +222,56 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void showToast(String msg) {
 
-
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
     }
 
-
     @Override
-    public void filterList() {
+    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
 
+
+
+
+
+        DialogChangeKitchen fragment = new DialogChangeKitchen();
+        fragment.setTargetFragment(this, 0);
+        fragment.setCancelable(false);
+
+       DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
+
+
+
+      /*  DialogChangeKitchen fragment = new DialogChangeKitchen();
+        fragment.setTargetFragment(this, 0);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_in);
+
+        fragment.show(ft, "UploadDialogFragment");
+        fragment.setCancelable(false);*/
+
+
+
+    }
+
+
+    /*@Override
+    public void filterList() {
 
         mDishViewModel.fetchRepos();
 
 
-    }
+    }*/
 
     @Override
     public void applyFilter() {
         mDishViewModel.fetchRepos();
 
+    }
+
+    @Override
+    public void confirmClick(boolean status) {
+        mDishViewModel.fetchRepos();
     }
 }
 

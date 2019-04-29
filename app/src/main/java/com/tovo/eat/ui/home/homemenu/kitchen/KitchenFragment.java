@@ -19,7 +19,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, FilterListener, StartFilter {
+public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, StartFilter {
 
 
     @Inject
@@ -44,7 +44,11 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         super.onCreate(savedInstanceState);
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
-        ((MainActivity) getActivity()).setFilterListener(KitchenFragment.this);
+
+      //  mKitchenViewModel.fetchRepos();
+
+
+       // ((MainActivity) getActivity()).setFilterListener(KitchenFragment.this);
     }
 
     @Override
@@ -147,7 +151,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
         ((MainActivity) getActivity()).statusUpdate();
 
-        mKitchenViewModel.fetchRepos();
+       mKitchenViewModel.fetchRepos();
     }
 
 
@@ -175,10 +179,10 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mKitchenViewModel.removeFavourite(favId);
     }
 
-    @Override
+    /*@Override
     public void filterList() {
         mKitchenViewModel.fetchRepos();
-    }
+    }*/
 
     @Override
     public void applyFilter() {

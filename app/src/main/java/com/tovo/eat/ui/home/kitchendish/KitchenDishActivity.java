@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -17,10 +18,16 @@ import com.tovo.eat.databinding.FragmentKitchenDishBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
+import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
+import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 
 import javax.inject.Inject;
 
-public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding, KitchenDishViewModel> implements KitchenDishNavigator, KitchenDishAdapter.LiveProductsAdapterListener {
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding, KitchenDishViewModel> implements KitchenDishNavigator, KitchenDishAdapter.LiveProductsAdapterListener , AddKitchenDishListener, HasSupportFragmentInjector {
 
     @Inject
     KitchenDishViewModel mKitchenDishViewModel;
@@ -30,6 +37,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     KitchenDishAdapter adapter;
 
     FragmentKitchenDishBinding mFragmentDishBinding;
+
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
 
 
@@ -126,6 +137,15 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+
+
+        DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this,makeitId,productId,quantity,price);
+
+    }
+
     @Override
     public void dishListLoaded() {
         //mFragmentDishBinding.refreshList.setRefreshing(false);
@@ -200,5 +220,16 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     }
 
 
+    @Override
+    public void confirmClick(boolean status) {
+
+        mKitchenDishViewModel.fetchRepos();
+
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
 }
 

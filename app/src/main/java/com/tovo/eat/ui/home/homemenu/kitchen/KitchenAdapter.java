@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchensBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 
 import java.util.List;
 
@@ -31,9 +33,9 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemKitchensBinding blogViewBinding1 = ListItemKitchensBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
-                return new LiveProductsViewHolder(blogViewBinding1);
+                return new EmptyViewHolder(blogViewBinding1);
         }
 
     }
@@ -59,6 +61,21 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         } else {
             return VIEW_TYPE_EMPTY;
         }
+    }
+    public class EmptyViewHolder extends BaseViewHolder  {
+
+        private final ListItemEmptyBinding mBinding;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+
+        }
+
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements KitchenItemViewModel.KitchenItemViewModelListener {

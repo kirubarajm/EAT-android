@@ -21,8 +21,7 @@
         <LinearLayout
             android:id="@+id/main_tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
+            android:layout_height="60dp"
             android:orientation="vertical">
 
 
@@ -49,9 +48,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/deliver_now"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                     <LinearLayout
+                        android:layout_marginBottom="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -64,20 +64,20 @@
                             android:onClick="@{()->homeTabViewModel.selectAddress()}"
                             android:text="@{homeTabViewModel.addressTitle}"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="14sp" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:fontFamily="sans-serif-medium"
                             android:onClick="@{()->homeTabViewModel.selectAddress()}"
                             android:rotation="90"
                             android:text=">"
                             android:textColor="@color/eat_color"
-                            android:textSize="22sp" />
+                            android:textSize="14sp"
+                            android:layout_marginStart="10dp" />
 
 
                     </LinearLayout>

@@ -346,17 +346,8 @@ public class KitchenDishItemViewModel {
                             }
                         } else {
 
-                            cartRequestPojo.setMakeitUserid(response.getMakeituserid());
+                            mListener.otherKitchenDish(response.getMakeituserid(),dishList.getProductid(),quantity.get(),dishList.getPrice());
 
-                            results.clear();
-                            cartRequestPojo.setCartitems(null);
-
-                            cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                            cartRequestPojoCartitem.setQuantity(quantity.get());
-                            cartRequestPojoCartitem.setPrice(dishList.getPrice());
-
-
-                            results.add(cartRequestPojoCartitem);
 
                             break;
                         }
@@ -519,6 +510,8 @@ public class KitchenDishItemViewModel {
         Integer getEatId();
         void showToast(String msg);
 
+
+        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
     }
 
 }

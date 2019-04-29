@@ -50,11 +50,14 @@ import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
+import com.tovo.eat.ui.home.dialog.DialogSelectAddressProvider;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
+import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
+import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -67,6 +70,8 @@ import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.ui.track.OrderTrackingModule;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -84,12 +89,15 @@ public abstract class ActivityBuilder {
             MyAccountProvider.class,
             FavoritesTabActivityProvider.class,
             CartProvider.class,
-            FilterProvider.class
+            InternetErrorProvider.class,
+            FilterProvider.class,
+            DialogSelectAddressProvider.class,
+            DialogChangeKitchenProvider.class
 
     })
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules = KitchenDishModule.class)
+    @ContributesAndroidInjector(modules ={ KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
     abstract KitchenDishActivity bindKitchenDishActivity();
 
 
@@ -108,7 +116,7 @@ public abstract class ActivityBuilder {
     abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
 
     @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
-            FavoritesKitchenProvider.class,})
+            FavoritesKitchenProvider.class})
     abstract FavoritesTabActivity bindFavListActivity();
 
     @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class})

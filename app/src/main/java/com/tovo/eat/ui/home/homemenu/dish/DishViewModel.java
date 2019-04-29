@@ -156,10 +156,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
 
         } else {
-
-
             //   getNavigator().addressAdded();
-
             if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
             //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
@@ -219,7 +216,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
                             dishItemsLiveData.setValue(dishResponse.getResult());
                             Log.e("----response:---------", response.toString());
-                            DishViewModel.this.getNavigator().dishListLoaded();
+                            getNavigator().dishListLoaded();
 
 
                         }

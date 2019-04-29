@@ -116,7 +116,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putInt(PREF_KEY_USER_LOGGED_IN_MODE, mode.getType()).apply();
     }
 
-
     @Override
     public String getCurrentUserName() {
         return mPrefs.getString(PREF_KEY_CURRENT_USER_NAME, null);
@@ -151,7 +150,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentAddressTitle() {
-        return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, "Select Address");
+        return mPrefs.getString(PREF_KEY_ADDRESS_TITLE, null);
     }
 
     @Override

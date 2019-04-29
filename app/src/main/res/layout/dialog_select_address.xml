@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dialogSelectAddressViewModel"
+            type="com.tovo.eat.ui.home.dialog.DialogSelectAddressViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:padding="30dp">
+
+        <LinearLayout
+            android:background="@drawable/dialog_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_your_address_to_find_nearest_kitchens"
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp" />
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/curve_stroke"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:onClick="@{()->dialogSelectAddressViewModel.dialogConfirm()}"
+                android:paddingBottom="5dp"
+                android:text="@string/add"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:onClick="@{()->reachedKitchenModel.dialogDecline()}"
+                android:paddingBottom="10dp"
+                android:text="@string/decline"
+                android:textAllCaps="true"
+                android:textColor="@color/green"
+                android:textSize="16dp"
+                android:textStyle="bold" />-->
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>
+
