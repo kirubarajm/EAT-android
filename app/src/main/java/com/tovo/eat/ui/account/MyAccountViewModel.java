@@ -12,45 +12,50 @@ import dagger.Module;
 public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
 
-
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
 
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
     }
 
-    public void manageAddress(){
+    public void manageAddress() {
         getNavigator().manageAddress();
     }
 
 
-        public void orderHistory(){
+    public void orderHistory() {
         getNavigator().orderHistory();
     }
 
 
-    public void favourites(){
+    public void favourites() {
         getNavigator().favourites();
     }
 
 
-    public void referrals(){
+    public void referrals() {
         getNavigator().referrals();
     }
 
 
-    public void offers(){
+    public void offers() {
         getNavigator().offers();
     }
 
-    public void feedbackAndSupport(){
+    public void logOut() {
+        getNavigator().logout();
+    }
+
+    public void feedbackAndSupport() {
         getNavigator().feedbackAndSupport();
     }
 
-    public void editProfile(){
+    public void editProfile() {
         getNavigator().editProfile();
     }
 
 
-
+    public void logOutSession(){
+        getDataManager().setLogout();
+    }
 }

@@ -53,8 +53,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_pass"
-                        android:inputType="phone"
+                        android:inputType="textWebPassword"
                         android:lines="1"
+                        android:imeOptions="actionDone"
                         android:maxLength="13"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
@@ -79,8 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_enter_otp"
-                    android:layout_marginTop="10dp"
-                    android:text="Message sent to +919597352662" />
+                    android:layout_marginTop="10dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -101,6 +101,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:lines="1"
+                            android:text="1"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
@@ -118,6 +119,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:lines="1"
+                            android:text="2"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
@@ -135,6 +137,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:lines="1"
+                            android:text="3"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
@@ -152,6 +155,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:lines="1"
+                            android:text="4"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
@@ -170,6 +174,7 @@
                             android:imeOptions="actionDone"
                             android:inputType="number"
                             android:lines="1"
+                            android:text="5"
                             android:maxLength="1"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>

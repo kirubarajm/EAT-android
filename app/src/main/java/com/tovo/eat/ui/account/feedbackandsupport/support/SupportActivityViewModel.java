@@ -18,6 +18,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
 
     Response.ErrorListener errorListener;
     int moveItUserId;
+    int userId;
     public final ObservableBoolean success = new ObservableBoolean();
     public final ObservableBoolean flagCount = new ObservableBoolean();
     public final ObservableField<String> count = new ObservableField<String>();
@@ -25,8 +26,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
 
     public SupportActivityViewModel(DataManager dataManager) {
         super(dataManager);
-        //long UserId=getDataManager().getCurrentUserId();
-        //moveItUserId = Integer.parseInt(String.valueOf(UserId));
+        userId = getDataManager().getCurrentUserId();
         fetchCountSertviceCall(1);
     }
 
@@ -47,14 +47,13 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
     }
 
     public void fetchCountSertviceCall(int val){
-        //long userId = getDataManager().getCurrentUserId();
         //int UserId = Integer.parseInt(String.valueOf(userId));
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         if (val==1) {
             setIsLoading(true);
         }
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_REPLIES_COUNT, RepliesCountResponse.class,
-                new RepliesCountRequest( AppConstants.EAT,1), new Response.Listener<RepliesCountResponse>() {
+                new RepliesCountRequest( AppConstants.EAT,userId), new Response.Listener<RepliesCountResponse>() {
             @Override
             public void onResponse(RepliesCountResponse response) {
                 if (response != null) {
@@ -90,7 +89,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_INSERT, SupportResponse.class,
-                new SupportRequest(strQueries, AppConstants.EAT,1), new Response.Listener<SupportResponse>() {
+                new SupportRequest(strQueries, AppConstants.EAT,userId), new Response.Listener<SupportResponse>() {
             @Override
             public void onResponse(SupportResponse response) {
                 if (response != null) {
@@ -112,5 +111,9 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+    }
+
+    public void callAdmin(){
+        getNavigator().callAdmin();
     }
 }

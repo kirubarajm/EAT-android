@@ -442,7 +442,7 @@
 
                     <ImageView
                         android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:src="@drawable/ic_perm_identity_black_24dp"

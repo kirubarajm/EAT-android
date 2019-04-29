@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,24 +16,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_history_list"
+            style="@style/Toolbar"
+            android:background="@color/primary_new"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/eat_color">
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/toolbar_history_list"
+            android:background="@color/black" />
+
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_orders_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/view1"
+            android:layout_below="@+id/view"
             android:background="@color/white"
             app:onRefreshListener="@{()->ordersHistoryViewModel.onRefreshLayout()}">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_orders"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="1dp"
-            app:adapter="@{ordersHistoryViewModel.ordersItemViewModels}"
-            tools:listitem="@layout/list_item_orders_history_list"
-            android:background="@android:color/white"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_orders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                app:adapter="@{ordersHistoryViewModel.ordersItemViewModels}"
+                tools:listitem="@layout/list_item_orders_history_list" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

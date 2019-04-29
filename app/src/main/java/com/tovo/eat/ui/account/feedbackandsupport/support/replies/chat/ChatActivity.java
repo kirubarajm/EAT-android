@@ -85,8 +85,8 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
 
             mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
             try {
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" +" | "+"hh:mm");
-                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" +" | "+"hh:mm a");
+                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String outputDateStr = "";
                 //Date  date1 = new Date(strDate);
                 Date date = currentFormat.parse(strDate);
@@ -125,7 +125,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     public void send() {
         String strMessage = mActivityChatBinding.edtMessage.getText().toString();
         if (!strMessage.equals("")) {
-            mChatActivityViewModel.insertAnswerServiceCall(strMessage, "1");
+            mChatActivityViewModel.insertAnswerServiceCall(strMessage, strQId);
         }else {
             Toast.makeText(this, AppConstants.TOAST_ENTER_REPLY_TO_SEND, Toast.LENGTH_SHORT).show();
         }
@@ -153,6 +153,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     public void sendSuccess(String strFailure) {
         Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
         mActivityChatBinding.edtMessage.setText("");
+        mChatActivityViewModel.fetchChatServiceCall(strQId,1);
     }
 
     @Override

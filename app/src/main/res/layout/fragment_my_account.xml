@@ -7,9 +7,9 @@
 
         <import type="android.view.View" />
 
-          <variable
-              name="myAccountViewModel"
-              type="com.tovo.eat.ui.account.MyAccountViewModel" />
+        <variable
+            name="myAccountViewModel"
+            type="com.tovo.eat.ui.account.MyAccountViewModel" />
 
     </data>
 
@@ -18,29 +18,27 @@
         android:layout_height="match_parent">
 
 
-
-
         <LinearLayout
-            android:layout_alignParentTop="true"
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_marginLeft="15dp"
-                android:gravity="center"
                 android:id="@+id/title_toolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
                 android:minLines="2"
                 android:text="@{myAccountViewModel.toolbarTitle}"
                 android:textColor="@color/eat_color"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginStart="15dp" />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
@@ -51,14 +49,12 @@
         </LinearLayout>
 
 
-
-
         <LinearLayout
-            android:layout_margin="10dp"
-            android:layout_below="@+id/header"
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <ImageView
@@ -82,11 +78,11 @@
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:onClick="@{()->myAccountViewModel.editProfile()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:onClick="@{()->myAccountViewModel.editProfile()}"
                     android:text="@string/edit"
                     android:textColor="@color/eat_color"
                     android:textSize="18sp"
@@ -149,68 +145,79 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <RelativeLayout
-                        android:onClick="@{()->myAccountViewModel.manageAddress()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.manageAddress()}">
 
-                        <ImageView
-                            android:id="@+id/ico1"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_perm_identity_black_24dp" />
+                        <RelativeLayout
+                            android:id="@+id/rel1"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
 
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/ico1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_manage_address"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toEndOf="@+id/ico1"
-                            android:layout_toRightOf="@+id/ico1"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel1"
+                            android:layout_toRightOf="@+id/rel1"
                             android:gravity="center_vertical"
                             android:text="@string/manage_address"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
-                            android:text=">"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
                             android:textSize="16sp" />
-
 
                     </RelativeLayout>
 
-
                     <RelativeLayout
-                        android:onClick="@{()->myAccountViewModel.orderHistory()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.orderHistory()}">
 
-                        <ImageView
-                            android:id="@+id/ico2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_perm_identity_black_24dp" />
+                        <RelativeLayout
+                            android:id="@+id/rel2"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
+
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/ico2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_order_history"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toEndOf="@+id/ico2"
-                            android:layout_toRightOf="@+id/ico2"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel2"
+                            android:layout_toRightOf="@+id/rel2"
                             android:gravity="center_vertical"
                             android:text="@string/order_history"
                             android:textColor="@color/black"
@@ -218,14 +225,14 @@
                             android:textStyle="bold" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
-                            android:text=">"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
                             android:textSize="16sp" />
 
 
@@ -233,25 +240,32 @@
 
 
                     <RelativeLayout
-                        android:onClick="@{()->myAccountViewModel.favourites()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.favourites()}">
 
-                        <ImageView
-                            android:id="@+id/ico3"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_perm_identity_black_24dp" />
+                        <RelativeLayout
+                            android:id="@+id/rel3"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
 
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/ico3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_favorites"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toEndOf="@+id/ico3"
-                            android:layout_toRightOf="@+id/ico3"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel3"
+                            android:layout_toRightOf="@+id/rel3"
                             android:gravity="center_vertical"
                             android:text="@string/favourites"
                             android:textColor="@color/black"
@@ -259,14 +273,14 @@
                             android:textStyle="bold" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
-                            android:text=">"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
                             android:textSize="16sp" />
 
 
@@ -274,25 +288,33 @@
 
 
                     <RelativeLayout
-                        android:onClick="@{()->myAccountViewModel.referrals()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.referrals()}">
 
-                        <ImageView
-                            android:id="@+id/ico4"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_perm_identity_black_24dp" />
+                        <RelativeLayout
+                            android:id="@+id/rel4"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
+
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/ico4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_referrals"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toEndOf="@+id/ico4"
-                            android:layout_toRightOf="@+id/ico4"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel4"
+                            android:layout_toRightOf="@+id/rel4"
                             android:gravity="center_vertical"
                             android:text="@string/referrals"
                             android:textColor="@color/black"
@@ -300,46 +322,102 @@
                             android:textStyle="bold" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
-                            android:text=">"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
                             android:textSize="16sp" />
 
 
                     </RelativeLayout>
 
-
                     <RelativeLayout
-                        android:onClick="@{()->myAccountViewModel.offers()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.offers()}">
 
-                        <ImageView
-                            android:id="@+id/ico5"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_perm_identity_black_24dp" />
+                        <RelativeLayout
+                            android:id="@+id/rel5"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
 
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/ico5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_offers"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_toEndOf="@+id/ico5"
-                            android:layout_toRightOf="@+id/ico5"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel5"
+                            android:layout_toRightOf="@+id/rel5"
                             android:gravity="center_vertical"
                             android:text="@string/offers"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginRight="25dp"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->myAccountViewModel.logOut()}">
+
+                        <!--<com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/ico6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon1" />-->
+
+                        <RelativeLayout
+                            android:id="@+id/rel6"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/ico6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_perm_identity_black_24dp"
+                                android:textSize="18sp" />
+
+                        </RelativeLayout>
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/rel6"
+                            android:layout_toRightOf="@+id/rel6"
+                            android:gravity="center_vertical"
+                            android:text="@string/logout"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
@@ -349,11 +427,10 @@
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
                             android:text=">"
-                            android:textSize="16sp" />
-
+                            android:textSize="16sp"
+                            android:visibility="gone" />
 
                     </RelativeLayout>
-
 
                 </LinearLayout>
             </ScrollView>
@@ -363,29 +440,28 @@
 
 
         <LinearLayout
-            android:layout_margin="10dp"
-            android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
             android:orientation="horizontal">
 
-
-            <ImageView
-                android:tint="@color/black"
+            <com.tovo.eat.utilities.fonts.TovoTextView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_check_black_24dp" />
+                android:text="@string/icon_feedback_support"
+                android:tint="@color/black" />
 
             <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="25dp"
                 android:text="@string/feedback_and_support"
-                android:textSize="16sp"
-                android:layout_marginStart="20dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

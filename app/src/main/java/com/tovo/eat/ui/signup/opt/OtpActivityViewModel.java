@@ -10,8 +10,6 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.signup.SignUpRequest;
-import com.tovo.eat.ui.signup.SignUpResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -19,6 +17,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
     public final ObservableBoolean otp = new ObservableBoolean();
     public final ObservableField<String> userId = new ObservableField<>();
+    public final ObservableField<String> oId = new ObservableField<>();
     public boolean passwordstatus;
     public boolean otpStatus;
     public boolean genderstatus;
@@ -29,64 +28,64 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void continueClick() {
-        getNavigator().usersLoginMain();
+        getNavigator().continueClick();
     }
 
-    public void login(String strPhoneNumber){
-        String strPassword = "pondy";
-        strPhoneNumber = "9856321470";
+    public void login(String strPhoneNumber, String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber,strPassword), new Response.Listener<LoginResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber, strPassword), new Response.Listener<LoginResponse>() {
             @Override
             public void onResponse(LoginResponse response) {
                 if (response != null) {
-                    getNavigator().openHomeActivity();
+                    if (response.getResult()!=null && response.getResult().size()>0)
+                    {
+                        getDataManager().updateUserInfo(response.getResult().get(0).getUserid());
+                    }
+                    getNavigator().openHomeActivity(true);
                 }
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
+                getNavigator().openHomeActivity(false);
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-    public void loginClick(){
-          getNavigator().login();
+    public void loginClick() {
+        getNavigator().login();
     }
 
-    public void users(String phoneNumber, int otp, int otpId) {
+    public void userContinueClick(String phoneNumber, int otp, int otpId) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
             @Override
             public void onResponse(OtpResponse response) {
                 if (response != null) {
-                    Log.e("response", String.valueOf(response.getUserid()));
                     passwordstatus = response.getPasswordstatus();
                     otpStatus = response.getOtpstatus();
                     genderstatus = response.getGenderstatus();
+                    oId.set(String.valueOf(response.getOid()));
                     userId.set(String.valueOf(response.getUserid()));
 
-                    if (otpStatus) {
-                        if (genderstatus) {
-                            getNavigator().openHomeActivity();
-                        } else {
-                            getNavigator().nameGenderScreen();
-                        }
+                    if (genderstatus) {
+                        getNavigator().openHomeActivity(true);
+                    } else {
+                        getNavigator().nameGenderScreen();
                     }
                 }
                 getDataManager().updateUserInfo(response.getUserid());
 
-                int userId=getDataManager().getCurrentUserId();
+                int userId = getDataManager().getCurrentUserId();
                 Log.e("userId", String.valueOf(userId));
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 setIsLoading(false);
             }
         });

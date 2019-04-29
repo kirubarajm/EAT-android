@@ -8,4 +8,8 @@ public interface NameGenderActivityNavigator {
 
     void openActivity(String strMessage);
 
+    void male();
+
+    void female();
+
 }

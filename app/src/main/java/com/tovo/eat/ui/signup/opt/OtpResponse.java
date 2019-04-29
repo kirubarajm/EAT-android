@@ -9,9 +9,6 @@ public class OtpResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
-    @SerializedName("status")
-    @Expose
-    public Boolean status;
     @SerializedName("passwordstatus")
     @Expose
     public Boolean passwordstatus;
@@ -21,10 +18,21 @@ public class OtpResponse {
     @SerializedName("genderstatus")
     @Expose
     public Boolean genderstatus;
+    @SerializedName("oid")
+    @Expose
+    public Integer oid;
     @SerializedName("userid")
     @Expose
     public Integer userid;
 
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -32,14 +40,6 @@ public class OtpResponse {
 
     public void setSuccess(Boolean success) {
         this.success = success;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public Boolean getPasswordstatus() {
@@ -66,11 +66,11 @@ public class OtpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getOid() {
+        return oid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setOid(Integer oid) {
+        this.oid = oid;
     }
 }

@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface Api {
     @FormUrlEncoded
-    @POST("users")
+    @POST("userContinueClick")
     Call<LoginResponse> users(
             @Field("name") String name,
             @Field("job") String job

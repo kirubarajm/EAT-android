@@ -19,4 +19,6 @@ public interface SupportActivityNavigator {
     void onRefreshSuccess();
 
     void onRefreshFailure();
+
+    void callAdmin();
 }

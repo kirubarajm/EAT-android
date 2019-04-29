@@ -50,9 +50,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SELECTED_MAKEIT_ID = "SELECTED_MAKEIT_ID";
 
     private static final String PREF_KEY_ORDER_ID = "ORDER_ID";
-    private static final String PREF_KEY_MASTER= "MASTER";
-    private static final String PREF_KEY_FILTER= "FILTER";
-    private static final String PREF_KEY_CURRENT_FRAGMENT= "CURRENT_FRAGMENT";
+    private static final String PREF_KEY_MASTER = "MASTER";
+    private static final String PREF_KEY_FILTER = "FILTER";
+    private static final String PREF_KEY_CURRENT_FRAGMENT = "CURRENT_FRAGMENT";
 
 
     private static final String PREF_KEY_ADDRESS_TITLE = "ADDRESS_TITLE";
@@ -94,14 +94,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public Integer getCurrentUserId() {
-       /* long userId = mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
-        return userId == AppConstants.NULL_INDEX ? null : userId;*/
-       return 2;
+        // return userId == AppConstants.NULL_INDEX ? null : userId;
+        return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, 0);
     }
 
     @Override
     public void setCurrentUserId(Integer userId) {
-       // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
+        // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
+        if (userId == null) {
+            userId = 0;
+        }
         mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();
     }
 
@@ -170,7 +172,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentAddress() {
-        return  mPrefs.getString(PREF_KEY_CURRENT_ADDRESS, null);
+        return mPrefs.getString(PREF_KEY_CURRENT_ADDRESS, null);
     }
 
     @Override

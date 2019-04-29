@@ -30,10 +30,10 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-            //long userId = getDataManager().getCurrentUserId();
+            long userId = getDataManager().getCurrentUserId();
             //String strUserId = String.valueOf(userId);
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REFERRALS, ReferralsResponse.class, new Response.Listener<ReferralsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REFERRALS+userId, ReferralsResponse.class, new Response.Listener<ReferralsResponse>() {
                 @Override
                 public void onResponse(ReferralsResponse response) {
                     try {

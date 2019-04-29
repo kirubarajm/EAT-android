@@ -26,7 +26,7 @@ public class RepliesItemViewModel {
 
     public RepliesItemViewModel(RepliesResponse.Result replies, RepliesItemViewModelListener listener) {
         this.qid.set(String.valueOf(replies.getQid()));
-        this.question.set(String.valueOf(replies.getQuestion())+"?");
+        this.question.set(String.valueOf(replies.getQuestion()));
         this.type.set(String.valueOf(replies.getType()));
         this.userid.set(String.valueOf(replies.getUserid()));
         this.admin_read.set(String.valueOf(replies.getAdminRead()));
@@ -39,7 +39,7 @@ public class RepliesItemViewModel {
         try {
             String strDate = replies.getCreatedAt();
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
+            DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String outputDateStr = "";
             //Date  date1 = new Date(strDate);
             Date date = currentFormat.parse(strDate);

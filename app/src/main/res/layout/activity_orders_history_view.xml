@@ -23,7 +23,7 @@
             app:subtitleTextColor="@color/white"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/green">
+            app:titleTextColor="@color/eat_color">
 
         </android.support.v7.widget.Toolbar>
 
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rel_1"
-                    android:text="Order delivered on 4 March 2019 At 2.20pm" />
+                    android:text="@{OrdersHistryViewModel.actualDeliveryTime}" />
 
                 <View
                     android:id="@+id/view_1"
@@ -112,7 +112,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerview_orders_items"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         app:adapter="@{OrdersHistryViewModel.ordersItemViewModels}"
@@ -170,10 +170,10 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/stoke"
+                    android:background="@drawable/curve_stroke"
                     android:text="Repeat This Order"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/eat_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

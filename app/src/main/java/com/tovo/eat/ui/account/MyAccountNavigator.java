@@ -15,6 +15,8 @@ public interface MyAccountNavigator {
 
     void offers();
 
+    void logout();
+
     void feedbackAndSupport();
 
     void editProfile();

@@ -2,7 +2,6 @@ package com.tovo.eat.ui.account.orderhistory.ordersview;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
@@ -16,6 +15,10 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistoryActivityViewNavigator> {
@@ -29,6 +32,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> paymentType = new ObservableField<>();
     public final ObservableField<String> strPaymentType = new ObservableField<>();
+    public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
 
     public OrderHistoryActivityViewModelView(DataManager dataManager) {
         super(dataManager);
@@ -50,11 +54,12 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     }
 
     public void fetchRepos() {
+        int userId = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_VIEW, OrdersHistoryActivityResponse.class, new Response.Listener<OrdersHistoryActivityResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_VIEW+userId, OrdersHistoryActivityResponse.class, new Response.Listener<OrdersHistoryActivityResponse>() {
                 @Override
                 public void onResponse(OrdersHistoryActivityResponse response) {
                     try {
@@ -65,6 +70,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             address.set(response.getResult().get(0).getLocality());
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
+                            //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
                             if (paymentType.equals("0"))
@@ -73,6 +79,26 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             }else {
                                 strPaymentType.set("Online Payment");
                             }
+
+                            try {
+                                if (response.getResult().get(0).getMoveitActualDeliveredTime()!=null) {
+                                    String strDate = response.getResult().get(0).getMoveitActualDeliveredTime();
+                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+                                    DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    String outputDateStr = "";
+                                    //Date  date1 = new Date(strDate);
+                                    Date date = currentFormat.parse(strDate);
+                                    outputDateStr = dateFormat.format(date);
+                                    actualDeliveryTime.set("Order delivered on "+outputDateStr);
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();

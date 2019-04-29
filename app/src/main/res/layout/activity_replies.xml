@@ -23,7 +23,7 @@
             app:subtitleTextColor="@color/white"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/green">
+            app:titleTextColor="@color/eat_color">
 
         </android.support.v7.widget.Toolbar>
 

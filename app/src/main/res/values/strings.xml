@@ -405,6 +405,7 @@
 
     <string name="female">&#xe91a;</string>
     <string name="male">&#xe91b;</string>
+
     <string name="oh_snap">Oh Snap!</string>
     <string name="no_internet_connection_detected">No internet connection detected</string>
     <string name="retry">Retry</string>
@@ -415,5 +416,14 @@
     <string name="change_kitchen_msg">Clear your cart if you would stll like to order this item</string>
     <string name="cancel">Cancel</string>
     <string name="clear_cart_and_add">Clear cart and Add</string>
+
+    <string name="icon_manage_address">&#xe906;</string>
+    <string name="icon_order_history">&#xe908;</string>
+    <string name="icon_referrals">&#xe909;</string>
+    <string name="icon_offers">&#xe90a;</string>
+    <string name="icon_favorites">&#xe900;</string>
+    <string name="icon_feedback_support">&#xe90b;</string>
+    <string name="icon_call">&#xe912;</string>
+
 
 </resources>
