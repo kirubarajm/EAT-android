@@ -202,7 +202,9 @@
     <string name="stop_tracking">Stop Tracking</string>
     <string name="enter_transport_id">Enter transport ID</string>
     <string name="enter_email">Enter email</string>
+    <string name="enter_email_address">ENTER EMAIL ADDRESS</string>
     <string name="enter_password">Enter password</string>
+    <string name="entr_pass">ENTER PASSWORD</string>
     <string name="location_permissions_required">Location permissions are required for tracking
         location. Please grant these permissions to continue.</string>
     <string name="missing_inputs">Please enter a transport ID, email and password</string>

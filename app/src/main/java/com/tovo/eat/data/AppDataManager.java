@@ -72,7 +72,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setLogout() {
-        updateUserInfo(null);
+        updateUserInfo(null,null,null,null,null);
     }
 
     @Override
@@ -100,8 +100,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateUserInfo(Integer userId) {
+    public void updateUserInfo(Integer userId,String userName,String userEmail,String PhoneNumber,String referralCode) {
         setCurrentUserId(userId);
+        setCurrentUserName(userName);
+        setCurrentUserEmail(userEmail);
+        setCurrentUserPhNo(PhoneNumber);
+        setCurrentUserReferrals(referralCode);
+
     }
 
     @Override
@@ -336,6 +341,26 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentFragment(Integer id) {
         mPreferencesHelper.setCurrentFragment(id);
+    }
+
+    @Override
+    public String getCurrentUserPhNo() {
+        return mPreferencesHelper.getCurrentUserPhNo();
+    }
+
+    @Override
+    public void setCurrentUserPhNo(String phoneNumber) {
+        mPreferencesHelper.setCurrentUserPhNo(phoneNumber);
+    }
+
+    @Override
+    public String getCurrentUserReferrals() {
+        return mPreferencesHelper.getCurrentUserReferrals();
+    }
+
+    @Override
+    public void setCurrentUserReferrals(String referralCode) {
+        mPreferencesHelper.setCurrentUserReferrals(referralCode);
     }
 
     @Override

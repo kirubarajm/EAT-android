@@ -62,6 +62,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_ADDRESS = "CURRENT_ADDRESS";
     private static final String PREF_KEY_CURRENT_ADDRESS_ID = "CURRENT_ADDRESS_ID";
 
+    private static final String PREF_KEY_CURRENT_USER_PHONE_NUMBER = "CURRENT_USER_PHONE_NUMBER";
+    private static final String PREF_KEY_CURRENT_USER_REFERRALS = "CURRENT_USER_REFERRALS";
+
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
 
@@ -95,16 +98,22 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public Integer getCurrentUserId() {
         // return userId == AppConstants.NULL_INDEX ? null : userId;
-        return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, 0);
+        //return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, null);
+
+        int userId = mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
+        return userId == AppConstants.NULL_INDEX ? null : userId;
     }
 
     @Override
     public void setCurrentUserId(Integer userId) {
         // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
-        if (userId == null) {
+        /*if (userId == null) {
             userId = 0;
         }
-        mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();*/
+
+        int id = userId == null ? AppConstants.NULL_INDEX : userId;
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, id).apply();
     }
 
     @Override
@@ -259,6 +268,30 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setCurrentFragment(Integer id) {
         mPrefs.edit().putInt(PREF_KEY_CURRENT_FRAGMENT, id).apply();
     }
+
+
+
+
+    @Override
+    public String getCurrentUserPhNo() {
+        return mPrefs.getString(PREF_KEY_CURRENT_USER_PHONE_NUMBER, null);
+    }
+
+    @Override
+    public void setCurrentUserPhNo(String phoneNumber) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_PHONE_NUMBER, phoneNumber).apply();
+    }
+
+    @Override
+    public String getCurrentUserReferrals() {
+        return mPrefs.getString(PREF_KEY_CURRENT_USER_REFERRALS, null);
+    }
+
+    @Override
+    public void setCurrentUserReferrals(String referralCode) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_REFERRALS, referralCode).apply();
+    }
+
 
     @Override
     public String getCartDetails() {

@@ -20,18 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.signup.SignUpActivity">
 
 
         </activity>
-
 
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
         <activity android:name=".ui.address.add.AddAddressActivity" />
@@ -59,8 +52,21 @@
         <activity android:name=".ui.signup.namegender.NameGenderActivity">
 
         </activity>
-        <activity android:name=".ui.registration.RegistrationActivity"></activity>
+        <activity android:name=".ui.registration.RegistrationActivity">
+
+
+        </activity>
         <activity android:name=".ui.orderrating.OrderRatingActivity" />
+        <activity android:name=".ui.splash.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

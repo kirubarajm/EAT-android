@@ -4,8 +4,12 @@ public interface RegistrationActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void usersLoginMain();
+    void usersRegistrationMain();
 
     void openMainActivity();
+
+    void regSuccess(String strSucess);
+
+    void regFailure();
 
 }

@@ -43,9 +43,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
     @Override
-    public void usersLoginMain() {
+    public void usersRegistrationMain() {
         if (validForProceed()) {
-            openMainActivity();
+            String strEmail=mActivityRegistrationBinding.edtEmail.getText().toString();
+            String strReTypePass=mActivityRegistrationBinding.edtReTypePassword.getText().toString();
+            mRegistrationActivityViewModel.userRegistrationServiceCall(strEmail,strReTypePass);
         }
     }
 
@@ -54,6 +56,19 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         Intent intent = MainActivity.newIntent(RegistrationActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void regSuccess(String strSucess) {
+        mActivityRegistrationBinding.edtEmail.setText("");
+        mActivityRegistrationBinding.edtPassword.setText("");
+        mActivityRegistrationBinding.edtReTypePassword.setText("");
+        Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void regFailure() {
+        Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

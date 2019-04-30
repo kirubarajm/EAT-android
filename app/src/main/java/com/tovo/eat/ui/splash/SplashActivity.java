@@ -1,0 +1,75 @@
+package com.tovo.eat.ui.splash;
+
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.android.databinding.library.baseAdapters.BR;
+import com.tovo.eat.R;
+import com.tovo.eat.databinding.ActivitySplashBinding;
+import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.SignUpActivity;
+
+import javax.inject.Inject;
+
+public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashActivityViewModel>
+        implements SplashActivityNavigator {
+
+    @Inject
+    SplashActivityViewModel mSplashActivityViewModel;
+
+    private ActivitySplashBinding mActivitySplashBinding;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, SplashActivity.class);
+    }
+
+    @Override
+    public void handleError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void checkForUserLoginMode(boolean trueOrFlase) {
+        if (trueOrFlase) {
+            Intent intent = MainActivity.newIntent(SplashActivity.this);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = SignUpActivity.newIntent(SplashActivity.this);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public int getBindingVariable() {
+        return BR.splashViewModel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    public SplashActivityViewModel getViewModel() {
+        return mSplashActivityViewModel;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivitySplashBinding = getViewDataBinding();
+        mSplashActivityViewModel.setNavigator(this);
+        mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+
+    }
+
+}

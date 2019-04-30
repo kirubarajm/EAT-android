@@ -122,4 +122,11 @@ public interface PreferencesHelper {
 
 
 
+    String getCurrentUserPhNo();
+    void setCurrentUserPhNo(String phoneNumber);
+
+    String getCurrentUserReferrals();
+    void setCurrentUserReferrals(String area);
+
+
 }
