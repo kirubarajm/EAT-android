@@ -432,38 +432,51 @@
 
                     </RelativeLayout>
 
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
+                        android:orientation="horizontal">
+
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="@string/icon_feedback_support"
+                            android:tint="@color/black" />
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginRight="25dp"
+                            android:text="@string/feedback_and_support"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
                 </LinearLayout>
+
             </ScrollView>
 
 
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
-            android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
-            android:orientation="horizontal">
 
-            <com.tovo.eat.utilities.fonts.TovoTextView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:text="@string/icon_feedback_support"
-                android:tint="@color/black" />
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:text="@string/feedback_and_support"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
 
     </RelativeLayout>

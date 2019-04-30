@@ -63,6 +63,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mFragmentKitchenBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+                mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
                 mKitchenViewModel.fetchRepos();
             }
         });
@@ -103,7 +105,17 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     @Override
     public void kitchenListLoaded() {
+
+        mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentKitchenBinding.shimmerViewContainer.stopShimmerAnimation();
+
         mFragmentKitchenBinding.refreshList.setRefreshing(false);
+    }
+
+    @Override
+    public void kitchenListLoading() {
+        mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
     }
 
     @Override
@@ -149,9 +161,13 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void onResume() {
         super.onResume();
 
+
+     /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
+*/
         ((MainActivity) getActivity()).statusUpdate();
 
-       mKitchenViewModel.fetchRepos();
+      // mKitchenViewModel.fetchRepos();
     }
 
 
@@ -186,6 +202,10 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     @Override
     public void applyFilter() {
+        mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
+
+
         mKitchenViewModel.fetchRepos();
     }
 }

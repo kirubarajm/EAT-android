@@ -77,7 +77,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
                     transaction.commit();*/
-
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     InternetErrorFragment fragment = new InternetErrorFragment();

@@ -150,10 +150,14 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
     public void fetchRepos() {
 
+
+//        getNavigator().dishLoading();
+
+
         if (getDataManager().getCurrentLat() == null) {
 
             // getNavigator().noAddressFound();
-
+            getNavigator().dishListLoaded();
 
         } else {
             //   getNavigator().addressAdded();
@@ -172,7 +176,6 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                 filterRequestPojo.setLat(getDataManager().getCurrentLat());
                 filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
 
                 if (filterRequestPojo.getCusinelist() != null) {
 

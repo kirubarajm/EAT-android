@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -149,6 +150,11 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void dishListLoaded() {
         //mFragmentDishBinding.refreshList.setRefreshing(false);
+
+
+
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
     }
 
     @Override
@@ -182,7 +188,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void onResume() {
         super.onResume();
-     //  mKitchenDishViewModel.fetchRepos();
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
+         mKitchenDishViewModel.fetchRepos();
     }
 
     @Override
@@ -200,7 +209,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public void dishRefresh() {
-        subscribeToLiveData();
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
+        mKitchenDishViewModel.fetchRepos();
     }
 
     @Override
@@ -222,7 +234,8 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public void confirmClick(boolean status) {
-
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
         mKitchenDishViewModel.fetchRepos();
 
     }

@@ -28,8 +28,14 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
 
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<KitchenResponse.Result>>kitchenItemsLiveData;
+    private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
 
+
+    public KitchenViewModel(DataManager dataManager) {
+        super(dataManager);
+        kitchenItemsLiveData = new MutableLiveData<>();
+        fetchRepos();
+    }
 
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
         return kitchenItemViewModels;
@@ -47,19 +53,13 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
         this.kitchenItemsLiveData = kitchenItemsLiveData;
     }
 
-    public KitchenViewModel(DataManager dataManager) {
-        super(dataManager);
-        kitchenItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
-    }
-
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
     }
 
 
-    public void saveMakeitId(Integer id){
+    public void saveMakeitId(Integer id) {
 
 
         getDataManager().kitchenId(id);
@@ -67,8 +67,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-
-    public void removeFavourite(Integer favId){
+    public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -76,7 +75,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL+favId, CommonResponse.class, null,new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -102,9 +101,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-
-
-    public void addFavourite(Integer kitchenId, String fav){
+    public void addFavourite(Integer kitchenId, String fav) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -112,7 +109,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()),String.valueOf(kitchenId)),new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -136,135 +133,110 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
         }
 
 
-
-
-
     }
-
 
 
     public void fetchRepos() {
 
-        if (getDataManager().getCurrentLat()==null){
+       // getNavigator().kitchenListLoading();
 
-         //   getNavigator().noAddressFound1();
+        if (getDataManager().getCurrentLat() == null) {
 
+            //   getNavigator().noAddressFound1();
+            getNavigator().kitchenListLoaded();
 
-        }else {
-
-
-       //    getNavigator().addressAdded1();
-
-
-            if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        } else {
 
 
-            FilterRequestPojo filterRequestPojo;
-
-            if (getDataManager().getFilterSort() != null) {
-
-                Gson sGson = new GsonBuilder().create();
-                filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-                if (filterRequestPojo.getCusinelist() != null) {
-
-                    if (filterRequestPojo.getCusinelist().size() == 0)
-                        filterRequestPojo.setCusinelist(null);
-                }
-
-                if (filterRequestPojo.getRegionlist() != null) {
-
-                    if (filterRequestPojo.getRegionlist().size() == 0)
-                        filterRequestPojo.setRegionlist(null);
-                }
+            //    getNavigator().addressAdded1();
 
 
-                Gson gson = new Gson();
-                String json = gson.toJson(filterRequestPojo);
-                getDataManager().setFilterSort(json);
+            if (!MvvmApp.getInstance().onCheckNetWork()) {
+
+                getNavigator().kitchenListLoaded();
+                return;
+
             } else {
-                filterRequestPojo = new FilterRequestPojo();
 
-                filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                filterRequestPojo.setLon(getDataManager().getCurrentLng());
+                FilterRequestPojo filterRequestPojo;
 
-                Gson gson = new Gson();
-                String json = gson.toJson(filterRequestPojo);
-                getDataManager().setFilterSort(json);
-            }
+                if (getDataManager().getFilterSort() != null) {
 
+                    Gson sGson = new GsonBuilder().create();
+                    filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
-            try {
-                setIsLoading(true);
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
-                        if (response != null) {
-                            KitchenResponse kitchenResponse;
-                            Gson sGson = new GsonBuilder().create();
-                            kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
+                    if (filterRequestPojo.getCusinelist() != null) {
 
-                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-                            Log.e("Kitchen----response:", response.toString());
+                        if (filterRequestPojo.getCusinelist().size() == 0)
+                            filterRequestPojo.setCusinelist(null);
+                    }
+
+                    if (filterRequestPojo.getRegionlist() != null) {
+
+                        if (filterRequestPojo.getRegionlist().size() == 0)
+                            filterRequestPojo.setRegionlist(null);
+                    }
 
 
+                    Gson gson = new Gson();
+                    String json = gson.toJson(filterRequestPojo);
+                    getDataManager().setFilterSort(json);
+                } else {
+                    filterRequestPojo = new FilterRequestPojo();
+
+                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(filterRequestPojo);
+                    getDataManager().setFilterSort(json);
+                }
+
+
+                try {
+                    setIsLoading(true);
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            if (response != null) {
+                                KitchenResponse kitchenResponse;
+                                Gson sGson = new GsonBuilder().create();
+                                kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
+
+                                kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                Log.e("Kitchen----response:", response.toString());
+
+
+                                getNavigator().kitchenListLoaded();
+
+                            }
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("", error.getMessage());
                             getNavigator().kitchenListLoaded();
-
                         }
+                    });
+
+                    MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                } catch (JSONException j) {
+                    j.printStackTrace();
+                }
 
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("", error.getMessage());
-                        getNavigator().kitchenListLoaded();
-                    }
-                });
-
-                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (JSONException j) {
-                j.printStackTrace();
             }
-
-
-
-/*
-            try {
-                setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, KitchenResponse.class, filterRequestPojo, new Response.Listener<KitchenResponse>() {
-                    @Override
-                    public void onResponse(KitchenResponse response) {
-                        if (response != null) {
-
-                            kitchenItemsLiveData.setValue(response.getResult());
-                            Log.e("----response:---------", response.toString());
-
-
-                            KitchenViewModel.this.getNavigator().kitchenListLoaded();
-
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Log.e("", error.getMessage());
-                    }
-                });
-
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }*/
 
         }
     }

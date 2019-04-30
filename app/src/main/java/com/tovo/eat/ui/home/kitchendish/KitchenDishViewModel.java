@@ -137,12 +137,17 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                         getNavigator().toastMessage(response.getMessage());
 
+
+
+
+
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
+
                 }
             });
 
@@ -297,7 +302,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                     Log.e("----response:---------", response.toString());
 
 
-                    KitchenDishViewModel.this.getNavigator().dishListLoaded();
+                   getNavigator().dishListLoaded();
 
 
                 }
@@ -306,6 +311,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("", error.getMessage());
+                getNavigator().dishListLoaded();
             }
         });
 

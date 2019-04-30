@@ -97,6 +97,12 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mFragmentDishBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
+
+                mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+                mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
+
                 mDishViewModel.fetchRepos();
             }
         });
@@ -136,6 +142,11 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void dishListLoaded() {
+
+
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
+
         mFragmentDishBinding.refreshList.setRefreshing(false);
     }
 
@@ -153,6 +164,12 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void toastMessage(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dishLoading() {
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
     }
 
 
@@ -178,9 +195,13 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     public void onResume() {
         super.onResume();
 
+       /* mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
+
+
         ((MainActivity) getActivity()).statusUpdate();
 
-      //  mDishViewModel.fetchRepos();
+       // mDishViewModel.fetchRepos();
     }
 
     @Override
@@ -198,6 +219,11 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void dishRefresh() {
+
+
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
         mDishViewModel.fetchRepos();
     }
 
@@ -257,12 +283,16 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void applyFilter() {
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
         mDishViewModel.fetchRepos();
 
     }
 
     @Override
     public void confirmClick(boolean status) {
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
         mDishViewModel.fetchRepos();
     }
 }

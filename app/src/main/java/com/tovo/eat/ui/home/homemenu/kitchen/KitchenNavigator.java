@@ -9,6 +9,10 @@ public interface KitchenNavigator {
 
 
     void kitchenListLoaded();
+    void kitchenListLoading();
+
+
+
     void addressAdded1();
     void noAddressFound1();
 
