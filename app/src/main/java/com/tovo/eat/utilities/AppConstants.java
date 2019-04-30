@@ -21,36 +21,35 @@ public class AppConstants {
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
 
-    public static final String FCM_RECEIVER= "ALERT";
+    public static final String FCM_RECEIVER = "ALERT";
 
     public static final String TEMP_URL_MY = "http://192.168.1.100/tovo/";
     public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
-   // public static final String TEMP_URL_LIVE = "http://192.168.1.225:4000/eat/";
+    // public static final String TEMP_URL_LIVE = "http://192.168.1.225:4000/eat/";
     public static final String TEMP_URL = "http://192.168.1.100:3000/eat/";
 
-   // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
+    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
     public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
 
-    public static final String EAT_KITCHEN_LIST_URL =TEMP_URL_LIVE+ "kitchenlist";
-    public static final String EAT_DISH_LIST_URL =TEMP_URL_LIVE+ "dishlist";
+    public static final String EAT_KITCHEN_LIST_URL = TEMP_URL_LIVE + "kitchenlist";
+    public static final String EAT_DISH_LIST_URL = TEMP_URL_LIVE + "dishlist";
 
 
-    public static final String EAT_KITCHEN_DISH_LIST_URL =TEMP_URL+ "products";
-    public static final String EAT_ADD_ADDRESS_URL =TEMP_URL_LIVE+ "address";
-    public static final String EAT_ADD_ADDRESS_LIST_URL =TEMP_URL_LIVE+ "address/";
-    public static final String EAT_CART_DETAILS_URL =TEMP_URL_LIVE+ "cartdetails/";
+    public static final String EAT_KITCHEN_DISH_LIST_URL = TEMP_URL + "products";
+    public static final String EAT_ADD_ADDRESS_URL = TEMP_URL_LIVE + "address";
+    public static final String EAT_ADD_ADDRESS_LIST_URL = TEMP_URL_LIVE + "address/";
+    public static final String EAT_CART_DETAILS_URL = TEMP_URL_LIVE + "cartdetails/";
 
-    public static final String EAT_CREATE_ORDER_URL =TEMP_URL_LIVE+ "proceedtopay";
+    public static final String EAT_CREATE_ORDER_URL = TEMP_URL_LIVE + "proceedtopay";
 
-    public static final String EAT_ORDER_DETAILS_URL =TEMP_URL_LIVE+ "order/";
+    public static final String EAT_ORDER_DETAILS_URL = TEMP_URL_LIVE + "order/";
 
-    public static final String EAT_LIVE_ORDER_URL =TEMP_URL_LIVE+ "liveorders/";
+    public static final String EAT_LIVE_ORDER_URL = TEMP_URL_LIVE + "liveorders/";
 
-    public static final String EAT_FAV_URL =TEMP_URL_LIVE+ "fav/";
-    public static final String EAT_MASTER ="http://13.232.246.20:3000/masters";
+    public static final String EAT_FAV_URL = TEMP_URL_LIVE + "fav/";
+    public static final String EAT_MASTER = "http://13.232.246.20:3000/masters";
 
-    public static final String EAT_DISH_LIST ="http://192.168.1.100:3000/eat/fav/dishlist/";
-
+    public static final String EAT_DISH_LIST = "http://192.168.1.100:3000/eat/fav/dishlist/";
 
 
     public static final String PACKAGE_NAME = "com.tovo.sales";
@@ -68,7 +67,7 @@ public class AppConstants {
      */
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS =
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
-    public  static final float GEOFENCE_RADIUS_IN_METERS = 1609; // 1 mile, 1.6 km
+    public static final float GEOFENCE_RADIUS_IN_METERS = 1609; // 1 mile, 1.6 km
 
     /**
      * Map for storing information about airports in the San Francisco bay area.
@@ -93,28 +92,20 @@ public class AppConstants {
 
 
 
-    public  static final int KITCHEMN_REQUEST_CODE = 1;
-    public  static final int KITCHEMN_APPLIANCES_REQUEST_CODE = 2;
-    public  static final int PACKAGING_IMAGE_REQUEST_CODE = 3;
-    public  static final  int SIGNATURE_REQUEST_CODE = 4;
-    public static final int GPS_REQUEST =500 ;
-
-
-    public AppConstants() {
-        // This utility class is not publicly instantiable
-    }
-
+    public static final int KITCHEMN_REQUEST_CODE = 1;
+    public static final int KITCHEMN_APPLIANCES_REQUEST_CODE = 2;
+    public static final int PACKAGING_IMAGE_REQUEST_CODE = 3;
+    public static final int SIGNATURE_REQUEST_CODE = 4;
+    public static final int GPS_REQUEST = 500;
     ///////Server Ip Ports
     public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
-
-    public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
     public static final String URL_OTP_VERIFICATION = URL_SERVER_IP_PORT + "/eat/otpverification";/////POST method
     public static final String URL_NAME_GENDER_INSERT = URL_SERVER_IP_PORT + "/eat/edit";/////put method
     public static final String URL_APP_FEEDBACK = URL_SERVER_IP_PORT + "/eat/feedback";/////POST method
     public static final String URL_LOGIN_MAIN = URL_SERVER_IP_PORT + "/eat/checklogin";/////POST method
-
     public static final String URL_QUERY_INSERT = URL_SERVER_IP_PORT + "/query";/////POST method
     public static final String URL_QUERY_REPLIES_COUNT = URL_SERVER_IP_PORT + "/repliescount";/////POST method
     public static final String URL_QUERY_QUERIES_LIST = URL_SERVER_IP_PORT + "/querylist";/////POST method
@@ -124,27 +115,32 @@ public class AppConstants {
     public static final String URL_ORDERS_HISTORY_LIST = URL_SERVER_IP_PORT + "/eat/orders/";/////GET method
     public static final String URL_ORDERS_HISTORY_VIEW = URL_SERVER_IP_PORT + "/eat/order/";/////GET method
     public static final String URL_REFERRALS = URL_SERVER_IP_PORT + "/eat/referral/";/////GET method
+    public static final String URL_REGISTRATION = URL_SERVER_IP_PORT + "/eat/postregistration";/////GET method
 
-    public static final int ADMIN =0;
-    public static final int MAKEIT =1;
-    public static final int MOVEIT =2;
-    public static final int SALES=3;
-    public static final int EAT =4;
-    public static final int MALE =1;
-    public static final int FEMALE =2;
-
+    public static final int ADMIN = 0;
+    public static final int MAKEIT = 1;
+    public static final int MOVEIT = 2;
+    public static final int SALES = 3;
+    public static final int EAT = 4;
+    public static final int MALE = 1;
+    public static final int FEMALE = 2;
+    public static final boolean FLAG_TRUE = true;
+    public static final boolean FLAG_FALSE = false;
     ////ToAST
     public static final String TOAST_ENTER_REPLY_TO_SEND = "Enter reply to send";
-    public static final String TOAST_ENTER_QUERY_TO_SEND ="Enter query to send";
-    public static final String TOAST_ENTER_MOBILE_NO ="Enter mobile number";
-    public static final String TOAST_ENTER_VALID_MOBILE_NO ="Enter valid mobile number";
-    public static final String TOAST_ENTER_OTP ="Enter OTP";
-    public static final String TOAST_ENTER_NAME ="Enter Name";
-    public static final String TOAST_ENTER_EMAIL ="Enter Email";
-    public static final String TOAST_ENTER_INVALID_EMAIL ="Invalid Email Address";
-    public static final String TOAST_ENTER_PASSWORD ="Enter password";
-    public static final String TOAST_ENTER_RE_ENTER_PASSWORD ="ReType password";
-    public static final String TOAST_PASSWORD_NOT_MATCHING ="Password not matching";
-    public static final String TOAST_LOGIN_SUCCESS ="Login success";
-    public static final String TOAST_LOGIN_FAILED ="Login failed";
+    public static final String TOAST_ENTER_QUERY_TO_SEND = "Enter query to send";
+    public static final String TOAST_ENTER_MOBILE_NO = "Enter mobile number";
+    public static final String TOAST_ENTER_VALID_MOBILE_NO = "Enter valid mobile number";
+    public static final String TOAST_ENTER_OTP = "Enter OTP";
+    public static final String TOAST_ENTER_NAME = "Enter Name";
+    public static final String TOAST_ENTER_EMAIL = "Enter Email";
+    public static final String TOAST_ENTER_INVALID_EMAIL = "Invalid Email Address";
+    public static final String TOAST_ENTER_PASSWORD = "Enter password";
+    public static final String TOAST_ENTER_RE_ENTER_PASSWORD = "ReType password";
+    public static final String TOAST_PASSWORD_NOT_MATCHING = "Password not matching";
+    public static final String TOAST_LOGIN_SUCCESS = "Login success";
+    public static final String TOAST_LOGIN_FAILED = "Login failed";
+    public AppConstants() {
+        // This utility class is not publicly instantiable
+    }
 }

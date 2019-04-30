@@ -38,9 +38,18 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             @Override
             public void onResponse(LoginResponse response) {
                 if (response != null) {
-                    if (response.getResult()!=null && response.getResult().size()>0)
-                    {
-                        getDataManager().updateUserInfo(response.getResult().get(0).getUserid());
+                    if (response.getResult() != null && response.getResult().size() > 0) {
+                        try {
+                            int userId = response.getResult().get(0).getUserid();
+                            String UserName = response.getResult().get(0).getName();
+                            String UserEmail = response.getResult().get(0).getEmail();
+                            String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                            String userReferralCode = response.getResult().get(0).getPhoneno();
+
+                            getDataManager().updateUserInfo(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
                     getNavigator().openHomeActivity(true);
                 }
@@ -65,12 +74,14 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
             @Override
             public void onResponse(OtpResponse response) {
+                int CurrentuserId = 0;
                 if (response != null) {
                     passwordstatus = response.getPasswordstatus();
                     otpStatus = response.getOtpstatus();
                     genderstatus = response.getGenderstatus();
                     oId.set(String.valueOf(response.getOid()));
                     userId.set(String.valueOf(response.getUserid()));
+                    CurrentuserId = response.getUserid();
 
                     if (genderstatus) {
                         getNavigator().openHomeActivity(true);
@@ -78,7 +89,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                         getNavigator().nameGenderScreen();
                     }
                 }
-                getDataManager().updateUserInfo(response.getUserid());
+
+                getDataManager().updateUserInfo(CurrentuserId, null, null, null, null);
 
                 int userId = getDataManager().getCurrentUserId();
                 Log.e("userId", String.valueOf(userId));

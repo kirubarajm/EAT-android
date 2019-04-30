@@ -43,8 +43,7 @@ public interface DataManager extends PreferencesHelper {
 
      void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
-     void updateUserInfo( Integer userId);
-
+     void updateUserInfo(Integer userId,String userName,String userEmail,String PhoneNumber,String referralCode);
 
 
     void saveMaster(String master);

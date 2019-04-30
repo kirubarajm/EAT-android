@@ -131,7 +131,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void feedbackAndSupport() {
-
         Intent intent = FeedbackAndSupportActivity.newIntent(getContext());
         startActivity(intent);
     }

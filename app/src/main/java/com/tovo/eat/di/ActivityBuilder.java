@@ -48,6 +48,8 @@ import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
+import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivity;
+import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivityModule;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddressProvider;
@@ -68,9 +70,10 @@ import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivityModule;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivityModule;
+import com.tovo.eat.ui.splash.SplashActivity;
+import com.tovo.eat.ui.splash.SplashActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.ui.track.OrderTrackingModule;
-import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
 
 import dagger.Module;
@@ -97,7 +100,7 @@ public abstract class ActivityBuilder {
     })
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules ={ KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
+    @ContributesAndroidInjector(modules = {KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
     abstract KitchenDishActivity bindKitchenDishActivity();
 
 
@@ -160,5 +163,11 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = OrderRatingActivityModule.class)
     abstract OrderRatingActivity bindorderRatingActivity();
+
+    @ContributesAndroidInjector(modules = SplashActivityModule.class)
+    abstract SplashActivity bindSplashActivity();
+
+    @ContributesAndroidInjector(modules = ForgotPasswordActivityModule.class)
+    abstract ForgotPasswordActivity bindForgotPasswordActivity();
 
 }
