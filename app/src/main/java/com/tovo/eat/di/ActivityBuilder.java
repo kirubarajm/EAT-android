@@ -17,8 +17,6 @@
 package com.tovo.eat.di;
 
 import com.tovo.eat.ui.account.MyAccountProvider;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
 import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
@@ -95,7 +93,10 @@ public abstract class ActivityBuilder {
             InternetErrorProvider.class,
             FilterProvider.class,
             DialogSelectAddressProvider.class,
-            DialogChangeKitchenProvider.class
+            DialogChangeKitchenProvider.class,
+            FavoritesDishProvider.class,
+            FavoritesKitchenProvider.class,
+            FavoritesTabActivityProvider.class
 
     })
     abstract MainActivity bindMainActivity();
@@ -117,10 +118,6 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = SelectAddressListModule.class)
     abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
-
-    @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
-            FavoritesKitchenProvider.class})
-    abstract FavoritesTabActivity bindFavListActivity();
 
     @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class})
     abstract FeedbackAndSupportActivity bindFeedbackSupportActivity();

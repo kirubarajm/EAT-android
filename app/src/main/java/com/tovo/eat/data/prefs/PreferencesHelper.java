@@ -129,4 +129,9 @@ public interface PreferencesHelper {
     void setCurrentUserReferrals(String area);
 
 
+    boolean getIsFav();
+    void setIsFav(boolean status);
+
+
+
 }

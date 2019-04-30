@@ -207,7 +207,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="10dp"
                             android:paddingBottom="5dp"
-                            android:text="-"
+                            android:text="@string/minus"
                             android:textColor="@color/eat_color"
                             android:textSize="18sp" />
 
@@ -243,7 +243,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="10dp"
                             android:paddingBottom="5dp"
-                            android:text="+"
+                            android:text="@string/plus"
                             android:textColor="@color/eat_color"
                             android:textSize="18sp" />
 

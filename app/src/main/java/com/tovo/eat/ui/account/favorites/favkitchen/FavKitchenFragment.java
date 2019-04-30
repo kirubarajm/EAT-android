@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.homemenu.kitchen;
+package com.tovo.eat.ui.account.favorites.favkitchen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,14 @@ import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.FilterListener;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenNavigator;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, StartFilter {
+public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, StartFilter {
 
 
     @Inject
@@ -31,9 +33,9 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     FragmentKitchenBinding mFragmentKitchenBinding;
 
-    public static KitchenFragment newInstance() {
+    public static FavKitchenFragment newInstance() {
         Bundle args = new Bundle();
-        KitchenFragment fragment = new KitchenFragment();
+        FavKitchenFragment fragment = new FavKitchenFragment();
         fragment.setArguments(args);
         return fragment;
     }

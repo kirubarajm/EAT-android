@@ -36,6 +36,20 @@ public class AddressRequestPojo {
     @Expose
     private Integer addressType;
 
+
+    @SerializedName("aid")
+    @Expose
+    private Integer aid;
+
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
     public long getUserid() {
         return userid;
     }

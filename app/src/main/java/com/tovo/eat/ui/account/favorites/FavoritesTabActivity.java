@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityTabFavoritesBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 
 import javax.inject.Inject;
 
@@ -20,7 +24,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector {
+public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector {
 
     ActivityTabFavoritesBinding mActivityTabFavoritesBinding;
     @Inject
@@ -30,10 +34,16 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
-    public static Intent newIntent(Context context) {
 
-        return new Intent(context, FavoritesTabActivity.class);
+    public static FavoritesTabActivity newInstance() {
+        Bundle args = new Bundle();
+        FavoritesTabActivity fragment = new FavoritesTabActivity();
+        fragment.setArguments(args);
+        return fragment;
     }
+
+
+
 
     @Override
     public void handleError(Throwable throwable) {
@@ -56,15 +66,19 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityTabFavoritesBinding = getViewDataBinding();
         mFavoritesActivityViewModel.setNavigator(this);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mActivityTabFavoritesBinding = getViewDataBinding();
         setUp();
     }
 
     private void setUp() {
-        mActivityTabFavoritesBinding.tabFavorites.setSelectedTabIndicatorColor(Color.parseColor("#0F5E9E"));
         mFavoritesTabAdapter.setCount(2);
         mActivityTabFavoritesBinding.viewPagerFavorites.setAdapter(mFavoritesTabAdapter);
         mActivityTabFavoritesBinding.tabFavorites.addTab(mActivityTabFavoritesBinding.tabFavorites.newTab().setText(getString(R.string.kitchen)));

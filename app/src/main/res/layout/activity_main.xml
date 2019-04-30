@@ -351,6 +351,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/explore"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
@@ -378,6 +379,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/cart"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
@@ -393,7 +395,7 @@
 
                         <LinearLayout
                             android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
@@ -433,6 +435,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/account"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"

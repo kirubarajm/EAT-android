@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishFragment;
-import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenFragment;
+import com.tovo.eat.ui.account.favorites.favdish.FavDishFragment;
+import com.tovo.eat.ui.account.favorites.favkitchen.FavKitchenFragment;
 
 public class FavoritesTabAdapter extends FragmentStatePagerAdapter {
 
@@ -20,9 +20,10 @@ public class FavoritesTabAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return FavoritesDishFragment.newInstance();
+                return FavKitchenFragment.newInstance();
             case 1:
-                return FavoritesKitchenFragment.newInstance();
+
+                return FavDishFragment.newInstance();
             default:
                 return null;
         }

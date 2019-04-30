@@ -61,6 +61,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_LNG = "CURRENT_LNG";
     private static final String PREF_KEY_CURRENT_ADDRESS = "CURRENT_ADDRESS";
     private static final String PREF_KEY_CURRENT_ADDRESS_ID = "CURRENT_ADDRESS_ID";
+    private static final String PREF_KEY_IS_FAV_CLICKED = "IS_FAV_CLICKED";
 
     private static final String PREF_KEY_CURRENT_USER_PHONE_NUMBER = "CURRENT_USER_PHONE_NUMBER";
     private static final String PREF_KEY_CURRENT_USER_REFERRALS = "CURRENT_USER_REFERRALS";
@@ -290,6 +291,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentUserReferrals(String referralCode) {
         mPrefs.edit().putString(PREF_KEY_CURRENT_USER_REFERRALS, referralCode).apply();
+    }
+
+    @Override
+    public boolean getIsFav() {
+        return mPrefs.getBoolean(PREF_KEY_IS_FAV_CLICKED, false);
+    }
+
+    @Override
+    public void setIsFav(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_IS_FAV_CLICKED, status).apply();
     }
 
 

@@ -33,7 +33,6 @@ public class DishResponse {
         this.result = result;
     }
 
-
     public class Result {
         @SerializedName("productid")
         @Expose
@@ -71,7 +70,7 @@ public class DishResponse {
         @SerializedName("isfav")
         @Expose
         private String isfav;
-        @SerializedName("cusinename")
+        @SerializedName("cuisinename")
         @Expose
         private String cusinename;
 

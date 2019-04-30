@@ -291,6 +291,7 @@ public class DishItemViewModel {
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
                                 if (quantity.get() == 0) {
                                     results.remove(i);
+                                    break;
                                 } else {
                                     cartRequestPojoCartitem.setProductid(dishList.getProductid());
                                     cartRequestPojoCartitem.setQuantity(quantity.get());
@@ -307,12 +308,19 @@ public class DishItemViewModel {
 
         }
 
-        cartRequestPojo.setCartitems(results);
-        Gson gson = new Gson();
-        String json = gson.toJson(cartRequestPojo);
-        mListener.saveCart(json);
 
-        Log.e("cart", json);
+        if (results.size()==0){
+
+            mListener.saveCart(null);
+
+        }else {
+
+            cartRequestPojo.setCartitems(results);
+            Gson gson = new Gson();
+            String json = gson.toJson(cartRequestPojo);
+            mListener.saveCart(json);
+        }
+
 
         if (quantity.get() == 0) {
             isAddClicked.set(false);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.tovo.eat.BR;
@@ -102,13 +103,16 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void favourites() {
-        /*FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FavoritesTabActivity fragment = new FavoritesTabActivity();
         transaction.replace(R.id.content_main, fragment);
-        transaction.commit();*/
+        transaction.commitNow();
 
-        Intent intent = FavoritesTabActivity.newIntent(getContext());
-        startActivity(intent);
+
+        FavoritesTabActivity.newInstance();
+
+
+
     }
 
     @Override

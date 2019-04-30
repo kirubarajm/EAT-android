@@ -59,6 +59,8 @@ public interface DataManager extends PreferencesHelper {
     void currentOrderId(Integer orderId);
 
 
+    void isFavClicked(boolean status);
+
     enum LoggedInMode {
         LOGGED_IN_MODE_LOGGED_OUT(0),
         LOGGED_IN_MODE_GOOGLE(1),

@@ -199,7 +199,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     public void gotoHome() {
+        getDataManager().setIsFav(false);
         getNavigator().openHome();
+
     }
 
     public void totalCart() {

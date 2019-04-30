@@ -25,4 +25,17 @@ public interface EditAddressNavigator {
     void handleError(Throwable throwable);
 
 
+    void addressSaved();
+
+    void emptyFields();
+
+
+    void myLocationn();
+
+
+    void setLatLng(double lat,double lng);
+
+
+
+
 }

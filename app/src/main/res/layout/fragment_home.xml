@@ -155,7 +155,6 @@
             android:id="@+id/myacc_ViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/myacc_tabLayout"
             android:background="@color/white"
             android:clipToPadding="false" />
 

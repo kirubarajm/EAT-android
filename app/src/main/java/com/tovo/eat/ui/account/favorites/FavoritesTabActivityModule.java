@@ -15,6 +15,6 @@ public class FavoritesTabActivityModule {
 
     @Provides
     FavoritesTabAdapter provideFavoritesTabPagerAdapter(FavoritesTabActivity mFavoritesTabActivity) {
-        return new FavoritesTabAdapter(mFavoritesTabActivity.getSupportFragmentManager());
+        return new FavoritesTabAdapter(mFavoritesTabActivity.getChildFragmentManager());
     }
 }

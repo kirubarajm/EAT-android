@@ -1,11 +1,8 @@
-package com.tovo.eat.ui.home.homemenu.dish;
+package com.tovo.eat.ui.account.favorites.favdish;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -18,15 +15,17 @@ import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
-import com.tovo.eat.ui.home.homemenu.FilterListener;
+import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
+import com.tovo.eat.ui.home.homemenu.dish.DishNavigator;
+import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
+import com.tovo.eat.ui.home.homemenu.dish.DishViewModel;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
 
-public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener, StartFilter, AddDishListener {
+public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewModel> implements DishNavigator, DishAdapter.LiveProductsAdapterListener, StartFilter, AddDishListener {
 
     @Inject
     DishViewModel mDishViewModel;
@@ -42,18 +41,16 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     InternetListener internetListener;
 
-    public static DishFragment newInstance() {
+    public static FavDishFragment newInstance() {
         Bundle args = new Bundle();
-        DishFragment fragment = new DishFragment();
+        FavDishFragment fragment = new FavDishFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-
     @Override
     public void onAttach(Context context) {
         cartListener = (CartListener) context;
-        internetListener = (InternetListener) context;
         super.onAttach(context);
     }
 
@@ -78,8 +75,6 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
       //  ((MainActivity) getActivity()).setFilterListener(FavDishFragment.this);
-
-
         //  StartFilter myInterface =getInterface(StartFilter.class, this);
 
 
@@ -221,10 +216,10 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     public void dishRefresh() {
 
 
-       /* mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-        mDishViewModel.fetchRepos();*/
+        mDishViewModel.fetchRepos();
     }
 
     @Override

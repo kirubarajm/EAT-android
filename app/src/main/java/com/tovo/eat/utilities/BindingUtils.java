@@ -32,8 +32,6 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tovo.eat.R;
-import com.tovo.eat.ui.account.favorites.favdish.FavoriteDishAdapter;
-import com.tovo.eat.ui.account.favorites.favdish.FavoriteDishResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
@@ -100,14 +98,7 @@ public final class BindingUtils {
         }
     }
 
-    @BindingAdapter({"dishAdapter"})
-    public static void addFavDishItems(RecyclerView recyclerView, List<FavoriteDishResponse.Result> dishes) {
-        FavoriteDishAdapter adapter = (FavoriteDishAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(dishes);
-        }
-    }
+
 
 
     @BindingAdapter({"adapter"})

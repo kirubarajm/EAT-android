@@ -50,7 +50,9 @@ public class KitchenDishResponse {
         @Expose
         private String productimage;
 
-
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
 
 
         @SerializedName("favid")
@@ -60,6 +62,15 @@ public class KitchenDishResponse {
         @SerializedName("isfav")
         @Expose
         private String isfav;
+
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
 
         public String getIsfav() {
             return isfav;
@@ -148,6 +159,7 @@ public class KitchenDishResponse {
         @SerializedName("isfav")
         @Expose
         private String isfav;
+
 
         @SerializedName("productlist")
         @Expose

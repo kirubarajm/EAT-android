@@ -34,9 +34,16 @@ public class AppConstants {
     public static final String EAT_KITCHEN_LIST_URL = TEMP_URL_LIVE + "kitchenlist";
     public static final String EAT_DISH_LIST_URL = TEMP_URL_LIVE + "dishlist";
 
+    public static final String EAT_FAV_DISH_LIST_URL = TEMP_URL_LIVE + "fav/dishlist/";
+    public static final String EAT_FAV_KITCHEN_LIST_URL = TEMP_URL_LIVE + "fav/kitchenlist/";
+
 
     public static final String EAT_KITCHEN_DISH_LIST_URL = TEMP_URL + "products";
     public static final String EAT_ADD_ADDRESS_URL = TEMP_URL_LIVE + "address";
+    public static final String EAT_GET_ADDRESS_URL = TEMP_URL_LIVE + "addresslist/";
+
+
+
     public static final String EAT_ADD_ADDRESS_LIST_URL = TEMP_URL_LIVE + "address/";
     public static final String EAT_CART_DETAILS_URL = TEMP_URL_LIVE + "cartdetails/";
 

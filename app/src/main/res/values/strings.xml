@@ -428,6 +428,9 @@
     <string name="icon_feedback_support">&#xe90b;</string>
     <string name="icon_call">&#xe912;</string>
     <string name="icon_error">&#xe917;</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="address_edit">Address edit</string>
 
 
 </resources>

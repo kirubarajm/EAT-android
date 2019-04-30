@@ -121,7 +121,7 @@
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{kitchenDishItemViewModel.makeit_username}"
+                    android:text="@{kitchenDishItemViewModel.producttype}"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 

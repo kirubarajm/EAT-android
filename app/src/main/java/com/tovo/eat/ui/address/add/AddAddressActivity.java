@@ -177,7 +177,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 }
 
 
-                //  mAddAddressViewModel.locationAddress.set(strAddress.toString());
+                //  mEditAddressViewModel.locationAddress.set(strAddress.toString());
                 //    txtLocationAddress.setText(strAddress.toString());
 
             } else {
@@ -198,7 +198,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 if (!place.getAddress().toString().contains(place.getName())) {
 
 
-                    // mAddAddressViewModel.locationAddress.set(place.getAddress().toString());
+                    // mEditAddressViewModel.locationAddress.set(place.getAddress().toString());
 
 
                     //   txtLocationAddress.setText(place.getName() + ", " + place.getAddress());

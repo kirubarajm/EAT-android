@@ -209,10 +209,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public void dishRefresh() {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+       /* mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-        mKitchenDishViewModel.fetchRepos();
+        mKitchenDishViewModel.fetchRepos();*/
     }
 
     @Override

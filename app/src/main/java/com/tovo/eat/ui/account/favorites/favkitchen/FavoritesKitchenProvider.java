@@ -7,5 +7,5 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class FavoritesKitchenProvider {
 
     @ContributesAndroidInjector(modules = FavoritesKitchenModule.class)
-    abstract FavoritesKitchenFragment provideFavKitchenFragmentFactory();
+    abstract FavKitchenFragment provideFavKitchenFragmentFactory();
 }

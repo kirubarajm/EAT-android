@@ -102,7 +102,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onTabSelected(TabLayout.Tab tab) {
                 mFragmentHomeBinding.myaccViewPager.setCurrentItem(tab.getPosition());
 
-
                 mHomeTabViewModel.setCurrentFragment(tab.getPosition());
 
 

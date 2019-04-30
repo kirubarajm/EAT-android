@@ -29,6 +29,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
 
     public void favourites() {
+        getDataManager().setIsFav(true);
         getNavigator().favourites();
     }
 
@@ -58,4 +59,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public void logOutSession(){
         getDataManager().setLogout();
     }
+
+
+
 }

@@ -10,6 +10,8 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressSelectBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
+import com.tovo.eat.ui.address.edit.EditAddressActivity;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -119,12 +121,12 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     }
 
     @Override
-    public void editAddressClick(SelectAddressListResponse.Result blogUrl) {
-        Intent intent = AddAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+    public void editAddressClick(SelectAddressListResponse.Result address) {
+        Intent intent = EditAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+        intent.putExtra("aid",address.getAid());
         startActivity(intent);
 
     }
-
 
 }
 
