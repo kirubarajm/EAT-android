@@ -409,7 +409,8 @@
     <string name="oh_snap">Oh Snap!</string>
     <string name="no_internet_connection_detected">No internet connection detected</string>
     <string name="retry">Retry</string>
-    <string name="no_results_found">No results found</string>
+    <string name="sorry">Sorry!</string>
+    <string name="no_results_found">No results for your selection</string>
     <string name="add">Add</string>
     <string name="add_your_address_to_find_nearest_kitchens">Add your address to find nearest kitchens..</string>
     <string name="change_kitchen_title">You can only order items from one kitchen at a time</string>
@@ -424,6 +425,7 @@
     <string name="icon_favorites">&#xe900;</string>
     <string name="icon_feedback_support">&#xe90b;</string>
     <string name="icon_call">&#xe912;</string>
+    <string name="icon_error">&#xe917;</string>
 
 
 </resources>

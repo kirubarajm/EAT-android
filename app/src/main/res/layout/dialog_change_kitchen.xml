@@ -46,45 +46,44 @@
                 android:textSize="14sp" />
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:onClick="@{()->dialogChangeKitchenViewModel.dialogCancel()}"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="5dp"
                     android:text="@string/cancel"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true" />
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="end"
                     android:onClick="@{()->dialogChangeKitchenViewModel.dialogConfirm()}"
-                    android:paddingLeft="7dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="7dp"
-                    android:paddingBottom="5dp"
                     android:text="@string/clear_cart_and_add"
                     android:textAlignment="textEnd"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="10dp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>

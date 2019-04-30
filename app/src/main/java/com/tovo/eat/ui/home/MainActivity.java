@@ -377,12 +377,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onResume();
 
 
-
-
-
-
-
-
        /* if (!mMainViewModel.isAddressAdded()) {
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
@@ -515,7 +509,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void internetcheck(boolean status) {
-
         if (status) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeTabFragment fragment = new HomeTabFragment();
@@ -523,7 +516,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             transaction.commit();
 
         } else {
-
 
         }
 
@@ -544,12 +536,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private boolean checkWifiConnect() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+
         if (networkInfo != null
                 && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
                 && networkInfo.isConnected()) {
             return true;
-        }
-        return false;
+        }else return networkInfo != null
+                && networkInfo.isConnected();
     }
 
 
@@ -573,7 +576,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void onDestroy() {
         super.onDestroy();
-      //  unregisterWifiReceiver();
+        unregisterWifiReceiver();
     }
 
 

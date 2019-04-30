@@ -239,27 +239,19 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
        DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
 
-
-
       /*  DialogChangeKitchen fragment = new DialogChangeKitchen();
         fragment.setTargetFragment(this, 0);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_in);
-
         fragment.show(ft, "UploadDialogFragment");
         fragment.setCancelable(false);*/
-
-
-
     }
-
 
     /*@Override
     public void filterList() {
 
         mDishViewModel.fetchRepos();
-
 
     }*/
 

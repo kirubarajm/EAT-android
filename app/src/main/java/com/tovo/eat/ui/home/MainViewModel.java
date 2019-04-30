@@ -212,11 +212,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         int count = 0;
 
         if (cartRequestPojo.getCartitems() != null) {
-
             if (cartRequestPojo.getCartitems().size() == 0) {
-
                 cart.set(false);
-
             } else {
 
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
