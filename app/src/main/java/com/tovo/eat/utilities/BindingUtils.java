@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -38,8 +39,8 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.address.list.AddressListAdapter;
@@ -56,6 +57,8 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.ui.registration.RegionAdapter;
+import com.tovo.eat.ui.registration.RegionResponse;
 
 import java.util.List;
 
@@ -149,18 +152,14 @@ public final class BindingUtils {
     }
 
 
-
-
     @BindingAdapter({"filteradapter"})
     public static void addFilterItems(RecyclerView recyclerView, List<FilterItems> filterItems) {
-       FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
+        FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(filterItems,1);
+            adapter.addItems(filterItems, 1);
         }
     }
-
-
 
 
     @BindingAdapter({"adapter"})
@@ -172,6 +171,14 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter({"regionAdapter"})
+    public static void addRegionItems(Spinner recyclerView, List<RegionResponse.Result> blogs) {
+        RegionAdapter adapter = (RegionAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addChatItems(blogs);
+        }
+    }
 
     @BindingAdapter("visibleView")
     public static void setViewVisiblityVisible(LinearLayout imageView, String type) {

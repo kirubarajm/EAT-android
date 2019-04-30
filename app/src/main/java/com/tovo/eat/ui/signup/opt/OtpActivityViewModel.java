@@ -31,6 +31,10 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         getNavigator().continueClick();
     }
 
+    public void forgotPasswordClick() {
+        getNavigator().forgotPassword();
+    }
+
     public void login(String strPhoneNumber, String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);

@@ -8,7 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public class SmsReceivers extends BroadcastReceiver {
+public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final Bundle bundle = intent.getExtras();
@@ -22,14 +22,14 @@ public class SmsReceivers extends BroadcastReceiver {
                     String senderNum = phoneNumber;
                     String message = currentMessage.getDisplayMessageBody();
                     //message = message.substring(0, message.length()-1);
-                    Log.i("SmsReceivers", "senderNum: " + senderNum + "; message: " + message);
+                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
                     Intent myIntent = new Intent("otp");
                     myIntent.putExtra("message",message);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(myIntent);
                 }
             }
         } catch (Exception e) {
-            Log.e("SmsReceivers", "Exception smsReceiver" +e);
+            Log.e("SmsReceiver", "Exception smsReceiver" +e);
 
         }
 

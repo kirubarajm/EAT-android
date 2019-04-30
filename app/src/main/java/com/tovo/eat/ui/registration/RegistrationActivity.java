@@ -4,6 +4,7 @@ package com.tovo.eat.ui.registration;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -13,12 +14,16 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationActivityViewModel>
         implements RegistrationActivityNavigator {
+
+    @Inject
+    RegionAdapter mRegionAdapter;
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9+._%-+]{1,256}" +
@@ -72,6 +77,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
     @Override
+    public void regionList(List<RegionResponse.Result> regionList) {
+        //mActivityRegistrationBinding.spnHometown.setAdapter(new RegionAdapter(RegistrationActivity.this, regionList));
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.registrationViewModel;
     }
@@ -96,7 +106,20 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         super.onCreate(savedInstanceState);
         mActivityRegistrationBinding = getViewDataBinding();
         mRegistrationActivityViewModel.setNavigator(this);
+        subscribeToLiveData();
+
+
+         /*mRegionAdapter.setListener(this);*/
+         mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);
+
+
     }
+
+    private void subscribeToLiveData() {
+        mRegistrationActivityViewModel.getRegions().observe(this,
+                regionItemViewModel -> mRegistrationActivityViewModel.addRegionListItemsToList(regionItemViewModel));
+    }
+
 
     @Override
     public void onBackPressed() {

@@ -38,7 +38,6 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
                         parent, false);
                 return new EmptyViewHolder(listItemOrdersBinding1);
         }
-
     }
 
     @Override

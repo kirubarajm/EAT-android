@@ -78,8 +78,8 @@ public class OrdersHistoryListItemModel {
 
         this.moveitName.set(mOrderList.getMoveitdetail().getName());
 
-        this.makeitName.set(mOrderList.getMakeitdetail().getName());
-        this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()+" | ");
+        this.makeitName.set(mOrderList.getMakeitdetail().getName()==null?"":mOrderList.getMakeitdetail().getName());
+        this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()==null?"":mOrderList.getMakeitdetail().getAddress()+" | ");
 
         if (orders.getItems() != null && orders.getItems().size() > 0) {
             StringBuilder strItems = new StringBuilder();

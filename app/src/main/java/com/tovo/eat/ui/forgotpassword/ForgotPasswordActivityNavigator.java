@@ -4,5 +4,14 @@ public interface ForgotPasswordActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void checkForUserLoginMode(boolean trueOrFalse);
+    void otpVerificationProceed();
+
+    void otpVerificationSubmit();
+
+    void confirmPassSuccess();
+
+    void confirmPassFailre();
+
+    void otpInvalid();
+
 }
