@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemKitchenDishEmptyBinding blogViewBinding1 = ListItemKitchenDishEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(blogViewBinding1);
         }
@@ -105,18 +107,22 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder {
+    public class EmptyViewHolder extends BaseViewHolder  {
 
-        private final ListItemKitchenDishEmptyBinding mBinding;
+        private final ListItemEmptyBinding mBinding;
 
-        public EmptyViewHolder(ListItemKitchenDishEmptyBinding binding) {
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-
+            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
     }

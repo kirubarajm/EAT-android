@@ -61,9 +61,6 @@ public class AddressListItemViewModel {
         address.set(addressList.getAddress());
 
 
-
-
-
     }
 
     public void deleteAddress(){

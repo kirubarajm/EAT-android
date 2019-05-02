@@ -23,6 +23,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableField<String> moveitName = new ObservableField<>();
     public final ObservableField<String> moveitPhone = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
+    public final ObservableField<String> total = new ObservableField<>();
+    public final ObservableField<String> sItems = new ObservableField<>();
 
 
     public final ObservableField<String> orderReceivedStatus = new ObservableField<>();
@@ -91,6 +93,20 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
 
 
+                            String items = null;
+
+                            for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                items = "\n" + response.getResult().get(0).getItems().get(i).getProductName() + " x " + response.getResult().get(0).getItems().get(i).getQuantity();
+                            }
+
+                            if (items != null)
+                                sItems.set(items);
+
+
+
+                            total.set(String.valueOf(response.getResult().get(0).getPrice()));
+
+
 
 
                        /* 0 -orderput   - est user
@@ -147,9 +163,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
 
-                        }else {
+                        } else {
 
-                           getNavigator().showToast(response.getMessage());
+                            getNavigator().showToast(response.getMessage());
 
                         }
                     }

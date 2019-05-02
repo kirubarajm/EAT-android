@@ -66,6 +66,9 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         private final ListItemEmptyBinding mBinding;
 
+
+        EmptyItemViewModel emptyItemViewModel;
+
         public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
@@ -73,7 +76,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onBind(int position) {
-
+            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
     }

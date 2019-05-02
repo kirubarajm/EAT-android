@@ -129,8 +129,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public void fetchRepos() {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         try {
             setIsLoading(true);

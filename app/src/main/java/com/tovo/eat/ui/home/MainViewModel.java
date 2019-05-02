@@ -67,6 +67,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
+
+        getDataManager().setIsFav(false);
+
         masterRequest();
     }
 

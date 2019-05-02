@@ -93,95 +93,121 @@
                     android:textSize="14sp" />
 
 
-                <LinearLayout
+
+
+
+
+
+
+
+
+
+
+                <RelativeLayout
                     android:layout_marginTop="10dp"
-                    android:id="@+id/add"
-                    android:onClick="@{()->cartDishItemViewModel.enableAdd()}"
-                    android:background="@drawable/curve_stroke"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:visibility="@{cartDishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal"
-                    android:layout_marginEnd="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <LinearLayout
+                        android:id="@+id/add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingRight="20dp"
-                        android:paddingLeft="20dp"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"
-                        android:text="@string/add"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/curve_stroke"
+                        android:onClick="@{()->cartDishItemViewModel.enableAdd()}"
+                        android:orientation="horizontal"
+                        android:visibility="@{cartDishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
 
-                </LinearLayout>
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/add"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-
-                <LinearLayout
-                    android:visibility="@{cartDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}"
-                    android:id="@+id/num_picker"
-                    android:background="@drawable/curve_stroke"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal"
-                    android:layout_marginEnd="10dp">
-
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingRight="10dp"
-                        android:onClick="@{()->cartDishItemViewModel.subClicked()}"
-                        android:paddingLeft="10dp"
-                        android:text="-"
-                        android:textColor="@color/eat_color"
-                        android:textSize="18sp" />
+                    </LinearLayout>
 
 
+                    <RelativeLayout
+                        android:id="@+id/num_picker"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/curve_stroke"
+                        android:orientation="horizontal"
+                        android:visibility="@{cartDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/eat_color"/>
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/minus"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->cartDishItemViewModel.subClicked()}"
+                            android:text="@string/minus"
+                            android:textAlignment="center"
+                            android:textColor="@color/eat_color"
+                            android:textSize="18sp"
+                            android:layout_alignParentLeft="true" />
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@{cartDishItemViewModel.sQuantity}"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/eat_color"/>
+                        <View
+                            android:layout_toRightOf="@+id/minus"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/eat_color"
+                            android:layout_toEndOf="@+id/minus" />
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:onClick="@{()->cartDishItemViewModel.addClicked()}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="+"
-                        android:textColor="@color/eat_color"
-                        android:textSize="18sp" />
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:id="@+id/quan"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@{cartDishItemViewModel.sQuantity}"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
 
-                </LinearLayout>
+                        <View
+                            android:layout_toLeftOf="@+id/plus"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/eat_color"
+                            android:layout_toStartOf="@+id/plus" />
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/plus"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->cartDishItemViewModel.addClicked()}"
+                            android:textAlignment="center"
+                            android:text="@string/plus"
+                            android:textColor="@color/eat_color"
+                            android:textSize="18sp"
+                            android:layout_alignParentRight="true" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
 
 
         </LinearLayout>
