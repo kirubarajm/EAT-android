@@ -14,4 +14,8 @@ public interface OtpActivityNavigator {
 
     void forgotPassword();
 
+    void loginSuccess();
+
+    void loginFailure();
+
 }

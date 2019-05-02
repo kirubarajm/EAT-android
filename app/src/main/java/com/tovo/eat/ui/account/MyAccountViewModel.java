@@ -11,11 +11,16 @@ import dagger.Module;
 @Module
 public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
-
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
+    public final ObservableField<String> userName = new ObservableField<>();
+    public final ObservableField<String> userEmail = new ObservableField<>();
+    public final ObservableField<String> userPhoneNo = new ObservableField<>();
 
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
+        userName.set(getDataManager().getCurrentUserName());
+        userEmail.set(getDataManager().getCurrentUserEmail());
+        userPhoneNo.set(getDataManager().getCurrentUserPhNo());
     }
 
     public void manageAddress() {
@@ -56,10 +61,9 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
 
-    public void logOutSession(){
+    public void logOutSession() {
         getDataManager().setLogout();
     }
-
 
 
 }

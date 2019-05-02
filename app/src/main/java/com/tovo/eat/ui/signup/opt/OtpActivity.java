@@ -82,6 +82,19 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     }
 
     @Override
+    public void loginSuccess() {
+        Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
+        Intent intent = MainActivity.newIntent(OtpActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void loginFailure() {
+        Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_FAILED, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.otpViewModel;
     }

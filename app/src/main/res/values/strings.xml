@@ -397,7 +397,7 @@
     <string name="verify">Verify</string>
     <string name="otp_continue">Continue</string>
     <string name="enter_phone_num">ENTER PHONE NUMBER</string>
-    <string name="login_message">We will send you a one time sms message. Carrier charges might apply</string>
+    <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
     <string name="enter_name">ENTER YOUR NAME</string>
     <string name="proceed">PROCEED</string>

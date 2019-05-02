@@ -3,7 +3,7 @@ package com.tovo.eat.ui.account.orderhistory.historylist;
 import android.databinding.ObservableField;
 
 public class OrdersHistoryListItemModel {
-
+    String actualDeliveryTime="";
     public final ObservableField<String> orderid = new ObservableField<>();
     public final ObservableField<String> userid = new ObservableField<>();
     public final ObservableField<String> ordertime = new ObservableField<>();
@@ -65,7 +65,8 @@ public class OrdersHistoryListItemModel {
         this.makeit_status.set(String.valueOf(orders.getMakeitStatus()));
         this.moveit_reached_time.set(String.valueOf(orders.getMoveitReachedTime()));
         this.moveit_expected_delivered_time.set(String.valueOf(orders.getMoveitExpectedDeliveredTime()));
-        this.moveit_actual_delivered_time.set(String.valueOf(orders.getMoveitActualDeliveredTime()));
+        actualDeliveryTime = String.valueOf(orders.getMoveitActualDeliveredTime());
+        this.moveit_actual_delivered_time.set(actualDeliveryTime.equals("null")?"":actualDeliveryTime);
         this.moveit_remarks_order.set(String.valueOf(orders.getMoveitRemarksOrder()));
         this.makeit_expected_preparing_time.set(String.valueOf(orders.getMakeitExpectedPreparingTime()));
         this.makeit_actual_preparing_time.set(String.valueOf(orders.getMakeitActualPreparingTime()));

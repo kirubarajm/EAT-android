@@ -17,14 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/title_toolbar"
@@ -45,9 +43,7 @@
                 android:layout_height="2dp"
                 android:background="@color/gray" />
 
-
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/topBar"
@@ -57,10 +53,13 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_perm_identity_black_24dp" />
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:id="@+id/img_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/male"
+                android:textSize="60sp" />
 
             <RelativeLayout
                 android:id="@+id/profile"
@@ -71,7 +70,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ebin Kurian"
+                    android:text="@{myAccountViewModel.userName}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -99,7 +98,7 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="8682038913"
+                        android:text="@{myAccountViewModel.userPhoneNo}"
                         android:textColor="@color/dark_gray"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -118,12 +117,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
-                        android:text="ebin@tovogroup.com"
+                        android:text="@{myAccountViewModel.userEmail}"
                         android:textColor="@color/dark_gray"
                         android:textSize="14sp" />
 
                 </LinearLayout>
-
 
                 <View
                     android:layout_width="match_parent"
@@ -131,7 +129,6 @@
                     android:layout_below="@+id/contact"
                     android:layout_marginTop="5dp"
                     android:background="@color/gray" />
-
 
             </RelativeLayout>
 
@@ -432,20 +429,18 @@
                     </RelativeLayout>
 
 
-
-
                     <LinearLayout
-                        android:layout_marginTop="50dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
                         android:onClick="@{()->myAccountViewModel.feedbackAndSupport()}"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
                             android:text="@string/icon_feedback_support"
+                            android:textSize="12sp"
                             android:tint="@color/black" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -461,21 +456,12 @@
                     </LinearLayout>
 
 
-
-
-
-
-
-
                 </LinearLayout>
 
             </ScrollView>
 
 
         </LinearLayout>
-
-
-
 
 
     </RelativeLayout>

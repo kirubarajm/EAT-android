@@ -12,6 +12,8 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFeedbackBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.opt.OtpActivity;
 
 import javax.inject.Inject;
 
@@ -47,6 +49,9 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         mActivityFeedbackBinding.edtFeedback.setText("");
         mActivityFeedbackBinding.rateApp.setRating(0);
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
+        Intent intent = MainActivity.newIntent(FeedbackActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override
