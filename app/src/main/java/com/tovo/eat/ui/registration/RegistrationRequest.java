@@ -8,6 +8,9 @@ public class RegistrationRequest {
     @SerializedName("userid")
     @Expose
     public Integer userid;
+    @SerializedName("hometownid")
+    @Expose
+    public Integer hometownid;
     @SerializedName("email")
     @Expose
     public String email;
@@ -15,10 +18,19 @@ public class RegistrationRequest {
     @Expose
     public String password;
 
-    public RegistrationRequest(Integer userid, String email, String password) {
+    public RegistrationRequest(Integer userid, String email, String password,Integer hometownid) {
         this.userid = userid;
+        this.hometownid = hometownid;
         this.email = email;
         this.password = password;
+    }
+
+    public Integer getHometownid() {
+        return hometownid;
+    }
+
+    public void setHometownid(Integer hometownid) {
+        this.hometownid = hometownid;
     }
 
     public Integer getUserid() {

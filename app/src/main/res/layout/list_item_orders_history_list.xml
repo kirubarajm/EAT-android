@@ -24,12 +24,16 @@
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_cust_name"
+                android:textSize="18sp"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{ordersListItemViewModel.makeitName}" />
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_place"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_cust_name"
@@ -39,6 +43,8 @@
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:layout_toEndOf="@+id/txt_place"
                 android:id="@+id/txt_rupees"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_cust_name"
@@ -59,12 +65,16 @@
                 android:id="@+id/txt_order_name"
                 android:layout_width="wrap_content"
                 android:ellipsize="end"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
                 android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:text="@{ordersListItemViewModel.productsItems}" />
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_date_time"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_order_name"

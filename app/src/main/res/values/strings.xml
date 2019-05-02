@@ -428,7 +428,14 @@
     <string name="icon_feedback_support">&#xe90b;</string>
     <string name="icon_call">&#xe912;</string>
     <string name="icon_error">&#xe917;</string>
+
+
+    <string name="smiley_low">&#xe914;</string>
+    <string name="smiley_medium">&#xe915;</string>
+    <string name="smiley_high">&#xe916;</string>
+
     <string name="icon_selected">&#xe911;</string>
+
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="address_edit">Address edit</string>
@@ -438,8 +445,14 @@
 
     <string name="how_was_food">How was the food?</string>
     <string name="how_was_delivery">How was the Delivery?</string>
+
+    <string name="how_can_we_meet_ut_expectation">How can we meet your food expectation?</string>
+    <string name="suggestion">Got suggestion, let us know</string>
+    <string name="how_was_your_delivery">How was your delivery?</string>
+
     <string name="select">Select</string>
     <string name="repeat_this_order">Repeat This Order</string>
+
 
 
 </resources>

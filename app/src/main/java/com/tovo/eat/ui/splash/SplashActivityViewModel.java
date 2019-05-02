@@ -18,7 +18,12 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
         {
             int userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
-            getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
+            boolean genderStatus = getDataManager().getisGenderStatus();
+            if (genderStatus) {
+                getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
+            }else {
+                getNavigator().checkForUserGenderStatus(true);
+            }
         }else {
             getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
         }

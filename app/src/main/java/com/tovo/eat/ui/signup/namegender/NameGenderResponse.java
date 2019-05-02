@@ -9,10 +9,20 @@ public class NameGenderResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("message")
     @Expose
     public String message;
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Boolean getSuccess() {
         return success;

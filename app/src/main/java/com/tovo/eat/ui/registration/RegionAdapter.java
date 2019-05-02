@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.registration;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ListItemOrdersHistoryListBinding;
-import com.tovo.eat.databinding.ListItemSpinnerBinding;
-import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListItemModel;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 
 import java.util.List;
 
 public class RegionAdapter extends BaseAdapter {
 
-    Activity context;
+    Activity activity;
     List<RegionResponse.Result> metadatas;
+    Context context;
 
-    public RegionAdapter(List<RegionResponse.Result> metadatas) {
-        this.context = context;
+    public RegionAdapter(Context context,List<RegionResponse.Result> metadatas) {
         this.metadatas = metadatas;
+        this.context = context;
     }
 
     @Override
@@ -43,33 +40,56 @@ public class RegionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        final RegionAdapter.ViewHolder holder;
+       /* RegionAdapter.ViewHolder holder = null;
         ListItemSpinnerBinding mListItemSpinnerBinding = null;
         if (view == null) {
 
-            /*LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item_spinner, viewGroup, false);*/
-            ListItemSpinnerBinding listItemOrdersBinding = ListItemSpinnerBinding.inflate(LayoutInflater.from(viewGroup.getContext()),
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_item_spinner, viewGroup, false);
+           *//* ListItemSpinnerBinding listItemOrdersBinding = ListItemSpinnerBinding.inflate(LayoutInflater.from(viewGroup.getContext()),
                     viewGroup, false);
-            holder = new RegionAdapter.ViewHolder(listItemOrdersBinding);
-            //holder.txtDemo = (TextView) view.findViewById(R.id.txt_spinner);
+            holder = new RegionAdapter.ViewHolder(listItemOrdersBinding);*//*
+            holder.txtDemo = (TextView) view.findViewById(R.id.txt_spinner);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        //RegionResponse.Result resutlt = (RegionResponse.Result) getItem(position);
-        //holder.txtDemo.setText(resutlt.getRegionname());
+        RegionResponse.Result resutlt = (RegionResponse.Result) getItem(position);
+        holder.txtDemo.setText(resutlt.getRegionname());
 
-        final RegionResponse.Result order = metadatas.get(position);
+       *//* final RegionResponse.Result order = metadatas.get(position);
         RegionItemViewModel ordersItemViewModel = new RegionItemViewModel(order);
         mListItemSpinnerBinding.setRegItemViewModel(ordersItemViewModel);
-        mListItemSpinnerBinding.executePendingBindings();
-        return view;
+        mListItemSpinnerBinding.executePendingBindings();*//*
+        return view;*/
+
+        final RegionAdapter.ViewHolder holder;
+
+        if (view == null) {
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            view = inflater.inflate(R.layout.list_item_spinner, viewGroup, false);
+
+            holder = new RegionAdapter.ViewHolder();
+
+            holder.txtDemo  = (TextView) view.findViewById(R.id.txt_spinner);
+            view.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
+
+        RegionResponse.Result resutlt = (RegionResponse.Result) getItem(position);
+
+        holder.txtDemo.setText(resutlt.getRegionname());
+
+       return view;
     }
 
-    private class ViewHolder {
+    public class ViewHolder {
         TextView txtDemo;
-        ListItemSpinnerBinding mListItemSpinnerBinding;
+        //ListItemSpinnerBinding mListItemSpinnerBinding;
 
         /*public ViewHolder(ListItemSpinnerBinding binding) {
             super(binding.getRoot());
@@ -77,9 +97,9 @@ public class RegionAdapter extends BaseAdapter {
         }
 */
 
-        public ViewHolder(ListItemSpinnerBinding mListItemSpinnerBinding) {
-            this.mListItemSpinnerBinding = mListItemSpinnerBinding;
-        }
+//        public ViewHolder(ListItemSpinnerBinding mListItemSpinnerBinding) {
+//            this.mListItemSpinnerBinding = mListItemSpinnerBinding;
+//        }
 
 
     }
@@ -93,4 +113,12 @@ public class RegionAdapter extends BaseAdapter {
         metadatas.addAll(blogList);
         notifyDataSetChanged();
     }
+
+   /* public void setListener(Context listener) {
+        this.context = listener;
+    }*/
+
+    /*public interface RegionListener {
+        void listItem(RegionResponse.Result mOrderList);
+    }*/
 }

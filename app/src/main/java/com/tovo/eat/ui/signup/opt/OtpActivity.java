@@ -1,10 +1,15 @@
 package com.tovo.eat.ui.signup.opt;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -29,6 +34,20 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     String UserId = "";
     private ActivityOtpBinding mActivityOtpBinding;
 
+    private BroadcastReceiver otpReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase("otp")) {
+                final String message = intent.getStringExtra("message");
+                mActivityOtpBinding.edt1.setText(message.substring(0, 1));
+                mActivityOtpBinding.edt2.setText(message.substring(1, 2));
+                mActivityOtpBinding.edt3.setText(message.substring(2, 3));
+                mActivityOtpBinding.edt4.setText(message.substring(3, 4));
+                mActivityOtpBinding.edt5.setText(message.substring(4, 5));
+            }
+        }
+    };
+
     public static Intent newIntent(Context context) {
         return new Intent(context, OtpActivity.class);
     }
@@ -42,8 +61,15 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     public void continueClick() {
         //hideKeyboard();
         //strPhoneNumber=mActivityOtpBinding.edtPassword.getText().toString();
+        String st1 = mActivityOtpBinding.edt1.getText().toString();
+        String st2 = mActivityOtpBinding.edt2.getText().toString();
+        String st3 = mActivityOtpBinding.edt3.getText().toString();
+        String st4 = mActivityOtpBinding.edt4.getText().toString();
+        String st5 = mActivityOtpBinding.edt5.getText().toString();
+
+        String otp = st1 + st2 + st3 + st4 + st5;
         if (validForOtp())
-            mLoginViewModelMain.userContinueClick(strPhoneNumber, 12345, Integer.parseInt(strOtpId));
+            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp), Integer.parseInt(strOtpId));
     }
 
     @Override
@@ -148,6 +174,82 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
 
         }
+        requestFocusForOtpEditext();
+    }
+
+    private void requestFocusForOtpEditext() {
+        mActivityOtpBinding.edt1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityOtpBinding.edt1.getText().toString().length() == 1) {
+                    mActivityOtpBinding.edt2.requestFocus();
+                }
+            }
+        });
+        mActivityOtpBinding.edt2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityOtpBinding.edt2.getText().toString().length() == 1) {
+                    mActivityOtpBinding.edt3.requestFocus();
+                }
+            }
+        });
+        mActivityOtpBinding.edt3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityOtpBinding.edt3.getText().toString().length() == 1) {
+                    mActivityOtpBinding.edt4.requestFocus();
+                }
+            }
+        });
+        mActivityOtpBinding.edt4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityOtpBinding.edt4.getText().toString().length() == 1) {
+                    mActivityOtpBinding.edt5.requestFocus();
+                }
+            }
+        });
 
     }
 
@@ -179,6 +281,18 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(otpReceiver, new IntentFilter("otp"));
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(otpReceiver);
     }
 
 }

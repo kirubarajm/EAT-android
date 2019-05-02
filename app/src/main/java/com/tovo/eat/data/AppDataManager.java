@@ -72,7 +72,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setLogout() {
-        updateUserInfo(null, null, null, null, null);
+        updateUserInformation(null, null, null, null, null);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateUserInfo(Integer userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
+    public void updateUserInformation(Integer userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
         setCurrentUserId(userId);
         setCurrentUserName(userName);
         setCurrentUserEmail(userEmail);
@@ -108,6 +108,12 @@ public class AppDataManager implements DataManager {
         setCurrentUserReferrals(referralCode);
 
     }
+
+    @Override
+    public void updateUserGender(boolean genderStatus) {
+        setisGenderStatus(genderStatus);
+    }
+
 
     @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
@@ -376,6 +382,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setIsFav(boolean status) {
         mPreferencesHelper.setIsFav(status);
+    }
+
+    @Override
+    public boolean getisGenderStatus() {
+        return mPreferencesHelper.getisGenderStatus();
+    }
+
+    @Override
+    public void setisGenderStatus(boolean status) {
+        mPreferencesHelper.setisGenderStatus(status);
     }
 
     @Override

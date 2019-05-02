@@ -41,7 +41,9 @@ public interface DataManager extends PreferencesHelper {
 
      void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
-     void updateUserInfo(Integer userId,String userName,String userEmail,String PhoneNumber,String referralCode);
+     void updateUserInformation(Integer userId,String userName,String userEmail,String PhoneNumber,String referralCode);
+
+     void updateUserGender(boolean genderStatus);
 
 
     void saveMaster(String master);
@@ -64,6 +66,7 @@ public interface DataManager extends PreferencesHelper {
         LOGGED_IN_MODE_GOOGLE(1),
         LOGGED_IN_MODE_FB(2),
         LOGGED_IN_MODE_SERVER(3);
+
         private final int mType;
 
         LoggedInMode(int type) {

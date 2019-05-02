@@ -130,6 +130,8 @@ public class AppConstants {
     public static final String URL_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";/////GET method
     public static final String URL_FORGOT_PASSWORD = URL_SERVER_IP_PORT + "/eat/forgot";/////GET method
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
+    public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
+    public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
 
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;

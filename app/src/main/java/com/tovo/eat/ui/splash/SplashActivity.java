@@ -11,6 +11,7 @@ import com.tovo.eat.databinding.ActivitySplashBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
+import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void checkForUserGenderStatus(boolean trueOrFalse) {
+        Intent intent = NameGenderActivity.newIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -123,6 +125,83 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
             strPhoneNumber = bundle.getString("strPhoneNumber");
             mForgotPasswordActivityViewModel.otpServiceCall(strPhoneNumber);
         }
+        requestFocusForOtpEditext();
+    }
+
+    private void requestFocusForOtpEditext() {
+        mActivityForgotPasswordBinding.edt1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityForgotPasswordBinding.edt1.getText().toString().length() == 1) {
+                    mActivityForgotPasswordBinding.edt2.requestFocus();
+                }
+            }
+        });
+        mActivityForgotPasswordBinding.edt2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityForgotPasswordBinding.edt2.getText().toString().length() == 1) {
+                    mActivityForgotPasswordBinding.edt3.requestFocus();
+                }
+            }
+        });
+        mActivityForgotPasswordBinding.edt3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityForgotPasswordBinding.edt3.getText().toString().length() == 1) {
+                    mActivityForgotPasswordBinding.edt4.requestFocus();
+                }
+            }
+        });
+        mActivityForgotPasswordBinding.edt4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityForgotPasswordBinding.edt4.getText().toString().length() == 1) {
+                    mActivityForgotPasswordBinding.edt5.requestFocus();
+                }
+            }
+        });
+
     }
 
     @Override

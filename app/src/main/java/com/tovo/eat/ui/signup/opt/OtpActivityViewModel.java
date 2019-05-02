@@ -51,7 +51,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                 String userPhoneNumber = response.getResult().get(0).getPhoneno();
                                 String userReferralCode = response.getResult().get(0).getPhoneno();
 
-                                getDataManager().updateUserInfo(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
                                 getNavigator().loginSuccess();
 
@@ -94,7 +94,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                         userId.set(String.valueOf(response.getUserid()));
                         CurrentuserId = response.getUserid();
 
-                        getDataManager().updateUserInfo(CurrentuserId, null, null, null, null);
+                        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
 
                         if (genderstatus) {
                             getNavigator().openHomeActivity(true);

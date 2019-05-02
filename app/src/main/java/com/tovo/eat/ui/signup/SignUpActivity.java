@@ -107,7 +107,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         super.onCreate(savedInstanceState);
         mActivitySignupBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
-        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS}, 0);
     }
 
     @Override
@@ -127,4 +127,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         }
         return true;
     }
+
+
 }
