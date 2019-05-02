@@ -33,6 +33,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> paymentType = new ObservableField<>();
     public final ObservableField<String> strPaymentType = new ObservableField<>();
     public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
+    public final ObservableField<String> locality = new ObservableField<>();
 
     public OrderHistoryActivityViewModelView(DataManager dataManager) {
         super(dataManager);
@@ -68,8 +69,9 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
                             kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
                             address.set(response.getResult().get(0).getLocality());
-                            price.set(String.valueOf(response.getResult().get(0).getPrice()));
+                            price.set("Rs."+String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
+                            locality.set("Delivered | "+String.valueOf(response.getResult().get(0).getLocality()));
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);

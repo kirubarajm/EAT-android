@@ -53,6 +53,8 @@
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_kitchen_name"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{OrdersHistryViewModel.kitchenName}" />
@@ -60,12 +62,16 @@
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_delivered"
                         android:layout_width="match_parent"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_kitchen_name"
-                        android:text="Delivered" />
+                        android:text="@{OrdersHistryViewModel.locality}" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_home"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_delivered"
@@ -74,6 +80,8 @@
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:id="@+id/txt_address"
+                        android:textSize="12sp"
+                        android:textColor="@color/dark_gray"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_home"
@@ -83,11 +91,17 @@
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_order_delivered_date_time"
                     android:layout_width="match_parent"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rel_1"
                     android:text="@{OrdersHistryViewModel.actualDeliveryTime}" />
 
                 <View
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/view_1"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
@@ -95,11 +109,18 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/black" />
 
+                <RelativeLayout
+                    android:layout_margin="10dp"
+                    android:layout_below="@+id/view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_order_details"
                     android:layout_width="match_parent"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_1"
                     android:layout_marginTop="10dp"
                     android:text="Order details" />
 
@@ -120,9 +141,11 @@
 
                 </RelativeLayout>
 
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rel_repeat_this_order"
@@ -139,6 +162,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
                         android:gravity="left|center"
                         android:text="Total cart amount" />
 
@@ -146,6 +171,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:text="@{OrdersHistryViewModel.price}" />
@@ -154,6 +181,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/dark_gray"
                     android:layout_below="@+id/linear_amt"
                     android:layout_marginTop="10dp"
                     android:text="@{OrdersHistryViewModel.strPaymentType}" />

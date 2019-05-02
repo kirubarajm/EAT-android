@@ -5,4 +5,6 @@ public interface SplashActivityNavigator {
     void handleError(Throwable throwable);
 
     void checkForUserLoginMode(boolean trueOrFalse);
+
+    void checkForUserGenderStatus(boolean trueOrFalse);
 }

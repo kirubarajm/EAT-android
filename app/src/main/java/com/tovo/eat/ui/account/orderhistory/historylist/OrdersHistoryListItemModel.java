@@ -2,6 +2,11 @@ package com.tovo.eat.ui.account.orderhistory.historylist;
 
 import android.databinding.ObservableField;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class OrdersHistoryListItemModel {
     String actualDeliveryTime="";
     public final ObservableField<String> orderid = new ObservableField<>();
@@ -66,7 +71,27 @@ public class OrdersHistoryListItemModel {
         this.moveit_reached_time.set(String.valueOf(orders.getMoveitReachedTime()));
         this.moveit_expected_delivered_time.set(String.valueOf(orders.getMoveitExpectedDeliveredTime()));
         actualDeliveryTime = String.valueOf(orders.getMoveitActualDeliveredTime());
-        this.moveit_actual_delivered_time.set(actualDeliveryTime.equals("null")?"":actualDeliveryTime);
+        //this.moveit_actual_delivered_time.set(actualDeliveryTime.equals("null")?"":actualDeliveryTime);
+
+        if (!actualDeliveryTime.equals("null") && !actualDeliveryTime.equals("")) {
+            try {
+                String strDate = actualDeliveryTime;
+                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm a");
+                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String outputDateStr = "";
+                //Date  date1 = new Date(strDate);
+                Date date = currentFormat.parse(strDate);
+                outputDateStr = dateFormat.format(date);
+                moveit_actual_delivered_time.set(outputDateStr);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         this.moveit_remarks_order.set(String.valueOf(orders.getMoveitRemarksOrder()));
         this.makeit_expected_preparing_time.set(String.valueOf(orders.getMakeitExpectedPreparingTime()));
         this.makeit_actual_preparing_time.set(String.valueOf(orders.getMakeitActualPreparingTime()));

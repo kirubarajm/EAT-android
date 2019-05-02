@@ -51,17 +51,20 @@
         <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
         <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
 
-       
+
         <activity android:name=".ui.signup.opt.OtpActivity" />
         <activity android:name=".ui.signup.namegender.NameGenderActivity">
 
         </activity>
         <activity android:name=".ui.registration.RegistrationActivity">
 
+        </activity>
+        <activity android:name=".ui.orderrating.OrderRatingActivity" >
+
 
         </activity>
-        <activity android:name=".ui.orderrating.OrderRatingActivity" />
         <activity android:name=".ui.splash.SplashActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -82,6 +85,14 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+<!--
+        <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+-->
 
     </application>
 

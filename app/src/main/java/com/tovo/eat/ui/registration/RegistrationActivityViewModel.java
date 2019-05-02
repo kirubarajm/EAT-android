@@ -7,6 +7,7 @@ import android.databinding.ObservableList;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
@@ -41,16 +42,15 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         return regionItemsLiveData;
     }
 
-
     public void userProceed() {
         getNavigator().usersRegistrationMain();
     }
 
-    public void userRegistrationServiceCall(String strEmail, String strReTypePass) {
+    public void userRegistrationServiceCall(String strEmail, String strReTypePass,int regionId) {
         int userId = getDataManager().getCurrentUserId();
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId,strEmail, strReTypePass), new Response.Listener<RegistrationResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId,strEmail, strReTypePass,regionId), new Response.Listener<RegistrationResponse>() {
             @Override
             public void onResponse(RegistrationResponse response) {
                 if (response != null) {

@@ -40,13 +40,17 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             public void onResponse(NameGenderResponse response) {
                 if (response != null) {
                     Log.i("", "" + response.getSuccess());
-                    getNavigator().openActivity(response.getMessage());
+                    getNavigator().genderSuccess(response.getMessage());
+                    if (response.getStatus()) {
+                        getDataManager().updateUserGender(true);
+                    }
                 }
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
+                getNavigator().genderFailure("Failed to update");
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);

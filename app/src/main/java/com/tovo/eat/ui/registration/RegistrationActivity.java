@@ -4,7 +4,9 @@ package com.tovo.eat.ui.registration;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -20,10 +22,7 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationActivityViewModel>
-        implements RegistrationActivityNavigator {
-
-    @Inject
-    RegionAdapter mRegionAdapter;
+        implements RegistrationActivityNavigator, AdapterView.OnItemSelectedListener {
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
             "[a-zA-Z0-9+._%-+]{1,256}" +
@@ -34,6 +33,10 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                     "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
                     ")+"
     );
+    /* @Inject*/
+    RegionAdapter mRegionAdapter;
+    List<RegionResponse.Result> regionList;
+    RegionResponse.Result selectRegionItem;
     @Inject
     RegistrationActivityViewModel mRegistrationActivityViewModel;
     private ActivityRegistrationBinding mActivityRegistrationBinding;
@@ -50,9 +53,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     @Override
     public void usersRegistrationMain() {
         if (validForProceed()) {
-            String strEmail=mActivityRegistrationBinding.edtEmail.getText().toString();
-            String strReTypePass=mActivityRegistrationBinding.edtReTypePassword.getText().toString();
-            mRegistrationActivityViewModel.userRegistrationServiceCall(strEmail,strReTypePass);
+            String strEmail = mActivityRegistrationBinding.edtEmail.getText().toString();
+            String strReTypePass = mActivityRegistrationBinding.edtReTypePassword.getText().toString();
+            mRegistrationActivityViewModel.userRegistrationServiceCall(strEmail, strReTypePass, selectRegionItem.getRegionid());
         }
     }
 
@@ -78,7 +81,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void regionList(List<RegionResponse.Result> regionList) {
-        //mActivityRegistrationBinding.spnHometown.setAdapter(new RegionAdapter(RegistrationActivity.this, regionList));
+        this.regionList = regionList;
+        mActivityRegistrationBinding.spnHometown.setAdapter(new RegionAdapter(this, regionList));
+        //mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);
     }
 
     @Override
@@ -108,10 +113,10 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mRegistrationActivityViewModel.setNavigator(this);
         subscribeToLiveData();
 
+        //mRegionAdapter.setListener(this);
+        /*mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);*/
 
-         /*mRegionAdapter.setListener(this);*/
-         mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);
-
+        mActivityRegistrationBinding.spnHometown.setOnItemSelectedListener(this);
 
     }
 
@@ -119,7 +124,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mRegistrationActivityViewModel.getRegions().observe(this,
                 regionItemViewModel -> mRegistrationActivityViewModel.addRegionListItemsToList(regionItemViewModel));
     }
-
 
     @Override
     public void onBackPressed() {
@@ -146,10 +150,28 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_RE_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (selectRegionItem.getRegionid() == null || selectRegionItem.getRegionid() == 0) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_RE_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (!pass.equals(cpass)) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_PASSWORD_NOT_MATCHING, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getId() == R.id.spn_hometown) {
+            selectRegionItem = regionList.get(position);
+            Log.e("sele", selectRegionItem.toString());
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

@@ -100,11 +100,10 @@
                 android:layout_marginStart="20dp">
 
                 <Spinner
-                    app:regionAdapter="@{registrationViewModel.regionItemViewModels}"
-                    tools:listitem="@layout/list_item_spinner"
                     android:id="@+id/spn_hometown"
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
+
                 <View
                     android:layout_below="@+id/spn_hometown"
                     android:layout_marginRight="30dp"

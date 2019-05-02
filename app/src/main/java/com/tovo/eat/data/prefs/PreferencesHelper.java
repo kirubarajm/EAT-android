@@ -105,13 +105,9 @@ public interface PreferencesHelper {
     void setMaster(String master);
 
 
-
     String getFilterSort();
 
     void setFilterSort(String master);
-
-
-
 
 
     Integer getCurrentFragment();
@@ -120,18 +116,23 @@ public interface PreferencesHelper {
     void setCurrentFragment(Integer orderId);
 
 
-
-
     String getCurrentUserPhNo();
+
     void setCurrentUserPhNo(String phoneNumber);
 
     String getCurrentUserReferrals();
+
     void setCurrentUserReferrals(String area);
 
 
     boolean getIsFav();
+
     void setIsFav(boolean status);
 
+
+    boolean getisGenderStatus();
+
+    void setisGenderStatus(boolean status);
 
 
 }

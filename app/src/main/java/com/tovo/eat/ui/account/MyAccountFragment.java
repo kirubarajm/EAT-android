@@ -16,7 +16,7 @@ import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
-import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 
 import javax.inject.Inject;
@@ -24,13 +24,11 @@ import javax.inject.Inject;
 
 public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccountBinding, MyAccountViewModel> implements MyAccountNavigator {
 
-
     public static final String TAG = MyAccountFragment.class.getSimpleName();
     @Inject
     MyAccountViewModel mMyAccountViewModel;
 
     FragmentMyAccountBinding mFragmentMyAccountBinding;
-
 
     public static MyAccountFragment newInstance() {
         Bundle args = new Bundle();
@@ -62,8 +60,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         mMyAccountViewModel.setNavigator(this);
 
 
-
-
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
@@ -91,7 +87,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void manageAddress() {
-        Intent intent= AddressListActivity.newIntent(getContext());
+        Intent intent = AddressListActivity.newIntent(getContext());
         startActivity(intent);
     }
 
@@ -108,11 +104,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         transaction.replace(R.id.content_main, fragment);
         transaction.commitNow();
 
-
         FavoritesTabActivity.newInstance();
-
-
-
     }
 
     @Override
@@ -123,7 +115,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void offers() {
-
+        Intent intent = RegistrationActivity.newIntent(getContext());
+        startActivity(intent);
     }
 
     @Override
@@ -143,6 +136,5 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void editProfile() {
 
     }
-
 
 }

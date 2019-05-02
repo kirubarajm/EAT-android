@@ -18,12 +18,16 @@ package com.tovo.eat.utilities;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;

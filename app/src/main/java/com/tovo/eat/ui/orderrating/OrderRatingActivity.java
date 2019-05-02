@@ -3,23 +3,22 @@ package com.tovo.eat.ui.orderrating;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.signup.SignUpActivity;
-import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
 public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding, OrderRatingActivityViewModel>
         implements OrderRatingActivityNavigator {
 
+    int foodRating = 0;
+    int deliveryRating = 0;
     @Inject
     OrderRatingActivityViewModel mLoginViewModelMain;
     private ActivityOrderRatingBinding mActivityOrderRatingBinding;
@@ -31,6 +30,73 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void submit() {
+        if (validForRating()) {
+            String strFood = mActivityOrderRatingBinding.edtFood.getText().toString();
+            String strDelivery = mActivityOrderRatingBinding.edtDelivery.getText().toString();
+            mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery);
+        }
+    }
+
+    @Override
+    public void ratingSuccess() {
+        Toast.makeText(getApplicationContext(), "Rating Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ratingFailure() {
+        Toast.makeText(getApplicationContext(), "Rating Failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void foodSmileyLow() {
+        foodRating = 1;
+        mActivityOrderRatingBinding.smileyFoodLow.setTextColor(Color.RED);
+        mActivityOrderRatingBinding.smileyFoodMedium.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyFoodHigh.setTextColor(Color.BLACK);
+    }
+
+    @Override
+    public void foodSmileyMedium() {
+        foodRating = 2;
+        mActivityOrderRatingBinding.smileyFoodLow.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyFoodMedium.setTextColor(Color.parseColor("#FFA500"));
+        mActivityOrderRatingBinding.smileyFoodHigh.setTextColor(Color.BLACK);
+    }
+
+    @Override
+    public void foodSmileyHigh() {
+        foodRating = 3;
+        mActivityOrderRatingBinding.smileyFoodLow.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyFoodMedium.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyFoodHigh.setTextColor(Color.GREEN);
+    }
+
+    @Override
+    public void deliverySmileyLow() {
+        deliveryRating = 1;
+        mActivityOrderRatingBinding.smileyDeliveryLow.setTextColor(Color.RED);
+        mActivityOrderRatingBinding.smileyDeliveryMedium.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyDeliveryHigh.setTextColor(Color.BLACK);
+    }
+
+    @Override
+    public void deliverySmileyMedium() {
+        deliveryRating = 2;
+        mActivityOrderRatingBinding.smileyDeliveryLow.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyDeliveryMedium.setTextColor(Color.parseColor("#FFA500"));
+        mActivityOrderRatingBinding.smileyDeliveryHigh.setTextColor(Color.BLACK);
+    }
+
+    @Override
+    public void deliverySmileyHigh() {
+        deliveryRating = 3;
+        mActivityOrderRatingBinding.smileyDeliveryLow.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyDeliveryMedium.setTextColor(Color.BLACK);
+        mActivityOrderRatingBinding.smileyDeliveryHigh.setTextColor(Color.GREEN);
     }
 
     @Override
@@ -66,4 +132,17 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
         finish();
     }
 
+
+    private boolean validForRating() {
+        if (foodRating == 0) {
+            Toast.makeText(getApplicationContext(), "Please give food rating", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (deliveryRating == 0) {
+            Toast.makeText(getApplicationContext(), "Please give delivery rating", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
 }

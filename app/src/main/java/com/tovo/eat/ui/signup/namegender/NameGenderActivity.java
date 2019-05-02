@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -43,11 +42,16 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     }
 
     @Override
-    public void openActivity(String strMessage) {
+    public void genderSuccess(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         Intent intent = MainActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void genderFailure(String strMessage) {
+        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,7 +96,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
         mActivityNameGenderBinding.relMale.setAlpha(1);
         mActivityNameGenderBinding.relFemale.setAlpha(.5f);
-        gender=1;
+        gender = 1;
     }
 
     @Override

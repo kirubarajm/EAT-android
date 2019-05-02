@@ -6,7 +6,9 @@ public interface NameGenderActivityNavigator {
 
     void proceedClick();
 
-    void openActivity(String strMessage);
+    void genderSuccess(String strMessage);
+
+    void genderFailure(String strMessage);
 
     void male();
 

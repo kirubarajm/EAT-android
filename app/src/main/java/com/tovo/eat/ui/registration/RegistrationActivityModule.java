@@ -1,5 +1,7 @@
 package com.tovo.eat.ui.registration;
 
+import android.app.Activity;
+
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
 
@@ -16,8 +18,8 @@ public class RegistrationActivityModule {
         return new RegistrationActivityViewModel(dataManager);
     }
 
-    @Provides
+   /* @Provides
     RegionAdapter provideRegionListAdapter() {
-        return new RegionAdapter(new ArrayList<>());
-    }
+        return new RegionAdapter(new ArrayList());
+    }*/
 }

@@ -15,6 +15,7 @@ public class SmsReceiver extends BroadcastReceiver {
         try {
             if (bundle != null) {
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
+/*
                 for (int i = 0; i < pdusObj.length; i++) {
                     SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
                     String phoneNumber = currentMessage.getDisplayOriginatingAddress();
@@ -22,14 +23,32 @@ public class SmsReceiver extends BroadcastReceiver {
                     String senderNum = phoneNumber;
                     String message = currentMessage.getDisplayMessageBody();
                     //message = message.substring(0, message.length()-1);
-                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
+                    Log.i("OTPReceiver", "senderNum: " + senderNum + "; message: " + message);
                     Intent myIntent = new Intent("otp");
                     myIntent.putExtra("message",message);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(myIntent);
                 }
+*/
+                for (int i = 0; i < pdusObj.length; i++) {
+
+                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+
+                    String senderNum = phoneNumber;
+                    String message = currentMessage.getDisplayMessageBody().split(":")[0];
+
+                    message = message.substring(20, message.length()-6);
+                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
+
+                    Intent myIntent = new Intent("otp");
+                    myIntent.putExtra("message",message);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(myIntent);
+                    // Show Alert
+
+                }
             }
         } catch (Exception e) {
-            Log.e("SmsReceiver", "Exception smsReceiver" +e);
+            Log.e("OTPReceiver", "Exception smsReceiver" +e);
 
         }
 
