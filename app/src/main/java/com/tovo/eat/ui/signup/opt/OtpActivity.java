@@ -1,7 +1,6 @@
 package com.tovo.eat.ui.signup.opt;
 
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -128,18 +127,28 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
                 mLoginViewModelMain.otp.set(true);
+                Toolbar toolbar = findViewById(R.id.toolbar_otp);
+                setSupportActionBar(toolbar);
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setDisplayShowHomeEnabled(true);
+                }
+                toolbar.setTitle("Login");
+
             } else {
                 mLoginViewModelMain.otp.set(false);
+                Toolbar toolbar = findViewById(R.id.toolbar_otp);
+                setSupportActionBar(toolbar);
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setDisplayShowHomeEnabled(true);
+                }
+                toolbar.setTitle("OTP");
             }
             mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
+
         }
-        Toolbar toolbar = findViewById(R.id.toolbar_otp);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        toolbar.setTitle("OTP");
+
     }
 
     @Override
