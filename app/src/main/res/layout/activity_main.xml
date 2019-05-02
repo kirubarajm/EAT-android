@@ -50,12 +50,12 @@
 
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/main_tool_bar"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:layout_alignParentTop="true"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
                             <LinearLayout
@@ -67,7 +67,6 @@
                                 android:layout_marginTop="10dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
-
 
 
                                 <LinearLayout
@@ -123,23 +122,23 @@
 
 
                                     <LinearLayout
-                                        android:layout_marginRight="15dp"
-                                        android:layout_alignParentEnd="true"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
+                                        android:layout_alignParentEnd="true"
                                         android:layout_alignParentRight="true"
-                                        android:layout_marginEnd="15dp">
+                                        android:layout_marginEnd="15dp"
+                                        android:layout_marginRight="15dp"
+                                        android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_marginRight="10dp"
                                             android:layout_width="25dp"
                                             android:layout_height="25dp"
                                             android:layout_gravity="center_horizontal"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginRight="10dp"
                                             android:gravity="center"
                                             android:src="@drawable/ic_star_black_24dp"
-                                            android:tint="@color/dark_gray"
-                                            android:layout_marginEnd="10dp" />
+                                            android:tint="@color/dark_gray" />
 
 
                                         <ImageView
@@ -154,12 +153,7 @@
                                     </LinearLayout>
 
 
-
-
-
                                 </RelativeLayout>
-
-
 
 
                             </LinearLayout>
@@ -219,7 +213,7 @@
                 <!--android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}"-->
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/curve_stroke"
@@ -227,69 +221,113 @@
 
 
                     <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/image"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         app:imageUrl="@{viewModel.kitchenImage}" />
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <LinearLayout
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:minLines="2"
-                        android:text="@{viewModel.kitchenName}"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
-                        android:gravity="center"
-                        android:minLines="2"
-                        android:text="@string/eta"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="2dp"
+                        android:layout_toEndOf="@+id/image"
+                        android:layout_toRightOf="@+id/image"
+                        android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="@{viewModel.kitchenName}"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:maxWidth="200dp"
+                            android:singleLine="true"
+                            android:text="@{viewModel.kitchenName}"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:minLines="2"
-                        android:text="@{viewModel.eta}"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="10dp">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="center|end"
-                        android:minLines="2"
-                        android:onClick="@{()->viewModel.trackLiveOrder()}"
-                        android:text="@string/track"
-                        android:textColor="@color/eat_color"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:minLines="2"
+                            android:text="@string/eta"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center"
+                            android:minLines="2"
+                            android:text="@{viewModel.eta}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="10dp" />
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center|end"
+                            android:minLines="2"
+                            android:onClick="@{()->viewModel.trackLiveOrder()}"
+                            android:text="@string/track"
+                            android:textColor="@color/eat_color"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
 
-                </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -315,18 +353,18 @@
 
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
 
                 <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/home"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoHome()}"
                     android:orientation="vertical">
@@ -351,10 +389,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/explore"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoExplore()}"
                     android:orientation="vertical">
@@ -379,10 +417,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/cart"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoCart()}"
                     android:orientation="vertical">
@@ -435,10 +473,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_gravity="center_horizontal|center_vertical"
                     android:id="@+id/account"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.gotoAccount()}"
                     android:orientation="vertical">

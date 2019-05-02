@@ -55,6 +55,7 @@ public class KitchenDishResponse {
         private String cuisinename;
 
 
+
         @SerializedName("favid")
         @Expose
         private Integer favid;
@@ -161,10 +162,22 @@ public class KitchenDishResponse {
         private String isfav;
 
 
+        @SerializedName("localityname")
+        @Expose
+        private String localityname;
+
         @SerializedName("productlist")
         @Expose
         private List<Productlist> productlist = null;
 
+
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
 
         public String getIsfav() {
             return isfav;

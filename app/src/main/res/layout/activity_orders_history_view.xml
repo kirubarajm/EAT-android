@@ -167,14 +167,18 @@
                 android:layout_alignParentBottom="true"
                 android:padding="10dp">
 
-                <Button
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:onClick="@{()->OrdersHistryViewModel.orderRepeat()}"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     android:layout_width="match_parent"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:background="@drawable/curve_stroke"
-                    android:text="Repeat This Order"
+                    android:text="@string/repeat_this_order"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>

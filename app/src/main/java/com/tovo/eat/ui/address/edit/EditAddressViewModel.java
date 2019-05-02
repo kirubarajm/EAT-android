@@ -207,7 +207,6 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 request.setAddressTitle(title);
                 request.setAddressType(3);
             } else {
-
                 request.setAddressTitle("UnNamed");
                 request.setAddressType(3);
             }
@@ -278,6 +277,11 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 house.set(response.getResult().get(0).getFlatno());
                 landmark.set(response.getResult().get(0).getLandmark());
 
+
+
+
+
+
                 title.set(response.getResult().get(0).getAddressTitle());
 
                 if (response.getResult().get(0).getAddressType() == 1) {
@@ -294,6 +298,11 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 }
 
                 getNavigator().setLatLng(response.getResult().get(0).getLat(),response.getResult().get(0).getLon());
+
+                request.setLat(String.valueOf(response.getResult().get(0).getLat()));
+                request.setLon(String.valueOf(response.getResult().get(0).getLon()));
+                request.setPincode(response.getResult().get(0).getPincode());
+                request.setAid( response.getResult().get(0).getAid());
 
 
             }

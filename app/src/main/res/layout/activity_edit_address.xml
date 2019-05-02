@@ -167,8 +167,8 @@
                                 android:layout_height="wrap_content"
                                 android:addTextChangedListener="@{editAddressViewModel.watcher}"
                                 android:hint="@string/landmark"
-                                android:text="@{editAddressViewModel.landmark}"
                                 android:inputType="text"
+                                android:text="@{editAddressViewModel.landmark}"
                                 android:textSize="14sp" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -183,79 +183,110 @@
 
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="1"
-                            android:background="@{editAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal">
-
-                            <!--
-                                                    <RelativeLayout
-                                                        android:background="@drawable/badge_circle_white"
-                                                        android:layout_width="40dp"
-                                                        android:layout_height="40dp">
-                            
-                                                        <ImageView
-                                                            android:layout_alignParentEnd="true"
-                                                            android:layout_width="30dp"
-                                                            android:layout_height="30dp"
-                                                            android:src="@drawable/ic_check_black_24dp"
-                                                            android:tint="@color/eat_color"
-                                                            android:layout_alignParentRight="true" />
-                            
-                            
-                                                    </RelativeLayout>-->
+                            android:orientation="horizontal"
+                            android:weightSum="3">
 
 
-                            <!-- <CheckBox
-                                 android:visibility="@{editAddressViewModel.typeHome? View.VISIBLE: View.GONE}"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:checked="true" />-->
-
-
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@{editAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
+                                android:gravity="center_horizontal"
                                 android:onClick="@{()->editAddressViewModel.clickHome()}"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:text="@string/home"
-                                android:textColor="@{editAddressViewModel.typeHome? @color/eat_color: @color/dark_gray}"
+                                android:orientation="horizontal">
 
-                                android:textSize="14sp" />
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/icon_selected"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="@{editAddressViewModel.typeHome? View.VISIBLE: View.GONE}" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/home"
+                                    android:textColor="@{editAddressViewModel.typeHome? @color/eat_color: @color/dark_gray}"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@{editAddressViewModel.typeOffice? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
+                                android:gravity="center_horizontal"
+                                android:onClick="@{()->editAddressViewModel.clickOffice()}"
+                                android:orientation="horizontal">
+
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/icon_selected"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="@{editAddressViewModel.typeOffice? View.VISIBLE: View.GONE}" />
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/office"
+                                    android:textColor="@{editAddressViewModel.typeOffice? @color/eat_color: @color/dark_gray}"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:background="@{editAddressViewModel.typeOther? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
+                                android:gravity="center_horizontal"
+                                android:onClick="@{()->editAddressViewModel.clickOther()}"
+                                android:orientation="horizontal">
+
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/icon_selected"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="@{editAddressViewModel.typeOther? View.VISIBLE: View.GONE}" />
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:gravity="center_horizontal"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/other"
+                                    android:textColor="@{editAddressViewModel.typeOther? @color/eat_color: @color/dark_gray}"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="1"
-                            android:background="@{editAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
-                            android:gravity="center_horizontal"
-                            android:onClick="@{()->editAddressViewModel.clickOffice()}"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/office"
-                            android:textColor="@{editAddressViewModel.typeOffice? @color/eat_color: @color/dark_gray}"
-                            android:textSize="14sp" />
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_weight="1"
-                            android:background="@{editAddressViewModel.typeHome? @drawable/curve_stroke: @drawable/curve_stroke_empty}"
-                            android:gravity="center_horizontal"
-                            android:onClick="@{()->editAddressViewModel.clickOther()}"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/other"
-                            android:textColor="@{editAddressViewModel.typeOther? @color/eat_color: @color/dark_gray}"
-                            android:textSize="14sp" />
-
                     </LinearLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -271,6 +302,7 @@
                             android:layout_height="wrap_content"
                             android:addTextChangedListener="@{editAddressViewModel.watcher}"
                             android:hint="Save as"
+                            android:text="@{editAddressViewModel.title}"
                             android:inputType="text"
                             android:textSize="14sp" />
                     </android.support.design.widget.TextInputLayout>

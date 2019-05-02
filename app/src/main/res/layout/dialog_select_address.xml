@@ -42,12 +42,11 @@
                 android:paddingRight="20dp"
                 android:onClick="@{()->dialogSelectAddressViewModel.dialogConfirm()}"
                 android:paddingBottom="5dp"
-                android:text="@string/add"
+                android:text="@string/select"
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
 
 
 

@@ -111,6 +111,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
+
+                mHomeTabViewModel.setCurrentFragment(0);
+
             }
         });
     }

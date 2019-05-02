@@ -125,12 +125,6 @@
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 
-
-
-
-
-
-
                 <RelativeLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
@@ -138,8 +132,8 @@
 
                     <LinearLayout
                         android:id="@+id/add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="end"
@@ -151,18 +145,16 @@
                         android:visibility="@{kitchenDishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="70dp"
-                            android:layout_height="30dp"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:gravity="center"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:text="@string/add"
+                            android:textAlignment="center"
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
-
                     </LinearLayout>
 
 

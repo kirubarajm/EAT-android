@@ -36,12 +36,12 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
 
     @Override
     public int getBindingVariable() {
-        return BR.referralsViewModel;
+        return BR.orderPlacedViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_referrals;
+        return R.layout.order_placed;
     }
 
     @Override

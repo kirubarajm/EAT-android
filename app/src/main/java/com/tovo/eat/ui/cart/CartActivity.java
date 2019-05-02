@@ -169,7 +169,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void emptyCart() {
-
         FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
@@ -203,6 +202,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void saveToCart(String cart) {
         mCartViewModel.saveToCartPojo(cart);
+
+
+
     }
 
 

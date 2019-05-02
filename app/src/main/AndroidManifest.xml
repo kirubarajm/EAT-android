@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity">
-            
+
 
         </activity>
         <activity android:name=".ui.signup.SignUpActivity">

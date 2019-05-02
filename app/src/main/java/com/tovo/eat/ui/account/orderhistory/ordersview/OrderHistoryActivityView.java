@@ -1,8 +1,10 @@
 package com.tovo.eat.ui.account.orderhistory.ordersview;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -10,7 +12,11 @@ import android.view.MenuItem;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+
 import javax.inject.Inject;
 
 public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistoryViewBinding,OrderHistoryActivityViewModelView> implements OrderHistoryActivityViewNavigator,
@@ -33,6 +39,46 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void clearCart() {
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHistoryActivityView.this);
+        builder1.setMessage("Already you have added items in cart. Do you want to clear?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        Intent intent= MainActivity.newIntent(OrderHistoryActivityView.this);
+                        intent.putExtra("cart",true);
+                        startActivity(intent);
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+
+    }
+
+    @Override
+    public void orderRepeat() {
+        Intent intent= MainActivity.newIntent(OrderHistoryActivityView.this);
+        intent.putExtra("cart",true);
+        startActivity(intent);
     }
 
     @Override
