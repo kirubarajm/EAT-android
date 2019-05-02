@@ -66,6 +66,17 @@ public class AddressListItemViewModel {
 
     }
 
+    public void deleteAddress(){
+
+        mListener.deleteAddress(addressList.getAid());
+
+
+
+
+    }
+
+
+
     public void editAddress(){
       //  mListener.editAddress(addressList.getAid(),addressList.getAddressTitle(),addressList.getAddress(),addressList.getFlatno(),addressList.getLocality(),addressList.getPincode(),addressList.getLat(),addressList.getLon(),addressList.getLandmark(),addressList.getAddressType());
         mListener.editAddress(addressList);
@@ -89,7 +100,7 @@ public class AddressListItemViewModel {
         void onItemClick(AddressListResponse.Result result);
         void editAddress(AddressListResponse.Result result);
 
-
+         void deleteAddress(Integer aid);
 
     }
 

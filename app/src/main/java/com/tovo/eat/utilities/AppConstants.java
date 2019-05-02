@@ -42,6 +42,8 @@ public class AppConstants {
     public static final String EAT_ADD_ADDRESS_URL = TEMP_URL_LIVE + "address";
     public static final String EAT_GET_ADDRESS_URL = TEMP_URL_LIVE + "addresslist/";
 
+        public static final String EAT_DELETE_ADDRESS_URL = TEMP_URL_LIVE + "addressdelete/";
+
 
 
     public static final String EAT_ADD_ADDRESS_LIST_URL = TEMP_URL_LIVE + "address/";

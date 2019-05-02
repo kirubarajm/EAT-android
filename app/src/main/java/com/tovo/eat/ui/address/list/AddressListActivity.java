@@ -1,10 +1,13 @@
 package com.tovo.eat.ui.address.list;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -101,6 +104,11 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         finish();
     }
 
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
 
     private void subscribeToLiveData() {
         mAddressListViewModel.getAddrressListItemsLiveData().observe(this,
@@ -127,6 +135,48 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         intent.putExtra("aid",address.getAid());
         startActivity(intent);
+
+    }
+
+    @Override
+    public void deleteAddress(Integer aid) {
+
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
+        builder1.setMessage("Are you sure want to delete?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        mAddressListViewModel.deleteAddress(aid);
+
+
+
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+
+
+
+
+
+
 
     }
 

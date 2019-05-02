@@ -84,7 +84,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void editAddressClick(AddressListResponse.Result blogUrl);
 
-
+        void deleteAddress(Integer aid);
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements AddressListItemViewModel.addressListItemViewModelListener {
@@ -119,6 +119,15 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void editAddress(AddressListResponse.Result result) {
             mLiveProductsAdapterListener.editAddressClick(result);
+        }
+
+        @Override
+        public void deleteAddress(Integer aid) {
+
+
+            mLiveProductsAdapterListener.deleteAddress(aid);
+
+
         }
     }
 }

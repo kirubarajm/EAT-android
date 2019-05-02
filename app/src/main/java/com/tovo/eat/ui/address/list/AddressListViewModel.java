@@ -15,7 +15,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.LatLngPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
@@ -25,8 +25,23 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
     public ObservableList<AddressListResponse.Result> addrressListItemViewModels = new ObservableArrayList<>();
 
-    private MutableLiveData<List<AddressListResponse.Result>>addrressListItemsLiveData;
+    private MutableLiveData<List<AddressListResponse.Result>> addrressListItemsLiveData;
 
+
+    public AddressListViewModel(DataManager dataManager) {
+        super(dataManager);
+        addrressListItemsLiveData = new MutableLiveData<>();
+
+        //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
+       /* ConnectivityManager cm =
+                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();*/
+
+        fetchRepos();
+    }
 
     public ObservableList<AddressListResponse.Result> getAddrressListItemViewModels() {
         return addrressListItemViewModels;
@@ -44,21 +59,6 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
         this.addrressListItemsLiveData = addrressListItemsLiveData;
     }
 
-    public AddressListViewModel(DataManager dataManager) {
-        super(dataManager);
-        addrressListItemsLiveData = new MutableLiveData<>();
-
-    //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
-
-        fetchRepos();
-    }
-
     public void addDishItemsToList(List<AddressListResponse.Result> ordersItems) {
         addrressListItemViewModels.clear();
         addrressListItemViewModels.addAll(ordersItems);
@@ -66,15 +66,13 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     }
 
 
-    public void goBack(){
+    public void goBack() {
 
         getNavigator().goBack();
     }
 
 
-
-
-    public void addAddress(){
+    public void addAddress() {
 
         getNavigator().addNewAddress();
 
@@ -82,8 +80,37 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     }
 
 
-    public void setCurrentAddress(AddressListResponse.Result request){
-        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), request.getLat(), request.getLon(),request.getLocality(),request.getAid());
+    public void deleteAddress(Integer aid) {
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DELETE_ADDRESS_URL, CommonResponse.class, new AddressDeleteRequest(aid), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+                        getNavigator().showToast(response.getMessage());
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+
+                }
+            });
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void setCurrentAddress(AddressListResponse.Result request) {
+        getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), request.getAid());
 
 
         FilterRequestPojo filterRequestPojo;
@@ -107,7 +134,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+getDataManager().getCurrentUserId(), AddressListResponse.class,new Response.Listener<AddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL + getDataManager().getCurrentUserId(), AddressListResponse.class, new Response.Listener<AddressListResponse>() {
                 @Override
                 public void onResponse(AddressListResponse response) {
                     if (response != null) {
@@ -132,7 +159,6 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
             e.printStackTrace();
         }
     }
-
 
 
 }

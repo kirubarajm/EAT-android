@@ -8,6 +8,7 @@ public interface AddressListNavigator {
     void editAddress();
     void listLoaded();
     void goBack();
+    void showToast(String msg);
 
 
 }
