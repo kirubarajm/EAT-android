@@ -58,6 +58,9 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
+import com.tovo.eat.ui.orderplaced.OrderPlacedNavigator;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -166,5 +169,13 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = ForgotPasswordActivityModule.class)
     abstract ForgotPasswordActivity bindForgotPasswordActivity();
+
+
+
+    @ContributesAndroidInjector(modules = OrderPlacedModule.class)
+    abstract OrderPlacedActivity bindOrderPlacedActivity();
+
+
+
 
 }

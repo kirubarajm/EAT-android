@@ -109,7 +109,6 @@ public class KitchenItemViewModel {
 
         void addFavourites(Integer id, String fav);
         void removeFavourites(Integer favId);
-
     }
 
 }

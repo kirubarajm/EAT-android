@@ -272,7 +272,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Override
     protected void onResume() {
         super.onResume();
-
+        mEditAddressViewModel.fetchAddress(aid);
     }
 
 

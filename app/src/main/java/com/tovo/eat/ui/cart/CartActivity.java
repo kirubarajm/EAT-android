@@ -17,6 +17,7 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 
 import javax.inject.Inject;
 
@@ -150,11 +151,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void orderCompleted() {
 
-        FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
+       /* FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+        transaction.commit();*/
 
+
+       Intent intent= OrderPlacedActivity.newIntent(getContext());
+       startActivity(intent);
 
     }
 
@@ -165,7 +169,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void emptyCart() {
-
         FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
@@ -199,6 +202,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void saveToCart(String cart) {
         mCartViewModel.saveToCartPojo(cart);
+
+
+
     }
 
 

@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemDishesBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemEmptyOrdersHistoryBinding;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryEmptyItemViewModel;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
@@ -42,8 +41,6 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
-
-
 
 
             default:
@@ -106,13 +103,16 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void showToast(String msg);
 
-        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
+        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
 
         public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
@@ -121,7 +121,8 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onBind(int position) {
-
+            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
     }
@@ -134,7 +135,6 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
-
 
 
         @Override
@@ -228,7 +228,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
 
-            mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
+            mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
 
         }
     }

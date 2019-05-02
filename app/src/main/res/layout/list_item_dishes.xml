@@ -158,8 +158,8 @@
 
                     <LinearLayout
                         android:id="@+id/add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="end"
@@ -171,12 +171,11 @@
                         android:visibility="@{dishItemViewModel.isAddClicked?View.GONE:View.VISIBLE}">
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="20dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="20dp"
-                            android:paddingBottom="5dp"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
                             android:text="@string/add"
                             android:textAllCaps="true"
                             android:textColor="@color/black"
@@ -186,10 +185,11 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:id="@+id/num_picker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="end"
@@ -200,54 +200,59 @@
                         android:visibility="@{dishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/minus"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:onClick="@{()->dishItemViewModel.subClicked()}"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="5dp"
                             android:text="@string/minus"
+                            android:textAlignment="center"
                             android:textColor="@color/eat_color"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:layout_alignParentLeft="true" />
 
 
                         <View
+                            android:layout_toRightOf="@+id/minus"
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/eat_color" />
+                            android:background="@color/eat_color"
+                            android:layout_toEndOf="@+id/minus" />
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:id="@+id/quan"
+                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="5dp"
+                            android:textAlignment="center"
                             android:text="@{dishItemViewModel.sQuantity}"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
                         <View
+                            android:layout_toLeftOf="@+id/plus"
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/eat_color" />
+                            android:background="@color/eat_color"
+                            android:layout_toStartOf="@+id/plus" />
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/plus"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:onClick="@{()->dishItemViewModel.addClicked()}"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="5dp"
+                            android:textAlignment="center"
                             android:text="@string/plus"
                             android:textColor="@color/eat_color"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:layout_alignParentRight="true" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
 
                 </RelativeLayout>

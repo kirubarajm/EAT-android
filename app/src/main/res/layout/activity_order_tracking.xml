@@ -81,6 +81,71 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orders"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{orderTrackingViewModel.sItems}"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="20dp">
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/inr"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{orderTrackingViewModel.total}"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,11 +164,10 @@
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Order Status"
+                            android:text="@string/order_status"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="normal" />
-
 
 
                     </LinearLayout>
@@ -137,40 +201,37 @@
                 </LinearLayout>
 
 
-
-
-
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp">
+                    android:orientation="horizontal">
 
 
                     <ImageView
-                        android:visibility="@{orderTrackingViewModel.isReeceived?View.GONE:View.VISIBLE}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:src="@drawable/ic_access_time_black_24dp"
                         android:tint="@color/eat_color"
-                        android:src="@drawable/ic_access_time_black_24dp"/>
+                        android:visibility="@{orderTrackingViewModel.isReeceived?View.GONE:View.VISIBLE}" />
 
                     <ImageView
-                        android:visibility="@{orderTrackingViewModel.isReeceived?View.VISIBLE:View.GONE}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:src="@drawable/ic_check_circle_black_24dp"
                         android:tint="@color/eat_color"
-                        android:src="@drawable/ic_check_circle_black_24dp"/>
+                        android:visibility="@{orderTrackingViewModel.isReeceived?View.VISIBLE:View.GONE}" />
 
                     <LinearLayout
-                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@color/white"
-                        android:orientation="vertical"
-                        android:layout_marginStart="5dp">
+                        android:orientation="vertical">
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -196,39 +257,37 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp">
-
+                    android:orientation="horizontal">
 
 
                     <ImageView
-                        android:visibility="@{orderTrackingViewModel.isPrepared?View.GONE:View.VISIBLE}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:src="@drawable/ic_access_time_black_24dp"
                         android:tint="@color/eat_color"
-                        android:src="@drawable/ic_access_time_black_24dp"/>
+                        android:visibility="@{orderTrackingViewModel.isPrepared?View.GONE:View.VISIBLE}" />
 
                     <ImageView
-                        android:visibility="@{orderTrackingViewModel.isPrepared?View.VISIBLE:View.GONE}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:src="@drawable/ic_check_circle_black_24dp"
                         android:tint="@color/eat_color"
-                        android:src="@drawable/ic_check_circle_black_24dp"/>
+                        android:visibility="@{orderTrackingViewModel.isPrepared?View.VISIBLE:View.GONE}" />
 
                     <LinearLayout
-                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@color/white"
-                        android:orientation="vertical"
-                        android:layout_marginStart="5dp">
+                        android:orientation="vertical">
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -268,25 +327,26 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:visibility="@{orderTrackingViewModel.isDeliverd?View.GONE:View.VISIBLE}"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:src="@drawable/ic_access_time_black_24dp"
                             android:tint="@color/eat_color"
-                            android:src="@drawable/ic_access_time_black_24dp"/>
+                            android:visibility="@{orderTrackingViewModel.isDeliverd?View.GONE:View.VISIBLE}" />
 
                         <ImageView
-                            android:visibility="@{orderTrackingViewModel.isDeliverd?View.VISIBLE:View.GONE}"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:src="@drawable/ic_check_circle_black_24dp"
                             android:tint="@color/eat_color"
-                            android:src="@drawable/ic_check_circle_black_24dp"/>
+                            android:visibility="@{orderTrackingViewModel.isDeliverd?View.VISIBLE:View.GONE}" />
+
                         <LinearLayout
-                            android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
                             android:background="@color/white"
-                            android:orientation="vertical"
-                            android:layout_marginStart="5dp">
+                            android:orientation="vertical">
 
 
                             <com.tovo.eat.utilities.fonts.CircularTextView
@@ -311,31 +371,32 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="@{orderTrackingViewModel.track?View.VISIBLE:View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="@{orderTrackingViewModel.track?View.VISIBLE:View.GONE}">
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.TovoTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:text="Call image"
+                            android:onClick="@{()->orderTrackingViewModel.callDeliveryMan()}"
+                            android:text="@string/icon_call"
                             android:textAlignment="center"
                             android:textColor="@color/eat_color"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:onClick="@{()->orderTrackingViewModel.callDeliveryMan()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:onClick="@{()->orderTrackingViewModel.callDeliveryMan()}"
                             android:text="@string/track"
                             android:textAlignment="center"
                             android:textColor="@color/eat_color"
@@ -347,12 +408,6 @@
 
 
                 </RelativeLayout>
-
-
-
-
-
-
 
 
             </LinearLayout>

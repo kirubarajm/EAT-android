@@ -107,13 +107,13 @@
                             </RelativeLayout>
 
 
-                           <!-- <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.CircularTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/dark_gray"
                                 android:singleLine="true"
-                                android:text="fdgiludg"
-                                android:textSize="14sp" />-->
+                                android:text="@{cartViewModel.localityname}"
+                                android:textSize="14sp" />
 
 
                             <!--<LinearLayout

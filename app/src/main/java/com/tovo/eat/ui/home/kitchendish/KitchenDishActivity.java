@@ -2,23 +2,17 @@ package com.tovo.eat.ui.home.kitchendish;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.databinding.FragmentKitchenDishBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
 import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 
@@ -28,7 +22,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding, KitchenDishViewModel> implements KitchenDishNavigator, KitchenDishAdapter.LiveProductsAdapterListener , AddKitchenDishListener, HasSupportFragmentInjector {
+public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding, KitchenDishViewModel> implements KitchenDishNavigator, KitchenDishAdapter.LiveProductsAdapterListener, AddKitchenDishListener, HasSupportFragmentInjector {
 
     @Inject
     KitchenDishViewModel mKitchenDishViewModel;
@@ -42,8 +36,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
-
 
 
     public static Intent newIntent(Context context) {
@@ -66,14 +58,12 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         setSupportActionBar(mToolbar);*/
 
 
-
-
         mFragmentDishBinding = getViewDataBinding();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);
 
-       // mKitchenDishViewModel.fetchRepos();
+        // mKitchenDishViewModel.fetchRepos();
 
         subscribeToLiveData();
 
@@ -143,14 +133,13 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
 
 
-        DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this,makeitId,productId,quantity,price);
+        DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this, makeitId, productId, quantity, price);
 
     }
 
     @Override
     public void dishListLoaded() {
         //mFragmentDishBinding.refreshList.setRefreshing(false);
-
 
 
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
@@ -160,10 +149,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void viewCart() {
 
-        Intent intent=MainActivity.newIntent(KitchenDishActivity.this);
-        intent.putExtra("cart",true);
+        Intent intent = MainActivity.newIntent(KitchenDishActivity.this);
+        intent.putExtra("cart", true);
         startActivity(intent);
-
+        finish();
     }
 
     @Override
@@ -174,7 +163,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     private void subscribeToLiveData() {
         mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,
-               kitchenItemViewModel -> mKitchenDishViewModel.addDishItemsToList(kitchenItemViewModel));
+                kitchenItemViewModel -> mKitchenDishViewModel.addDishItemsToList(kitchenItemViewModel));
 
 
       /*  mKitchenDishViewModel.getDishItemFullViewModels().observe(this,
@@ -183,15 +172,13 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     }
 
 
-
-
     @Override
     public void onResume() {
         super.onResume();
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-         mKitchenDishViewModel.fetchRepos();
+        mKitchenDishViewModel.fetchRepos();
     }
 
     @Override

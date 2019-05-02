@@ -82,12 +82,14 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
         Intent intent = AddAddressActivity.newIntent(SelectSelectAddressListActivity.this);
         startActivity(intent);
+        finish();
     }
 
     @Override
     public void editAddress() {
-        Intent intent = AddAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+        Intent intent = EditAddressActivity.newIntent(SelectSelectAddressListActivity.this);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -125,6 +127,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
         Intent intent = EditAddressActivity.newIntent(SelectSelectAddressListActivity.this);
         intent.putExtra("aid",address.getAid());
         startActivity(intent);
+        finish();
 
     }
 

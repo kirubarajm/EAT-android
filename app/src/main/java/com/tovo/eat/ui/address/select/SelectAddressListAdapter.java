@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemAddressBinding;
 import com.tovo.eat.databinding.ListItemAddressSelectBinding;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
@@ -26,6 +28,27 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
         this.item_list = item_list;
     }
 
+    public class EmptyViewHolder extends BaseViewHolder  {
+
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
+        }
+
+    }
+
+
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -36,9 +59,9 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemAddressSelectBinding blogViewBinding1 = ListItemAddressSelectBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
-                return new LiveProductsViewHolder(blogViewBinding1);
+                return new EmptyViewHolder(blogViewBinding1);
         }
 
     }

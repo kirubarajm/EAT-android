@@ -38,12 +38,11 @@ public class AppConstants {
     public static final String EAT_FAV_KITCHEN_LIST_URL = TEMP_URL_LIVE + "fav/kitchenlist/";
 
 
-    public static final String EAT_KITCHEN_DISH_LIST_URL = TEMP_URL + "products";
+    public static final String EAT_KITCHEN_DISH_LIST_URL = TEMP_URL_LIVE + "products";
     public static final String EAT_ADD_ADDRESS_URL = TEMP_URL_LIVE + "address";
     public static final String EAT_GET_ADDRESS_URL = TEMP_URL_LIVE + "addresslist/";
 
-        public static final String EAT_DELETE_ADDRESS_URL = TEMP_URL_LIVE + "addressdelete/";
-
+    public static final String EAT_DELETE_ADDRESS_URL = TEMP_URL_LIVE + "addressdelete/";
 
 
     public static final String EAT_ADD_ADDRESS_LIST_URL = TEMP_URL_LIVE + "address/";
@@ -108,8 +107,8 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-    //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 
@@ -157,6 +156,7 @@ public class AppConstants {
     public static final String TOAST_PASSWORD_NOT_MATCHING = "Password not matching";
     public static final String TOAST_LOGIN_SUCCESS = "Login success";
     public static final String TOAST_LOGIN_FAILED = "Login failed";
+
     public AppConstants() {
         // This utility class is not publicly instantiable
     }

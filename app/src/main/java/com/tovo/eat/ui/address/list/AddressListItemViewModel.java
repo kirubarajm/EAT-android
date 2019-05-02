@@ -61,18 +61,11 @@ public class AddressListItemViewModel {
         address.set(addressList.getAddress());
 
 
-
-
-
     }
 
     public void deleteAddress(){
 
         mListener.deleteAddress(addressList.getAid());
-
-
-
-
     }
 
 

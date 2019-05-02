@@ -59,38 +59,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
-
-
-
+    String DialogTag = DialogSelectAddress.newInstance().getTag();
+    boolean internetCheck = false;
     private MainViewModel mMainViewModel;
-
-    String DialogTag=DialogSelectAddress.newInstance().getTag();
-
-
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if (mMainViewModel.isAddressAdded()) {
+         //   if (mMainViewModel.isAddressAdded()) {
                 if (checkWifiConnect()) {
-                  /*  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    HomeTabFragment fragment = new HomeTabFragment();
-                    transaction.replace(R.id.content_main, fragment);
-                    transaction.commit();*/
+                    if (internetCheck) {
+
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        HomeTabFragment fragment = new HomeTabFragment();
+                        transaction.replace(R.id.content_main, fragment);
+                        transaction.commit();
+                    }
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     InternetErrorFragment fragment = new InternetErrorFragment();
                     transaction.replace(R.id.content_main, fragment);
                     transaction.commit();
+                    internetCheck = true;
                 }
-            } else {
+           // } else {
 
                /* Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
                 if (oldFragment == null) {
                     DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
                 }*/
 
-            }
+          // }
         }
     };
     private ActivityMainBinding mActivityMainBinding;
@@ -302,6 +301,31 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
+
+        registerWifiReceiver();
+
+        mMainViewModel.liveOrders();
+
+
+        checkAndRequestPermissions();
+
+
+        mMainViewModel.totalCart();
+        mMainViewModel.saveRequestData();
+
+    }
+
+    public void statusUpdate() {
+        mMainViewModel.totalCart();
+        mMainViewModel.liveOrders();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
         if (mMainViewModel.isAddressAdded()) {
             if (mMainViewModel.checkInternet()) {
                 Intent intent = getIntent();
@@ -335,7 +359,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         } else {
 
-
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
@@ -344,39 +367,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
-
-
-
-        // mNetworkReceiver = new NetworkChangeReceiver();
-        //registerNetworkBroadcastForNougat();
-
-
-        registerWifiReceiver();
-
-        mMainViewModel.liveOrders();
-
-
-        checkAndRequestPermissions();
-
-
-
-        mMainViewModel.totalCart();
-        mMainViewModel.saveRequestData();
-
-    }
-
-    public void statusUpdate() {
-        mMainViewModel.totalCart();
-        mMainViewModel.liveOrders();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-       /* if (!mMainViewModel.isAddressAdded()) {
+        /*if (!mMainViewModel.isAddressAdded()) {
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
@@ -545,12 +536,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 activeNetwork.isConnectedOrConnecting();
 
 
-
         if (networkInfo != null
                 && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
                 && networkInfo.isConnected()) {
             return true;
-        }else return networkInfo != null
+        } else return networkInfo != null
                 && networkInfo.isConnected();
     }
 

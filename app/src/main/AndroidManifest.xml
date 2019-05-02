@@ -28,14 +28,12 @@
         </activity>
         <activity android:name=".ui.signup.SignUpActivity">
 
-
         </activity>
 
         <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
         <activity android:name=".ui.address.add.AddAddressActivity" />
         <activity android:name=".ui.address.list.AddressListActivity" />
         <activity android:name=".ui.address.select.SelectSelectAddressListActivity" />
-        <activity android:name=".ui.account.favorites.FavoritesTabActivity" />
         <activity android:name=".ui.account.feedbackandsupport.FeedbackAndSupportActivity" />
         <activity android:name=".ui.account.feedbackandsupport.support.SupportActivity" />
         <activity android:name=".ui.account.feedbackandsupport.support.replies.chat.ChatActivity" />
@@ -75,6 +73,7 @@
         </activity>
         <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.address.edit.EditAddressActivity" />
+        <activity android:name=".ui.orderplaced.OrderPlacedActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -407,6 +407,13 @@ public class CartPageResponse {
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
+
+
+        @SerializedName("localityname")
+        @Expose
+        private String localityname;
+
+
         @SerializedName("favid")
         @Expose
         private Integer favid;
@@ -416,6 +423,15 @@ public class CartPageResponse {
         @SerializedName("item")
         @Expose
         private List<Item> item = null;
+
+
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;

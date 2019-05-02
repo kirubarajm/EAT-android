@@ -83,6 +83,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
                         getNavigator().toastMessage(response.getMessage());
 
+                        fetchRepos();
 
                     }
                 }
@@ -117,7 +118,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
                         getNavigator().toastMessage(response.getMessage());
 
-
+                        fetchRepos();
                     }
                 }
             }, new Response.ErrorListener() {

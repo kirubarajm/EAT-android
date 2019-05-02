@@ -67,6 +67,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
+
+        getDataManager().setIsFav(false);
+
         masterRequest();
     }
 
@@ -152,14 +155,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         isLiveOrder.set(true);
 
-
                         kitchenImage.set(response.getResult().get(0).getMakeitimage());
 
-                        if (response.getResult().get(0).getMakeitbrandname() != null) {
-                            kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                        if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+                            kitchenName.set(response.getResult().get(0).getMakeitusername());
                         } else {
 
-                            kitchenName.set(response.getResult().get(0).getMakeitusername());
+                            kitchenName.set(response.getResult().get(0).getMakeitbrandname());
                         }
 
                         eta.set(response.getResult().get(0).getEta());
