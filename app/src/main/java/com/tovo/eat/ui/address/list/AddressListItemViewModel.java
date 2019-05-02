@@ -69,10 +69,6 @@ public class AddressListItemViewModel {
     public void deleteAddress(){
 
         mListener.deleteAddress(addressList.getAid());
-
-
-
-
     }
 
 
