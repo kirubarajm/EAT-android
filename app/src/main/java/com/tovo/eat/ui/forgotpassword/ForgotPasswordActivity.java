@@ -53,7 +53,6 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
 
     @Override
     public void otpVerificationProceed() {
-
         String str1 = mActivityForgotPasswordBinding.edt1.getText().toString();
         String str2 = mActivityForgotPasswordBinding.edt2.getText().toString();
         String str3 = mActivityForgotPasswordBinding.edt3.getText().toString();
@@ -156,6 +155,16 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     private boolean validForPass() {
         String pass = mActivityForgotPasswordBinding.edtPassword.getText().toString();
         String cPass = mActivityForgotPasswordBinding.edtConfirmPassword.getText().toString();
+
+        if (mActivityForgotPasswordBinding.edtPassword.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (mActivityForgotPasswordBinding.edtConfirmPassword.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_RE_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if (!pass.equals(cPass)) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_PASSWORD_NOT_MATCHING, Toast.LENGTH_SHORT).show();
             return false;

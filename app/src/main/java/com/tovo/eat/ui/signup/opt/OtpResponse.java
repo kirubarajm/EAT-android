@@ -9,6 +9,9 @@ public class OtpResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("passwordstatus")
     @Expose
     public Boolean passwordstatus;
@@ -25,6 +28,14 @@ public class OtpResponse {
     @Expose
     public Integer userid;
 
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Integer getUserid() {
         return userid;

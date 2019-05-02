@@ -7,20 +7,30 @@ import java.util.List;
 
 public class LoginResponse {
 
-
     @SerializedName("success")
     @Expose
-    public String success;
+    public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
 
-    public String getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public List<Result> getResult() {
@@ -47,13 +57,13 @@ public class LoginResponse {
         public String phoneno;
         @SerializedName("referalcode")
         @Expose
-        public String referalcode;
+        public Object referalcode;
         @SerializedName("Locality")
         @Expose
         public Object locality;
         @SerializedName("gender")
         @Expose
-        public Object gender;
+        public Integer gender;
 
 
         public Integer getUserid() {
@@ -88,11 +98,11 @@ public class LoginResponse {
             this.phoneno = phoneno;
         }
 
-        public String getReferalcode() {
+        public Object getReferalcode() {
             return referalcode;
         }
 
-        public void setReferalcode(String referalcode) {
+        public void setReferalcode(Object referalcode) {
             this.referalcode = referalcode;
         }
 
@@ -104,15 +114,14 @@ public class LoginResponse {
             this.locality = locality;
         }
 
-        public Object getGender() {
+        public Integer getGender() {
             return gender;
         }
 
-        public void setGender(Object gender) {
+        public void setGender(Integer gender) {
             this.gender = gender;
         }
     }
-
 
 
 }

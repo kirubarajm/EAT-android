@@ -35,9 +35,7 @@ public interface DataManager extends PreferencesHelper {
 
     void setLogout();
 
-
     void updateApiHeader(Long userId, String accessToken);
-
 
     void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid);
 

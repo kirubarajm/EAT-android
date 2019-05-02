@@ -42,27 +42,33 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             @Override
             public void onResponse(LoginResponse response) {
                 if (response != null) {
-                    if (response.getResult() != null && response.getResult().size() > 0) {
-                        try {
-                            int userId = response.getResult().get(0).getUserid();
-                            String UserName = response.getResult().get(0).getName();
-                            String UserEmail = response.getResult().get(0).getEmail();
-                            String userPhoneNumber = response.getResult().get(0).getPhoneno();
-                            String userReferralCode = response.getResult().get(0).getPhoneno();
+                    if (response.getStatus()) {
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+                            try {
+                                int userId = response.getResult().get(0).getUserid();
+                                String UserName = response.getResult().get(0).getName();
+                                String UserEmail = response.getResult().get(0).getEmail();
+                                String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                String userReferralCode = response.getResult().get(0).getPhoneno();
 
-                            getDataManager().updateUserInfo(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
+                                getDataManager().updateUserInfo(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+
+                                getNavigator().loginSuccess();
+
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                         }
+                    }else {
+                        getNavigator().loginFailure();
                     }
-                    getNavigator().openHomeActivity(true);
                 }
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
-                getNavigator().openHomeActivity(false);
+                getNavigator().loginFailure();
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -80,24 +86,25 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             public void onResponse(OtpResponse response) {
                 int CurrentuserId = 0;
                 if (response != null) {
-                    passwordstatus = response.getPasswordstatus();
-                    otpStatus = response.getOtpstatus();
-                    genderstatus = response.getGenderstatus();
-                    oId.set(String.valueOf(response.getOid()));
-                    userId.set(String.valueOf(response.getUserid()));
-                    CurrentuserId = response.getUserid();
+                    if (response.getStatus()) {
+                        passwordstatus = response.getPasswordstatus();
+                        otpStatus = response.getOtpstatus();
+                        genderstatus = response.getGenderstatus();
+                        oId.set(String.valueOf(response.getOid()));
+                        userId.set(String.valueOf(response.getUserid()));
+                        CurrentuserId = response.getUserid();
 
-                    if (genderstatus) {
-                        getNavigator().openHomeActivity(true);
-                    } else {
-                        getNavigator().nameGenderScreen();
+                        getDataManager().updateUserInfo(CurrentuserId, null, null, null, null);
+
+                        if (genderstatus) {
+                            getNavigator().openHomeActivity(true);
+                        } else {
+                            getNavigator().nameGenderScreen();
+                        }
+                    }else {
+                        getNavigator().loginFailure();
                     }
                 }
-
-                getDataManager().updateUserInfo(CurrentuserId, null, null, null, null);
-
-                int userId = getDataManager().getCurrentUserId();
-                Log.e("userId", String.valueOf(userId));
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
