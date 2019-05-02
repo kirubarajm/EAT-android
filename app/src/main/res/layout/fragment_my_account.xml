@@ -113,7 +113,6 @@
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
-
                     <com.tovo.eat.utilities.fonts.CircularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
