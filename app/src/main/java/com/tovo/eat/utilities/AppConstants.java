@@ -108,10 +108,9 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
-
 
 
     public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method
@@ -133,6 +132,7 @@ public class AppConstants {
     public static final String URL_FORGOT_PASSWORD = URL_SERVER_IP_PORT + "/eat/forgot";/////GET method
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
+    public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
 
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;
