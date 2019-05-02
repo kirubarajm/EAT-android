@@ -53,6 +53,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> kitchenName = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchenImage = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     //private final ObservableList<QuestionCardData> questionDataList = new ObservableArrayList<>();
     private final ObservableField<String> appVersion = new ObservableField<>();
@@ -170,10 +171,27 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         getDataManager().setOrderId(orderId);
 
+                        String items="";
+                        for (int i=0;i<response.getResult().get(0).getItems().size();i++){
+
+
+
+                            items=items+ response.getResult().get(0).getItems().get(0).getProductName()+",";
+
+
+
+                        }
+
+
+                        products.set(items);
+
+
 
                     } else {
                         isLiveOrder.set(false);
                     }
+
+
 
                 }
             }

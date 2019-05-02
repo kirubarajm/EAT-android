@@ -30,6 +30,54 @@ public class LiveOrderResponsePojo {
         this.result = result;
     }
 
+    public class Item {
+
+        @SerializedName("price")
+        @Expose
+        private Integer price;
+        @SerializedName("quantity")
+        @Expose
+        private Integer quantity;
+        @SerializedName("productid")
+        @Expose
+        private Integer productid;
+        @SerializedName("product_name")
+        @Expose
+        private String productName;
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+
+        public Integer getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
+        }
+
+        public Integer getProductid() {
+            return productid;
+        }
+
+        public void setProductid(Integer productid) {
+            this.productid = productid;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+    }
 
     public class Result {
 
@@ -39,6 +87,9 @@ public class LiveOrderResponsePojo {
         @SerializedName("orderstatus")
         @Expose
         private Integer orderstatus;
+        @SerializedName("price")
+        @Expose
+        private Integer price;
         @SerializedName("userid")
         @Expose
         private Integer userid;
@@ -57,6 +108,9 @@ public class LiveOrderResponsePojo {
         @SerializedName("distance")
         @Expose
         private String distance;
+        @SerializedName("items")
+        @Expose
+        private List<Item> items = null;
         @SerializedName("eta")
         @Expose
         private String eta;
@@ -75,6 +129,14 @@ public class LiveOrderResponsePojo {
 
         public void setOrderstatus(Integer orderstatus) {
             this.orderstatus = orderstatus;
+        }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
         }
 
         public Integer getUserid() {
@@ -123,6 +185,14 @@ public class LiveOrderResponsePojo {
 
         public void setDistance(String distance) {
             this.distance = distance;
+        }
+
+        public List<Item> getItems() {
+            return items;
+        }
+
+        public void setItems(List<Item> items) {
+            this.items = items;
         }
 
         public String getEta() {
