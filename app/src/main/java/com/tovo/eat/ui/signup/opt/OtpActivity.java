@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.signup.opt;
 
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOtpBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
@@ -19,8 +21,7 @@ import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
-public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel>
-        implements OtpActivityNavigator {
+public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel> implements OtpActivityNavigator {
 
     @Inject
     OtpActivityViewModel mLoginViewModelMain;
@@ -56,7 +57,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         } else {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_FAILED, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -72,6 +72,13 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             String strPassword = mActivityOtpBinding.edtPassword.getText().toString();
             mLoginViewModelMain.login(strPhoneNumber, strPassword);
         }
+    }
+
+    @Override
+    public void forgotPassword() {
+        Intent intent = ForgotPasswordActivity.newIntent(OtpActivity.this);
+        intent.putExtra("strPhoneNumber", strPhoneNumber);
+        startActivity(intent);
     }
 
     @Override
@@ -107,15 +114,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             strPhoneNumber = bundle.getString("strPhoneNumber");
             UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
-                //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
-                //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
                 mLoginViewModelMain.otp.set(true);
             } else {
-                //mActivityOtpBinding.relPassword.setVisibility(View.VISIBLE);
-                //mActivityOtpBinding.relOtp.setVisibility(View.GONE);
                 mLoginViewModelMain.otp.set(false);
             }
-
             mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
         }
         Toolbar toolbar = findViewById(R.id.toolbar_otp);
@@ -156,4 +158,5 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         }
         return true;
     }
+
 }

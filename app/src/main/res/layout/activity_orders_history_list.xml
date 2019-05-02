@@ -34,7 +34,6 @@
             android:layout_below="@+id/toolbar_history_list"
             android:background="@color/black" />
 
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_orders_history"
             android:layout_width="match_parent"
