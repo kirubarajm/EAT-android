@@ -79,14 +79,16 @@
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_enter_otp"
+                    android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Enter OTP" />
+                    android:text="@string/enter_otp" />
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_message_sent"
                     android:layout_width="match_parent"
+                    android:textSize="14sp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_enter_otp"
                     android:layout_marginTop="10dp" />

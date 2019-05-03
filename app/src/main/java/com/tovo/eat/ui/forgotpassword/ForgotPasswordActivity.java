@@ -130,6 +130,7 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
         if (bundle != null) {
             strPhoneNumber = bundle.getString("strPhoneNumber");
             mForgotPasswordActivityViewModel.otpServiceCall(strPhoneNumber);
+            mActivityForgotPasswordBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
         }
         otpFocusOnTextChange();
 

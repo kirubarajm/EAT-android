@@ -184,7 +184,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 }
                 toolbar.setTitle("OTP");
             }
-            mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
+            mActivityOtpBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
 
         }
 
