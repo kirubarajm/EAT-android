@@ -9,6 +9,6 @@ public interface AddressListNavigator {
     void listLoaded();
     void goBack();
     void showToast(String msg);
-
+void addresDeleted();
 
 }

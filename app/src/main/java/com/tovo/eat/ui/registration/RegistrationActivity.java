@@ -14,6 +14,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegistrationBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.utilities.AppConstants;
 
 import java.util.List;
@@ -73,6 +74,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mActivityRegistrationBinding.edtReTypePassword.setText("");
         Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
 
+        Intent intent = MainActivity.newIntent(RegistrationActivity.this);
+        intent.putExtra("cart", true);
+        startActivity(intent);
         finish();
 
     }
@@ -130,6 +134,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void onBackPressed() {
+        Intent intent = MainActivity.newIntent(RegistrationActivity.this);
+        intent.putExtra("cart", true);
+        startActivity(intent);
         finish();
     }
 

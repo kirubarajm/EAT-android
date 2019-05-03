@@ -116,9 +116,11 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void updateUserPasswordStatus(boolean passwordStatus) {
-            setisPasswordStatus(passwordStatus);
-    }
 
+
+        setisPasswordStatus(passwordStatus);
+        
+    }
 
     @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {

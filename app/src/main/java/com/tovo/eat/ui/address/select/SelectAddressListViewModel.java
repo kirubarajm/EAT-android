@@ -24,8 +24,23 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
     public ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels = new ObservableArrayList<>();
 
-    private MutableLiveData<List<SelectAddressListResponse.Result>>selectAddrressListItemsLiveData;
+    private MutableLiveData<List<SelectAddressListResponse.Result>> selectAddrressListItemsLiveData;
 
+
+    public SelectAddressListViewModel(DataManager dataManager) {
+        super(dataManager);
+        selectAddrressListItemsLiveData = new MutableLiveData<>();
+
+        //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
+       /* ConnectivityManager cm =
+                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();*/
+
+        fetchRepos();
+    }
 
     public ObservableList<SelectAddressListResponse.Result> getSelectAddrressListItemViewModels() {
         return selectAddrressListItemViewModels;
@@ -43,21 +58,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         this.selectAddrressListItemsLiveData = selectAddrressListItemsLiveData;
     }
 
-    public SelectAddressListViewModel(DataManager dataManager) {
-        super(dataManager);
-        selectAddrressListItemsLiveData = new MutableLiveData<>();
-
-    //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
-
-        fetchRepos();
-    }
-
     public void addDishItemsToList(List<SelectAddressListResponse.Result> ordersItems) {
         selectAddrressListItemViewModels.clear();
         selectAddrressListItemViewModels.addAll(ordersItems);
@@ -65,15 +65,13 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-    public void goBack(){
+    public void goBack() {
 
         getNavigator().goBack();
     }
 
 
-
-
-    public void addAddress(){
+    public void addAddress() {
 
         getNavigator().addNewAddress();
 
@@ -81,10 +79,9 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-    public void updateCurrentAddress(String title,String address,double lat,double lng,String area,Integer aid){
+    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
 
-        getDataManager().updateCurrentAddress(title,address,lat,lng,area,aid);
-
+        getDataManager().updateCurrentAddress(title, address, lat, lng, area, aid);
 
 
         FilterRequestPojo filterRequestPojo;
@@ -103,27 +100,31 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-     //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL+getDataManager().getCurrentUserId(), SelectAddressListResponse.class,new Response.Listener<SelectAddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL + getDataManager().getCurrentUserId(), SelectAddressListResponse.class, new Response.Listener<SelectAddressListResponse>() {
                 @Override
                 public void onResponse(SelectAddressListResponse response) {
                     if (response != null) {
 
+                        if (response.getResult().size() == 0) {
 
+                           getDataManager().updateCurrentAddress(null,null,0.0,0.0,null,0);
+                            getDataManager().setCurrentAddressTitle(null);
+                            getNavigator().listLoaded();
 
-                        selectAddrressListItemsLiveData.setValue(response.getResult());
-                        Log.e("----response:---------", response.toString());
+                        } else {
 
+                            selectAddrressListItemsLiveData.setValue(response.getResult());
+                            Log.e("----response:---------", response.toString());
 
-                        SelectAddressListViewModel.this.getNavigator().listLoaded();
-
+                            getNavigator().listLoaded();
+                        }
 
                     }
                 }
@@ -135,14 +136,11 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
             });
 
 
-
-
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

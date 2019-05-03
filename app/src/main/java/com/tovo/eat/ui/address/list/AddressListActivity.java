@@ -109,6 +109,15 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void addresDeleted() {
+
+
+        mAddressListViewModel.fetchRepos();
+
+
+    }
+
 
     private void subscribeToLiveData() {
         mAddressListViewModel.getAddrressListItemsLiveData().observe(this,
