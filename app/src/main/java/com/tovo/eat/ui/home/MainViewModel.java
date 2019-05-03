@@ -118,27 +118,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
 
+    public boolean isAddressAdded() {
 
-
-
-    public boolean isAddressAdded(){
-
-        if (getDataManager().getCurrentAddressTitle()==null){
+        if (getDataManager().getCurrentAddressTitle() == null) {
 
             return false;
-        }else {
+        } else {
 
             return true;
         }
 
     }
-
-
-
-
-
-
-
 
 
     public void liveOrders() {
@@ -152,60 +142,59 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 if (response != null) {
                     setIsLoading(false);
 
-                    if (response.getResult().size() != 0) {
+                    if (response.getStatus()) {
 
-                        isLiveOrder.set(true);
 
-                        kitchenImage.set(response.getResult().get(0).getMakeitimage());
+                        if (response.getResult().size() != 0) {
 
-                        if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
-                            kitchenName.set(response.getResult().get(0).getMakeitusername());
+
+                            isLiveOrder.set(true);
+
+                            kitchenImage.set(response.getResult().get(0).getMakeitimage());
+
+                            if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+                                kitchenName.set(response.getResult().get(0).getMakeitusername());
+                            } else {
+
+                                kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                            }
+
+                            eta.set(response.getResult().get(0).getEta());
+
+                            orderId = response.getResult().get(0).getOrderid();
+
+                            getDataManager().setOrderId(orderId);
+
+                            String items = "";
+                            for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+
+
+                                items = items + response.getResult().get(0).getItems().get(0).getProductName() + ",";
+
+
+                            }
+
+
+                            products.set(items);
+
+
                         } else {
-
-                            kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                            isLiveOrder.set(false);
                         }
 
-                        eta.set(response.getResult().get(0).getEta());
-
-                        orderId = response.getResult().get(0).getOrderid();
-
-                        getDataManager().setOrderId(orderId);
-
-                        String items="";
-                        for (int i=0;i<response.getResult().get(0).getItems().size();i++){
-
-
-
-                            items=items+ response.getResult().get(0).getItems().get(0).getProductName()+",";
-
-
-
-                        }
-
-
-                        products.set(items);
-
-
-
-                    } else {
-                        isLiveOrder.set(false);
                     }
-
-
 
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-               // Log.e("", error.getMessage());
+                // Log.e("", error.getMessage());
                 setIsLoading(false);
             }
         });
 
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-
-
     }
 
 

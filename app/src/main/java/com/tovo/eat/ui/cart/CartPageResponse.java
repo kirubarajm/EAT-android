@@ -16,8 +16,6 @@ public class CartPageResponse {
     @Expose
     private String message;
 
-
-
     @SerializedName("status")
     @Expose
     private Boolean status;

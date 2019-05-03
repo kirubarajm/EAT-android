@@ -10,6 +10,20 @@ public class LiveOrderResponsePojo {
     @SerializedName("success")
     @Expose
     private Boolean success;
+
+
+    @SerializedName("status")
+    @Expose
+    private Boolean status;
+
+
+
+
+    @SerializedName("message")
+    @Expose
+    private String message;
+
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -28,6 +42,23 @@ public class LiveOrderResponsePojo {
 
     public void setResult(List<Result> result) {
         this.result = result;
+    }
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public class Item {
