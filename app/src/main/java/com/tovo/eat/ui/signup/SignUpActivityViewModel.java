@@ -40,6 +40,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                     otpStatus = response.getOtpstatus();
                     genderstatus = response.getGenderstatus();
                     getDataManager().updateUserGender(genderstatus);
+                    getDataManager().updateUserPasswordStatus(passwordstatus);
                     if (!passwordstatus) {
                         OtpId = response.getOid();
                     }else {

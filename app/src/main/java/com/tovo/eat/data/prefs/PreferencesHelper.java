@@ -135,4 +135,9 @@ public interface PreferencesHelper {
     void setisGenderStatus(boolean status);
 
 
+    boolean getisPasswordStatus();
+
+    void setisPasswordStatus(boolean status);
+
+
 }

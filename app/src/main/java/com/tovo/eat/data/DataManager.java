@@ -45,6 +45,7 @@ public interface DataManager extends PreferencesHelper {
 
      void updateUserGender(boolean genderStatus);
 
+     void updateUserPasswordStatus(boolean passwordStatus);
 
     void saveMaster(String master);
 

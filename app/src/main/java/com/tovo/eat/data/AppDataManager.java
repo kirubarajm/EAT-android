@@ -114,6 +114,11 @@ public class AppDataManager implements DataManager {
         setisGenderStatus(genderStatus);
     }
 
+    @Override
+    public void updateUserPasswordStatus(boolean passwordStatus) {
+
+    }
+
 
     @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
@@ -392,6 +397,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setisGenderStatus(boolean status) {
         mPreferencesHelper.setisGenderStatus(status);
+    }
+
+    @Override
+    public boolean getisPasswordStatus() {
+        return mPreferencesHelper.getisPasswordStatus();
+    }
+
+    @Override
+    public void setisPasswordStatus(boolean status) {
+        mPreferencesHelper.setisPasswordStatus(status);
     }
 
     @Override

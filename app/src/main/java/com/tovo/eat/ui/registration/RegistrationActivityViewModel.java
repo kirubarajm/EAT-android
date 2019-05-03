@@ -54,6 +54,12 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
             @Override
             public void onResponse(RegistrationResponse response) {
                 if (response != null) {
+                    if (response.getStatus())
+                    {
+                        getDataManager().updateUserPasswordStatus(true);
+                    }else {
+                        getDataManager().updateUserPasswordStatus(false);
+                    }
                     getNavigator().regSuccess(response.getMessage());
                 }
             }

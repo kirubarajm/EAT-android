@@ -5,20 +5,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegistrationResponse {
 
-    @SerializedName("error")
+
+    @SerializedName("success")
     @Expose
-    public Boolean error;
+    public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("message")
     @Expose
     public String message;
 
-
-    public Boolean getError() {
-        return error;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setError(Boolean error) {
-        this.error = error;
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getMessage() {

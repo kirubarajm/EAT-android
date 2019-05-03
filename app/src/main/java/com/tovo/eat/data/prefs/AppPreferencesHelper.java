@@ -66,6 +66,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_PHONE_NUMBER = "CURRENT_USER_PHONE_NUMBER";
     private static final String PREF_KEY_CURRENT_USER_REFERRALS = "CURRENT_USER_REFERRALS";
     private static final String PREF_KEY_GENDER_STATUS = "CURRENT_GENDER_STATUS";
+    private static final String PREF_KEY_PASSWORD_STATUS = "CURRENT_PASSWORD_STATUS";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -312,6 +313,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setisGenderStatus(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_GENDER_STATUS, status).apply();
+    }
+
+    @Override
+    public boolean getisPasswordStatus() {
+        return mPrefs.getBoolean(PREF_KEY_PASSWORD_STATUS, false);
+    }
+
+    @Override
+    public void setisPasswordStatus(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_PASSWORD_STATUS, status).apply();
     }
 
     @Override
