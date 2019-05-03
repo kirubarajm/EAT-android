@@ -120,6 +120,16 @@ public class KitchenDishItemViewModel {
 
 
                 }
+            }else {
+
+                this.makeit_username.set(response.getMakeitusername());
+                this.producttype.set(dishList.getCuisinename());
+                this.image.set(dishList.getProductimage());
+                this.product_name.set(dishList.getProductName());
+                this.product_id.set(dishList.getProductid());
+                this.makeit_userid.set(response.getMakeituserid());
+                this.sprice.set(String.valueOf(dishList.getPrice()));
+                this.price.set((dishList.getPrice()));
             }
         }
 

@@ -166,16 +166,27 @@ public class DishItemViewModel {
 
 
                 }
+            } else {
+                this.makeit_username.set(dishList.getMakeitUsername());
+                this.producttype.set(dishList.getRegionname() + " | " + dishList.getCusinename());
+                this.image.set(dishList.getImage());
+                this.product_name.set(dishList.getProductName());
+                this.product_id.set(dishList.getProductid());
+                this.makeit_userid.set(dishList.getMakeitUserid());
+                this.sprice.set(String.valueOf(dishList.getPrice()));
+                this.price.set((dishList.getPrice()));
+                this.cusines.set(dishList.getCusinename());
             }
+
 
         }
 
-        if (quantity.get() != null)
+        if (quantity.get() != null) {
             if (quantity.get() == 0) {
                 isAddClicked.set(false);
 
             }
-
+        }
     }
 
     public void addClicked() throws NullPointerException {
@@ -309,11 +320,11 @@ public class DishItemViewModel {
         }
 
 
-        if (results.size()==0){
+        if (results.size() == 0) {
 
             mListener.saveCart(null);
 
-        }else {
+        } else {
 
             cartRequestPojo.setCartitems(results);
             Gson gson = new Gson();

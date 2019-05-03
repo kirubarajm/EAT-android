@@ -37,4 +37,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void setCurrentFragment(Integer id){
         getDataManager().setCurrentFragment(id);
     }
+
+    public void favourites(){
+
+        getNavigator().favourites();
+
+
+    }
+
+
 }

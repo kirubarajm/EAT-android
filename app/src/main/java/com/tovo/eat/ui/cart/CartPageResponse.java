@@ -7,36 +7,16 @@ import java.util.List;
 
 public class CartPageResponse {
 
+
     @SerializedName("success")
     @Expose
     private Boolean success;
-
-
-    @SerializedName("message")
-    @Expose
-    private String message;
-
     @SerializedName("status")
     @Expose
     private Boolean status;
-
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -49,6 +29,22 @@ public class CartPageResponse {
         this.success = success;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public List<Result> getResult() {
         return result;
     }
@@ -57,14 +53,15 @@ public class CartPageResponse {
         this.result = result;
     }
 
+
     public class Amountdetails {
 
         @SerializedName("grandtotal")
         @Expose
-        private Double grandtotal;
+        private Integer grandtotal;
         @SerializedName("gstcharge")
         @Expose
-        private Double gstcharge;
+        private Integer gstcharge;
         @SerializedName("totalamount")
         @Expose
         private Integer totalamount;
@@ -72,20 +69,19 @@ public class CartPageResponse {
         @Expose
         private Integer deliveryCharge;
 
-
-        public Double getGrandtotal() {
+        public Integer getGrandtotal() {
             return grandtotal;
         }
 
-        public void setGrandtotal(Double grandtotal) {
+        public void setGrandtotal(Integer grandtotal) {
             this.grandtotal = grandtotal;
         }
 
-        public Double getGstcharge() {
+        public Integer getGstcharge() {
             return gstcharge;
         }
 
-        public void setGstcharge(Double gstcharge) {
+        public void setGstcharge(Integer gstcharge) {
             this.gstcharge = gstcharge;
         }
 
@@ -107,7 +103,47 @@ public class CartPageResponse {
 
     }
 
-    public static class Item {
+
+    public class Cuisine {
+
+        @SerializedName("cid")
+        @Expose
+        private Integer cid;
+        @SerializedName("cuisineid")
+        @Expose
+        private Integer cuisineid;
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
+
+        public Integer getCid() {
+            return cid;
+        }
+
+        public void setCid(Integer cid) {
+            this.cid = cid;
+        }
+
+        public Integer getCuisineid() {
+            return cuisineid;
+        }
+
+        public void setCuisineid(Integer cuisineid) {
+            this.cuisineid = cuisineid;
+        }
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
+
+    }
+
+
+    public class Item {
 
         @SerializedName("makeit_userid")
         @Expose
@@ -126,7 +162,7 @@ public class CartPageResponse {
         private String activeStatus;
         @SerializedName("preparetime")
         @Expose
-        private String preparetime;
+        private Object preparetime;
         @SerializedName("vegtype")
         @Expose
         private String vegtype;
@@ -174,27 +210,16 @@ public class CartPageResponse {
         private Integer cusine;
         @SerializedName("updated_at")
         @Expose
-        private Object updatedAt;
+        private String updatedAt;
+        @SerializedName("availablity")
+        @Expose
+        private Boolean availablity;
         @SerializedName("amount")
         @Expose
         private Integer amount;
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
-
-        @SerializedName("availablity")
-        @Expose
-        private boolean availablity;
-
-        public boolean isAvailablity() {
-            return availablity;
-        }
-
-        public void setAvailablity(boolean availablity) {
-            this.availablity = availablity;
-        }
-
-
 
         public Integer getMakeitUserid() {
             return makeitUserid;
@@ -236,11 +261,11 @@ public class CartPageResponse {
             this.activeStatus = activeStatus;
         }
 
-        public String getPreparetime() {
+        public Object getPreparetime() {
             return preparetime;
         }
 
-        public void setPreparetime(String preparetime) {
+        public void setPreparetime(Object preparetime) {
             this.preparetime = preparetime;
         }
 
@@ -364,12 +389,20 @@ public class CartPageResponse {
             this.cusine = cusine;
         }
 
-        public Object getUpdatedAt() {
+        public String getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(Object updatedAt) {
+        public void setUpdatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
+        }
+
+        public Boolean getAvailablity() {
+            return availablity;
+        }
+
+        public void setAvailablity(Boolean availablity) {
+            this.availablity = availablity;
         }
 
         public Integer getAmount() {
@@ -390,7 +423,6 @@ public class CartPageResponse {
 
     }
 
-
     public class Result {
 
         @SerializedName("makeituserid")
@@ -402,34 +434,30 @@ public class CartPageResponse {
         @SerializedName("makeitbrandname")
         @Expose
         private String makeitbrandname;
-        @SerializedName("makeitimg")
+        @SerializedName("region")
         @Expose
-        private String makeitimg;
-
-
+        private Integer region;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
         @SerializedName("localityname")
         @Expose
         private String localityname;
-
-
+        @SerializedName("makeitimg")
+        @Expose
+        private String makeitimg;
         @SerializedName("favid")
         @Expose
         private Integer favid;
+        @SerializedName("cuisines")
+        @Expose
+        private List<Cuisine> cuisines = null;
         @SerializedName("amountdetails")
         @Expose
         private Amountdetails amountdetails;
         @SerializedName("item")
         @Expose
         private List<Item> item = null;
-
-
-        public String getLocalityname() {
-            return localityname;
-        }
-
-        public void setLocalityname(String localityname) {
-            this.localityname = localityname;
-        }
 
         public Integer getMakeituserid() {
             return makeituserid;
@@ -455,6 +483,30 @@ public class CartPageResponse {
             this.makeitbrandname = makeitbrandname;
         }
 
+        public Integer getRegion() {
+            return region;
+        }
+
+        public void setRegion(Integer region) {
+            this.region = region;
+        }
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
+
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
+
         public String getMakeitimg() {
             return makeitimg;
         }
@@ -469,6 +521,14 @@ public class CartPageResponse {
 
         public void setFavid(Integer favid) {
             this.favid = favid;
+        }
+
+        public List<Cuisine> getCuisines() {
+            return cuisines;
+        }
+
+        public void setCuisines(List<Cuisine> cuisines) {
+            this.cuisines = cuisines;
         }
 
         public Amountdetails getAmountdetails() {

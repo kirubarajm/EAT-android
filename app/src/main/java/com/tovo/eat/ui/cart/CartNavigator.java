@@ -24,6 +24,8 @@ public interface CartNavigator {
 
     void emptyCart();
 
+void postRegistration();
+
 
 
 }

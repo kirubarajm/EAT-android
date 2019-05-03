@@ -47,7 +47,7 @@ public class CartDishItemViewModel {
         quantity.set(dishList.getCartquantity());
 
 
-        if (dishList.isAvailablity()) {
+        if (dishList.getAvailablity()) {
             isAvailable.set(true);
         } else {
             if (dishList.getQuantity() > 0) {

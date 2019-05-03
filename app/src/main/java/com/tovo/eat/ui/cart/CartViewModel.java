@@ -46,6 +46,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableField<String> localityname = new ObservableField<>();
 
+    public final ObservableField<String> cuisines = new ObservableField<>();
+
 
 
 
@@ -131,7 +133,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 @Override
                 public void onResponse(JSONObject response) {
 
-
                     Gson gson = new Gson();
                     CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
@@ -142,7 +143,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             getNavigator().emptyCart();
 
                             getDataManager().setCartDetails(null);
-
 
                         } else {
 
@@ -169,6 +169,27 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                             localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
+
+
+
+                            StringBuilder itemsBuilder = new StringBuilder();
+                            for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
+
+                                itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
+
+                                if (cartPageResponse.getResult().get(0).getCuisines().size()-1==i){
+
+                                }else {
+
+                                    itemsBuilder.append(" | ");
+
+                                }
+
+                            }
+                            String items = itemsBuilder.toString();
+                            cuisines.set(items);
+
+
 
 
                         }
@@ -213,15 +234,24 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void paymentModeCheck() {
 
-        if (getNavigator().paymentStatus(sPaymentMode)) {
 
-            cashMode();
+        if (getDataManager().getisPasswordStatus()) {
 
-        } else {
+            if (getNavigator().paymentStatus(sPaymentMode)) {
 
-            onlineMode();
+                cashMode();
+
+            } else {
+
+                onlineMode();
+
+            }
+        }else {
+
+            getNavigator().postRegistration();
 
         }
+
 
     }
 

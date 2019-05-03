@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class KitchenResponse {
-
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -31,6 +30,33 @@ public class KitchenResponse {
     }
 
 
+    public class Cuisine {
+
+        @SerializedName("cuisineid")
+        @Expose
+        private Integer cuisineid;
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
+
+        public Integer getCuisineid() {
+            return cuisineid;
+        }
+
+        public void setCuisineid(Integer cuisineid) {
+            this.cuisineid = cuisineid;
+        }
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
+
+    }
+
     public class Result {
 
         @SerializedName("makeituserid")
@@ -48,48 +74,33 @@ public class KitchenResponse {
         @SerializedName("region")
         @Expose
         private Integer region;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
         @SerializedName("costfortwo")
         @Expose
         private Integer costfortwo;
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
-
-
-        @SerializedName("regionname")
+        @SerializedName("localityname")
         @Expose
-        private String regionname;
-
+        private String localityname;
+        @SerializedName("favid")
+        @Expose
+        private Integer favid;
         @SerializedName("isfav")
         @Expose
         private String isfav;
         @SerializedName("distance")
         @Expose
-        private String distance;
+        private Double distance;
+        @SerializedName("cuisines")
+        @Expose
+        private List<Cuisine> cuisines = null;
         @SerializedName("eta")
         @Expose
         private String eta;
-
-        @SerializedName("favid")
-        @Expose
-        private Integer favid;
-
-
-        public String getRegionname() {
-            return regionname;
-        }
-
-        public void setRegionname(String regionname) {
-            this.regionname = regionname;
-        }
-
-        public Integer getFavid() {
-            return favid;
-        }
-
-        public void setFavid(Integer favid) {
-            this.favid = favid;
-        }
 
         public Integer getMakeituserid() {
             return makeituserid;
@@ -131,6 +142,14 @@ public class KitchenResponse {
             this.region = region;
         }
 
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
+
         public Integer getCostfortwo() {
             return costfortwo;
         }
@@ -147,6 +166,22 @@ public class KitchenResponse {
             this.makeitimg = makeitimg;
         }
 
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
+
+        public Integer getFavid() {
+            return favid;
+        }
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
+        }
+
         public String getIsfav() {
             return isfav;
         }
@@ -155,12 +190,20 @@ public class KitchenResponse {
             this.isfav = isfav;
         }
 
-        public String getDistance() {
+        public Double getDistance() {
             return distance;
         }
 
-        public void setDistance(String distance) {
+        public void setDistance(Double distance) {
             this.distance = distance;
+        }
+
+        public List<Cuisine> getCuisines() {
+            return cuisines;
+        }
+
+        public void setCuisines(List<Cuisine> cuisines) {
+            this.cuisines = cuisines;
         }
 
         public String getEta() {
@@ -170,7 +213,7 @@ public class KitchenResponse {
         public void setEta(String eta) {
             this.eta = eta;
         }
-    }
 
+    }
 
 }

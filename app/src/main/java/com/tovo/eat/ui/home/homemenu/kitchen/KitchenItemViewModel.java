@@ -19,6 +19,7 @@ public class KitchenItemViewModel {
     public final ObservableField<String> kitchen_image = new ObservableField<>();
     public final ObservableField<String> offer = new ObservableField<>();
     public final ObservableField<String> region = new ObservableField<>();
+    public final ObservableField<String> cuisines = new ObservableField<>();
 
 
 
@@ -51,6 +52,34 @@ public class KitchenItemViewModel {
         }else {
             isRated.set(false);
         }
+
+
+
+
+
+
+        StringBuilder itemsBuilder = new StringBuilder();
+        for (int i = 0; i < mKitchenList.getCuisines().size(); i++) {
+
+            itemsBuilder.append(mKitchenList.getCuisines().get(i).getCuisinename());
+
+            if (mKitchenList.getCuisines().size()-1==i){
+
+            }else {
+
+                itemsBuilder.append(" | ");
+
+            }
+
+
+
+
+        }
+        String items = itemsBuilder.toString();
+        cuisines.set(items);
+
+
+
 
 
 

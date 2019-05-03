@@ -72,6 +72,9 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mActivityRegistrationBinding.edtPassword.setText("");
         mActivityRegistrationBinding.edtReTypePassword.setText("");
         Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
+
+        finish();
+
     }
 
     @Override

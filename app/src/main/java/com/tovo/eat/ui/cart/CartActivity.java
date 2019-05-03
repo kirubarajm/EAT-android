@@ -18,6 +18,7 @@ import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.registration.RegistrationActivity;
 
 import javax.inject.Inject;
 
@@ -173,6 +174,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
+
+    }
+
+    @Override
+    public void postRegistration() {
+
+        Intent intent= RegistrationActivity.newIntent(getContext());
+        startActivity(intent);
 
     }
 

@@ -108,10 +108,12 @@
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="wrap_content"
+                    android:singleLine="true"
                     android:layout_height="wrap_content"
-                    android:text="@{kitchenItemViewModel.region}"
+                    android:text="@{kitchenItemViewModel.cuisines}"
                     android:textColor="@color/dark_gray"
                     android:textSize="12sp" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

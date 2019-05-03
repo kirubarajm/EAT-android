@@ -7,6 +7,7 @@ public interface HomeTabNavigator {
     void selectAddress();
 
     void filter();
+    void favourites();
 
 
 }
