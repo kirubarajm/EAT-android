@@ -44,6 +44,14 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 mActivityOtpBinding.edt3.setText(message.substring(2, 3));
                 mActivityOtpBinding.edt4.setText(message.substring(3, 4));
                 mActivityOtpBinding.edt5.setText(message.substring(4, 5));
+
+                mActivityOtpBinding.edt1.setEnabled(false);
+                mActivityOtpBinding.edt2.setEnabled(false);
+                mActivityOtpBinding.edt3.setEnabled(false);
+                mActivityOtpBinding.edt4.setEnabled(false);
+                mActivityOtpBinding.edt5.setEnabled(false);
+
+                mLoginViewModelMain.continueClick();
             }
         }
     };
@@ -250,7 +258,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 }
             }
         });
-
     }
 
     @Override

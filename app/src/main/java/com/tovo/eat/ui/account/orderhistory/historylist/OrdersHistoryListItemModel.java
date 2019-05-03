@@ -96,7 +96,7 @@ public class OrdersHistoryListItemModel {
         this.makeit_expected_preparing_time.set(String.valueOf(orders.getMakeitExpectedPreparingTime()));
         this.makeit_actual_preparing_time.set(String.valueOf(orders.getMakeitActualPreparingTime()));
         this.created_at.set(String.valueOf(orders.getCreatedAt()));
-        this.price.set("INR."+orders.getPrice());
+
         this.payment_status.set(String.valueOf(orders.getPaymentStatus()));
         this.lock_status.set(String.valueOf(orders.getLockStatus()));
         this.updated_at.set(String.valueOf(orders.getUpdatedAt()));
@@ -107,6 +107,8 @@ public class OrdersHistoryListItemModel {
         this.makeitName.set(mOrderList.getMakeitdetail().getName()==null?"":mOrderList.getMakeitdetail().getName());
         this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()==null?"":mOrderList.getMakeitdetail().getAddress()+" | ");
 
+        String strPrice = String.valueOf(orders.getPrice()==null?"":orders.getPrice());
+        this.price.set("Rs."+strPrice);
         if (orders.getItems() != null && orders.getItems().size() > 0) {
             StringBuilder strItems = new StringBuilder();
             for (int i = 0; i < orders.getItems().size(); i++) {
