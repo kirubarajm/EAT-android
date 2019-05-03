@@ -2,7 +2,6 @@ package com.tovo.eat.ui.forgotpassword;
 
 
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -62,13 +61,17 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpVerificationResponse.class, new OtpVerificationRequest(strPhoneNumber, otp, otpId), new Response.Listener<OtpVerificationResponse>() {
             @Override
             public void onResponse(OtpVerificationResponse response) {
-                if (response != null) {
-                    if (response.getSuccess()) {
+                try {
+                    if (response != null) {
+                        if (response.getSuccess()) {
                             flagOtpPass.set(false);
-                            userId=response.getUserid();
-                    }else {
-                        getNavigator().otpInvalid();
+                            userId = response.getUserid();
+                        } else {
+                            getNavigator().otpInvalid();
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, errorListener = new Response.ErrorListener() {
@@ -79,10 +82,11 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
     public void passwordVerificationServiceCall(String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_SET_CONFIRM_PASSWORD, ConfirmPasswordResponse.class, new ConfirmPasswordRequest(userId,strPassword), new Response.Listener<ConfirmPasswordResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_SET_CONFIRM_PASSWORD, ConfirmPasswordResponse.class, new ConfirmPasswordRequest(userId, strPassword), new Response.Listener<ConfirmPasswordResponse>() {
             @Override
             public void onResponse(ConfirmPasswordResponse response) {
                 if (response != null) {

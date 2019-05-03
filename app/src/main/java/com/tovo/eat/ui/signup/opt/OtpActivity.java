@@ -10,7 +10,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -33,6 +37,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     String strOtpId = "";
     String UserId = "";
     private ActivityOtpBinding mActivityOtpBinding;
+    private EditText[] editTexts;
 
     private BroadcastReceiver otpReceiver = new BroadcastReceiver() {
         @Override
@@ -179,85 +184,26 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 }
                 toolbar.setTitle("OTP");
             }
-            mActivityOtpBinding.txtMessageSent.setText("Message Sent to " + strPhoneNumber);
+            mActivityOtpBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
 
         }
-        requestFocusForOtpEditext();
+
+        otpFocusOnTextChange();
     }
 
-    private void requestFocusForOtpEditext() {
-        mActivityOtpBinding.edt1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void otpFocusOnTextChange(){
+        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4,mActivityOtpBinding.edt5};
+        mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
+        mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
+        mActivityOtpBinding.edt3.addTextChangedListener(new PinTextWatcher(2));
+        mActivityOtpBinding.edt4.addTextChangedListener(new PinTextWatcher(3));
+        mActivityOtpBinding.edt5.addTextChangedListener(new PinTextWatcher(4));
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mActivityOtpBinding.edt1.getText().toString().length() == 1) {
-                    mActivityOtpBinding.edt2.requestFocus();
-                }
-            }
-        });
-        mActivityOtpBinding.edt2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mActivityOtpBinding.edt2.getText().toString().length() == 1) {
-                    mActivityOtpBinding.edt3.requestFocus();
-                }
-            }
-        });
-        mActivityOtpBinding.edt3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mActivityOtpBinding.edt3.getText().toString().length() == 1) {
-                    mActivityOtpBinding.edt4.requestFocus();
-                }
-            }
-        });
-        mActivityOtpBinding.edt4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (mActivityOtpBinding.edt4.getText().toString().length() == 1) {
-                    mActivityOtpBinding.edt5.requestFocus();
-                }
-            }
-        });
+        mActivityOtpBinding.edt1.setOnKeyListener(new PinOnKeyListener(0));
+        mActivityOtpBinding.edt2.setOnKeyListener(new PinOnKeyListener(1));
+        mActivityOtpBinding.edt3.setOnKeyListener(new PinOnKeyListener(2));
+        mActivityOtpBinding.edt4.setOnKeyListener(new PinOnKeyListener(3));
+        mActivityOtpBinding.edt5.setOnKeyListener(new PinOnKeyListener(4));
     }
 
     @Override
@@ -301,5 +247,101 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(otpReceiver);
     }
+
+    public class PinOnKeyListener implements View.OnKeyListener {
+
+        private int currentIndex;
+
+        PinOnKeyListener(int currentIndex) {
+            this.currentIndex = currentIndex;
+        }
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (editTexts[currentIndex].getText().toString().isEmpty() && currentIndex != 0)
+                    editTexts[currentIndex - 1].requestFocus();
+            }
+            return false;
+        }
+
+    }
+
+    public class PinTextWatcher implements TextWatcher {
+
+        private int currentIndex;
+        private boolean isFirst = false, isLast = false;
+        private String newTypedString = "";
+
+        PinTextWatcher(int currentIndex) {
+            this.currentIndex = currentIndex;
+
+            if (currentIndex == 0)
+                this.isFirst = true;
+            else if (currentIndex == editTexts.length - 1)
+                this.isLast = true;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            newTypedString = s.subSequence(start, start + count).toString().trim();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            String text = newTypedString;
+
+            /* Detect paste event and set first char */
+            if (text.length() > 1)
+                text = String.valueOf(text.charAt(0)); // TODO: We can fill out other EditTexts
+
+            editTexts[currentIndex].removeTextChangedListener(this);
+            editTexts[currentIndex].setText(text);
+            editTexts[currentIndex].setSelection(text.length());
+            editTexts[currentIndex].addTextChangedListener(this);
+
+            if (text.length() == 1)
+                moveToNext();
+            else if (text.length() == 0)
+                moveToPrevious();
+        }
+
+        private void moveToNext() {
+            if (!isLast)
+                editTexts[currentIndex + 1].requestFocus();
+
+            if (isAllEditTextsFilled() && isLast) { // isLast is optional
+                editTexts[currentIndex].clearFocus();
+                hideKeyboard();
+            }
+        }
+
+        private void moveToPrevious() {
+            if (!isFirst)
+                editTexts[currentIndex - 1].requestFocus();
+        }
+
+        private boolean isAllEditTextsFilled() {
+            for (EditText editText : editTexts)
+                if (editText.getText().toString().trim().length() == 0)
+                    return false;
+            return true;
+        }
+
+        private void hideKeyboard() {
+            if (getCurrentFocus() != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+
+    }
+
 
 }
