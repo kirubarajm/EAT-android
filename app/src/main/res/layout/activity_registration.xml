@@ -99,7 +99,16 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp">
 
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:paddingLeft="3dp"
+                    android:id="@+id/txt_hometown"
+                    android:text="@string/hometown"
+                    android:textColor="@color/dark_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <Spinner
+                    android:layout_below="@+id/txt_hometown"
                     android:id="@+id/spn_hometown"
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
