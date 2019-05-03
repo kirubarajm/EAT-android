@@ -46,6 +46,14 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
                 mActivityForgotPasswordBinding.edt3.setText(message.substring(2, 3));
                 mActivityForgotPasswordBinding.edt4.setText(message.substring(3, 4));
                 mActivityForgotPasswordBinding.edt5.setText(message.substring(4, 5));
+
+                mActivityForgotPasswordBinding.edt1.setEnabled(false);
+                mActivityForgotPasswordBinding.edt2.setEnabled(false);
+                mActivityForgotPasswordBinding.edt3.setEnabled(false);
+                mActivityForgotPasswordBinding.edt4.setEnabled(false);
+                mActivityForgotPasswordBinding.edt5.setEnabled(false);
+
+                mForgotPasswordActivityViewModel.proceedOtpClick();
             }
         }
     };

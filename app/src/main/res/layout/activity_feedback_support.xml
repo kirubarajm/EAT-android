@@ -44,6 +44,7 @@
             android:padding="20sp">
 
             <RelativeLayout
+                android:onClick="@{()->feedBackSupportViewModel.feedbackClick()}"
                 android:id="@+id/rel_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +58,6 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:onClick="@{()->feedBackSupportViewModel.feedbackClick()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -68,6 +68,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:onClick="@{()->feedBackSupportViewModel.supportClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -81,7 +82,6 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:onClick="@{()->feedBackSupportViewModel.supportClick()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
