@@ -182,8 +182,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             isLiveOrder.set(false);
                         }
 
+                    }else {
+                        isLiveOrder.set(false);
                     }
 
+                }
+                else {
+                    isLiveOrder.set(false);
                 }
             }
         }, new Response.ErrorListener() {
@@ -191,6 +196,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             public void onErrorResponse(VolleyError error) {
                 // Log.e("", error.getMessage());
                 setIsLoading(false);
+                isLiveOrder.set(false);
             }
         });
 

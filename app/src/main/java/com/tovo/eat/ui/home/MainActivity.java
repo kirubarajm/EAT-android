@@ -344,7 +344,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void statusUpdate() {
         mMainViewModel.totalCart();
         mMainViewModel.liveOrders();
-
     }
 
     @Override
@@ -424,6 +423,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             mMainViewModel.addressTitle.set("Select Address");
 
         }
+
+
+
 
     }
 

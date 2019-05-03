@@ -22,7 +22,6 @@ public class KitchenItemViewModel {
     public final ObservableField<String> cuisines = new ObservableField<>();
 
 
-
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isRated = new ObservableBoolean();
 
@@ -46,46 +45,38 @@ public class KitchenItemViewModel {
 
         this.region.set(mKitchenList.getRegionname());
 
-        if (mKitchenList.getRating()!=null){
+        if (mKitchenList.getRating() != null) {
             isRated.set(true);
             this.ratings.set(String.valueOf(mKitchenList.getRating()));
-        }else {
+        } else {
             isRated.set(false);
         }
 
 
-
-
-
-
         StringBuilder itemsBuilder = new StringBuilder();
-        for (int i = 0; i < mKitchenList.getCuisines().size(); i++) {
 
-            itemsBuilder.append(mKitchenList.getCuisines().get(i).getCuisinename());
+        if (mKitchenList.getCuisines() != null) {
 
-            if (mKitchenList.getCuisines().size()-1==i){
+            for (int i = 0; i < mKitchenList.getCuisines().size(); i++) {
 
-            }else {
+                itemsBuilder.append(mKitchenList.getCuisines().get(i).getCuisinename());
 
-                itemsBuilder.append(" | ");
+                if (mKitchenList.getCuisines().size() - 1 == i) {
 
+                } else {
+                    itemsBuilder.append(" | ");
+
+                }
             }
-
-
-
-
         }
+
         String items = itemsBuilder.toString();
         cuisines.set(items);
 
 
+        this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));
 
-
-
-
-        this.offer .set(String.valueOf(mKitchenList.getCostfortwo()));
-
-        if (mKitchenList.getMakeitbrandname() .isEmpty()) {
+        if (mKitchenList.getMakeitbrandname().isEmpty()) {
             this.kitchen_name.set(mKitchenList.getMakeitusername());
         } else {
             this.kitchen_name.set(mKitchenList.getMakeitbrandname());
@@ -120,7 +111,6 @@ public class KitchenItemViewModel {
         }
 
 
-
     }
 
 
@@ -137,6 +127,7 @@ public class KitchenItemViewModel {
         void onItemClick(Integer id);
 
         void addFavourites(Integer id, String fav);
+
         void removeFavourites(Integer favId);
     }
 

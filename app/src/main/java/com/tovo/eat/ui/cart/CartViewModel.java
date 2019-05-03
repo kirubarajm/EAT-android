@@ -61,9 +61,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         dishItemsLiveData = new MutableLiveData<>();
         fetchRepos();
 
-
-        getDataManager().setisPasswordStatus(false);
-
+      //  getDataManager().setisPasswordStatus(false);
 
     }
 

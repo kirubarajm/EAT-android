@@ -119,7 +119,7 @@ public class AppDataManager implements DataManager {
 
 
         setisPasswordStatus(passwordStatus);
-        
+
     }
 
     @Override

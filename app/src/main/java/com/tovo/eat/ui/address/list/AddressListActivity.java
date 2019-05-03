@@ -89,7 +89,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void editAddress() {
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
-      //  intent.putExtra("aid",)
+        //  intent.putExtra("aid",)
         startActivity(intent);
     }
 
@@ -128,7 +128,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void onResume() {
         super.onResume();
-        //  mAddressListViewModel.fetchRepos();
+        mAddressListViewModel.fetchRepos();
     }
 
     @Override
@@ -137,19 +137,19 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mAddressListViewModel.setCurrentAddress(blogUrl);
 
 
+        finish();
     }
 
     @Override
     public void editAddressClick(AddressListResponse.Result address) {
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
-        intent.putExtra("aid",address.getAid());
+        intent.putExtra("aid", address.getAid());
         startActivity(intent);
 
     }
 
     @Override
     public void deleteAddress(Integer aid) {
-
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
@@ -162,7 +162,6 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         mAddressListViewModel.deleteAddress(aid);
-
 
 
                     }
@@ -178,13 +177,6 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
-
-
-
-
-
-
-
 
 
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.DialogSelectAddressBinding;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseDialog;
 
@@ -53,7 +54,7 @@ public class DialogSelectAddress extends BaseDialog implements DialogSelectAddre
     public void confirmClick() {
         dismissDialog();
 
-        Intent intent = SelectSelectAddressListActivity.newIntent(getContext());
+        Intent intent = AddressListActivity.newIntent(getContext());
         startActivity(intent);
     }
 

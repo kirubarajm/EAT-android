@@ -22,46 +22,86 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.MainActivity">
+        <activity
+            android:name=".ui.home.MainActivity"
+            android:screenOrientation="portrait">
 
 
         </activity>
-        <activity android:name=".ui.signup.SignUpActivity">
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.home.kitchendish.KitchenDishActivity" />
-        <activity android:name=".ui.address.add.AddAddressActivity" />
-        <activity android:name=".ui.address.list.AddressListActivity" />
-        <activity android:name=".ui.address.select.SelectSelectAddressListActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.FeedbackAndSupportActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.support.SupportActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.support.replies.chat.ChatActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.support.replies.RepliesActivity" />
-        <activity android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity">
+        <activity
+            android:name=".ui.home.kitchendish.KitchenDishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.address.add.AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.address.list.AddressListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.address.select.SelectSelectAddressListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.feedbackandsupport.FeedbackAndSupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.feedbackandsupport.support.SupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.feedbackandsupport.support.replies.chat.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.feedbackandsupport.support.replies.RepliesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity"
+            android:screenOrientation="portrait">
 
 
         </activity>
-        <activity android:name=".ui.account.referrals.ReferralsActivity" />
+        <activity
+            android:name=".ui.account.referrals.ReferralsActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.track.OrderTrackingActivity" />
+        <activity
+            android:name=".ui.track.OrderTrackingActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity" />
-        <activity android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView" />
+        <activity
+            android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView"
+            android:screenOrientation="portrait" />
 
 
-        <activity android:name=".ui.signup.opt.OtpActivity" />
-        <activity android:name=".ui.signup.namegender.NameGenderActivity">
+        <activity
+            android:name=".ui.signup.opt.OtpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.signup.namegender.NameGenderActivity"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".ui.registration.RegistrationActivity">
+        <activity
+            android:name=".ui.registration.RegistrationActivity"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".ui.orderrating.OrderRatingActivity" >
+        <activity
+            android:name=".ui.orderrating.OrderRatingActivity"
+            android:screenOrientation="portrait">
 
 
         </activity>
-        <activity android:name=".ui.splash.SplashActivity" >
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -71,9 +111,15 @@
 
 
         </activity>
-        <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
-        <activity android:name=".ui.address.edit.EditAddressActivity" />
-        <activity android:name=".ui.orderplaced.OrderPlacedActivity" />
+        <activity
+            android:name=".ui.forgotpassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.address.edit.EditAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.orderplaced.OrderPlacedActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -85,13 +131,13 @@
             </intent-filter>
         </receiver>
 
-<!--
-        <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
--->
+        <!--
+                <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
+                    <intent-filter>
+                        <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                    </intent-filter>
+                </receiver>
+        -->
 
     </application>
 

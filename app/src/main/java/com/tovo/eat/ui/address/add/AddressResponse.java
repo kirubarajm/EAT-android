@@ -11,6 +11,17 @@ public class AddressResponse {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("aid")
+    @Expose
+    private Integer aid;
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
 
     public Boolean getSuccess() {
         return success;
