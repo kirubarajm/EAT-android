@@ -39,12 +39,12 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                     passwordstatus = response.getPasswordstatus();
                     otpStatus = response.getOtpstatus();
                     genderstatus = response.getGenderstatus();
+                    getDataManager().updateUserGender(genderstatus);
                     if (!passwordstatus) {
                         OtpId = response.getOid();
                     }else {
                         userId = response.getUserid();
                     }
-
 
                     if (passwordstatus) {
                         getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
@@ -53,7 +53,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                             if (genderstatus) {
                                 getNavigator().openHomeScreen(otpStatus);
                             } else {
-                                getNavigator().genderScreenFalse(otpStatus);
+                                getDataManager().updateUserGender(genderstatus);
                             }
                         } else {
                             getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
