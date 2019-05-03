@@ -24,6 +24,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableField<String> moveitPhone = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> total = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> sItems = new ObservableField<>();
 
 
@@ -93,15 +94,15 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
 
 
-                            String items = null;
-
+                            StringBuilder itemsBuilder = new StringBuilder();
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
-                                items = "\n" + response.getResult().get(0).getItems().get(i).getProductName() + " x " + response.getResult().get(0).getItems().get(i).getQuantity();
+                                itemsBuilder.append("\n").append(response.getResult().get(0).getItems().get(i).getProductName()).append(" x ").append(response.getResult().get(0).getItems().get(i).getQuantity());
                             }
+                            String items = itemsBuilder.toString();
 
-                            if (items != null)
-                                sItems.set(items);
+                          //  if (items.isEmpty())
 
+                            products.set(items);
 
 
                             total.set(String.valueOf(response.getResult().get(0).getPrice()));

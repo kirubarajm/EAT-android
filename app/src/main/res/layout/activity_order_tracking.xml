@@ -106,8 +106,8 @@
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{orderTrackingViewModel.sItems}"
-                            android:textColor="@color/black"
+                            android:text="@{orderTrackingViewModel.products}"
+                            android:textColor="@color/dark_gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
 

@@ -108,7 +108,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="wrap_content">
 
 
                     <ImageView
@@ -126,6 +126,7 @@
 
 
                     <LinearLayout
+                        android:layout_centerHorizontal="true"
                         android:layout_margin="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,7 +134,32 @@
                         android:layout_centerVertical="true"
                         android:orientation="vertical">
 
+
+
+
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{kitchenDishViewModel.kitchenName}"
+                            android:textColor="@color/black"
+                            android:textAllCaps="true"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{kitchenDishViewModel.kitchenCategory}"
+                            android:textColor="@color/dark_gray"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+
+                      <!--  <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -148,7 +174,7 @@
                             android:text="@{kitchenDishViewModel.kitchenCategory}"
                             android:textAllCaps="true"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold" />-->
 
 
                     </LinearLayout>

@@ -24,8 +24,8 @@ public class AppConstants {
     public static final String FCM_RECEIVER = "ALERT";
 
     public static final String TEMP_URL_MY = "http://192.168.1.100/tovo/";
-    public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
-    // public static final String TEMP_URL_LIVE = "http://192.168.1.225:4000/eat/";
+   // public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
+     public static final String TEMP_URL_LIVE = "http://192.168.1.100:3000/eat/";
     public static final String TEMP_URL = "http://192.168.1.100:3000/eat/";
 
     // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
@@ -55,7 +55,7 @@ public class AppConstants {
     public static final String EAT_LIVE_ORDER_URL = TEMP_URL_LIVE + "liveorders/";
 
     public static final String EAT_FAV_URL = TEMP_URL_LIVE + "fav/";
-    public static final String EAT_MASTER = "http://13.232.246.20:3000/masters";
+    public static final String EAT_MASTER = "http://192.168.1.100:3000/masters";
 
     public static final String EAT_DISH_LIST = "http://192.168.1.100:3000/eat/fav/dishlist/";
 
@@ -107,8 +107,8 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+   // public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 

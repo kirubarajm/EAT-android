@@ -65,13 +65,13 @@ public class OrderTrackingResponse {
 
         @SerializedName("gst")
         @Expose
-        private Double gst;
+        private Integer gst;
         @SerializedName("price")
         @Expose
-        private Double price;
+        private Integer price;
         @SerializedName("quantity")
         @Expose
-        private Double quantity;
+        private Integer quantity;
         @SerializedName("productid")
         @Expose
         private Integer productid;
@@ -79,27 +79,27 @@ public class OrderTrackingResponse {
         @Expose
         private String productName;
 
-        public Double getGst() {
+        public Integer getGst() {
             return gst;
         }
 
-        public void setGst(Double gst) {
+        public void setGst(Integer gst) {
             this.gst = gst;
         }
 
-        public Double getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(Double price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 
-        public Double getQuantity() {
+        public Integer getQuantity() {
             return quantity;
         }
 
-        public void setQuantity(Double quantity) {
+        public void setQuantity(Integer quantity) {
             this.quantity = quantity;
         }
 
@@ -324,7 +324,7 @@ public class OrderTrackingResponse {
         private Integer orderstatus;
         @SerializedName("gst")
         @Expose
-        private Double gst;
+        private Integer gst;
         @SerializedName("coupon")
         @Expose
         private Object coupon;
@@ -372,7 +372,7 @@ public class OrderTrackingResponse {
         private String createdAt;
         @SerializedName("price")
         @Expose
-        private Double price;
+        private Integer price;
         @SerializedName("payment_status")
         @Expose
         private Integer paymentStatus;
@@ -469,11 +469,11 @@ public class OrderTrackingResponse {
             this.orderstatus = orderstatus;
         }
 
-        public Double getGst() {
+        public Integer getGst() {
             return gst;
         }
 
-        public void setGst(Double gst) {
+        public void setGst(Integer gst) {
             this.gst = gst;
         }
 
@@ -597,11 +597,11 @@ public class OrderTrackingResponse {
             this.createdAt = createdAt;
         }
 
-        public Double getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(Double price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 

@@ -272,27 +272,15 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     makeitId = response.getResult().get(0).getMakeituserid();
 
-                    if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
 
-                        kitchenName.set(response.getResult().get(0).getMakeitusername());
-
-                    } else {
-
-                        kitchenName.set(response.getResult().get(0).getMakeitbrandname());
-                    }
 
                     kitchenImage.set(response.getResult().get(0).getMakeitimg());
 
-
                     isFav = response.getResult().get(0).getIsfav();
-
-
 
                     kitchenCategory.set(response.getResult().get(0).getLocalityname());
 
-
                     if (response.getResult().get(0).getFavid() != null) {
-                        favId = response.getResult().get(0).getFavid();
                         favId = response.getResult().get(0).getFavid();
                     }
                     if (response.getResult().get(0).getIsfav().equals("0")) {
@@ -302,9 +290,17 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                         isFavourite.set(true);
                     }
 
+                    if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                        kitchenName.set(response.getResult().get(0).getMakeitusername());
+
+                    } else {
+
+                        kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                    }
+
 
                     Log.e("----response:---------", response.toString());
-
 
                    getNavigator().dishListLoaded();
 
