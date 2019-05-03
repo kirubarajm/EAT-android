@@ -133,5 +133,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
         mHomeTabViewModel.updateAddressTitle();
+
+
     }
 }

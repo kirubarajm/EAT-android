@@ -89,6 +89,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                     if (response != null) {
 
                         getNavigator().showToast(response.getMessage());
+                        getNavigator().addresDeleted();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -139,11 +140,21 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                 public void onResponse(AddressListResponse response) {
                     if (response != null) {
 
-                        addrressListItemsLiveData.setValue(response.getResult());
-                        Log.e("----response:---------", response.toString());
+                        if (response.getResult().size() == 0) {
 
-                        AddressListViewModel.this.getNavigator().listLoaded();
 
+                            getDataManager().updateCurrentAddress(null, null, 0.0, 0.0, null, 0);
+
+                            getDataManager().setCurrentAddressTitle(null);
+
+                            getNavigator().listLoaded();
+                        } else {
+
+                            addrressListItemsLiveData.setValue(response.getResult());
+                            Log.e("----response:---------", response.toString());
+
+                            getNavigator().listLoaded();
+                        }
                     }
                 }
             }, new Response.ErrorListener() {

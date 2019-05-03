@@ -50,8 +50,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
 
-
-
     public final ObservableBoolean payment = new ObservableBoolean();
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
     private String sPaymentMode = "";
@@ -61,8 +59,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
-
         fetchRepos();
+
+
+        getDataManager().setisPasswordStatus(false);
+
 
     }
 

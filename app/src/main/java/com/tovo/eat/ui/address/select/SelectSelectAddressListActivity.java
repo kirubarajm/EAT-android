@@ -13,6 +13,8 @@ import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
@@ -100,6 +102,9 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     @Override
     public void goBack() {
+        Intent intent = MainActivity.newIntent(SelectSelectAddressListActivity.this);
+        intent.putExtra("cart", true);
+        startActivity(intent);
         finish();
     }
 
@@ -119,6 +124,9 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Override
     public void onItemClickData(SelectAddressListResponse.Result address) {
         mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality(),address.getAid());
+        Intent intent = MainActivity.newIntent(SelectSelectAddressListActivity.this);
+        intent.putExtra("cart", true);
+        startActivity(intent);
         finish();
     }
 
