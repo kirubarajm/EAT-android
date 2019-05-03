@@ -162,7 +162,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         mAddressListViewModel.deleteAddress(aid);
-
+                     //   mAddressListViewModel.fetchRepos();
 
                     }
                 });

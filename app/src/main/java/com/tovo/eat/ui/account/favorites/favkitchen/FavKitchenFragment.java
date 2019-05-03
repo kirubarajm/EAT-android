@@ -26,8 +26,8 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
     @Inject
     KitchenViewModel mKitchenViewModel;
-    @Inject
-    LinearLayoutManager mLayoutManager;
+   /* @Inject
+    LinearLayoutManager mLayoutManager;*/
     @Inject
     KitchenAdapter adapter;
 
@@ -57,6 +57,12 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentKitchenBinding = getViewDataBinding();
+
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentKitchenBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentKitchenBinding.recyclerviewOrders.setAdapter(adapter);

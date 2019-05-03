@@ -39,7 +39,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void favourites(){
-
+        getDataManager().setIsFav(true);
         getNavigator().favourites();
 
 

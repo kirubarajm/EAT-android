@@ -142,12 +142,14 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         if (response.getResult().size() == 0) {
 
-
                             getDataManager().updateCurrentAddress(null, null, 0.0, 0.0, null, 0);
 
                             getDataManager().setCurrentAddressTitle(null);
 
                             getNavigator().listLoaded();
+
+                            addrressListItemsLiveData.setValue(response.getResult());
+
                         } else {
 
                             addrressListItemsLiveData.setValue(response.getResult());

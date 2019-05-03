@@ -241,7 +241,6 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                         items.set("Items");
                     }
 
-
                 }
             }
         }

@@ -108,4 +108,13 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+
+    }
 }

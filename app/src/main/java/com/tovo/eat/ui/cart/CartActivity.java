@@ -25,8 +25,8 @@ import javax.inject.Inject;
 public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener {
 
 
-    @Inject
-    LinearLayoutManager mLayoutManager;
+  /*  @Inject
+    LinearLayoutManager mLayoutManager;*/
     @Inject
     CartDishAdapter adapter;
     @Inject
@@ -80,6 +80,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding = getViewDataBinding();
 
         mCartViewModel.toolbarTitle.set(getString(R.string.cart));
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);

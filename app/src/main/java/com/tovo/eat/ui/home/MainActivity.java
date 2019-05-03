@@ -63,37 +63,33 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String DialogTag = DialogSelectAddress.newInstance().getTag();
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
-    private MainViewModel mMainViewModel;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-         //   if (mMainViewModel.isAddressAdded()) {
-                if (checkWifiConnect()) {
-                    if (internetCheck) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+                if (internetCheck) {
 
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        HomeTabFragment fragment = new HomeTabFragment();
-                        transaction.replace(R.id.content_main, fragment);
-                        transaction.commit();
-                    }
-                } else {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    InternetErrorFragment fragment = new InternetErrorFragment();
+                    HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
+                    transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
-                    internetCheck = true;
                 }
-           // } else {
+            } else {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;
+            }
 
-               /* Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
-                if (oldFragment == null) {
-                    DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
-                }*/
-
-          // }
         }
     };
+    private MainViewModel mMainViewModel;
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
@@ -158,6 +154,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartActivity fragment = new CartActivity();
             transaction.replace(R.id.content_main, fragment);
+            transaction.addToBackStack(CartActivity.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("Cart");
@@ -171,6 +168,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
+            transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("Home");
@@ -195,6 +193,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             transaction.replace(R.id.content_main, fragment);
+            transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("My Account");
@@ -236,16 +235,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-/*
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentByTag(HomeTabFragment.TAG);
-            if (fragment == null) {
-                super.onBackPressed();
-            } else {
-                onFragmentDetached(HomeTabFragment.TAG);
-            }*/
-
-      //  showExitDialog();
 
 
 
@@ -262,7 +251,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
 
@@ -271,6 +260,78 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
 
+
+
+
+           /* FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag(HomeTabFragment.TAG);
+            if (fragment == null) {
+                super.onBackPressed();
+            } else {
+                onFragmentDetached(HomeTabFragment.TAG);
+            }*/
+
+        //  showExitDialog();
+
+       /* FragmentManager fm = getSupportFragmentManager();
+
+
+      //  Fragment fragment = fm.findFragmentByTag(HomeTabFragment.TAG);
+
+        Fragment fragment = fm.findFragmentById(R.id.content_main);
+
+
+
+
+        if (fragment instanceof HomeTabFragment) {
+
+
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+
+
+        }else {
+
+            if (fm.getBackStackEntryCount() > 0) {
+                Log.i("MainActivity", "popping backstack");
+                *//*fm.popBackStack();*//*
+                fm.popBackStack();
+            } else {
+
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+
+
+            }
+
+
+        }*/
 
 
     }
@@ -328,6 +389,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
+
+
+
         registerWifiReceiver();
 
         mMainViewModel.liveOrders();
@@ -354,32 +418,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (mMainViewModel.isAddressAdded()) {
             if (mMainViewModel.checkInternet()) {
                 Intent intent = getIntent();
-
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         CartActivity fragment = new CartActivity();
                         transaction.replace(R.id.content_main, fragment);
+                        transaction.addToBackStack(CartActivity.class.getSimpleName());
+
                         transaction.commit();
                     } else {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         HomeTabFragment fragment = new HomeTabFragment();
                         transaction.replace(R.id.content_main, fragment);
+                        transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+
                         transaction.commit();
                     }
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
+                    transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                 }
-
             } else {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
                 transaction.commit();
-
             }
 
         } else {
@@ -391,27 +457,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
 
-
-        /*if (!mMainViewModel.isAddressAdded()) {
-            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
-            if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
-            }
-        }else {
-            if (checkWifiConnect()) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeTabFragment fragment = new HomeTabFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-
-            } else {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-            }
-
-        }*/
 
         statusUpdate();
 
@@ -423,8 +468,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             mMainViewModel.addressTitle.set("Select Address");
 
         }
-
-
 
 
     }

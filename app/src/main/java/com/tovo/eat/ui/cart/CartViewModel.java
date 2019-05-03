@@ -121,6 +121,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void fetchRepos() {
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
 
@@ -143,9 +144,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             getDataManager().setCartDetails(null);
 
+
+
                         } else {
-
-
                             dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
 

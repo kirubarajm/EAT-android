@@ -301,6 +301,11 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
         }
 
+        if (getDataManager().getCurrentFragment() == 1) {
+            filterItemList.remove(1);
+        }
+
+
         filterItems.addAll(filterItemList);
 
         isSortClicked.set(true);

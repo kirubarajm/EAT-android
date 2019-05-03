@@ -16,7 +16,6 @@ import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
-import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 
 import javax.inject.Inject;
@@ -99,12 +98,18 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void favourites() {
+
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FavoritesTabActivity fragment = new FavoritesTabActivity();
         transaction.replace(R.id.content_main, fragment);
+       // transaction.addToBackStack(FavoritesTabActivity.class.getSimpleName());
+      //  transaction.addToBackStack(null);
         transaction.commitNow();
+        // transaction.commitNowAllowingStateLoss();
 
-        FavoritesTabActivity.newInstance();
+
+
     }
 
     @Override
@@ -115,8 +120,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void offers() {
-        Intent intent = RegistrationActivity.newIntent(getContext());
-        startActivity(intent);
+       /* Intent intent = RegistrationActivity.newIntent(getContext());
+        startActivity(intent);*/
     }
 
     @Override
@@ -137,4 +142,11 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+    }
 }

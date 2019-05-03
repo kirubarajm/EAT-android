@@ -274,7 +274,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
 
-
     @Override
     public String getCurrentUserPhNo() {
         return mPrefs.getString(PREF_KEY_CURRENT_USER_PHONE_NUMBER, null);

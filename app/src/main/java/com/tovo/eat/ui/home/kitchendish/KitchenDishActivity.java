@@ -231,5 +231,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
 

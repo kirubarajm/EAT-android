@@ -24,8 +24,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     @Inject
     KitchenViewModel mKitchenViewModel;
-    @Inject
-    LinearLayoutManager mLayoutManager;
+   /* @Inject
+    LinearLayoutManager mLayoutManager;*/
     @Inject
     KitchenAdapter adapter;
 
@@ -55,6 +55,12 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentKitchenBinding = getViewDataBinding();
+
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentKitchenBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentKitchenBinding.recyclerviewOrders.setAdapter(adapter);
@@ -161,6 +167,9 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void onResume() {
         super.onResume();
 
+        mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentKitchenBinding.shimmerViewContainer.stopShimmerAnimation();
+
 
      /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
@@ -208,5 +217,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
         mKitchenViewModel.fetchRepos();
     }
+
+
 }
 

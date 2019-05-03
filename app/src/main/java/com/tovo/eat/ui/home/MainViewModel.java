@@ -144,7 +144,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                     if (response.getStatus()) {
 
-
                         if (response.getResult().size() != 0) {
 
 

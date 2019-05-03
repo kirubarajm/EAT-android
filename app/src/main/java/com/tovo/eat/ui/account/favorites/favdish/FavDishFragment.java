@@ -29,8 +29,8 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
     @Inject
     DishViewModel mDishViewModel;
-    @Inject
-    LinearLayoutManager mLayoutManager;
+  /*  @Inject
+    LinearLayoutManager mLayoutManager;*/
     @Inject
     DishAdapter adapter;
 
@@ -84,6 +84,11 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentDishBinding = getViewDataBinding();
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);

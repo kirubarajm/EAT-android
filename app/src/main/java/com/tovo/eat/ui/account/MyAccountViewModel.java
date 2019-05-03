@@ -69,6 +69,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
     public void logOutSession() {
         getDataManager().setLogout();
+        getDataManager().setCartDetails(null);
     }
 
     public void fetchUserDetails() {

@@ -78,12 +78,13 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
     public void orderAvailable() {
 
+        getDataManager().setCartDetails(null);
+
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
         getDataManager().setCartDetails(json);
 
         getNavigator().orderRepeat();
-
 
     }
 

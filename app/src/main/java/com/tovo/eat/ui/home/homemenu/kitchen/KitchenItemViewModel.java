@@ -76,11 +76,12 @@ public class KitchenItemViewModel {
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));
 
-        if (mKitchenList.getMakeitbrandname().isEmpty()) {
-            this.kitchen_name.set(mKitchenList.getMakeitusername());
-        } else {
-            this.kitchen_name.set(mKitchenList.getMakeitbrandname());
-        }
+        if (mKitchenList.getMakeitbrandname() != null)
+            if (mKitchenList.getMakeitbrandname().isEmpty()) {
+                this.kitchen_name.set(mKitchenList.getMakeitusername());
+            } else {
+                this.kitchen_name.set(mKitchenList.getMakeitbrandname());
+            }
 
         if (mKitchenList.getIsfav() != null) {
             if (mKitchenList.getIsfav().equals("0")) {

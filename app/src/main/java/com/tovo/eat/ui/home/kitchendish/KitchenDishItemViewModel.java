@@ -120,7 +120,7 @@ public class KitchenDishItemViewModel {
 
 
                 }
-            }else {
+            } else {
 
                 this.makeit_username.set(response.getMakeitusername());
                 this.producttype.set(dishList.getCuisinename());
@@ -333,45 +333,20 @@ public class KitchenDishItemViewModel {
             if (cartRequestPojo.getCartitems() != null) {
 
 
-                int totalSize = results.size();
-                if (totalSize != 0) {
+                    if (response.getMakeituserid().equals(cartRequestPojo.getMakeitUserid())) {
 
-                    for (int i = 0; i < totalSize; i++) {
+                        cartRequestPojoCartitem.setProductid(dishList.getProductid());
+                        cartRequestPojoCartitem.setQuantity(quantity.get());
+                        cartRequestPojoCartitem.setPrice(dishList.getPrice());
+                        results.add(cartRequestPojoCartitem);
+                    } else {
 
-
-                        if (response.getMakeituserid().equals(cartRequestPojo.getMakeitUserid())) {
-
-                            if (dishList.getProductid().equals(results.get(i).getProductid())) {
-                                cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                                cartRequestPojoCartitem.setQuantity(quantity.get());
-                                cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                                results.set(i, cartRequestPojoCartitem);
-
-                            } else {
-
-                                cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                                cartRequestPojoCartitem.setQuantity(quantity.get());
-                                cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                                results.add(cartRequestPojoCartitem);
-
-                            }
-                        } else {
-
-                            mListener.otherKitchenDish(response.getMakeituserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
+                        mListener.otherKitchenDish(response.getMakeituserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
 
 
-                            break;
-                        }
                     }
 
-                } else {
 
-                    cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                    cartRequestPojoCartitem.setQuantity(quantity.get());
-                    cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                    results.add(cartRequestPojoCartitem);
-
-                }
             } else {
                 cartRequestPojoCartitem.setProductid(dishList.getProductid());
                 cartRequestPojoCartitem.setQuantity(quantity.get());

@@ -97,7 +97,6 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Override
     public void listLoaded() {
         mActivityAddressSelectBinding.refreshList.setRefreshing(false);
-
     }
 
     @Override
