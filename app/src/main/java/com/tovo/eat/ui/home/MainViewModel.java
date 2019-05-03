@@ -198,7 +198,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("", error.getMessage());
+               // Log.e("", error.getMessage());
                 setIsLoading(false);
             }
         });
