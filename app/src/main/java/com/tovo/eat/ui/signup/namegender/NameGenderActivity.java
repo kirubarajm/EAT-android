@@ -44,7 +44,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     @Override
     public void genderSuccess(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
-        mLoginViewModelMain.fetchUserDetails();
+        //mLoginViewModelMain.fetchUserDetails();
         Intent intent = MainActivity.newIntent(NameGenderActivity.this);
         startActivity(intent);
         finish();

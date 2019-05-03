@@ -14,6 +14,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityQueriesBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
 import javax.inject.Inject;
 
@@ -79,6 +80,9 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     public void success(String strSuccess) {
         Toast.makeText(this, strSuccess, Toast.LENGTH_SHORT).show();
         mActivityQueriesBinding.edtQueries.setText("");
+        Intent intent = RepliesActivity.newIntent(this);
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -117,7 +117,9 @@ public class AppDataManager implements DataManager {
     @Override
     public void updateUserPasswordStatus(boolean passwordStatus) {
 
+
         setisPasswordStatus(passwordStatus);
+        
     }
 
     @Override
