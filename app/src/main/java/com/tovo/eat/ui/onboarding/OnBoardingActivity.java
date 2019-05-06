@@ -44,12 +44,12 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             if (position == layouts.length - 1) {
                 mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
                 mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
-                mActivityOnboardingBinding.txtGetStarted.setVisibility(View.VISIBLE);
+                //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.VISIBLE);
                 mActivityOnboardingBinding.btnGetStarted.setVisibility(View.VISIBLE);
             } else {
                 mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
                 mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
-                mActivityOnboardingBinding.txtGetStarted.setVisibility(View.GONE);
+                //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.GONE);
                 mActivityOnboardingBinding.btnGetStarted.setVisibility(View.GONE);
             }
         }
