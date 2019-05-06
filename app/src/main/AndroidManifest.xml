@@ -88,9 +88,24 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+
         <activity
             android:name=".ui.registration.RegistrationActivity"
             android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
 
         </activity>
         <activity
@@ -102,12 +117,6 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
@@ -120,6 +129,7 @@
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
             android:screenOrientation="portrait" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
