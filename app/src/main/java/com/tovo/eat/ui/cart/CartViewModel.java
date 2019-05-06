@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -273,7 +274,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             PlaceOrderRequestPojo placeOrderRequestPojo = new PlaceOrderRequestPojo();
 
-            PlaceOrderRequestPojo.Orderitem orderitem = new PlaceOrderRequestPojo.Orderitem();
+            PlaceOrderRequestPojo.Orderitem orderitem;
 
 
             Gson sGson = new GsonBuilder().create();
@@ -281,11 +282,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             cartitems.addAll(cartRequestPojo.getCartitems());
 
+
             for (int i = 0; i < cartitems.size(); i++) {
 
+                orderitem= new PlaceOrderRequestPojo.Orderitem();
                 orderitem.setProductid(cartitems.get(i).getProductid());
                 orderitem.setQuantity(cartitems.get(i).getQuantity());
                 orderitems.add(orderitem);
+
             }
 
 

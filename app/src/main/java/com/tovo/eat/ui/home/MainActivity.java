@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart() {
-        if (mMainViewModel.checkInternet()) {
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartActivity fragment = new CartActivity();
             transaction.replace(R.id.content_main, fragment);
@@ -159,12 +159,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             mMainViewModel.toolbarTitle.set("Cart");
             mMainViewModel.titleVisible.set(true);
-        }
+
+
+
     }
 
     @Override
     public void openHome() {
-        if (mMainViewModel.checkInternet()) {
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
@@ -173,7 +175,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             mMainViewModel.toolbarTitle.set("Home");
             mMainViewModel.titleVisible.set(false);
-        }
+
+
     }
 
     @Override
@@ -397,19 +400,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         checkAndRequestPermissions();
 
 
-
-
-        if (mMainViewModel.isAddressAdded()) {
+     //   if (mMainViewModel.isAddressAdded()) {
 
                 Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        CartActivity fragment = new CartActivity();
-                        transaction.replace(R.id.content_main, fragment);
-                        transaction.addToBackStack(CartActivity.class.getSimpleName());
-
-                        transaction.commit();
+                        mMainViewModel.gotoCart();
                     } else {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         HomeTabFragment fragment = new HomeTabFragment();
@@ -427,14 +423,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 }
 
 
-        } else {
+       /* } else {
 
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
             }
 
-        }
+        }*/
     }
 
     public void statusUpdate() {
@@ -463,12 +459,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        CartActivity fragment = new CartActivity();
-                        transaction.replace(R.id.content_main, fragment);
-                        transaction.addToBackStack(CartActivity.class.getSimpleName());
-
-                        transaction.commit();
+                        mMainViewModel.gotoCart();
                     }
                 }
         } else {

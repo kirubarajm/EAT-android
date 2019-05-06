@@ -194,7 +194,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentLat() {
-        return mPrefs.getString(PREF_KEY_CURRENT_LAT, "12.9760");
+        return mPrefs.getString(PREF_KEY_CURRENT_LAT, null);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCurrentLng() {
-        return mPrefs.getString(PREF_KEY_CURRENT_LNG, "80.2212");
+        return mPrefs.getString(PREF_KEY_CURRENT_LNG, null);
     }
 
     @Override

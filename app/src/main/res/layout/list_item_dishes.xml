@@ -21,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
 
@@ -69,10 +69,14 @@
 
 
                 <LinearLayout
+                    android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:orientation="vertical">
+                    android:layout_toStartOf="@+id/end"
+                    android:layout_toLeftOf="@+id/end"
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true">
 
 
                     <RelativeLayout
@@ -87,28 +91,6 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="horizontal">
-
-                            <com.tovo.eat.utilities.fonts.CircularTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/inr" />
-
-                            <com.tovo.eat.utilities.fonts.CircularTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{dishItemViewModel.sprice}" />
-
-
-                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -154,9 +136,49 @@
                         android:textColor="@color/dark_gray"
                         android:textSize="12sp" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/end"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="R " />
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{dishItemViewModel.sprice}" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginTop="10dp">
 
                         <LinearLayout
@@ -165,9 +187,6 @@
                             android:layout_height="30dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
                             android:background="@drawable/curve_stroke"
                             android:onClick="@{()->dishItemViewModel.enableAdd()}"
                             android:orientation="horizontal"
@@ -194,9 +213,6 @@
                             android:layout_height="30dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
                             android:background="@drawable/curve_stroke"
                             android:orientation="horizontal"
                             android:visibility="@{dishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
@@ -259,12 +275,14 @@
 
                     </RelativeLayout>
 
+                </RelativeLayout>
 
-                </LinearLayout>
+
             </RelativeLayout>
         </LinearLayout>
 
         <View
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/gray" />

@@ -157,13 +157,13 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
         if (!getDataManager().getIsFav()) {
 
-
+/*
             if (getDataManager().getCurrentLat() == null) {
 
                 // getNavigator().noAddressFound();
                 getNavigator().dishListLoaded();
 
-            } else {
+            } else {*/
                 //   getNavigator().addressAdded();
                 if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -245,9 +245,6 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 } catch (JSONException j) {
                     j.printStackTrace();
                 }
-
-
-            }
 
 
         } else {

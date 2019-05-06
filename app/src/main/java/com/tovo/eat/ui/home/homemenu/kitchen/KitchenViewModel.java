@@ -143,13 +143,13 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         if (!getDataManager().getIsFav()) {
 
-
+/*
             if (getDataManager().getCurrentLat() == null) {
 
                 //   getNavigator().noAddressFound1();
                 getNavigator().kitchenListLoaded();
 
-            } else {
+            } else {*/
 
 
                 //    getNavigator().addressAdded1();
@@ -242,7 +242,6 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
                 }
 
-            }
 
         } else {
 
