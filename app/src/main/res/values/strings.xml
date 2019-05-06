@@ -454,7 +454,7 @@
     <string name="repeat_this_order">Repeat This Order</string>
     <string name="hometown">Hometown</string>
     <string name="enter_otp">Enter OTP</string>e
-
-
+    <string name="start">GOT IT</string>
+    <string name="str_get_started">Search and order home cooked food away from home</string>
 
 </resources>

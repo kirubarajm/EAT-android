@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.onboarding.OnBoardingActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onBoardingViewModel"
+            type="com.tovo.eat.ui.onboarding.OnBoardingActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_getStarted"
+            android:src="@drawable/onboarding3"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="450dp" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_marginBottom="80dp"
+            android:id="@+id/rel_get_started"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_get_started"
+                android:textColor="@color/eat_color"
+                android:text="@string/get_started"
+                android:background="@drawable/curve_stroke_empty"
+                android:layout_width="125dp"
+                android:layout_height="45dp" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
