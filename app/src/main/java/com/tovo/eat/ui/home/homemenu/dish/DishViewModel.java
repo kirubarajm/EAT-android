@@ -233,7 +233,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("", error.getMessage());
+                          // Log.e("", error.getMessage());
                             DishViewModel.this.getNavigator().dishListLoaded();
                         }
                     });
@@ -264,7 +264,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("", error.getMessage());
+                       // Log.e("", error.getMessage());
                         DishViewModel.this.getNavigator().dishListLoaded();
                     }
                 });

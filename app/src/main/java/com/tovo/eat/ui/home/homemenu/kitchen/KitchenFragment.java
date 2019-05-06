@@ -64,7 +64,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentKitchenBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentKitchenBinding.recyclerviewOrders.setAdapter(adapter);
-        subscribeToLiveData();
+       // subscribeToLiveData();
 
         mFragmentKitchenBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -176,7 +176,9 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 */
         ((MainActivity) getActivity()).statusUpdate();
 
-      // mKitchenViewModel.fetchRepos();
+       mKitchenViewModel.fetchRepos();
+
+       subscribeToLiveData();
     }
 
 

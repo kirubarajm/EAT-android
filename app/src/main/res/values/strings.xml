@@ -310,18 +310,7 @@
     <string name="type_in_your_remarks">Type in your remarks</string>
     <string name="acknowledged">Acknowledged</string>
 
-    <!--  icons code-->
 
-    <string name="camera_icon">&#xe901;</string>
-    <string name="sales_icon">&#xe902;</string>
-    <string name="training_icon">&#xe903;</string>
-    <string name="call_icon">&#xe904;</string>
-    <string name="right_arrow_icon">&#xe905;</string>
-    <string name="alert_bell_icon">&#xe906;</string>
-    <string name="kitchen_home_icon">&#xe907;</string>
-    <string name="document_icon">&#xe908;</string>
-    <string name="video_document_icon">&#xe909;</string>
-    <string name="home_icon">&#xe900;</string>
     <string name="skip">Skip</string>
     <string name="no_task_found">No task Found</string>
 
@@ -405,8 +394,7 @@
     <string name="re_type_password">RETYPE PASSWORD</string>
     <string name="enter_email_password">ENTER EMAIL AND PASSWORD</string>
 
-    <string name="female">&#xe91a;</string>
-    <string name="male">&#xe91b;</string>
+
 
     <string name="oh_snap">Oh Snap!</string>
     <string name="no_internet_connection_detected">No internet connection detected</string>
@@ -420,12 +408,32 @@
     <string name="cancel">Cancel</string>
     <string name="clear_cart_and_add">Clear cart and Add</string>
 
+
+
+
+
+
+
+    <!--  icons code-->
+
+    <string name="camera_icon">&#xe901;</string>
+    <string name="sales_icon">&#xe902;</string>
+    <string name="training_icon">&#xe903;</string>
+    <string name="call_icon">&#xe904;</string>
+    <string name="right_arrow_icon">&#xe905;</string>
+    <string name="alert_bell_icon">&#xe906;</string>
+    <string name="kitchen_home_icon">&#xe907;</string>
+    <string name="document_icon">&#xe908;</string>
+    <string name="video_document_icon">&#xe909;</string>
+    <string name="home_icon">&#xe900;</string>
+    <string name="female">&#xe91a;</string>
+    <string name="male">&#xe91b;</string>
     <string name="icon_manage_address">&#xe906;</string>
     <string name="icon_order_history">&#xe908;</string>
     <string name="icon_referrals">&#xe909;</string>
     <string name="icon_offers">&#xe90a;</string>
-    <string name="icon_favorites">&#xe900;</string>
-    <string name="icon_feedback_support">&#xe90b;</string>
+    <string name="icon_favorites">&#xe920;</string>
+    <string name="icon_feedback_support">&#xe91d;</string>
     <string name="icon_call">&#xe912;</string>
     <string name="icon_error">&#xe917;</string>
 
@@ -435,6 +443,12 @@
     <string name="smiley_high">&#xe916;</string>
 
     <string name="icon_selected">&#xe911;</string>
+    <string name="icon_inr">&#xe91c;</string>
+    <string name="icon_logout">&#xe91e;</string>
+    <string name="icon_filter">&#xe91f;</string>
+    <string name="icon_fav">&#xe920;</string>
+
+
 
     <string name="minus">-</string>
     <string name="plus">+</string>

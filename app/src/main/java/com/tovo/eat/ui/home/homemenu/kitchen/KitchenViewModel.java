@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,7 +23,9 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
@@ -226,10 +229,21 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("", error.getMessage());
+                               // Log.e("", error.getMessage());
                                 getNavigator().kitchenListLoaded();
                             }
-                        });
+                        }){
+
+                            /**
+                             * Passing some request headers
+                             */
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/json");
+                                return headers;
+                            }
+                        };
 
                         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
