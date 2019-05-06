@@ -14,15 +14,36 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/img_getStarted"
-            android:src="@drawable/onboarding3"
-            android:gravity="center"
+        <RelativeLayout
+            android:padding="50dp"
+            android:id="@+id/rel_1"
             android:layout_width="match_parent"
-            android:layout_height="450dp" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginTop="50dp"
+                android:id="@+id/img_getStarted"
+                android:src="@drawable/onboarding3"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+        </RelativeLayout>
+
+        <com.tovo.eat.utilities.fonts.CircularTextView
+            android:layout_below="@+id/rel_1"
+            android:id="@+id/txt_get_started"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="@string/str_get_started" />
 
         <RelativeLayout
             android:visibility="gone"
