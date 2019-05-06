@@ -96,7 +96,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);
-        subscribeToLiveData();
+       // subscribeToLiveData();
 
         mFragmentDishBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -203,9 +203,11 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
 
-        ((MainActivity) getActivity()).statusUpdate();
+      //  ((MainActivity) getActivity()).statusUpdate();
 
-       // mDishViewModel.fetchRepos();
+        mDishViewModel.fetchRepos();
+
+        subscribeToLiveData();
     }
 
     @Override

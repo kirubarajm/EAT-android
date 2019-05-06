@@ -114,6 +114,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void forgotPassword() {
+        mActivityOtpBinding.edtPassword.setText("");
         Intent intent = ForgotPasswordActivity.newIntent(OtpActivity.this);
         intent.putExtra("strPhoneNumber", strPhoneNumber);
         startActivity(intent);

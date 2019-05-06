@@ -47,8 +47,7 @@
                 android:onClick="@{()->feedBackSupportViewModel.feedbackClick()}"
                 android:id="@+id/rel_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="wrap_content"
@@ -87,7 +86,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_chevron_right_black_24dp" />
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 

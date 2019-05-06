@@ -390,33 +390,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
 
-
-
         registerWifiReceiver();
 
-        mMainViewModel.liveOrders();
 
 
         checkAndRequestPermissions();
 
 
-        mMainViewModel.totalCart();
-        mMainViewModel.saveRequestData();
-
-    }
-
-    public void statusUpdate() {
-        mMainViewModel.totalCart();
-        mMainViewModel.liveOrders();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
 
         if (mMainViewModel.isAddressAdded()) {
-            if (mMainViewModel.checkInternet()) {
+
                 Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
@@ -441,12 +425,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                 }
-            } else {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-            }
+
 
         } else {
 
@@ -456,19 +435,51 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         }
+    }
 
-
-        statusUpdate();
-
+    public void statusUpdate() {
+        mMainViewModel.totalCart();
+        mMainViewModel.liveOrders();
+        mMainViewModel.saveRequestData();
 
         if (mMainViewModel.updateAddressTitle() != null) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
         } else {
 
-            mMainViewModel.addressTitle.set("Select Address");
+            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+            if (oldFragment == null) {
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+            }
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mMainViewModel.isAddressAdded()) {
+                Intent intent = getIntent();
+                if (intent.getExtras() != null) {
+                    if (intent.getExtras().getBoolean("cart")) {
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        CartActivity fragment = new CartActivity();
+                        transaction.replace(R.id.content_main, fragment);
+                        transaction.addToBackStack(CartActivity.class.getSimpleName());
+
+                        transaction.commit();
+                    }
+                }
+        } else {
+
+            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+            if (oldFragment == null) {
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+            }
+
+        }
+        statusUpdate();
 
     }
 
