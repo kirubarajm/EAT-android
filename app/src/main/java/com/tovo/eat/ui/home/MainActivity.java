@@ -455,13 +455,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onResume() {
         super.onResume();
 
-        if (mMainViewModel.isAddressAdded()) {
+     /*   if (mMainViewModel.isAddressAdded()) {*/
                 Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
                         mMainViewModel.gotoCart();
                     }
                 }
+       /*
         } else {
 
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
@@ -469,7 +470,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
             }
 
-        }
+        }*/
         statusUpdate();
 
     }

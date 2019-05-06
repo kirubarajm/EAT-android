@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.cart;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,9 +17,11 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
 
@@ -33,12 +36,28 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     CartViewModel mCartViewModel;
     private ActivityCartBinding mActivityCartBinding;
 
+
+    CartListener cartListener;
+
+
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
         CartActivity fragment = new CartActivity();
         fragment.setArguments(args);
         return fragment;
     }
+
+
+
+    @Override
+    public void onAttach(Context context) {
+        cartListener = (CartListener) context;
+        super.onAttach(context);
+    }
+
+
+
+
 
     @Override
     public int getBindingVariable() {
@@ -207,17 +226,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void sendCart() {
-
+        cartListener.checkCart();
     }
 
     @Override
     public void saveToCart(String cart) {
         mCartViewModel.saveToCartPojo(cart);
-
-
-
+        cartListener.checkCart();
     }
-
 
     @Override
     public String getCartData() {

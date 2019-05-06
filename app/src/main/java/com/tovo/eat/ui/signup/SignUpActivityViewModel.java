@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
@@ -69,7 +70,27 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                 setIsLoading(false);
             }
         });
+
+        /*gsonRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 2000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 2;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });*/
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+
+
     }
 
 }

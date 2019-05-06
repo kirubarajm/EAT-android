@@ -393,11 +393,11 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content">
 
-                            <ImageView
+                            <com.tovo.eat.utilities.fonts.TovoTextView
                                 android:id="@+id/ico6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_perm_identity_black_24dp"
+                                android:text="@string/icon_logout"
                                 android:textSize="18sp" />
 
                         </RelativeLayout>
@@ -440,7 +440,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/icon_feedback_support"
-                            android:textSize="12sp"
+                            android:textSize="18sp"
                             android:tint="@color/black" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView

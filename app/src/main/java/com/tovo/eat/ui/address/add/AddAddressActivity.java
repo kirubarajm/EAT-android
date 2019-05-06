@@ -26,6 +26,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.GpsUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +49,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     CardView cardView;
     boolean isFirstTime;
     Location mLocation;
-
+    boolean isGPS;
 
     public static Intent newIntent(Context context) {
 
@@ -111,6 +112,14 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         //  startLocationTracking();
 
         isFirstTime = true;
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                isGPS = isGPSEnable;
+            }
+        });
 
         /*buildGoogleAPIClient();*/
 
