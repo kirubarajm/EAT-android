@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
-                    transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                  //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                 }
             } else {
@@ -154,7 +154,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartActivity fragment = new CartActivity();
             transaction.replace(R.id.content_main, fragment);
-            transaction.addToBackStack(CartActivity.class.getSimpleName());
+          //  transaction.addToBackStack(CartActivity.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("Cart");
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
-            transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+          //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("Home");
@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             transaction.replace(R.id.content_main, fragment);
-            transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
+          //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("My Account");
@@ -257,14 +257,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
-
-
-
-
-
-
-
-
 
            /* FragmentManager fragmentManager = getSupportFragmentManager();
             Fragment fragment = fragmentManager.findFragmentByTag(HomeTabFragment.TAG);
@@ -410,7 +402,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         HomeTabFragment fragment = new HomeTabFragment();
                         transaction.replace(R.id.content_main, fragment);
-                        transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                        //transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
 
                         transaction.commit();
                     }
@@ -418,7 +410,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
-                    transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                  //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                 }
 
@@ -456,12 +448,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onResume();
 
      /*   if (mMainViewModel.isAddressAdded()) {*/
-                Intent intent = getIntent();
+               /* Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
                         mMainViewModel.gotoCart();
                     }
-                }
+                }*/
        /*
         } else {
 
@@ -471,6 +463,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         }*/
+
+
         statusUpdate();
 
     }

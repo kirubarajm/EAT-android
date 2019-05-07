@@ -89,17 +89,16 @@
                             android:onClick="@{()->nameGenderViewModel.male()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
                             android:gravity="center"
                             android:text="@string/male"
                             android:textSize="60sp" />
 
                         <TextView
+                            android:id="@+id/txt_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_male"
                             android:layout_marginTop="10dp"
-                            android:text="MALE" />
+                            android:text="@string/txtmale" />
 
                     </LinearLayout>
 
@@ -130,12 +129,12 @@
                             android:textSize="60sp" />
 
                         <TextView
+                            android:id="@+id/txt_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/img_female"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="FEMALE" />
+                            android:text="@string/txtfemale" />
                     </LinearLayout>
 
                 </LinearLayout>

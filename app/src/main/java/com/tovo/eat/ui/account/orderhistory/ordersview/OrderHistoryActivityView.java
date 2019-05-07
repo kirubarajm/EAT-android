@@ -106,6 +106,14 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
         mOrderHistoryActivityViewModelView.setNavigator(this);
         mOrdersHistoryActivityItemAdapter.setListener(this);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+           // String strOrderId=bundle.getString("orderId");
+            String strOrderId=getIntent().getExtras().getString("orderId");
+
+            mOrderHistoryActivityViewModelView.fetchRepos(strOrderId);
+
+        }
         setTitle("Order history view");
         Toolbar toolbar = findViewById(R.id.toolbar_history_view);
         setSupportActionBar(toolbar);

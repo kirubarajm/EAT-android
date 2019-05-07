@@ -2,7 +2,6 @@ package com.tovo.eat.ui.signup.opt;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -59,7 +58,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                 e.printStackTrace();
                             }
                         }
-                    }else {
+                    } else {
                         getNavigator().loginFailure();
                     }
                 }
@@ -84,27 +83,42 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
             @Override
             public void onResponse(OtpResponse response) {
+
+                try {
+
+
+
                 int CurrentuserId = 0;
+
                 if (response != null) {
-                    if (response.getStatus()) {
-                        passwordstatus = response.getPasswordstatus();
-                        otpStatus = response.getOtpstatus();
-                        genderstatus = response.getGenderstatus();
-                        oId.set(String.valueOf(response.getOid()));
-                        userId.set(String.valueOf(response.getUserid()));
-                        CurrentuserId = response.getUserid();
 
-                        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+                    if (response.getStatus() != null)
+                        if (response.getStatus()) {
+                            passwordstatus = response.getPasswordstatus();
+                            otpStatus = response.getOtpstatus();
+                            genderstatus = response.getGenderstatus();
+                            oId.set(String.valueOf(response.getOid()));
+                            userId.set(String.valueOf(response.getUserid()));
+                            CurrentuserId = response.getUserid();
 
-                        if (genderstatus) {
-                            getNavigator().openHomeActivity(true);
+                            getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+
+                            if (genderstatus) {
+                                getNavigator().openHomeActivity(true);
+                            } else {
+                                getNavigator().nameGenderScreen();
+                            }
                         } else {
-                            getNavigator().nameGenderScreen();
+                            getNavigator().loginFailure();
                         }
-                    }else {
-                        getNavigator().loginFailure();
-                    }
                 }
+                }catch (NullPointerException e ){
+                    e.printStackTrace();
+                }catch (Exception ee){
+
+                    ee.printStackTrace();
+                }
+
             }
         }, errorListener = new Response.ErrorListener() {
             @Override

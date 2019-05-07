@@ -4,6 +4,7 @@ package com.tovo.eat.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
@@ -72,7 +73,14 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         super.onCreate(savedInstanceState);
         mActivitySplashBinding = getViewDataBinding();
         mSplashActivityViewModel.setNavigator(this);
-        mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+            }
+        },2000);
+
     }
 
     @Override

@@ -16,17 +16,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +52,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> cuisines = new ObservableField<>();
 
 
-
     public final ObservableBoolean payment = new ObservableBoolean();
+    public final ObservableBoolean isFavourite = new ObservableBoolean();
+
+
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
+    int favId;
+    int makeitId;
+    String isFav;
     private String sPaymentMode = "";
     private MutableLiveData<List<CartPageResponse.Item>> dishItemsLiveData;
 
@@ -62,7 +69,90 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         dishItemsLiveData = new MutableLiveData<>();
         fetchRepos();
 
-      //  getDataManager().setisPasswordStatus(false);
+        //  getDataManager().setisPasswordStatus(false);
+
+    }
+
+
+    public void fav() {
+        if (isFavourite.get()) {
+            removeFavourite(favId);
+            isFavourite.set(false);
+
+        } else {
+            addFavourite(makeitId);
+            isFavourite.set(true);
+        }
+        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
+    }
+
+
+    public void removeFavourite(Integer favId) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+                        getNavigator().toastMessage(response.getMessage());
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void addFavourite(Integer kitchenId) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                        getNavigator().toastMessage(response.getMessage());
+
+                        favId = response.getFavid();
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -146,7 +236,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             getDataManager().setCartDetails(null);
 
 
-
                         } else {
                             dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
@@ -172,15 +261,21 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
 
 
+                            makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
+
+
+                            if (cartPageResponse.getResult().get(0).getFavid() != null)
+                                favId = cartPageResponse.getResult().get(0).getFavid();
+
 
                             StringBuilder itemsBuilder = new StringBuilder();
                             for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
 
                                 itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
 
-                                if (cartPageResponse.getResult().get(0).getCuisines().size()-1==i){
+                                if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
 
-                                }else {
+                                } else {
 
                                     itemsBuilder.append(" | ");
 
@@ -189,8 +284,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             }
                             String items = itemsBuilder.toString();
                             cuisines.set(items);
-
-
 
 
                         }
@@ -247,7 +340,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 onlineMode();
 
             }
-        }else {
+        } else {
 
             getNavigator().postRegistration();
 
@@ -260,8 +353,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void cashMode() {
 
 
-
-        if (getDataManager().getAddressId()!=0) {
+        if (getDataManager().getAddressId() != 0) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -285,7 +377,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             for (int i = 0; i < cartitems.size(); i++) {
 
-                orderitem= new PlaceOrderRequestPojo.Orderitem();
+                orderitem = new PlaceOrderRequestPojo.Orderitem();
                 orderitem.setProductid(cartitems.get(i).getProductid());
                 orderitem.setQuantity(cartitems.get(i).getQuantity());
                 orderitems.add(orderitem);
@@ -356,7 +448,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
-        }else {
+        } else {
             getNavigator().showToast("Please select the address...");
         }
     }

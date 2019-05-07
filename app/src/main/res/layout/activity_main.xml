@@ -206,6 +206,7 @@
                 android:visibility="@{viewModel.isLiveOrder?View.VISIBLE:View.GONE}">
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:background="@drawable/gradient_view"
@@ -214,35 +215,36 @@
 
 
                 <RelativeLayout
+                    android:onClick="@{()->viewModel.trackLiveOrder()}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/curve_stroke"
+                    android:layout_height="60dp"
+                    android:background="@color/gray"
                     android:orientation="horizontal">
 
 
                     <ImageView
-               android:layout_centerVertical="true"
                         android:id="@+id/image"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
-                        app:imageUrl="@{viewModel.kitchenImage}" />
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/food_preparation"/>
 
 
                     <LinearLayout
-                        android:layout_toLeftOf="@+id/track_details"
-                        android:layout_centerVertical="true"
                         android:id="@+id/details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="2dp"
+                        android:layout_toStartOf="@+id/track_details"
+                        android:layout_toLeftOf="@+id/track_details"
                         android:layout_toEndOf="@+id/image"
                         android:layout_toRightOf="@+id/image"
-                        android:orientation="vertical"
-                        android:layout_toStartOf="@+id/track_details">
+                        android:orientation="vertical">
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -263,21 +265,21 @@
                             android:gravity="center"
                             android:singleLine="true"
                             android:text="@{viewModel.products}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/dark_gray"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/track_details"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginEnd="10dp">
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -289,38 +291,40 @@
                             android:gravity="center"
                             android:minLines="2"
                             android:text="@string/eta"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_marginRight="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:minLines="2"
                             android:text="@{viewModel.eta}"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/black"
                             android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:layout_marginEnd="10dp" />
+                            android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
+                            android:background="@color/medium_gray"
                             android:gravity="center|end"
-                            android:minLines="2"
-                            android:onClick="@{()->viewModel.trackLiveOrder()}"
+
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
                             android:text="@string/track"
-                            android:textColor="@color/eat_color"
+                            android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -360,6 +364,7 @@
 
 
                 <LinearLayout
+                    android:layout_marginBottom="5dp"
                     android:id="@+id/home"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
@@ -388,6 +393,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="5dp"
                     android:id="@+id/explore"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
@@ -416,6 +422,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:id="@+id/cart"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
@@ -425,6 +432,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
@@ -472,6 +480,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="5dp"
                     android:id="@+id/account"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"

@@ -71,7 +71,7 @@ public class CartDishItemViewModel {
             veg_type.set("Non-Veg");
 
         }
-        producttype.set("Mediterranean"+" | "+veg_type.get());
+        producttype.set("Mediterranean" + " | " + veg_type.get());
 
     }
 
@@ -107,26 +107,15 @@ public class CartDishItemViewModel {
 
         if (cartRequestPojo.getCartitems() != null) {
 
-
             int totalSize = cartRequestPojo.getCartitems().size();
             if (totalSize != 0) {
 
                 for (int i = 0; i < totalSize; i++) {
-
                     if (dishList.getProductid().equals(results.get(i).getProductid())) {
                         cartRequestPojoResult.setProductid(dishList.getProductid());
                         cartRequestPojoResult.setQuantity(quantity.get());
                         cartRequestPojoResult.setPrice(dishList.getPrice());
                         results.set(i, cartRequestPojoResult);
-
-                    } else {
-                        cartRequestPojo.setCartitems(null);
-                        results.clear();
-
-                        cartRequestPojoResult.setProductid(dishList.getProductid());
-                        cartRequestPojoResult.setQuantity(quantity.get());
-                        cartRequestPojoResult.setPrice(dishList.getPrice());
-                        results.add(cartRequestPojoResult);
 
                     }
                 }
@@ -197,11 +186,11 @@ public class CartDishItemViewModel {
         }
 
 
-        if (results.size()==0){
+        if (results.size() == 0) {
 
             mListener.saveCart(null);
 
-        }else {
+        } else {
 
             cartRequestPojo.setCartitems(results);
             Gson gson = new Gson();
@@ -214,7 +203,6 @@ public class CartDishItemViewModel {
             isAddClicked.set(false);
 
         }
-
 
 
     }
@@ -238,36 +226,12 @@ public class CartDishItemViewModel {
             results.addAll(cartRequestPojo.getCartitems());
         }
 
-        if (cartRequestPojo.getCartitems() != null) {
 
+        cartRequestPojoResult.setProductid(dishList.getProductid());
+        cartRequestPojoResult.setQuantity(quantity.get());
+        cartRequestPojoResult.setPrice(dishList.getPrice());
+        results.add(cartRequestPojoResult);
 
-            int totalSize = cartRequestPojo.getCartitems().size();
-            if (totalSize != 0) {
-
-                for (int i = 0; i < totalSize; i++) {
-
-
-                    if (dishList.getProductid().equals(results.get(i).getProductid())) {
-                        cartRequestPojoResult.setProductid(dishList.getProductid());
-                        cartRequestPojoResult.setQuantity(quantity.get());
-                        cartRequestPojoResult.setPrice(dishList.getPrice());
-                        results.set(i, cartRequestPojoResult);
-
-
-                    } else {
-
-                        cartRequestPojoResult.setProductid(dishList.getProductid());
-                        cartRequestPojoResult.setQuantity(quantity.get());
-                        cartRequestPojoResult.setPrice(dishList.getPrice());
-                        results.add(cartRequestPojoResult);
-
-
-                    }
-                }
-
-            }
-
-        }
 
         cartRequestPojo.setCartitems(results);
         Gson gson = new Gson();

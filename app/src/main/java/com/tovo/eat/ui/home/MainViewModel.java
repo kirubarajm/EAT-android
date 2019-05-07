@@ -19,7 +19,6 @@ package com.tovo.eat.ui.home;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -61,6 +60,24 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
+
+
+
+
+
+    public final ObservableBoolean isHome = new ObservableBoolean();
+    public final ObservableBoolean isExplore = new ObservableBoolean();
+    public final ObservableBoolean isCart= new ObservableBoolean();
+    public final ObservableBoolean isMyAccount= new ObservableBoolean();
+
+
+
+
+
+
+
+
+
     private int orderId;
 
 
@@ -92,8 +109,15 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void gotoCart() {
 
-        if (cart.get()) {
+        if (getDataManager().getCartDetails() != null) {
+
             getNavigator().openCart();
+
+            isHome.set(false);
+            isExplore.set(false);
+            isCart.set(true);
+            isMyAccount.set(false);
+
         } else {
 
             getNavigator().toastMsg("No items in cart");
@@ -164,29 +188,35 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                             getDataManager().setOrderId(orderId);
 
-                            String items = "";
+
+
+
+                            StringBuilder itemsBuilder = new StringBuilder();
+
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
 
 
-                                items = items + response.getResult().get(0).getItems().get(0).getProductName() + ",";
+                                if (response.getResult().get(0).getItems().size() - 1 == 1) {
+                                    itemsBuilder.append(" , ");
+                                }
 
 
                             }
 
-
-                            products.set(items);
+                            String item = itemsBuilder.toString();
+                            products.set(item);
 
 
                         } else {
                             isLiveOrder.set(false);
                         }
 
-                    }else {
+                    } else {
                         isLiveOrder.set(false);
                     }
 
-                }
-                else {
+                } else {
                     isLiveOrder.set(false);
                 }
             }
@@ -205,16 +235,35 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void gotoAccount() {
         getNavigator().openAccount();
+        isHome.set(false);
+        isExplore.set(false);
+        isCart.set(false);
+        isMyAccount.set(true);
+
     }
 
     public void gotoExplore() {
         getNavigator().openExplore();
+
+       /* isHome.set(false);
+        isExplore.set(true);
+        isCart.set(false);
+        isMyAccount.set(false);*/
+
+
     }
 
 
     public void gotoHome() {
         getDataManager().setIsFav(false);
         getNavigator().openHome();
+
+
+        isHome.set(true);
+        isExplore.set(false);
+        isCart.set(false);
+        isMyAccount.set(false);
+
 
     }
 
@@ -337,7 +386,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-              //  Log.e("", error.getMessage());
+                //  Log.e("", error.getMessage());
                 setIsLoading(false);
             }
         });

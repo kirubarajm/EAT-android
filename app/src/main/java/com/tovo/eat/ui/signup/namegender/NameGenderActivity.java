@@ -57,15 +57,19 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
     @Override
     public void male() {
-        mActivityNameGenderBinding.relMale.setAlpha(1);
-        mActivityNameGenderBinding.relFemale.setAlpha(.5f);
+        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
+        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
         gender = AppConstants.MALE;
     }
 
     @Override
     public void female() {
-        mActivityNameGenderBinding.relMale.setAlpha(.5f);
-        mActivityNameGenderBinding.relFemale.setAlpha(1);
+        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
+        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
         gender = AppConstants.FEMALE;
     }
 
@@ -95,8 +99,10 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
-        mActivityNameGenderBinding.relMale.setAlpha(1);
-        mActivityNameGenderBinding.relFemale.setAlpha(.5f);
+        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
+        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
+        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
         gender = 1;
     }
 

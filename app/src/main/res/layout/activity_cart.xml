@@ -97,13 +97,35 @@
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
-                                <ImageView
+                               <!-- <ImageView
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
                                     android:layout_alignParentEnd="true"
                                     android:layout_alignParentRight="true"
                                     android:src="@drawable/ic_star_black_24dp"
-                                    android:tint="@color/eat_color" />
+                                    android:tint="@color/eat_color" />-->
+
+
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:visibility="gone"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:textColor="@{cartViewModel.isFavourite?@color/eat_color:@color/dark_gray}"
+                                    android:layout_marginRight="10dp"
+                                    android:onClick="@{()->cartViewModel.fav()}"
+                                    android:text="@string/icon_fav_heart_selected" />
+
+
+
+
+
+
                             </RelativeLayout>
 
 
@@ -253,13 +275,18 @@
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/inr"
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="3dp"
+                                    android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:layout_width="wrap_content"
+                                    android:paddingTop="8dp"
+                                    android:paddingBottom="8dp"
+                                    android:textSize="10sp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/icon_inr" />
+
 
                                 <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/price2"
@@ -301,13 +328,17 @@
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/inr"
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="3dp"
+                                    android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:layout_width="wrap_content"
+                                    android:paddingTop="8dp"
+                                    android:paddingBottom="8dp"
+                                    android:textSize="10sp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/icon_inr" />
 
                                 <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/price3"
@@ -349,13 +380,17 @@
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/inr"
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="3dp"
+                                    android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:layout_width="wrap_content"
+                                    android:paddingTop="8dp"
+                                    android:paddingBottom="8dp"
+                                    android:textSize="10sp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/icon_inr" />
 
                                 <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/price4"
@@ -405,13 +440,18 @@
                                 android:layout_alignParentRight="true"
                                 android:orientation="horizontal">
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/inr"
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:paddingLeft="3dp"
+                                    android:paddingRight="3dp"
+                                    android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:layout_width="wrap_content"
+                                    android:paddingTop="8dp"
+                                    android:paddingBottom="8dp"
+                                    android:textSize="10sp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/icon_inr"
+                                   />
 
                                 <com.tovo.eat.utilities.fonts.CircularTextView
                                     android:id="@+id/price5"

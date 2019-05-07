@@ -447,6 +447,8 @@
     <string name="icon_logout">&#xe91e;</string>
     <string name="icon_filter">&#xe91f;</string>
     <string name="icon_fav">&#xe920;</string>
+    <string name="icon_fav_heart_selected">&#xe921;</string>
+    <string name="icon_fav_heart_unselected">&#xe922;</string>
 
 
 
@@ -472,5 +474,7 @@
     <string name="str_get_started">Search and order home cooked food away from home</string>
     <string name="slide_1">Tell us what you would like to have made for you</string>
     <string name="slide_2">Track your order and fulfil you food cravings</string>
+    <string name="txtmale">MALE</string>
+    <string name="txtfemale">FEMALE</string>
 
 </resources>

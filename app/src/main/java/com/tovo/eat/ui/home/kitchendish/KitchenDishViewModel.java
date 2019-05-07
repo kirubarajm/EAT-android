@@ -114,7 +114,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             removeFavourite(favId);
             isFavourite.set(false);
 
-        } else  {
+        } else {
             addFavourite(makeitId);
             isFavourite.set(true);
         }
@@ -136,9 +136,6 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                     if (response != null) {
 
                         getNavigator().toastMessage(response.getMessage());
-
-
-
 
 
                     }
@@ -174,8 +171,8 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
                         getNavigator().toastMessage(response.getMessage());
-
-
+                        if (response.getFavid() != null)
+                            favId = response.getFavid();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -190,9 +187,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             e.printStackTrace();
         }
 
-
     }
-
 
     public void totalCart() {
 
@@ -227,7 +222,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                 } else {
                     if (count == 1) {
 
-                        cartItems.set(String.valueOf(count));
+                        cartItems.set(String.valueOf(count) + " Item");
                         cart.set(true);
 
                         cartPrice.set(String.valueOf(price));
@@ -235,7 +230,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                         items.set("Item");
                     } else {
 
-                        cartItems.set(String.valueOf(count));
+                        cartItems.set(String.valueOf(count) + " Items");
                         cart.set(true);
                         cartPrice.set(String.valueOf(price));
                         items.set("Items");
@@ -257,7 +252,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
         //  setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId,getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
             @Override
             public void onResponse(KitchenDishResponse response) {
                 if (response != null) {
@@ -270,7 +265,6 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                     dishFullItemViewModels.addAll(response.getResult());
 
                     makeitId = response.getResult().get(0).getMakeituserid();
-
 
 
                     kitchenImage.set(response.getResult().get(0).getMakeitimg());
@@ -301,7 +295,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     Log.e("----response:---------", response.toString());
 
-                   getNavigator().dishListLoaded();
+                    getNavigator().dishListLoaded();
 
 
                 }
@@ -324,7 +318,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         getNavigator().viewCart();
     }
 
-    public void back(){
+    public void back() {
         getNavigator().back();
     }
 }

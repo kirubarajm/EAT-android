@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class OtpResponse {
 
-
     @SerializedName("success")
     @Expose
     public Boolean success;
@@ -27,7 +26,6 @@ public class OtpResponse {
     @SerializedName("userid")
     @Expose
     public Integer userid;
-
 
     public Boolean getStatus() {
         return status;

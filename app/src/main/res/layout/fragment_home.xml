@@ -66,17 +66,17 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-
-                        <TextView
+                        <ImageView
+                            android:onClick="@{()->homeTabViewModel.selectAddress()}"
+                            android:layout_marginLeft="10dp"
+                            android:tint="@color/eat_color"
+                            android:rotation="90"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:onClick="@{()->homeTabViewModel.selectAddress()}"
-                            android:rotation="90"
-                            android:text=">"
-                            android:textColor="@color/eat_color"
-                            android:textSize="14sp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginRight="25dp"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:textSize="16sp"
                             android:layout_marginStart="10dp" />
 
 
@@ -90,48 +90,43 @@
 
 
                     <LinearLayout
-                        android:layout_marginRight="15dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginEnd="15dp">
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center"
                             android:onClick="@{()->homeTabViewModel.favourites()}"
-                            android:layout_marginRight="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
-                            android:textSize="20sp"
-                            android:textColor="@color/eat_color"
                             android:text="@string/icon_fav"
-                            android:layout_marginEnd="10dp" />
+                            android:textColor="@color/eat_color"
+                            android:textSize="20sp" />
 
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:onClick="@{()->homeTabViewModel.filter()}"
                             android:layout_width="wrap_content"
-                            android:textColor="@color/eat_color"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:gravity="center"
+                            android:onClick="@{()->homeTabViewModel.filter()}"
                             android:text="@string/icon_filter"
-                            android:textSize="20sp"/>
+                            android:textColor="@color/eat_color"
+                            android:textSize="20sp" />
 
 
                     </LinearLayout>
 
-
-
-
-
                 </RelativeLayout>
-
-
-
 
             </LinearLayout>
 
@@ -141,6 +136,17 @@
                 android:background="@drawable/gradient_view" />
         </LinearLayout>
 
+
+      <!--  <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="1dp"
+            android:id="@+id/recyclerview_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutAnimation="@anim/lay_fall_down"
+            android:background="@android:color/white"
+            app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
+            tools:listitem="@layout/list_item_kitchens">
+        </android.support.v7.widget.RecyclerView>-->
 
 
         <android.support.design.widget.TabLayout

@@ -49,7 +49,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         orderitems = new ArrayList<>();
 
 
-        fetchRepos();
+       // fetchRepos();
     }
 
     public void addOrdersListItemsToList(List<OrdersHistoryActivityResponse.Result.Item> ordersItems) {
@@ -89,17 +89,17 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     }
 
 
-    public void fetchRepos() {
-        int userId = getDataManager().getCurrentUserId();
+    public void fetchRepos(String orderId) {
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_VIEW + userId, OrdersHistoryActivityResponse.class, new Response.Listener<OrdersHistoryActivityResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_VIEW + orderId, OrdersHistoryActivityResponse.class, new Response.Listener<OrdersHistoryActivityResponse>() {
                 @Override
                 public void onResponse(OrdersHistoryActivityResponse response) {
                     try {
-                        if (response != null && response.getResult() != null) {
+                        if (response != null && response.getResult() != null && response.getResult().size()>0) {
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
 
                             kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());

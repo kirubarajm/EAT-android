@@ -343,6 +343,7 @@
                     android:layout_marginRight="10dp">
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -351,20 +352,20 @@
 
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:layout_gravity="center_horizontal"
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             android:textSize="10sp"
+                            android:layout_height="wrap_content"
                             android:text="@string/icon_inr" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_marginLeft="2dp"
                             android:textColor="@color/black"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{kitchenDishItemViewModel.sprice}"

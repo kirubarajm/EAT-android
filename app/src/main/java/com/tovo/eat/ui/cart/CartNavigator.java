@@ -5,6 +5,7 @@ public interface CartNavigator {
     void handleError(Throwable throwable);
 
     void gotoJobCompleted();
+
     void gotoInJobCompleted();
 
 
@@ -24,8 +25,10 @@ public interface CartNavigator {
 
     void emptyCart();
 
-void postRegistration();
+    void postRegistration();
 
+
+    void toastMessage(String msg);
 
 
 }

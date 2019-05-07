@@ -12,6 +12,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
@@ -60,7 +61,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void selectAddress() {
-        Intent intent = SelectSelectAddressListActivity.newIntent(getContext());
+        Intent intent = AddressListActivity.newIntent(getContext());
         startActivity(intent);
     }
 

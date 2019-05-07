@@ -216,7 +216,6 @@ public class DishItemViewModel {
             results.addAll(cartRequestPojo.getCartitems());
         }
 
-
         if (cartRequestPojo.getMakeitUserid() != null) {
 
             if (cartRequestPojo.getCartitems() != null) {
@@ -373,7 +372,6 @@ public class DishItemViewModel {
 
 
                 if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
-
                     cartRequestPojoCartitem.setProductid(dishList.getProductid());
                     cartRequestPojoCartitem.setQuantity(quantity.get());
                     cartRequestPojoCartitem.setPrice(dishList.getPrice());
@@ -387,7 +385,6 @@ public class DishItemViewModel {
                     //  mListener.refresh();
 
                 }
-
 
             } else {
                 cartRequestPojoCartitem.setProductid(dishList.getProductid());

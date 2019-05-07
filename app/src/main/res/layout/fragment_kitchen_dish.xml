@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content">
 
 
-                    <ImageView
+                    <com.tovo.eat.utilities.fonts.TovoTextView
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_width="20dp"
@@ -121,9 +121,10 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
+                        android:textColor="@{kitchenDishViewModel.isFavourite?@color/eat_color:@color/dark_gray}"
                         android:layout_marginRight="10dp"
                         android:onClick="@{()->kitchenDishViewModel.fav()}"
-                        android:src="@{kitchenDishViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}" />
+                        android:text="@string/icon_fav_heart_selected" />
 
 
                     <LinearLayout
@@ -178,77 +179,90 @@
 
 
 
-        <LinearLayout
+        <RelativeLayout
+            android:onClick="@{()->kitchenDishViewModel.viewCart()}"
             android:id="@+id/cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
             android:background="@color/eat_color"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="@{kitchenDishViewModel.cart?View.VISIBLE:View.GONE}"
-            app:layout_anchorGravity="left|bottom">
+            android:padding="2dp"
+            android:visibility="@{kitchenDishViewModel.cart?View.VISIBLE:View.GONE}">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <LinearLayout
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:text="@{kitchenDishViewModel.cartItems}"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="@{kitchenDishViewModel.cartItems}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@{kitchenDishViewModel.items}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/white" />
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="10sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_inr"
+                    android:layout_marginStart="5dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{kitchenDishViewModel.cartPrice}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:text="@{kitchenDishViewModel.items}"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
 
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/white" />
-
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:text="@string/inr"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{kitchenDishViewModel.cartPrice}"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:gravity="end"
-                android:onClick="@{()->kitchenDishViewModel.viewCart()}"
                 android:text="@string/view_cart"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="20dp" />
 
-
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
         <!--</android.support.design.widget.CoordinatorLayout>-->

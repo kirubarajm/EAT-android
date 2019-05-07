@@ -90,6 +90,8 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         subscribeToLiveData();
     }
 
+
+
     private void subscribeToLiveData() {
         mOrderHistoryActivityViewModel.getOrders().observe(this,
                 ordersItemViewModel -> mOrderHistoryActivityViewModel.addOrdersListItemsToList(ordersItemViewModel));
@@ -100,6 +102,8 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         Log.e("mOrderList",mOrderList.toString());
 
         Intent intent = OrderHistoryActivityView.newIntent(this);
+        intent.putExtra("orderId",
+               String.valueOf(mOrderList.getOrderid()) );
         startActivity(intent);
     }
 
@@ -113,4 +117,9 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         return true;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

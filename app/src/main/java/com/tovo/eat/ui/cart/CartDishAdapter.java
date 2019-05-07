@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemCartDishesBinding;
 import com.tovo.eat.databinding.ListItemDishesBinding;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.utilities.CartRequestPojo;
 
 import java.util.List;
@@ -31,7 +33,25 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
+    public class EmptyViewHolder extends BaseViewHolder {
 
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
+        }
+
+    }
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -42,9 +62,9 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemCartDishesBinding blogViewBinding1 = ListItemCartDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
-                return new LiveProductsViewHolder(blogViewBinding1);
+                return new EmptyViewHolder(blogViewBinding1);
         }
 
     }

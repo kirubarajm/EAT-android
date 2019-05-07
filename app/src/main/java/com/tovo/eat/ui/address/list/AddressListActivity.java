@@ -45,7 +45,6 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityAddressListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
         mActivityAddressListBinding.recyclerviewList.setAdapter(adapter);
-        subscribeToLiveData();
 
 
         mActivityAddressListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -111,11 +110,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void addresDeleted() {
-
-
         mAddressListViewModel.fetchRepos();
-
-
     }
 
 
@@ -129,14 +124,14 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     public void onResume() {
         super.onResume();
         mAddressListViewModel.fetchRepos();
+        subscribeToLiveData();
+
     }
 
     @Override
     public void onItemClickData(AddressListResponse.Result blogUrl) {
 
         mAddressListViewModel.setCurrentAddress(blogUrl);
-
-
         finish();
     }
 
@@ -182,5 +177,9 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
 
