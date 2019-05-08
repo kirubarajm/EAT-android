@@ -8,4 +8,9 @@ public class FavoritesTabActivityViewModel extends BaseViewModel<FavoritesTabAct
     public FavoritesTabActivityViewModel(DataManager dataManager) {
         super(dataManager);
     }
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
 }

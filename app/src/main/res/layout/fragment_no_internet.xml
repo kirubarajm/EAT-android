@@ -28,7 +28,7 @@
 
 
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -84,7 +84,6 @@
     <string name="please_retry">Please Retry</string>
 
 
-
     <!--Forgot password-->
     <string-array name="names">
         <item>Dhana</item>
@@ -244,8 +243,6 @@
     <string name="dish">Dish</string>
 
 
-
-
     <!--Geofence-->
     <!-- Buttons strings -->
     <string name="remove_geofences">Remove geofences</string>
@@ -285,7 +282,6 @@
     <string name="client_unavailable">Client unavailable</string>
 
 
-
     <string name="btn_send_token">Send Token</string>
     <string name="btn_send_tokens">Send Tokens</string>
     <string name="btn_send_topic">Send Topic</string>
@@ -314,7 +310,7 @@
     <string name="skip">Skip</string>
     <string name="no_task_found">No task Found</string>
 
-    <string name="map_key">AIzaSyCGk-5aSFINZH6-WNICf1fiVMEEIa4Hddo</string>
+
     <string name="schedule">Schedule:</string>
     <string name="current_location">Current location</string>
     <string name="deliver_now">Deliver now</string>
@@ -368,7 +364,7 @@
     <string name="eta">ETA</string>
 
     <string name="support">Support</string>
-    <string name="feedBack">FeedBack</string>
+    <string name="feedBack">Feedback</string>
     <string name="any_doubts_write_to_us">Any doubts? Write to us</string>
     <string name="no_replies_found">No replies found</string>
     <string name="no_chat_found">No chat found</string>
@@ -385,15 +381,14 @@
 
     <string name="verify">Verify</string>
     <string name="otp_continue">Continue</string>
-    <string name="enter_phone_num">ENTER PHONE NUMBER</string>
+    <string name="enter_phone_num">Enter you mobile number</string>
     <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
-    <string name="enter_name">ENTER YOUR NAME</string>
+    <string name="enter_name">Enter your name</string>
     <string name="proceed">PROCEED</string>
     <string name="type_your_feedback">Type your feedback here</string>
-    <string name="re_type_password">RETYPE PASSWORD</string>
+    <string name="re_type_password">Re-type Password</string>
     <string name="enter_email_password">ENTER EMAIL AND PASSWORD</string>
-
 
 
     <string name="oh_snap">Oh Snap!</string>
@@ -407,11 +402,6 @@
     <string name="change_kitchen_msg">Clear your cart if you would stll like to order this item</string>
     <string name="cancel">Cancel</string>
     <string name="clear_cart_and_add">Clear cart and Add</string>
-
-
-
-
-
 
 
     <!--  icons code-->
@@ -449,7 +439,8 @@
     <string name="icon_fav">&#xe920;</string>
     <string name="icon_fav_heart_selected">&#xe921;</string>
     <string name="icon_fav_heart_unselected">&#xe922;</string>
-
+    <string name="icon_home">&#xe902;</string>
+    <string name="icon_office">&#xe922;</string>
 
 
     <string name="minus">-</string>
@@ -476,5 +467,21 @@
     <string name="slide_2">Track your order and fulfil you food cravings</string>
     <string name="txtmale">MALE</string>
     <string name="txtfemale">FEMALE</string>
+    <string name="support_replies">Support replies</string>
+    <string name="how_are_we_doing">How are we doing?</string>
+    <string name="we_would_love_to_get_feedback_on_your_app_from_you">We would love to get feedback on your app from you</string>
+    <string name="has_e_a_t_met_your_expectation">Has E.A.T met your expectation?</string>
+    <string name="did_we_fall_short_somewhere_kindly_let_us_know_and_it_wont_happen_again">Did we fall short somewhere? kindly let us know and it wont happen again!</string>
+    <string name="name_and_avator">NAME AND AVATOR</string>
+    <string name="choose_avator">CHOOSE AVATOR</string>
+    <string name="delivering_to">Delivering to</string>
+    <string name="otp">OTP</string>
+    <string name="refer_a_friend_amp_we_ll_give_you_and_your_buddy_inr_100_off_on_your_next_order_above_inr_200"><![CDATA[Refer a friend & we\'ll give you and your buddy INR.100 off on your next order above INR.200]]></string>
+    <string name="questions">Questions</string>
 
+    <string name="dot_lines">-------------------------------------------------------------------------------------------------------------------------------------------------------------------</string>
+    <string name="place_order">Place order</string>
+
+
+    <string name="map_key">AIzaSyCGk-5aSFINZH6-WNICf1fiVMEEIa4Hddo</string>
 </resources>

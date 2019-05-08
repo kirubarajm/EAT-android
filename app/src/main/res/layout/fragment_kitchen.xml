@@ -63,11 +63,13 @@
             android:id="@+id/recyclerview_orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layoutAnimation="@anim/lay_fall_down"
+            android:animateLayoutChanges="false"
+            android:nestedScrollingEnabled="false"
             android:background="@android:color/white"
             app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
             tools:listitem="@layout/list_item_kitchens">
         </android.support.v7.widget.RecyclerView>
+
 
 
         </android.support.v4.widget.SwipeRefreshLayout>

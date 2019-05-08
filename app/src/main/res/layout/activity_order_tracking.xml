@@ -31,28 +31,30 @@
                 android:onClick="@{()->orderTrackingViewModel.backClick()}"
                 android:padding="5dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"
-                android:tint="@color/eat_color" />
+                android:tint="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="20dp">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delivering to"
-                    android:textColor="@color/eat_color"
+                    android:text="@string/delivering_to"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{orderTrackingViewModel.addressTitle}"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="normal"
                     android:visibility="visible" />
@@ -108,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:text="@{orderTrackingViewModel.products}"
                             android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:textStyle="normal" />
 
 
@@ -124,16 +126,20 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginEnd="20dp">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/inr"
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="normal" />
+                            android:layout_width="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="10sp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_inr" />
 
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderTrackingViewModel.total}"
@@ -249,7 +255,7 @@
                             android:text="@{orderTrackingViewModel.orderReceivedStatus}"
                             android:textAlignment="center"
                             android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textStyle="normal" />
 
 
@@ -305,7 +311,7 @@
                             android:text="@{orderTrackingViewModel.orderPreparedStatus}"
                             android:textAlignment="center"
                             android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textStyle="normal" />
 
 
@@ -364,7 +370,7 @@
                                 android:text="@{orderTrackingViewModel.orderDeliveryStatus}"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_gray"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="normal" />
 
                         </LinearLayout>
@@ -393,14 +399,19 @@
                             android:textStyle="normal" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:paddingBottom="2dp"
+                            android:paddingTop="2dp"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:background="@color/dark_gray"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:onClick="@{()->orderTrackingViewModel.callDeliveryMan()}"
                             android:text="@string/track"
                             android:textAlignment="center"
-                            android:textColor="@color/eat_color"
-                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
                             android:textStyle="normal" />
 
 

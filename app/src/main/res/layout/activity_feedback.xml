@@ -12,54 +12,78 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
+
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp"
             android:id="@+id/toolbar_feedback_support"
-            style="@style/Toolbar"
-            android:background="@color/primary_new"
-            app:subtitleTextColor="@color/white"
-            app:title="@string/app_name"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/colorAccent">
-
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:id="@+id/vi1"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_below="@+id/toolbar_feedback_support"
-            android:background="@drawable/toolbar_shadow" />
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:onClick="@{()->feedbackViewModel.goBack()}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/feedBack"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
 
         <ScrollView
-            android:layout_below="@+id/vi1"
+            android:background="@color/white"
+            android:layout_below="@+id/toolbar_feedback_support"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <RelativeLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
                 android:id="@+id/txt_q1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:text="How are we doing?"
+                android:text="@string/how_are_we_doing"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_a1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_q1"
                 android:gravity="center"
-                android:text="We would love to get feedback on your app from you"
+                android:text="@string/we_would_love_to_get_feedback_on_your_app_from_you"
                 android:textSize="14sp" />
 
             <RelativeLayout
@@ -69,13 +93,13 @@
                 android:layout_below="@+id/txt_a1"
                 android:layout_margin="15dp">
 
-                <TextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:id="@+id/txt_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:gravity="center"
-                    android:text="Has E.A.T met your expectation?"
+                    android:text="@string/has_e_a_t_met_your_expectation"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -97,16 +121,15 @@
                         android:stepSize="1" />
 
                 </RelativeLayout>
-
-                <TextView
+                <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rel_1"
                     android:layout_marginTop="30dp"
                     android:gravity="center"
-                    android:text="Did we fall short somewhere? kindly let us know and it wont happen again!"
-                    android:textSize="18sp" />
+                    android:text="@string/did_we_fall_short_somewhere_kindly_let_us_know_and_it_wont_happen_again"
+                    android:textSize="14sp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/input_feedback"
@@ -128,23 +151,47 @@
 
             </RelativeLayout>
 
+
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_below="@+id/rel_main"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="30sp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/curve_stroke"
+                android:onClick="@{()->feedbackViewModel.submitClick()}"
+                android:text="@string/submit"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_marginTop="100dp"
                 android:layout_below="@+id/rel_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
-                <Button
+                <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:layout_marginBottom="30sp"
+                    android:textAlignment="center"
+                    android:gravity="center"
                     android:background="@drawable/curve_stroke"
                     android:onClick="@{()->feedbackViewModel.submitClick()}"
                     android:text="@string/submit"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>

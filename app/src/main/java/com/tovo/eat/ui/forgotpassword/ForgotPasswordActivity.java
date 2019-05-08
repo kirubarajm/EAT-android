@@ -105,6 +105,11 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.forgotPasswordViewModel;
     }
@@ -126,14 +131,6 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
         mForgotPasswordActivityViewModel.setNavigator(this);
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar_forgot_pass);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityForgotPasswordBinding.toolbarForgotPass.setTitle("Forgot Password");
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             strPhoneNumber = bundle.getString("strPhoneNumber");
@@ -147,16 +144,6 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     @Override
     public void onFragmentDetached(String tag) {
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
     }
 
     @Override

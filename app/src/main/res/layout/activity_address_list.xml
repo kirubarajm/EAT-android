@@ -10,9 +10,9 @@
 
         <import type="android.view.View" />
 
-         <variable
-             name="addressListViewModel"
-             type="com.tovo.eat.ui.address.list.AddressListViewModel" />
+        <variable
+            name="addressListViewModel"
+            type="com.tovo.eat.ui.address.list.AddressListViewModel" />
 
     </data>
 
@@ -21,30 +21,28 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp">
 
             <LinearLayout
-                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:onClick="@{()->addressListViewModel.goBack()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
+                    android:onClick="@{()->addressListViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -54,13 +52,9 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/gray" />
 
+        </android.support.v7.widget.CardView>
 
-        </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refreshList"
@@ -86,34 +80,32 @@
 
 
         <LinearLayout
-            android:onClick="@{()->addressListViewModel.addAddress()}"
-            android:background="@drawable/shadow"
             android:id="@+id/addAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
+            android:onClick="@{()->addressListViewModel.addAddress()}"
             android:orientation="vertical">
 
 
             <LinearLayout
-                android:background="@drawable/curve_stroke"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
+                android:gravity="center"
+                android:background="@drawable/curve_stroke"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"
                     android:text="@string/add_new_address"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
 
             </LinearLayout>

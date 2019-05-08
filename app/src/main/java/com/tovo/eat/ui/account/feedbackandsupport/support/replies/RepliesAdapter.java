@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemRepliesBinding;
-import com.tovo.eat.databinding.ListItemRepliesEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
+
 import java.util.List;
 
 public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -32,7 +34,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 return new RepliesViewHolder(listItemOrdersBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemRepliesEmptyBinding listItemOrdersBinding1 = ListItemRepliesEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding listItemOrdersBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(listItemOrdersBinding1);
         }
@@ -61,26 +63,24 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder implements
-            RepliesEmptyItemViewModel.RepliesEmptyItemViewModelListener {
+    public class EmptyViewHolder extends BaseViewHolder {
 
-        private final ListItemRepliesEmptyBinding mBinding;
+        private final ListItemEmptyBinding mBinding;
 
-        public EmptyViewHolder(ListItemRepliesEmptyBinding binding) {
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-            RepliesEmptyItemViewModel emptyItemViewModel = new RepliesEmptyItemViewModel(this);
-            mBinding.setRepliesEmptyListItemViewModel(emptyItemViewModel);
+            emptyItemViewModel = new EmptyItemViewModel("No replies found");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
-        @Override
-        public void onRetryClick() {
-
-        }
     }
 
     public class RepliesViewHolder extends BaseViewHolder implements RepliesItemViewModel.RepliesItemViewModelListener {

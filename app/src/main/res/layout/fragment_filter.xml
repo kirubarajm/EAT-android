@@ -32,16 +32,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.tovo.eat.utilities.fonts.TovoTextView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_margin="10dp"
                     android:tint="@color/dark_gray"
+                    android:textSize="20sp"
                     android:rotation="180"
-                    android:src="@drawable/ic_sort_black_24dp" />
+                    android:text="@string/icon_filter" />
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -52,7 +53,7 @@
                     android:textStyle="bold" />
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:onClick="@{()->filterViewModel.clearAll()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:background="@{filterViewModel.isSortClicked?@color/filter_selected:@color/filter_unselected}"
@@ -101,7 +102,7 @@
                         android:textColor="@color/dark_gray"
                         android:textStyle="bold" />
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:layout_marginTop="10dp"
@@ -121,7 +122,7 @@
                         android:textStyle="bold" />
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:background="@{filterViewModel.isCuisinesClicked?@color/filter_selected:@color/filter_unselected}"
@@ -182,7 +183,7 @@
 
         </LinearLayout>
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
             android:onClick="@{()->filterViewModel.apply()}"
             android:layout_below="@+id/top"
           android:paddingBottom="5dp"

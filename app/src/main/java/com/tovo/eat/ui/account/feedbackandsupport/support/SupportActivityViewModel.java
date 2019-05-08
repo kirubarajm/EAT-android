@@ -30,6 +30,12 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
         fetchCountSertviceCall(1);
     }
 
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
+
     public void imgBackClick() {
         getNavigator().backClick();
     }

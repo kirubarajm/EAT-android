@@ -13,31 +13,52 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp"
             android:id="@+id/toolbar_history_view"
-            style="@style/Toolbar"
-            android:background="@color/primary_new"
-            app:subtitleTextColor="@color/white"
-            app:title="@string/app_name"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/eat_color">
-
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/toolbar_history_view"
-            android:background="@color/black" />
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:onClick="@{()->OrdersHistryViewModel.goBack()}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/order_history"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/view">
+            android:layout_below="@+id/toolbar_history_view">
 
             <RelativeLayout
                 android:id="@+id/rel_main"

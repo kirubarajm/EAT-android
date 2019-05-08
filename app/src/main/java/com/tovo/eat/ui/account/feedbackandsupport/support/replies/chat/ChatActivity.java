@@ -67,14 +67,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mActivityChatBinding.recyclerChat.setAdapter(mChatAdapter);
         subscribeToLiveData();
 
-        setTitle("Chat Replies");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityChatBinding.toolbar1.setTitle("Chat Replies");
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -162,12 +155,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
+    public void goBack() {
+        onBackPressed();
     }
 }

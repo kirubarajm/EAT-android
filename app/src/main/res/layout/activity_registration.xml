@@ -14,10 +14,12 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:textColor="@color/black"
             android:id="@+id/txt_name_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,7 +145,8 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <Button
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:gravity="center"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"

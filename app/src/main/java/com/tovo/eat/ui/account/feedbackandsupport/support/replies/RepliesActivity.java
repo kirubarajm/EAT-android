@@ -79,6 +79,11 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRepliesBinding = getViewDataBinding();
@@ -90,14 +95,6 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mActivityRepliesBinding.recyclerReplies.setAdapter(mRepliesAdapter);
         subscribeToLiveData();
 
-        setTitle("Questions");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityRepliesBinding.toolbar1.setTitle("Questions");
     }
 
     private void subscribeToLiveData() {
@@ -117,14 +114,5 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
-    }
 
 }

@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemChatBinding;
-import com.tovo.eat.databinding.ListItemEmptyChatBinding;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
+
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -31,7 +33,7 @@ public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 return new OrdersViewHolder(listItemOrdersBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemEmptyChatBinding listItemOrdersBinding1 = ListItemEmptyChatBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding listItemOrdersBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(listItemOrdersBinding1);
         }
@@ -59,27 +61,29 @@ public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder implements
-            ChatEmptyItemViewModel.ChatEmptyItemViewModelListener {
 
-        private final ListItemEmptyChatBinding mBinding;
 
-        public EmptyViewHolder(ListItemEmptyChatBinding binding) {
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-            ChatEmptyItemViewModel emptyItemViewModel = new ChatEmptyItemViewModel(this);
-            mBinding.setEmptyChatViewModel(emptyItemViewModel);
+            emptyItemViewModel = new EmptyItemViewModel("No chats found");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
-        @Override
-        public void onRetryClick() {
-
-        }
     }
+
+
 
     public class OrdersViewHolder extends BaseViewHolder implements ChatItemViewModel.OrdersItemViewModelListener {
 

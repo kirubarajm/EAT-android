@@ -2,6 +2,7 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.MainActivity">
 
@@ -19,31 +20,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:text="@{editAddressViewModel.title}"
-                android:textSize="18sp" />
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <ImageView
+                    android:onClick="@{()->editAddressViewModel.goBack()}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
 
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@{editAddressViewModel.title}"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -302,8 +309,8 @@
                             android:layout_height="wrap_content"
                             android:addTextChangedListener="@{editAddressViewModel.watcher}"
                             android:hint="Save as"
-                            android:text="@{editAddressViewModel.title}"
                             android:inputType="text"
+                            android:text="@{editAddressViewModel.title}"
                             android:textSize="14sp" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -319,8 +326,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
                             android:text="@string/save"
                             android:textColor="@color/eat_color"
                             android:textSize="16sp" />

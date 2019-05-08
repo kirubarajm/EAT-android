@@ -52,6 +52,12 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         getNavigator().next();
     }
 
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
+
     public void fetchQueryListServiceCall(int val) {
         //int UserId = Integer.parseInt(String.valueOf(userId));
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

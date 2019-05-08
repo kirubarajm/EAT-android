@@ -2,11 +2,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FCFDFD</color>
-    <color name="colorAccent">#FFA500</color>
+    <color name="colorAccent">#f7b000</color>
 
 
 
-    <color name="eat_color">#FFA500</color>
+    <color name="eat_color">#f7b000</color>
 
     <color name="light_gray">#ECEBEB</color>
     <color name="gray">#EEEDED</color>
@@ -21,7 +21,7 @@
     <color name="dark_gray">#696969</color>
     <color name="medium_gray">#ACABAB</color>
     <color name="bg_color">#f7f7f7</color>
-    <color name="black">#000000</color>
+    <color name="black">#474747</color>
     <color name="white">#ffffff</color>
     <color name="black_effective">#2a2a2a</color>
     <color name="shadow">#d0d8dc</color>

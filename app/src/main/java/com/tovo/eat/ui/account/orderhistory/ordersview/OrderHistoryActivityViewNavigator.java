@@ -8,6 +8,7 @@ public interface OrderHistoryActivityViewNavigator {
     void clearCart();
     void orderRepeat();
 
+void goBack();
 
 
 }

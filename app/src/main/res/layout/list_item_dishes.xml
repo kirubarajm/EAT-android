@@ -14,6 +14,7 @@
     </data>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -35,8 +36,10 @@
                     cusrsiveImageUrl="@{dishItemViewModel.image}"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/imagenotavailable" />
+                    android:src="@drawable/imagenotavailable"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
 
 
                 <com.tovo.eat.utilities.RoundCornerImageView
@@ -44,8 +47,8 @@
                     android:layout_height="80dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@{dishItemViewModel.isFavourite?@drawable/fav_selected :@drawable/fav_unselect}"
                     android:layout_alignParentTop="true"
+                    android:src="@{dishItemViewModel.isFavourite?@drawable/fav_selected :@drawable/fav_unselect}"
                     android:onClick="@{()->dishItemViewModel.fav()}" />
 
             </RelativeLayout>
@@ -74,15 +77,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.CircularStdMedium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{dishItemViewModel.product_name}"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             android:textStyle="bold" />
-
-
                     </RelativeLayout>
 
 
@@ -96,7 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{dishItemViewModel.makeitBrandName}"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/medium_gray"
                             android:textSize="12sp" />
 
 
@@ -104,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="  "
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/medium_gray"
                             android:textSize="12sp" />
 
 
@@ -112,14 +113,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{dishItemViewModel.locality}"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/medium_gray"
                             android:textSize="12sp" />
-
 
                     </LinearLayout>
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

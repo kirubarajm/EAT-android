@@ -58,6 +58,11 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.referralsViewModel;
     }
@@ -78,22 +83,7 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityReferralsBinding = getViewDataBinding();
 
-        Toolbar toolbar = findViewById(R.id.toolbar_referrals);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityReferralsBinding.toolbarReferrals.setTitle("Referrals");
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
-    }
+
 }

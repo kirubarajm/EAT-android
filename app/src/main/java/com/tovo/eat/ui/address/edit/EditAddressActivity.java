@@ -118,6 +118,11 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     }
 
+    @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

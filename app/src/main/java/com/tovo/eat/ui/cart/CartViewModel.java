@@ -46,6 +46,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> makeit_brand_name = new ObservableField<>();
     public final ObservableField<String> buttonText = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> current_address = new ObservableField<>();
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableField<String> localityname = new ObservableField<>();
 
@@ -165,6 +166,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void setAddressTitle() {
 
         address.set(getDataManager().getCurrentAddressTitle());
+        current_address.set(getDataManager().getCurrentAddress());
 
     }
 

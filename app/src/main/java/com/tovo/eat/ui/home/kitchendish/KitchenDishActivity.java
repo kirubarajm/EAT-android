@@ -119,6 +119,8 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void toastMessage(String msg) {
 
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -131,8 +133,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
-
-
         DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this, makeitId, productId, quantity, price);
 
     }

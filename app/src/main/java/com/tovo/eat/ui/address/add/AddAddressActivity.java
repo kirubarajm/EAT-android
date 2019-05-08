@@ -103,6 +103,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         }
     }
 
+    @Override
+    public void goBack() {
+        finish();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

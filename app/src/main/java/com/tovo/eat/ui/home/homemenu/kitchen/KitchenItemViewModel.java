@@ -24,6 +24,7 @@ public class KitchenItemViewModel {
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isRated = new ObservableBoolean();
+    public final ObservableBoolean isEta = new ObservableBoolean();
 
 
     public final KitchenItemViewModelListener mListener;
@@ -39,7 +40,18 @@ public class KitchenItemViewModel {
 
         //  this.kitchen_type.set(mKitchenList.getKitchenType());
         this.kitchen_image.set(mKitchenList.getMakeitimg());
-        this.eta.set(mKitchenList.getEta());
+
+
+        if (mKitchenList.getEta()==null){
+            isEta.set(false);
+        }else {
+            this.eta.set(mKitchenList.getEta());
+            isEta.set(true);
+
+        }
+
+
+
         //  this.favourite.set(mKitchenList.getFavourite());
         //  this.offer.set(mKitchenList.getOffer());
 

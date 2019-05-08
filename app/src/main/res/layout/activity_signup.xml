@@ -58,6 +58,7 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:textSize="14sp"
                         android:id="@+id/txt_message"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -73,7 +74,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <Button
+                        <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            android:gravity="center"
                             android:id="@+id/btn_sign_in"
                             android:layout_width="160dp"
                             android:layout_height="40dp"

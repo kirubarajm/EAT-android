@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemKitchenDishEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;

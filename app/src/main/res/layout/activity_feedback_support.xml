@@ -13,33 +13,53 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
+        <android.support.v7.widget.CardView
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp"
             android:id="@+id/toolbar_feedback_support"
-            style="@style/Toolbar"
-            android:background="@color/primary_new"
-            app:subtitleTextColor="@color/white"
-            app:title="@string/app_name"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/colorAccent">
-
-        </android.support.v7.widget.Toolbar>
-
-        <View
-            android:id="@+id/vi1"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_below="@+id/toolbar_feedback_support"
-            android:background="@drawable/toolbar_shadow" />
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:onClick="@{()->feedBackSupportViewModel.goBack()}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/feedback_and_support"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
 
 
         <LinearLayout
             android:id="@+id/linear_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/vi1"
+            android:layout_below="@+id/toolbar_feedback_support"
             android:orientation="vertical"
             android:padding="20sp">
 
@@ -51,11 +71,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/feedBack"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -64,7 +84,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_chevron_right_black_24dp" />
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 
@@ -77,11 +98,11 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/support"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView

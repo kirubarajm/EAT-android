@@ -7,4 +7,6 @@ public interface FeedbackAndSupportActivityNavigator {
     void feedBackClick();
 
     void supportClick();
+
+    void goBack();
 }

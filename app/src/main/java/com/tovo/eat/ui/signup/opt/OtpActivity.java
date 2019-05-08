@@ -134,6 +134,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.otpViewModel;
     }
@@ -167,23 +172,13 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
                 mLoginViewModelMain.otp.set(true);
-                Toolbar toolbar = findViewById(R.id.toolbar_otp);
-                setSupportActionBar(toolbar);
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    getSupportActionBar().setDisplayShowHomeEnabled(true);
-                }
-                toolbar.setTitle("Login");
+
+
+                mLoginViewModelMain.title.set("Login");
 
             } else {
                 mLoginViewModelMain.otp.set(false);
-                Toolbar toolbar = findViewById(R.id.toolbar_otp);
-                setSupportActionBar(toolbar);
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    getSupportActionBar().setDisplayShowHomeEnabled(true);
-                }
-                toolbar.setTitle("OTP");
+                mLoginViewModelMain.title.set("OTP");
             }
             mActivityOtpBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
 

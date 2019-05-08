@@ -85,6 +85,11 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.OrdersHistryViewModel;
     }
@@ -114,14 +119,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
             mOrderHistoryActivityViewModelView.fetchRepos(strOrderId);
 
         }
-        setTitle("Order history view");
-        Toolbar toolbar = findViewById(R.id.toolbar_history_view);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityOrdersHostiryViewBinding.toolbarHistoryView.setTitle("Order history view");
+
 
 
         mOrdersHistoryActivityItemAdapter.setListener(this);
@@ -141,14 +139,5 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
-    }
 
 }

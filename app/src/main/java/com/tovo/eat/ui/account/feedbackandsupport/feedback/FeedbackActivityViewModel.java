@@ -51,4 +51,13 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
+
+
+    public  void goBack(){
+
+
+
+        getNavigator().goBack();
+
+    }
 }

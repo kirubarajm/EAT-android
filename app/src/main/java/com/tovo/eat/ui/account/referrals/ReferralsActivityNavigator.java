@@ -9,4 +9,9 @@ public interface ReferralsActivityNavigator {
     void success(String strMessage);
 
     void failure(String strMessage);
+
+    void goBack();
+
+
+
 }

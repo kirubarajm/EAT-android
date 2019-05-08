@@ -10,4 +10,9 @@ public interface FeedbackActivityNavigator {
 
     void feedBackFailure(String strMessage);
 
+
+    void goBack();
+
+
+
 }

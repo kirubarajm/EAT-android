@@ -116,19 +116,16 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityQueriesBinding = getViewDataBinding();
         mQueriesViewModel.setNavigator(this);
 
-        setTitle("Support");
-        Toolbar toolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityQueriesBinding.toolbar1.setTitle("Support");
     }
 
     @Override

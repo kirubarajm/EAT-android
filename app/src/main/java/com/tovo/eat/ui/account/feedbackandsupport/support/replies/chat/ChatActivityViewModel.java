@@ -139,6 +139,15 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         getNavigator().send();
     }
 
+    public void goBack(){
+
+        getNavigator().goBack();
+
+    }
+
+
+
+
     public void onRefreshLayout() {
         getNavigator().onRefreshLayout();
     }

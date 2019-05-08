@@ -54,6 +54,9 @@ public class DishItemViewModel {
         this.dishList = dishList;
         //  this.date.set(mSalesList.getDate());
 
+        if (dishList.getFavid() != null)
+            favID = dishList.getFavid();
+
 
         if (dishList.getBrandname().isEmpty()) {
             this.makeitBrandName.set(dishList.getMakeitUsername());
@@ -476,7 +479,8 @@ public class DishItemViewModel {
                     if (response != null) {
 
 
-                        favID = response.getFavid();
+                        if (response.getFavid() != null)
+                            favID = response.getFavid();
 
                         mListener.showToast(response.getMessage());
 

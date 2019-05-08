@@ -17,6 +17,11 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableBoolean otp = new ObservableBoolean();
     public final ObservableField<String> userId = new ObservableField<>();
     public final ObservableField<String> oId = new ObservableField<>();
+    public final ObservableField<String> title = new ObservableField<>();
+
+
+
+
     public boolean passwordstatus;
     public boolean otpStatus;
     public boolean genderstatus;
@@ -128,5 +133,13 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
+
+    public void goBack(){
+
+
+        getNavigator().goBack();
+    }
+
 
 }

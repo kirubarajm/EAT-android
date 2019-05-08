@@ -26,14 +26,15 @@
             android:background="@drawable/dialog_background"
             android:orientation="vertical">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_kitchen_title"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="start" />
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
@@ -41,9 +42,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/change_kitchen_msg"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/dark_gray"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:gravity="start" />
 
 
             <RelativeLayout
@@ -51,7 +53,7 @@
                 android:layout_height="wrap_content">
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_alignParentStart="true"
                     android:id="@+id/cancel"
                     android:layout_width="wrap_content"
@@ -65,7 +67,7 @@
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true" />
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/add"

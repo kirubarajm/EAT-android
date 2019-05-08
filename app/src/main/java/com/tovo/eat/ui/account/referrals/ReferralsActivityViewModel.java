@@ -23,6 +23,10 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
         fetchRepos();
     }
 
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
     public void sendReferrals() {
         getNavigator().sendReferralsClick();
     }

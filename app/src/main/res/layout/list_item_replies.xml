@@ -12,32 +12,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:onClick="@{() -> RepliesListItemViewModel.onItemClick()}"
         android:orientation="vertical"
         android:padding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp">
-
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{RepliesListItemViewModel.question}"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 android:id="@+id/txt_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_question"
                 android:text="@{RepliesListItemViewModel.createdAtFinal}"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

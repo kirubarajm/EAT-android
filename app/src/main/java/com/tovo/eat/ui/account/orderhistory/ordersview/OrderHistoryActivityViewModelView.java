@@ -52,6 +52,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
        // fetchRepos();
     }
 
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
     public void addOrdersListItemsToList(List<OrdersHistoryActivityResponse.Result.Item> ordersItems) {
         ordersItemViewModels.clear();
         ordersItemViewModels.addAll(ordersItems);

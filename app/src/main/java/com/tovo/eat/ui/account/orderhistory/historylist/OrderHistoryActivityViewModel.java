@@ -91,4 +91,13 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
         getNavigator().onRefreshLayout();
     }
 
+
+
+    public void goBack(){
+        getNavigator().goBack();
+
+    }
+
+
+
 }

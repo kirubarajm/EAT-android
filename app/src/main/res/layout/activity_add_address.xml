@@ -3,6 +3,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.MainActivity">
 
     <data>
@@ -20,29 +21,41 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
+
+        <android.support.v7.widget.CardView
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp"
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
+            android:layout_height="50dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:text="@string/add_new_address"
-                android:textSize="18sp" />
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <ImageView
+                    android:onClick="@{()->addAddressViewModel.goBack()}"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/add_new_address"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
 
 
         <FrameLayout
@@ -309,8 +322,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
                             android:text="@string/save"
                             android:textColor="@color/eat_color"
                             android:textSize="16sp" />

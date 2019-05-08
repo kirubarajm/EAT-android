@@ -21,13 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
                 android:id="@+id/txt_name_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:text="NAME AND AVATOR"
+                android:text="@string/name_and_avator"
                 android:textSize="18dp" />
 
             <android.support.design.widget.TextInputLayout
@@ -51,6 +51,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <com.tovo.eat.utilities.fonts.CircularTextView
+                android:textAlignment="center"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,9 +59,10 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="20dp"
+                android:textColor="@color/dark_gray"
                 android:gravity="left|center"
-                android:text="CHOOSE AVATOR"
-                android:textSize="18dp" />
+                android:text="@string/choose_avator"
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,7 +95,7 @@
                             android:text="@string/male"
                             android:textSize="60sp" />
 
-                        <TextView
+                        <com.tovo.eat.utilities.fonts.CircularTextView
                             android:id="@+id/txt_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -128,7 +130,7 @@
                             android:text="@string/female"
                             android:textSize="60sp" />
 
-                        <TextView
+                        <com.tovo.eat.utilities.fonts.CircularTextView
                             android:id="@+id/txt_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -150,7 +152,8 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <Button
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:gravity="center"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"

@@ -53,6 +53,11 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.ordersHistoryViewModel;
     }
@@ -72,15 +77,6 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         super.onCreate(savedInstanceState);
         mActivityOrdersHistoryListBinding = getViewDataBinding();
         mOrderHistoryActivityViewModel.setNavigator(this);
-
-        setTitle("Order history");
-        Toolbar toolbar = findViewById(R.id.toolbar_history_list);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityOrdersHistoryListBinding.toolbarHistoryList.setTitle("Order history");
 
         mOrdersHistoryActivityAdapter.setListener(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

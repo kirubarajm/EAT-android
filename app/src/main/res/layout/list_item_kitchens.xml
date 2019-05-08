@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text="@{kitchenItemViewModel.cuisines}"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_gray"
                         android:textSize="12sp" />
 
 
@@ -119,7 +119,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_margin="2dp"
                         android:src="@drawable/ic_star_black_24dp"
-                        android:tint="@color/dark_gray"
+                        android:tint="@color/medium_gray"
                         android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 
@@ -128,19 +128,20 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text="@{kitchenItemViewModel.ratings}"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_gray"
                         android:textSize="12sp"
                         android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 
                     <ImageView
+                        android:visibility="@{kitchenItemViewModel.isEta?View.VISIBLE:View.GONE}"
                         android:layout_width="5dp"
                         android:layout_height="5dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
                         android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_brightness_1_black_24dp"
-                        android:tint="@color/dark_gray" />
+                        android:tint="@color/medium_gray" />
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
@@ -150,7 +151,7 @@
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
                         android:text="@{kitchenItemViewModel.eta}"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_gray"
                         android:textSize="12sp" />
 
 
@@ -161,7 +162,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_brightness_1_black_24dp"
-                        android:tint="@color/dark_gray" />
+                        android:tint="@color/medium_gray" />
 
 
                     <com.tovo.eat.utilities.fonts.TovoTextView
@@ -171,8 +172,8 @@
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
                         android:text="@string/icon_inr"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="10sp" />
+                        android:textColor="@color/medium_gray"
+                        android:textSize="8sp" />
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
@@ -180,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text="@{kitchenItemViewModel.offer}"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_gray"
                         android:textSize="12sp" />
 
 
@@ -191,7 +192,7 @@
                         android:layout_marginLeft="2dp"
                         android:singleLine="true"
                         android:text="@string/for_two"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/medium_gray"
                         android:textSize="12sp" />
 
 

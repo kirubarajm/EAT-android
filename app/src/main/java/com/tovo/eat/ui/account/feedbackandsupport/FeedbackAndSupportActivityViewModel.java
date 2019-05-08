@@ -16,4 +16,14 @@ public class FeedbackAndSupportActivityViewModel extends BaseViewModel<FeedbackA
     public void supportClick(){
         getNavigator().supportClick();
     }
+
+
+    public void goBack(){
+
+
+
+        getNavigator().goBack();
+
+    }
+
 }

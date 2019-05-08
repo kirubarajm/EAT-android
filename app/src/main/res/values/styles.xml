@@ -17,6 +17,23 @@
         <item name="android:statusBarColor">@color/light_gray</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+
+
+
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/circular</item>
+    </style>
+
+
+
+
+
+
+
+
+
     <style name="DrawerHamburgerStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/black</item>

@@ -11,6 +11,7 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -29,21 +30,21 @@
                 android:layout_marginEnd="100dp"
                 android:layout_marginRight="100dp"
                 android:background="@drawable/chat_message_left_side"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:layout_alignParentStart="true">
 
-                <TextView
+                <com.tovo.eat.utilities.fonts.CircularTextView
                     android:id="@+id/txt_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|center"
                     android:text="@{chatItemViewModel.answer}"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
-                    tools:ignore="RtlHardcoded" />
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 visibleGone="@{chatItemViewModel.typeString}"
                 android:layout_below="@+id/linear1"
                 android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <TextView
+                <com.tovo.eat.utilities.fonts.CircularTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left|center"
@@ -79,7 +80,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.tovo.eat.utilities.fonts.CircularTextView
                 android:layout_marginStart="100dp"
                 android:layout_marginLeft="100dp"
                 android:paddingLeft="5dp"
@@ -90,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center"
                 android:text="@{chatItemViewModel.createdAtFinal}"
-                android:textColor="@color/gray"
+                android:textColor="@color/medium_gray"
                 android:textSize="12sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 

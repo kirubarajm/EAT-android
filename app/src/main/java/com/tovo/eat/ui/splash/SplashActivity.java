@@ -79,7 +79,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
             public void run() {
                 mSplashActivityViewModel.checkIsUserLoggedInOrNot();
             }
-        },2000);
+        },1000);
 
     }
 

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -24,7 +25,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -39,6 +43,7 @@ import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.CustomToast;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
@@ -78,6 +83,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     transaction.replace(R.id.content_main, fragment);
                   //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
+                    mMainViewModel.isHome.set(true);
+                    //  mMainViewModel.isExplore.set(false);
+                    mMainViewModel.isCart.set(false);
+                    mMainViewModel.isMyAccount.set(false);
                 }
             } else {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -176,6 +185,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             mMainViewModel.toolbarTitle.set("Home");
             mMainViewModel.titleVisible.set(false);
 
+        mMainViewModel.isHome.set(true);
+        //  mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
 
     }
 
@@ -207,9 +220,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+
+
+    Fragment getCurrentFragment()
+    {
+        Fragment currentFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.content_main);
+        return currentFragment;
+    }
+
+
+
     @Override
     public void toastMsg(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        /*Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        View toastView = toast.getView(); // This'll return the default View of the Toast.
+
+        *//* And now you can get the TextView of the default View of the Toast. *//*
+        TextView toastMessage = (TextView) toastView.findViewById(android.R.id.message);
+        toastMessage.setTextSize(12);
+        toastMessage.setTextColor(Color.WHITE);
+       // toastMessage.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_fly, 0, 0, 0);
+        toastMessage.setGravity(Gravity.CENTER);
+        toastView.setBackgroundColor(Color.BLACK);
+        toast.show();*/
+
+      /*  new CustomToast(this, msg);
+        CustomToast.show();*/
+
+
     }
 
     @Override
@@ -405,6 +446,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         //transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
 
                         transaction.commit();
+
+                        mMainViewModel.isHome.set(true);
+                        //  mMainViewModel.isExplore.set(false);
+                        mMainViewModel.isCart.set(false);
+                        mMainViewModel.isMyAccount.set(false);
                     }
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -412,6 +458,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     transaction.replace(R.id.content_main, fragment);
                   //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
+
+
+                    mMainViewModel.isHome.set(true);
+                    //  mMainViewModel.isExplore.set(false);
+                    mMainViewModel.isCart.set(false);
+                    mMainViewModel.isMyAccount.set(false);
                 }
 
 
@@ -537,7 +589,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void checkCart() {
-        mMainViewModel.totalCart();
+       if (!mMainViewModel.totalCart()){
+           mMainViewModel.isHome.set(true);
+         //  mMainViewModel.isExplore.set(false);
+           mMainViewModel.isCart.set(false);
+           mMainViewModel.isMyAccount.set(false);
+
+       }
     }
 
     @Override
@@ -552,7 +610,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
-
+        mMainViewModel.isHome.set(true);
+        //  mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
     }
 
     @Override
@@ -562,6 +623,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
             transaction.commit();
+            mMainViewModel.isHome.set(true);
+            //  mMainViewModel.isExplore.set(false);
+            mMainViewModel.isCart.set(false);
+            mMainViewModel.isMyAccount.set(false);
 
         }
     }
@@ -572,6 +637,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
             transaction.commit();
+            mMainViewModel.isHome.set(true);
+            //  mMainViewModel.isExplore.set(false);
+            mMainViewModel.isCart.set(false);
+            mMainViewModel.isMyAccount.set(false);
 
         } else {
 

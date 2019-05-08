@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tovo.eat.databinding.ListItemEmptyOrdersHistoryBinding;
+import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemOrdersHistoryItemBinding;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryEmptyItemViewModel;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListItemModel;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class OrdersHistoryActivityItemAdapter extends RecyclerView.Adapter<BaseV
                 return new OrdersViewHolder(listItemOrdersBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemEmptyOrdersHistoryBinding listItemOrdersBinding1 = ListItemEmptyOrdersHistoryBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptyBinding listItemOrdersBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(listItemOrdersBinding1);
         }
@@ -66,28 +67,25 @@ public class OrdersHistoryActivityItemAdapter extends RecyclerView.Adapter<BaseV
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder implements
-            OrdersHistoryEmptyItemViewModel.OrdersHistoryEmptyItemViewModelListener {
+    public class EmptyViewHolder extends BaseViewHolder {
 
-        private final ListItemEmptyOrdersHistoryBinding mBinding;
+        private final ListItemEmptyBinding mBinding;
 
-        public EmptyViewHolder(ListItemEmptyOrdersHistoryBinding binding) {
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-            OrdersHistoryEmptyItemViewModel emptyItemViewModel = new OrdersHistoryEmptyItemViewModel(this);
-            mBinding.setEmptyOrdersHistoryViewModel(emptyItemViewModel);
+            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
-        @Override
-        public void onRetryClick() {
-
-        }
     }
-
 
     public class OrdersViewHolder extends BaseViewHolder implements OrdersHistoryActivityListItemViewModel.OrdersItemViewModelListener {
 

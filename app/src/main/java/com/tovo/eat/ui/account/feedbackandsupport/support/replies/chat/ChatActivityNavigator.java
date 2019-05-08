@@ -17,4 +17,8 @@ public interface ChatActivityNavigator {
     void sendSuccess(String strFailure);
 
     void sendFailure(String strFailure);
+
+
+
+    void goBack();
 }

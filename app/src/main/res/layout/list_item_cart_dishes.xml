@@ -218,11 +218,11 @@
 
 
         <LinearLayout
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="horizontal"
-            android:layout_marginStart="50dp">
+            android:layout_marginStart="30dp">
 
 
             <RelativeLayout
@@ -277,12 +277,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.CircularStdMedium
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{cartDishItemViewModel.product_name}"
                             android:textColor="@color/black"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -362,7 +362,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.CircularStdMedium
                             android:layout_marginLeft="2dp"
                             android:textColor="@color/black"
                             android:textSize="16sp"

@@ -61,21 +61,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
 
-
-
-
-
     public final ObservableBoolean isHome = new ObservableBoolean();
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart= new ObservableBoolean();
     public final ObservableBoolean isMyAccount= new ObservableBoolean();
-
-
-
-
-
-
-
 
 
     private int orderId;
@@ -114,7 +103,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             getNavigator().openCart();
 
             isHome.set(false);
-            isExplore.set(false);
+          //  isExplore.set(false);
             isCart.set(true);
             isMyAccount.set(false);
 
@@ -188,19 +177,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                             getDataManager().setOrderId(orderId);
 
-
-
-
                             StringBuilder itemsBuilder = new StringBuilder();
 
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
                                 itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
 
-
                                 if (response.getResult().get(0).getItems().size() - 1 == 1) {
                                     itemsBuilder.append(" , ");
                                 }
-
 
                             }
 
@@ -236,7 +220,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void gotoAccount() {
         getNavigator().openAccount();
         isHome.set(false);
-        isExplore.set(false);
+     //   isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(true);
 
@@ -260,14 +244,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
         isHome.set(true);
-        isExplore.set(false);
+      //  isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(false);
 
 
     }
 
-    public void totalCart() {
+    public boolean totalCart() {
 
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
@@ -283,12 +267,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
-
                     count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
 
                     if (count == 0) {
-
                         cart.set(false);
+                        return false;
+
                     } else {
                         numOfCarts.set(String.valueOf(count));
                         cart.set(true);
@@ -298,6 +282,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
             }
         }
+        return false;
     }
 
     public ObservableField<String> getUserEmail() {

@@ -61,6 +61,14 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
     public Integer mAid;
 
 
+    public void goBack(){
+
+
+        getNavigator().goBack();
+
+    }
+
+
 
     public TextWatcher watcher = new TextWatcher() {
         @Override

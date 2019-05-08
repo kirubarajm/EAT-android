@@ -51,6 +51,11 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
     }
 
     @Override
+    public void goBack() {
+
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.favTabViewModel;
     }

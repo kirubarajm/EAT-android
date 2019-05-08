@@ -118,6 +118,14 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     }
 
 
+    public void goBack(){
+
+
+        getNavigator().goBack();
+
+
+    }
+
     public void clickOther() {
 
 

@@ -21,4 +21,7 @@ public interface SupportActivityNavigator {
     void onRefreshFailure();
 
     void callAdmin();
+
+    void goBack();
+
 }

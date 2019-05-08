@@ -9,4 +9,7 @@ public interface OrderHistoryActivityNavigator {
     void onRefreshSuccess();
 
     void onRefreshFailure();
+
+
+    void goBack();
 }

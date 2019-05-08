@@ -34,6 +34,7 @@ public interface EditAddressNavigator {
 
 
     void setLatLng(double lat,double lng);
+void goBack();
 
 
 

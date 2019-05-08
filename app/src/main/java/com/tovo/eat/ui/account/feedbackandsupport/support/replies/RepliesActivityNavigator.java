@@ -13,4 +13,6 @@ public interface RepliesActivityNavigator {
     void onRefreshSuccess();
 
     void onRefreshFailure();
+
+    void goBack();
 }

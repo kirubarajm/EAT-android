@@ -105,4 +105,10 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
+    public void goBack(){
+
+        getNavigator().goBack();
+
+    }
+
 }

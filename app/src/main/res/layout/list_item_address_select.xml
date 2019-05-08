@@ -37,6 +37,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:tint="@color/black"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_home_black_24dp"
@@ -44,6 +45,7 @@
 
 
                     <ImageView
+                        android:tint="@color/black"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_business_black_24dp"
@@ -57,14 +59,16 @@
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{selectAddressListItemViewModel.addressTitle}"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:textColor="@color/dark_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{selectAddressListItemViewModel.address}"
@@ -76,6 +80,7 @@
 
 
             <ImageView
+                android:tint="@color/black"
                 android:visibility="gone"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -88,7 +93,7 @@
         </RelativeLayout>
 
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -96,7 +101,7 @@
             android:onClick="@{()->selectAddressListItemViewModel.editAddress()}"
             android:text="@string/edit"
             android:textColor="@color/eat_color"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <View

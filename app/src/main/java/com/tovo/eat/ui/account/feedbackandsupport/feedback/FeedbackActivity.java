@@ -60,6 +60,11 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     }
 
     @Override
+    public void goBack() {
+        onBackPressed();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.feedbackViewModel;
     }
@@ -80,25 +85,10 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         mActivityFeedbackBinding = getViewDataBinding();
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_feedback_support);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        mActivityFeedbackBinding.toolbarFeedbackSupport.setTitle("FeedBack and Support");
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return true;
-    }
+
 
     private boolean validForSubmit() {
         if (rate == 0) {
