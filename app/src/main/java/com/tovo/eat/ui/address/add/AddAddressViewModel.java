@@ -220,7 +220,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()),request.getLocality(),response.getAid());
 
 
-
                         FilterRequestPojo filterRequestPojo;
 
                         Gson sGson = new GsonBuilder().create();
@@ -235,6 +234,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                         getDataManager().setFilterSort(json);
 
 
+                        
 
                     }
                 }, new Response.ErrorListener() {

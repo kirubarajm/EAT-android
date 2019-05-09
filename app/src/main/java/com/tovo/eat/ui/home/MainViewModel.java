@@ -34,6 +34,13 @@ import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MasterPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
+
 
 /**
  * Created by amitshekhar on 07/07/17.
@@ -171,7 +178,59 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 kitchenName.set(response.getResult().get(0).getMakeitbrandname());
                             }
 
-                            eta.set(response.getResult().get(0).getEta());
+
+
+                            // 2019-05-09T13:21:54.000Z
+
+
+                            try {
+                                String strDate = response.getResult().get(0).getDeliverytime();
+                                DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.sssZ");
+                                currentFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                                String outputDateStr = "";
+                                //Date  date1 = new Date(strDate);
+                                Date date = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(date);
+                                eta.set(outputDateStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+
+
+
+
+
+
+
+
+
+                            /*String startTime = response.getResult().get(0).getDeliverytime();
+
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                            SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm a");
+                            Date dt;
+                            try {
+                                dt = sdf.parse(startTime);
+
+                                String s=sdfs.format(dt);
+
+                                eta.set(s);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }*/
+
+
+
+                           // eta.set(response.getResult().get(0).getDeliverytime());
+
+
 
                             orderId = response.getResult().get(0).getOrderid();
 
@@ -182,7 +241,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
                                 itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
 
-                                if (response.getResult().get(0).getItems().size() - 1 == 1) {
+                                if (response.getResult().get(0).getItems().size() - 1 != i) {
                                     itemsBuilder.append(" , ");
                                 }
 

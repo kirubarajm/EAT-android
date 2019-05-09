@@ -90,6 +90,9 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mRepliesActivityViewModel.setNavigator(this);
         mRepliesAdapter.setListener(this);
 
+
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRepliesBinding.recyclerReplies.setLayoutManager(new LinearLayoutManager(this));
         mActivityRepliesBinding.recyclerReplies.setAdapter(mRepliesAdapter);

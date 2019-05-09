@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.CartListener;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -70,12 +72,23 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+        if (mCartViewModel.getCartPojoDetails() == null) {
+
+            ((MainActivity) getActivity()).openHome();
+        }
+
+
+
 
 
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
@@ -96,8 +109,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
         subscribeToLiveData();
 
-
-        mCartViewModel.fetchRepos();
+        //mCartViewModel.fetchRepos();
 
     }
 
@@ -210,7 +222,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void onResume() {
         super.onResume();
         mCartViewModel.setAddressTitle();
-        mCartViewModel.fetchRepos();
+
+        if (mCartViewModel.getCartPojoDetails() != null)
+            mCartViewModel.fetchRepos();
     }
 
     @Override
@@ -242,7 +256,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void reloadCart() {
-        mCartViewModel.fetchRepos();
+        if (mCartViewModel.getCartPojoDetails() != null)
+            mCartViewModel.fetchRepos();
     }
 
 }

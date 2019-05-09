@@ -587,7 +587,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/curve_stroke"
-                        android:onClick="@{()->cartViewModel. cashMode()}"
+                        android:onClick="@{()->cartViewModel.paymentModeCheck()}"
                         android:padding="10dp"
                         android:text="@string/place_order"
                         android:textAlignment="center"

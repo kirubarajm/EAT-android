@@ -17,6 +17,8 @@
 package com.tovo.eat.di;
 
 import com.tovo.eat.ui.account.MyAccountProvider;
+import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
 import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
@@ -62,7 +64,6 @@ import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
-import com.tovo.eat.ui.orderplaced.OrderPlacedNavigator;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -98,16 +99,18 @@ public abstract class ActivityBuilder {
             InternetErrorProvider.class,
             FilterProvider.class,
             DialogSelectAddressProvider.class,
-            DialogChangeKitchenProvider.class,
-            FavoritesDishProvider.class,
-            FavoritesKitchenProvider.class,
-            FavoritesTabActivityProvider.class
+            DialogChangeKitchenProvider.class
+
 
     })
     abstract MainActivity bindMainActivity();
 
     @ContributesAndroidInjector(modules = {KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
     abstract KitchenDishActivity bindKitchenDishActivity();
+
+    @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
+            FavoritesKitchenProvider.class,   DialogChangeKitchenProvider.class})
+    abstract FavoritesTabActivity bindFavoritesTabActivity();
 
 
     @ContributesAndroidInjector(modules = AddAddressModule.class)
@@ -173,14 +176,11 @@ public abstract class ActivityBuilder {
     abstract ForgotPasswordActivity bindForgotPasswordActivity();
 
 
-
     @ContributesAndroidInjector(modules = OrderPlacedModule.class)
     abstract OrderPlacedActivity bindOrderPlacedActivity();
 
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();
-
-
 
 
 }

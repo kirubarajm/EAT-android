@@ -32,26 +32,27 @@
                 android:text="@string/change_kitchen_title"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="start" />
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/change_kitchen_msg"
                 android:textAlignment="textStart"
                 android:textColor="@color/dark_gray"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:gravity="start" />
 
 
             <RelativeLayout
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
 
                 <com.tovo.eat.utilities.fonts.CircularStdMedium
                     android:layout_alignParentStart="true"
@@ -63,7 +64,7 @@
                     android:text="@string/cancel"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true" />
 
@@ -80,7 +81,7 @@
                     android:textAlignment="textEnd"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_alignParentRight="true"
                     android:layout_marginStart="10dp" />

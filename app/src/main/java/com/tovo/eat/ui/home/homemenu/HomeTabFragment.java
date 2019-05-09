@@ -77,10 +77,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void favourites() {
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FavoritesTabActivity fragment = new FavoritesTabActivity();
         transaction.replace(R.id.content_main, fragment);
-        transaction.commitNow();
+        transaction.commitNow();*/
+
+       Intent intent=FavoritesTabActivity.newIntent(getContext());
+       startActivity(intent);
+
+
+
     }
 
     @Override

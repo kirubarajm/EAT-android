@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.di.component.DaggerAppComponent;
 
 import javax.inject.Inject;
@@ -62,6 +63,9 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .application(this)
                 .build()
                 .inject(this);
+
+        FirebaseAnalytics.getInstance(this);
+
 
         //AppLogger.init();
 

@@ -24,9 +24,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public ObservableList<AddressListResponse.Result> addrressListItemViewModels = new ObservableArrayList<>();
-
+    boolean haveAddress = false;
     private MutableLiveData<List<AddressListResponse.Result>> addrressListItemsLiveData;
-
 
     public AddressListViewModel(DataManager dataManager) {
         super(dataManager);
@@ -150,10 +149,18 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                             addrressListItemsLiveData.setValue(response.getResult());
 
+
+                            haveAddress = false;
+
+                            getNavigator().noAddress();
+
+
                         } else {
 
                             addrressListItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", response.toString());
+
+                            haveAddress = true;
 
                             getNavigator().listLoaded();
                         }

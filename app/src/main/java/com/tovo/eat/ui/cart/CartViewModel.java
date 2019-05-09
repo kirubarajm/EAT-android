@@ -68,7 +68,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+
+
+        if (getCartPojoDetails() != null)
+            fetchRepos();
 
         //  getDataManager().setisPasswordStatus(false);
 
@@ -210,6 +213,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public String getCartPojoDetails() {
 
+
+        Gson sGson = new GsonBuilder().create();
+        CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+
+        if (cartRequestPojo.getCartitems().size() == 0) {
+            getDataManager().setCartDetails(null);
+        }
+
+
         return getDataManager().getCartDetails();
     }
 
@@ -220,110 +232,113 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         String ss = getDataManager().getCartDetails();
 
+        if (getCartPojoDetails() != null)
 
-        try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CART_DETAILS_URL, new JSONObject(ss), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
+            try {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CART_DETAILS_URL, new JSONObject(ss), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                    Gson gson = new Gson();
-                    CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
+                        Gson gson = new Gson();
+                        CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
-                    if (cartPageResponse.getStatus()) {
+                        if (cartPageResponse.getStatus()) {
 
-                        if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
+                            if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
 
-                            getNavigator().emptyCart();
+                                getNavigator().emptyCart();
 
-                            getDataManager().setCartDetails(null);
-
-
-                        } else {
-                            dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+                                getDataManager().setCartDetails(null);
 
 
-                            if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
-
-                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
                             } else {
-
-                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
-
-                            }
-
-                            makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
-                            //  makeit_category.set(response.getResult().get(0).getCategory());
-
-                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
-                            grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
-                            gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                            delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
 
-                            localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
+                                if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
 
-
-                            makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
-
-
-                            if (cartPageResponse.getResult().get(0).getFavid() != null)
-                                favId = cartPageResponse.getResult().get(0).getFavid();
-
-
-                            StringBuilder itemsBuilder = new StringBuilder();
-                            for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
-
-                                itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
-
-                                if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
-
+                                    makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
                                 } else {
 
-                                    itemsBuilder.append(" | ");
+                                    makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
 
                                 }
 
-                            }
-                            String items = itemsBuilder.toString();
-                            cuisines.set(items);
+                                makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
+                                //  makeit_category.set(response.getResult().get(0).getCategory());
 
+                                total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
+                                grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
+                                gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+
+
+                                localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
+
+
+                                makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
+
+
+                                if (cartPageResponse.getResult().get(0).getFavid() != null)
+                                    favId = cartPageResponse.getResult().get(0).getFavid();
+
+
+                                StringBuilder itemsBuilder = new StringBuilder();
+                                for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
+
+                                    itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
+
+                                    if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
+
+                                    } else {
+
+                                        itemsBuilder.append(" | ");
+
+                                    }
+
+                                }
+                                String items = itemsBuilder.toString();
+                                cuisines.set(items);
+
+
+                            }
+
+
+                        } else {
+
+                            getNavigator().showToast(cartPageResponse.getMessage());
 
                         }
 
 
-                    } else {
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
-                        getNavigator().showToast(cartPageResponse.getMessage());
 
                     }
+                }) {
 
+                    /**
+                     * Passing some request headers
+                     */
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+                        return headers;
+                    }
+                };
+                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+            } catch (JSONException j) {
 
-                    Log.e("stgdfh", error.getMessage());
+                j.printStackTrace();
+            } catch (NullPointerException n) {
 
-                }
-            }) {
-
-                /**
-                 * Passing some request headers
-                 */
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-
-                    return headers;
-                }
-            };
-            MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-        } catch (JSONException j) {
-
-            j.printStackTrace();
-        }
+                n.printStackTrace();
+            }
 
 
     }
@@ -331,6 +346,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void paymentModeCheck() {
 
 
+        if (getDataManager().getisPasswordStatus()) {
+            cashMode();
+
+        } else {
+
+            getNavigator().postRegistration();
+
+        }
+
+
+
+
+
+/*
         if (getDataManager().getisPasswordStatus()) {
 
             if (getNavigator().paymentStatus(sPaymentMode)) {
@@ -346,7 +375,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             getNavigator().postRegistration();
 
-        }
+        }*/
 
 
     }

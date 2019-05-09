@@ -60,12 +60,16 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 ListItemCartDishesBinding blogViewBinding = ListItemCartDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
-            case VIEW_TYPE_EMPTY:
+              case VIEW_TYPE_EMPTY:
+                  ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                          parent, false);
+                  return new EmptyViewHolder(blogViewBinding1);
             default:
-                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                return null;
+                /*ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
-                return new EmptyViewHolder(blogViewBinding1);
-        }
+                return new EmptyViewHolder(blogViewBinding1);*/
+             }
 
     }
 

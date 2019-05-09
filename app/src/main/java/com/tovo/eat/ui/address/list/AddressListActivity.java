@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressListBinding;
@@ -41,6 +42,17 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+      /*  Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (intent.getExtras().getString("for").equals("new")) {
+                if (!mAddressListViewModel.haveAddress) {
+                    Intent intentAddress = AddAddressActivity.newIntent(AddressListActivity.this);
+                    startActivity(intentAddress);
+                    finish();
+                }
+            }
+        }*/
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityAddressListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
@@ -113,6 +125,13 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mAddressListViewModel.fetchRepos();
     }
 
+    @Override
+    public void noAddress() {
+        Intent intentAddress = AddAddressActivity.newIntent(AddressListActivity.this);
+        startActivity(intentAddress);
+        finish();
+    }
+
 
     private void subscribeToLiveData() {
         mAddressListViewModel.getAddrressListItemsLiveData().observe(this,
@@ -125,6 +144,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         super.onResume();
         mAddressListViewModel.fetchRepos();
         subscribeToLiveData();
+
 
     }
 
@@ -157,7 +177,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         mAddressListViewModel.deleteAddress(aid);
-                     //   mAddressListViewModel.fetchRepos();
+                        //   mAddressListViewModel.fetchRepos();
 
                     }
                 });

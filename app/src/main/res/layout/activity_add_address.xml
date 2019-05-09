@@ -88,13 +88,14 @@
 
 
         <ScrollView
+            android:background="@color/white"
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-
             <LinearLayout
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -187,7 +188,22 @@
 
                     </LinearLayout>
 
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_pin"/>
+
+
+
+
+
+
                     <LinearLayout
+                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

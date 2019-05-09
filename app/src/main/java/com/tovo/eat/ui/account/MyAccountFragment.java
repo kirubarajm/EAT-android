@@ -100,13 +100,22 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void favourites() {
 
 
+
+
+
+        Intent intent=FavoritesTabActivity.newIntent(getContext());
+        startActivity(intent);
+
+
+
+/*
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FavoritesTabActivity fragment = new FavoritesTabActivity();
         transaction.replace(R.id.content_main, fragment);
        // transaction.addToBackStack(FavoritesTabActivity.class.getSimpleName());
       //  transaction.addToBackStack(null);
         transaction.commitNow();
-        // transaction.commitNowAllowingStateLoss();
+        // transaction.commitNowAllowingStateLoss();*/
 
 
 

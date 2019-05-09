@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenDishBinding;
@@ -53,6 +54,9 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
         mKitchenDishViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+
 /*
         final Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);*/

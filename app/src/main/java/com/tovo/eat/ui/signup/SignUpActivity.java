@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySignupBinding;
@@ -107,6 +108,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         super.onCreate(savedInstanceState);
         mActivitySignupBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+        FirebaseAnalytics.getInstance(this);
         requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS}, 0);
     }
 

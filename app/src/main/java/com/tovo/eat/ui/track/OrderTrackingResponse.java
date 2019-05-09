@@ -17,12 +17,18 @@ public class OrderTrackingResponse {
     @SerializedName("message")
     @Expose
     private String message;
-
+    @SerializedName("deliverytime")
+    @Expose
+    private String deliverytime;
 
 
     @SerializedName("status")
     @Expose
     private Boolean status;
+
+
+
+
 
 
     public String getMessage() {

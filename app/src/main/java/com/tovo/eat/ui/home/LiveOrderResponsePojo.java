@@ -17,16 +17,17 @@ public class LiveOrderResponsePojo {
     private Boolean status;
 
 
-
-
     @SerializedName("message")
     @Expose
     private String message;
 
 
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
 
     public Boolean getSuccess() {
         return success;
@@ -145,6 +146,19 @@ public class LiveOrderResponsePojo {
         @SerializedName("eta")
         @Expose
         private String eta;
+
+
+        @SerializedName("deliverytime")
+        @Expose
+        private String deliverytime;
+
+        public String getDeliverytime() {
+            return deliverytime;
+        }
+
+        public void setDeliverytime(String deliverytime) {
+            this.deliverytime = deliverytime;
+        }
 
         public Integer getOrderid() {
             return orderid;

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.utilities.CommonUtils;
 import com.tovo.eat.utilities.NetworkUtils;
 
@@ -56,6 +57,7 @@ BaseFragment.Callback{
         performDependencyInjection();
         super.onCreate(savedInstanceState);
         performDataBinding();
+
     }
 
     public T getViewDataBinding() {

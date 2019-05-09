@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityChatBinding;
@@ -61,6 +62,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mActivityChatBinding = getViewDataBinding();
         mChatActivityViewModel.setNavigator(this);
         mChatAdapter.setListener(this);
+
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityChatBinding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));

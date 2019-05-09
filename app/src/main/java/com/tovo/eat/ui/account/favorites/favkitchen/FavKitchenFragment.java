@@ -173,7 +173,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
      /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
 */
-        ((MainActivity) getActivity()).statusUpdate();
+    //    ((MainActivity) getActivity()).statusUpdate();
 
       // mKitchenViewModel.fetchRepos();
     }

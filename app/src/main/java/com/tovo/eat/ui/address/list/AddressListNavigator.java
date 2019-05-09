@@ -11,4 +11,8 @@ public interface AddressListNavigator {
     void showToast(String msg);
 void addresDeleted();
 
+
+void noAddress();
+
+
 }

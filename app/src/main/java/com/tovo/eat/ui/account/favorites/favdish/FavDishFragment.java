@@ -37,7 +37,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     FragmentDishBinding mFragmentDishBinding;
 
 
-    CartListener cartListener;
+    CartFavListener cartListener;
 
     InternetListener internetListener;
 
@@ -50,7 +50,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
     @Override
     public void onAttach(Context context) {
-        cartListener = (CartListener) context;
+        cartListener = (CartFavListener) context;
         super.onAttach(context);
     }
 
@@ -199,7 +199,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
 
-        ((MainActivity) getActivity()).statusUpdate();
+//        ((MainActivity) getActivity()).statusUpdate();
 
        // mDishViewModel.fetchRepos();
     }

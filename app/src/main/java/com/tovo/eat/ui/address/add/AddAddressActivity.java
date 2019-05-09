@@ -22,10 +22,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.GpsUtils;
 
 import java.io.IOException;
@@ -81,8 +83,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void addressSaved() {
 
-        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        Intent intent= MainActivity.newIntent(AddAddressActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
+        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+
 
     }
 

@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -25,16 +24,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
@@ -43,7 +42,6 @@ import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
-import com.tovo.eat.utilities.CustomToast;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
@@ -68,8 +66,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String DialogTag = DialogSelectAddress.newInstance().getTag();
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
-
-
+    private MainViewModel mMainViewModel;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -81,7 +78,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
-                  //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                    //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                     mMainViewModel.isHome.set(true);
                     //  mMainViewModel.isExplore.set(false);
@@ -98,7 +95,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
     };
-    private MainViewModel mMainViewModel;
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
@@ -160,15 +156,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openCart() {
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            CartActivity fragment = new CartActivity();
-            transaction.replace(R.id.content_main, fragment);
-          //  transaction.addToBackStack(CartActivity.class.getSimpleName());
-            transaction.commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        CartActivity fragment = new CartActivity();
+        transaction.replace(R.id.content_main, fragment);
+        //  transaction.addToBackStack(CartActivity.class.getSimpleName());
+        transaction.commit();
 
-            mMainViewModel.toolbarTitle.set("Cart");
-            mMainViewModel.titleVisible.set(true);
-
+        mMainViewModel.toolbarTitle.set("Cart");
+        mMainViewModel.titleVisible.set(true);
 
 
     }
@@ -176,14 +171,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openHome() {
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            HomeTabFragment fragment = new HomeTabFragment();
-            transaction.replace(R.id.content_main, fragment);
-          //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
-            transaction.commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HomeTabFragment fragment = new HomeTabFragment();
+        transaction.replace(R.id.content_main, fragment);
+        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        transaction.commit();
 
-            mMainViewModel.toolbarTitle.set("Home");
-            mMainViewModel.titleVisible.set(false);
+        mMainViewModel.toolbarTitle.set("Home");
+        mMainViewModel.titleVisible.set(false);
 
         mMainViewModel.isHome.set(true);
         //  mMainViewModel.isExplore.set(false);
@@ -209,7 +204,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MyAccountFragment fragment = new MyAccountFragment();
             transaction.replace(R.id.content_main, fragment);
-          //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
+            //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
             transaction.commit();
 
             mMainViewModel.toolbarTitle.set("My Account");
@@ -221,14 +216,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
-    Fragment getCurrentFragment()
-    {
+    Fragment getCurrentFragment() {
         Fragment currentFragment = getSupportFragmentManager()
                 .findFragmentById(R.id.content_main);
         return currentFragment;
     }
-
 
 
     @Override
@@ -279,8 +271,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-
-
 
 
         if (doubleBackToExitPressedOnce) {
@@ -426,45 +416,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
 
-        registerWifiReceiver();
+       // FirebaseAnalytics.getInstance(this);
 
+       // Crashlytics.getInstance().crash();
+
+
+        registerWifiReceiver();
 
 
         checkAndRequestPermissions();
 
 
-     //   if (mMainViewModel.isAddressAdded()) {
+        //   if (mMainViewModel.isAddressAdded()) {
 
-                Intent intent = getIntent();
-                if (intent.getExtras() != null) {
-                    if (intent.getExtras().getBoolean("cart")) {
-                        mMainViewModel.gotoCart();
-                    } else {
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        HomeTabFragment fragment = new HomeTabFragment();
-                        transaction.replace(R.id.content_main, fragment);
-                        //transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (intent.getExtras().getBoolean("cart")) {
+                mMainViewModel.gotoCart();
+            } else {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                HomeTabFragment fragment = new HomeTabFragment();
+                transaction.replace(R.id.content_main, fragment);
+                //transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
 
-                        transaction.commit();
+                transaction.commit();
 
-                        mMainViewModel.isHome.set(true);
-                        //  mMainViewModel.isExplore.set(false);
-                        mMainViewModel.isCart.set(false);
-                        mMainViewModel.isMyAccount.set(false);
-                    }
-                } else {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    HomeTabFragment fragment = new HomeTabFragment();
-                    transaction.replace(R.id.content_main, fragment);
-                  //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
-                    transaction.commit();
+                mMainViewModel.isHome.set(true);
+                //  mMainViewModel.isExplore.set(false);
+                mMainViewModel.isCart.set(false);
+                mMainViewModel.isMyAccount.set(false);
+            }
+        } else {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            HomeTabFragment fragment = new HomeTabFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+            transaction.commit();
 
 
-                    mMainViewModel.isHome.set(true);
-                    //  mMainViewModel.isExplore.set(false);
-                    mMainViewModel.isCart.set(false);
-                    mMainViewModel.isMyAccount.set(false);
-                }
+            mMainViewModel.isHome.set(true);
+            //  mMainViewModel.isExplore.set(false);
+            mMainViewModel.isCart.set(false);
+            mMainViewModel.isMyAccount.set(false);
+        }
 
 
        /* } else {
@@ -486,10 +480,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
         } else {
 
-            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
+          /*  Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
-            }
+            }*/
+
+            Intent intent = AddressListActivity.newIntent(MainActivity.this);
+            intent.putExtra("for","new");
+            startActivity(intent);
 
         }
 
@@ -499,7 +497,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onResume() {
         super.onResume();
 
-     /*   if (mMainViewModel.isAddressAdded()) {*/
+        /*   if (mMainViewModel.isAddressAdded()) {*/
                /* Intent intent = getIntent();
                 if (intent.getExtras() != null) {
                     if (intent.getExtras().getBoolean("cart")) {
@@ -589,13 +587,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void checkCart() {
-       if (!mMainViewModel.totalCart()){
-           mMainViewModel.isHome.set(true);
-         //  mMainViewModel.isExplore.set(false);
-           mMainViewModel.isCart.set(false);
-           mMainViewModel.isMyAccount.set(false);
+        if (!mMainViewModel.totalCart()) {
+            mMainViewModel.isHome.set(true);
+            //  mMainViewModel.isExplore.set(false);
+            mMainViewModel.isCart.set(false);
+            mMainViewModel.isMyAccount.set(false);
 
-       }
+        }
     }
 
     @Override

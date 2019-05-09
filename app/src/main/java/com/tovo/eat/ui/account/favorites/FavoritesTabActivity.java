@@ -2,20 +2,18 @@ package com.tovo.eat.ui.account.favorites;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityTabFavoritesBinding;
+import com.tovo.eat.ui.account.favorites.favdish.CartFavListener;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
@@ -24,7 +22,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector {
+public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector , CartFavListener {
 
     ActivityTabFavoritesBinding mActivityTabFavoritesBinding;
     @Inject
@@ -35,14 +33,10 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
 
-    public static FavoritesTabActivity newInstance() {
-        Bundle args = new Bundle();
-        FavoritesTabActivity fragment = new FavoritesTabActivity();
-        fragment.setArguments(args);
-        return fragment;
+    public static Intent newIntent(Context context) {
+
+        return new Intent(context, FavoritesTabActivity.class);
     }
-
-
 
 
     @Override
@@ -52,7 +46,25 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
 
     @Override
     public void goBack() {
+        onBackPressed();
+        mFavoritesActivityViewModel.favClicked(false);
 
+    }
+
+    @Override
+    public void viewCart() {
+        Intent intent = MainActivity.newIntent(FavoritesTabActivity.this);
+        intent.putExtra("cart", true);
+        startActivity(intent);
+        finish();
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mFavoritesActivityViewModel.favClicked(false);
     }
 
     @Override
@@ -74,11 +86,6 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFavoritesActivityViewModel.setNavigator(this);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         mActivityTabFavoritesBinding = getViewDataBinding();
         setUp();
     }
@@ -119,7 +126,17 @@ public class FavoritesTabActivity extends BaseFragment<ActivityTabFavoritesBindi
     public void onDestroy() {
         super.onDestroy();
 
+        mFavoritesActivityViewModel.favClicked(false);
+    }
 
+    @Override
+    public void checkCart() {
+        mFavoritesActivityViewModel.totalCart();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFavoritesActivityViewModel.totalCart();
     }
 }

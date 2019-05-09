@@ -19,6 +19,9 @@ import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOnboardingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.SignUpActivity;
+import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.splash.SplashActivity;
 
 import javax.inject.Inject;
@@ -76,6 +79,26 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     }
 
     @Override
+    public void checkForUserLoginMode(boolean trueOrFalse) {
+        if (trueOrFalse) {
+            Intent intent = MainActivity.newIntent(OnBoardingActivity.this);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = SignUpActivity.newIntent(OnBoardingActivity.this);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void checkForUserGenderStatus(boolean trueOrFalse) {
+        Intent intent = NameGenderActivity.newIntent(OnBoardingActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.onBoardingViewModel;
     }
@@ -97,10 +120,13 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mOnBoardingActivityViewModel.setNavigator(this);
 
         prefManager = new PrefManager(this);
+
+/*
+        prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
-        }
+        }*/
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
@@ -170,8 +196,18 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(OnBoardingActivity.this, SplashActivity.class));
-        finish();
+
+        mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
+
+
+       /* startActivity(new Intent(OnBoardingActivity.this, SplashActivity.class));
+        finish();*/
+
+
+
+
+
+
     }
 
     /**

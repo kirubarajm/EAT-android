@@ -11,6 +11,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySplashBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.onboarding.OnBoardingActivity;
+import com.tovo.eat.ui.onboarding.PrefManager;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 
@@ -23,6 +25,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     SplashActivityViewModel mSplashActivityViewModel;
 
     private ActivitySplashBinding mActivitySplashBinding;
+    private PrefManager prefManager;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -74,10 +77,22 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         mActivitySplashBinding = getViewDataBinding();
         mSplashActivityViewModel.setNavigator(this);
 
+
+        prefManager = new PrefManager(this);
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+               if (!prefManager.isFirstTimeLaunch()) {
+                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                    startActivity(intent);
+                    finish();
+                }else {
+
                 mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+
+               }
             }
         },1000);
 

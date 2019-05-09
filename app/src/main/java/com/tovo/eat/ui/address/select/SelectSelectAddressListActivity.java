@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressSelectBinding;
@@ -40,6 +41,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
         mActivityAddressSelectBinding = getViewDataBinding();
         mSelectAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
+
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -23,43 +23,6 @@ public class AppConstants {
 
     public static final String FCM_RECEIVER = "ALERT";
 
-    public static final String TEMP_URL_MY = "http://192.168.1.100/tovo/";
-    public static final String TEMP_URL_LIVE = "http://13.232.246.20:3000/eat/";
-    // public static final String TEMP_URL_LIVE = "http://192.168.1.100:3000/eat/";
-    public static final String TEMP_URL = "http://192.168.1.100:3000/eat/";
-
-    // public static final String SALES_SERVER_URL = "http://192.168.1.100:3000/sales/";
-    public static final String EAT_SERVER_URL = "http://13.232.246.20:3000/sales/";
-
-    public static final String EAT_KITCHEN_LIST_URL = TEMP_URL_LIVE + "kitchenlist";
-    public static final String EAT_DISH_LIST_URL = TEMP_URL_LIVE + "dishlist";
-
-    public static final String EAT_FAV_DISH_LIST_URL = TEMP_URL_LIVE + "fav/dishlist/";
-    public static final String EAT_FAV_KITCHEN_LIST_URL = TEMP_URL_LIVE + "fav/kitchenlist/";
-
-
-    public static final String EAT_KITCHEN_DISH_LIST_URL = TEMP_URL_LIVE + "products";
-    public static final String EAT_ADD_ADDRESS_URL = TEMP_URL_LIVE + "address";
-    public static final String EAT_GET_ADDRESS_URL = TEMP_URL_LIVE + "addresslist/";
-
-    public static final String EAT_DELETE_ADDRESS_URL = TEMP_URL_LIVE + "addressdelete/";
-
-
-    public static final String EAT_ADD_ADDRESS_LIST_URL = TEMP_URL_LIVE + "address/";
-    public static final String EAT_CART_DETAILS_URL = TEMP_URL_LIVE + "cartdetails/";
-
-    public static final String EAT_CREATE_ORDER_URL = TEMP_URL_LIVE + "proceedtopay";
-
-    public static final String EAT_ORDER_DETAILS_URL = TEMP_URL_LIVE + "order/";
-
-    public static final String EAT_LIVE_ORDER_URL = TEMP_URL_LIVE + "liveorders/";
-
-    public static final String EAT_FAV_URL = TEMP_URL_LIVE + "fav/";
-
-   // public static final String EAT_MASTER = "http://192.168.1.100:3000/masters";
-    public static final String EAT_MASTER = "http://13.232.246.20:3000/masters";
-
-
 
     public static final String PACKAGE_NAME = "com.tovo.sales";
 
@@ -108,8 +71,8 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-    public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+      public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 
@@ -133,6 +96,34 @@ public class AppConstants {
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
     public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
+
+
+    public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
+    public static final String EAT_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/dishlist";
+
+    public static final String EAT_FAV_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/dishlist/";
+    public static final String EAT_FAV_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/kitchenlist/";
+
+
+    public static final String EAT_KITCHEN_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/products";
+    public static final String EAT_ADD_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/address";
+    public static final String EAT_GET_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addresslist/";
+
+    public static final String EAT_DELETE_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addressdelete/";
+
+
+    public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
+    public static final String EAT_CART_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/cartdetails/";
+
+    public static final String EAT_CREATE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/proceedtopay";
+
+    public static final String EAT_ORDER_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/order/";
+
+    public static final String EAT_LIVE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/liveorders/";
+
+    public static final String EAT_FAV_URL = URL_SERVER_IP_PORT + "/eat/fav/";
+    public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
+
 
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;

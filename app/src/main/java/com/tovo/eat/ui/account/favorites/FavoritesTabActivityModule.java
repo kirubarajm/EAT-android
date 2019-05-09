@@ -13,8 +13,15 @@ public class FavoritesTabActivityModule {
         return new FavoritesTabActivityViewModel(dataManager);
     }
 
-    @Provides
+  /*  @Provides
     FavoritesTabAdapter provideFavoritesTabPagerAdapter(FavoritesTabActivity mFavoritesTabActivity) {
         return new FavoritesTabAdapter(mFavoritesTabActivity.getChildFragmentManager());
+    }*/
+
+
+
+    @Provides
+    FavoritesTabAdapter provideFavoritesTabPagerAdapter(FavoritesTabActivity mFavoritesTabActivity) {
+        return new FavoritesTabAdapter(mFavoritesTabActivity.getSupportFragmentManager());
     }
 }
