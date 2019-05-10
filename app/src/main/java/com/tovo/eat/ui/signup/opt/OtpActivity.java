@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -17,6 +17,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOtpBinding;
@@ -87,6 +91,27 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void openHomeActivity(boolean trueOrFalse) {
+
+
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //   Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        mLoginViewModelMain.saveToken(token);
+
+
+                    }
+                });
+
         if (trueOrFalse) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
             Intent intent = MainActivity.newIntent(OtpActivity.this);
@@ -99,6 +124,28 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void nameGenderScreen() {
+
+
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //   Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        mLoginViewModelMain.saveToken(token);
+
+
+                    }
+                });
+
+
         Intent intent = NameGenderActivity.newIntent(OtpActivity.this);
         startActivity(intent);
         finish();
@@ -122,10 +169,31 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void loginSuccess() {
+
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //   Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        mLoginViewModelMain.saveToken(token);
+
+
+                    }
+                });
+
         Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
         Intent intent = MainActivity.newIntent(OtpActivity.this);
         startActivity(intent);
         finish();
+
     }
 
     @Override
@@ -184,11 +252,12 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         }
 
+
         otpFocusOnTextChange();
     }
 
-    private void otpFocusOnTextChange(){
-        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4,mActivityOtpBinding.edt5};
+    private void otpFocusOnTextChange() {
+        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4, mActivityOtpBinding.edt5};
         mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
         mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
         mActivityOtpBinding.edt3.addTextChangedListener(new PinTextWatcher(2));
@@ -292,7 +361,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         public void afterTextChanged(Editable s) {
 
             String text = newTypedString;
-
             /* Detect paste event and set first char */
             if (text.length() > 1)
                 text = String.valueOf(text.charAt(0)); // TODO: We can fill out other EditTexts

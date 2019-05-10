@@ -16,6 +16,19 @@ public class CommonResponse {
     @Expose
     private Integer favid;
 
+
+    @SerializedName("status")
+    @Expose
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Integer getFavid() {
         return favid;
     }

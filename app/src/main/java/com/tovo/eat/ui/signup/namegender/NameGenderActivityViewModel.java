@@ -10,6 +10,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivityNavigator> {
@@ -56,5 +57,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
+
+
 
 }

@@ -29,8 +29,10 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MasterPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -182,12 +184,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                             // 2019-05-09T13:21:54.000Z
 
-
                             try {
                                 String strDate = response.getResult().get(0).getDeliverytime();
                                 DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.sssZ");
-                                currentFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                                 String outputDateStr = "";
                                 //Date  date1 = new Date(strDate);
                                 Date date = currentFormat.parse(strDate);
@@ -199,13 +199,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             {
                                 e.printStackTrace();
                             }
-
-
-
-
-
-
-
 
 
 
@@ -229,8 +222,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
                            // eta.set(response.getResult().get(0).getDeliverytime());
-
-
 
                             orderId = response.getResult().get(0).getOrderid();
 
@@ -275,7 +266,30 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
+    public void saveToken(String token) {
+        int userIdMain = getDataManager().getCurrentUserId();
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        setIsLoading(true);
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain,token ), new Response.Listener<CommonResponse>() {
+            @Override
+            public void onResponse(CommonResponse response) {
+                if (response != null) {
 
+                    if (response.isStatus()) {
+
+
+
+                    }
+                }
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setIsLoading(false);
+            }
+        });
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+    }
     public void gotoAccount() {
         getNavigator().openAccount();
         isHome.set(false);

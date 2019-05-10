@@ -9,7 +9,9 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
@@ -90,9 +92,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             public void onResponse(OtpResponse response) {
 
                 try {
-
-
-
                 int CurrentuserId = 0;
 
                 if (response != null) {
@@ -141,5 +140,28 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         getNavigator().goBack();
     }
 
+    public void saveToken(String token) {
+        int userIdMain = getDataManager().getCurrentUserId();
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        setIsLoading(true);
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain,token ), new Response.Listener<CommonResponse>() {
+            @Override
+            public void onResponse(CommonResponse response) {
+                if (response != null) {
 
+                    if (response.isStatus()) {
+
+
+
+                    }
+                }
+            }
+        }, errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setIsLoading(false);
+            }
+        });
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+    }
 }

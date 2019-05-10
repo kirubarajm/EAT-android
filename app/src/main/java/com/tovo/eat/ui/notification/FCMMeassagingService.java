@@ -16,10 +16,22 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.tovo.eat.R;
+import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.namegender.TokenRequest;
+import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,6 +54,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
 
         sendNotification(notification, data);
+       // sendNotification(notification);
 
 
        /* SharedPreferences sharedpreferences = getSharedPreferences("AAA", Context.MODE_PRIVATE);
@@ -82,21 +95,50 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         intent.putExtra("cust_name", data.get("cust_name"));
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
 
+    }
 
+    @Override
+    public void onNewToken(String s) {
+        super.onNewToken(s);
+        saveToken(s);
     }
 
     private void sendNotification(RemoteMessage.Notification notification, Map<String, String> data) {
         Bundle bundle = new Bundle();
-        bundle.putString(FCM_PARAM, data.get(FCM_PARAM));
+        Intent intent;
 
-        Intent intent = new Intent(this, MainActivity.class);
+        String pageId = data.get("page_id");
+        String title = data.get("title");
+        String message = data.get("message");
+
+
+        switch (pageId) {
+
+            case "1":
+
+                intent = new Intent(this, MainActivity.class);
+
+                break;
+            case "2":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "3":
+                intent = new Intent(this, OrderHistoryActivity.class);
+                break;
+            default:
+                intent = new Intent(this, MainActivity.class);
+
+
+        }
+
+
         intent.putExtras(bundle);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
-                .setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody())
+                .setContentTitle(title)
+                .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
@@ -109,7 +151,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setNumber(++numMessages)
                 .setSmallIcon(R.mipmap.ic_launcher);
 
-        try {
+       /* try {
             String picture = data.get(FCM_PARAM);
             if (picture != null && !"".equals(picture)) {
                 URL url = new URL(picture);
@@ -120,7 +162,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -142,6 +184,97 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
         assert notificationManager != null;
         notificationManager.notify(0, notificationBuilder.build());
+    }
+
+
+
+    private void sendNotification(RemoteMessage.Notification notification) {
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(this, MainActivity.class);
+
+
+
+
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
+                .setContentTitle(notification.getTitle())
+                .setContentText(notification.getBody())
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
+                .setContentIntent(pendingIntent)
+                .setContentInfo("Hello")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setColor(getResources().getColor(R.color.colorAccent))
+                .setLights(Color.RED, 1000, 300)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setNumber(++numMessages)
+                .setSmallIcon(R.mipmap.ic_launcher);
+
+       /* try {
+            String picture = data.get(FCM_PARAM);
+            if (picture != null && !"".equals(picture)) {
+                URL url = new URL(picture);
+                Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                notificationBuilder.setStyle(
+                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture).setSummaryText(notification.getBody())
+                );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    getString(R.string.notification_channel_id), CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription(CHANNEL_DESC);
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        assert notificationManager != null;
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    public void saveToken(String token) {
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("tovo_pref", 0);
+        int userIdMain =pref.getInt("PREF_KEY_CURRENT_USER_ID", 0); // getting String
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
+            @Override
+            public void onResponse(CommonResponse response) {
+                if (response != null) {
+
+                    if (response.isStatus()) {
+
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
 }

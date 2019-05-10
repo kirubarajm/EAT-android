@@ -122,6 +122,8 @@ public class AppConstants {
     public static final String EAT_LIVE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/liveorders/";
 
     public static final String EAT_FAV_URL = URL_SERVER_IP_PORT + "/eat/fav/";
+    public static final String EAT_FCM_TOKEN_URL = URL_SERVER_IP_PORT + "/eat/pushid/add";
+
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
 
 

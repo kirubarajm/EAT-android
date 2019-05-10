@@ -4,9 +4,14 @@ package com.tovo.eat.ui.signup.namegender;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityNameGenderBinding;
@@ -98,6 +103,9 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         super.onCreate(savedInstanceState);
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+
+
+
 
         mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
         mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));

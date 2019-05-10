@@ -242,7 +242,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         Gson gson = new Gson();
                         CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
-                        if (cartPageResponse.getStatus()) {
+                    //    if (cartPageResponse.getStatus()) {
 
                             if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
 
@@ -304,11 +304,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             }
 
 
-                        } else {
+                       /* } else {
 
                             getNavigator().showToast(cartPageResponse.getMessage());
 
-                        }
+                        }*/
 
 
                     }
