@@ -68,11 +68,12 @@ public class AppConstants {
     public static final int KITCHEMN_APPLIANCES_REQUEST_CODE = 2;
     public static final int PACKAGING_IMAGE_REQUEST_CODE = 3;
     public static final int SIGNATURE_REQUEST_CODE = 4;
+
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-      public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //  public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 
@@ -123,6 +124,8 @@ public class AppConstants {
 
     public static final String EAT_FAV_URL = URL_SERVER_IP_PORT + "/eat/fav/";
     public static final String EAT_FCM_TOKEN_URL = URL_SERVER_IP_PORT + "/eat/pushid/add";
+
+    public static final String EAT_DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/eat/defaultaddress";
 
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
 

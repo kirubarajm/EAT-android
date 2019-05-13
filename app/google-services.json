@@ -1,108 +1,34 @@
 {
   "project_info": {
-    "project_number": "288619871706",
-    "firebase_url": "https://tovologies-1550475998119.firebaseio.com",
-    "project_id": "tovologies-1550475998119",
-    "storage_bucket": "tovologies-1550475998119.appspot.com"
+    "project_number": "991891941150",
+    "firebase_url": "https://eat-app-9c47f.firebaseio.com",
+    "project_id": "eat-app-9c47f",
+    "storage_bucket": "eat-app-9c47f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:288619871706:android:1fdd36ac77ac92c3",
+        "mobilesdk_app_id": "1:991891941150:android:9a30deed7b5f5fa3",
         "android_client_info": {
-          "package_name": "com.tovo.eat"
+          "package_name": "com.eat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "288619871706-h65r0rtgirfo5hqggo6su7s8706q5fu1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tovo.eat",
-            "certificate_hash": "eb1593881a47f3964d2ed4114df54f33127189b2"
-          }
-        },
-        {
-          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+          "client_id": "991891941150-gv5gg651n16l43a3enqrlspp76d8n7pn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
+          "current_key": "AIzaSyAdALJDHcjJA7KIPJc9HpBFVatq5MWT7MY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:288619871706:android:a811f88c8759fc40",
-        "android_client_info": {
-          "package_name": "com.tovo.sales"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:288619871706:android:1ebf8e94a9446662",
-        "android_client_info": {
-          "package_name": "com.tovologies.moveit"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "288619871706-a0eeqq7s353qs48nfr12ilkbbjtmob8u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tovologies.moveit",
-            "certificate_hash": "eb1593881a47f3964d2ed4114df54f33127189b2"
-          }
-        },
-        {
-          "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAUkeBxc86ZjKIRFlppgJcwKnszjWUS_bQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "288619871706-5gag6bq44nppk4c661duh4ok5kit30pp.apps.googleusercontent.com",
+              "client_id": "991891941150-gv5gg651n16l43a3enqrlspp76d8n7pn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

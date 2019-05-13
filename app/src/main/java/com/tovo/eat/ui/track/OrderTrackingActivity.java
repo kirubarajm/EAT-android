@@ -26,6 +26,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -445,7 +447,30 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         // FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         String path = getString(R.string.firebase_path) + String.valueOf(MoveitId);
-        mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
+       // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
+
+        // Manually configure Firebase Options
+        /*FirebaseOptions options = new FirebaseOptions.Builder()
+                .setDatabaseUrl("https://tovologies-1550475998119.firebaseio.com") // Required for RTDB.
+                .build();
+
+
+        // Initialize with secondary app.
+        FirebaseApp.initializeApp(this *//* Context *//*, options, "secondary");
+
+// Retrieve secondary app.
+        FirebaseApp secondary = FirebaseApp.getInstance("secondary");*/
+// Get the database for the other app.
+        mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
+
+       // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
+
+
+     //   mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
+
+
+
+
         mFirebaseTransportRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {

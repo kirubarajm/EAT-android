@@ -28,6 +28,7 @@ public interface MainNavigator {
 
 
     void openCart();
+    void disConnectGPS();
 
 
     void openHome();

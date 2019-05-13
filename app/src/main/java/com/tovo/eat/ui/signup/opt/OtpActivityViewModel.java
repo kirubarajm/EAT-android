@@ -22,8 +22,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableField<String> title = new ObservableField<>();
 
 
-
-
     public boolean passwordstatus;
     public boolean otpStatus;
     public boolean genderstatus;
@@ -59,6 +57,13 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
+
+                                getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                getDataManager().setAddressId(response.getResult().get(0).getAid());
+
+
                                 getNavigator().loginSuccess();
 
                             } catch (NumberFormatException e) {
@@ -92,33 +97,42 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             public void onResponse(OtpResponse response) {
 
                 try {
-                int CurrentuserId = 0;
+                    int CurrentuserId = 0;
 
-                if (response != null) {
+                    if (response != null) {
 
-                    if (response.getStatus() != null)
-                        if (response.getStatus()) {
-                            passwordstatus = response.getPasswordstatus();
-                            otpStatus = response.getOtpstatus();
-                            genderstatus = response.getGenderstatus();
-                            oId.set(String.valueOf(response.getOid()));
-                            userId.set(String.valueOf(response.getUserid()));
-                            CurrentuserId = response.getUserid();
+                        if (response.getStatus() != null)
+                            if (response.getStatus()) {
+                                passwordstatus = response.getPasswordstatus();
+                                otpStatus = response.getOtpstatus();
+                                genderstatus = response.getGenderstatus();
+                                oId.set(String.valueOf(response.getOid()));
+                                userId.set(String.valueOf(response.getUserid()));
+                                CurrentuserId = response.getUserid();
 
-                            getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
 
-                            if (genderstatus) {
-                                getNavigator().openHomeActivity(true);
+                                if (response.getAddressdetails().size() != 0) {
+                                    getDataManager().setCurrentAddressTitle(response.getAddressdetails().get(0).getAddressTitle());
+                                    getDataManager().setCurrentLat(response.getAddressdetails().get(0).getLat());
+                                    getDataManager().setCurrentLng(response.getAddressdetails().get(0).getLon());
+                                    getDataManager().setAddressId(response.getAddressdetails().get(0).getAid());
+
+                                }
+
+                                getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+
+                                if (genderstatus) {
+                                    getNavigator().openHomeActivity(true);
+                                } else {
+                                    getNavigator().nameGenderScreen();
+                                }
                             } else {
-                                getNavigator().nameGenderScreen();
+                                getNavigator().loginFailure();
                             }
-                        } else {
-                            getNavigator().loginFailure();
-                        }
-                }
-                }catch (NullPointerException e ){
+                    }
+                } catch (NullPointerException e) {
                     e.printStackTrace();
-                }catch (Exception ee){
+                } catch (Exception ee) {
 
                     ee.printStackTrace();
                 }
@@ -134,7 +148,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
 
-    public void goBack(){
+    public void goBack() {
 
 
         getNavigator().goBack();
@@ -144,13 +158,12 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain,token ), new Response.Listener<CommonResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override
             public void onResponse(CommonResponse response) {
                 if (response != null) {
 
                     if (response.isStatus()) {
-
 
 
                     }

@@ -40,8 +40,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
 
 
 /**
@@ -63,19 +61,16 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableField<String> kitchenImage = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
+    public final ObservableBoolean isHome = new ObservableBoolean();
+    public final ObservableBoolean isExplore = new ObservableBoolean();
+    public final ObservableBoolean isCart = new ObservableBoolean();
+    public final ObservableBoolean isMyAccount = new ObservableBoolean();
     //private final ObservableList<QuestionCardData> questionDataList = new ObservableArrayList<>();
     private final ObservableField<String> appVersion = new ObservableField<>();
     private final ObservableField<String> userEmail = new ObservableField<>();
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
-
-    public final ObservableBoolean isHome = new ObservableBoolean();
-    public final ObservableBoolean isExplore = new ObservableBoolean();
-    public final ObservableBoolean isCart= new ObservableBoolean();
-    public final ObservableBoolean isMyAccount= new ObservableBoolean();
-
-
     private int orderId;
 
 
@@ -112,7 +107,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             getNavigator().openCart();
 
             isHome.set(false);
-          //  isExplore.set(false);
+            //  isExplore.set(false);
             isCart.set(true);
             isMyAccount.set(false);
 
@@ -142,7 +137,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public boolean isAddressAdded() {
 
-        if (getDataManager().getCurrentAddressTitle() == null) {
+        if (getDataManager().getCurrentLat() == null) {
 
             return false;
         } else {
@@ -181,7 +176,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             }
 
 
-
                             // 2019-05-09T13:21:54.000Z
 
                             try {
@@ -195,8 +189,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 eta.set(outputDateStr);
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                            }catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -220,8 +213,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             }*/
 
 
-
-                           // eta.set(response.getResult().get(0).getDeliverytime());
+                            // eta.set(response.getResult().get(0).getDeliverytime());
 
                             orderId = response.getResult().get(0).getOrderid();
 
@@ -270,7 +262,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain,token ), new Response.Listener<CommonResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override
             public void onResponse(CommonResponse response) {
                 if (response != null) {
@@ -278,11 +270,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     if (response.isStatus()) {
 
 
-
                     }
                 }
             }
-        },new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
@@ -290,10 +281,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
+
     public void gotoAccount() {
         getNavigator().openAccount();
         isHome.set(false);
-     //   isExplore.set(false);
+        //   isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(true);
 
@@ -317,7 +309,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
         isHome.set(true);
-      //  isExplore.set(false);
+        //  isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(false);
 
@@ -455,12 +447,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public boolean checkInternet() {
-
         return MvvmApp.getInstance().onCheckNetWork();
 
-
     }
-
 
     public void saveRequestData() {
 
@@ -490,6 +479,19 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
             getDataManager().setFilterSort(json);
+        }
+
+    }
+
+
+    public void currentLatLng(double lat, double lng) {
+
+        if (getDataManager().getCurrentLat()== null) {
+            getDataManager().setCurrentAddressTitle("Current location");
+            getDataManager().setCurrentLat(lat);
+            getDataManager().setCurrentLng(lng);
+            getNavigator().disConnectGPS();
+            getNavigator().openHome();
         }
 
     }

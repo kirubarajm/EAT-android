@@ -9,14 +9,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,21 +30,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.tovo.eat.BR;
+import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
-import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
@@ -47,6 +52,7 @@ import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
@@ -59,13 +65,12 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener {
 
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     public FilterListener filterListener;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
-
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     String DialogTag = DialogSelectAddress.newInstance().getTag();
@@ -100,6 +105,38 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
     };
+    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
+            .ConnectionCallbacks() {
+
+        @Override
+        public void onConnected(Bundle bundle) {
+            LocationRequest request = new LocationRequest();
+            request.setInterval(1000);
+            request.setFastestInterval(1000);
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+
+            try {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                        request, MainActivity.this);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+        }
+
+        @Override
+        public void onConnectionSuspended(int reason) {
+            // TODO: Handle gracefully
+        }
+
+
+    };
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
@@ -117,21 +154,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return new Intent(context, MainActivity.class);
     }
 
-    public static void noInternet(boolean status) {
-     /* if (status) {
-
-          FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-          HomeTabFragment fragment = new HomeTabFragment();
-          transaction.replace(R.id.content_main, fragment);
-          transaction.commit();
-
-      }else {
-
-
-
-
-      }*/
-    }
 
     public void setFilterListener(FilterListener filterListener) {
         this.filterListener = filterListener;
@@ -171,6 +193,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.titleVisible.set(true);
 
 
+    }
+
+    @Override
+    public void disConnectGPS() {
+
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -418,14 +446,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
-
-
-
-
-
-
-
-        FirebaseInstanceId.getInstance().getInstanceId()
+       /* FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
@@ -438,23 +459,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         String token = task.getResult().getToken();
 
 
-                        Log.e("afdsgg",token);
-                        Log.e("afdsgg",token);
-                        Log.e("afdsgg",token);
-                        Log.e("afdsgg",token);
-                        Log.e("afdsgg",token);
+                        Log.e("afdsgg", token);
+                        Log.e("afdsgg", token);
+                        Log.e("afdsgg", token);
+                        Log.e("afdsgg", token);
+                        Log.e("afdsgg", token);
 
 
                         mMainViewModel.saveToken(token);
 
 
                     }
-                });
-
-
-       // FirebaseAnalytics.getInstance(this);
-
-       // Crashlytics.getInstance().crash();
+                });*/
 
 
         registerWifiReceiver();
@@ -483,17 +499,33 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 mMainViewModel.isMyAccount.set(false);
             }
         } else {
+
+/*
+            if (mMainViewModel.isAddressAdded()) {
+                mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());*/
+
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             HomeTabFragment fragment = new HomeTabFragment();
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
             transaction.commit();
-
-
             mMainViewModel.isHome.set(true);
             //  mMainViewModel.isExplore.set(false);
             mMainViewModel.isCart.set(false);
             mMainViewModel.isMyAccount.set(false);
+
+
+            /*  } else {*/
+
+               /* startLocationTracking();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                HomeTabFragment fragment = new HomeTabFragment();
+                transaction.replace(R.id.content_main, fragment);
+                //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                transaction.commit();*/
+
+            // }
         }
 
 
@@ -512,8 +544,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.liveOrders();
         mMainViewModel.saveRequestData();
 
-        if (mMainViewModel.updateAddressTitle() != null) {
+        if (mMainViewModel.isAddressAdded()) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
+
         } else {
 
           /*  Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
@@ -521,9 +554,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
             }*/
 
-            Intent intent = AddressListActivity.newIntent(MainActivity.this);
-            intent.putExtra("for","new");
-            startActivity(intent);
+            startLocationTracking();
+            mMainViewModel.addressTitle.set("Current location");
+
+           /* Intent intent = AddressListActivity.newIntent(MainActivity.this);
+            intent.putExtra("for", "new");
+            startActivity(intent);*/
+
 
         }
 
@@ -594,32 +631,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return true;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 10001) {
-
-            if (grantResults.length > 0) {
-                for (int i = 0; i < permissions.length; i++) {
-
-                    if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                            Log.e("msg", "storage granted");
-
-                        }
-                    } else if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                            Log.e("msg", "location granted");
-
-                        }
-                    }
-
-                }
-
-            }
-        }
-    }
 
     @Override
     public void checkCart() {
@@ -739,5 +750,122 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         unregisterWifiReceiver();
     }
 
+    private void startLocationTracking() {
 
+
+        if (checkPermissions()) {
+
+            new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+                @Override
+                public void gpsStatus(boolean isGPSEnable) {
+                    // turn on GPS
+                    if (isGPSEnable) {
+                        mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                                .addConnectionCallbacks(mLocationRequestCallback)
+                                .addApi(LocationServices.API)
+                                .build();
+                        mGoogleApiClient.connect();
+                    } else {
+                         startLocationTracking();
+                    }
+                }
+
+            });
+
+
+        } else {
+            requestPermissions();
+        }
+    }
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+        if (shouldProvideRationale) {
+            //   Log.i(TAG, "Displaying permission rationale to provide additional context.");
+
+            Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            snackbar.setActionTextColor(getResources().getColor(R.color.white));
+            View snackbarView = snackbar.getView();
+            int snackbarTextId = android.support.design.R.id.snackbar_text;
+            TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
+            textView.setTextColor(getResources().getColor(R.color.white));
+            snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
+
+            snackbar.setAction("Ok", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_PERMISSIONS_REQUEST_CODE);
+                }
+            });
+            snackbar.show();
+
+        } else {
+
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        /*  Log.i(TAG, "onRequestPermissionResult");*/
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+                /*   Log.i(TAG, "User interaction was cancelled.");*/
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                /*  Log.i(TAG, "Permission granted.");*/
+
+                startLocationTracking();
+
+            } else {
+                Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+                snackbar.setActionTextColor(getResources().getColor(R.color.white));
+                View snackbarView = snackbar.getView();
+                int snackbarTextId = android.support.design.R.id.snackbar_text;
+                TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
+                textView.setTextColor(getResources().getColor(R.color.white));
+                snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
+
+                snackbar.setAction(R.string.settings, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setAction(
+                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package",
+                                BuildConfig.APPLICATION_ID, null);
+                        intent.setData(uri);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+                snackbar.show();
+
+            }
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+
+
+    }
 }

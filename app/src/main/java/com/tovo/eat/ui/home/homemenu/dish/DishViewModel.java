@@ -17,7 +17,6 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
-import com.tovo.eat.utilities.LatLngPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
@@ -155,7 +154,21 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 //        getNavigator().dishLoading();
 
 
-        if (!getDataManager().getIsFav()) {
+        if (getDataManager().getCurrentLat() == null) {
+
+            //   getNavigator().kitchenListLoading();
+
+
+        } else {
+
+
+            if (getDataManager().getCurrentLat() == null) {
+
+
+            } else {
+
+
+                if (!getDataManager().getIsFav()) {
 
 /*
             if (getDataManager().getCurrentLat() == null) {
@@ -164,118 +177,119 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 getNavigator().dishListLoaded();
 
             } else {*/
-                //   getNavigator().addressAdded();
-                if (!MvvmApp.getInstance().onCheckNetWork()) return;
+                    //   getNavigator().addressAdded();
+                    if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-                //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+                    //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
-                FilterRequestPojo filterRequestPojo;
+                    FilterRequestPojo filterRequestPojo;
 
 
-                if (getDataManager().getFilterSort() != null) {
+                    if (getDataManager().getFilterSort() != null) {
 
-                    Gson sGson = new GsonBuilder().create();
-                    filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
+                        Gson sGson = new GsonBuilder().create();
+                        filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
-                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
+                        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                        filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                        filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
-                    if (filterRequestPojo.getCusinelist() != null) {
+                        if (filterRequestPojo.getCusinelist() != null) {
 
-                        if (filterRequestPojo.getCusinelist().size() == 0)
-                            filterRequestPojo.setCusinelist(null);
+                            if (filterRequestPojo.getCusinelist().size() == 0)
+                                filterRequestPojo.setCusinelist(null);
+                        }
+
+                        if (filterRequestPojo.getRegionlist() != null) {
+
+                            if (filterRequestPojo.getRegionlist().size() == 0)
+                                filterRequestPojo.setRegionlist(null);
+                        }
+
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(filterRequestPojo);
+                        getDataManager().setFilterSort(json);
+                    } else {
+                        filterRequestPojo = new FilterRequestPojo();
+
+                        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                        filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                        filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(filterRequestPojo);
+                        getDataManager().setFilterSort(json);
                     }
 
-                    if (filterRequestPojo.getRegionlist() != null) {
-
-                        if (filterRequestPojo.getRegionlist().size() == 0)
-                            filterRequestPojo.setRegionlist(null);
-                    }
-
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(filterRequestPojo);
-                    getDataManager().setFilterSort(json);
-                } else {
-                    filterRequestPojo = new FilterRequestPojo();
-
-                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(filterRequestPojo);
-                    getDataManager().setFilterSort(json);
-                }
-
-                try {
-                    setIsLoading(true);
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+                    try {
+                        setIsLoading(true);
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
 
 
-                            if (response != null) {
-                                DishResponse dishResponse;
-                                Gson sGson = new GsonBuilder().create();
-                                dishResponse = sGson.fromJson(response.toString(), DishResponse.class);
+                                if (response != null) {
+                                    DishResponse dishResponse;
+                                    Gson sGson = new GsonBuilder().create();
+                                    dishResponse = sGson.fromJson(response.toString(), DishResponse.class);
 
-                                dishItemsLiveData.setValue(dishResponse.getResult());
-                                Log.e("----response:---------", response.toString());
-                                getNavigator().dishListLoaded();
+                                    dishItemsLiveData.setValue(dishResponse.getResult());
+                                    Log.e("----response:---------", response.toString());
+                                    getNavigator().dishListLoaded();
+
+
+                                }
 
 
                             }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Log.e("", error.getMessage());
+                                DishViewModel.this.getNavigator().dishListLoaded();
+                            }
+                        });
+
+                        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    } catch (JSONException j) {
+                        j.printStackTrace();
+                    }
 
 
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                          // Log.e("", error.getMessage());
-                            DishViewModel.this.getNavigator().dishListLoaded();
-                        }
-                    });
+                } else {
 
-                    MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+                    try {
+                        setIsLoading(true);
+                        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_DISH_LIST_URL + getDataManager().getCurrentUserId(), DishResponse.class, new Response.Listener<DishResponse>() {
+                            @Override
+                            public void onResponse(DishResponse response) {
+                                if (response != null) {
+                                    dishItemsLiveData.setValue(response.getResult());
+                                    Log.e("----response:---------", response.toString());
+                                    DishViewModel.this.getNavigator().dishListLoaded();
 
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (JSONException j) {
-                    j.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Log.e("", error.getMessage());
+                                DishViewModel.this.getNavigator().dishListLoaded();
+                            }
+                        });
+
+
+                        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
-        } else {
-
-            try {
-                setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_DISH_LIST_URL+getDataManager().getCurrentUserId(), DishResponse.class, new Response.Listener<DishResponse>() {
-                    @Override
-                    public void onResponse(DishResponse response) {
-                        if (response != null) {
-                            dishItemsLiveData.setValue(response.getResult());
-                            Log.e("----response:---------", response.toString());
-                            DishViewModel.this.getNavigator().dishListLoaded();
-
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                       // Log.e("", error.getMessage());
-                        DishViewModel.this.getNavigator().dishListLoaded();
-                    }
-                });
-
-
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             }
         }
-
 
     }
 

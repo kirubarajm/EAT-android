@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
@@ -113,6 +114,10 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
         getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), request.getAid());
 
 
+
+        defaultAddress(request.getAid());
+
+
         FilterRequestPojo filterRequestPojo;
 
         Gson sGson = new GsonBuilder().create();
@@ -178,6 +183,35 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    public void defaultAddress(Integer aid ){
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                }
+            });
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 

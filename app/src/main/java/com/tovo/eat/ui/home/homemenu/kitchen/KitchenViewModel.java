@@ -144,7 +144,17 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         // getNavigator().kitchenListLoading();
 
-        if (!getDataManager().getIsFav()) {
+
+        if (getDataManager().getCurrentLat() == null) {
+
+         //   getNavigator().kitchenListLoading();
+
+
+
+        } else {
+
+
+            if (!getDataManager().getIsFav()) {
 
 /*
             if (getDataManager().getCurrentLat() == null) {
@@ -229,10 +239,10 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                               // Log.e("", error.getMessage());
+                                // Log.e("", error.getMessage());
                                 getNavigator().kitchenListLoaded();
                             }
-                        }){
+                        }) {
 
                             /**
                              * Passing some request headers
@@ -257,32 +267,33 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 }
 
 
-        } else {
+            } else {
 
-            try {
-                setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_KITCHEN_LIST_URL + getDataManager().getCurrentUserId(), KitchenResponse.class, new Response.Listener<KitchenResponse>() {
-                    @Override
-                    public void onResponse(KitchenResponse response) {
-                        if (response != null) {
-                            kitchenItemsLiveData.setValue(response.getResult());
-                            Log.e("----response:---------", response.toString());
-                            getNavigator().kitchenListLoaded();
+                try {
+                    setIsLoading(true);
+                    GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_KITCHEN_LIST_URL + getDataManager().getCurrentUserId(), KitchenResponse.class, new Response.Listener<KitchenResponse>() {
+                        @Override
+                        public void onResponse(KitchenResponse response) {
+                            if (response != null) {
+                                kitchenItemsLiveData.setValue(response.getResult());
+                                Log.e("----response:---------", response.toString());
+                                getNavigator().kitchenListLoaded();
 
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("", error.getMessage());
-                        getNavigator().kitchenListLoaded();
-                    }
-                });
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("", error.getMessage());
+                            getNavigator().kitchenListLoaded();
+                        }
+                    });
 
 
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+                    MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

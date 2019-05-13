@@ -143,7 +143,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-                .setContentInfo("Hello")
+             /*   .setContentInfo("Hello")*/
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)
@@ -185,14 +185,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         assert notificationManager != null;
         notificationManager.notify(0, notificationBuilder.build());
     }
-
-
-
     private void sendNotification(RemoteMessage.Notification notification) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, MainActivity.class);
-
-
 
 
         intent.putExtras(bundle);
@@ -206,7 +201,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-                .setContentInfo("Hello")
+              /*  .setContentInfo("Hello")*/
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)

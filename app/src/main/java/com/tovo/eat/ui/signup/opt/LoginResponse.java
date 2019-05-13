@@ -65,6 +65,51 @@ public class LoginResponse {
         @Expose
         public Integer gender;
 
+        @SerializedName("aid")
+        @Expose
+        private Integer aid;
+        @SerializedName("address_title")
+        @Expose
+        private String addressTitle;
+        @SerializedName("lat")
+        @Expose
+        private Double lat;
+        @SerializedName("lon")
+        @Expose
+        private Double lon;
+
+        public Integer getAid() {
+            return aid;
+        }
+
+        public void setAid(Integer aid) {
+            this.aid = aid;
+        }
+
+        public String getAddressTitle() {
+            return addressTitle;
+        }
+
+        public void setAddressTitle(String addressTitle) {
+            this.addressTitle = addressTitle;
+        }
+
+        public Double getLat() {
+            return lat;
+        }
+
+        public void setLat(Double lat) {
+            this.lat = lat;
+        }
+
+        public Double getLon() {
+            return lon;
+        }
+
+        public void setLon(Double lon) {
+            this.lon = lon;
+        }
+
 
         public Integer getUserid() {
             return userid;

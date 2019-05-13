@@ -205,6 +205,9 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
       //  ((MainActivity) getActivity()).statusUpdate();
 
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
         mDishViewModel.fetchRepos();
 
         subscribeToLiveData();

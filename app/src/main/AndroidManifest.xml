@@ -134,7 +134,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDyTmVwuXiVHPptHaVkfxRFqcmY1zkunEI" />
+            android:value="AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw" />
 
         <receiver android:name="com.tovo.eat.ui.forgotpassword.SmsReceiver">
             <intent-filter>
@@ -158,10 +158,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
-
-
-
-
 
 
         <!--

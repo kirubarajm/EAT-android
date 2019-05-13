@@ -3,6 +3,8 @@ package com.tovo.eat.ui.signup.opt;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class OtpResponse {
 
     @SerializedName("success")
@@ -26,6 +28,26 @@ public class OtpResponse {
     @SerializedName("userid")
     @Expose
     public Integer userid;
+
+
+
+    @SerializedName("addressdetails")
+    @Expose
+    private List<Addressdetails> addressdetails = null;
+
+    public List<Addressdetails> getAddressdetails() {
+        return addressdetails;
+    }
+
+    public void setAddressdetails(List<Addressdetails> addressdetails) {
+        this.addressdetails = addressdetails;
+    }
+
+
+
+
+
+
 
     public Boolean getStatus() {
         return status;
@@ -82,4 +104,57 @@ public class OtpResponse {
     public void setOid(Integer oid) {
         this.oid = oid;
     }
+
+
+    public class Addressdetails{
+
+        @SerializedName("aid")
+        @Expose
+        private Integer aid;
+        @SerializedName("address_title")
+        @Expose
+        private String addressTitle;
+        @SerializedName("lat")
+        @Expose
+        private Double lat;
+        @SerializedName("lon")
+        @Expose
+        private Double lon;
+
+        public Integer getAid() {
+            return aid;
+        }
+
+        public void setAid(Integer aid) {
+            this.aid = aid;
+        }
+
+        public String getAddressTitle() {
+            return addressTitle;
+        }
+
+        public void setAddressTitle(String addressTitle) {
+            this.addressTitle = addressTitle;
+        }
+
+        public Double getLat() {
+            return lat;
+        }
+
+        public void setLat(Double lat) {
+            this.lat = lat;
+        }
+
+        public Double getLon() {
+            return lon;
+        }
+
+        public void setLon(Double lon) {
+            this.lon = lon;
+        }
+
+
+    }
+
+
 }

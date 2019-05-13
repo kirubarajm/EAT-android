@@ -176,6 +176,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 */
         ((MainActivity) getActivity()).statusUpdate();
 
+
+        kitchenListLoading();
        mKitchenViewModel.fetchRepos();
 
        subscribeToLiveData();

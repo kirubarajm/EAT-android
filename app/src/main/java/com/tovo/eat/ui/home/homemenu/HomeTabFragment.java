@@ -67,11 +67,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void filter() {
-
         FilterFragment bottomSheetFragment = new FilterFragment();
         bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
-
-
     }
 
     @Override
@@ -84,7 +81,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
        Intent intent=FavoritesTabActivity.newIntent(getContext());
        startActivity(intent);
-
 
 
     }
