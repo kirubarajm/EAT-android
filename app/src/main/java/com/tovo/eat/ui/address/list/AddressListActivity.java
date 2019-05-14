@@ -47,7 +47,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         if (intent.getExtras() != null) {
             if (intent.getExtras().getString("for").equals("new")) {
                 if (!mAddressListViewModel.haveAddress) {
-                    Intent intentAddress = AddAddressActivity.newIntent(AddressListActivity.this);
+                    Intent intentAddress = PaymentActivity.newIntent(AddressListActivity.this);
                     startActivity(intentAddress);
                     finish();
                 }

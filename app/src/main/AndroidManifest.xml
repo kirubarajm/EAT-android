@@ -130,6 +130,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.account.favorites.FavoritesTabActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.payment.PaymentActivity" />
 
 
         <meta-data

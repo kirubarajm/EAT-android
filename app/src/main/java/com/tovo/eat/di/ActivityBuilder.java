@@ -66,6 +66,8 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
+import com.tovo.eat.ui.payment.PaymentActivity;
+import com.tovo.eat.ui.payment.PaymentModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.registration.RegistrationActivityModule;
 import com.tovo.eat.ui.signup.SignUpActivity;
@@ -115,6 +117,14 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = AddAddressModule.class)
     abstract AddAddressActivity bindAddAddressActivity();
+
+
+
+    @ContributesAndroidInjector(modules = PaymentModule.class)
+    abstract PaymentActivity bindPaymentActivity();
+
+
+
 
     @ContributesAndroidInjector(modules = EditAddressModule.class)
     abstract EditAddressActivity bindEditAddressActivity();

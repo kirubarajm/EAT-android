@@ -485,4 +485,16 @@
 
     <string name="map_key">AIzaSyCGk-5aSFINZH6-WNICf1fiVMEEIa4Hddo</string>
     <string name="select_pin">Select pin</string>
+
+    <string name="card_number">Card Number</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card">Debit/Credit Card</string>
+    <string name="mm">MM/YY</string>
+    <string name="yy">YY</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="cvv">CVV</string>
+    <string name="pay">Pay</string>
+    <string name="netbanking">Netbanking</string>
+    <string name="more_options">More options</string>
+    <string name="upi">UPI</string>
 </resources>

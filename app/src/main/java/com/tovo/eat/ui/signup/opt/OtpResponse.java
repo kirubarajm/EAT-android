@@ -28,10 +28,7 @@ public class OtpResponse {
     @SerializedName("userid")
     @Expose
     public Integer userid;
-
-
-
-    @SerializedName("addressdetails")
+    @SerializedName("result")
     @Expose
     private List<Addressdetails> addressdetails = null;
 
@@ -42,12 +39,6 @@ public class OtpResponse {
     public void setAddressdetails(List<Addressdetails> addressdetails) {
         this.addressdetails = addressdetails;
     }
-
-
-
-
-
-
 
     public Boolean getStatus() {
         return status;

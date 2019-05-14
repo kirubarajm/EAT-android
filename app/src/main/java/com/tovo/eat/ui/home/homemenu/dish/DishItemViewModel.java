@@ -440,7 +440,7 @@ public class DishItemViewModel {
 
         try {
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
