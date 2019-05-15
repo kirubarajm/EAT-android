@@ -26,4 +26,14 @@ public interface PaymentNavigator {
 
     void goBack();
 
+
+    void clickCard();
+    void clickNetbanking();
+    void clickUPI();
+    void clickCOD();
+    void clickwallet();
+
+
+
+
 }

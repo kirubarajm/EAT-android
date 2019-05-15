@@ -54,6 +54,31 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         finish();
     }
 
+    @Override
+    public void clickCard() {
+
+    }
+
+    @Override
+    public void clickNetbanking() {
+
+    }
+
+    @Override
+    public void clickUPI() {
+
+    }
+
+    @Override
+    public void clickCOD() {
+
+    }
+
+    @Override
+    public void clickwallet() {
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

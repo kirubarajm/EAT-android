@@ -127,9 +127,9 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void noAddress() {
-        Intent intentAddress = AddAddressActivity.newIntent(AddressListActivity.this);
+       /* Intent intentAddress = AddAddressActivity.newIntent(AddressListActivity.this);
         startActivity(intentAddress);
-        finish();
+        finish();*/
     }
 
 

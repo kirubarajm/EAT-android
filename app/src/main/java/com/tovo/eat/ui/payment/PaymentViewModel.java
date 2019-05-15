@@ -18,23 +18,9 @@ package com.tovo.eat.ui.payment;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.filter.FilterRequestPojo;
-import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CommonResponse;
-import com.tovo.eat.utilities.MvvmApp;
 
 
 /**
@@ -50,10 +36,11 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> area = new ObservableField<>();
     public final ObservableField<String> house = new ObservableField<>();
     public final ObservableField<String> landmark = new ObservableField<>();
-    public final ObservableBoolean typeHome = new ObservableBoolean();
-    public final ObservableBoolean typeOffice = new ObservableBoolean();
-    public final ObservableBoolean typeOther = new ObservableBoolean();
-
+    public final ObservableBoolean cardClicked = new ObservableBoolean();
+    public final ObservableBoolean netbankingClicked = new ObservableBoolean();
+    public final ObservableBoolean upiClicked = new ObservableBoolean();
+    public final ObservableBoolean codClicked = new ObservableBoolean();
+    public final ObservableBoolean walletClicked = new ObservableBoolean();
 
 
     public PaymentViewModel(DataManager dataManager) {
@@ -61,9 +48,58 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     }
 
 
-
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
+    }
+
+    public void card() {
+        getNavigator().clickCard();
+
+
+        cardClicked.set(true);
+        netbankingClicked.set(false);
+        upiClicked.set(false);
+        codClicked.set(false);
+        walletClicked.set(false);
+
+
+    }
+
+    public void netbanking() {
+        getNavigator().clickNetbanking();
+        cardClicked.set(false);
+        netbankingClicked.set(true);
+        upiClicked.set(false);
+        codClicked.set(false);
+        walletClicked.set(false);
+    }
+
+    public void upi() {
+        getNavigator().clickUPI();
+        cardClicked.set(false);
+        netbankingClicked.set(false);
+        upiClicked.set(true);
+        codClicked.set(false);
+        walletClicked.set(false);
+    }
+
+    public void cod() {
+        getNavigator().clickCOD();
+        cardClicked.set(false);
+        netbankingClicked.set(false);
+        upiClicked.set(false);
+        codClicked.set(true);
+        walletClicked.set(false);
+
+    }
+    public void wallet() {
+        getNavigator().clickCOD();
+        cardClicked.set(false);
+        netbankingClicked.set(false);
+        upiClicked.set(false);
+        codClicked.set(false);
+        walletClicked.set(true);
+
     }
 
 }

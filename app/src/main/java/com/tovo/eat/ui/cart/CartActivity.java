@@ -20,6 +20,7 @@ import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 
 import javax.inject.Inject;
@@ -210,6 +211,15 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void toastMessage(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void paymentGateway() {
+
+
+        Intent intent = PaymentActivity.newIntent(getContext());
+        startActivity(intent);
+
     }
 
     private void subscribeToLiveData() {

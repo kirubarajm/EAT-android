@@ -242,66 +242,66 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         Gson gson = new Gson();
                         CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
-                    //    if (cartPageResponse.getStatus()) {
+                        //    if (cartPageResponse.getStatus()) {
 
-                            if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
+                        if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
 
-                                getNavigator().emptyCart();
+                            getNavigator().emptyCart();
 
-                                getDataManager().setCartDetails(null);
+                            getDataManager().setCartDetails(null);
 
 
+                        } else {
+                            dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+
+
+                            if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
                             } else {
-                                dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
-
-                                if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
-
-                                    makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
-                                } else {
-
-                                    makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
-
-                                }
-
-                                makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
-                                //  makeit_category.set(response.getResult().get(0).getCategory());
-
-                                total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
-                                grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
-                                gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                                delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
-
-
-                                localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
-
-
-                                makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
-
-
-                                if (cartPageResponse.getResult().get(0).getFavid() != null)
-                                    favId = cartPageResponse.getResult().get(0).getFavid();
-
-
-                                StringBuilder itemsBuilder = new StringBuilder();
-                                for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
-
-                                    itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
-
-                                    if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
-
-                                    } else {
-
-                                        itemsBuilder.append(" | ");
-
-                                    }
-
-                                }
-                                String items = itemsBuilder.toString();
-                                cuisines.set(items);
-
+                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
 
                             }
+
+                            makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
+                            //  makeit_category.set(response.getResult().get(0).getCategory());
+
+                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
+                            grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
+                            gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                            delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+
+
+                            localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
+
+
+                            makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
+
+
+                            if (cartPageResponse.getResult().get(0).getFavid() != null)
+                                favId = cartPageResponse.getResult().get(0).getFavid();
+
+
+                            StringBuilder itemsBuilder = new StringBuilder();
+                            for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
+
+                                itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
+
+                                if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
+
+                                } else {
+
+                                    itemsBuilder.append(" | ");
+
+                                }
+
+                            }
+                            String items = itemsBuilder.toString();
+                            cuisines.set(items);
+
+
+                        }
 
 
                        /* } else {
@@ -345,26 +345,26 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void paymentModeCheck() {
 
+        if (getDataManager().getAddressId() == 0) {
 
-        if (getDataManager().getisPasswordStatus()) {
-            cashMode();
+            getNavigator().selectAddress();
 
         } else {
+            if (getDataManager().getisPasswordStatus()) {
 
-            getNavigator().postRegistration();
+                getNavigator().paymentGateway();
 
+            } else {
+                getNavigator().postRegistration();
+            }
         }
-
-
-
-
-
 /*
         if (getDataManager().getisPasswordStatus()) {
 
             if (getNavigator().paymentStatus(sPaymentMode)) {
 
                 cashMode();
+
 
             } else {
 
