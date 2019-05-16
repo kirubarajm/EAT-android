@@ -18,16 +18,12 @@ package com.tovo.eat.utilities;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -59,6 +55,9 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.ui.home.region.RegionKitchenAdapter;
+import com.tovo.eat.ui.home.region.RegionsAdapter;
+import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 
@@ -106,6 +105,24 @@ public final class BindingUtils {
     }
 
 
+    @BindingAdapter({"adapter"})
+    public static void addRegionItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
+        RegionsAdapter adapter = (RegionsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes,recyclerView.getContext());
+        }
+    }
+
+
+    /*@BindingAdapter({"adapter"})
+    public static void addRegionKitchenItems(RecyclerView recyclerView, List<RegionsResponse.Kitchen> dishes) {
+        RegionKitchenAdapter adapter = (RegionKitchenAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes,recyclerView.getContext());
+        }
+    }*/
 
 
     @BindingAdapter({"adapter"})

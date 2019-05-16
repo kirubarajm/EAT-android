@@ -40,7 +40,7 @@ public class RegionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-       /* RegionAdapter.ViewHolder holder = null;
+       /* RegionsAdapter.ViewHolder holder = null;
         ListItemSpinnerBinding mListItemSpinnerBinding = null;
         if (view == null) {
 
@@ -48,16 +48,16 @@ public class RegionAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.list_item_spinner, viewGroup, false);
            *//* ListItemSpinnerBinding listItemOrdersBinding = ListItemSpinnerBinding.inflate(LayoutInflater.from(viewGroup.getContext()),
                     viewGroup, false);
-            holder = new RegionAdapter.ViewHolder(listItemOrdersBinding);*//*
+            holder = new RegionsAdapter.ViewHolder(listItemOrdersBinding);*//*
             holder.txtDemo = (TextView) view.findViewById(R.id.txt_spinner);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        RegionResponse.Result resutlt = (RegionResponse.Result) getItem(position);
+        RegionsResponse.Result resutlt = (RegionsResponse.Result) getItem(position);
         holder.txtDemo.setText(resutlt.getRegionname());
 
-       *//* final RegionResponse.Result order = metadatas.get(position);
+       *//* final RegionsResponse.Result order = metadatas.get(position);
         RegionItemViewModel ordersItemViewModel = new RegionItemViewModel(order);
         mListItemSpinnerBinding.setRegItemViewModel(ordersItemViewModel);
         mListItemSpinnerBinding.executePendingBindings();*//*
@@ -119,6 +119,6 @@ public class RegionAdapter extends BaseAdapter {
     }*/
 
     /*public interface RegionListener {
-        void listItem(RegionResponse.Result mOrderList);
+        void listItem(RegionsResponse.Result mOrderList);
     }*/
 }

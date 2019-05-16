@@ -104,7 +104,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabAdapter.setCount(2);
         mFragmentHomeBinding.myaccViewPager.setAdapter(mHomeTabAdapter);
         mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("Kitchen"));
-        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("Dish"));
+        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("Region"));
         mFragmentHomeBinding.myaccViewPager.setOffscreenPageLimit(mFragmentHomeBinding.myaccTabLayout.getTabCount());
         mFragmentHomeBinding.myaccViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mFragmentHomeBinding.myaccTabLayout));
         mFragmentHomeBinding.myaccTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -60,6 +60,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
+import com.tovo.eat.ui.home.region.RegionProvider;
 import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
@@ -101,7 +102,8 @@ public abstract class ActivityBuilder {
             InternetErrorProvider.class,
             FilterProvider.class,
             DialogSelectAddressProvider.class,
-            DialogChangeKitchenProvider.class
+            DialogChangeKitchenProvider.class,
+            RegionProvider.class
 
 
     })
@@ -111,7 +113,7 @@ public abstract class ActivityBuilder {
     abstract KitchenDishActivity bindKitchenDishActivity();
 
     @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
-            FavoritesKitchenProvider.class,   DialogChangeKitchenProvider.class})
+            FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
     abstract FavoritesTabActivity bindFavoritesTabActivity();
 
 
@@ -119,11 +121,8 @@ public abstract class ActivityBuilder {
     abstract AddAddressActivity bindAddAddressActivity();
 
 
-
     @ContributesAndroidInjector(modules = PaymentModule.class)
     abstract PaymentActivity bindPaymentActivity();
-
-
 
 
     @ContributesAndroidInjector(modules = EditAddressModule.class)

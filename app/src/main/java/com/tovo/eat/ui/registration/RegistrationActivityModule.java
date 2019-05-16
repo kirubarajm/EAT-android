@@ -19,7 +19,7 @@ public class RegistrationActivityModule {
     }
 
    /* @Provides
-    RegionAdapter provideRegionListAdapter() {
-        return new RegionAdapter(new ArrayList());
+    RegionsAdapter provideRegionListAdapter() {
+        return new RegionsAdapter(new ArrayList());
     }*/
 }

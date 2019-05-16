@@ -498,4 +498,6 @@
     <string name="more_options">More options</string>
     <string name="upi">UPI</string>
     <string name="wallet">Wallet</string>
+    <string name="approx">Approx</string>
+    <string name="show_more">Show more</string>
 </resources>

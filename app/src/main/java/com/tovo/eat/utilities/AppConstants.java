@@ -122,6 +122,9 @@ public class AppConstants {
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
 
 
+    public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
+
+
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;
     public static final int MOVEIT = 2;
