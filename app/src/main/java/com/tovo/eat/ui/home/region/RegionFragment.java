@@ -1,11 +1,21 @@
 package com.tovo.eat.ui.home.region;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CursorAdapter;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -14,6 +24,9 @@ import com.tovo.eat.databinding.FragmentRegionBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +40,23 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
     RegionsAdapter adapter;
 
     FragmentRegionBinding mFragmentRegionBinding;
+RegionSearchModel regionSearchModel;
+
+
+
+
+    private static final String[] SUGGESTIONS = {
+            "Bauru", "Sao Paulo", "Rio de Janeiro",
+            "Bahia", "Mato Grosso", "Minas Gerais",
+            "Tocantins", "Rio Grande do Sul"
+    };
+    private SimpleCursorAdapter mAdapter;
+
+
+
+
+
+
 
     public static RegionFragment newInstance() {
         Bundle args = new Bundle();
@@ -68,6 +98,195 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
             }
         });
 
+
+        /*List<RegionSearchModel> searchModels=new ArrayList<>();
+        searchModels.add(new RegionSearchModel("Theni"));
+        searchModels.add(new RegionSearchModel("Madurai"));
+        searchModels.add(new RegionSearchModel("Trichy"));
+        searchModels.add(new RegionSearchModel("Chennai"));
+        searchModels.add(new RegionSearchModel("Kerla"));
+        searchModels.add(new RegionSearchModel("Thanjavur"));*/
+
+
+        /*AutoCompleteRegionAdapter   mAutoCompleteItemAdapter = new AutoCompleteRegionAdapter(getContext(), android.R.layout.simple_dropdown_item_1line);
+        mFragmentRegionBinding.regionSearch.setThreshold(1);
+        mFragmentRegionBinding.regionSearch.setAdapter(mAutoCompleteItemAdapter);
+        mAutoCompleteItemAdapter.setData(searchModels);
+
+
+
+        mFragmentRegionBinding.regionSearch.setOnTouchListener( new DrawableClickListener.RightDrawableClickListener(mFragmentRegionBinding.regionSearch){
+            @Override
+            public boolean onDrawableClick(){
+                mFragmentRegionBinding.regionSearch.clearListSelection();
+                mFragmentRegionBinding.regionSearch.setText("");
+                return true;
+            }
+        } );
+
+
+
+        mFragmentRegionBinding.regionSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                regionSearchModel = ((AutoCompleteRegionAdapter)     mFragmentRegionBinding.regionSearch.getAdapter()).getFilterList().get(position);
+                Log.e("", regionSearchModel.getRegions());
+
+
+                Toast.makeText(getContext(), regionSearchModel.getRegions(), Toast.LENGTH_SHORT).show();
+
+            }
+        });*/
+
+
+       /* mFragmentRegionBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+                mFragmentRegionBinding.regionSearch.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                mFragmentRegionBinding.regionSearch.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mFragmentRegionBinding.recyclerviewOrders.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                    mFragmentRegionBinding.regionSearch.setVisibility(View.GONE);
+
+                }
+            });
+        }*/
+
+
+        //  mFragmentRegionBinding.ss.setSuggestionsAdapter(mAutoCompleteItemAdapter);
+
+
+
+
+
+
+
+
+
+
+
+       /* final String[] from = new String[] {"cityName"};
+        final int[] to = new int[] {android.R.id.text1};
+        mAdapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_list_item_1,
+                null,
+                from,
+                to,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+
+
+        mFragmentRegionBinding.searchh.setSuggestionsAdapter(mAdapter);
+        mFragmentRegionBinding.searchh.setIconifiedByDefault(false);
+        // Getting selected (clicked) item suggestion
+        mFragmentRegionBinding.searchh.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionClick(int position) {
+
+                Cursor cursor = (Cursor) mAdapter.getItem(position);
+                String txt = cursor.getString(cursor.getColumnIndex("cityName"));
+                mFragmentRegionBinding.searchh.setQuery(txt, true);
+                return true;
+            }
+
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                // Your code here
+                return true;
+            }
+        });
+        mFragmentRegionBinding.searchh.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                populateAdapter(s);
+                return false;
+            }
+        });*/
+
+
+
+      // List<String> items = Lists.newArrayList(new String[] {"aaaaa", "bbbbb", "ccccc", "ddddd"});
+        List<RegionSearchModel> items =new ArrayList<>();
+
+        items.add(new RegionSearchModel("madurai"));
+        items.add(new RegionSearchModel("theni"));
+        items.add(new RegionSearchModel("trichy"));
+        items.add(new RegionSearchModel("thanjai"));
+        items.add(new RegionSearchModel("chennai"));
+
+
+        SearchView.SearchAutoComplete searchSrcTextView = (SearchView.SearchAutoComplete)view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        //searchSrcTextView.setThreshold(1);
+        searchSrcTextView.setAdapter(new SuggestionAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, items));
+        searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                return;
+            }
+        });
+
+
+
+
+
+
+    }
+
+
+
+    // You must implements your logic to get data using OrmLite
+    private void populateAdapter(String query) {
+        final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, "cityName" });
+        for (int i=0; i<SUGGESTIONS.length; i++) {
+           /* if (SUGGESTIONS[i].toLowerCase().startsWith(query.toLowerCase()))
+                c.addRow(new Object[] {i, SUGGESTIONS[i]}); */
+
+
+            if (SUGGESTIONS[i].toLowerCase().contains(query.toLowerCase()))
+                c.addRow(new Object[] {i, SUGGESTIONS[i]});
+
+        }
+        mAdapter.changeCursor(c);
+
+
+        if (c.getCount()==0){
+            c.addRow(new Object[] {0, "No results found"});
+        }
+
+
+
+
+
+       /* if (c.isNull(0)) {
+
+            c.addRow(new Object[]{0,"No results found"});
+        }
+*/
 
     }
 

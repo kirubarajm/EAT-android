@@ -114,7 +114,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             TextView tabTextView = (TextView) relativeLayout.findViewById(R.id.tab_title);
             tabTextView.setText(tab.getText());
             tab.setCustomView(relativeLayout);
-            tab.select();
+            /*tab.select();*/
         }
 
 

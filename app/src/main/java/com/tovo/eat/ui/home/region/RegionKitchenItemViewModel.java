@@ -58,7 +58,11 @@ public class RegionKitchenItemViewModel {
 
     public void onItemClick() {
       //  mListener.onItemClick(mRegionList.getRegionId());
-        
+        if (isFavourite.get()){
+            isFavourite.set(false);
+        }else {
+            isFavourite.set(true);
+        }
 
 
     }
