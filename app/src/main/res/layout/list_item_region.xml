@@ -21,7 +21,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="7dp">
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,13 +191,13 @@
             android:background="@color/gray" />
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="@{regionItemViewModel.clicked?View.VISIBLE:View.GONE}">
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginLeft="10dp"
                 android:id="@+id/recyclerview_kitchens"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -205,25 +205,33 @@
                 android:animateLayoutChanges="false"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
-                tools:listitem="@layout/list_item_region"
-                android:layout_marginStart="10dp" />
+                tools:listitem="@layout/list_item_region" />
 
             <RelativeLayout
+
+                android:background="@color/light_gray"
+                android:onClick="@{()->regionItemViewModel. showMore()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:background="@color/white"
+                    android:background="@drawable/plain_curve_back"
                     android:singleLine="true"
                     android:text="@string/show_more"
-                    android:textColor="@color/medium_gray"
-                    android:textSize="16sp" />
+                    android:textColor="@color/eat_color"
+                    android:textSize="16sp"
+                    android:paddingRight="10dp" />
 
 
             </RelativeLayout>

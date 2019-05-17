@@ -73,10 +73,18 @@ public class RegionItemViewModel {
 
     }
 
+
+    public void showMore() {
+         mListener.showMore(mRegionList.getRegionId());
+
+
+    }
+
+
     public interface RegionItemViewModelListener {
 
         void onItemClick(Integer id);
-
+        void showMore(Integer id);
 
     }
 

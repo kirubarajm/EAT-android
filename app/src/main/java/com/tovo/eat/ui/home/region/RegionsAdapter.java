@@ -134,6 +134,11 @@ public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         }
 
+        @Override
+        public void showMore(Integer id) {
+            mLiveProductsAdapterListener.showMore(id);
+        }
+
 
     }
 
@@ -153,7 +158,7 @@ public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(Integer kitchenId);
-
+        void showMore(Integer regionId);
 
     }
 

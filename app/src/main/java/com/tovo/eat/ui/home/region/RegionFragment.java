@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -139,6 +140,15 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
         Intent intent = KitchenDishActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
+
+    }
+
+    @Override
+    public void showMore(Integer regionId) {
+
+
+        Toast.makeText(getContext(), "Show more clicked", Toast.LENGTH_SHORT).show();
+
 
     }
 
