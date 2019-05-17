@@ -6,15 +6,20 @@ import android.databinding.ObservableField;
 
 public class RegionKitchenItemViewModel {
 
-    public final ObservableField<String> area_name = new ObservableField<>();
+
+    public final ObservableField<String> ratings = new ObservableField<>();
+
+    public final ObservableField<String> kitchen_name = new ObservableField<>();
+    public final ObservableField<String> eta = new ObservableField<>();
+    public final ObservableField<String> offer = new ObservableField<>();
     public final ObservableField<String> region = new ObservableField<>();
-    public final ObservableField<String> imageUrl = new ObservableField<>();
-    public final ObservableField<String> totalKitchens = new ObservableField<>();
-    public final ObservableField<String> approx = new ObservableField<>();
+    public final ObservableField<String> userName = new ObservableField<>();
+    public final ObservableField<String> specialists = new ObservableField<>();
 
 
-    public final ObservableBoolean clicked = new ObservableBoolean();
-
+    public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean isRated = new ObservableBoolean();
+    public final ObservableBoolean isEta = new ObservableBoolean();
 
     public final RegionItemViewModelListener mListener;
     public final RegionsResponse.Kitchen mRegionList;
@@ -24,24 +29,36 @@ public class RegionKitchenItemViewModel {
         this.mListener = mListener;
         this.mRegionList = mRegionList;
 
-        area_name.set(mRegionList.getBrandname());
-        region.set(mRegionList.getSpecialists());
-        totalKitchens.set(mRegionList.getCostfortwo());
+        this.kitchen_name.set(mRegionList.getBrandname());
 
+        userName.set(mRegionList.getUsername());
+
+        specialists.set(mRegionList.getSpecialists());
+
+        if (mRegionList.getEta()==null){
+            isEta.set(false);
+        }else {
+            this.eta.set(mRegionList.getEta());
+            isEta.set(true);
+
+        }
+
+
+        if (mRegionList.getRating() != null) {
+            isRated.set(true);
+            this.ratings.set(String.valueOf(mRegionList.getRating()));
+        } else {
+            isRated.set(false);
+        }
+
+        this.offer.set(String.valueOf(mRegionList.getCostfortwo()));
 
     }
 
 
     public void onItemClick() {
       //  mListener.onItemClick(mRegionList.getRegionId());
-
-        if (clicked.get()){
-            clicked.set(false);
-        }else {
-            clicked.set(true);
-        }
-
-
+        
 
 
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -17,37 +18,38 @@
         android:onClick="@{()->regionItemViewModel.onItemClick()}"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            app:cardElevation="7dp">
 
-            <RelativeLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
 
-                <com.tovo.eat.utilities.RoundCornerImageView
-                    cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
+                <RelativeLayout
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/imagenotavailable" />
+                    android:layout_margin="10dp">
 
-            </RelativeLayout>
+                    <com.tovo.eat.utilities.RoundCornerImageView
+                        cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/imagenotavailable" />
+
+                </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
-
-                <android.support.v7.widget.CardView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
 
 
                     <RelativeLayout
@@ -90,7 +92,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginEnd="10dp"
                             android:layout_marginRight="10dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -132,60 +135,60 @@
 
                     </RelativeLayout>
 
-                </android.support.v7.widget.CardView>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="15dp">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="15dp">
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
-                            android:singleLine="true"
-                            android:text="@{regionItemViewModel.totalKitchens}"
-                            android:textColor="@color/medium_gray"
-                            android:textSize="12sp" />
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal">
 
 
-                    </LinearLayout>
+                            <com.tovo.eat.utilities.fonts.CircularTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:singleLine="true"
+                                android:text="@{regionItemViewModel.totalKitchens}"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="12sp" />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="2dp"
-                        android:rotation="@{regionItemViewModel.clicked?90:0}"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:tint="@color/medium_gray" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="2dp"
+                            android:rotation="@{regionItemViewModel.clicked?90:0}"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:tint="@color/medium_gray" />
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
-            </RelativeLayout>
 
-        </LinearLayout>
-
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <View
+            android:visibility="@{regionItemViewModel.clicked?View.GONE:View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/gray" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -194,6 +197,7 @@
             android:visibility="@{regionItemViewModel.clicked?View.VISIBLE:View.GONE}">
 
             <android.support.v7.widget.RecyclerView
+                android:layout_marginLeft="10dp"
                 android:id="@+id/recyclerview_kitchens"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -201,7 +205,8 @@
                 android:animateLayoutChanges="false"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
-                tools:listitem="@layout/list_item_region" />
+                tools:listitem="@layout/list_item_region"
+                android:layout_marginStart="10dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -214,6 +219,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_margin="5dp"
+                    android:background="@color/white"
                     android:singleLine="true"
                     android:text="@string/show_more"
                     android:textColor="@color/medium_gray"
