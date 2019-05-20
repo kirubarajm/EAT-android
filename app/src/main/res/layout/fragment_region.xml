@@ -16,8 +16,8 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="573dp"
-        android:layout_height="815dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#FCFCFC">
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -80,6 +80,7 @@
                 <android.support.v7.widget.SearchView
                     android:layout_alignParentTop="true"
                     android:id="@+id/searchh"
+                    android:inputType="textNoSuggestions"
                     app:queryHint="Try region like theni,chennai,madurai etc.."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

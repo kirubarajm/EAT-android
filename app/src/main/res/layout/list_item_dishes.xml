@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.MainActivity">
 
     <data>
@@ -12,6 +13,50 @@
             type="com.tovo.eat.ui.home.homemenu.dish.DishItemViewModel" />
 
     </data>
+
+
+
+
+    <com.tovo.eat.utilities.SwipeRevealLayout
+        app:dragFromEdge="left"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/info_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_business_black_24dp"
+                android:text="Info"/>
+
+            <ImageButton
+                android:id="@+id/edit_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_access_time_black_24dp"
+                android:text="Edit"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+
+
 
     <LinearLayout
         android:background="@color/white"
@@ -289,5 +334,6 @@
             android:layout_height="2dp"
             android:background="@color/gray" />
     </LinearLayout>
-
+    </FrameLayout>
+    </com.tovo.eat.utilities.SwipeRevealLayout>
 </layout>

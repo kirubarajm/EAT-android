@@ -209,14 +209,14 @@
 
             <RelativeLayout
 
-                android:background="@color/light_gray"
+                android:background="@color/white"
                 android:onClick="@{()->regionItemViewModel. showMore()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
                 <com.tovo.eat.utilities.fonts.CircularStdMedium
-
+                    android:id="@+id/showMore"
                     android:layout_marginBottom="10dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
@@ -226,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/plain_curve_back"
+                    android:background="@drawable/curve_stroke_show_more"
                     android:singleLine="true"
                     android:text="@string/show_more"
                     android:textColor="@color/eat_color"
@@ -234,6 +234,12 @@
                     android:paddingRight="10dp" />
 
 
+               <!-- <View
+                    android:layout_below="@+id/showMore"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />-->
             </RelativeLayout>
 
 

@@ -6,18 +6,22 @@ import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class SuggestionAdapter<T> extends ArrayAdapter<T> {
+public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel> {
 
-    private List<T> items;
+    private List<RegionSearchModel> items;
 
-    private List<T> filteredItems;
+    private List<RegionSearchModel> filteredItems;
     private ArrayFilter mFilter;
 
-    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<T> objects) {
+    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel> objects) {
         super(context, resource, objects);
         this.items = objects;
+          this.filteredItems = objects;
+
     }
 
     @Override
@@ -26,8 +30,8 @@ public class SuggestionAdapter<T> extends ArrayAdapter<T> {
     }
 
     @Override
-    public T getItem(int position) {
-        return items.get(position);
+    public RegionSearchModel getItem(int position) {
+        return filteredItems.get(position);
     }
 
     @Override
@@ -36,11 +40,11 @@ public class SuggestionAdapter<T> extends ArrayAdapter<T> {
             mFilter = new ArrayFilter();
         }
         return mFilter;
-    }0
+    }
 
     public int getCount() {
         //todo: change to pattern-size
-        return items.size();
+        return filteredItems.size();
     }
 
     private class ArrayFilter extends Filter {
@@ -48,21 +52,64 @@ public class SuggestionAdapter<T> extends ArrayAdapter<T> {
         protected FilterResults performFiltering(CharSequence prefix) {
             FilterResults results = new FilterResults();
 
+
+            List<RegionSearchModel> originalList = new ArrayList<>();
+            originalList = items;
+
+            if (prefix != null && prefix.length() > 0) {
+                ArrayList<RegionSearchModel> list = new ArrayList<>();
+
+                for (int i = 0; i < items.size(); i++) {
+                    if ((items.get(i).toString().toUpperCase(Locale.getDefault()))
+                            .contains(prefix.toString().toUpperCase(Locale.getDefault()))) {
+                        list.add(items.get(i));
+                    }
+                }
+
+                if (list.size() == 0) {
+                    list.add(new RegionSearchModel("No Regions found"));
+
+                }
+
+                results.values = list;
+                results.count = list.size();
+
+            } else {
+                 results.values = items;
+                 results.count = items.size();
+            }
+
             //custom-filtering of results
-            results.values = items;
-            results.count = items.size();
+
 
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredItems = (List<T>) results.values;
+            filteredItems = (List<RegionSearchModel>) results.values;
             if (results.count > 0) {
                 notifyDataSetChanged();
             } else {
+                filteredItems = new ArrayList<>();
                 notifyDataSetInvalidated();
+
             }
+
+
+           /* if(results.values!=null){
+                filteredItems = (ArrayList<RegionSearchModel>) results.values;
+            }else{
+                filteredItems = new ArrayList<>();
+            }
+            notifyDataSetChanged();*/
+
+
+
+
+
+
+
         }
     }
 }

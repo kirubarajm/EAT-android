@@ -238,9 +238,9 @@ RegionSearchModel regionSearchModel;
         items.add(new RegionSearchModel("chennai"));
 
 
-        SearchView.SearchAutoComplete searchSrcTextView = (SearchView.SearchAutoComplete)view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        SearchView.SearchAutoComplete searchSrcTextView =view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         //searchSrcTextView.setThreshold(1);
-        searchSrcTextView.setAdapter(new SuggestionAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, items));
+        searchSrcTextView.setAdapter(new SuggestionAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, items));
         searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -249,8 +249,6 @@ RegionSearchModel regionSearchModel;
                 return;
             }
         });
-
-
 
 
 
