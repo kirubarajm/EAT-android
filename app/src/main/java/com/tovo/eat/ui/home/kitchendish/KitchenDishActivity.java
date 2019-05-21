@@ -2,9 +2,15 @@ package com.tovo.eat.ui.home.kitchendish;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +22,8 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
+import com.tovo.eat.utilities.MainSliderAdapter;
+import com.tovo.eat.utilities.PicassoImageLoadingService;
 
 import javax.inject.Inject;
 
@@ -52,17 +60,91 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
        /* KitchenDishSubBinding mBinding = DataBindingUtil
                 .setContentView(this, R.layout.kitchen_dish_sub);*/
 
+
         mKitchenDishViewModel.setNavigator(this);
         adapter.setListener(this);
-
-
-
-/*
-        final Toolbar mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);*/
-
-
         mFragmentDishBinding = getViewDataBinding();
+
+
+        setSupportActionBar(mFragmentDishBinding.toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
+        getSupportActionBar().setHomeAsUpIndicator(backArrow);
+
+        mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
+        mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
+
+
+
+
+        mFragmentDishBinding.kitchenSlider.init(new PicassoImageLoadingService(this));
+
+        mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter());
+
+
+
+
+
+
+
+     //  setTitle("Kitchen");
+
+
+
+       /* mFragmentDishBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(verticalOffset == 0 || verticalOffset <= mFragmentDishBinding.toolbar.getHeight()){
+                    Toast.makeText(KitchenDishActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
+
+
+                }else if(!mFragmentDishBinding.toolbar.getTitle().equals(null)){
+                    Toast.makeText(KitchenDishActivity.this, "un-collapsed", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });*/
+
+        mFragmentDishBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            //private State state;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+
+
+                    //   Toast.makeText(KitchenDishActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
+
+                //   setTitle(" ");
+                    mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+
+                    // Toast.makeText(KitchenDishActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
+                  // setTitle("Kitchen");
+                    mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
+                    //  mFragmentDishBinding.toolbar.setVisibility(View.GONE);
+                    // mFragmentDishBinding.image.setVisibility(View.GONE);
+
+                } else {
+                 //   Toast.makeText(KitchenDishActivity.this, "d", Toast.LENGTH_SHORT).show();
+                 //   setTitle(" ");
+                    //  mFragmentDishBinding.toolbar.setVisibility(View.VISIBLE);
+                    // mFragmentDishBinding.image.setVisibility(View.VISIBLE);
+
+                    mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+                }
+            }
+        });
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);
@@ -98,6 +180,16 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
             }
         });*/
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

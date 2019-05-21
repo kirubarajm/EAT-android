@@ -121,6 +121,6 @@ public class AutoCompleteRegionAdapter extends ArrayAdapter<RegionSearchModel> i
         notifyDataSetChanged();
     }
 
-    
+
 
 }
