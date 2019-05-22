@@ -63,7 +63,6 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();*/
 
-        fetchRepos();
     }
 
     public MutableLiveData<List<KitchenDishResponse.Result>> getDishItemFullViewModels() {
@@ -242,13 +241,10 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
     }
 
 
-    public void fetchRepos() {
+    public void fetchRepos(Integer kitchenId) {
         // if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-
-        Integer kitchenId = getDataManager().getMakeitID();
 
 
         //  setIsLoading(true);
@@ -310,6 +306,9 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+
+
 
     }
 

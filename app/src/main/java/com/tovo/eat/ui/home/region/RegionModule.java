@@ -23,6 +23,12 @@ public class RegionModule {
         return new RegionsAdapter(new ArrayList<>());
     }
 
+
+    @Provides
+    RegionKitchenAdapter provideRegionKitchenAdapter() {
+        return new RegionKitchenAdapter(new ArrayList<>());
+    }
+
 /*
     @Provides
     RegionKitchenAdapter provideRegionKitchenAdapter() {

@@ -64,8 +64,8 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-      public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //  public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 
@@ -122,7 +122,10 @@ public class AppConstants {
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
 
 
-    public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
+    public static final String EAT_REGION_LIST = URL_SERVER_IP_PORT + "/eat/regionlist";
+    public static final String EAT_MASTER_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";
+    public static final String EAT_REGION_KITCHEN_LIST = URL_SERVER_IP_PORT + "/eat/kitche/showmore";
+  //  public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
 
 
     public static final int ADMIN = 0;

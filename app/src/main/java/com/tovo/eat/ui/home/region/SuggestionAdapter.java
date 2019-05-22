@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel> {
+public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
 
-    private List<RegionSearchModel> items;
+    private List<RegionSearchModel.Result> items;
 
-    private List<RegionSearchModel> filteredItems;
+    private List<RegionSearchModel.Result> filteredItems;
     private ArrayFilter mFilter;
 
-    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel> objects) {
+    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel.Result> objects) {
         super(context, resource, objects);
         this.items = objects;
           this.filteredItems = objects;
@@ -30,7 +30,7 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel> {
     }
 
     @Override
-    public RegionSearchModel getItem(int position) {
+    public RegionSearchModel.Result getItem(int position) {
         return filteredItems.get(position);
     }
 
@@ -53,21 +53,22 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel> {
             FilterResults results = new FilterResults();
 
 
-            List<RegionSearchModel> originalList = new ArrayList<>();
+            List<RegionSearchModel.Result> originalList = new ArrayList<>();
             originalList = items;
 
             if (prefix != null && prefix.length() > 0) {
-                ArrayList<RegionSearchModel> list = new ArrayList<>();
+                ArrayList<RegionSearchModel.Result> list = new ArrayList<>();
 
                 for (int i = 0; i < items.size(); i++) {
-                    if ((items.get(i).toString().toUpperCase(Locale.getDefault()))
+                    if ((items.get(i).getRegionname().toString().toUpperCase(Locale.getDefault()))
                             .contains(prefix.toString().toUpperCase(Locale.getDefault()))) {
                         list.add(items.get(i));
                     }
                 }
 
                 if (list.size() == 0) {
-                    list.add(new RegionSearchModel("No Regions found"));
+
+                    list.add(new RegionSearchModel.Result(0,"No Regions found"));
 
                 }
 
@@ -87,7 +88,7 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredItems = (List<RegionSearchModel>) results.values;
+            filteredItems = (List<RegionSearchModel.Result>) results.values;
             if (results.count > 0) {
                 notifyDataSetChanged();
             } else {

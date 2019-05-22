@@ -230,7 +230,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openAccount() {
 
-       /* Intent intent = AddressListActivity.newIntent(FilterActivity.this);
+       /* Intent intent = RegionListActivity.newIntent(FilterActivity.this);
         startActivity(intent);*/
 
         if (mMainViewModel.checkInternet()) {
@@ -557,7 +557,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startLocationTracking();
             mMainViewModel.addressTitle.set("Current location");
 
-           /* Intent intent = AddressListActivity.newIntent(MainActivity.this);
+           /* Intent intent = RegionListActivity.newIntent(MainActivity.this);
             intent.putExtra("for", "new");
             startActivity(intent);*/
 

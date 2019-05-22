@@ -24,6 +24,7 @@ import com.tovo.eat.databinding.FragmentRegionBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.home.region.list.RegionListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,15 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
     @Inject
     RegionsAdapter adapter;
 
+
+    List<RegionSearchModel.Result> items;
+   /* @Inject
+    RegionKitchenAdapter  kitchenAdapter;*/
+
     FragmentRegionBinding mFragmentRegionBinding;
-RegionSearchModel regionSearchModel;
+    RegionSearchModel regionSearchModel;
 
-
+    SearchView.SearchAutoComplete searchSrcTextView;
 
 
     private static final String[] SUGGESTIONS = {
@@ -51,11 +57,6 @@ RegionSearchModel regionSearchModel;
             "Tocantins", "Rio Grande do Sul"
     };
     private SimpleCursorAdapter mAdapter;
-
-
-
-
-
 
 
     public static RegionFragment newInstance() {
@@ -71,6 +72,7 @@ RegionSearchModel regionSearchModel;
         super.onCreate(savedInstanceState);
         mRegionViewModel.setNavigator(this);
         adapter.setListener(this);
+        //   kitchenAdapter.setListener(this);
 
     }
 
@@ -227,53 +229,48 @@ RegionSearchModel regionSearchModel;
         });*/
 
 
+        // List<String> items = Lists.newArrayList(new String[] {"aaaaa", "bbbbb", "ccccc", "ddddd"});
 
-      // List<String> items = Lists.newArrayList(new String[] {"aaaaa", "bbbbb", "ccccc", "ddddd"});
-        List<RegionSearchModel> items =new ArrayList<>();
+        searchSrcTextView = view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        items = new ArrayList<>();
+        mRegionViewModel.regionList();
 
-        items.add(new RegionSearchModel("madurai"));
+
+
+      /*  items.add(new RegionSearchModel.Result(0, "Madurai"));
+        items.add(new RegionSearchModel.Result(1, "Theni"));
+        items.add(new RegionSearchModel.Result(2, "Chennai"));
+        items.add(new RegionSearchModel.Result(3, "Trichy"));*/
+
+        // items=mRegionViewModel.regionList().getResult();
+
+      /*  items.add(new RegionSearchModel("madurai"));
         items.add(new RegionSearchModel("theni"));
         items.add(new RegionSearchModel("trichy"));
         items.add(new RegionSearchModel("thanjai"));
-        items.add(new RegionSearchModel("chennai"));
-
-
-        SearchView.SearchAutoComplete searchSrcTextView =view.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        //searchSrcTextView.setThreshold(1);
-        searchSrcTextView.setAdapter(new SuggestionAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, items));
-        searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                return;
-            }
-        });
-
-
+        items.add(new RegionSearchModel("chennai"));*/
 
 
     }
 
 
-
     // You must implements your logic to get data using OrmLite
     private void populateAdapter(String query) {
-        final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, "cityName" });
-        for (int i=0; i<SUGGESTIONS.length; i++) {
+        final MatrixCursor c = new MatrixCursor(new String[]{BaseColumns._ID, "cityName"});
+        for (int i = 0; i < SUGGESTIONS.length; i++) {
            /* if (SUGGESTIONS[i].toLowerCase().startsWith(query.toLowerCase()))
                 c.addRow(new Object[] {i, SUGGESTIONS[i]}); */
 
 
             if (SUGGESTIONS[i].toLowerCase().contains(query.toLowerCase()))
-                c.addRow(new Object[] {i, SUGGESTIONS[i]});
+                c.addRow(new Object[]{i, SUGGESTIONS[i]});
 
         }
         mAdapter.changeCursor(c);
 
 
-        if (c.getCount()==0){
-            c.addRow(new Object[] {0, "No results found"});
+        if (c.getCount() == 0) {
+            c.addRow(new Object[]{0, "No results found"});
         }
 
 
@@ -324,6 +321,37 @@ RegionSearchModel regionSearchModel;
         mFragmentRegionBinding.shimmerViewContainer.startShimmerAnimation();
     }
 
+    @Override
+    public void searchLoaded(RegionSearchModel regionSearchModel) {
+
+
+        Toast.makeText(getContext(), "started", Toast.LENGTH_SHORT).show();
+
+        //searchSrcTextView.setThreshold(1);
+        searchSrcTextView.setAdapter(new SuggestionAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, regionSearchModel.getResult()));
+        searchSrcTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+               RegionSearchModel.Result result  = ((SuggestionAdapter)searchSrcTextView.getAdapter()).getItem(position);
+
+
+                Integer regionID =result.getRegionid();
+
+
+                Intent intent = RegionListActivity.newIntent(getContext());
+                intent.putExtra("id", regionID);
+                startActivity(intent);
+
+
+                return;
+            }
+        });
+
+
+    }
+
 
     private void subscribeToLiveData() {
         mRegionViewModel.getregionItemsLiveData().observe(this,
@@ -346,13 +374,17 @@ RegionSearchModel regionSearchModel;
         mRegionViewModel.fetchRepos();
 
         subscribeToLiveData();
+
+
+        mRegionViewModel.regionList();
+
+
     }
 
 
     @Override
     public void onItemClickData(Integer kitchenId) {
-
-        mRegionViewModel.saveMakeitId(kitchenId);
+        //     mRegionViewModel.saveMakeitId(kitchenId);
 
         Intent intent = KitchenDishActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
@@ -362,13 +394,21 @@ RegionSearchModel regionSearchModel;
 
     @Override
     public void showMore(Integer regionId) {
-
-
-        Toast.makeText(getContext(), "Show more clicked", Toast.LENGTH_SHORT).show();
-
+        Intent intent = RegionListActivity.newIntent(getContext());
+        intent.putExtra("id", regionId);
+        startActivity(intent);
 
     }
 
 
+    /*@Override
+    public void onKitchenClicked(Integer kitchenId) {
+
+        Intent intent = KitchenDishActivity.newIntent(getContext());
+        intent.putExtra("kitchenId", kitchenId);
+        startActivity(intent);
+
+
+    }*/
 }
 

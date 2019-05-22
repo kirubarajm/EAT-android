@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> implements RegionKitchenAdapter.LiveProductsAdapterListener{
 
 
     private static final int VIEW_TYPE_NORMAL = 1;
@@ -69,6 +69,14 @@ public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return VIEW_TYPE_EMPTY;
         }
     }
+
+    @Override
+    public void onKitchenClicked(Integer kitchenId) {
+
+mLiveProductsAdapterListener.onItemClickData(kitchenId);
+
+    }
+
     public class EmptyViewHolder extends BaseViewHolder  {
 
         private final ListItemEmptyBinding mBinding;
@@ -119,9 +127,11 @@ public class RegionsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
             mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            RegionKitchenAdapter regionKitchenAdapter=new RegionKitchenAdapter(item_list.get(position).getKitchens());
+            RegionKitchenAdapter regionKitchenAdapter=new RegionKitchenAdapter(item_list.get(position).getKitchenlist());
             mListItemLiveProductsBinding.recyclerviewKitchens.setLayoutManager(mLayoutManager);
             mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
+
+            regionKitchenAdapter.setListener(RegionsAdapter.this);
 
 
         }

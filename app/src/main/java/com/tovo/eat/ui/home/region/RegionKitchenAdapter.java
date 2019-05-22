@@ -18,11 +18,11 @@ public class RegionKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<RegionsResponse.Kitchen> item_list;
+    private List<RegionsResponse.Kitchenlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-    public RegionKitchenAdapter(List<RegionsResponse.Kitchen> item_list) {
+    public RegionKitchenAdapter(List<RegionsResponse.Kitchenlist> item_list) {
         this.item_list = item_list;
     }
 
@@ -92,19 +92,12 @@ public class RegionKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
 
-
-
-
-
-
-
-
         }
 
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final RegionsResponse.Kitchen blog = item_list.get(position);
+            final RegionsResponse.Kitchenlist blog = item_list.get(position);
             mLiveProductsItemViewModel = new RegionKitchenItemViewModel(this,blog);
             mListItemLiveProductsBinding.setRegionKitchenItemViewModel(mLiveProductsItemViewModel);
 
@@ -118,8 +111,7 @@ public class RegionKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(Integer id) {
-            mLiveProductsAdapterListener.onItemClickData(id);
-
+            mLiveProductsAdapterListener.onKitchenClicked(id);
 
         }
 
@@ -130,7 +122,7 @@ public class RegionKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<RegionsResponse.Kitchen> blogList, Context context) {
+    public void addItems(List<RegionsResponse.Kitchenlist> blogList, Context context) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -141,7 +133,7 @@ public class RegionKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(Integer kitchenId);
+        void onKitchenClicked(Integer kitchenId);
 
 
     }

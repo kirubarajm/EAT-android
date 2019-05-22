@@ -7,9 +7,266 @@ import java.util.List;
 
 public class RegionsResponse {
 
+
+    public class Cuisine {
+
+        @SerializedName("cuisineid")
+        @Expose
+        private Integer cuisineid;
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
+
+        public Integer getCuisineid() {
+            return cuisineid;
+        }
+
+        public void setCuisineid(Integer cuisineid) {
+            this.cuisineid = cuisineid;
+        }
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
+
+    }
+    public class Kitchenlist {
+
+        @SerializedName("makeituserid")
+        @Expose
+        private Integer makeituserid;
+        @SerializedName("makeitusername")
+        @Expose
+        private String makeitusername;
+        @SerializedName("makeitbrandname")
+        @Expose
+        private String makeitbrandname;
+        @SerializedName("rating")
+        @Expose
+        private double rating;
+        @SerializedName("regionid")
+        @Expose
+        private Integer regionid;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
+        @SerializedName("costfortwo")
+        @Expose
+        private Integer costfortwo;
+        @SerializedName("makeitimg")
+        @Expose
+        private String makeitimg;
+        @SerializedName("localityname")
+        @Expose
+        private String localityname;
+        @SerializedName("favid")
+        @Expose
+        private Integer favid;
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+        @SerializedName("distance")
+        @Expose
+        private Double distance;
+        @SerializedName("cuisines")
+        @Expose
+        private List<Cuisine> cuisines = null;
+        @SerializedName("eta")
+        @Expose
+        private String eta;
+
+        public Integer getMakeituserid() {
+            return makeituserid;
+        }
+
+        public void setMakeituserid(Integer makeituserid) {
+            this.makeituserid = makeituserid;
+        }
+
+        public String getMakeitusername() {
+            return makeitusername;
+        }
+
+        public void setMakeitusername(String makeitusername) {
+            this.makeitusername = makeitusername;
+        }
+
+        public String getMakeitbrandname() {
+            return makeitbrandname;
+        }
+
+        public void setMakeitbrandname(String makeitbrandname) {
+            this.makeitbrandname = makeitbrandname;
+        }
+
+        public double getRating() {
+            return rating;
+        }
+
+        public void setRating(double rating) {
+            this.rating = rating;
+        }
+
+        public Integer getRegionid() {
+            return regionid;
+        }
+
+        public void setRegionid(Integer regionid) {
+            this.regionid = regionid;
+        }
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
+
+        public Integer getCostfortwo() {
+            return costfortwo;
+        }
+
+        public void setCostfortwo(Integer costfortwo) {
+            this.costfortwo = costfortwo;
+        }
+
+        public String getMakeitimg() {
+            return makeitimg;
+        }
+
+        public void setMakeitimg(String makeitimg) {
+            this.makeitimg = makeitimg;
+        }
+
+        public String getLocalityname() {
+            return localityname;
+        }
+
+        public void setLocalityname(String localityname) {
+            this.localityname = localityname;
+        }
+
+        public Integer getFavid() {
+            return favid;
+        }
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
+        }
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
+
+        public Double getDistance() {
+            return distance;
+        }
+
+        public void setDistance(Double distance) {
+            this.distance = distance;
+        }
+
+        public List<Cuisine> getCuisines() {
+            return cuisines;
+        }
+
+        public void setCuisines(List<Cuisine> cuisines) {
+            this.cuisines = cuisines;
+        }
+
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
+        }
+    }
+    public class Result {
+
+        @SerializedName("regionid")
+        @Expose
+        private Integer regionid;
+        @SerializedName("kitchencount")
+        @Expose
+        private Integer kitchencount;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
+        @SerializedName("region_image")
+        @Expose
+        private String regionImage;
+        @SerializedName("distance")
+        @Expose
+        private Double distance;
+        @SerializedName("kitchenlist")
+        @Expose
+        private List<Kitchenlist> kitchenlist = null;
+
+        public Integer getKitchencount() {
+            return kitchencount;
+        }
+
+        public void setKitchencount(Integer kitchencount) {
+            this.kitchencount = kitchencount;
+        }
+
+        public Integer getRegionid() {
+            return regionid;
+        }
+
+        public void setRegionid(Integer regionid) {
+            this.regionid = regionid;
+        }
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
+
+        public String getRegionImage() {
+            return regionImage;
+        }
+
+        public void setRegionImage(String regionImage) {
+            this.regionImage = regionImage;
+        }
+
+        public Double getDistance() {
+            return distance;
+        }
+
+        public void setDistance(Double distance) {
+            this.distance = distance;
+        }
+
+        public List<Kitchenlist> getKitchenlist() {
+            return kitchenlist;
+        }
+
+        public void setKitchenlist(List<Kitchenlist> kitchenlist) {
+            this.kitchenlist = kitchenlist;
+        }
+
+    }
     @SerializedName("success")
     @Expose
     private Boolean success;
+    @SerializedName("status")
+    @Expose
+    private Boolean status;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -22,203 +279,19 @@ public class RegionsResponse {
         this.success = success;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public List<Result> getResult() {
         return result;
     }
 
     public void setResult(List<Result> result) {
         this.result = result;
-    }
-
-
-
-    public class Result {
-
-        @SerializedName("image")
-        @Expose
-        private String image;
-        @SerializedName("area")
-        @Expose
-        private String area;
-        @SerializedName("region")
-        @Expose
-        private String region;
-        @SerializedName("kitchen_nos")
-        @Expose
-        private Integer kitchenNos;
-        @SerializedName("aprox")
-        @Expose
-        private String aprox;
-        @SerializedName("kitchens")
-        @Expose
-        private List<Kitchen> kitchens = null;
-        @SerializedName("region_id")
-        @Expose
-        private Integer regionId;
-
-        public Integer getRegionId() {
-            return regionId;
-        }
-
-        public void setRegionId(Integer regionId) {
-            this.regionId = regionId;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
-
-        public String getRegion() {
-            return region;
-        }
-
-        public void setRegion(String region) {
-            this.region = region;
-        }
-
-        public Integer getKitchenNos() {
-            return kitchenNos;
-        }
-
-        public void setKitchenNos(Integer kitchenNos) {
-            this.kitchenNos = kitchenNos;
-        }
-
-        public String getAprox() {
-            return aprox;
-        }
-
-        public void setAprox(String aprox) {
-            this.aprox = aprox;
-        }
-
-        public List<Kitchen> getKitchens() {
-            return kitchens;
-        }
-
-        public void setKitchens(List<Kitchen> kitchens) {
-            this.kitchens = kitchens;
-        }
-
-    }
-
-
-    public class Kitchen {
-
-        @SerializedName("brandname")
-        @Expose
-        private String brandname;
-        @SerializedName("username")
-        @Expose
-        private String username;
-        @SerializedName("rating")
-        @Expose
-        private Integer rating;
-        @SerializedName("eta")
-        @Expose
-        private String eta;
-        @SerializedName("costfortwo")
-        @Expose
-        private String costfortwo;
-        @SerializedName("specialists")
-        @Expose
-        private String specialists;
-        @SerializedName("isFav")
-        @Expose
-        private String isFav;
-        @SerializedName("favId")
-        @Expose
-        private Integer favId;
-
-
-        @SerializedName("kitchenId")
-        @Expose
-        private Integer kitchenId;
-
-
-        public Integer getKitchenId() {
-            return kitchenId;
-        }
-
-        public void setKitchenId(Integer kitchenId) {
-            this.kitchenId = kitchenId;
-        }
-
-        public String getBrandname() {
-            return brandname;
-        }
-
-        public void setBrandname(String brandname) {
-            this.brandname = brandname;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public Integer getRating() {
-            return rating;
-        }
-
-        public void setRating(Integer rating) {
-            this.rating = rating;
-        }
-
-        public String getEta() {
-            return eta;
-        }
-
-        public void setEta(String eta) {
-            this.eta = eta;
-        }
-
-        public String getCostfortwo() {
-            return costfortwo;
-        }
-
-        public void setCostfortwo(String costfortwo) {
-            this.costfortwo = costfortwo;
-        }
-
-        public String getSpecialists() {
-            return specialists;
-        }
-
-        public void setSpecialists(String specialists) {
-            this.specialists = specialists;
-        }
-
-        public String getIsFav() {
-            return isFav;
-        }
-
-        public void setIsFav(String isFav) {
-            this.isFav = isFav;
-        }
-
-        public Integer getFavId() {
-            return favId;
-        }
-
-        public void setFavId(Integer favId) {
-            this.favId = favId;
-        }
-
     }
 }

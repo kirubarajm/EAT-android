@@ -19,6 +19,7 @@ public class RegionItemViewModel {
 
 
     public final ObservableBoolean clicked = new ObservableBoolean();
+    public final ObservableBoolean haveMore = new ObservableBoolean();
 
 
     public final RegionItemViewModelListener mListener;
@@ -27,8 +28,8 @@ public class RegionItemViewModel {
 
 
 
-    public ObservableList<RegionsResponse.Kitchen> regionKitchenItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<RegionsResponse.Kitchen>> regionKitchenItemsLiveData;
+    public ObservableList<RegionsResponse.Kitchenlist> regionKitchenItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<RegionsResponse.Kitchenlist>> regionKitchenItemsLiveData;
 
 
 
@@ -37,17 +38,24 @@ public class RegionItemViewModel {
         this.mListener = mListener;
         this.mRegionList = mRegionList;
 
-        area_name.set(mRegionList.getArea());
-        region.set(mRegionList.getRegion());
-        imageUrl.set(mRegionList.getImage());
-        totalKitchens.set((mRegionList.getKitchenNos())+" Homes specialize in "+mRegionList.getArea());
-        approx.set(mRegionList.getAprox());
+      //  area_name.set(mRegionList.getArea());
+        region.set(mRegionList.getRegionname());
+        imageUrl.set(mRegionList.getRegionImage() );
+       // totalKitchens.set((mRegionList.getKitchenNos())+" Homes specialize in "+mRegionList.getArea());
+        totalKitchens.set(+mRegionList.getKitchencount()+" Homes specialize in "+mRegionList.getRegionname());
+      //  approx.set(mRegionList.getAprox());
 
 
 
+        if (mRegionList.getKitchencount()>3){
+            haveMore.set(true);
+        }else {
+            haveMore.set(false);
+        }
 
 
-        regionKitchenItemViewModels.addAll(mRegionList.getKitchens());
+
+        regionKitchenItemViewModels.addAll(mRegionList.getKitchenlist());
 
 
 
@@ -75,7 +83,7 @@ public class RegionItemViewModel {
 
 
     public void showMore() {
-         mListener.showMore(mRegionList.getRegionId());
+         mListener.showMore(mRegionList.getRegionid());
 
 
     }

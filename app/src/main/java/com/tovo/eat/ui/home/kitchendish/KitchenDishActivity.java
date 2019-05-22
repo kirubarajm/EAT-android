@@ -47,6 +47,15 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
 
+
+
+
+    Integer kitchenID;
+
+
+
+
+
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
@@ -67,6 +76,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
 
         setSupportActionBar(mFragmentDishBinding.toolbar);
+
+
+
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,8 +106,27 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
 
 
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            kitchenID=intent.getExtras().getInt("kitchenId");
 
-     //  setTitle("Kitchen");
+            mKitchenDishViewModel.fetchRepos(kitchenID);
+
+
+            subscribeToLiveData();
+        }
+
+
+
+
+
+
+
+
+
+
+
+        //  setTitle("Kitchen");
 
 
 
@@ -274,7 +306,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-        mKitchenDishViewModel.fetchRepos();
+        mKitchenDishViewModel.fetchRepos(kitchenID);
     }
 
     @Override
@@ -319,7 +351,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     public void confirmClick(boolean status) {
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
-        mKitchenDishViewModel.fetchRepos();
+        mKitchenDishViewModel.fetchRepos(kitchenID);
 
     }
 

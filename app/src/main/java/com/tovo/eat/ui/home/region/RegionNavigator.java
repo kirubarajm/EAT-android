@@ -7,4 +7,7 @@ public interface RegionNavigator {
 
     void kitchenListLoaded();
     void kitchenListLoading();
+
+
+    void searchLoaded(RegionSearchModel regionSearchModel);
 }

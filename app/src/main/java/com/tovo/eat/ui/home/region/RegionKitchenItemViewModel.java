@@ -22,18 +22,18 @@ public class RegionKitchenItemViewModel {
     public final ObservableBoolean isEta = new ObservableBoolean();
 
     public final RegionItemViewModelListener mListener;
-    public final RegionsResponse.Kitchen mRegionList;
+    public final RegionsResponse.Kitchenlist mRegionList;
 
 
-    public RegionKitchenItemViewModel(RegionItemViewModelListener mListener, RegionsResponse.Kitchen mRegionList) {
+    public RegionKitchenItemViewModel(RegionItemViewModelListener mListener, RegionsResponse.Kitchenlist mRegionList) {
         this.mListener = mListener;
         this.mRegionList = mRegionList;
 
-        this.kitchen_name.set(mRegionList.getBrandname());
+        this.kitchen_name.set(mRegionList.getMakeitbrandname());
 
-        userName.set(mRegionList.getUsername());
+        userName.set(mRegionList.getMakeitusername());
 
-        specialists.set(mRegionList.getSpecialists());
+       // specialists.set(mRegionList.getSpecialists());
 
         if (mRegionList.getEta()==null){
             isEta.set(false);
@@ -44,7 +44,7 @@ public class RegionKitchenItemViewModel {
         }
 
 
-        if (mRegionList.getRating() != null) {
+        if (mRegionList.getRating() != 0) {
             isRated.set(true);
             this.ratings.set(String.valueOf(mRegionList.getRating()));
         } else {
@@ -57,7 +57,7 @@ public class RegionKitchenItemViewModel {
 
 
     public void onItemClick() {
-      //  mListener.onItemClick(mRegionList.getRegionId());
+        mListener.onItemClick(mRegionList.getMakeituserid());
         if (isFavourite.get()){
             isFavourite.set(false);
         }else {
@@ -69,7 +69,7 @@ public class RegionKitchenItemViewModel {
 
     public interface RegionItemViewModelListener {
 
-        void onItemClick(Integer id);
+        void onItemClick(Integer makeitId);
 
 
     }
