@@ -31,7 +31,7 @@ public interface CartNavigator {
     void toastMessage(String msg);
 
 
-    void paymentGateway();
+    void paymentGateway(String totalAmount);
 
 
 

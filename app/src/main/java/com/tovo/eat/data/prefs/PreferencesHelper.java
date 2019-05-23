@@ -140,4 +140,23 @@ public interface PreferencesHelper {
     void setisPasswordStatus(boolean status);
 
 
+    Integer getTotalOrders();
+
+
+    void setTotalOrders(Integer orders);
+
+
+
+
+
+
+    boolean isHomeAddressAdded();
+
+    void setHomeAddressAdded(boolean status);
+
+    boolean isOfficeAddressAdded();
+
+    void setOfficeAddressAdded(boolean status);
+
+
 }

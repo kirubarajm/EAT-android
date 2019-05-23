@@ -214,10 +214,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void paymentGateway() {
-
+    public void paymentGateway(String totalAmount) {
 
         Intent intent = PaymentActivity.newIntent(getContext());
+        intent.putExtra("amount",totalAmount);
         startActivity(intent);
 
     }

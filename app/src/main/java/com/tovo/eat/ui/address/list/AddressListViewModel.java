@@ -174,7 +174,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+                 //   Log.e("", error.getMessage());
                 }
             });
 

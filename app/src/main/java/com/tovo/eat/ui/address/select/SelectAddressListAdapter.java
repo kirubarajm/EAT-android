@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.address.select;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +25,9 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
     private DataManager dataManager;
 
 
-    public SelectAddressListAdapter(List<SelectAddressListResponse.Result> item_list) {
+    public SelectAddressListAdapter(List<SelectAddressListResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
+        this.dataManager=dataManager;
     }
 
     public class EmptyViewHolder extends BaseViewHolder  {
@@ -143,6 +145,16 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
         @Override
         public void editAddress(SelectAddressListResponse.Result result) {
             mLiveProductsAdapterListener.editAddressClick(result);
+        }
+
+        @Override
+        public void homeAddressAdded() {
+            dataManager.setHomeAddressAdded(true);
+        }
+
+        @Override
+        public void officeAddressAdded() {
+            dataManager.setOfficeAddressAdded(true);
         }
     }
 }

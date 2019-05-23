@@ -57,8 +57,11 @@ public interface DataManager extends PreferencesHelper {
     void kitchenId(Integer id);
 
 
-    void currentOrderId(Integer orderId);
+    void totalOrders(Integer orders);
 
+    void currentOrderId(Integer orderId);
+boolean homeAddressadded(boolean status);
+boolean officeAddressadded(boolean status);
 
     void isFavClicked(boolean status);
 

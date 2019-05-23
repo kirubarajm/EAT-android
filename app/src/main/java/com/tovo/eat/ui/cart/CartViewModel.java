@@ -230,12 +230,21 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
 
-        String ss = getDataManager().getCartDetails();
+        //  String ss = getDataManager().getCartDetails();
 
-        if (getCartPojoDetails() != null)
+        if (getCartPojoDetails() != null) {
+
+
+            Gson sGson = new GsonBuilder().create();
+            CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+
+            cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
+
+            Gson gson = new Gson();
+            String carts = gson.toJson(cartRequestPojo);
 
             try {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CART_DETAILS_URL, new JSONObject(ss), new Response.Listener<JSONObject>() {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CART_DETAILS_URL, new JSONObject(carts), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
@@ -263,6 +272,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
 
                             }
+
+
+                            getDataManager().totalOrders(Integer.valueOf(cartPageResponse.getResult().get(0).getOrdercount()));
+
 
                             makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
                             //  makeit_category.set(response.getResult().get(0).getCategory());
@@ -340,7 +353,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 n.printStackTrace();
             }
 
-
+        }
     }
 
     public void paymentModeCheck() {
@@ -350,14 +363,26 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             getNavigator().selectAddress();
 
         } else {
-            if (getDataManager().getisPasswordStatus()) {
 
-                getNavigator().paymentGateway();
+
+            if (getDataManager().getTotalOrders() == 0) {
+                getNavigator().paymentGateway(grand_total.get());
 
             } else {
-                getNavigator().postRegistration();
+
+                if (getDataManager().getisPasswordStatus()) {
+
+                    getNavigator().paymentGateway(grand_total.get());
+
+                } else {
+                    getNavigator().postRegistration();
+                }
+
+
             }
         }
+
+
 /*
         if (getDataManager().getisPasswordStatus()) {
 
@@ -420,7 +445,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), 1, 0, cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), orderitems);
+            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(),  cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), orderitems);
 
 
             Gson gson = new Gson();

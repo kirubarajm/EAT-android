@@ -45,9 +45,11 @@ public class AddressListItemViewModel {
         if (addressList.getAddressType().equalsIgnoreCase("1")){
             isHome.set(true);
             isWork.set(false);
+            mListener.homeAddressAdded();
         }else if (addressList.getAddressType().equalsIgnoreCase("2")){
             isHome.set(false);
             isWork.set(true);
+            mListener.officeAddressAdded();
         }else if (addressList.getAddressType().equalsIgnoreCase("3")){
             isHome.set(false);
             isWork.set(false);
@@ -94,6 +96,9 @@ public class AddressListItemViewModel {
         void editAddress(AddressListResponse.Result result);
 
          void deleteAddress(Integer aid);
+         void homeAddressAdded();
+         void officeAddressAdded();
+
 
     }
 

@@ -160,8 +160,24 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void totalOrders(Integer orders) {
+        setTotalOrders(orders);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
+        mPreferencesHelper.getOrderId();
+    }
+
+    @Override
+    public boolean homeAddressadded(boolean status) {
+        return false;
+    }
+
+    @Override
+    public boolean officeAddressadded(boolean status) {
+        return false;
     }
 
     @Override
@@ -409,6 +425,37 @@ public class AppDataManager implements DataManager {
     @Override
     public void setisPasswordStatus(boolean status) {
         mPreferencesHelper.setisPasswordStatus(status);
+    }
+
+    @Override
+    public Integer getTotalOrders() {
+        return mPreferencesHelper.getTotalOrders();
+    }
+
+    @Override
+    public void setTotalOrders(Integer orders) {
+        mPreferencesHelper.setTotalOrders(orders);
+    }
+
+    @Override
+    public boolean isHomeAddressAdded() {
+        return mPreferencesHelper.isHomeAddressAdded();
+    }
+
+    @Override
+    public void setHomeAddressAdded(boolean status) {
+
+        mPreferencesHelper.setHomeAddressAdded(status);
+    }
+
+    @Override
+    public boolean isOfficeAddressAdded() {
+        return mPreferencesHelper.isOfficeAddressAdded();
+    }
+
+    @Override
+    public void setOfficeAddressAdded(boolean status) {
+        mPreferencesHelper.setOfficeAddressAdded(status);
     }
 
     @Override

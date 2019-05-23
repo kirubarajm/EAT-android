@@ -325,7 +325,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
     public void searchLoaded(RegionSearchModel regionSearchModel) {
 
 
-        Toast.makeText(getContext(), "started", Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getContext(), "started", Toast.LENGTH_SHORT).show();
 
         //searchSrcTextView.setThreshold(1);
         searchSrcTextView.setAdapter(new SuggestionAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, regionSearchModel.getResult()));

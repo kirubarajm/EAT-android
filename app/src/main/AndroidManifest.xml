@@ -162,6 +162,12 @@
         </receiver>
 
 
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_3cduMl5T89iR9G"
+            />
+
+
         <!--
                 <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
                     <intent-filter>

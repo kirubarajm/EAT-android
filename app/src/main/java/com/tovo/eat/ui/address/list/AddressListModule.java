@@ -22,7 +22,7 @@ public class AddressListModule {
 
     @Provides
     AddressListAdapter provideAddressListAdapter() {
-        return new AddressListAdapter(new ArrayList<>());
+        return new AddressListAdapter(new ArrayList<>(),dataManager);
     }
 
 

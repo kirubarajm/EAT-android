@@ -1,20 +1,31 @@
 package com.tovo.eat.ui.payment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Toast;
 
+import com.razorpay.Checkout;
+import com.razorpay.PaymentData;
+import com.razorpay.PaymentResultListener;
+import com.razorpay.PaymentResultWithDataListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.databinding.ActivityPaymentBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, PaymentViewModel> implements PaymentNavigator {
+public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, PaymentViewModel> implements PaymentNavigator, PaymentResultListener {
 
 
     public ActivityPaymentBinding mActivityPaymentBinding;
@@ -79,6 +90,55 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     }
 
+    @Override
+    public void orderCompleted() {
+
+        finish();
+    }
+
+    @Override
+    public void orderGenerated(Integer orderId,String customerId,Integer amount) {
+
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+       // co.setImage(R.mipmap.ic_launcher);
+
+        co.setFullScreenDisable(true);
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", getString(R.string.app_name));
+            options.put("description", getString(R.string.orderid)+orderId);
+            //You can omit the image option to fetch the image from dashboard
+            options.put("currency", "INR");
+            options.put("amount", amount*100);
+            options.put("customer_id", customerId);
+            JSONObject ReadOnly = new JSONObject();
+            options.put("readonly", ReadOnly);
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+    }
+
+    @Override
+    public void paymentSuccessed(boolean status) {
+
+        if (status){
+            Intent newIntent = MainActivity.newIntent(PaymentActivity.this);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(newIntent);
+        }
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,33 +149,12 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
 
 
-
-       /* YourEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (intent.getExtras().getString("amount")!=null) {
+                mPaymentViewModel.amount.set(intent.getExtras().getString("amount"));
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                int len=s.toString().length();
-
-                if (before == 0 && len == 2)
-                    YourEditText.append("/");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
-
-
-
-
-
+        }
     }
 
 
@@ -123,6 +162,19 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     protected void onResume() {
         super.onResume();
 
+    }
+
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        mPaymentViewModel.paymentSuccess(s,1);
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        mPaymentViewModel.paymentSuccess("",0);
     }
 
 

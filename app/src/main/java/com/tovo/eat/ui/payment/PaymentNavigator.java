@@ -28,12 +28,20 @@ public interface PaymentNavigator {
 
 
     void clickCard();
+
     void clickNetbanking();
+
     void clickUPI();
+
     void clickCOD();
+
     void clickwallet();
 
+    void orderCompleted();
 
+    void orderGenerated(Integer orderId, String customerId, Integer amount);
+
+    void paymentSuccessed(boolean status);
 
 
 }

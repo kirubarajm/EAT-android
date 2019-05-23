@@ -67,6 +67,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_REFERRALS = "CURRENT_USER_REFERRALS";
     private static final String PREF_KEY_GENDER_STATUS = "CURRENT_GENDER_STATUS";
     private static final String PREF_KEY_PASSWORD_STATUS = "CURRENT_PASSWORD_STATUS";
+    private static final String PREF_KEY_TOTAL_ORDERS= "TOTAL_ORDERS";
+    private static final String PREF_KEY_HOME_ADDRESS_ADDED= "HOME_ADDRESS_ADDED";
+    private static final String PREF_KEY_OFFICE_ADDRESS_ADDED= "OFFICE_ADDRESS_ADDED";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -322,6 +325,36 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setisPasswordStatus(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_PASSWORD_STATUS, status).apply();
+    }
+
+    @Override
+    public Integer getTotalOrders() {
+        return mPrefs.getInt(PREF_KEY_TOTAL_ORDERS, 0);
+    }
+
+    @Override
+    public void setTotalOrders(Integer orders) {
+        mPrefs.edit().putInt(PREF_KEY_TOTAL_ORDERS, orders).apply();
+    }
+
+    @Override
+    public boolean isHomeAddressAdded() {
+        return  mPrefs.getBoolean(PREF_KEY_HOME_ADDRESS_ADDED, false);
+    }
+
+    @Override
+    public void setHomeAddressAdded(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_HOME_ADDRESS_ADDED, status).apply();
+    }
+
+    @Override
+    public boolean isOfficeAddressAdded() {
+        return  mPrefs.getBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, false);
+    }
+
+    @Override
+    public void setOfficeAddressAdded(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, status).apply();
     }
 
     @Override

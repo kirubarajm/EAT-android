@@ -37,12 +37,10 @@ public class PlaceOrderRequestPojo {
     public PlaceOrderRequestPojo() {
     }
 
-    public PlaceOrderRequestPojo(Integer userid, Integer ordertype, Integer paymentType, Integer makeitUserid, Integer paymentStatus, Integer aid, List<Orderitem> orderitems) {
+    public PlaceOrderRequestPojo(Integer userid,  Integer makeitUserid, Integer paymentType, Integer aid, List<Orderitem> orderitems) {
         this.userid = userid;
-        this.ordertype = ordertype;
-        this.paymentType = paymentType;
         this.makeitUserId = makeitUserid;
-        this.paymentStatus = paymentStatus;
+        this.paymentType = paymentType;
         this.aid = aid;
         this.orderitems = orderitems;
     }

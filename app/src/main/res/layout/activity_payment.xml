@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="1dp"
-                        android:text="2455"
+                        android:text="@{paymentViewModel.amount}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -121,6 +121,7 @@
 
 
             <LinearLayout
+                android:onClick="@{()->paymentViewModel.cashMode()}"
                 android:layout_width="252dp"
                 android:layout_height="37dp"
                 android:layout_gravity="center_horizontal"
@@ -170,6 +171,7 @@
 
 
             <LinearLayout
+                android:onClick="@{()->paymentViewModel.payOnline()}"
                 android:layout_width="252dp"
                 android:layout_height="37dp"
                 android:layout_gravity="center_horizontal"

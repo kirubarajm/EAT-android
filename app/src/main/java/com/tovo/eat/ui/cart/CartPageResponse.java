@@ -440,6 +440,9 @@ public class CartPageResponse {
         @SerializedName("regionname")
         @Expose
         private String regionname;
+        @SerializedName("ordercount")
+        @Expose
+        private String ordercount;
         @SerializedName("localityname")
         @Expose
         private String localityname;
@@ -458,6 +461,15 @@ public class CartPageResponse {
         @SerializedName("item")
         @Expose
         private List<Item> item = null;
+
+
+        public String getOrdercount() {
+            return ordercount;
+        }
+
+        public void setOrdercount(String ordercount) {
+            this.ordercount = ordercount;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;

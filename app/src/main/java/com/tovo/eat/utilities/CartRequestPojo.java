@@ -10,9 +10,21 @@ public class CartRequestPojo {
     @SerializedName("makeit_user_id")
     @Expose
     private Integer makeitUserid;
+    @SerializedName("userid")
+    @Expose
+    private Integer userid;
     @SerializedName("orderitems")
     @Expose
     private List<Cartitem> cartitems = null;
+
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
     public Integer getMakeitUserid() {
         return makeitUserid;

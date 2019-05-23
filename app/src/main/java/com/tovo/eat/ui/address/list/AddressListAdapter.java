@@ -23,11 +23,10 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private DataManager dataManager;
 
 
-    public AddressListAdapter(List<AddressListResponse.Result> item_list) {
+    public AddressListAdapter(List<AddressListResponse.Result> item_list,DataManager dataManager) {
         this.item_list = item_list;
+        this.dataManager=dataManager;
     }
-
-
 
 
 
@@ -156,6 +155,16 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsAdapterListener.deleteAddress(aid);
 
 
+        }
+
+        @Override
+        public void homeAddressAdded() {
+            dataManager.setHomeAddressAdded(true);
+        }
+
+        @Override
+        public void officeAddressAdded() {
+            dataManager.setOfficeAddressAdded(true);
         }
     }
 }

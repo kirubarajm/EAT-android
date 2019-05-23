@@ -36,9 +36,11 @@ public class SelectAddressListItemViewModel {
         if (addressList.getAddressType().equalsIgnoreCase("1")){
             isHome.set(true);
             isWork.set(false);
+            mListener.homeAddressAdded();
         }else if (addressList.getAddressType().equalsIgnoreCase("2")){
             isHome.set(false);
             isWork.set(true);
+            mListener.officeAddressAdded();
         }else if (addressList.getAddressType().equalsIgnoreCase("3")){
             isHome.set(false);
             isWork.set(false);
@@ -79,7 +81,8 @@ public class SelectAddressListItemViewModel {
 
         void onItemClick(SelectAddressListResponse.Result result);
         void editAddress(SelectAddressListResponse.Result result);
-
+        void homeAddressAdded();
+        void officeAddressAdded();
 
 
     }
