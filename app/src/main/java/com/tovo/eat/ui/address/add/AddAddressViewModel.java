@@ -53,6 +53,12 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     public final ObservableBoolean typeHome = new ObservableBoolean();
     public final ObservableBoolean typeOffice = new ObservableBoolean();
     public final ObservableBoolean typeOther = new ObservableBoolean();
+
+
+    public final ObservableBoolean home = new ObservableBoolean();
+    public final ObservableBoolean office = new ObservableBoolean();
+
+
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,14 +81,18 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public AddAddressViewModel(DataManager dataManager) {
         super(dataManager);
+
+        home.set(getDataManager().isHomeAddressAdded());
+        office.set(getDataManager().isOfficeAddressAdded());
+
+
     }
 
-    public void locateMe(){
+    public void locateMe() {
 
         getNavigator().myLocationn();
 
     }
-
 
 
     public void clickHome() {
@@ -120,7 +130,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     }
 
 
-    public void goBack(){
+    public void goBack() {
 
 
         getNavigator().goBack();
@@ -200,7 +210,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
                 request.setAddressTitle(title);
                 request.setAddressType(3);
-            }else {
+            } else {
 
                 request.setAddressTitle("UnNamed");
                 request.setAddressType(3);
@@ -211,36 +221,35 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
             try {
                 setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ADD_ADDRESS_URL, AddressResponse.class,request, new Response.Listener<AddressResponse>() {
+                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ADD_ADDRESS_URL, AddressResponse.class, request, new Response.Listener<AddressResponse>() {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        Log.e("response",response.getMessage());
-                        Log.e("response",response.getMessage());
-                        getNavigator().addressSaved();
+                        Log.e("response", response.getMessage());
+                        Log.e("response", response.getMessage());
+
+                        if (!response.getStatus())
+                            getNavigator().showToast(response.getMessage());
 
 
-                        defaultAddress(response.getAid());
+                        if (response.getAid() != null) {
+                            getNavigator().addressSaved();
+                            defaultAddress(response.getAid());
+                            getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
+                            FilterRequestPojo filterRequestPojo;
 
+                            Gson sGson = new GsonBuilder().create();
+                            filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
-                        getDataManager().updateCurrentAddress(request.getAddressTitle(),request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()),request.getLocality(),response.getAid());
+                            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                            filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                            filterRequestPojo.setLat(getDataManager().getCurrentLng());
 
+                            Gson gson = new Gson();
+                            String json = gson.toJson(filterRequestPojo);
+                            getDataManager().setFilterSort(json);
+                        }
 
-                        FilterRequestPojo filterRequestPojo;
-
-                        Gson sGson = new GsonBuilder().create();
-                        filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-                        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                        filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                        filterRequestPojo.setLat(getDataManager().getCurrentLng());
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
-
-
-                        
 
                     }
                 }, new Response.ErrorListener() {
@@ -268,19 +277,16 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     }
 
 
-
-
-    public void defaultAddress(Integer aid ){
+    public void defaultAddress(Integer aid) {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class, new DefaultAddressRequest(getDataManager().getCurrentUserId(), aid), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
 
 
-
-                    }
+                }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -296,14 +302,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
         }
 
 
-
     }
-
-
-
-
-
-
 
 
 }

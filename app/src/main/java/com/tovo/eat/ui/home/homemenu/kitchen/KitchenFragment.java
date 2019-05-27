@@ -1,10 +1,14 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +20,8 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.utilities.SwipeController;
+import com.tovo.eat.utilities.SwipeControllerActions;
 
 import javax.inject.Inject;
 
@@ -74,6 +80,42 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
                 mKitchenViewModel.fetchRepos();
             }
         });
+
+
+
+
+      //  mFragmentKitchenBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+
+
+
+
+
+
+        
+
+
+
+       /* SwipeController  swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+
+            }
+        });
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(   mFragmentKitchenBinding.recyclerviewOrders);
+
+        mFragmentKitchenBinding.recyclerviewOrders.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });*/
+
+
+
+
 
 
     }

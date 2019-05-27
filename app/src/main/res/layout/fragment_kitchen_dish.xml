@@ -361,7 +361,7 @@
                                 android:orientation="vertical">
 
 
-                                <android.support.v7.widget.RecyclerView
+                                <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
                                     android:layout_marginBottom="30dp"
                                     android:id="@+id/recyclerview_orders"
                                     android:layout_width="match_parent"

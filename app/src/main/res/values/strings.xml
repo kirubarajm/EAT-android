@@ -399,7 +399,7 @@
     <string name="add">Add</string>
     <string name="add_your_address_to_find_nearest_kitchens">Please select your address to find nearest kitchens..</string>
     <string name="change_kitchen_title">You can only order items from one kitchen at a time</string>
-    <string name="change_kitchen_msg">Clear your cart if you would stll like to order this item</string>
+    <string name="change_kitchen_msg">Clear your cart if you would still like to order this item</string>
     <string name="cancel">Cancel</string>
     <string name="clear_cart_and_add">Clear cart and Add</string>
 

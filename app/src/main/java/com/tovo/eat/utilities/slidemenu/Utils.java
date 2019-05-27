@@ -3,12 +3,12 @@
  * Copyright © 2018 刘振林. All rights reserved.
  */
 
-package com.liuzhenlin.simrv;
+package com.tovo.eat.utilities.slidemenu;
 
+import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 
 /**
  * @author 刘振林

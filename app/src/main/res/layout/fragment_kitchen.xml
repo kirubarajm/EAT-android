@@ -78,7 +78,7 @@
                     android:background="@android:color/white"
                     android:nestedScrollingEnabled="false"
                     app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
-                    tools:listitem="@layout/list_item_kitchens"></android.support.v7.widget.RecyclerView>
+                    tools:listitem="@layout/list_item_kitchens"/>
 
 
             </android.support.v4.widget.SwipeRefreshLayout>

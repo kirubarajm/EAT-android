@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 
 
@@ -12,6 +13,8 @@ import dagger.Provides;
 
 @Module
 public class KitchenModule {
+
+    Context context;
 
     @Provides
     KitchenViewModel provideKitchenViewModel(DataManager dataManager) {
@@ -26,6 +29,7 @@ public class KitchenModule {
 
     @Provides
     LinearLayoutManager provideLinearLayoutManager(KitchenFragment fragment) {
+        this.context=fragment.getActivity();
         return new LinearLayoutManager(fragment.getActivity());
     }
 }

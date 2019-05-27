@@ -79,7 +79,7 @@ public final class BindingUtils {
         KitchenAdapter adapter = (KitchenAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(sales);
+            adapter.addItems(sales,recyclerView.getContext());
         }
     }
 

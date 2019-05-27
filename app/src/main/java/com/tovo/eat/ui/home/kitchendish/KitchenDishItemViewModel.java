@@ -66,9 +66,20 @@ public class KitchenDishItemViewModel {
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
 
+        if(dishList.getVegtype().equals("1")){
+            this.producttype.set(dishList.getCuisinename()+" | Non-Veg");
+
+        }else {
+            this.producttype.set(dishList.getCuisinename()+" | Veg");
+        }
+
+
+
+
+
+
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());
-            this.producttype.set(dishList.getCuisinename());
             this.image.set(dishList.getProductimage());
             this.product_name.set(dishList.getProductName());
             this.product_id.set(dishList.getProductid());
@@ -87,7 +98,6 @@ public class KitchenDishItemViewModel {
                         if (results.get(i).getProductid().equals(dishList.getProductid())) {
                             isAddClicked.set(true);
                             this.makeit_username.set(response.getMakeitusername());
-                            this.producttype.set(dishList.getCuisinename());
                             this.image.set(dishList.getProductimage());
                             this.product_name.set(dishList.getProductName());
                             this.product_id.set(dishList.getProductid());
@@ -99,7 +109,6 @@ public class KitchenDishItemViewModel {
 
                         } else {
                             this.makeit_username.set(response.getMakeitusername());
-                            this.producttype.set(dishList.getCuisinename());
                             this.image.set(dishList.getProductimage());
                             this.product_name.set(dishList.getProductName());
                             this.product_id.set(dishList.getProductid());
@@ -109,7 +118,6 @@ public class KitchenDishItemViewModel {
                         }
                     } else {
                         this.makeit_username.set(response.getMakeitusername());
-                        this.producttype.set(dishList.getCuisinename());
                         this.image.set(dishList.getProductimage());
                         this.product_name.set(dishList.getProductName());
                         this.product_id.set(dishList.getProductid());
@@ -123,7 +131,6 @@ public class KitchenDishItemViewModel {
             } else {
 
                 this.makeit_username.set(response.getMakeitusername());
-                this.producttype.set(dishList.getCuisinename());
                 this.image.set(dishList.getProductimage());
                 this.product_name.set(dishList.getProductName());
                 this.product_id.set(dishList.getProductid());

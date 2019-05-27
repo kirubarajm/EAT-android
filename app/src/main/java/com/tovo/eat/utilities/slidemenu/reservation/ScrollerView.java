@@ -3,7 +3,7 @@
  * Copyright © 2017 刘振林. All rights reserved.
  */
 
-package com.liuzhenlin.simrv.reservation;
+package com.tovo.eat.utilities.slidemenu.reservation;
 
 /**
  * @author 刘振林

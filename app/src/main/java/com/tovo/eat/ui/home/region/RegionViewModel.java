@@ -16,8 +16,10 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.home.region.list.RegionListRequest;
 import com.tovo.eat.ui.track.OrderTrackingResponse;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
@@ -38,7 +40,7 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
     public RegionViewModel(DataManager dataManager) {
         super(dataManager);
         regionItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+        fetchRepos(0);
     }
 
     public ObservableList<RegionsResponse.Result> getregionItemViewModels() {
@@ -105,14 +107,47 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
     }
 
 
-    public void fetchRepos() {
+    public void fetchRepos(Integer regionId) {
 
 
-        if (getDataManager().getCurrentLat() == null) {
+     //   if (getDataManager().getCurrentLat() == null) {
 
             //   getNavigator().kitchenListLoading();
 
 
+            try {
+                setIsLoading(true);
+                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager() .getCurrentUserId(),regionId), new Response.Listener<RegionsResponse>() {
+                    @Override
+                    public void onResponse(RegionsResponse response) {
+                        if (response != null) {
+
+                            regionItemsLiveData.setValue(response.getResult());
+
+                            Log.e("Region----response:", response.toString());
+
+
+                            getNavigator().kitchenListLoaded();
+
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                       // Log.e("", error.getMessage());
+                        getNavigator().kitchenListLoaded();
+                    }
+                });
+
+                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
+
+
+       /*
         } else {
             if (!MvvmApp.getInstance().onCheckNetWork()) {
 
@@ -177,9 +212,9 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
                         }
                     }) {
 
-                        /**
+                        *//**
                          * Passing some request headers
-                         */
+                         *//*
                         @Override
                         public Map<String, String> getHeaders() throws AuthFailureError {
                             HashMap<String, String> headers = new HashMap<String, String>();
@@ -197,8 +232,8 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
                 }
 
 
-            }
+            }*/
 
-        }
+       // }
     }
 }

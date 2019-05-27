@@ -1,10 +1,15 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.tovo.eat.R;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchensBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
@@ -18,9 +23,10 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int VIEW_TYPE_EMPTY = 0;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
-
+    Context context;
 
     public KitchenAdapter(List<KitchenResponse.Result> item_list) {
+
         this.item_list = item_list;
     }
 
@@ -62,7 +68,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return VIEW_TYPE_EMPTY;
         }
     }
-    public class EmptyViewHolder extends BaseViewHolder  {
+
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -84,7 +91,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public class LiveProductsViewHolder extends BaseViewHolder implements KitchenItemViewModel.KitchenItemViewModelListener {
         ListItemKitchensBinding mListItemLiveProductsBinding;
-       KitchenItemViewModel mLiveProductsItemViewModel;
+        KitchenItemViewModel mLiveProductsItemViewModel;
 
         public LiveProductsViewHolder(ListItemKitchensBinding binding) {
             super(binding.getRoot());
@@ -95,8 +102,33 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final KitchenResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new KitchenItemViewModel(this,blog);
+            mLiveProductsItemViewModel = new KitchenItemViewModel(this, blog);
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
+
+
+            if (context != null) {
+
+                final Animation animRightToLeft = AnimationUtils.loadAnimation(context, R.anim.swipetoright);
+                mListItemLiveProductsBinding.hh.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                // Start the animation like this
+
+
+                mListItemLiveProductsBinding.sswipe.setOnTouchListener(new OnSwipeTouchListener(context) {
+                    @Override
+                    public void onSwipeLeft() {
+                        super.onSwipeLeft();
+
+                    }
+
+
+                    @Override
+                    public void onSwipeRight() {
+                        super.onSwipeRight();
+                        /*animImage(getApplicationContext());*/
+                        mListItemLiveProductsBinding.hh.startAnimation(animRightToLeft);
+                    }
+                });
+            }
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -115,8 +147,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void addFavourites(Integer id,String fav) {
-            mLiveProductsAdapterListener.addFav(id,fav);
+        public void addFavourites(Integer id, String fav) {
+            mLiveProductsAdapterListener.addFav(id, fav);
         }
 
         @Override
@@ -130,7 +162,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenResponse.Result> blogList) {
+    public void addItems(List<KitchenResponse.Result> blogList, Context context) {
+        this.context = context;
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -144,9 +177,9 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void onItemClickData(Integer kitchenId);
 
 
-        void  removeDishFavourite(Integer favId);
+        void removeDishFavourite(Integer favId);
 
-        void addFav(Integer id,String fav);
+        void addFav(Integer id, String fav);
     }
 
 }

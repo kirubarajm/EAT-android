@@ -75,9 +75,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     double deliveryBoyLat;
     double deliveryBoyLng;
     LatLng moveitLatLng;
+    LatLng makeitLatLng;
     LatLng cusLatLng;
     boolean liveTracking = true;
-    private Marker currentLocationMarker;
+    private Marker moveitLocationMarker;
+    private Marker makeitLocationMarker;
     private Marker customerLocationMarker;
     private GoogleMap mMap;
     private boolean firstTimeFlag = true;
@@ -166,7 +168,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         createMarker();
 
 
@@ -203,13 +204,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         if (!liveTracking) {
             liveTracking = true;
-            currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(moveitLatLng));
-          //  moveToCurrentLocation(moveitLatLng);
+            makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
+            //  moveToCurrentLocation(moveitLatLng);
             customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
 
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            builder.include(moveitLatLng);
+            builder.include(makeitLatLng);
             builder.include(cusLatLng);
             LatLngBounds bounds = builder.build();
 
@@ -220,7 +221,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             int padding = (int) (width * 0.10);
 
 
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height, padding);
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
             mMap.moveCamera(cu);
 
         }
@@ -239,7 +240,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 //  sendRequest(String.valueOf(currentLocation.getLatitude()) + "," + String.valueOf(currentLocation.getLongitude()), sDesLatLang);
                 try {
-                    currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
                     dResult(strsdsd + "," + strLong, sDesLatLang);
                 } catch (ApiException e) {
                     e.printStackTrace();
@@ -267,10 +268,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     private void showMarker1(LatLng currentLocation) {
 
-        if (currentLocationMarker == null)
-            currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(currentLocation));
+        if (moveitLocationMarker == null)
+            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(currentLocation));
         else
-            MarkerAnimation.animateMarkerToGB(currentLocationMarker, currentLocation, new LatLngInterpolator.Spherical());
+            MarkerAnimation.animateMarkerToGB(moveitLocationMarker, currentLocation, new LatLngInterpolator.Spherical());
 
     }
 
@@ -278,10 +279,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     private void showMarker(Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         // googleMap.clear();
-        if (currentLocationMarker == null)
-            currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+        if (moveitLocationMarker == null)
+            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
         else
-            MarkerAnimation.animateMarkerToGB(currentLocationMarker, latLng, new LatLngInterpolator.Spherical());
+            MarkerAnimation.animateMarkerToGB(moveitLocationMarker, latLng, new LatLngInterpolator.Spherical());
     }
 
     @Override
@@ -388,19 +389,18 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
-    public void tracking(String cusLat, String cusLng, double moveitLat, double moveitLng) {
+    public void tracking(String cusLat, String cusLng, double makeitLat, double makeitLng) {
 
 
-        moveitLatLng = new LatLng(moveitLat, moveitLng);
+        makeitLatLng = new LatLng(makeitLat, makeitLng);
+
         cusLatLng = new LatLng(Double.parseDouble(cusLat), Double.parseDouble(cusLng));
-
-
         liveTracking = false;
 
         if (mMap != null) {
             liveTracking = true;
-            currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(moveitLatLng));
-          //  moveToCurrentLocation(moveitLatLng);
+            makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
+            //  moveToCurrentLocation(moveitLatLng);
             customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
 
 
@@ -409,17 +409,18 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             builder.include(cusLatLng);
             LatLngBounds bounds = builder.build();
 
-          //  int padding = 0; // offset from edges of the map in pixels
+            //  int padding = 0; // offset from edges of the map in pixels
 
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
             int padding = (int) (width * 0.10);
 
 
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height, padding);
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
             mMap.moveCamera(cu);
 
         }
+
     }
 
     @Override
@@ -427,6 +428,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
         loadPreviousStatuses(MoveitId);
+
 
     }
 
@@ -447,7 +449,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         // FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         String path = getString(R.string.firebase_path) + String.valueOf(MoveitId);
-       // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
+        // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
 
         // Manually configure Firebase Options
         /*FirebaseOptions options = new FirebaseOptions.Builder()
@@ -463,12 +465,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 // Get the database for the other app.
         mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
 
-       // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
+        // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
 
 
-     //   mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
-
-
+        //   mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
 
 
         mFirebaseTransportRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -488,10 +488,16 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     locationForStatus.setLongitude((double) status.get("lng"));
                     LatLng latLng = new LatLng((double) status.get("lat"), (double) status.get("lng"));
 
+                    if (distance(makeitLatLng.latitude, makeitLatLng.longitude, (double) status.get("lat"), (double) status.get("lng"), "K") <= 2) {
 
-                    showMarker1(latLng);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
+                        if (moveitLocationMarker == null) {
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+                        }
+
+                        showMarker1(latLng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    }
                 }
 
 

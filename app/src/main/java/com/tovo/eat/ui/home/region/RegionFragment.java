@@ -96,7 +96,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
             public void onRefresh() {
                 mFragmentRegionBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
                 mFragmentRegionBinding.shimmerViewContainer.startShimmerAnimation();
-                mRegionViewModel.fetchRepos();
+                mRegionViewModel.fetchRepos(0);
             }
         });
 
@@ -340,9 +340,11 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
                 Integer regionID =result.getRegionid();
 
 
-                Intent intent = RegionListActivity.newIntent(getContext());
+              /*  Intent intent = RegionListActivity.newIntent(getContext());
                 intent.putExtra("id", regionID);
-                startActivity(intent);
+                startActivity(intent);*/
+
+                mRegionViewModel.fetchRepos(regionID);
 
 
                 return;
@@ -371,7 +373,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
 
 
         kitchenListLoading();
-        mRegionViewModel.fetchRepos();
+        mRegionViewModel.fetchRepos(0);
 
         subscribeToLiveData();
 
@@ -397,6 +399,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
         Intent intent = RegionListActivity.newIntent(getContext());
         intent.putExtra("id", regionId);
         startActivity(intent);
+
 
     }
 

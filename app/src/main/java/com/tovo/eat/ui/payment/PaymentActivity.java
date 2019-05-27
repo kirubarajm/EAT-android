@@ -20,6 +20,7 @@ import com.tovo.eat.databinding.ActivityPaymentBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.registration.RegistrationActivity;
 
 import org.json.JSONObject;
 
@@ -93,6 +94,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void orderCompleted() {
 
+        Intent newIntent = MainActivity.newIntent(PaymentActivity.this);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(newIntent);
         finish();
     }
 
@@ -115,6 +120,8 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             options.put("amount", amount*100);
             options.put("customer_id", customerId);
             JSONObject ReadOnly = new JSONObject();
+            ReadOnly.put("email", "false");
+            ReadOnly.put("contact", "false");
             options.put("readonly", ReadOnly);
             co.open(activity, options);
 
@@ -134,10 +141,25 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
+            finish();
         }
 
     }
 
+    @Override
+    public void postRegistration() {
+        Intent intent = RegistrationActivity.newIntent(PaymentActivity.this);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+
+    }
 
 
     @Override

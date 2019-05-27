@@ -3,7 +3,7 @@
  * Copyright © 2017 刘振林. All rights reserved.
  */
 
-package com.liuzhenlin.simrv;
+package com.tovo.eat.utilities.slidemenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -13,6 +13,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.util.SimpleArrayMap;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -24,13 +28,10 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
+import com.tovo.eat.R;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.collection.SimpleArrayMap;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author <a href="mailto:2233788867@qq.com">刘振林</a>
@@ -692,7 +693,7 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
                 }
             };
             addListener(listener);
-            addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            addUpdateListener(new AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     final float deltaTransX = (float) animation.getAnimatedValue();

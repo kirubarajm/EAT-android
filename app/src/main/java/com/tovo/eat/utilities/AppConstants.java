@@ -2,6 +2,8 @@ package com.tovo.eat.utilities;
 
 public class AppConstants {
 
+
+
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
 
     public static final String DB_NAME = "mindorks_mvvm.db";
@@ -33,27 +35,22 @@ public class AppConstants {
      * stops tracking the geofence.
      */
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 12;
-
     /**
      * For this sample, geofences expire after twelve hours.
      */
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS =
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
     public static final float GEOFENCE_RADIUS_IN_METERS = 1609; // 1 mile, 1.6 km
-
     /**
      * Map for storing information about airports in the San Francisco bay area.
      */
     /*public  static final HashMap<String, LatLng> BAY_AREA_LANDMARKS = new HashMap<>();
-
      static {
         // San Francisco International Airport.
         BAY_AREA_LANDMARKS.put("SFO", new LatLng(37.621313, -122.378955));
-
         // Googleplex.
         BAY_AREA_LANDMARKS.put("GOOGLE", new LatLng(37.422611,-122.0840577));
     }*/
-
 
 
     public static final int KITCHEMN_REQUEST_CODE = 1;
@@ -64,9 +61,11 @@ public class AppConstants {
     public static final int GPS_REQUEST = 500;
 
     ///////Server Ip Ports
-     // public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //  public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
+
 
 
     public static final String URL_SIGN_UP = URL_SERVER_IP_PORT + "/eat/login";/////POST method

@@ -3,18 +3,15 @@
  * Copyright © 2017 刘振林. All rights reserved.
  */
 
-package com.liuzhenlin.simrv.reservation;
+package com.tovo.eat.utilities.slidemenu.reservation;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-import androidx.annotation.Nullable;
 
-/**
- * @author 刘振林
- */
 public class ScrollerLinearLayout extends LinearLayout implements ScrollerView {
     private final Scroller mScroller;
 

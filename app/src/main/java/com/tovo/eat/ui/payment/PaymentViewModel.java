@@ -203,6 +203,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        Log.e("test", error.getMessage());
+
+
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
                 }) {
@@ -226,6 +230,18 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
         } else {
             //  getNavigator().showToast("Please select the address...");
+        }
+    }
+
+
+    public void paymentModeCheck() {
+
+        if (getDataManager().getisPasswordStatus()) {
+
+            payOnline();
+
+        } else {
+            getNavigator().postRegistration();
         }
     }
 
@@ -261,9 +277,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 orderitem.setProductid(cartitems.get(i).getProductid());
                 orderitem.setQuantity(cartitems.get(i).getQuantity());
                 orderitems.add(orderitem);
-
             }
-
 
             placeOrderRequestPojo.setOrderitems(orderitems);
 
@@ -279,7 +293,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             setIsLoading(true);
 
-
             JsonObjectRequest jsonObjectRequest = null;
             try {
                 jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
@@ -289,24 +302,16 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
                             if (response.getBoolean("status")) {
-
-
-
-                                Integer orderId=response.getInt("orderid");
-
-
-                                getDataManager().currentOrderId(orderId);
+                                Integer orderId = response.getInt("orderid");
+                                getDataManager().setOrderId(orderId);
                                 getDataManager().setCartDetails("");
-
-
 
 
                                 getNavigator().orderGenerated(response.getInt("orderid"), response.getString("razer_customerid"), response.getInt("price"));
 
-
                             } else {
 
-                                //   getNavigator().showToast(response.getString("message"));
+                                  getNavigator().showToast(response.getString("message"));
 
                             }
 
@@ -317,6 +322,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("test", error.getMessage());
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
                 }) {
@@ -346,40 +352,52 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void paymentSuccess(String paymentId, Integer status) {
 
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
+        JsonObjectRequest jsonObjectRequest = null;
         try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_SUCCESS, CommonResponse.class, new PaymentSuccessRequest(getDataManager().getOrderId(), status, paymentId), new Response.Listener<CommonResponse>() {
-                @Override
-                public void onResponse(CommonResponse response) {
-                    if (response != null) {
-                        Log.e("----response:---------", response.toString());
 
-                        if (status == 1) {
+            JSONObject json = new JSONObject();
+            json.put("transactionid", paymentId);
+            json.put("payment_status", status);
+            json.put("orderid", getDataManager().getOrderId());
+
+
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_ORDER_SUCCESS, json, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+
+                        if (response.getBoolean("status")) {
                             getNavigator().paymentSuccessed(true);
                         } else {
                             getNavigator().paymentSuccessed(false);
+
                         }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    // Log.e("", error.getMessage());
-                    getNavigator().paymentSuccessed(false);
+                    Log.e("", error.getMessage());
+                    //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                 }
-            });
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
 
-
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
+                    return headers;
+                }
+            };
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
     }
-
 
 }

@@ -88,7 +88,7 @@ import com.tovo.eat.R;
     private int mMinFlingVelocity = DEFAULT_MIN_FLING_VELOCITY;
     private int mMode = MODE_NORMAL;
 
-    private int mDragEdge = DRAG_EDGE_LEFT;
+    private int mDragEdge = DRAG_EDGE_RIGHT;
 
     private float mDragDist = 0;
     private float mPrevX = -1;
@@ -417,9 +417,9 @@ import com.tovo.eat.R;
             case DRAG_EDGE_LEFT:
                 return mRectMainClose.left + mSecondaryView.getWidth();
 
+
             case DRAG_EDGE_RIGHT:
                 return mRectMainClose.left - mSecondaryView.getWidth();
-
 
             default:
                 return 0;
@@ -429,7 +429,8 @@ import com.tovo.eat.R;
     private int getMainOpenTop() {
         switch (mDragEdge) {
             case DRAG_EDGE_LEFT:
-                return mRectMainClose.top;
+               return mRectMainClose.top;
+
 
             case DRAG_EDGE_RIGHT:
                 return mRectMainClose.top;

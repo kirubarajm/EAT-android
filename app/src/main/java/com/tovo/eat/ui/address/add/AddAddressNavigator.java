@@ -33,6 +33,7 @@ public interface AddAddressNavigator {
     void myLocationn();
 
 
+void showToast(String msg);
 
     void goBack();
 

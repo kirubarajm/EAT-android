@@ -2,14 +2,21 @@ package com.tovo.eat.ui.home.kitchendish;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +31,8 @@ import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 import com.tovo.eat.utilities.MainSliderAdapter;
 import com.tovo.eat.utilities.PicassoImageLoadingService;
+import com.tovo.eat.utilities.SwipeController;
+import com.tovo.eat.utilities.SwipeControllerActions;
 
 import javax.inject.Inject;
 
@@ -185,6 +194,41 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
         subscribeToLiveData();
 
+
+
+
+        mFragmentDishBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+
+
+
+
+       /* mFragmentDishBinding.recyclerviewOrders.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+            }
+        });*/
+
+       /* mFragmentDishBinding.recyclerviewOrders.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+
+
+
+
+                return false;
+            }
+        });
+*/
+
+
+
+
+
+
+
+
       /*  mFragmentDishBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -211,6 +255,36 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
                 }
             }
         });*/
+
+
+
+
+
+/*
+
+        SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+
+
+
+
+            }
+        });
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(   mFragmentDishBinding.recyclerviewOrders);
+
+        mFragmentDishBinding.recyclerviewOrders.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
+*/
+
+
+
 
     }
 

@@ -64,7 +64,7 @@ public class KitchenItemViewModel {
             isRated.set(false);
         }
 
-
+/*
         StringBuilder itemsBuilder = new StringBuilder();
 
         if (mKitchenList.getCuisines() != null) {
@@ -83,7 +83,15 @@ public class KitchenItemViewModel {
         }
 
         String items = itemsBuilder.toString();
-        cuisines.set(items);
+        cuisines.set(items);*/
+
+
+
+
+        cuisines.set("by "+mKitchenList.getMakeitusername()+" | "+mKitchenList.getRegionname());
+
+
+
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));

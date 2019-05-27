@@ -1,4 +1,4 @@
-package com.liuzhenlin.simrv;
+package com.tovo.eat.utilities.slidemenu;
 
 import android.view.animation.Interpolator;
 

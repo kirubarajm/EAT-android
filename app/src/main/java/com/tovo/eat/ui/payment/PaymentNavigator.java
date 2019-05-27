@@ -42,6 +42,8 @@ public interface PaymentNavigator {
     void orderGenerated(Integer orderId, String customerId, Integer amount);
 
     void paymentSuccessed(boolean status);
+    void postRegistration();
 
+    void showToast(String msg);
 
 }
