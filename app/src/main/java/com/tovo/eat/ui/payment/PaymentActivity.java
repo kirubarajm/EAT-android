@@ -196,7 +196,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void onPaymentError(int i, String s) {
-        mPaymentViewModel.paymentSuccess("",0);
+        mPaymentViewModel.paymentSuccess("Failed",2);
     }
 
 

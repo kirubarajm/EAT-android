@@ -50,14 +50,40 @@
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
+
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_name"
+                android:id="@+id/region_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/region"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your region"
+                android:textSize="14sp"
+                android:theme="@style/EditTextHint" />
+            </android.support.design.widget.TextInputLayout>
+
+
+
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:textAlignment="center"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_name"
+                android:layout_below="@+id/region_list"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textColor="@color/dark_gray"
                 android:gravity="left|center"
@@ -65,10 +91,11 @@
                 android:textSize="14dp" />
 
             <LinearLayout
+                android:id="@+id/gender_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_choose_avator"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -142,6 +169,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+
+
+
 
         </RelativeLayout>
 

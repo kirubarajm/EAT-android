@@ -18,9 +18,8 @@ public class RegistrationRequest {
     @Expose
     public String password;
 
-    public RegistrationRequest(Integer userid, String email, String password,Integer hometownid) {
+    public RegistrationRequest(Integer userid, String email, String password) {
         this.userid = userid;
-        this.hometownid = hometownid;
         this.email = email;
         this.password = password;
     }

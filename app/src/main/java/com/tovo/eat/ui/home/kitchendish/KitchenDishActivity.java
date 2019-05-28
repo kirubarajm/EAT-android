@@ -126,7 +126,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         }
 
 
-
+        setTitle(mKitchenDishViewModel.kitchenName.get());
 
 
 

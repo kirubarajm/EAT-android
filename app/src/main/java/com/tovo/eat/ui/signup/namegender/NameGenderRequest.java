@@ -15,10 +15,30 @@ public class NameGenderRequest {
     @Expose
     public Integer gender;
 
+    @SerializedName("regionid")
+    @Expose
+    public Integer regionId;
+
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
     public NameGenderRequest(Integer userid, String name, Integer gender) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
+    }
+
+    public NameGenderRequest(Integer userid, String name, Integer gender, Integer regionId) {
+        this.userid = userid;
+        this.name = name;
+        this.gender = gender;
+        this.regionId = regionId;
     }
 
     public Integer getUserid() {

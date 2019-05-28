@@ -304,7 +304,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                             if (response.getBoolean("status")) {
                                 Integer orderId = response.getInt("orderid");
                                 getDataManager().setOrderId(orderId);
-                                getDataManager().setCartDetails("");
 
 
                                 getNavigator().orderGenerated(response.getInt("orderid"), response.getString("razer_customerid"), response.getInt("price"));
@@ -322,7 +321,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("test", error.getMessage());
+//                        Log.e("test", error.getMessage());
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
                 }) {
@@ -368,6 +367,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                         if (response.getBoolean("status")) {
                             getNavigator().paymentSuccessed(true);
+                            getDataManager().setCartDetails("");
                         } else {
                             getNavigator().paymentSuccessed(false);
 

@@ -140,6 +140,7 @@ dependencies {
 
     implementation 'com.razorpay:checkout:1.5.2'
 
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
 
 

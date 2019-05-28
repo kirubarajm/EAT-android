@@ -1,5 +1,9 @@
 package com.tovo.eat.ui.signup.namegender;
 
+import com.tovo.eat.ui.home.region.RegionSearchModel;
+
+import java.util.List;
+
 public interface NameGenderActivityNavigator {
 
     void handleError(Throwable throwable);
@@ -13,5 +17,7 @@ public interface NameGenderActivityNavigator {
     void male();
 
     void female();
+
+    void regionListLoaded(List<RegionSearchModel.Result> regionList);
 
 }

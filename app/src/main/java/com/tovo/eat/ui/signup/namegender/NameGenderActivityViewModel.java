@@ -9,6 +9,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -33,11 +34,11 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         getNavigator().female();
     }
 
-    public void insertNameGenderServiceCall(String name, int gender) {
+    public void insertNameGenderServiceCall(String name, int gender,int regionId) {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new NameGenderRequest(userIdMain, name, gender), new Response.Listener<NameGenderResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new NameGenderRequest(userIdMain, name, gender,regionId), new Response.Listener<NameGenderResponse>() {
             @Override
             public void onResponse(NameGenderResponse response) {
                 if (response != null) {
@@ -59,6 +60,35 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
+    public void regionList() {
 
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_REGION_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
+                @Override
+                public void onResponse(RegionSearchModel response) {
+
+
+                    getNavigator().regionListLoaded(response.getResult());
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+
+
+                }
+            });
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 }
