@@ -192,7 +192,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                             } else {
 
-                                //   getNavigator().showToast(response.getString("message"));
+                                   getNavigator().showToast(response.getString("message"));
 
                             }
 

@@ -106,29 +106,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
 
 
-            if (context != null) {
-
-                final Animation animRightToLeft = AnimationUtils.loadAnimation(context, R.anim.swipetoright);
-                mListItemLiveProductsBinding.hh.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-                // Start the animation like this
-
-
-                mListItemLiveProductsBinding.sswipe.setOnTouchListener(new OnSwipeTouchListener(context) {
-                    @Override
-                    public void onSwipeLeft() {
-                        super.onSwipeLeft();
-
-                    }
-
-
-                    @Override
-                    public void onSwipeRight() {
-                        super.onSwipeRight();
-                        /*animImage(getApplicationContext());*/
-                        mListItemLiveProductsBinding.hh.startAnimation(animRightToLeft);
-                    }
-                });
-            }
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before

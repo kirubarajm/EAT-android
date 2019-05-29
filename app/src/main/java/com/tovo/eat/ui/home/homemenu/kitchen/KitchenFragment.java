@@ -5,10 +5,12 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -82,6 +84,26 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         });
 
 
+        mFragmentKitchenBinding.recyclerviewOrders.setItemAnimator(new DefaultItemAnimator());
+
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("ListView", "onScrollStateChanged");
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // Could hide open views here if you wanted. //
+            }
+        };
+
+
+
+        mFragmentKitchenBinding.recyclerviewOrders.setOnScrollListener(onScrollListener);
 
 
       //  mFragmentKitchenBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

@@ -95,8 +95,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     public void orderCompleted() {
 
         Intent newIntent = MainActivity.newIntent(PaymentActivity.this);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(newIntent);
         finish();
     }
@@ -169,8 +168,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         mPaymentViewModel.setNavigator(this);
 
 
-
-
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             if (intent.getExtras().getString("amount")!=null) {
@@ -196,7 +193,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void onPaymentError(int i, String s) {
-        mPaymentViewModel.paymentSuccess("Failed",2);
+        mPaymentViewModel.paymentSuccess("Canceled",2);
     }
 
 

@@ -83,11 +83,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void addressSaved() {
 
-        Intent intent= MainActivity.newIntent(AddAddressActivity.this);
+      /*  Intent intent= MainActivity.newIntent(AddAddressActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        startActivity(intent);*/
         finish();
-        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
 
 
     }

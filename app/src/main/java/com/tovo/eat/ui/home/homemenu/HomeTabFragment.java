@@ -101,10 +101,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
 
-
         setUp();
-
-
 
         for (int i = 0; i < mFragmentHomeBinding.myaccTabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = mFragmentHomeBinding.myaccTabLayout.getTabAt(i);

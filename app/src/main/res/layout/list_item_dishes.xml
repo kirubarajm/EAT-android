@@ -22,7 +22,7 @@
         android:layout_gravity="center_vertical"
         app:dragFromEdge="left">
 
-      <!--  <FrameLayout
+        <FrameLayout
             android:layout_width="100dp"
             android:layout_height="match_parent">
 
@@ -42,7 +42,7 @@
 
             </LinearLayout>
 
-        </FrameLayout>-->
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
