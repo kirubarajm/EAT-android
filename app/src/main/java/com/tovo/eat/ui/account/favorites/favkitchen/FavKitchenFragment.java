@@ -50,7 +50,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
       //  mKitchenViewModel.fetchRepos();
 
 
-       // ((MainActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
+       // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
      /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
 */
-    //    ((MainActivity) getActivity()).statusUpdate();
+    //    ((TestActivity) getActivity()).statusUpdate();
 
       // mKitchenViewModel.fetchRepos();
     }

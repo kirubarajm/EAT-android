@@ -73,6 +73,7 @@ import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.payment.PaymentModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.registration.RegistrationActivityModule;
+import com.tovo.eat.ui.search.SearchProvider;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.SignUpActivityModule;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
@@ -105,7 +106,8 @@ public abstract class ActivityBuilder {
             FilterProvider.class,
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
-            RegionProvider.class
+            RegionProvider.class,
+            SearchProvider.class
 
 
     })

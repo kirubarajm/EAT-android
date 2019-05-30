@@ -77,7 +77,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         super.onCreate(savedInstanceState);
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
-      //  ((MainActivity) getActivity()).setFilterListener(FavDishFragment.this);
+      //  ((TestActivity) getActivity()).setFilterListener(FavDishFragment.this);
 
 
         //  StartFilter myInterface =getInterface(StartFilter.class, this);
@@ -203,7 +203,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
 
-      //  ((MainActivity) getActivity()).statusUpdate();
+      //  ((TestActivity) getActivity()).statusUpdate();
 
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();

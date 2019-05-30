@@ -285,7 +285,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void gotoAccount() {
         getNavigator().openAccount();
         isHome.set(false);
-        //   isExplore.set(false);
+        isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(true);
 
@@ -294,14 +294,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void gotoExplore() {
         getNavigator().openExplore();
 
-       /* isHome.set(false);
+        isHome.set(false);
         isExplore.set(true);
         isCart.set(false);
-        isMyAccount.set(false);*/
+        isMyAccount.set(false);
 
 
     }
-
 
     public void gotoHome() {
         getDataManager().setIsFav(false);
@@ -309,7 +308,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
         isHome.set(true);
-        //  isExplore.set(false);
+        isExplore.set(false);
         isCart.set(false);
         isMyAccount.set(false);
 

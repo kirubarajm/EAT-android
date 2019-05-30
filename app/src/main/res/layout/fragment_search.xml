@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="searchViewModel"
+            type="com.tovo.eat.ui.search.SearchViewModel">
+
+        </variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FCFCFC">
+
+
+
+
+        <android.support.v7.widget.SearchView
+            android:focusable="true"
+            app:iconifiedByDefault="false"
+            android:layout_alignParentTop="true"
+            android:id="@+id/searchh"
+            android:inputType="textNoSuggestions"
+            app:queryHint="Search dish or kitchen or region"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/searchh"
+            android:id="@+id/refreshList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:animateLayoutChanges="false"
+                android:nestedScrollingEnabled="false"
+                android:background="@android:color/white"
+                app:adapter="@{searchViewModel.searchItemViewModels}"
+                tools:listitem="@layout/list_item_search"/>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </RelativeLayout>
+
+</layout>

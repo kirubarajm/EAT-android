@@ -56,7 +56,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
       //  mKitchenViewModel.fetchRepos();
 
 
-       // ((MainActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
+       // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
     }
 
     @Override

@@ -55,6 +55,7 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -227,8 +228,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openExplore() {
 
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        SearchFragment fragment = new SearchFragment();
+        transaction.replace(R.id.content_main, fragment);
+        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        transaction.commit();
+
+
         mMainViewModel.toolbarTitle.set("Explore");
-        mMainViewModel.titleVisible.set(true);
+
+        mMainViewModel.titleVisible.set(false);
+
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(true);
+        mMainViewModel.isCart.set(false);
+        mMainViewModel.isMyAccount.set(false);
+
+
     }
 
     @Override
@@ -369,7 +386,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }else {
 
             if (fm.getBackStackEntryCount() > 0) {
-                Log.i("MainActivity", "popping backstack");
+                Log.i("TestActivity", "popping backstack");
                 *//*fm.popBackStack();*//*
                 fm.popBackStack();
             } else {
@@ -400,7 +417,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-    public void saveFcmToken(){
+    public void saveFcmToken() {
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -422,7 +439,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
-
 
 
     private void showExitDialog() {
@@ -563,7 +579,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
             }
 
         }*/
@@ -581,13 +597,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
           /*  Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
             }*/
 
             startLocationTracking();
             mMainViewModel.addressTitle.set("Current location");
 
-           /* Intent intent = RegionListActivity.newIntent(MainActivity.this);
+           /* Intent intent = RegionListActivity.newIntent(TestActivity.this);
             intent.putExtra("for", "new");
             startActivity(intent);*/
 
@@ -612,7 +628,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
             if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), MainActivity.this);
+                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
             }
 
         }*/
@@ -796,7 +812,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                                 .build();
                         mGoogleApiClient.connect();
                     } else {
-                         startLocationTracking();
+                        startLocationTracking();
                     }
                 }
 

@@ -83,7 +83,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void addressSaved() {
 
-      /*  Intent intent= MainActivity.newIntent(AddAddressActivity.this);
+      /*  Intent intent= TestActivity.newIntent(AddAddressActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);*/
         finish();
