@@ -41,6 +41,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
     public void login(String strPhoneNumber, String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber, strPassword), new Response.Listener<LoginResponse>() {
             @Override
@@ -86,6 +88,11 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void loginClick() {
@@ -94,6 +101,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
     public void userContinueClick(String phoneNumber, int otp, int otpId) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
             @Override
@@ -148,6 +158,11 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
 
@@ -160,6 +175,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public void saveToken(String token) {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override
@@ -179,5 +197,10 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 }

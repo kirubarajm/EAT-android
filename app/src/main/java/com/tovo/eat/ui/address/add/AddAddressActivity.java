@@ -212,7 +212,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         } catch (IOException e) {
             e.printStackTrace();
             printToast("Could not get address..!");
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
     }
 
     @Override

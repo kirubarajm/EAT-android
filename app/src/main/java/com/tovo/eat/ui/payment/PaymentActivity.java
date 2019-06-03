@@ -20,6 +20,7 @@ import com.tovo.eat.databinding.ActivityPaymentBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 
 import org.json.JSONObject;
@@ -94,7 +95,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void orderCompleted() {
 
-        Intent newIntent = MainActivity.newIntent(PaymentActivity.this);
+        Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
         newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(newIntent);
         finish();
@@ -136,9 +137,8 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     public void paymentSuccessed(boolean status) {
 
         if (status){
-            Intent newIntent = MainActivity.newIntent(PaymentActivity.this);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
             finish();
         }

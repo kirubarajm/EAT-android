@@ -50,6 +50,9 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         int userId = getDataManager().getCurrentUserId();
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId,strEmail, strReTypePass), new Response.Listener<RegistrationResponse>() {
             @Override
             public void onResponse(RegistrationResponse response) {
@@ -71,11 +74,19 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void fetchRegionList() {
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REGION_LIST, RegionResponse.class, new Response.Listener<RegionResponse>() {
             @Override
             public void onResponse(RegionResponse response) {
@@ -92,5 +103,10 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 }

@@ -47,10 +47,6 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
 
-      //  mKitchenViewModel.fetchRepos();
-
-
-       // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
     }
 
     @Override
@@ -144,21 +140,6 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
 
 
-
-
-
-   /* @Override
-    public void gotoOrderView() {
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        ViewFragment fragment = new VideoActivity();
-        transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
-        transaction.replace(R.id.frame_food, fragment);
-        transaction.commit();
-
-
-    }*/
-
     private void subscribeToLiveData() {
         mKitchenViewModel.getKitchenItemsLiveData().observe(this,
                 kitchenItemViewModel -> mKitchenViewModel.addKitchenItemsToList(kitchenItemViewModel));
@@ -168,14 +149,6 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
     @Override
     public void onResume() {
         super.onResume();
-
-
-     /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
-*/
-    //    ((TestActivity) getActivity()).statusUpdate();
-
-      // mKitchenViewModel.fetchRepos();
     }
 
 
@@ -203,10 +176,6 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
         mKitchenViewModel.removeFavourite(favId);
     }
 
-    /*@Override
-    public void filterList() {
-        mKitchenViewModel.fetchRepos();
-    }*/
 
     @Override
     public void applyFilter() {

@@ -259,7 +259,6 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("fsdf",error.getMessage());
                     }
                 });
 
@@ -267,7 +266,11 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }
+            } catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
 
 
         } else {

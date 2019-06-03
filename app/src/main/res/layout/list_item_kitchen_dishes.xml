@@ -62,11 +62,11 @@
                 <com.tovo.eat.utilities.RoundCornerImageView
                     cusrsiveImageUrl="@{kitchenDishItemViewModel.image}"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/imagenotavailable" />
+                    android:layout_height="80dp" />
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:onClick="@{()->kitchenDishItemViewModel.fav()}"
                     android:tint="#FCF3F2F2"
                     android:layout_alignParentTop="true"
@@ -78,6 +78,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentTop="true"
@@ -258,6 +259,7 @@
         </LinearLayout>
 
         <View
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/gray" />

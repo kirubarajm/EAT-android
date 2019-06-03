@@ -111,7 +111,11 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
     }
 
 

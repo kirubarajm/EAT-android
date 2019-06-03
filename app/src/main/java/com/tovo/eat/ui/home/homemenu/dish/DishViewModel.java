@@ -103,7 +103,11 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
     }
 
@@ -137,7 +141,11 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
     }
@@ -257,7 +265,11 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                         e.printStackTrace();
                     } catch (JSONException j) {
                         j.printStackTrace();
-                    }
+                    } catch (Exception ee){
+
+                    ee.printStackTrace();
+
+                }
 
 
                 } else {

@@ -100,7 +100,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             }
                             String items = itemsBuilder.toString();
 
-                          //  if (items.isEmpty())
+                            //  if (items.isEmpty())
 
                             products.set(items);
 
@@ -182,6 +182,10 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
 

@@ -55,6 +55,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public final ObservableBoolean payment = new ObservableBoolean();
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean emptyCart = new ObservableBoolean();
 
 
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
@@ -112,7 +113,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
 
                 }
             });
@@ -120,6 +121,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
     }
@@ -149,13 +154,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
                 }
             });
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
     }
@@ -217,10 +226,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
-        if (cartRequestPojo.getCartitems().size() == 0) {
-            getDataManager().setCartDetails(null);
-        }
+        if (cartRequestPojo == null) {
+            emptyCart.set(true);
+            return null;
 
+
+        } else {
+            if (cartRequestPojo.getCartitems().size() == 0) {
+                getDataManager().setCartDetails(null);
+                emptyCart.set(true);
+            }else {
+                emptyCart.set(false);
+            }
+        }
 
         return getDataManager().getCartDetails();
     }
@@ -259,10 +277,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             getDataManager().setCartDetails(null);
 
+                            emptyCart.set(true);
+
 
                         } else {
                             dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
 
+                            emptyCart.set(false);
 
                             if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
 
@@ -328,7 +349,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        emptyCart.set(true);
 
                     }
                 }) {
@@ -346,11 +367,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 };
                 MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
             } catch (JSONException j) {
-
+                emptyCart.set(true);
                 j.printStackTrace();
             } catch (NullPointerException n) {
-
+                emptyCart.set(true);
                 n.printStackTrace();
+            } catch (Exception ee) {
+                emptyCart.set(true);
+                ee.printStackTrace();
+
             }
 
         }
@@ -403,115 +428,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }*/
 
 
-    }
-
-
-    public void cashMode() {
-
-
-        if (getDataManager().getAddressId() != 0) {
-
-
-            if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-            //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-
-            List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
-            List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
-
-            PlaceOrderRequestPojo placeOrderRequestPojo = new PlaceOrderRequestPojo();
-
-            PlaceOrderRequestPojo.Orderitem orderitem;
-
-
-            Gson sGson = new GsonBuilder().create();
-            CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-
-            cartitems.addAll(cartRequestPojo.getCartitems());
-
-
-            for (int i = 0; i < cartitems.size(); i++) {
-
-                orderitem = new PlaceOrderRequestPojo.Orderitem();
-                orderitem.setProductid(cartitems.get(i).getProductid());
-                orderitem.setQuantity(cartitems.get(i).getQuantity());
-                orderitems.add(orderitem);
-
-            }
-
-
-            placeOrderRequestPojo.setOrderitems(orderitems);
-
-            placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
-
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(),  cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), orderitems);
-
-
-            Gson gson = new Gson();
-            String json = gson.toJson(placeOrderRequestPojo1);
-
-            Log.e("sfsdfd", json);
-
-            setIsLoading(true);
-
-
-            JsonObjectRequest jsonObjectRequest = null;
-            try {
-                jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-
-                            if (response.getBoolean("status")) {
-
-                                getDataManager().currentOrderId(response.getInt("orderid"));
-                                getDataManager().setCartDetails("");
-                                getNavigator().orderCompleted();
-
-                            } else {
-
-                                getNavigator().showToast(response.getString("message"));
-
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
-                    }
-                }) {
-
-                    /**
-                     * Passing some request headers
-                     */
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json");
-
-                        return headers;
-                    }
-                };
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-        } else {
-            getNavigator().showToast("Please select the address...");
-        }
-    }
-
-
-    public void onlineMode() {
-        getNavigator().showToast("Online payment not accepted now");
     }
 
 

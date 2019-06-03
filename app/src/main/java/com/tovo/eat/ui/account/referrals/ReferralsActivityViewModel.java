@@ -51,13 +51,17 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
-                    }
+                    } catch (Exception ee){
+
+                    ee.printStackTrace();
+
+                }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        Log.e("", error.getMessage());
+
                         setIsLoading(false);
                         getNavigator().failure("failed");
                     } catch (NullPointerException e) {
@@ -69,7 +73,11 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
     }
 
 }

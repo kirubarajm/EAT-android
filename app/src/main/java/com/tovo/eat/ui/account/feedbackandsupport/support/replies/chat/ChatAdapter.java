@@ -134,8 +134,7 @@ public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public interface ChatAdapterListener {
-        void ordersHistory(ChatResponse.Result orders);
-        void ordersDetailed(ChatResponse.Result orders);
+
     }
 
 

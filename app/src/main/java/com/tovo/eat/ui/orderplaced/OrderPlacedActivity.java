@@ -60,6 +60,7 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
             Intent intent= MainActivity.newIntent(OrderPlacedActivity.this);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         },1000);
 
 

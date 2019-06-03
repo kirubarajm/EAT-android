@@ -36,6 +36,8 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
     public void otpServiceCall(String strPhoneNumber) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_FORGOT_PASSWORD, ForgotPasswordResponse.class, new ForgotPasswordRequest(strPhoneNumber), new Response.Listener<ForgotPasswordResponse>() {
             @Override
             public void onResponse(ForgotPasswordResponse response) {
@@ -52,12 +54,19 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void otpVerificationServiceCall(String strPhoneNumber, String strOtp) {
         int otp = Integer.parseInt(strOtp);
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpVerificationResponse.class, new OtpVerificationRequest(strPhoneNumber, otp, otpId), new Response.Listener<OtpVerificationResponse>() {
             @Override
             public void onResponse(OtpVerificationResponse response) {
@@ -81,11 +90,19 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void passwordVerificationServiceCall(String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_SET_CONFIRM_PASSWORD, ConfirmPasswordResponse.class, new ConfirmPasswordRequest(userId, strPassword), new Response.Listener<ConfirmPasswordResponse>() {
             @Override
             public void onResponse(ConfirmPasswordResponse response) {
@@ -103,6 +120,11 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void goBack(){

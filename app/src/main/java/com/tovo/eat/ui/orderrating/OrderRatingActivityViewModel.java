@@ -48,21 +48,27 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
 
     public void orderRatingSubmit(int foodRating, int deliveryRating, String strFood, String strDelivery) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, 1), new Response.Listener<OrderRatingResponse>() {
-            @Override
-            public void onResponse(OrderRatingResponse response) {
-                if (response != null) {
-                    getNavigator().ratingSuccess();
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, 1), new Response.Listener<OrderRatingResponse>() {
+                @Override
+                public void onResponse(OrderRatingResponse response) {
+                    if (response != null) {
+                        getNavigator().ratingSuccess();
+                    }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().ratingFailure();
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().ratingFailure();
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 }

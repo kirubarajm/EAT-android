@@ -264,7 +264,11 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }
+            } catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
 
 
         } else {
@@ -299,7 +303,11 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
     }

@@ -17,10 +17,10 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
     private List<RegionSearchModel.Result> filteredItems;
     private ArrayFilter mFilter;
 
-    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel.Result> objects) {
+    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel.Result> objects) throws NullPointerException {
         super(context, resource, objects);
         this.items = objects;
-          this.filteredItems = objects;
+        this.filteredItems = objects;
 
     }
 
@@ -68,7 +68,7 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
 
                 if (list.size() == 0) {
 
-                    list.add(new RegionSearchModel.Result(0,"No Regions found"));
+                    list.add(new RegionSearchModel.Result(0, "No Regions found"));
 
                 }
 
@@ -76,8 +76,8 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
                 results.count = list.size();
 
             } else {
-                 results.values = items;
-                 results.count = items.size();
+                results.values = items;
+                results.count = items.size();
             }
 
             //custom-filtering of results
@@ -104,11 +104,6 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
                 filteredItems = new ArrayList<>();
             }
             notifyDataSetChanged();*/
-
-
-
-
-
 
 
         }

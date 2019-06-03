@@ -13,7 +13,7 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
 
 
     Response.ErrorListener errorListener;
-    String strMessage="";
+    String strMessage = "";
 
     public FeedbackActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -27,35 +27,39 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_APP_FEEDBACK, FeedBackResponse.class, new FeedBackRequest(rating, userIdMain, message), new Response.Listener<FeedBackResponse>() {
-            @Override
-            public void onResponse(FeedBackResponse response) {
-                if (response != null) {
-                    int faqId = response.getFaqid();
-                    strMessage = response.getMessage();
-                    boolean booleanSucces = response.getSuccess();
-                    if (booleanSucces) {
-                        getNavigator().feedBackSucess(strMessage);
-                    } else {
-                        getNavigator().feedBackFailure(strMessage);
+
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_APP_FEEDBACK, FeedBackResponse.class, new FeedBackRequest(rating, userIdMain, message), new Response.Listener<FeedBackResponse>() {
+                @Override
+                public void onResponse(FeedBackResponse response) {
+                    if (response != null) {
+                        int faqId = response.getFaqid();
+                        strMessage = response.getMessage();
+                        boolean booleanSucces = response.getSuccess();
+                        if (booleanSucces) {
+                            getNavigator().feedBackSucess(strMessage);
+                        } else {
+                            getNavigator().feedBackFailure(strMessage);
+                        }
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().feedBackFailure(strMessage);
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().feedBackFailure(strMessage);
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+        }
     }
 
 
-
-    public  void goBack(){
-
-
+    public void goBack() {
 
         getNavigator().goBack();
 

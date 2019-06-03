@@ -95,7 +95,6 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
 
     @Override
     public void listItem(OrdersHistoryListResponse.Result mOrderList) {
-        Log.e("mOrderList",mOrderList.toString());
 
         Intent intent = OrderHistoryActivityView.newIntent(this);
         intent.putExtra("orderId",

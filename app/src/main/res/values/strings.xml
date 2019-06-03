@@ -384,7 +384,7 @@
     <string name="enter_phone_num">Enter you mobile number</string>
     <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
-    <string name="enter_name">Enter your name</string>
+    <string name="enter_name">ENTER YOUR NAME</string>
     <string name="proceed">PROCEED</string>
     <string name="type_your_feedback">Type your feedback here</string>
     <string name="re_type_password">Re-type Password</string>
@@ -501,4 +501,10 @@
     <string name="approx">Approx</string>
     <string name="show_more">Show more</string>
     <string name="orderid">Order Id: </string>
+    <string name="dishes">Dishes</string>
+    <string name="showing_results_for">Showing results for</string>
+    <string name="edit_info">Edit info</string>
+    <string name="apply_changes">Apply Changes</string>
+    <string name="get_started_">Get Started!</string>
+    <string name="search_for_your_favorite_region_dish_or_cuisines">Search for your favorite region,dish or cuisines</string>
 </resources>

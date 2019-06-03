@@ -83,10 +83,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         adapter.setListener(this);
 
 
-        if (mCartViewModel.getCartPojoDetails() == null) {
+        /*if (mCartViewModel.getCartPojoDetails() == null) {
 
             ((MainActivity) getActivity()).openHome();
-        }
+        }*/
 
 
 

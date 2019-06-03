@@ -93,14 +93,18 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
                 }
             });
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
     }
 
@@ -127,14 +131,18 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
                 }
             });
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
     }
@@ -261,7 +269,11 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         e.printStackTrace();
                     } catch (JSONException j) {
                         j.printStackTrace();
-                    }
+                    } catch (Exception ee){
+
+                    ee.printStackTrace();
+
+                }
 
 
                 }
@@ -293,7 +305,11 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                     MvvmApp.getInstance().addToRequestQueue(gsonRequest);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
-                }
+                } catch (Exception ee){
+
+                ee.printStackTrace();
+
+            }
             }
         }
     }

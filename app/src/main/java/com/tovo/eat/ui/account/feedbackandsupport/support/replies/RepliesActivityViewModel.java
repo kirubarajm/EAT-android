@@ -62,6 +62,9 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         //int UserId = Integer.parseInt(String.valueOf(userId));
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_QUERIES_LIST, RepliesResponse.class,
                 new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
             @Override
@@ -76,7 +79,6 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("", error.toString());
                 setIsLoading(false);
                 if (val == 1) {
                     getNavigator().onRefreshFailure();
@@ -84,6 +86,11 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void onRefreshLayout() {

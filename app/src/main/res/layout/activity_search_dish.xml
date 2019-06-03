@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="searchDishViewModel"
+            type="com.tovo.eat.ui.search.dish.SearchDishViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:onClick="@{()->searchDishViewModel.goBack()}"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:text="@string/dishes"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:id="@+id/searched"
+            android:layout_below="@+id/topBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="@string/showing_results_for"
+            android:textSize="14sp" />
+
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/searched"
+            android:layout_below="@+id/topBar"
+            android:layout_width="wrap_content"
+            android:text="@{searchDishViewModel.searched}"
+            android:layout_height="wrap_content"
+            android:textColor="@color/eat_color"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp" />
+
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searched"
+            android:layout_marginTop="10dp">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/white"
+                app:adapter="@{searchDishViewModel.dishItemViewModels}"
+                tools:listitem="@layout/list_item_cart_dishes" />
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <RelativeLayout
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/eat_color"
+            android:onClick="@{()->searchDishViewModel.viewCart()}"
+            android:padding="2dp"
+            android:visibility="@{searchDishViewModel.cart?View.VISIBLE:View.GONE}">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="@{searchDishViewModel.cartItems}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@{searchDishViewModel.items}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/white" />
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/icon_inr"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@{searchDishViewModel.cartPrice}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/view_cart"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

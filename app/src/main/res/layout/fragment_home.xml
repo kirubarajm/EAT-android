@@ -110,23 +110,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginRight="20dp"
                                 android:gravity="center"
                                 android:onClick="@{()->homeTabViewModel.favourites()}"
                                 android:text="@string/icon_fav"
                                 android:textColor="@color/eat_color"
-                                android:textSize="20sp" />
-
-
-                            <com.tovo.eat.utilities.fonts.TovoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center"
-                                android:onClick="@{()->homeTabViewModel.filter()}"
-                                android:text="@string/icon_filter"
-                                android:textColor="@color/dark_gray"
                                 android:textSize="20sp" />
 
 

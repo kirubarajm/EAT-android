@@ -27,6 +27,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:onClick="@{()->dishItemViewModel.fav()}"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|end"
@@ -82,11 +83,11 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/imagenotavailable" />
+                            android:scaleType="fitXY" />
 
 
                         <com.tovo.eat.utilities.RoundCornerImageView
+                            android:visibility="gone"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_alignParentStart="true"
@@ -325,6 +326,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="5dp"

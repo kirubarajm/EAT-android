@@ -87,10 +87,10 @@
                                 cusrsiveImageUrl="@{kitchenItemViewModel.kitchen_image}"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/imagenotavailable" />
+                                android:scaleType="fitXY" />
 
                             <com.tovo.eat.utilities.RoundCornerImageView
+                                android:visibility="gone"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_alignParentStart="true"

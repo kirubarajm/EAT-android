@@ -47,8 +47,6 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         ordersItemsLiveData = new MutableLiveData<>();
         cartRequestPojo = new CartRequestPojo();
         orderitems = new ArrayList<>();
-
-
        // fetchRepos();
     }
 
@@ -163,7 +161,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        Log.e("", error.getMessage());
+
                         setIsLoading(false);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -173,6 +171,8 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        }catch (Exception ee){
+            ee.printStackTrace();
         }
     }
 }

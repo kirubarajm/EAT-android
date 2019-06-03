@@ -102,19 +102,19 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void gotoCart() {
 
-        if (getDataManager().getCartDetails() != null) {
+        /*if (getDataManager().getCartDetails() != null) {*/
 
-            getNavigator().openCart();
+        getNavigator().openCart();
 
-            isHome.set(false);
-            //  isExplore.set(false);
-            isCart.set(true);
-            isMyAccount.set(false);
+        isHome.set(false);
+        isExplore.set(false);
+        isCart.set(true);
+        isMyAccount.set(false);
 
-        } else {
+     /*   } else {
 
             getNavigator().toastMsg("No items in cart");
-        }
+        }*/
 
 
     }
@@ -152,46 +152,49 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + getDataManager().getCurrentUserId(), LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
-            @Override
-            public void onResponse(LiveOrderResponsePojo response) {
-                if (response != null) {
-                    setIsLoading(false);
-
-                    if (response.getStatus()) {
-
-                        if (response.getResult().size() != 0) {
+        try {
 
 
-                            isLiveOrder.set(true);
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + getDataManager().getCurrentUserId(), LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
+                @Override
+                public void onResponse(LiveOrderResponsePojo response) {
+                    if (response != null) {
+                        setIsLoading(false);
 
-                            kitchenImage.set(response.getResult().get(0).getMakeitimage());
+                        if (response.getStatus()) {
 
-                            if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
-                                kitchenName.set(response.getResult().get(0).getMakeitusername());
-                            } else {
-
-                                kitchenName.set(response.getResult().get(0).getMakeitbrandname());
-                            }
+                            if (response.getResult().size() != 0) {
 
 
-                            // 2019-05-09T13:21:54.000Z
+                                isLiveOrder.set(true);
 
-                            try {
-                                String strDate = response.getResult().get(0).getDeliverytime();
-                                DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                                String outputDateStr = "";
-                                //Date  date1 = new Date(strDate);
-                                Date date = currentFormat.parse(strDate);
-                                outputDateStr = dateFormat.format(date);
-                                eta.set(outputDateStr);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                                kitchenImage.set(response.getResult().get(0).getMakeitimage());
+
+                                if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+                                    kitchenName.set(response.getResult().get(0).getMakeitusername());
+                                } else {
+
+                                    kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                                }
+
+
+                                // 2019-05-09T13:21:54.000Z
+
+                                try {
+                                    String strDate = response.getResult().get(0).getDeliverytime();
+                                    DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                    DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                    String outputDateStr = "";
+                                    //Date  date1 = new Date(strDate);
+                                    Date date = currentFormat.parse(strDate);
+                                    outputDateStr = dateFormat.format(date);
+                                    eta.set(outputDateStr);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
 
 
@@ -213,26 +216,30 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             }*/
 
 
-                            // eta.set(response.getResult().get(0).getDeliverytime());
+                                // eta.set(response.getResult().get(0).getDeliverytime());
 
-                            orderId = response.getResult().get(0).getOrderid();
+                                orderId = response.getResult().get(0).getOrderid();
 
-                            getDataManager().setOrderId(orderId);
+                                getDataManager().setOrderId(orderId);
 
-                            StringBuilder itemsBuilder = new StringBuilder();
+                                StringBuilder itemsBuilder = new StringBuilder();
 
-                            for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
-                                itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
+                                for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                    itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
 
-                                if (response.getResult().get(0).getItems().size() - 1 != i) {
-                                    itemsBuilder.append(" , ");
+                                    if (response.getResult().get(0).getItems().size() - 1 != i) {
+                                        itemsBuilder.append(" , ");
+                                    }
+
                                 }
 
+                                String item = itemsBuilder.toString();
+                                products.set(item);
+
+
+                            } else {
+                                isLiveOrder.set(false);
                             }
-
-                            String item = itemsBuilder.toString();
-                            products.set(item);
-
 
                         } else {
                             isLiveOrder.set(false);
@@ -241,45 +248,53 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     } else {
                         isLiveOrder.set(false);
                     }
-
-                } else {
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Log.e("", error.getMessage());
+                    setIsLoading(false);
                     isLiveOrder.set(false);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Log.e("", error.getMessage());
-                setIsLoading(false);
-                isLiveOrder.set(false);
-            }
-        });
+            });
 
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void saveToken(String token) {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
-            @Override
-            public void onResponse(CommonResponse response) {
-                if (response != null) {
+        try {
 
-                    if (response.isStatus()) {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+                        if (response.isStatus()) {
 
 
+                        }
                     }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void gotoAccount() {
@@ -316,35 +331,40 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public boolean totalCart() {
+        try {
+            Gson sGson = new GsonBuilder().create();
+            CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+            cart.set(false);
+            if (cartRequestPojo == null)
+                cartRequestPojo = new CartRequestPojo();
+            int count = 0;
 
-        Gson sGson = new GsonBuilder().create();
-        CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-        cart.set(false);
-        if (cartRequestPojo == null)
-            cartRequestPojo = new CartRequestPojo();
-        int count = 0;
+            if (cartRequestPojo.getCartitems() != null) {
+                if (cartRequestPojo.getCartitems().size() == 0) {
+                    cart.set(false);
+                } else {
 
-        if (cartRequestPojo.getCartitems() != null) {
-            if (cartRequestPojo.getCartitems().size() == 0) {
-                cart.set(false);
-            } else {
+                    for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
-                for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
+                        count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
 
-                    count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
+                        if (count == 0) {
+                            cart.set(false);
+                            return false;
 
-                    if (count == 0) {
-                        cart.set(false);
-                        return false;
+                        } else {
+                            numOfCarts.set(String.valueOf(count));
+                            cart.set(true);
+                        }
 
-                    } else {
-                        numOfCarts.set(String.valueOf(count));
-                        cart.set(true);
                     }
 
                 }
-
             }
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
         return false;
     }
@@ -418,30 +438,34 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     public void masterRequest() {
+        try {
 
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER, MasterPojo.class, new Response.Listener<MasterPojo>() {
+                @Override
+                public void onResponse(MasterPojo response) {
+                    if (response != null) {
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER, MasterPojo.class, new Response.Listener<MasterPojo>() {
-            @Override
-            public void onResponse(MasterPojo response) {
-                if (response != null) {
+                        Gson gson = new Gson();
+                        String master = gson.toJson(response);
+                        getDataManager().saveMaster("");
+                        getDataManager().saveMaster(master);
 
-                    Gson gson = new Gson();
-                    String master = gson.toJson(response);
-                    getDataManager().saveMaster("");
-                    getDataManager().saveMaster(master);
-
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //  Log.e("", error.getMessage());
-                setIsLoading(false);
-            }
-        });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                    setIsLoading(false);
+                }
+            });
 
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
+            ee.printStackTrace();
+
+        }
 
     }
 
@@ -485,7 +509,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void currentLatLng(double lat, double lng) {
 
-        if (getDataManager().getCurrentLat()== null) {
+        if (getDataManager().getCurrentLat() == null) {
             getDataManager().setCurrentAddressTitle("Current location");
             getDataManager().setCurrentLat(lat);
             getDataManager().setCurrentLng(lng);

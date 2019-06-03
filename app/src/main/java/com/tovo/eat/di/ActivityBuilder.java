@@ -17,6 +17,8 @@
 package com.tovo.eat.di;
 
 import com.tovo.eat.ui.account.MyAccountProvider;
+import com.tovo.eat.ui.account.edit.EditAccountActivity;
+import com.tovo.eat.ui.account.edit.EditAccountModule;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
@@ -74,6 +76,8 @@ import com.tovo.eat.ui.payment.PaymentModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.registration.RegistrationActivityModule;
 import com.tovo.eat.ui.search.SearchProvider;
+import com.tovo.eat.ui.search.dish.SearchDishActivity;
+import com.tovo.eat.ui.search.dish.SearchDishModule;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.SignUpActivityModule;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
@@ -124,6 +128,10 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = AddAddressModule.class)
     abstract AddAddressActivity bindAddAddressActivity();
 
+
+
+    @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class})
+    abstract SearchDishActivity bindSearchDishActivity();
 
 
 
@@ -201,6 +209,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();
+
+    @ContributesAndroidInjector(modules = EditAccountModule.class)
+    abstract EditAccountActivity bindEditAccountActivity();
 
 
 }

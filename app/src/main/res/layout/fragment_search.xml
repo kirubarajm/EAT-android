@@ -23,37 +23,100 @@
 
 
 
+
+
+
+
+
+        <!--<EditText
+            android:hint="Search dish or kitchen or region"
+            android:layout_alignParentTop="true"
+            android:id="@+id/searchh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+
+
+
+
+
         <android.support.v7.widget.SearchView
+
             android:focusable="true"
             app:iconifiedByDefault="false"
             android:layout_alignParentTop="true"
             android:id="@+id/searchh"
-            android:inputType="textNoSuggestions"
             app:queryHint="Search dish or kitchen or region"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/searchh"
-            android:id="@+id/refreshList"
+
+        <RelativeLayout
+            android:id="@+id/before"
+            android:visibility="visible"
+            android:layout_below="@+id/searchh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_marginTop="50dp"
+                android:layout_centerHorizontal="true"
+                android:tint="@color/eat_color"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/before_search"/>
+
+
+
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/tt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img1"
+                android:layout_marginTop="10dp"
+                android:text="@string/get_started_"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tt1"
+                android:layout_marginTop="10dp"
+                android:text="@string/search_for_your_favorite_region_dish_or_cuisines"
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
             <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/searchh"
                 android:id="@+id/recyclerview_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:animateLayoutChanges="false"
-                android:nestedScrollingEnabled="false"
                 android:background="@android:color/white"
                 app:adapter="@{searchViewModel.searchItemViewModels}"
                 tools:listitem="@layout/list_item_search"/>
 
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+
 
 
     </RelativeLayout>

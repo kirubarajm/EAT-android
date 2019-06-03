@@ -14,13 +14,15 @@
         </variable>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
 
         <android.support.v7.widget.CardView
+            android:layout_alignParentTop="true"
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -45,7 +47,52 @@
         </android.support.v7.widget.CardView>
 
 
+        <RelativeLayout
+            android:visibility="@{cartViewModel.emptyCart?View.VISIBLE:View.GONE}"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/empty_cart" />
+
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:id="@+id/tt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img1"
+                android:layout_marginTop="10dp"
+                android:text="Your cart is empty"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tt1"
+                android:layout_marginTop="10dp"
+                android:text="Looks like you haven’t added anything to the cart"
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
         <android.support.v4.widget.NestedScrollView
+            android:layout_below="@+id/header"
+            android:visibility="@{cartViewModel.emptyCart?View.GONE:View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -602,5 +649,5 @@
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

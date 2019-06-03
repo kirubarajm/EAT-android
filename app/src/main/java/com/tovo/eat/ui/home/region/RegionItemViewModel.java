@@ -41,8 +41,19 @@ public class RegionItemViewModel {
       //  area_name.set(mRegionList.getArea());
         region.set(mRegionList.getRegionname());
         imageUrl.set(mRegionList.getRegionImage() );
+
+
+        area_name.set(mRegionList.getRegionname()+" Special");
+
+
        // totalKitchens.set((mRegionList.getKitchenNos())+" Homes specialize in "+mRegionList.getArea());
-        totalKitchens.set(+mRegionList.getKitchencount()+" Homes specialize in "+mRegionList.getRegionname());
+
+         if (mRegionList.getKitchencount()==1) {
+
+             totalKitchens.set(+mRegionList.getKitchencount() + " Kitchen featured in " + mRegionList.getRegionname());
+         }else {
+             totalKitchens.set(+mRegionList.getKitchencount() + " Kitchens featured in " + mRegionList.getRegionname());
+         }
       //  approx.set(mRegionList.getAprox());
 
 

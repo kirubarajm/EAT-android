@@ -41,6 +41,9 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         if (val == 1) {
             setIsLoading(true);
         }
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REPLIES_CHAT + strQid, ChatResponse.class, new Response.Listener<ChatResponse>() {
             @Override
             public void onResponse(ChatResponse response) {
@@ -67,7 +70,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    Log.e("", error.getMessage());
+
                     if (val == 1) {
                         setIsLoading(false);
                     }
@@ -78,12 +81,20 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void insertAnswerServiceCall(String strMessage, String strQid) {
         int qId = Integer.parseInt(strQid);
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ANSWER, ChatReplyResponse.class,
                 new ChatReplyRequest(qId, strMessage,AppConstants.EAT, AppConstants.ADMIN, userId), new Response.Listener<ChatReplyResponse>() {
             @Override
@@ -97,21 +108,32 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("", error.toString());
+
                 setIsLoading(false);
                 getNavigator().sendSuccess(strMessage);
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void readMessageServiceCall(List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest) {
         setIsLoading(true);
+
+        try {
+
+
         List<ChatRepliesReadRequest.Aidlist> itemid = new ArrayList<>();
         itemid=mChatRepliesReadRequest;
         ChatRepliesReadRequest dialogPickedUpRequest = new ChatRepliesReadRequest(itemid);
         Gson gson = new GsonBuilder().create();
         String payloadStr = gson.toJson(dialogPickedUpRequest);
+
+
 
         JsonObjectRequest jsonObjectRequest = null;
         try {
@@ -133,6 +155,11 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
             e.printStackTrace();
         }
         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void sendClick() {

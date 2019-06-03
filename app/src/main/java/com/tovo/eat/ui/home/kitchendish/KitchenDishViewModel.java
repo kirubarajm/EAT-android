@@ -142,7 +142,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
 
                 }
             });
@@ -150,6 +150,10 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
     }
@@ -177,13 +181,16 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
                 }
             });
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
     }
@@ -246,68 +253,75 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
+        try {
 
-        //  setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
-            @Override
-            public void onResponse(KitchenDishResponse response) {
-                if (response != null) {
-                    //     dishItemsLiveData.setValue(response.getResult().get(0).getProductlist());
-                    //     dishItemFullViewModels.setValue(response.getResult());
+            //  setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDishListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
+                @Override
+                public void onResponse(KitchenDishResponse response) {
+                    if (response != null) {
+                        //     dishItemsLiveData.setValue(response.getResult().get(0).getProductlist());
+                        //     dishItemFullViewModels.setValue(response.getResult());
+
+                        totalCart();
+                        if (response.getResult() != null)
+
+                            if (response.getResult().size() != 0) {
+
+                                dishFullItemViewModels.addAll(response.getResult());
+
+                                makeitId = response.getResult().get(0).getMakeituserid();
 
 
-                    totalCart();
+                                kitchenImage.set(response.getResult().get(0).getMakeitimg());
 
-                    dishFullItemViewModels.addAll(response.getResult());
+                                isFav = response.getResult().get(0).getIsfav();
 
-                    makeitId = response.getResult().get(0).getMakeituserid();
+                                kitchenCategory.set(response.getResult().get(0).getLocalityname());
+
+                                if (response.getResult().get(0).getFavid() != null) {
+                                    favId = response.getResult().get(0).getFavid();
+                                }
+                                if (response.getResult().get(0).getIsfav().equals("0")) {
+                                    isFavourite.set(false);
+                                } else {
+
+                                    isFavourite.set(true);
+                                }
+
+                                if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                                    kitchenName.set(response.getResult().get(0).getMakeitusername());
+
+                                } else {
+
+                                    kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                                }
 
 
-                    kitchenImage.set(response.getResult().get(0).getMakeitimg());
+                                Log.e("----response:---------", response.toString());
 
-                    isFav = response.getResult().get(0).getIsfav();
-
-                    kitchenCategory.set(response.getResult().get(0).getLocalityname());
-
-                    if (response.getResult().get(0).getFavid() != null) {
-                        favId = response.getResult().get(0).getFavid();
+                                getNavigator().dishListLoaded();
+                            }
+                        getNavigator().dishListLoaded();
                     }
-                    if (response.getResult().get(0).getIsfav().equals("0")) {
-                        isFavourite.set(false);
-                    } else {
-
-                        isFavourite.set(true);
-                    }
-
-                    if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
-
-                        kitchenName.set(response.getResult().get(0).getMakeitusername());
-
-                    } else {
-
-                        kitchenName.set(response.getResult().get(0).getMakeitbrandname());
-                    }
-
-
-                    Log.e("----response:---------", response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
                     getNavigator().dishListLoaded();
-
-
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("", error.getMessage());
-                getNavigator().dishListLoaded();
-            }
-        });
+            });
 
 
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
+        } catch (Exception ee) {
 
+            ee.printStackTrace();
+
+        }
 
 
     }

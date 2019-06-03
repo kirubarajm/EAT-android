@@ -19,9 +19,6 @@ public class FeedbackAndSupportActivityViewModel extends BaseViewModel<FeedbackA
 
 
     public void goBack(){
-
-
-
         getNavigator().goBack();
 
     }

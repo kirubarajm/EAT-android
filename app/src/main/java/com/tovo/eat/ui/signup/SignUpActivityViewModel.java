@@ -32,6 +32,9 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
 
     public void users(String phoneNumber) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
             @Override
@@ -89,7 +92,11 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         });*/
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
+        }catch (Exception ee){
 
+            ee.printStackTrace();
+
+        }
 
     }
 

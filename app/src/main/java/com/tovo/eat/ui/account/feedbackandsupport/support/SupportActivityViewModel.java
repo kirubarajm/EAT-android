@@ -58,6 +58,10 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
         if (val==1) {
             setIsLoading(true);
         }
+
+        try {
+
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_REPLIES_COUNT, RepliesCountResponse.class,
                 new RepliesCountRequest( AppConstants.EAT,userId), new Response.Listener<RepliesCountResponse>() {
             @Override
@@ -80,7 +84,6 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
             @Override
             public void onErrorResponse(VolleyError error) {
                 //getNavigator().loginError(error.getMessage());
-                Log.e("", error.toString());
                 if (val==1) {
                     setIsLoading(false);
                 }
@@ -88,12 +91,19 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
 
     }
 
     public void insertQueriesServiceCall(String strQueries) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        try {
+
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_INSERT, SupportResponse.class,
                 new SupportRequest(strQueries, AppConstants.EAT,userId), new Response.Listener<SupportResponse>() {
             @Override
@@ -111,12 +121,16 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
             @Override
             public void onErrorResponse(VolleyError error) {
                 //getNavigator().loginError(error.getMessage());
-                Log.e("", error.toString());
                 setIsLoading(false);
                 getNavigator().failure("Failed to insert");
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
     public void callAdmin(){

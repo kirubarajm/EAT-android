@@ -134,6 +134,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.payment.PaymentActivity" />
         <activity android:name=".ui.home.region.list.RegionListActivity" />
+        <activity android:name=".ui.search.dish.SearchDishActivity" />
+        <activity android:name=".ui.account.edit.EditAccountActivity" />
 
 
         <meta-data

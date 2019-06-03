@@ -37,6 +37,9 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     public void insertNameGenderServiceCall(String name, int gender,int regionId) {
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new NameGenderRequest(userIdMain, name, gender,regionId), new Response.Listener<NameGenderResponse>() {
             @Override
@@ -57,6 +60,11 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             }
         });
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
     }
 
 
@@ -76,7 +84,6 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
 
 
                 }
@@ -86,7 +93,11 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
     }

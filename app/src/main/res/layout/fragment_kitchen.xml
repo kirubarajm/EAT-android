@@ -15,10 +15,6 @@
         </variable>
     </data>
 
-
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,11 +58,44 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
 
+
+            <com.tovo.eat.utilities.fonts.CircularTextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/filter"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                android:text="Filter/Sort Kitchens"
+                />
+
+
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toStartOf="@id/filter"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/icon_filter"
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp" />
+
+
+
+
+
+
             <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_marginTop="5dp"
                 android:id="@+id/refreshList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/shimmer_view_container">
+                android:layout_below="@+id/filter">
 
 
                 <android.support.v7.widget.RecyclerView

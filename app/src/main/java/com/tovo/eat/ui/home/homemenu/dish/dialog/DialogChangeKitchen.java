@@ -65,9 +65,6 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
 
         addDishListener=(AddDishListener)getTargetFragment();
 
-
-
-
         super.onAttach(context);
     }
 

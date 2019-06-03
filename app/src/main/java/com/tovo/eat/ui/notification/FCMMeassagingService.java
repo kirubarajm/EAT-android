@@ -53,8 +53,14 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         Log.d("FROM", remoteMessage.getFrom());
 
 
-        sendNotification(notification, data);
-       // sendNotification(notification);
+        if (data == null) {
+            sendNotification(notification);
+        } else {
+
+            sendNotification(notification, data);
+        }
+
+
 
 
        /* SharedPreferences sharedpreferences = getSharedPreferences("AAA", Context.MODE_PRIVATE);
@@ -104,32 +110,53 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(RemoteMessage.Notification notification, Map<String, String> data) {
+              /*pageidOrder_Post:1,
+                pageidOrder_Accept:2,
+                pageidOrder_Preparing:3,
+                pageidOrder_Prepared:4,
+                pageidOrder_Pickedup:5,
+                pageidOrder_Reached:6,
+                pageidOrder_Delivered:7,*/
+
         Bundle bundle = new Bundle();
         Intent intent;
 
-        String pageId = data.get("page_id");
+        String pageId = data.get("pageid");
         String title = data.get("title");
         String message = data.get("message");
 
 
-        switch (pageId) {
+        if (pageId==null)  pageId="0";
 
-            case "1":
+            switch (pageId) {
 
-                intent = new Intent(this, MainActivity.class);
+                case "1":
+                    intent = new Intent(this, MainActivity.class);
 
-                break;
-            case "2":
-                intent = new Intent(this, OrderTrackingActivity.class);
-                break;
-            case "3":
-                intent = new Intent(this, OrderHistoryActivity.class);
-                break;
-            default:
-                intent = new Intent(this, MainActivity.class);
+                    break;
+                case "2":
+                    intent = new Intent(this, OrderTrackingActivity.class);
+                    break;
+                case "3":
+                    intent = new Intent(this, OrderTrackingActivity.class);
+                    break;
+                case "4":
+                    intent = new Intent(this, OrderTrackingActivity.class);
+                    break;
+                case "5":
+                    intent = new Intent(this, OrderTrackingActivity.class);
+                    break;
+                case "6":
+                    intent = new Intent(this, OrderTrackingActivity.class);
+                    break;
+                case "7":
+                    intent = new Intent(this, OrderHistoryActivity.class);
+                    break;
+                default:
+                    intent = new Intent(this, MainActivity.class);
 
 
-        }
+            }
 
 
         intent.putExtras(bundle);
@@ -143,7 +170,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-             /*   .setContentInfo("Hello")*/
+                /*   .setContentInfo("Hello")*/
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)
@@ -185,6 +212,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         assert notificationManager != null;
         notificationManager.notify(0, notificationBuilder.build());
     }
+
     private void sendNotification(RemoteMessage.Notification notification) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, MainActivity.class);
@@ -201,7 +229,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-              /*  .setContentInfo("Hello")*/
+                /*  .setContentInfo("Hello")*/
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)
@@ -247,7 +275,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     public void saveToken(String token) {
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("tovo_pref", 0);
-        int userIdMain =pref.getInt("PREF_KEY_CURRENT_USER_ID", 0); // getting String
+        int userIdMain = pref.getInt("PREF_KEY_CURRENT_USER_ID", 0); // getting String
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

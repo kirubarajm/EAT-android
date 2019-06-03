@@ -106,6 +106,9 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void callAdmin() {
+
+        try {
+
         if (hasPermission(Manifest.permission.CALL_PHONE)) {
             String number = "9597352662";
             Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -115,6 +118,13 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         } else {
             requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE}, 0);
         }
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+
+
     }
 
     @Override

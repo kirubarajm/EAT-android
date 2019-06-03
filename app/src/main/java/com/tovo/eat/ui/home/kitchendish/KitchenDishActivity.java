@@ -327,8 +327,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public void showToast(String msg) {
-
-
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
     }
@@ -367,9 +365,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,
                 kitchenItemViewModel -> mKitchenDishViewModel.addDishItemsToList(kitchenItemViewModel));
 
-
-      /*  mKitchenDishViewModel.getDishItemFullViewModels().observe(this,
-                kitchenItemViewModel2 -> mKitchenDishViewModel.addKitchenDishItemsToList(kitchenItemViewModel2));*/
 
     }
 

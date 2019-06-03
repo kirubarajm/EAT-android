@@ -57,19 +57,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         super.onAttach(context);
     }
 
-   /* public static <T> getInterface(StartFilter interfaceClass, Fragment thisFragment) {
-           final Fragment parent = thisFragment.getParentFragment();
-           if (parent != null && interfaceClass.isAssignableFrom(parent)) {
-               return interfaceClass.c(parent);
-           }
 
-           final Activity activity = thisFragment.getActivity();
-           if (activity != null && interfaceClass.isAssignableFrom(activity)) {
-               return interfaceClass.cast(activity);
-           }
-
-           return null;
-       }*/
 
 
     @Override

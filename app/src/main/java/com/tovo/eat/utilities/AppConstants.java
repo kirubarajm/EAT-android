@@ -62,8 +62,9 @@ public class AppConstants {
 
     ///////Server Ip Ports
     //  public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
+      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
-    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
+   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
 
@@ -92,6 +93,7 @@ public class AppConstants {
 
     public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
     public static final String EAT_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/dishlist";
+    public static final String EAT_SEARCH_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/product/search";
 
     public static final String EAT_FAV_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/dishlist/";
     public static final String EAT_FAV_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/kitchenlist/";

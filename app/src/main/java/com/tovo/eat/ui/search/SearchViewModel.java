@@ -66,7 +66,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public void fetchRepos(String data) {
 
 
-        getNavigator().listLoaded();
+
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -81,7 +81,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                         
 
                         searchItemsLiveData.setValue(response.getResult());
-                        
+                        getNavigator().listLoaded();
 
                     }
                 }, new Response.ErrorListener() {

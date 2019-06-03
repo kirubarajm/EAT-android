@@ -91,6 +91,11 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             userName.set(getDataManager().getCurrentUserName());
                             userEmail.set(getDataManager().getCurrentUserEmail());
                             userPhoneNo.set(getDataManager().getCurrentUserPhNo());
+
+
+
+
+
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -100,7 +105,6 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        Log.e("", error.getMessage());
                         setIsLoading(false);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -111,7 +115,11 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
     }
 
 }

@@ -91,7 +91,7 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
 
 
                 }
@@ -101,7 +101,11 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
     }
@@ -122,6 +126,9 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
                     public void onResponse(RegionsResponse response) {
                         if (response != null) {
 
+                            try {
+
+
                             regionItemsLiveData.setValue(response.getResult());
 
                             Log.e("Region----response:", response.toString());
@@ -129,7 +136,11 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
 
                             getNavigator().kitchenListLoaded();
 
+                            }catch (Exception ee){
 
+                                ee.printStackTrace();
+
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -143,7 +154,11 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }
+            } catch (Exception ee){
+
+        ee.printStackTrace();
+
+    }
 
 
 

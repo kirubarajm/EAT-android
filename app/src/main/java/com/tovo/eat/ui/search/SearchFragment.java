@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.region.list.RegionListActivity;
+import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
@@ -37,6 +40,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     FragmentSearchBinding mFragmentSearchBinding;
 
+
+    String searchText;
 
     public static SearchFragment newInstance() {
         Bundle args = new Bundle();
@@ -70,40 +75,81 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentSearchBinding.recyclerviewSearch.setLayoutManager(mLayoutManager);
         mFragmentSearchBinding.recyclerviewSearch.setAdapter(adapter);
+
+        mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
+        mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+
+
         // subscribeToLiveData();
 
-        mFragmentSearchBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /* mFragmentSearchBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSearchViewModel.fetchRepos("");
             }
-        });
+        });*/
 
+
+        /*mFragmentSearchBinding.searchh.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!s.toString().isEmpty()) {
+                    searchText = s.toString();
+                    mSearchViewModel.fetchRepos(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (!s.toString().isEmpty()) {
+                    searchText = s.toString();
+                    mSearchViewModel.fetchRepos(s.toString());
+                }
+            }
+        });*/
+
+
+        mFragmentSearchBinding.searchh.requestFocusFromTouch();
 
         mFragmentSearchBinding.searchh.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mSearchViewModel.fetchRepos(s);
+
+                if (s.length()>1) {
+                    searchText = s;
+                    mSearchViewModel.fetchRepos(s);
+                }else {
+                    mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
+                    mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                }
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-
-                mSearchViewModel.fetchRepos(s);
-
+                if (s.length()>1) {
+                    searchText = s;
+                    mSearchViewModel.fetchRepos(s);
+                }else {
+                    mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
+                    mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                }
                 return true;
             }
+
         });
 
 
-        ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
+        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
                 toggleSoftInput(InputMethodManager.SHOW_FORCED,
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-
-
-
 
 
     }
@@ -135,13 +181,15 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void listLoaded() {
+       mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.VISIBLE);
+       mFragmentSearchBinding.before.setVisibility(View.GONE);
 
-        mFragmentSearchBinding.refreshList.setRefreshing(false);
+     //   mFragmentSearchBinding.refreshList.setRefreshing(false);
     }
 
     @Override
     public void listLoading() {
-        mFragmentSearchBinding.refreshList.setRefreshing(true);
+      //  mFragmentSearchBinding.refreshList.setRefreshing(true);
     }
 
     @Override
@@ -181,15 +229,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
 
             case 1:
+                Intent intent = SearchDishActivity.newIntent(getContext());
+                intent.putExtra("search", searchText);
+                startActivity(intent);
 
-
-             break;
+                break;
             case 2:
 
 
-                Intent intent = KitchenDishActivity.newIntent(getContext());
-                intent.putExtra("kitchenId", result.getId());
-                startActivity(intent);
+                Intent intent1 = KitchenDishActivity.newIntent(getContext());
+                intent1.putExtra("kitchenId", result.getId());
+                startActivity(intent1);
                 break;
 
 

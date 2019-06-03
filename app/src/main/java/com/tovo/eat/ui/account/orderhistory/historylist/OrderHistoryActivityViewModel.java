@@ -50,6 +50,7 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
             if (val == 0) {
                 setIsLoading(true);
             }
+
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST+userId, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
                 @Override
                 public void onResponse(OrdersHistoryListResponse response) {
@@ -70,7 +71,6 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        Log.e("", error.getMessage());
                         if (val == 0) {
                             setIsLoading(false);
                         }

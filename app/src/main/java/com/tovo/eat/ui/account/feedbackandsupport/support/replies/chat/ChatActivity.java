@@ -101,15 +101,6 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mChatActivityViewModel.getOrders().observe(this, chatItemViewModel -> mChatActivityViewModel.addChatItemsToList(chatItemViewModel));
     }
 
-    @Override
-    public void ordersHistory(ChatResponse.Result orders) {
-
-    }
-
-    @Override
-    public void ordersDetailed(ChatResponse.Result orders) {
-
-    }
 
     @Override
     public void handleError() {
@@ -160,4 +151,5 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     public void goBack() {
         onBackPressed();
     }
+
 }
