@@ -57,7 +57,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name,email, gender,regionId);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, email, gender, regionId);
     }
 
     @Override
@@ -133,13 +133,38 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
 
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = 1;
+            String name = intent.getExtras().getString("name");
+            String email = intent.getExtras().getString("email");
+            String regionName = intent.getExtras().getString("region");
+            gender = intent.getExtras().getInt("gender");
 
+
+            if (gender == 1) {
+                mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
+                mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
+                mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
+                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
+
+            } else {
+                mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
+                mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
+                mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
+                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));
+
+            }
+
+
+            mActivityNameGenderBinding.edtName.setText(name);
+            if (email != null)
+                mActivityNameGenderBinding.edtEmail.setText(email);
+
+            mActivityNameGenderBinding.region.setText(regionName);
+
+
+        }
 
 
         mLoginViewModelMain.regionList();

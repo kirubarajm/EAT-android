@@ -101,8 +101,12 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<CartPageResponse.Item> blogList) {
-        item_list.addAll(blogList);
-        notifyDataSetChanged();
+
+        if (blogList.size()!=0){
+            item_list.addAll(blogList);
+            notifyDataSetChanged();
+        }
+
     }
 
     public void setListener(LiveProductsAdapterListener listener) {

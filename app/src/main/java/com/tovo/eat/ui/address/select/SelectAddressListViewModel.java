@@ -115,6 +115,9 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         getDataManager().updateCurrentAddress(title, address, lat, lng, area, aid);
 
 
+        getDataManager().setCurrentAddress(address);
+
+
         defaultAddress(aid);
 
 
@@ -148,8 +151,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
                         if (response.getResult().size() == 0) {
 
-                           getDataManager().updateCurrentAddress(null,null,0.0,0.0,null,0);
-                            getDataManager().setCurrentAddressTitle(null);
                             getNavigator().listLoaded();
 
                         } else {

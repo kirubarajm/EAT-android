@@ -34,25 +34,31 @@ public class GetUserDetailsResponse {
 
         @SerializedName("userid")
         @Expose
-        public Integer userid;
+        private Integer userid;
         @SerializedName("name")
         @Expose
-        public String name;
+        private String name;
         @SerializedName("email")
         @Expose
-        public String email;
+        private String email;
         @SerializedName("phoneno")
         @Expose
-        public String phoneno;
+        private String phoneno;
         @SerializedName("Locality")
         @Expose
-        public Object locality;
+        private Object locality;
         @SerializedName("created_at")
         @Expose
-        public String createdAt;
+        private String createdAt;
         @SerializedName("virtualkey")
         @Expose
-        public Integer virtualkey;
+        private Integer virtualkey;
+        @SerializedName("gender")
+        @Expose
+        private Integer gender;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
 
         public Integer getUserid() {
             return userid;
@@ -108,6 +114,22 @@ public class GetUserDetailsResponse {
 
         public void setVirtualkey(Integer virtualkey) {
             this.virtualkey = virtualkey;
+        }
+
+        public Integer getGender() {
+            return gender;
+        }
+
+        public void setGender(Integer gender) {
+            this.gender = gender;
+        }
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
         }
     }
 }

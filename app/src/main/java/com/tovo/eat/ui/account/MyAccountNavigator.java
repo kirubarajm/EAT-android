@@ -1,5 +1,7 @@
 package com.tovo.eat.ui.account;
 
+import com.tovo.eat.ui.signup.namegender.GetUserDetailsResponse;
+
 public interface MyAccountNavigator {
 
     void handleError(Throwable throwable);
@@ -19,6 +21,6 @@ public interface MyAccountNavigator {
 
     void feedbackAndSupport();
 
-    void editProfile();
+    void editProfile(GetUserDetailsResponse getUserDetailsResponse);
 
 }

@@ -147,7 +147,12 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                        // Log.e("", error.getMessage());
-                        getNavigator().kitchenListLoaded();
+                        try {
+                            getNavigator().kitchenListLoaded();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
                 });
 
@@ -159,7 +164,6 @@ public class RegionViewModel extends BaseViewModel<RegionNavigator> {
         ee.printStackTrace();
 
     }
-
 
 
        /*

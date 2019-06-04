@@ -70,6 +70,15 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
+
+    public void filter(){
+        getNavigator().filter();
+
+    }
+
+
+
+
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

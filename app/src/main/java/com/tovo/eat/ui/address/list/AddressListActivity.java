@@ -130,6 +130,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
        /* Intent intentAddress = AddAddressActivity.newIntent(RegionListActivity.this);
         startActivity(intentAddress);
         finish();*/
+        mActivityAddressListBinding.refreshList.setRefreshing(false);
     }
 
 

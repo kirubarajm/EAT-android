@@ -103,6 +103,7 @@
                         android:textStyle="bold" />
 
                     <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:visibility="gone"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:layout_marginTop="10dp"

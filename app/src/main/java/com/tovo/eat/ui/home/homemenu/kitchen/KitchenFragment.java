@@ -18,6 +18,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
@@ -39,6 +40,11 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     FragmentKitchenBinding mFragmentKitchenBinding;
 
+
+    StartFilter startFilter;
+
+
+
     public static KitchenFragment newInstance() {
         Bundle args = new Bundle();
         KitchenFragment fragment = new KitchenFragment();
@@ -47,11 +53,18 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     }
 
 
+
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+
 
       //  mKitchenViewModel.fetchRepos();
 
@@ -186,6 +199,14 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void kitchenListLoading() {
         mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
+    }
+
+    @Override
+    public void filter() {
+
+        FilterFragment bottomSheetFragment = new FilterFragment();
+        bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+
     }
 
     @Override

@@ -57,10 +57,10 @@ public class LoginResponse {
         public String phoneno;
         @SerializedName("referalcode")
         @Expose
-        public Object referalcode;
+        public String referalcode;
         @SerializedName("Locality")
         @Expose
-        public Object locality;
+        public String locality;
         @SerializedName("gender")
         @Expose
         public Integer gender;
@@ -143,19 +143,19 @@ public class LoginResponse {
             this.phoneno = phoneno;
         }
 
-        public Object getReferalcode() {
+        public String getReferalcode() {
             return referalcode;
         }
 
-        public void setReferalcode(Object referalcode) {
+        public void setReferalcode(String referalcode) {
             this.referalcode = referalcode;
         }
 
-        public Object getLocality() {
+        public String getLocality() {
             return locality;
         }
 
-        public void setLocality(Object locality) {
+        public void setLocality(String locality) {
             this.locality = locality;
         }
 

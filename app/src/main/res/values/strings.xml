@@ -507,4 +507,6 @@
     <string name="apply_changes">Apply Changes</string>
     <string name="get_started_">Get Started!</string>
     <string name="search_for_your_favorite_region_dish_or_cuisines">Search for your favorite region,dish or cuisines</string>
+    <string name="save_and_pay_via_cards">Save and pay via cards</string>
+    <string name="pay_via_wallets_upi_or_netbanking">Pay via Wallets/UPI or Netbanking</string>
 </resources>

@@ -58,6 +58,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     }
 
+
+
+    public void orderDetails() {
+        getNavigator().orderDetails(getDataManager().getOrderId());
+
+    }
+
     public void getOrderDetails() {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

@@ -68,7 +68,31 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp">
 
+
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:background="@drawable/curve_stroke"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{myAccountViewModel.gender}"
+                    android:textColor="@color/eat_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+
             <com.tovo.eat.utilities.fonts.TovoTextView
+                android:visibility="gone"
                 android:id="@+id/img_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,6 +101,7 @@
                 android:textSize="60sp" />
 
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

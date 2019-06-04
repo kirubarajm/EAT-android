@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.webkit.WebBackForwardList;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.razorpay.Checkout;
@@ -108,6 +110,17 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
         final Checkout co = new Checkout();
 
+
+
+
+
+
+
+
+
+
+
+
        // co.setImage(R.mipmap.ic_launcher);
 
         co.setFullScreenDisable(true);
@@ -120,9 +133,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             options.put("amount", amount*100);
             options.put("customer_id", customerId);
             JSONObject ReadOnly = new JSONObject();
-            ReadOnly.put("email", "false");
-            ReadOnly.put("contact", "false");
+            ReadOnly.put("email", "true");
+            ReadOnly.put("contact", "true");
             options.put("readonly", ReadOnly);
+
             co.open(activity, options);
 
         } catch (Exception e) {
@@ -157,7 +171,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
-
     }
 
 
@@ -174,6 +187,13 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
                 mPaymentViewModel.amount.set(intent.getExtras().getString("amount"));
             }
         }
+
+
+
+
+
+
+
     }
 
 

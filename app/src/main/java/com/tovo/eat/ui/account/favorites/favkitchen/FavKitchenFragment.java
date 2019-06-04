@@ -123,6 +123,13 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
     }
 
     @Override
+    public void filter() {
+
+
+
+    }
+
+    @Override
     public void addressAdded1() {
 
     }

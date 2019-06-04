@@ -38,6 +38,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         try {
 
 
+
+
         setIsLoading(true);
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, gender,regionId), new Response.Listener<EditAccountResponse>() {
             @Override

@@ -56,10 +56,10 @@ public class OrdersHistoryActivityResponse {
         public Integer orderstatus;
         @SerializedName("gst")
         @Expose
-        public Float gst;
+        public Integer gst;
         @SerializedName("coupon")
         @Expose
-        public Object coupon;
+        public String coupon;
         @SerializedName("payment_type")
         @Expose
         public String paymentType;
@@ -92,28 +92,28 @@ public class OrdersHistoryActivityResponse {
         public String moveitActualDeliveredTime;
         @SerializedName("moveit_remarks_order")
         @Expose
-        public Object moveitRemarksOrder;
+        public String moveitRemarksOrder;
         @SerializedName("makeit_expected_preparing_time")
         @Expose
-        public Object makeitExpectedPreparingTime;
+        public String makeitExpectedPreparingTime;
         @SerializedName("makeit_actual_preparing_time")
         @Expose
-        public Object makeitActualPreparingTime;
+        public String makeitActualPreparingTime;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
         @SerializedName("price")
         @Expose
-        public Float price;
+        public Integer price;
         @SerializedName("payment_status")
         @Expose
         public Integer paymentStatus;
         @SerializedName("lock_status")
         @Expose
-        public Object lockStatus;
+        public String lockStatus;
         @SerializedName("updated_at")
         @Expose
-        public Object updatedAt;
+        public String updatedAt;
         @SerializedName("order_assigned_time")
         @Expose
         public String orderAssignedTime;
@@ -187,19 +187,19 @@ public class OrdersHistoryActivityResponse {
             this.orderstatus = orderstatus;
         }
 
-        public Float getGst() {
+        public Integer getGst() {
             return gst;
         }
 
-        public void setGst(Float gst) {
+        public void setGst(Integer gst) {
             this.gst = gst;
         }
 
-        public Object getCoupon() {
+        public String getCoupon() {
             return coupon;
         }
 
-        public void setCoupon(Object coupon) {
+        public void setCoupon(String coupon) {
             this.coupon = coupon;
         }
 
@@ -283,27 +283,27 @@ public class OrdersHistoryActivityResponse {
             this.moveitActualDeliveredTime = moveitActualDeliveredTime;
         }
 
-        public Object getMoveitRemarksOrder() {
+        public String getMoveitRemarksOrder() {
             return moveitRemarksOrder;
         }
 
-        public void setMoveitRemarksOrder(Object moveitRemarksOrder) {
+        public void setMoveitRemarksOrder(String moveitRemarksOrder) {
             this.moveitRemarksOrder = moveitRemarksOrder;
         }
 
-        public Object getMakeitExpectedPreparingTime() {
+        public String getMakeitExpectedPreparingTime() {
             return makeitExpectedPreparingTime;
         }
 
-        public void setMakeitExpectedPreparingTime(Object makeitExpectedPreparingTime) {
+        public void setMakeitExpectedPreparingTime(String makeitExpectedPreparingTime) {
             this.makeitExpectedPreparingTime = makeitExpectedPreparingTime;
         }
 
-        public Object getMakeitActualPreparingTime() {
+        public String getMakeitActualPreparingTime() {
             return makeitActualPreparingTime;
         }
 
-        public void setMakeitActualPreparingTime(Object makeitActualPreparingTime) {
+        public void setMakeitActualPreparingTime(String makeitActualPreparingTime) {
             this.makeitActualPreparingTime = makeitActualPreparingTime;
         }
 
@@ -315,11 +315,11 @@ public class OrdersHistoryActivityResponse {
             this.createdAt = createdAt;
         }
 
-        public Float getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(Float price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 
@@ -331,19 +331,19 @@ public class OrdersHistoryActivityResponse {
             this.paymentStatus = paymentStatus;
         }
 
-        public Object getLockStatus() {
+        public String getLockStatus() {
             return lockStatus;
         }
 
-        public void setLockStatus(Object lockStatus) {
+        public void setLockStatus(String lockStatus) {
             this.lockStatus = lockStatus;
         }
 
-        public Object getUpdatedAt() {
+        public String getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(Object updatedAt) {
+        public void setUpdatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
         }
 

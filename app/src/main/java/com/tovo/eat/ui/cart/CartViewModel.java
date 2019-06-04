@@ -338,6 +338,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         }
 
 
+                        setAddressTitle();
+
+
                        /* } else {
 
                             getNavigator().showToast(cartPageResponse.getMessage());

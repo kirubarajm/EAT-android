@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,8 @@ import com.tovo.eat.ui.account.referrals.ReferralsActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.signup.SignUpActivity;
+import com.tovo.eat.ui.signup.namegender.GetUserDetailsResponse;
+import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -137,6 +141,11 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void logout() {
         mMyAccountViewModel.logOutSession();
+
+        SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PACKAGE_NAME, Context.MODE_PRIVATE);
+        settings.edit().clear().apply();
+
+
         startActivity(SignUpActivity.newIntent(getActivity()));
         getActivity().finish();
     }
@@ -148,12 +157,12 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     }
 
     @Override
-    public void editProfile() {
+    public void editProfile(GetUserDetailsResponse getUserDetailsResponse) {
         Intent intent = EditAccountActivity.newIntent(getContext());
-        intent.putExtra("name",mMyAccountViewModel.userName.get());
-        intent.putExtra("email",mMyAccountViewModel.userEmail.get());
-        intent.putExtra("gender",1);
-        intent.putExtra("region",mMyAccountViewModel.userName.get());
+        intent.putExtra("name",getUserDetailsResponse.getResult().get(0).getName());
+        intent.putExtra("email",getUserDetailsResponse.getResult().get(0).getEmail());
+        intent.putExtra("gender",getUserDetailsResponse.getResult().get(0).getGender());
+        intent.putExtra("region",getUserDetailsResponse.getResult().get(0).getRegionname());
         startActivity(intent);
 
     }

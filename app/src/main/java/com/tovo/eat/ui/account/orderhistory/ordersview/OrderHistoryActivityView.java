@@ -53,7 +53,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                       /* Intent intent= TestActivity.newIntent(OrderHistoryActivityView.this);
+                       /* Intent intent= TestActivity.newIntent(OrderDetailsActivity.this);
                         intent.putExtra("cart",true);
                         startActivity(intent);*/
 

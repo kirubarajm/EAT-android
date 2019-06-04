@@ -136,6 +136,7 @@
         <activity android:name=".ui.home.region.list.RegionListActivity" />
         <activity android:name=".ui.search.dish.SearchDishActivity" />
         <activity android:name=".ui.account.edit.EditAccountActivity" />
+        <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
 
 
         <meta-data

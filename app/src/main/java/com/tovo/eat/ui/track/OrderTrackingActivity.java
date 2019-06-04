@@ -47,7 +47,9 @@ import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderTrackingBinding;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.utilities.LatLngInterpolator;
 import com.tovo.eat.utilities.MarkerAnimation;
 
@@ -392,33 +394,45 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void tracking(String cusLat, String cusLng, double makeitLat, double makeitLng) {
 
 
-        makeitLatLng = new LatLng(makeitLat, makeitLng);
+        try {
 
-        cusLatLng = new LatLng(Double.parseDouble(cusLat), Double.parseDouble(cusLng));
-        liveTracking = false;
+            LatLngBounds bounds = null;
+            makeitLatLng = new LatLng(makeitLat, makeitLng);
 
-        if (mMap != null) {
-            liveTracking = true;
-            makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
-            //  moveToCurrentLocation(moveitLatLng);
-            customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
+            cusLatLng = new LatLng(Double.parseDouble(cusLat), Double.parseDouble(cusLng));
+            liveTracking = false;
 
-
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            builder.include(moveitLatLng);
-            builder.include(cusLatLng);
-            LatLngBounds bounds = builder.build();
-
-            //  int padding = 0; // offset from edges of the map in pixels
-
-            int width = getResources().getDisplayMetrics().widthPixels;
-            int height = getResources().getDisplayMetrics().heightPixels;
-            int padding = (int) (width * 0.10);
+            if (mMap != null) {
+                liveTracking = true;
+                makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
+                //  moveToCurrentLocation(moveitLatLng);
+                customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
 
 
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-            mMap.moveCamera(cu);
+                try {
 
+
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                builder.include(moveitLatLng);
+                builder.include(cusLatLng);
+                bounds = builder.build();
+
+                }catch (Exception rr){
+                    rr.printStackTrace();
+                }
+                //  int padding = 0; // offset from edges of the map in pixels
+
+                int width = getResources().getDisplayMetrics().widthPixels;
+                int height = getResources().getDisplayMetrics().heightPixels;
+                int padding = (int) (width * 0.10);
+
+
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                mMap.moveCamera(cu);
+
+            }
+        }catch (Exception rr){
+            rr.printStackTrace();
         }
 
     }
@@ -435,6 +449,17 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void clickBack() {
         finish();
+    }
+
+    @Override
+    public void orderDetails(Integer orderId) {
+
+
+        Intent intent = OrderDetailsActivity.newIntent(this);
+        intent.putExtra("orderId",
+                String.valueOf(orderId) );
+        startActivity(intent);
+
     }
 
     @Override

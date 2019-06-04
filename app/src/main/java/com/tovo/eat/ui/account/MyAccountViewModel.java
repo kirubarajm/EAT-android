@@ -23,6 +23,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public final ObservableField<String> userName = new ObservableField<>();
     public final ObservableField<String> userEmail = new ObservableField<>();
     public final ObservableField<String> userPhoneNo = new ObservableField<>();
+    public final ObservableField<String> gender = new ObservableField<>();
+
+    private GetUserDetailsResponse getUserDetailsResponse;
+
 
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
@@ -63,7 +67,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void editProfile() {
-        getNavigator().editProfile();
+        getNavigator().editProfile(getUserDetailsResponse);
     }
 
 
@@ -77,11 +81,14 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         try {
             int userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_GET_USER_DETAILS+userId, GetUserDetailsResponse.class, new Response.Listener<GetUserDetailsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_GET_USER_DETAILS + userId, GetUserDetailsResponse.class, new Response.Listener<GetUserDetailsResponse>() {
                 @Override
                 public void onResponse(GetUserDetailsResponse response) {
                     try {
                         if (response != null && response.getResult() != null) {
+
+                            getUserDetailsResponse=response;
+
                             setIsLoading(false);
                             String strUserName = response.getResult().get(0).getName();
                             String strUserEmail = response.getResult().get(0).getEmail();
@@ -92,11 +99,22 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             userEmail.set(getDataManager().getCurrentUserEmail());
                             userPhoneNo.set(getDataManager().getCurrentUserPhNo());
 
+                            if (response.getResult().get(0).getGender() == 1) {
 
+                                gender.set("M");
+                            }
 
+                        } else {
 
+                            gender.set("F");
 
                         }
+
+
+
+
+
+
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -115,11 +133,11 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
     }
 
 }

@@ -10,6 +10,7 @@ public interface OrderTrackingNavigator {
     void orderPickedUp(Integer MoveitId);
 
     void clickBack();
+    void orderDetails(Integer orderId);
 
 
 

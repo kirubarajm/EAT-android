@@ -115,7 +115,15 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public void setCurrentAddress(AddressListResponse.Result request) {
+
+
+
         getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), request.getAid());
+
+
+
+        getDataManager().setCurrentAddress(request.getAddress());
+
 
 
 
@@ -149,15 +157,6 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                     if (response != null) {
 
                         if (response.getResult().size() == 0) {
-
-                            getDataManager().updateCurrentAddress(null, null, 0.0, 0.0, null, 0);
-
-                            getDataManager().setCurrentAddressTitle(null);
-
-                            getNavigator().listLoaded();
-
-                            addrressListItemsLiveData.setValue(response.getResult());
-
 
                             haveAddress = false;
 

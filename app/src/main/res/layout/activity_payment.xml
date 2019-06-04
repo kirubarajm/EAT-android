@@ -200,11 +200,30 @@
 
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="70dp"
                 android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/visa_logo"/>
+
+                <ImageView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/mastercard"/>
+
+                <ImageView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/american"/>
 
 
 
@@ -213,14 +232,54 @@
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Save and pay via cards"
+                android:text="@string/save_and_pay_via_cards"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_gray"
                 android:textSize="9sp" />
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/gpay"/>
+
+                <ImageView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ppay"/>
+
+                <ImageView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/paytm"/>
+
+
+
+
+            </LinearLayout>
+
+
 
 
 
@@ -229,9 +288,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Pay via Wallets/UPI or netbanking"
+                android:text="@string/pay_via_wallets_upi_or_netbanking"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_gray"
                 android:textSize="9sp" />
 
 
