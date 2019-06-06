@@ -106,6 +106,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+
+       // CartDishAdapter adapter=new CartDishAdapter(mCartViewModel.cartDishItemViewModels);
+
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
         subscribeToLiveData();

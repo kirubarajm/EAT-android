@@ -56,9 +56,21 @@ public class GetUserDetailsResponse {
         @SerializedName("gender")
         @Expose
         private Integer gender;
+        @SerializedName("regionid")
+        @Expose
+        private Integer regionid;
         @SerializedName("regionname")
         @Expose
         private String regionname;
+
+
+        public Integer getRegionid() {
+            return regionid;
+        }
+
+        public void setRegionid(Integer regionid) {
+            this.regionid = regionid;
+        }
 
         public Integer getUserid() {
             return userid;

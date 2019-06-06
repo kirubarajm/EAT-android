@@ -46,9 +46,9 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
             public void onResponse(EditAccountResponse response) {
                 if (response != null) {
                     Log.i("", "" + response.getSuccess());
-                    getNavigator().genderSuccess(response.getMessage());
                     if (response.getStatus()) {
                         getDataManager().updateUserGender(true);
+                        getNavigator().genderSuccess(response.getMessage());
                     }
                 }
             }

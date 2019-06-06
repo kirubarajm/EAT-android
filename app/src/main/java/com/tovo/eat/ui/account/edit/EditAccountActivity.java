@@ -64,8 +64,8 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     public void genderSuccess(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         //mLoginViewModelMain.fetchUserDetails();
-        Intent intent = MainActivity.newIntent(EditAccountActivity.this);
-        startActivity(intent);
+       /* Intent intent = MainActivity.newIntent(EditAccountActivity.this);
+        startActivity(intent);*/
         finish();
     }
 
@@ -140,6 +140,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             String email = intent.getExtras().getString("email");
             String regionName = intent.getExtras().getString("region");
             gender = intent.getExtras().getInt("gender");
+            regionId = intent.getExtras().getInt("regionid");
 
 
             if (gender == 1) {

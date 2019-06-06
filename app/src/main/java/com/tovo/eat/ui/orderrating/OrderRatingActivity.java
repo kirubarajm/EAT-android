@@ -19,6 +19,8 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
 
     int foodRating = 0;
     int deliveryRating = 0;
+    int orderId = 0;
+
     @Inject
     OrderRatingActivityViewModel mLoginViewModelMain;
     private ActivityOrderRatingBinding mActivityOrderRatingBinding;
@@ -37,7 +39,7 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
         if (validForRating()) {
             String strFood = mActivityOrderRatingBinding.edtFood.getText().toString();
             String strDelivery = mActivityOrderRatingBinding.edtDelivery.getText().toString();
-            mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery);
+            mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery,orderId);
         }
     }
 
@@ -124,6 +126,17 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
         super.onCreate(savedInstanceState);
         mActivityOrderRatingBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+
+
+
+
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            orderId=intent.getExtras().getInt("orderid");
+        }
+
+
 
     }
 

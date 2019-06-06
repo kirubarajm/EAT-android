@@ -67,7 +67,8 @@
                     app:iconifiedByDefault="false"
                     android:layout_alignParentTop="true"
                     android:id="@+id/searchh"
-                    android:inputType="textNoSuggestions"
+
+
                     app:queryHint="Try region like theni,chennai,madurai etc.."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

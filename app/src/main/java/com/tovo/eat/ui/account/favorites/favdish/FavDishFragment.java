@@ -249,6 +249,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
         mDishViewModel.fetchRepos();
+        cartListener.checkCart();
     }
 }
 

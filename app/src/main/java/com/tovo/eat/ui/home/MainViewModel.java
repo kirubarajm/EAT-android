@@ -104,12 +104,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         /*if (getDataManager().getCartDetails() != null) {*/
 
-        getNavigator().openCart();
 
-        isHome.set(false);
-        isExplore.set(false);
-        isCart.set(true);
-        isMyAccount.set(false);
+
+        if (!isCart.get()) {
+
+            getNavigator().openCart();
+
+            isHome.set(false);
+            isExplore.set(false);
+            isCart.set(true);
+            isMyAccount.set(false);
+        }
 
      /*   } else {
 
@@ -245,6 +250,16 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             isLiveOrder.set(false);
                         }
 
+
+                        if (response.getOrderdetails().size() > 0) {
+
+
+                            if (!response.getOrderdetails().get(0).getRating())
+                                getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid());
+
+                        }
+
+
                     } else {
                         isLiveOrder.set(false);
                     }
@@ -298,36 +313,43 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void gotoAccount() {
-        getNavigator().openAccount();
-        isHome.set(false);
-        isExplore.set(false);
-        isCart.set(false);
-        isMyAccount.set(true);
+
+        if (!isMyAccount.get()) {
+            getNavigator().openAccount();
+            isHome.set(false);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(true);
+        }
+
 
     }
 
     public void gotoExplore() {
-        getNavigator().openExplore();
 
-        isHome.set(false);
-        isExplore.set(true);
-        isCart.set(false);
-        isMyAccount.set(false);
+        if (!isExplore.get()) {
 
+            getNavigator().openExplore();
+            isHome.set(false);
+            isExplore.set(true);
+            isCart.set(false);
+            isMyAccount.set(false);
 
+        }
     }
 
     public void gotoHome() {
-        getDataManager().setIsFav(false);
-        getNavigator().openHome();
 
 
-        isHome.set(true);
-        isExplore.set(false);
-        isCart.set(false);
-        isMyAccount.set(false);
+        if (!isHome.get()) {
+            getDataManager().setIsFav(false);
+            getNavigator().openHome();
+            isHome.set(true);
+            isExplore.set(false);
+            isCart.set(false);
+            isMyAccount.set(false);
 
-
+        }
     }
 
     public boolean totalCart() {

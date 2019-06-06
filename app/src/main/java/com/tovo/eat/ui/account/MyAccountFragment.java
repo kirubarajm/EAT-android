@@ -80,6 +80,9 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void onResume() {
         super.onResume();
 
+
+        mMyAccountViewModel.fetchUserDetails();
+
         //  ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
@@ -163,6 +166,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         intent.putExtra("email",getUserDetailsResponse.getResult().get(0).getEmail());
         intent.putExtra("gender",getUserDetailsResponse.getResult().get(0).getGender());
         intent.putExtra("region",getUserDetailsResponse.getResult().get(0).getRegionname());
+        intent.putExtra("regionid",getUserDetailsResponse.getResult().get(0).getRegionid());
         startActivity(intent);
 
     }

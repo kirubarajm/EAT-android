@@ -46,11 +46,11 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
         getNavigator().deliverySmileyHigh();
     }
 
-    public void orderRatingSubmit(int foodRating, int deliveryRating, String strFood, String strDelivery) {
+    public void orderRatingSubmit(int foodRating, int deliveryRating, String strFood, String strDelivery,Integer orderId) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, 1), new Response.Listener<OrderRatingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, orderId), new Response.Listener<OrderRatingResponse>() {
                 @Override
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {

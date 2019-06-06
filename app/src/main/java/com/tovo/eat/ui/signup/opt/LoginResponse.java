@@ -61,6 +61,9 @@ public class LoginResponse {
         @SerializedName("Locality")
         @Expose
         public String locality;
+        @SerializedName("address")
+        @Expose
+        public String address;
         @SerializedName("gender")
         @Expose
         public Integer gender;
@@ -77,6 +80,14 @@ public class LoginResponse {
         @SerializedName("lon")
         @Expose
         private Double lon;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
         public Integer getAid() {
             return aid;
