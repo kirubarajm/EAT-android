@@ -60,7 +60,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         String name = mActivityNameGenderBinding.edtName.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name, gender,regionId);
+            mLoginViewModelMain.insertNameGenderServiceCall(name,regionId);
     }
 
     @Override
@@ -77,23 +77,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void male() {
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = AppConstants.MALE;
-    }
 
-    @Override
-    public void female() {
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = AppConstants.FEMALE;
-    }
 
     @Override
     public void regionListLoaded(List<RegionSearchModel.Result> regionList) {
@@ -130,13 +114,6 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         super.onCreate(savedInstanceState);
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
-
-
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = 1;
 
 
 

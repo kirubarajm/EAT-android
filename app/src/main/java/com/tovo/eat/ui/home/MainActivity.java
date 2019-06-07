@@ -71,7 +71,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     public FilterListener filterListener;
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
                     transaction.commit();
                     mMainViewModel.isHome.set(true);
-                    //  mMainViewModel.isExplore.set(false);
+                      mMainViewModel.isExplore.set(false);
                     mMainViewModel.isCart.set(false);
                     mMainViewModel.isMyAccount.set(false);
                 }
@@ -111,38 +111,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
     };
-    private GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
-            .ConnectionCallbacks() {
 
-        @Override
-        public void onConnected(Bundle bundle) {
-            LocationRequest request = new LocationRequest();
-            request.setInterval(1000);
-            request.setFastestInterval(1000);
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-
-            try {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                        request, MainActivity.this);
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-
-        }
-
-        @Override
-        public void onConnectionSuspended(int reason) {
-            // TODO: Handle gracefully
-        }
-
-
-    };
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
@@ -204,7 +173,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void disConnectGPS() {
 
-        mGoogleApiClient.disconnect();
+
     }
 
     @Override
@@ -220,7 +189,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.titleVisible.set(false);
 
         mMainViewModel.isHome.set(true);
-        //  mMainViewModel.isExplore.set(false);
+        mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
 
@@ -334,8 +303,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-
-
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
@@ -501,97 +468,38 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
-       /* FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            //   Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-
-                        Log.e("afdsgg", token);
-                        Log.e("afdsgg", token);
-                        Log.e("afdsgg", token);
-                        Log.e("afdsgg", token);
-                        Log.e("afdsgg", token);
-
-
-                        mMainViewModel.saveToken(token);
-
-
-                    }
-                });*/
-
+        saveFcmToken();
 
         registerWifiReceiver();
 
 
-        checkAndRequestPermissions();
+      //  checkAndRequestPermissions();
 
 
-        //   if (mMainViewModel.isAddressAdded()) {
+        if (mMainViewModel.isAddressAdded()) {
 
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            if (intent.getExtras().getBoolean("cart")) {
-                mMainViewModel.gotoCart();
+            Intent intent = getIntent();
+            if (intent.getExtras() != null) {
+                if (intent.getExtras().getBoolean("cart")) {
+                    mMainViewModel.gotoCart();
+                } else {
+
+
+                    openHome();
+
+                }
             } else {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeTabFragment fragment = new HomeTabFragment();
-                transaction.replace(R.id.content_main, fragment);
-                //transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
 
-                transaction.commit();
 
-                mMainViewModel.isHome.set(true);
-                //  mMainViewModel.isExplore.set(false);
-                mMainViewModel.isCart.set(false);
-                mMainViewModel.isMyAccount.set(false);
+                openHome();
+
             }
-        } else {
 
-/*
-            if (mMainViewModel.isAddressAdded()) {
-                mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());*/
+        }else {
+            openHome();
 
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            HomeTabFragment fragment = new HomeTabFragment();
-            transaction.replace(R.id.content_main, fragment);
-            //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
-            transaction.commit();
-            mMainViewModel.isHome.set(true);
-            //  mMainViewModel.isExplore.set(false);
-            mMainViewModel.isCart.set(false);
-            mMainViewModel.isMyAccount.set(false);
-            saveFcmToken();
-
-            /*  } else {*/
-
-               /* startLocationTracking();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                HomeTabFragment fragment = new HomeTabFragment();
-                transaction.replace(R.id.content_main, fragment);
-                //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
-                transaction.commit();*/
-
-            // }
         }
-
-
-       /* } else {
-
-            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
-            if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
-            }
-
-        }*/
     }
 
     public void statusUpdate() {
@@ -609,7 +517,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
             }*/
 
-            startLocationTracking();
+         //   startLocationTracking();
             mMainViewModel.addressTitle.set("Current location");
 
            /* Intent intent = RegionListActivity.newIntent(TestActivity.this);
@@ -624,24 +532,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*   if (mMainViewModel.isAddressAdded()) {*/
-               /* Intent intent = getIntent();
-                if (intent.getExtras() != null) {
-                    if (intent.getExtras().getBoolean("cart")) {
-                        mMainViewModel.gotoCart();
-                    }
-                }*/
-       /*
-        } else {
-
-            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
-            if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
-            }
-
-        }*/
-
 
         statusUpdate();
 
@@ -691,7 +581,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void checkCart() {
         if (!mMainViewModel.totalCart()) {
             mMainViewModel.isHome.set(true);
-            //  mMainViewModel.isExplore.set(false);
+              mMainViewModel.isExplore.set(false);
             mMainViewModel.isCart.set(false);
             mMainViewModel.isMyAccount.set(false);
 
@@ -706,27 +596,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void applyFilter() {
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
-        mMainViewModel.isHome.set(true);
-        //  mMainViewModel.isExplore.set(false);
-        mMainViewModel.isCart.set(false);
-        mMainViewModel.isMyAccount.set(false);
+        openHome();
     }
 
     @Override
     public void isInternet(boolean available) {
         if (available) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            HomeTabFragment fragment = new HomeTabFragment();
-            transaction.replace(R.id.content_main, fragment);
-            transaction.commit();
-            mMainViewModel.isHome.set(true);
-            //  mMainViewModel.isExplore.set(false);
-            mMainViewModel.isCart.set(false);
-            mMainViewModel.isMyAccount.set(false);
+            openHome();
 
         }
     }
@@ -738,7 +614,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             transaction.replace(R.id.content_main, fragment);
             transaction.commit();
             mMainViewModel.isHome.set(true);
-            //  mMainViewModel.isExplore.set(false);
+              mMainViewModel.isExplore.set(false);
             mMainViewModel.isCart.set(false);
             mMainViewModel.isMyAccount.set(false);
 
@@ -814,15 +690,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 @Override
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS
-                    if (isGPSEnable) {
-                        mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
-                                .addConnectionCallbacks(mLocationRequestCallback)
-                                .addApi(LocationServices.API)
-                                .build();
-                        mGoogleApiClient.connect();
-                    } else {
-                        startLocationTracking();
-                    }
                 }
 
             });
@@ -917,10 +784,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
 
-
-    }
 }

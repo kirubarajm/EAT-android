@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.signup.namegender;
 
+import android.databinding.ObservableBoolean;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -18,23 +19,48 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
     Response.ErrorListener errorListener;
 
+    public ObservableBoolean male=new ObservableBoolean();
+    public  ObservableBoolean female=new ObservableBoolean();
+    int gender=0;
+
     public NameGenderActivityViewModel(DataManager dataManager) {
         super(dataManager);
+        male.set(true);
     }
 
     public void proceed() {
         getNavigator().proceedClick();
     }
 
-    public void male() {
-        getNavigator().male();
+
+
+
+
+    public void maleClicked(){
+        male.set(true);
+
     }
 
-    public void feMale() {
-        getNavigator().female();
+
+    public void feMaleClicked(){
+        male.set(false);
+
     }
 
-    public void insertNameGenderServiceCall(String name, int gender,int regionId) {
+
+
+
+    public void insertNameGenderServiceCall(String name,int regionId) {
+
+
+
+        if (male.get()){
+            gender=1;
+        }else {
+            gender=2;
+        }
+
+
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {

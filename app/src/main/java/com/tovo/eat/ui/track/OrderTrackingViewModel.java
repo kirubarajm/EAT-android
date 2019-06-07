@@ -120,7 +120,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                        /* 0 -orderput   - est user
                         1- order accept - makeit user
                         2- order Prepare - makeit user
-                        3- order packed - makeit user
+                      //  3- order packed - makeit user
                         4- kitchen reached - Move it
                         5- order pickedup - Move it
                         6- order delivered - Move it*/
@@ -129,7 +129,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                                 isReeceived.set(true);
                                 orderReceivedStatus.set("Order Placed");
-                                orderPreparedStatus.set("Please wait...");
+                                orderPreparedStatus.set("Preparing your order");
 
                             } else if (response.getResult().get(0).getOrderstatus() == 1) {
                                 isReeceived.set(true);

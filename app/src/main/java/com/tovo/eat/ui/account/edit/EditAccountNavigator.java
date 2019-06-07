@@ -14,9 +14,6 @@ public interface EditAccountNavigator {
 
     void genderFailure(String strMessage);
 
-    void male();
-
-    void female();
 
     void regionListLoaded(List<RegionSearchModel.Result> regionList);
 

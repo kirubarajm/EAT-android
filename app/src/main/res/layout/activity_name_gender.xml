@@ -89,85 +89,140 @@
                 android:text="@string/choose_avator"
                 android:textSize="14dp" />
 
-            <LinearLayout
-                android:id="@+id/gender_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/txt_choose_avator"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}"
+                    android:layout_marginStart="48dp"
+                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:background="@drawable/curve_stroke_gray"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp">
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/rel_male"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                        <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:id="@+id/img_male"
-                            android:onClick="@{()->nameGenderViewModel.male()}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/male"
-                            android:textSize="60sp" />
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:id="@+id/txt_male"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/txtmale" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/rel_female"
-                        android:layout_width="match_parent"
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:textColor="@color/dark_gray"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center">
+                        android:textSize="28sp"
+                        android:text="F" />
 
-                        <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:id="@+id/img_female"
-                            android:onClick="@{()->nameGenderViewModel.feMale()}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:text="@string/female"
-                            android:textSize="60sp" />
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:id="@+id/txt_female"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="@string/txtfemale" />
-                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+
+
+                <LinearLayout
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:background="@drawable/curve_stroke"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:textColor="@color/eat_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:text="M" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}"
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:background="@drawable/curve_stroke_gray"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:textColor="@color/dark_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:text="M" />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}"
+                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
+                    android:layout_marginStart="40dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:background="@drawable/curve_stroke"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:textColor="@color/eat_color"
+                        android:text="F" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </RelativeLayout>
+            
+            
+
 
 
 

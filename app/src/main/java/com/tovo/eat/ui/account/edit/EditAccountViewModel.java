@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.account.edit;
 
+import android.databinding.ObservableBoolean;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -16,6 +17,13 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
     Response.ErrorListener errorListener;
 
+
+    public  ObservableBoolean male=new ObservableBoolean();
+    public  ObservableBoolean female=new ObservableBoolean();
+    int gender=0;
+
+
+
     public EditAccountViewModel(DataManager dataManager) {
         super(dataManager);
     }
@@ -24,24 +32,33 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         getNavigator().proceedClick();
     }
 
-    public void male() {
-        getNavigator().male();
+
+    public void maleClicked(){
+        male.set(true);
+
     }
 
-    public void feMale() {
-        getNavigator().female();
+    public void feMaleClicked(){
+        male.set(false);
+
     }
 
-    public void insertNameGenderServiceCall(String name,String email, int gender,int regionId) {
+
+    public void insertNameGenderServiceCall(String name,String email,int regionId) {
+
+
+        if (male.get()){
+             gender=1;
+        }else {
+             gender=2;
+        }
+
+
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-
-
-
-
         setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, gender,regionId), new Response.Listener<EditAccountResponse>() {
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name,email, gender,regionId), new Response.Listener<EditAccountResponse>() {
             @Override
             public void onResponse(EditAccountResponse response) {
                 if (response != null) {

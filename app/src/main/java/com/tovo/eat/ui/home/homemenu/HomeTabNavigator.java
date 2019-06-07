@@ -9,5 +9,7 @@ public interface HomeTabNavigator {
     void filter();
     void favourites();
 
+    void disconnectGps();
+    void loaded();
 
 }

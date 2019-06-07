@@ -102,11 +102,11 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             if (response.getResult().get(0).getGender() == 1) {
 
                                 gender.set("M");
+                            }else {
+
+                                gender.set("F");
+
                             }
-
-                        } else {
-
-                            gender.set("F");
 
                         }
 

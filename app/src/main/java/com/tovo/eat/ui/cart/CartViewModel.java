@@ -391,8 +391,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             getNavigator().selectAddress();
 
         } else {
-
-
             if (getDataManager().getTotalOrders() == 0) {
                 getNavigator().paymentGateway(grand_total.get());
 
@@ -405,7 +403,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 } else {
                     getNavigator().postRegistration();
                 }
-
 
             }
         }

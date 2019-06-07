@@ -57,7 +57,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name, email, gender, regionId);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, email, regionId);
     }
 
     @Override
@@ -74,23 +74,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void male() {
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = AppConstants.MALE;
-    }
 
-    @Override
-    public void female() {
-        mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
-        mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));
-        mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
-        gender = AppConstants.FEMALE;
-    }
 
     @Override
     public void regionListLoaded(List<RegionSearchModel.Result> regionList) {
@@ -143,17 +127,25 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             regionId = intent.getExtras().getInt("regionid");
 
 
+
+
             if (gender == 1) {
-                mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
+              /*  mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
                 mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
                 mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));
+                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));*/
+
+              mLoginViewModelMain.male.set(true);
+
+
+
 
             } else {
-                mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
+              /*  mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
                 mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
                 mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
-                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));
+                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));*/
+                mLoginViewModelMain.male.set(false);
 
             }
 
