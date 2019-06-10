@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,10 @@ import com.tovo.eat.ui.registration.RegistrationActivity;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
+
+import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
+import static com.tovo.eat.utilities.AppConstants.COD_REQUESTCODE;
+import static com.tovo.eat.utilities.AppConstants.ONLINE_REQUESTCODE;
 
 public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, PaymentViewModel> implements PaymentNavigator, PaymentResultListener {
 
@@ -87,6 +92,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void clickCOD() {
 
+
     }
 
     @Override
@@ -98,39 +104,29 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     public void orderCompleted() {
 
         Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(newIntent);
         finish();
     }
 
     @Override
-    public void orderGenerated(Integer orderId,String customerId,Integer amount) {
+    public void orderGenerated(Integer orderId, String customerId, Integer amount) {
 
         final Activity activity = this;
 
         final Checkout co = new Checkout();
 
 
-
-
-
-
-
-
-
-
-
-
-       // co.setImage(R.mipmap.ic_launcher);
+        // co.setImage(R.mipmap.ic_launcher);
 
         co.setFullScreenDisable(true);
         try {
             JSONObject options = new JSONObject();
             options.put("name", getString(R.string.app_name));
-            options.put("description", getString(R.string.orderid)+orderId);
+            options.put("description", getString(R.string.orderid) + orderId);
             //You can omit the image option to fetch the image from dashboard
             options.put("currency", "INR");
-            options.put("amount", amount*100);
+            options.put("amount", amount * 100);
             options.put("customer_id", customerId);
             JSONObject ReadOnly = new JSONObject();
             ReadOnly.put("email", "true");
@@ -150,9 +146,9 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void paymentSuccessed(boolean status) {
 
-        if (status){
+        if (status) {
             Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(newIntent);
             finish();
         }
@@ -160,9 +156,11 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
     @Override
-    public void postRegistration() {
-        Intent intent = RegistrationActivity.newIntent(PaymentActivity.this);
-        startActivity(intent);
+    public void postRegistration(Integer code) {
+        Intent intent = RegistrationActivity.newIntent(getApplicationContext());
+        intent.putExtra("type", "cart");
+        intent.putExtra("amount", mPaymentViewModel.amount.get());
+        startActivityForResult(intent, code);
 
     }
 
@@ -183,38 +181,56 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            if (intent.getExtras().getString("amount")!=null) {
+            if (intent.getExtras().getString("amount") != null) {
                 mPaymentViewModel.amount.set(intent.getExtras().getString("amount"));
             }
         }
-
-
-
-
-
-
-
     }
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        boolean status = data.getBooleanExtra("status", false);
+        if (status) {
+
+            switch (requestCode) {
+
+                case COD_REQUESTCODE:
+
+                    mPaymentViewModel.cashMode();
+
+                    break;
+
+                case ONLINE_REQUESTCODE:
+
+                    mPaymentViewModel.payOnline();
+
+                    break;
+
+            }
+        }
     }
 
+        @Override
+        protected void onResume () {
+            super.onResume();
 
-    @Override
-    public void onPaymentSuccess(String s) {
+        }
 
-        mPaymentViewModel.paymentSuccess(s,1);
+
+        @Override
+        public void onPaymentSuccess (String s){
+
+            mPaymentViewModel.paymentSuccess(s, 1);
+
+        }
+
+        @Override
+        public void onPaymentError ( int i, String s){
+            mPaymentViewModel.paymentSuccess("Canceled", 2);
+        }
+
 
     }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        mPaymentViewModel.paymentSuccess("Canceled",2);
-    }
-
-
-}

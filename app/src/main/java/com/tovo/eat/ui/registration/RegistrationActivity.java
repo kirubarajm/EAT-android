@@ -3,6 +3,7 @@ package com.tovo.eat.ui.registration;
 
 import android.Manifest;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,12 +22,17 @@ import com.tovo.eat.databinding.ActivityRegistrationBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.utilities.AppConstants;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
+
+import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
+import static com.tovo.eat.utilities.AppConstants.COD_REQUESTCODE;
+import static com.tovo.eat.utilities.AppConstants.ONLINE_REQUESTCODE;
 
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationActivityViewModel>
         implements RegistrationActivityNavigator, AdapterView.OnItemSelectedListener {
@@ -44,6 +50,10 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     RegionAdapter mRegionAdapter;
     List<RegionResponse.Result> regionList;
     RegionResponse.Result selectRegionItem;
+
+    String fromScreen;
+    String total;
+
     @Inject
     RegistrationActivityViewModel mRegistrationActivityViewModel;
     private ActivityRegistrationBinding mActivityRegistrationBinding;
@@ -80,10 +90,45 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         mActivityRegistrationBinding.edtReTypePassword.setText("");
         Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
 
-        Intent intent = MainActivity.newIntent(RegistrationActivity.this);
-        intent.putExtra("cart", true);
-        startActivity(intent);
-        finish();
+
+        Intent intent=new Intent();
+        intent.putExtra("status",true);
+        setResult(Activity.RESULT_OK,intent);
+        finish();//finishing activity
+
+
+
+
+     /*   if (fromScreen.equals("cart")) {
+            intent.putExtra("status",true);
+            setResult(Activity.RESULT_OK,intent);
+            finish();//finishing activity
+
+
+
+        } else if (fromScreen.equals("cod")) {
+
+            intent.putExtra("status",true);
+            setResult(COD_REQUESTCODE,intent);
+            finish();//finishing activity
+
+        }
+        if (fromScreen.equals("online")) {
+
+
+            intent.putExtra("status",true);
+            setResult(ONLINE_REQUESTCODE,intent);
+            finish();//finishing activity
+
+
+        }else {
+
+            intent.putExtra("status",true);
+            setResult(CART_REQUESTCODE,intent);
+            finish();//finishing activity
+
+        }*/
+
 
     }
 
@@ -97,6 +142,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         this.regionList = regionList;
         mActivityRegistrationBinding.spnHometown.setAdapter(new RegionAdapter(this, regionList));
         //mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);
+    }
+
+    @Override
+    public void showToast(String msg) {
+
     }
 
     @Override
@@ -156,14 +206,14 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
                         //execute when 'never Ask Again' tick and permission dialog not show
                     } else {
                         if (openDialogOnce) {
-                          //  alertView();
+                            //  alertView();
                         }
                     }
                 }
             }
 
             if (isPermitted)
-              requestEmailList();
+                requestEmailList();
         }
     }
 
@@ -177,9 +227,17 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         //mRegionAdapter.setListener(this);
         /*mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);*/
 
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            fromScreen = intent.getExtras().getString("type");
+            total = intent.getExtras().getString("amount");
+        }
+
+
         mActivityRegistrationBinding.spnHometown.setOnItemSelectedListener(this);
 
-      checkRunTimePermission();
+        checkRunTimePermission();
 
 
     }
@@ -191,10 +249,10 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void onBackPressed() {
-        Intent intent = MainActivity.newIntent(RegistrationActivity.this);
-        intent.putExtra("cart", true);
-        startActivity(intent);
-        finish();
+        Intent intent=new Intent();
+        intent.putExtra("status",false);
+        setResult(Activity.RESULT_OK,intent);
+        finish();//finishing activity
     }
 
     private boolean validForProceed() {
@@ -239,12 +297,13 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     }
 
-    public void requestEmailList(){
+    public void requestEmailList() {
 
         Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
         startActivityForResult(googlePicker, 121);
 
     }
+
     protected void onActivityResult(final int requestCode, final int resultCode,
                                     final Intent data) {
         if (requestCode == 121 && resultCode == RESULT_OK) {
@@ -255,5 +314,18 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent=new Intent();
+        intent.putExtra("status",false);
+        setResult(Activity.RESULT_CANCELED,intent);
+        finish();//finishing activity
+    }
+
+
+
 
 }

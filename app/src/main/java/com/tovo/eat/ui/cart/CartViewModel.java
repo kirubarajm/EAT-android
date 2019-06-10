@@ -51,6 +51,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> localityname = new ObservableField<>();
 
     public final ObservableField<String> cuisines = new ObservableField<>();
+    public final ObservableField<String> changeAddress = new ObservableField<>();
 
 
     public final ObservableBoolean payment = new ObservableBoolean();
@@ -75,6 +76,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             fetchRepos();
 
         //  getDataManager().setisPasswordStatus(false);
+
+
 
     }
 
@@ -179,6 +182,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         address.set(getDataManager().getCurrentAddressTitle());
         current_address.set(getDataManager().getCurrentAddress());
+
+        if (getDataManager().getAddressId()==0){
+            changeAddress.set("Add Address");
+        }else {
+
+            changeAddress.set("Change");
+        }
 
     }
 
@@ -388,7 +398,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (getDataManager().getAddressId() == 0) {
 
-            getNavigator().selectAddress();
+            getNavigator().showToast("Please complete the address");
 
         } else {
             if (getDataManager().getTotalOrders() == 0) {
@@ -401,31 +411,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     getNavigator().paymentGateway(grand_total.get());
 
                 } else {
-                    getNavigator().postRegistration();
+                    getNavigator().postRegistration("cart",grand_total.get());
                 }
 
             }
         }
-
-
-/*
-        if (getDataManager().getisPasswordStatus()) {
-
-            if (getNavigator().paymentStatus(sPaymentMode)) {
-
-                cashMode();
-
-
-            } else {
-
-                onlineMode();
-
-            }
-        } else {
-
-            getNavigator().postRegistration();
-
-        }*/
 
 
     }

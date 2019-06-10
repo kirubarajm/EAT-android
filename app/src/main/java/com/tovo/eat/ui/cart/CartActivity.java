@@ -25,6 +25,9 @@ import com.tovo.eat.ui.registration.RegistrationActivity;
 
 import javax.inject.Inject;
 
+import static android.app.Activity.RESULT_OK;
+import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
+
 public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener {
 
 
@@ -74,7 +77,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +89,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
             ((MainActivity) getActivity()).openHome();
         }*/
-
-
-
 
 
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
@@ -108,7 +107,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
 
-       // CartDishAdapter adapter=new CartDishAdapter(mCartViewModel.cartDishItemViewModels);
+        // CartDishAdapter adapter=new CartDishAdapter(mCartViewModel.cartDishItemViewModels);
 
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
@@ -205,10 +204,12 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void postRegistration() {
+    public void postRegistration(String type, String totalAmount) {
 
         Intent intent = RegistrationActivity.newIntent(getContext());
-        startActivity(intent);
+        intent.putExtra("type", type);
+        intent.putExtra("amount", totalAmount);
+        startActivityForResult(intent, CART_REQUESTCODE);
 
     }
 
@@ -221,7 +222,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void paymentGateway(String totalAmount) {
 
         Intent intent = PaymentActivity.newIntent(getContext());
-        intent.putExtra("amount",totalAmount);
+        intent.putExtra("amount", totalAmount);
         startActivity(intent);
 
     }
@@ -274,4 +275,32 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             mCartViewModel.fetchRepos();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CART_REQUESTCODE) {
+
+/*
+            if (resultCode == RESULT_OK) {
+
+                Intent intent = PaymentActivity.newIntent(getContext());
+                intent.putExtra("amount", mCartViewModel.grand_total.get());
+                startActivity(intent);*/
+
+
+                boolean status = data.getBooleanExtra("status", false);
+                if (status) {
+                    Intent intent = PaymentActivity.newIntent(getContext());
+                    intent.putExtra("amount", mCartViewModel.grand_total.get());
+                    startActivity(intent);
+
+                }
+
+
+
+        }
+
+
+    }
 }

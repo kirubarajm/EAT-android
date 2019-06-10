@@ -59,6 +59,9 @@ public class AppConstants {
     public static final int SIGNATURE_REQUEST_CODE = 4;
 
     public static final int GPS_REQUEST = 500;
+    public static final int CART_REQUESTCODE = 111;
+    public static final int COD_REQUESTCODE = 222;
+    public static final int ONLINE_REQUESTCODE = 333;
 
     ///////Server Ip Ports
     //  public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port

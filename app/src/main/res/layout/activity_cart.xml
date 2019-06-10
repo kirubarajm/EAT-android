@@ -118,8 +118,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_margin="10dp"
-                            android:scaleType="fitXY"
-                            app:cusrsiveImageUrl="@{cartViewModel.makeit_image}" />
+                            android:scaleType="fitXY"/>
 
 
                         <LinearLayout
@@ -576,7 +575,7 @@
                             android:paddingTop="10dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="10dp"
-                            android:text="@string/change"
+                            android:text="@{cartViewModel.changeAddress}"
                             android:textColor="@color/eat_color"
                             android:textSize="16sp"
                             android:textStyle="bold" />

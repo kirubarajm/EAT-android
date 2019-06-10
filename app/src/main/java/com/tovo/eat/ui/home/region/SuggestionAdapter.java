@@ -17,7 +17,7 @@ public class SuggestionAdapter extends ArrayAdapter<RegionSearchModel.Result> {
     private List<RegionSearchModel.Result> filteredItems;
     private ArrayFilter mFilter;
 
-    public SuggestionAdapter(Context context, @LayoutRes int resource, @NonNull List<RegionSearchModel.Result> objects) throws NullPointerException {
+    public SuggestionAdapter(Context context,int resource, List<RegionSearchModel.Result> objects) throws NullPointerException {
         super(context, resource, objects);
         this.items = objects;
         this.filteredItems = objects;

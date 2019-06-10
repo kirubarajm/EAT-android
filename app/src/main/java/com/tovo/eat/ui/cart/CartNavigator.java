@@ -25,7 +25,7 @@ public interface CartNavigator {
 
     void emptyCart();
 
-    void postRegistration();
+    void postRegistration(String type,String totalAmount);
 
 
     void toastMessage(String msg);

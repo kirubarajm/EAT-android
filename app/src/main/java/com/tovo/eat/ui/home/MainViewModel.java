@@ -82,6 +82,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setIsFav(false);
 
         masterRequest();
+
+
+        /*getDataManager().setisPasswordStatus(false);*/
     }
 
 
@@ -103,9 +106,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void gotoCart() {
 
         /*if (getDataManager().getCartDetails() != null) {*/
-
-
-
         if (!isCart.get()) {
 
             getNavigator().openCart();

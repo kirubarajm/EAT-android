@@ -16,6 +16,7 @@ public interface RegistrationActivityNavigator {
 
     void regionList(List<RegionResponse.Result> regionList);
 
+    void showToast(String msg);
 
 
 }
