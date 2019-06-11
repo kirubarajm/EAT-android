@@ -31,8 +31,8 @@ public class RegionModule {
 
 /*
     @Provides
-    RegionKitchenAdapter provideRegionKitchenAdapter() {
-        return new RegionKitchenAdapter(new ArrayList<>());
+    DishKitchenAdapter provideRegionKitchenAdapter() {
+        return new DishKitchenAdapter(new ArrayList<>());
     }*/
 
 

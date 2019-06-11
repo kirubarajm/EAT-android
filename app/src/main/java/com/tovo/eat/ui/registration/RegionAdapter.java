@@ -58,7 +58,7 @@ public class RegionAdapter extends BaseAdapter {
         holder.txtDemo.setText(resutlt.getRegionname());
 
        *//* final RegionsResponse.Result order = metadatas.get(position);
-        RegionItemViewModel ordersItemViewModel = new RegionItemViewModel(order);
+        DishKitchenItemViewModel ordersItemViewModel = new DishKitchenItemViewModel(order);
         mListItemSpinnerBinding.setRegItemViewModel(ordersItemViewModel);
         mListItemSpinnerBinding.executePendingBindings();*//*
         return view;*/

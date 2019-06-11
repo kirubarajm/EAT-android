@@ -11,7 +11,7 @@
 
         <variable
             name="regItemViewModel"
-            type="com.tovo.eat.ui.registration.RegionItemViewModel"/>
+            type="com.tovo.eat.ui.registration.DishKitchenItemViewModel"/>
     </data>-->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

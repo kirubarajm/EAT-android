@@ -7,5 +7,6 @@ public interface SearchDishNavigator {
     void goBack();
 
     void listLoaded();
-void viewCart();
+
+    void viewCart();
 }

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.kitchendish;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class KitchenDishResponse {
         this.result = result;
     }
 
-    public class Productlist {
+    public static class Productlist {
 
         @SerializedName("price")
         @Expose
@@ -53,8 +54,6 @@ public class KitchenDishResponse {
         @SerializedName("cuisinename")
         @Expose
         private String cuisinename;
-
-
 
         @SerializedName("favid")
         @Expose
@@ -150,26 +149,100 @@ public class KitchenDishResponse {
         @SerializedName("makeitbrandname")
         @Expose
         private String makeitbrandname;
+        @SerializedName("rating")
+        @Expose
+        private Double rating;
+        @SerializedName("region")
+        @Expose
+        private Integer region;
+        @SerializedName("regionname")
+        @Expose
+        private String regionname;
+        @SerializedName("costfortwo")
+        @Expose
+        private Integer costfortwo;
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
-        @SerializedName("favid")
-        @Expose
-        private Integer favid;
-
-        @SerializedName("isfav")
-        @Expose
-        private String isfav;
-
-
         @SerializedName("localityname")
         @Expose
         private String localityname;
+        @SerializedName("favid")
+        @Expose
+        private Integer favid;
+        @SerializedName("isfav")
+        @Expose
+        private String isfav;
+        @SerializedName("distance")
+        @Expose
+        private Double distance;
+        @SerializedName("cuisines")
+        @Expose
+        private List<KitchenResponse.Cuisine> cuisines = null;
+        @SerializedName("eta")
+        @Expose
+        private String eta;
 
         @SerializedName("productlist")
         @Expose
         private List<Productlist> productlist = null;
 
+
+        public Double getRating() {
+            return rating;
+        }
+
+        public void setRating(Double rating) {
+            this.rating = rating;
+        }
+
+        public Integer getRegion() {
+            return region;
+        }
+
+        public void setRegion(Integer region) {
+            this.region = region;
+        }
+
+        public String getRegionname() {
+            return regionname;
+        }
+
+        public void setRegionname(String regionname) {
+            this.regionname = regionname;
+        }
+
+        public Integer getCostfortwo() {
+            return costfortwo;
+        }
+
+        public void setCostfortwo(Integer costfortwo) {
+            this.costfortwo = costfortwo;
+        }
+
+        public Double getDistance() {
+            return distance;
+        }
+
+        public void setDistance(Double distance) {
+            this.distance = distance;
+        }
+
+        public List<KitchenResponse.Cuisine> getCuisines() {
+            return cuisines;
+        }
+
+        public void setCuisines(List<KitchenResponse.Cuisine> cuisines) {
+            this.cuisines = cuisines;
+        }
+
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
+        }
 
         public String getLocalityname() {
             return localityname;

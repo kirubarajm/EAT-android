@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.kitchendish;
+package com.tovo.eat.ui.search.dish;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,25 +10,29 @@ import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishItemViewModel;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
-public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<KitchenDishResponse.Result> response;
+    KitchenDishResponse.Result response;
     private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
 
 
-    public KitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list) {
+    public SearchKitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, KitchenDishResponse.Result response,DataManager dataManager) {
         this.item_list = item_list;
+        this.response=response;
+        this.dataManager=dataManager;
     }
 
 
-    public KitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, DataManager dataManager) {
+    public SearchKitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -77,17 +81,11 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenDishResponse.Productlist> blogList, List<KitchenDishResponse.Result> response) {
-        item_list.addAll(blogList);
-
-        this.response = response;
-
-        notifyDataSetChanged();
-    }
 
     public void setListener(LiveProductsAdapterListener listener) {
         this.mLiveProductsAdapterListener = listener;
     }
+
 
     public interface LiveProductsAdapterListener {
 
@@ -103,7 +101,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void  removeDishFavourite(Integer favId);
         void showToast(String msg);
-        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
+        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
@@ -140,9 +138,8 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
-            final KitchenDishResponse.Result result = response.get(position);
 
-            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, result);
+            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, response);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding

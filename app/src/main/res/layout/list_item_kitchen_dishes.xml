@@ -35,8 +35,9 @@
 
             <ImageView
                 android:id="@+id/trash"
-                android:layout_width="27dp"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_fav_selected"
                 android:tint="@color/white" />
 
@@ -61,6 +62,7 @@
 
                 <com.tovo.eat.utilities.RoundCornerImageView
                     cusrsiveImageUrl="@{kitchenDishItemViewModel.image}"
+                    android:scaleType="fitXY"
                     android:layout_width="80dp"
                     android:layout_height="80dp" />
 
@@ -110,12 +112,12 @@
                     android:layout_height="wrap_content">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{kitchenDishItemViewModel.product_name}"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
 
@@ -128,12 +130,16 @@
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:textColor="@color/black"
+                            android:textSize="9sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="INR." />
+                            android:text="@string/icon_inr" />
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{kitchenDishItemViewModel.sprice}" />
@@ -146,8 +152,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{kitchenDishItemViewModel.producttype}"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="14sp" />
+                    android:textColor="@color/medium_gray"
+                    android:textSize="10sp" />
 
                 <RelativeLayout
                     android:layout_marginTop="10dp"

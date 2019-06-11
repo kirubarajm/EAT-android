@@ -33,7 +33,7 @@ public class DishResponse {
         this.result = result;
     }
 
-    public class Result {
+    public static class Result {
         @SerializedName("productid")
         @Expose
         private Integer productid;

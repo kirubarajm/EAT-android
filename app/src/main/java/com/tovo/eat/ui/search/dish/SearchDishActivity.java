@@ -26,7 +26,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, SearchDishViewModel> implements SearchDishNavigator, DishAdapter.LiveProductsAdapterListener, HasSupportFragmentInjector, AddKitchenDishListener {
+public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, SearchDishViewModel> implements SearchDishNavigator, SearchDishAdapter.LiveProductsAdapterListener, HasSupportFragmentInjector, AddKitchenDishListener {
 
 
     public ActivitySearchDishBinding mActivitySearchDishBinding;
@@ -36,7 +36,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
-    DishAdapter adapter;
+    SearchDishAdapter adapter;
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
@@ -86,6 +86,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Override
     public void viewCart() {
         Intent intent = MainActivity.newIntent(SearchDishActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("cart", true);
         startActivity(intent);
         finish();
@@ -201,6 +202,21 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
 
         mSearchDishViewModel.fetchRepos(searchText);
         mSearchDishViewModel.totalCart();
+
+    }
+
+    @Override
+    public void onItemClickData(Integer kitchenId) {
+
+        Intent intent = KitchenDishActivity.newIntent(getApplicationContext());
+        intent.putExtra("kitchenId", kitchenId);
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public void showMore(Integer regionId) {
 
     }
 }

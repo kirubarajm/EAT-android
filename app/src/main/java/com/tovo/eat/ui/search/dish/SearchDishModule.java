@@ -24,8 +24,8 @@ public class SearchDishModule {
     }
 
     @Provides
-    DishAdapter provideDishAdapter() {
-        return new DishAdapter(new ArrayList<>(),dataManager);
+    SearchDishAdapter provideDishAdapter() {
+        return new SearchDishAdapter(new ArrayList<>(),dataManager);
     }
 
 

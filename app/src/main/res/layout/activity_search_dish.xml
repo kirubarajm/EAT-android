@@ -56,59 +56,48 @@
         </android.support.v7.widget.CardView>
 
 
-
-
-
         <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:layout_marginTop="10dp"
             android:id="@+id/searched"
-            android:layout_below="@+id/topBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/topBar"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/showing_results_for"
             android:textSize="14sp" />
 
         <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topBar"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/searched"
-            android:layout_below="@+id/topBar"
-            android:layout_width="wrap_content"
             android:text="@{searchDishViewModel.searched}"
-            android:layout_height="wrap_content"
             android:textColor="@color/eat_color"
-            android:layout_gravity="center_vertical"
             android:textSize="14sp" />
 
 
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refreshList"
+        <android.support.v7.widget.RecyclerView
+            android:layout_above="@+id/cart"
+            android:id="@+id/recyclerview_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/searched"
-            android:layout_marginTop="10dp">
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:background="@android:color/white"
-                app:adapter="@{searchDishViewModel.dishItemViewModels}"
-                tools:listitem="@layout/list_item_cart_dishes" />
-
-
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_marginTop="1dp"
+            android:background="@android:color/white"
+            app:dishadapter="@{searchDishViewModel.dishItemViewModels}"
+            tools:listitem="@layout/list_item_cart_dishes" />
 
 
         <RelativeLayout
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
             android:id="@+id/cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:background="@color/eat_color"
             android:onClick="@{()->searchDishViewModel.viewCart()}"
             android:padding="2dp"

@@ -27,6 +27,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.item_list = item_list;
     }
 
+
     public KitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
@@ -139,7 +140,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
-            final KitchenDishResponse.Result result = response.get(0);
+            final KitchenDishResponse.Result result = response.get(position);
 
             mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, result);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);

@@ -18,8 +18,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
-import com.tovo.eat.ui.home.homemenu.dish.DishNavigator;
-import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -33,8 +32,8 @@ import java.util.List;
 public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
 
-    public ObservableList<DishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<DishResponse.Result>> dishItemsLiveData;
+    public ObservableList<KitchenDishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
 
 
     public ObservableField<String> kitchenName = new ObservableField<>();
@@ -58,23 +57,23 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
     }
 
-    public ObservableList<DishResponse.Result> getDishItemViewModels() {
+    public ObservableList<KitchenDishResponse.Result> getDishItemViewModels() {
         return dishItemViewModels;
     }
 
-    public void setDishItemViewModels(ObservableList<DishResponse.Result> dishItemViewModels) {
+    public void setDishItemViewModels(ObservableList<KitchenDishResponse.Result> dishItemViewModels) {
         this.dishItemViewModels = dishItemViewModels;
     }
 
-    public MutableLiveData<List<DishResponse.Result>> getDishItemsLiveData() {
+    public MutableLiveData<List<KitchenDishResponse.Result>> getDishItemsLiveData() {
         return dishItemsLiveData;
     }
 
-    public void setDishItemsLiveData(MutableLiveData<List<DishResponse.Result>> dishItemsLiveData) {
+    public void setDishItemsLiveData(MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData) {
         this.dishItemsLiveData = dishItemsLiveData;
     }
 
-    public void addDishItemsToList(List<DishResponse.Result> ordersItems) {
+    public void addDishItemsToList(List<KitchenDishResponse.Result> ordersItems) {
         dishItemViewModels.clear();
         dishItemViewModels.addAll(ordersItems);
 
@@ -254,11 +253,11 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
 
                     if (response != null) {
-                        DishResponse dishResponse;
+                        KitchenDishResponse KitchenDishResponse;
                         Gson sGson = new GsonBuilder().create();
-                        dishResponse = sGson.fromJson(response.toString(), DishResponse.class);
+                        KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
 
-                        dishItemsLiveData.setValue(dishResponse.getResult());
+                        dishItemsLiveData.setValue(KitchenDishResponse.getResult());
                         Log.e("----response:---------", response.toString());
                         getNavigator().listLoaded();
 

@@ -62,6 +62,7 @@ import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
 import com.tovo.eat.ui.search.SearchResponse;
+import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 
 import java.util.List;
 
@@ -93,6 +94,15 @@ public final class BindingUtils {
             adapter.clearItems();
 
             adapter.addItems(response.get(0).getProductlist(), response);
+        }
+    }
+
+    @BindingAdapter({"dishadapter"})
+    public static void addSearchDishItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {
+       SearchDishAdapter adapter = (SearchDishAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response,recyclerView.getContext());
         }
     }
 
@@ -132,7 +142,7 @@ public final class BindingUtils {
 
     /*@BindingAdapter({"adapter"})
     public static void addRegionKitchenItems(RecyclerView recyclerView, List<RegionsResponse.Kitchen> dishes) {
-        RegionKitchenAdapter adapter = (RegionKitchenAdapter) recyclerView.getAdapter();
+        DishKitchenAdapter adapter = (DishKitchenAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(dishes,recyclerView.getContext());

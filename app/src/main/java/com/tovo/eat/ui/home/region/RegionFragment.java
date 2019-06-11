@@ -43,7 +43,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
 
     List<RegionSearchModel.Result> items;
    /* @Inject
-    RegionKitchenAdapter  kitchenAdapter;*/
+    DishKitchenAdapter  kitchenAdapter;*/
 
     FragmentRegionBinding mFragmentRegionBinding;
     RegionSearchModel regionSearchModel;

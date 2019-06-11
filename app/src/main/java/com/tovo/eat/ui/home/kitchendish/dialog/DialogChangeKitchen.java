@@ -87,12 +87,11 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
 
         addKitchenDishListener.confirmClick(true);
 
-
     }
 
     @Override
     public void cancelClick() {
-
+        addKitchenDishListener.confirmClick(false);
         dismissDialog();
     }
 
