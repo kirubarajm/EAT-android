@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemEmptySearchBinding;
 import com.tovo.eat.databinding.ListItemSerachDishBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.ui.search.EmptySearchItemViewModel;
 
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
-                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptySearchBinding blogViewBinding1 = ListItemEmptySearchBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(blogViewBinding1);
         }
@@ -158,19 +160,19 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
     public class EmptyViewHolder extends BaseViewHolder {
 
-        private final ListItemEmptyBinding mBinding;
+        private final ListItemEmptySearchBinding mBinding;
 
 
-        EmptyItemViewModel emptyItemViewModel;
+        EmptySearchItemViewModel emptyItemViewModel;
 
-        public EmptyViewHolder(ListItemEmptyBinding binding) {
+        public EmptyViewHolder(ListItemEmptySearchBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            emptyItemViewModel = new EmptySearchItemViewModel("No results found for your selection");
             mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 

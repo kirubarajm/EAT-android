@@ -191,8 +191,8 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/gray" />
+                        android:layout_height="1dp"
+                        android:background="@color/medium_gray" />
 
                 </LinearLayout>
 
@@ -223,12 +223,11 @@
                 android:nestedScrollingEnabled="true"
                 tools:listitem="@layout/list_item_kitchen_dishes" />
 
-            <!--<RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:onClick="@{()->searchDishItemViewModel. showMore()}"
-                android:visibility="@{searchDishItemViewModel.haveMore?View.VISIBLE:View.GONE}">
+                android:background="@color/light_gray"
+                android:onClick="@{()->searchDishItemViewModel.showMore()}">
 
 
                 <com.tovo.eat.utilities.fonts.CircularStdMedium
@@ -245,18 +244,18 @@
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
-                    android:text="@string/show_more"
+                    android:text="@string/view_menu"
                     android:textColor="@color/eat_color"
                     android:textSize="14sp" />
 
 
-                &lt;!&ndash; <View
+                <!-- <View
                      android:layout_below="@+id/showMore"
                      android:visibility="visible"
                      android:layout_width="match_parent"
                      android:layout_height="1dp"
-                     android:background="@color/gray" />&ndash;&gt;
-            </RelativeLayout>-->
+                     android:background="@color/gray" />-->
+            </RelativeLayout>
 
 
         </LinearLayout>

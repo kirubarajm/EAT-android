@@ -16,6 +16,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
@@ -80,7 +81,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Override
     public void listLoaded() {
         mActivitySearchDishBinding.recyclerviewList.setVisibility(View.VISIBLE);
-        //   mActivitySearchDishBinding.setVisibility(View.VISIBLE);
+
     }
 
     @Override

@@ -90,6 +90,20 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         getNavigator().showToast(response.getMessage());
                         getNavigator().addresDeleted();
+
+                        if (getDataManager().getAddressId()==aid){
+
+                            getDataManager().setAddressId(0);
+                            getDataManager().setCurrentAddress(null);
+                            getDataManager().setCurrentAddressArea(null);
+                            getDataManager().setCurrentAddressTitle(null);
+                            getDataManager().setCurrentLat(0.0);
+                            getDataManager().setCurrentLng(0.0);
+
+
+                        }
+
+
                     }
                 }
             }, new Response.ErrorListener() {

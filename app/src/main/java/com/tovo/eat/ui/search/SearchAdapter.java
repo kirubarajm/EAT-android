@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemDishesBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemEmptySearchBinding;
 import com.tovo.eat.databinding.ListItemSearchBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
@@ -45,7 +46,7 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
             default:
-                ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemEmptySearchBinding blogViewBinding1 = ListItemEmptySearchBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new EmptyViewHolder(blogViewBinding1);
         }
@@ -97,19 +98,19 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public class EmptyViewHolder extends BaseViewHolder {
 
-        private final ListItemEmptyBinding mBinding;
+        private final ListItemEmptySearchBinding mBinding;
 
 
-        EmptyItemViewModel emptyItemViewModel;
+        EmptySearchItemViewModel emptyItemViewModel;
 
-        public EmptyViewHolder(ListItemEmptyBinding binding) {
+        public EmptyViewHolder(ListItemEmptySearchBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
         }
 
         @Override
         public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
+            emptyItemViewModel = new EmptySearchItemViewModel("No search results found");
             mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 

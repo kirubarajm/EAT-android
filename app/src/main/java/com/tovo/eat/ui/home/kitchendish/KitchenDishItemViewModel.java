@@ -76,8 +76,6 @@ public class KitchenDishItemViewModel {
 
 
 
-
-
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());
             this.image.set(dishList.getProductimage());

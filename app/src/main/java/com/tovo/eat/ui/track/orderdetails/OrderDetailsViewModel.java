@@ -37,6 +37,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery = new ObservableField<>();
+    public final ObservableField<String> title = new ObservableField<>();
 
     public final ObservableField<String> locality = new ObservableField<>();
 
@@ -51,6 +52,9 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
         ordersItemsLiveData = new MutableLiveData<>();
         cartRequestPojo = new CartRequestPojo();
         orderitems = new ArrayList<>();
+
+        title.set("Order details #"+getDataManager().getOrderId());
+
        // fetchRepos();
     }
 
@@ -126,7 +130,6 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             } else {
                                 strPaymentType.set("Amount to be paid through Online");
                             }
-
 
 
                             // Repeat Order

@@ -26,6 +26,7 @@ public class SearchDishItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isRated = new ObservableBoolean();
     public final ObservableBoolean isEta = new ObservableBoolean();
+    public final ObservableBoolean haveMore = new ObservableBoolean();
 
 
     public final RegionItemViewModelListener mListener;
@@ -39,6 +40,10 @@ public class SearchDishItemViewModel {
         this.mListener = mListener;
         this.mKitchenList = mKitchenList;
         KitchenDishItemViewModels.addAll(mKitchenList.getProductlist());
+
+
+
+
 
 
         this.kitchen_image.set(mKitchenList.getMakeitimg());
@@ -140,7 +145,6 @@ public class SearchDishItemViewModel {
 
     public void showMore() {
         mListener.showMore(mKitchenList.getMakeituserid());
-
 
     }
 

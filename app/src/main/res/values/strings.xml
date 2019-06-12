@@ -509,4 +509,5 @@
     <string name="search_for_your_favorite_region_dish_or_cuisines">Search for your favorite region,dish or cuisines</string>
     <string name="save_and_pay_via_cards">Save and pay via cards</string>
     <string name="pay_via_wallets_upi_or_netbanking">Pay via Wallets/UPI or Netbanking</string>
+    <string name="view_menu">View menu</string>
 </resources>

@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="Order details"
+                    android:text="@{orderDetailsViewModel.title}"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -79,13 +79,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Order details"
+                        android:text="@string/order_details"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_order_details"
                         android:layout_marginTop="5dp">
 
@@ -266,7 +266,7 @@
                     android:layout_below="@+id/linear_amt"
                     android:layout_marginTop="15dp"
                     android:text="@{orderDetailsViewModel.strPaymentType}"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
             </RelativeLayout>
@@ -291,7 +291,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Order placed at"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
@@ -299,7 +299,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{orderDetailsViewModel.kitchenName}"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -317,7 +317,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Order to be delivered at"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                   <!--  <com.tovo.eat.utilities.fonts.CircularTextView
@@ -332,8 +332,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{orderDetailsViewModel.address}"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>

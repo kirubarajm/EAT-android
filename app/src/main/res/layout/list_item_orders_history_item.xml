@@ -21,7 +21,7 @@
 
             <com.tovo.eat.utilities.fonts.CircularTextView
                 android:textSize="14sp"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -37,14 +37,34 @@
                 android:layout_centerInParent="true"
                 android:text="@{ordersProductListItemViewModel.quantity}" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:textSize="14sp"
-                android:textColor="@color/dark_gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <LinearLayout
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@{ordersProductListItemViewModel.price}" />
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_marginEnd="1dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_inr"
+                    android:textSize="8sp"/>
+
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{ordersProductListItemViewModel.price}" />
+
+
+            </LinearLayout>
+
 
         </RelativeLayout>
     </RelativeLayout>

@@ -143,11 +143,10 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void logout() {
-        mMyAccountViewModel.logOutSession();
 
-        SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PACKAGE_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         settings.edit().clear().apply();
-
 
         startActivity(SignUpActivity.newIntent(getActivity()));
         getActivity().finish();

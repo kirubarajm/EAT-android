@@ -60,6 +60,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
     public void logOut() {
         getNavigator().logout();
+        logOutSession();
     }
 
     public void feedbackAndSupport() {
@@ -74,6 +75,12 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public void logOutSession() {
         getDataManager().setLogout();
         getDataManager().setCartDetails(null);
+        getDataManager().setAddressId(0);
+        getDataManager().setCurrentAddress(null);
+        getDataManager().setCurrentAddressArea(null);
+        getDataManager().setCurrentAddressTitle(null);
+        getDataManager().setCurrentLat(0.0);
+        getDataManager().setCurrentLng(0.0);
     }
 
     public void fetchUserDetails() {

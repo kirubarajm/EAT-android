@@ -140,7 +140,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
-            final KitchenDishResponse.Result result = response.get(position);
+            final KitchenDishResponse.Result result = response.get(0);
 
             mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, result);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);

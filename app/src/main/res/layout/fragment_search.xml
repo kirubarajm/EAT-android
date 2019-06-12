@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,13 +20,6 @@
         android:background="#FCFCFC">
 
 
-
-
-
-
-
-
-
         <!--<EditText
             android:hint="Search dish or kitchen or region"
             android:layout_alignParentTop="true"
@@ -36,38 +28,74 @@
             android:layout_height="wrap_content" />-->
 
 
-
-
-
-        <android.support.v7.widget.SearchView
-
-            android:focusable="true"
-            app:iconifiedByDefault="false"
-            android:layout_alignParentTop="true"
-            android:id="@+id/searchh"
-            app:queryHint="Search dish or kitchen or region"
+        <android.support.v7.widget.CardView
+            android:id="@+id/header_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:cardElevation="7dp">
 
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchh"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@color/light_gray"
+                android:focusable="true"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search dish or kitchen or region" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <LinearLayout
+            android:id="@+id/txt_search"
+            android:layout_margin="10dp"
+            android:layout_below="@id/header_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:id="@+id/searched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topBar"
+                android:layout_gravity="center_vertical"
+                android:text="@string/showing_results_for"
+                android:textSize="14sp" />
+
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/searched"
+                android:text="@{searchViewModel.searched}"
+                android:textColor="@color/eat_color"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
 
 
         <RelativeLayout
             android:id="@+id/before"
-            android:visibility="visible"
-            android:layout_below="@+id/searchh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header_search"
+            android:background="@color/white"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/img1"
-                android:layout_marginTop="50dp"
-                android:layout_centerHorizontal="true"
-                android:tint="@color/eat_color"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/before_search"/>
-
-
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/before_search"
+                android:tint="@color/eat_color" />
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
@@ -93,30 +121,164 @@
                 android:textSize="12sp" />
 
 
-
         </RelativeLayout>
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_search"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:visibility="gone"
+            app:adapter="@{searchViewModel.searchItemViewModels}"
+            tools:listitem="@layout/list_item_search" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_dish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_search"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:visibility="gone"
+            app:dishadapter="@{searchViewModel.dishItemViewModels}"
+            tools:listitem="@layout/list_item_serach_dish" />
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/regionEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_search"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ico1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_error"
+                    android:textColor="@color/eat_color"
+                    android:textSize="30sp" />
+
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/sorry"
+                    android:textSize="20sp" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:text="Selected region has no kitchens"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
 
 
 
 
 
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/searchRegion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_search"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{searchViewModel.regionName}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{searchViewModel.regionName}"
+                    android:textColor="@color/medium_gray"
+                    android:textSize="12sp" />
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="15dp"
+                    android:singleLine="true"
+                    android:text="@{searchViewModel.totalKitchens}"
+                    android:textColor="@color/medium_gray"
+                    android:textSize="12sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/medium_gray" />
+
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/searchh"
-                android:id="@+id/recyclerview_search"
+                android:id="@+id/recyclerview_region"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/white"
-                app:adapter="@{searchViewModel.searchItemViewModels}"
-                tools:listitem="@layout/list_item_search"/>
+                android:visibility="visible"
+                app:adapter="@{searchViewModel.kitchenListItemViewModels}"
+                tools:listitem="@layout/list_item_kitchens" />
 
 
-
+        </LinearLayout>
 
 
     </RelativeLayout>

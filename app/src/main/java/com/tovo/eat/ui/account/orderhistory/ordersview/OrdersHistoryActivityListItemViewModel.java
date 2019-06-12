@@ -44,10 +44,10 @@ public class OrdersHistoryActivityListItemViewModel {
 
     public OrdersHistoryActivityListItemViewModel(OrdersHistoryActivityResponse.Result.Item mOrderList) {
 
-        quantity.set("X"+String.valueOf(mOrderList.getQuantity()));
+        quantity.set("x"+String.valueOf(mOrderList.getQuantity()));
         productid.set(String.valueOf(mOrderList.getProductid()));
         product_name.set(String.valueOf(mOrderList.getProductName()));
-        price.set("Rs."+String.valueOf(mOrderList.getPrice()));
+        price.set(String.valueOf(mOrderList.getPrice()));
 
         mOrderLists=mOrderList;
     }

@@ -7,8 +7,12 @@ public interface SearchNavigator {
     void toastMessage(String msg);
 
     void listLoaded();
+
     void listLoading();
+
     void searchList(String data);
+
+    void noResults();
 
 
 }
