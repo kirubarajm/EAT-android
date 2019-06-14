@@ -182,11 +182,22 @@ public class KitchenDishResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+        @SerializedName("images")
+        @Expose
+        private List<String> images = null;
 
         @SerializedName("productlist")
         @Expose
         private List<Productlist> productlist = null;
 
+
+        public List<String> getImages() {
+            return images;
+        }
+
+        public void setImages(List<String> images) {
+            this.images = images;
+        }
 
         public Double getRating() {
             return rating;

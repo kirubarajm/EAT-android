@@ -36,6 +36,11 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableBoolean isReeceived = new ObservableBoolean();
     public final ObservableBoolean isPrepared = new ObservableBoolean();
     public final ObservableBoolean isDeliverd = new ObservableBoolean();
+
+    public final ObservableBoolean iconReeceived = new ObservableBoolean();
+    public final ObservableBoolean iconPrepared = new ObservableBoolean();
+    public final ObservableBoolean iconDeliverd = new ObservableBoolean();
+
     public final ObservableBoolean track = new ObservableBoolean();
 
 
@@ -115,6 +120,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             total.set(String.valueOf(response.getResult().get(0).getPrice()));
 
 
+                            orderReceivedStatus.set(response.getResult().get(0).getTrackingstatus().getMessage1());
+                            orderPreparedStatus.set(response.getResult().get(0).getTrackingstatus().getMessage2());
+                            orderDeliveryStatus.set(response.getResult().get(0).getTrackingstatus().getMessage3());
 
 
                        /* 0 -orderput   - est user
@@ -128,46 +136,77 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             if (response.getResult().get(0).getOrderstatus() == 0) {
 
                                 isReeceived.set(true);
-                                orderReceivedStatus.set("Order Placed");
-                                orderPreparedStatus.set("Preparing your order");
+                                isPrepared.set(false);
+                                isDeliverd.set(false);
+
+
+                                iconReeceived.set(false);
+                                iconPrepared.set(false);
+                                iconDeliverd.set(false);
+
 
                             } else if (response.getResult().get(0).getOrderstatus() == 1) {
-                                isReeceived.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Preparing your order");
+                                isReeceived.set(false);
+                                isPrepared.set(true);
+                                isDeliverd.set(false);
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(false);
+                                iconDeliverd.set(false);
+
 
                             } else if (response.getResult().get(0).getOrderstatus() == 2) {
-                                isReeceived.set(true);
-                                isPrepared.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Order Prepared");
+                                isReeceived.set(false);
+                                isPrepared.set(false);
+                                isDeliverd.set(true);
+
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(true);
+                                iconDeliverd.set(false);
+
+
 
                             } else if (response.getResult().get(0).getOrderstatus() == 3) {
-                                isReeceived.set(true);
-                                isPrepared.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Order Prepared");
+                                isReeceived.set(false);
+                                isPrepared.set(false);
+                                isDeliverd.set(true);
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(true);
+                                iconDeliverd.set(false);
+
                             } else if (response.getResult().get(0).getOrderstatus() == 4) {
-                                isReeceived.set(true);
-                                isPrepared.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Order Prepared");
+                                isReeceived.set(false);
+                                isPrepared.set(false);
+                                isDeliverd.set(true);
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(true);
+                                iconDeliverd.set(false);
+
                             } else if (response.getResult().get(0).getOrderstatus() == 5) {
-                                isReeceived.set(true);
-                                isPrepared.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Order Prepared");
-                                orderDeliveryStatus.set("On the way");
+                                isReeceived.set(false);
+                                isPrepared.set(false);
+                                isDeliverd.set(true);
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(true);
+                                iconDeliverd.set(false);
+
+
 
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
-                                isReeceived.set(true);
-                                isPrepared.set(true);
+                                isReeceived.set(false);
+                                isPrepared.set(false);
                                 isDeliverd.set(true);
-                                orderReceivedStatus.set("Order received");
-                                orderPreparedStatus.set("Order Prepared");
-                                orderDeliveryStatus.set("Order delivered");
+
+                                iconReeceived.set(true);
+                                iconPrepared.set(true);
+                                iconDeliverd.set(true);
+
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
 
@@ -181,7 +220,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+                  //  Log.e("", error.getMessage());
                 }
             });
 

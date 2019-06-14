@@ -12,6 +12,10 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -49,6 +53,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderTrackingBinding;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.track.help.OrderHelpActivity;
+import com.tovo.eat.ui.track.help.OrderHelpViewModel;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.utilities.LatLngInterpolator;
 import com.tovo.eat.utilities.MarkerAnimation;
@@ -144,11 +150,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void createMarker() {
         Drawable oDrawable = getResources().getDrawable(R.drawable.delivery_man_map_marker);
         Bitmap oBitmap = ((BitmapDrawable) oDrawable).getBitmap();
-        origin_marker = scaleBitmap(oBitmap, 114, 200);
+        origin_marker = scaleBitmap(oBitmap, 85, 149);
 
         Drawable dDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
         Bitmap dBitmap = ((BitmapDrawable) dDrawable).getBitmap();
-        destination_marker = scaleBitmap(dBitmap, 114, 200);
+        destination_marker = scaleBitmap(dBitmap, 85, 149);
     }
 
     @Override
@@ -156,6 +162,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         super.onCreate(savedInstanceState);
         mActivityDirectionBinding = getViewDataBinding();
         mOrderTrackingViewModel.setNavigator(this);
+
+
+        setSupportActionBar(mActivityDirectionBinding.header);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -200,6 +213,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
     }
 
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -218,14 +233,25 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
             //  int padding = 0; // offset from edges of the map in pixels
 
-            int width = getResources().getDisplayMetrics().widthPixels;
-            int height = getResources().getDisplayMetrics().heightPixels;
+
+
+
+
+
+            int width = mActivityDirectionBinding.mapSize.getMeasuredWidth();
+            int height = mActivityDirectionBinding.mapSize.getMeasuredHeight();
             int padding = (int) (width * 0.10);
+
+            try {
 
 
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
             mMap.moveCamera(cu);
 
+            }catch (Exception ee){
+                ee.printStackTrace();
+                mOrderTrackingViewModel.getOrderDetails();
+            }
         }
 
 
@@ -266,7 +292,35 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.tracking_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id ==android. R.id.home) {
+           finish();
+        }else if(id==R.id.refresh){
+          mOrderTrackingViewModel.getOrderDetails();
+        }
+        else if(id==R.id.order_cancel){
+            Intent intent = OrderHelpActivity.newIntent(this);
+            intent.putExtra("orderId",
+                    String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId()) );
+            startActivity(intent);
+        }
+       // return true;
+    return super.onOptionsItemSelected(item);
+}
 
     private void showMarker1(LatLng currentLocation) {
 
@@ -393,10 +447,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void tracking(String cusLat, String cusLng, double makeitLat, double makeitLng) {
 
-
         try {
 
             LatLngBounds bounds = null;
+
             makeitLatLng = new LatLng(makeitLat, makeitLng);
 
             cusLatLng = new LatLng(Double.parseDouble(cusLat), Double.parseDouble(cusLng));
@@ -411,9 +465,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 try {
 
-
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                builder.include(moveitLatLng);
+                builder.include(makeitLatLng);
                 builder.include(cusLatLng);
                 bounds = builder.build();
 
@@ -422,13 +475,21 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 }
                 //  int padding = 0; // offset from edges of the map in pixels
 
-                int width = getResources().getDisplayMetrics().widthPixels;
-                int height = getResources().getDisplayMetrics().heightPixels;
+                int width = mActivityDirectionBinding.mapSize.getMeasuredWidth();
+                int height = mActivityDirectionBinding.mapSize.getMeasuredHeight();
                 int padding = (int) (width * 0.10);
 
 
-                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-                mMap.moveCamera(cu);
+                try {
+
+                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                    mMap.moveCamera(cu);
+
+                }catch (Exception ee){
+                    ee.printStackTrace();
+                    mOrderTrackingViewModel.getOrderDetails();
+
+                }
 
             }
         }catch (Exception rr){
@@ -439,11 +500,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     @Override
     public void orderPickedUp(Integer MoveitId) {
-
-
         loadPreviousStatuses(MoveitId);
-
-
     }
 
     @Override
@@ -454,12 +511,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void orderDetails(Integer orderId) {
 
-
         Intent intent = OrderDetailsActivity.newIntent(this);
         intent.putExtra("orderId",
                 String.valueOf(orderId) );
         startActivity(intent);
-
     }
 
     @Override
@@ -467,6 +522,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         finish();
     }
+    
 
 
     private void loadPreviousStatuses(Integer MoveitId) {
@@ -513,8 +569,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     locationForStatus.setLongitude((double) status.get("lng"));
                     LatLng latLng = new LatLng((double) status.get("lat"), (double) status.get("lng"));
 
-                    if (distance(makeitLatLng.latitude, makeitLatLng.longitude, (double) status.get("lat"), (double) status.get("lng"), "K") <= 2) {
+                    if (distance(cusLatLng.latitude, cusLatLng.longitude, (double) status.get("lat"), (double) status.get("lng"), "K") <= 2) {
 
+
+                        mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
                             moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));

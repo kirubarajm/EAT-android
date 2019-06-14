@@ -1,38 +1,39 @@
-package com.tovo.eat.ui.account.orderhistory.ordersview;
+package com.tovo.eat.ui.track.help;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
-import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.databinding.ActivityOrderDetailsBinding;
+import com.tovo.eat.databinding.ActivityOrderHelpBinding;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistoryViewBinding,OrderHistoryActivityViewModelView> implements OrderHistoryActivityViewNavigator,
+public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator,
         OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener{
 
     @Inject
-    OrderHistoryActivityViewModelView mOrderHistoryActivityViewModelView;
-    ActivityOrdersHistoryViewBinding mActivityOrdersHostiryViewBinding;
+    OrderHelpViewModel mOrderHelpViewModel;
+    ActivityOrderHelpBinding mActivityOrderHelpBinding;
     @Inject
-    OrdersHistoryActivityItemAdapter mOrdersHistoryActivityItemAdapter;
+    OrdersHistoryActivityItemAdapter mOrderDetailsAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
-
+    String strOrderId;
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, OrderHistoryActivityView.class);
+        return new Intent(context, OrderHelpActivity.class);
     }
 
 
@@ -44,7 +45,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Override
     public void clearCart() {
 
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHistoryActivityView.this);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHelpActivity.this);
         builder1.setMessage("Already you have added items in cart. Do you want to clear?");
         builder1.setCancelable(true);
 
@@ -57,7 +58,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
                         intent.putExtra("cart",true);
                         startActivity(intent);*/
 
-                       mOrderHistoryActivityViewModelView.orderAvailable();
+                       mOrderHelpViewModel.orderAvailable();
 
                     }
                 });
@@ -79,65 +80,86 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
     @Override
     public void orderRepeat() {
-        Intent intent= MainActivity.newIntent(OrderHistoryActivityView.this);
+        Intent intent= MainActivity.newIntent(OrderHelpActivity.this);
         intent.putExtra("cart",true);
         startActivity(intent);
     }
 
     @Override
     public void goBack() {
-        onBackPressed();
+       finish();
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.OrdersHistryViewModel;
+        return BR.orderHelpViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_orders_history_view;
+        return R.layout.activity_order_help;
     }
 
     @Override
-    public OrderHistoryActivityViewModelView getViewModel() {
-        return mOrderHistoryActivityViewModelView;
+    public OrderHelpViewModel getViewModel() {
+        return mOrderHelpViewModel;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityOrdersHostiryViewBinding = getViewDataBinding();
-        mOrderHistoryActivityViewModelView.setNavigator(this);
-        mOrdersHistoryActivityItemAdapter.setListener(this);
+        mActivityOrderHelpBinding = getViewDataBinding();
+        mOrderHelpViewModel.setNavigator(this);
+        mOrderDetailsAdapter.setListener(this);
+
+
+        setSupportActionBar(mActivityOrderHelpBinding.toolbarHistoryView);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+
+
+
+
+
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
            // String strOrderId=bundle.getString("orderId");
-            String strOrderId=getIntent().getExtras().getString("orderId");
+             strOrderId=getIntent().getExtras().getString("orderId");
 
-            mOrderHistoryActivityViewModelView.fetchRepos(strOrderId);
+
 
         }
 
 
+    }
 
-        mOrdersHistoryActivityItemAdapter.setListener(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setLayoutManager(new LinearLayoutManager(this));
-        mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setAdapter(mOrdersHistoryActivityItemAdapter);
-        subscribeToLiveData();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id ==android. R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void subscribeToLiveData() {
-        mOrderHistoryActivityViewModelView.getOrders().observe(this,
-                ordersItemViewModel -> mOrderHistoryActivityViewModelView.addOrdersListItemsToList(ordersItemViewModel));
+        mOrderHelpViewModel.getOrders().observe(this,
+                ordersItemViewModel -> mOrderHelpViewModel.addOrdersListItemsToList(ordersItemViewModel));
     }
+
 
     @Override
     public void listItem(OrdersHistoryActivityResponse.Result mOrderList) {
 
     }
-
-
 }

@@ -7,7 +7,7 @@ public interface KitchenDishNavigator {
 
     void toastMessage(String msg);
 
-    void dishListLoaded();
+    void dishListLoaded(KitchenDishResponse response);
 
     void viewCart();
 

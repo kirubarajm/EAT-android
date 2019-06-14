@@ -2,26 +2,17 @@ package com.tovo.eat.ui.home.kitchendish;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenDishBinding;
@@ -31,8 +22,6 @@ import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 import com.tovo.eat.utilities.MainSliderAdapter;
 import com.tovo.eat.utilities.PicassoImageLoadingService;
-import com.tovo.eat.utilities.SwipeController;
-import com.tovo.eat.utilities.SwipeControllerActions;
 
 import javax.inject.Inject;
 
@@ -51,18 +40,10 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     FragmentKitchenDishBinding mFragmentDishBinding;
 
-
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
-
-
-
-
     Integer kitchenID;
-
-
-
 
 
     public static Intent newIntent(Context context) {
@@ -87,10 +68,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         setSupportActionBar(mFragmentDishBinding.toolbar);
 
 
-
-
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -103,21 +80,14 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
 
-
-
-
         mFragmentDishBinding.kitchenSlider.init(new PicassoImageLoadingService(this));
-
-        mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter());
-
-
 
 
 
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            kitchenID=intent.getExtras().getInt("kitchenId");
+            kitchenID = intent.getExtras().getInt("kitchenId");
 
             mKitchenDishViewModel.fetchRepos(kitchenID);
 
@@ -127,12 +97,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
 
         setTitle(mKitchenDishViewModel.kitchenName.get());
-
-
-
-
-
-
 
 
         //  setTitle("Kitchen");
@@ -163,20 +127,20 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
                     //   Toast.makeText(KitchenDishActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
 
-                //   setTitle(" ");
+                    //   setTitle(" ");
                     mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
 
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
 
                     // Toast.makeText(KitchenDishActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
-                  // setTitle("Kitchen");
+                    // setTitle("Kitchen");
                     mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
                     //  mFragmentDishBinding.toolbar.setVisibility(View.GONE);
                     // mFragmentDishBinding.image.setVisibility(View.GONE);
 
                 } else {
-                 //   Toast.makeText(KitchenDishActivity.this, "d", Toast.LENGTH_SHORT).show();
-                 //   setTitle(" ");
+                    //   Toast.makeText(KitchenDishActivity.this, "d", Toast.LENGTH_SHORT).show();
+                    //   setTitle(" ");
                     //  mFragmentDishBinding.toolbar.setVisibility(View.VISIBLE);
                     // mFragmentDishBinding.image.setVisibility(View.VISIBLE);
 
@@ -193,8 +157,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         // mKitchenDishViewModel.fetchRepos();
 
         subscribeToLiveData();
-
-
 
 
         mFragmentDishBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -284,8 +246,6 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 */
 
 
-
-
     }
 
     @Override
@@ -338,11 +298,15 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     }
 
     @Override
-    public void dishListLoaded() {
+    public void dishListLoaded(KitchenDishResponse response) {
         //mFragmentDishBinding.refreshList.setRefreshing(false);
 
+        if (response != null)
+            mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter(response));
 
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
+
+
+            mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
     }
 

@@ -301,16 +301,16 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                                 Log.e("----response:---------", response.toString());
 
-                                getNavigator().dishListLoaded();
+                                getNavigator().dishListLoaded(response);
                             }
-                        getNavigator().dishListLoaded();
+                        getNavigator().dishListLoaded(response);
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
-                    getNavigator().dishListLoaded();
+                    getNavigator().dishListLoaded(null);
                 }
             });
 

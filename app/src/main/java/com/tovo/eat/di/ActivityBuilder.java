@@ -88,6 +88,8 @@ import com.tovo.eat.ui.splash.SplashActivity;
 import com.tovo.eat.ui.splash.SplashActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.ui.track.OrderTrackingModule;
+import com.tovo.eat.ui.track.help.OrderHelpActivity;
+import com.tovo.eat.ui.track.help.OrderHelpModule;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsModule;
 import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
@@ -143,6 +145,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = OrderDetailsModule.class)
     abstract OrderDetailsActivity bindOrderDetailsActivity();
+
+
+   @ContributesAndroidInjector(modules = OrderHelpModule.class)
+    abstract OrderHelpActivity bindOrderHelpActivity();
 
 
 

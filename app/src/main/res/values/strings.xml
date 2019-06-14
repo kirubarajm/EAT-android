@@ -510,4 +510,10 @@
     <string name="save_and_pay_via_cards">Save and pay via cards</string>
     <string name="pay_via_wallets_upi_or_netbanking">Pay via Wallets/UPI or Netbanking</string>
     <string name="view_menu">View menu</string>
+    <string name="help_order_title">Help with current order?</string>
+    <string name="cancel_my_order">I want to cancel my order</string>
+    <string name="where_is_my_order">Where is my order?</string>
+    <string name="food_preparation">Food preparation instructions</string>
+    <string name="contact_cus_care">CONTACT CUSTOMER CARE</string>
+    <string name="anything_else">Anything else?</string>
 </resources>

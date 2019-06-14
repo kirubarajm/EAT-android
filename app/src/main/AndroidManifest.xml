@@ -138,6 +138,7 @@
         <activity android:name=".ui.search.dish.SearchDishActivity" />
         <activity android:name=".ui.account.edit.EditAccountActivity" />
         <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
+        <activity android:name=".ui.track.help.OrderHelpActivity" />
 
 
         <meta-data
