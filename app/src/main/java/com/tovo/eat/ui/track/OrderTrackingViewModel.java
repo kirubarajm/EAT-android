@@ -160,12 +160,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 isPrepared.set(false);
                                 isDeliverd.set(true);
 
-
                                 iconReeceived.set(true);
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
-
-
 
                             } else if (response.getResult().get(0).getOrderstatus() == 3) {
                                 isReeceived.set(false);
@@ -194,9 +191,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
 
-
-
-                                getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                                getNavigator().orderPickedUp(response.getResult().get(0).getOrderid());
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
                                 isReeceived.set(false);

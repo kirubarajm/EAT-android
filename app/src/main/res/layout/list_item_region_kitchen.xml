@@ -67,7 +67,7 @@
 
                     <LinearLayout
                         android:gravity="center"
-                        android:visibility="@{regionKitchenItemViewModel.isFavourite?View.VISIBLE:View.GONE}"
+                        android:visibility="gone"
                         android:id="@+id/appr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

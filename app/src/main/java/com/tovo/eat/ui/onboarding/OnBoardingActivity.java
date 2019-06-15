@@ -195,7 +195,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
+        prefManager.setFirstTimeLaunch(true);
 
         mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
 

@@ -499,8 +499,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
-    public void orderPickedUp(Integer MoveitId) {
-        loadPreviousStatuses(MoveitId);
+    public void orderPickedUp(Integer orderID) {
+        loadPreviousStatuses(orderID);
     }
 
     @Override
@@ -522,14 +522,14 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         finish();
     }
-    
 
 
-    private void loadPreviousStatuses(Integer MoveitId) {
+
+    private void loadPreviousStatuses(Integer orderID) {
         //  String transportId = mPrefs.getString(getString(R.string.transport_id), "");
         // FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
-        FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
-        String path = getString(R.string.firebase_path) + String.valueOf(MoveitId);
+        FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(orderID));
+        String path = getString(R.string.firebase_path) + String.valueOf(orderID);
         // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
 
         // Manually configure Firebase Options
