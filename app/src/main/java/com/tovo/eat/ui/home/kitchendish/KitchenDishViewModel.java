@@ -303,6 +303,9 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                                 getNavigator().dishListLoaded(response);
                             }
+
+
+
                         getNavigator().dishListLoaded(response);
                     }
                 }

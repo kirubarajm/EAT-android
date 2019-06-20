@@ -116,7 +116,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
         final Checkout co = new Checkout();
 
-
         // co.setImage(R.mipmap.ic_launcher);
 
         co.setFullScreenDisable(true);

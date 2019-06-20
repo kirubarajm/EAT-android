@@ -140,7 +140,6 @@
         <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
         <activity android:name=".ui.track.help.OrderHelpActivity" />
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw" />
