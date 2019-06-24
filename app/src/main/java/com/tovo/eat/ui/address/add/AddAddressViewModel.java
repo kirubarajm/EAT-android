@@ -16,6 +16,8 @@
 
 package com.tovo.eat.ui.address.add;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.Editable;
@@ -57,8 +59,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     public final ObservableBoolean home = new ObservableBoolean();
     public final ObservableBoolean office = new ObservableBoolean();
-
-
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,15 +78,30 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     };
     AddressRequestPojo request = new AddressRequestPojo();
 
-
     public AddAddressViewModel(DataManager dataManager) {
         super(dataManager);
 
         home.set(getDataManager().isHomeAddressAdded());
         office.set(getDataManager().isOfficeAddressAdded());
 
+    }
+
+    public void ddme(Context context, String databasenamemakeitid, String type, String status) {
+
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(databasenamemakeitid, 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(type, status);
+        editor.apply();
 
     }
+
+    public String getDD(Context context, String databasenamemakeitid, String type) {
+
+        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(databasenamemakeitid, 0); // 0 - for private mode
+        return pref.getString(type, null); // getting String
+
+    }
+
 
     public void locateMe() {
 
@@ -264,11 +279,11 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            } catch (Exception ee){
+            } catch (Exception ee) {
 
-            ee.printStackTrace();
+                ee.printStackTrace();
 
-        }
+            }
 
 
         } else {
@@ -303,11 +318,11 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
 
 
     }

@@ -529,7 +529,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         //  String transportId = mPrefs.getString(getString(R.string.transport_id), "");
         // FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(orderID));
+
         String path = getString(R.string.firebase_path) + String.valueOf(orderID);
+
+
+
+        //raw-location/153
+
         // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
 
         // Manually configure Firebase Options
