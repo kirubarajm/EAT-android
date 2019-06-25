@@ -86,21 +86,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
     }
 
-    public void ddme(Context context, String databasenamemakeitid, String type, String status) {
-
-        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(databasenamemakeitid, 0); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(type, status);
-        editor.apply();
-
-    }
-
-    public String getDD(Context context, String databasenamemakeitid, String type) {
-
-        SharedPreferences pref = context.getApplicationContext().getSharedPreferences(databasenamemakeitid, 0); // 0 - for private mode
-        return pref.getString(type, null); // getting String
-
-    }
 
 
     public void locateMe() {

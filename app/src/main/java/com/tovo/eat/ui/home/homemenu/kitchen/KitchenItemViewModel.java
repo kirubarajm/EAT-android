@@ -88,7 +88,7 @@ public class KitchenItemViewModel {
 
 
 
-        cuisines.set("by "+mKitchenList.getMakeitusername()+" | "+mKitchenList.getRegionname());
+        cuisines.set("by "+mKitchenList.getMakeitusername()+", from "+mKitchenList.getRegionname());
 
 
 

@@ -16,6 +16,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -34,23 +39,37 @@ import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
+import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
+import com.tovo.eat.ui.home.region.RegionsAdapter;
+import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.card.CardSliderLayoutManager;
+import com.tovo.eat.utilities.card.CardSnapHelper;
+import com.tovo.eat.utilities.card.DecodeBitmapTask;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener {
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
 
     @Inject
     HomeTabViewModel mHomeTabViewModel;
+    
     @Inject
-    HomeTabAdapter mHomeTabAdapter;
+    KitchenAdapter adapter;
+    @Inject
+    RegionsCardAdapter regionListAdapter;
+    DecodeBitmapTask decodeBitmapTask;
+
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     private FragmentHomeBinding mFragmentHomeBinding;
     private GoogleApiClient mGoogleApiClient;
@@ -164,6 +183,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+/*
+        if (isFinishing() && decodeBitmapTask != null) {
+             decodeBitmapTask.cancel(true);
+        }*/
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
@@ -187,49 +216,87 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     private void setUp() {
-        mHomeTabAdapter.setCount(2);
-        mFragmentHomeBinding.myaccViewPager.setAdapter(mHomeTabAdapter);
-        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("Kitchen"));
-        mFragmentHomeBinding.myaccTabLayout.addTab(mFragmentHomeBinding.myaccTabLayout.newTab().setText("Region"));
-        mFragmentHomeBinding.myaccViewPager.setOffscreenPageLimit(mFragmentHomeBinding.myaccTabLayout.getTabCount());
-        mFragmentHomeBinding.myaccViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mFragmentHomeBinding.myaccTabLayout));
-        mFragmentHomeBinding.myaccTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
 
+
+        subscribeToLiveData();
+
+
+
+        LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
+        mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
+        // subscribeToLiveData();
+
+       /* mFragmentHomeBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+                mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
+                mKitchenViewModel.fetchRepos();
             }
+        });*/
+
+
+        mFragmentHomeBinding.recyclerviewOrders.setItemAnimator(new DefaultItemAnimator());
+
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mFragmentHomeBinding.myaccViewPager.setCurrentItem(tab.getPosition());
-
-                mHomeTabViewModel.setCurrentFragment(tab.getPosition());
-
-
-
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("ListView", "onScrollStateChanged");
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // Could hide open views here if you wanted. //
+            }
+        };
 
 
-                mHomeTabViewModel.setCurrentFragment(0);
 
+        mFragmentHomeBinding.recyclerviewOrders.setOnScrollListener(onScrollListener);
+
+
+
+
+        mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
+        mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
+
+        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //onActiveCardChange();
+                }
             }
         });
 
+        CardSliderLayoutManager  layoutManger = (CardSliderLayoutManager)    mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
 
-        for (int i = 0; i < mFragmentHomeBinding.myaccTabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = mFragmentHomeBinding.myaccTabLayout.getTabAt(i);
-            RelativeLayout relativeLayout = (RelativeLayout)
-                    LayoutInflater.from(getContext()).inflate(R.layout.custom_tab, mFragmentHomeBinding.myaccTabLayout, false);
+        new CardSnapHelper().attachToRecyclerView(   mFragmentHomeBinding.recyclerViewRegion);
+        
+        
+        
+        
+        
+        
+       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        KitchenFragment fragment = new KitchenFragment();
+        transaction.replace(R.id.contentKitchen, fragment);
+        transaction.commit();*/
 
-            TextView tabTextView = (TextView) relativeLayout.findViewById(R.id.tab_title);
-            tabTextView.setText(tab.getText());
-            tab.setCustomView(relativeLayout);
-            /*tab.select();*/
-        }
+
 
     }
+
+
+
 
     @Override
     public void onResume() {
@@ -274,6 +341,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
 
+    private void subscribeToLiveData() {
+        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
+        mHomeTabViewModel.getregionItemsLiveData().observe(this,
+                regionItemViewModel -> mHomeTabViewModel.addRegionItemsToList(regionItemViewModel));
+    }
 
     private void startLocationTracking() {
 
@@ -395,4 +468,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+    @Override
+    public void applyFilter() {
+
+        mHomeTabViewModel.fetchRepos();
+
+
+    }
 }

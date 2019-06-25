@@ -15,104 +15,110 @@
         </variable>
     </data>
 
-        <RelativeLayout
+    <RelativeLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FCFCFC">
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            shimmer:duration="800">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view_container"
+            <!-- Adding 7 rows of placeholders -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical"
-                shimmer:duration="800">
-
-                <!-- Adding 7 rows of placeholders -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-
-                    <include layout="@layout/list_item_loader" />
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_marginStart="10dp"
-                android:id="@+id/filter"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentTop="true"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
-                android:text="Filter/Sort Kitchens"
-                />
+                android:orientation="vertical">
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-            <com.tovo.eat.utilities.fonts.TovoTextView
-                android:onClick="@{()->kitchenViewModel.filter()}"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_toStartOf="@id/filter"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:text="@string/icon_filter"
-                android:textColor="@color/dark_gray"
-                android:textSize="20sp" />
+        <com.tovo.eat.utilities.fonts.CircularTextView
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Kitchens near you"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
 
 
+        <com.tovo.eat.utilities.fonts.TovoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@id/filter"
+            android:gravity="center"
+            android:onClick="@{()->kitchenViewModel.filter()}"
+            android:text="@string/icon_filter"
+            android:textColor="@color/dark_gray"
+            android:textSize="20sp" />
 
 
+        <View
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_below="@+id/filter"
+            android:background="@drawable/gradient_view_kitchen" />
 
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:layout_marginTop="5dp"
-                android:id="@+id/refreshList"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/separator"
+            android:layout_marginTop="10dp">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_orders"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/filter">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:animateLayoutChanges="false"
+                android:nestedScrollingEnabled="false"
+                android:background="@android:color/white"
+                app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
+                tools:listitem="@layout/list_item_kitchens" />
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview_orders"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="1dp"
-                    android:animateLayoutChanges="false"
-                    android:background="@android:color/white"
-                    android:nestedScrollingEnabled="false"
-                    app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
-                    tools:listitem="@layout/list_item_kitchens"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
+    </RelativeLayout>
 
 </layout>

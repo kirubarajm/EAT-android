@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:shimmer="http://schemas.android.com/tools">
+    xmlns:shimmer="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,26 +14,26 @@
     </data>
 
     <LinearLayout
-        android:background="@color/white"
         android:id="@+id/homemain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
 
         <android.support.v7.widget.CardView
-            android:layout_gravity="center_vertical"
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
+            android:layout_gravity="center_vertical"
+            app:cardElevation="00dp"
+            app:cardMaxElevation="00dp">
 
             <LinearLayout
-                android:background="@color/white"
                 android:id="@+id/main_tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -50,10 +51,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
 
-                        <TextView
+                        <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
@@ -63,10 +65,11 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="5dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
-                            <TextView
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
@@ -95,9 +98,9 @@
 
 
                     <RelativeLayout
-                        android:gravity="center_vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -106,14 +109,59 @@
                             android:layout_marginEnd="15dp"
                             android:orientation="horizontal">
 
-                            <com.tovo.eat.utilities.fonts.TovoTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:onClick="@{()->homeTabViewModel.favourites()}"
-                                android:text="@string/icon_fav"
-                                android:textColor="@color/eat_color"
-                                android:textSize="20sp"
-                                android:visibility="@{homeTabViewModel.favIcon?View.VISIBLE:View.GONE}" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{()->homeTabViewModel.favourites()}"
+                                    android:text="@string/icon_fav"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="20sp"
+                                    android:visibility="@{homeTabViewModel.favIcon?View.VISIBLE:View.GONE}" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="veg only"
+                                    android:textSize="10sp" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                                <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{()->homeTabViewModel.favourites()}"
+                                    android:text="@string/icon_fav"
+                                    android:textColor="@color/red"
+                                    android:textSize="20sp"
+                                    android:visibility="@{homeTabViewModel.favIcon?View.VISIBLE:View.GONE}" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/favourites"
+                                    android:textSize="10sp" />
+
+
+                            </LinearLayout>
 
 
                         </LinearLayout>
@@ -128,6 +176,7 @@
                     android:background="@drawable/gradient_view" />-->
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
 
         <!--  <android.support.v7.widget.RecyclerView
               android:layout_marginTop="1dp"
@@ -149,6 +198,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:orientation="vertical"
+            android:visibility="gone"
             shimmer:duration="800">
 
             <!-- Adding 7 rows of placeholders -->
@@ -202,36 +252,112 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-        <LinearLayout
-            android:id="@+id/contenthome"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_vertical"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/myacc_tabLayout"
-                style="@style/AppTab"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:elevation="5dp"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="#00000000"
-                app:tabIndicatorHeight="4dp"
-                app:tabPaddingEnd="0dp"
-                app:tabPaddingStart="0dp"
-                app:tabSelectedTextColor="@color/eat_color"
-                app:tabTextColor="@color/dark_gray" />
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/myacc_ViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:clipToPadding="false" />
+              <!--  <FrameLayout
+                    android:id="@+id/contentRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
-        </LinearLayout>
+
+
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:visibility="visible"
+                    android:id="@+id/recycler_view_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="18dp"
+                    tools:itemCount="10"
+                    android:layout_marginStart="9dp"
+                    app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
+                    tools:listitem="@layout/list_item_region_card"
+                    app:layoutManager="com.tovo.eat.utilities.card.CardSliderLayoutManager"/>
+
+
+
+
+                <!-- <FrameLayout
+                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                     android:id="@+id/contentKitchen"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginTop="20dp"
+                     android:orientation="vertical" />-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:id="@+id/filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Kitchens near you"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="16sp" />
+
+
+                    <com.tovo.eat.utilities.fonts.TovoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_toStartOf="@id/filter"
+                        android:gravity="center"
+                        android:onClick="@{()->homeTabViewModel.filter()}"
+                        android:text="@string/icon_filter"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="20sp" />
+
+
+                    <View
+                        android:id="@+id/separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_below="@+id/filter"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_below="@+id/separator"
+                            android:id="@+id/recyclerview_orders"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@android:color/white"
+                            app:adapter="@{homeTabViewModel.kitchenItemViewModels}"
+                            tools:listitem="@layout/list_item_kitchens" />
+
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
 </layout>

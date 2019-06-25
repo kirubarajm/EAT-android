@@ -52,11 +52,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         return fragment;
     }
 
-
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +59,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         adapter.setListener(this);
 
 
-
-
       //  mKitchenViewModel.fetchRepos();
-
 
        // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
     }
@@ -302,7 +294,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void applyFilter() {
         mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
-
 
         mKitchenViewModel.fetchRepos();
     }
