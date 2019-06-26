@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
+import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.region.RegionsAdapter;
 import com.tovo.eat.ui.registration.RegionAdapter;
 
@@ -34,6 +35,11 @@ public class HomeTabModule {
     @Provides
     RegionsCardAdapter provideRegionnAdapter() {
         return new RegionsCardAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    StoriesCardAdapter provideStoriesAdapter() {
+        return new StoriesCardAdapter(new ArrayList<>());
     }
 
 

@@ -54,11 +54,14 @@ import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
+import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionKitchenAdapter;
 import com.tovo.eat.ui.home.region.RegionsAdapter;
 import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.kitchendetails.InfoImageAdapter;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
@@ -151,6 +154,25 @@ public final class BindingUtils {
         }
     }
 
+
+    @BindingAdapter({"storiesadapter"})
+    public static void addStoriesCardItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
+        StoriesCardAdapter adapter = (StoriesCardAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes,recyclerView.getContext());
+        }
+    }
+
+
+    @BindingAdapter({"infoadapter"})
+    public static void addinfoCardItems(RecyclerView recyclerView, List<KitchenDetailsResponse.Result> response) {
+        InfoImageAdapter adapter = (InfoImageAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response.get(0).getProductlist(),response);
+        }
+    }
 
 
 

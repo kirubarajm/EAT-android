@@ -65,6 +65,8 @@ import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
 import com.tovo.eat.ui.home.region.RegionProvider;
 import com.tovo.eat.ui.home.region.list.RegionListActivity;
 import com.tovo.eat.ui.home.region.list.RegionListModule;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsModule;
 import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
@@ -123,6 +125,11 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
     abstract KitchenDishActivity bindKitchenDishActivity();
+
+
+
+    @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDishProvider.class})
+    abstract KitchenDetailsActivity bindKitchenDetailsActivity();
 
     @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
             FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})

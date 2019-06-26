@@ -87,8 +87,8 @@ public class DefaultViewUpdater implements CardSliderLayoutManager.ViewUpdater {
             /*final float ratio = (float) lm.getDecoratedLeft(view) / activeCardLeft;
          //   scale = SCALE_LEFT + SCALE_CENTER_TO_LEFT * ratio;
             alpha = 0.1f + ratio;
-*/
-            alpha = 1;
+*/final float ratio = (float) lm.getDecoratedLeft(view) / activeCardLeft;
+            alpha = 0.1f + ratio;
             z = Z_RIGHT;
 
             if (previewView != null) {

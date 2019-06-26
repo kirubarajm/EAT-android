@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="infoImageItemViewModel"
+            type="com.tovo.eat.ui.kitchendetails.InfoImageItemViewModel" />
+
+    </data>
+
+
+    <com.tovo.eat.utilities.RoundCornerImageView
+        cusrsiveImageUrl="@{infoImageItemViewModel.image_url}"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY" />
+
+</layout>

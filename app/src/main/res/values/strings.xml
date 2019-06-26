@@ -516,4 +516,6 @@
     <string name="food_preparation">Food preparation instructions</string>
     <string name="contact_cus_care">CONTACT CUSTOMER CARE</string>
     <string name="anything_else">Anything else?</string>
+    <string name="food_badges">Food Badges</string>
+    <string name="specialities">Specialities</string>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="regionItemViewModel"
+            type="com.tovo.eat.ui.home.region.RegionItemViewModel" />
+
+    </data>
+
+    <!--  <com.tovo.eat.utilities.SwipeLayout
+          android:layout_width="match_parent"
+          android:layout_height="100dp">
+  -->
+    <!--CENTER. app:gravity="center" - is default value -->
+
+
+    <!--<android.support.v7.widget.CardView
+        android:layout_margin="5dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/eat_color"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="7dp">
+    </android.support.v7.widget.CardView>-->
+
+        <com.tovo.eat.utilities.RoundCornerImageView
+            android:layout_width="60dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
+            cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
+            android:layout_height="60dp"/>
+
+
+</layout>

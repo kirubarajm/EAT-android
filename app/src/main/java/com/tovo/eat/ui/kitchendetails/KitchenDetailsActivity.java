@@ -1,27 +1,30 @@
-package com.tovo.eat.ui.home.kitchendish;
+package com.tovo.eat.ui.kitchendetails;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.FragmentKitchenDishBinding;
+import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
-import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
-import com.tovo.eat.utilities.MainSliderAdapter;
-import com.tovo.eat.utilities.PicassoImageLoadingService;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
+import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
 
 import javax.inject.Inject;
 
@@ -29,29 +32,60 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding, KitchenDishViewModel> implements KitchenDishNavigator, KitchenDishAdapter.LiveProductsAdapterListener, AddKitchenDishListener, HasSupportFragmentInjector {
+public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsBinding, KitchenDetailsViewModel> implements KitchenDetailsNavigator, KitchenDishAdapter.LiveProductsAdapterListener, AddKitchenDishListener, HasSupportFragmentInjector {
 
     @Inject
-    KitchenDishViewModel mKitchenDishViewModel;
+    KitchenDetailsViewModel mKitchenDetailsViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
     KitchenDishAdapter adapter;
+@Inject
+    InfoImageAdapter infoImageAdapter;
 
-    FragmentKitchenDishBinding mFragmentDishBinding;
+    ActivityKitchenDetailsBinding mFragmentDishBinding;
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     Integer kitchenID;
 
+    private float collapsedScale;
+    private float expandedScale;
+
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
-        return new Intent(context, KitchenDishActivity.class);
+        return new Intent(context, KitchenDetailsActivity.class);
     }
 
+    private static void scalePhotoImage(ImageView photoView, float scale) {
+
+        Drawable photo = photoView.getDrawable();
+        int bitmapWidth = 0;
+        int bitmapHeight=0 ;
+
+
+        try {
+            bitmapWidth = photo.getIntrinsicWidth();
+            bitmapHeight = photo.getIntrinsicHeight();
+        } catch (NullPointerException ne) {
+            ne.printStackTrace();
+        }
+
+        float offsetX = (photoView.getWidth() - bitmapWidth) / 2F;
+        float offsetY = (photoView.getHeight() - bitmapHeight) / 2F;
+
+        float centerX = photoView.getWidth() / 2F;
+        float centerY = photoView.getHeight() / 2F;
+
+        Matrix imageMatrix = new Matrix();
+        imageMatrix.setScale(scale, scale, centerX, centerY);
+        imageMatrix.preTranslate(offsetX, offsetY);
+
+        photoView.setImageMatrix(imageMatrix);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +94,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
                 .setContentView(this, R.layout.kitchen_dish_sub);*/
 
 
-        mKitchenDishViewModel.setNavigator(this);
+        mKitchenDetailsViewModel.setNavigator(this);
         adapter.setListener(this);
         mFragmentDishBinding = getViewDataBinding();
 
@@ -80,21 +114,21 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
 
-        mFragmentDishBinding.kitchenSlider.init(new PicassoImageLoadingService(this));
+        //   mFragmentDishBinding.kitchenSlider.init(new PicassoImageLoadingService(this));
 
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getInt("kitchenId");
 
-            mKitchenDishViewModel.fetchRepos(kitchenID);
+            mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
 
             subscribeToLiveData();
         }
 
 
-        setTitle(mKitchenDishViewModel.kitchenName.get());
+        setTitle(mKitchenDetailsViewModel.kitchenName.get());
 
 
         //  setTitle("Kitchen");
@@ -120,6 +154,45 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+
+                int maxScroll = appBarLayout.getTotalScrollRange();
+                int bitmapWidth = 0;
+                int bitmapHeight=0 ;
+
+                float scrollPercent = (float) Math.abs(verticalOffset) / (float) maxScroll;
+
+                if (collapsedScale == 0) {
+
+                    Drawable photo = mFragmentDishBinding.photoView.getDrawable();
+                    try {
+                         bitmapWidth = photo.getIntrinsicWidth();
+                         bitmapHeight = photo.getIntrinsicHeight();
+                    } catch (NullPointerException ne) {
+                        ne.printStackTrace();
+                    }
+
+                    collapsedScale = (float) mFragmentDishBinding.photoView.getWidth() / (float) bitmapWidth;
+                    expandedScale = (float) mFragmentDishBinding.photoView.getHeight() / (float) bitmapHeight;
+
+                    scalePhotoImage(mFragmentDishBinding.photoView, expandedScale);
+
+                } else {
+
+                    scalePhotoImage(mFragmentDishBinding.photoView, collapsedScale + (expandedScale - collapsedScale) * (1f - scrollPercent));
+                }
+
+
+
+
+
+
+
+
+
+
+
+/*
                 if (verticalOffset == 0) {
 
 
@@ -143,7 +216,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
                     // mFragmentDishBinding.image.setVisibility(View.VISIBLE);
 
                     mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
-                }
+                }*/
             }
         });
 
@@ -152,7 +225,8 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);
 
-        // mKitchenDishViewModel.fetchRepos();
+
+        // mKitchenDetailsViewModel.fetchRepos();
 
         subscribeToLiveData();
 
@@ -160,6 +234,14 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
+
+        GridLayoutManager   gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        mFragmentDishBinding.recyclerviewGalleryImage.setLayoutManager(gridLayoutManager);
+        mFragmentDishBinding.recyclerviewOrders.setAdapter(infoImageAdapter);
+
+        GridLayoutManager   gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 2);
+        mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
+        mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(infoImageAdapter);
 
 
 
@@ -192,7 +274,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
       /*  mFragmentDishBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mKitchenDishViewModel.fetchRepos();
+                mKitchenDetailsViewModel.fetchRepos();
             }
         });*/
 
@@ -258,17 +340,17 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
     @Override
     public int getBindingVariable() {
-        return BR.kitchenDishViewModel;
+        return BR.kitchenDetailsViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_kitchen_dish;
+        return R.layout.activity_kitchen_details;
     }
 
     @Override
-    public KitchenDishViewModel getViewModel() {
-        return mKitchenDishViewModel;
+    public KitchenDetailsViewModel getViewModel() {
+        return mKitchenDetailsViewModel;
     }
 
     @Override
@@ -300,17 +382,17 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         //mFragmentDishBinding.refreshList.setRefreshing(false);
         if (response.getResult().get(0).getImages() != null)
             if (response.getResult().get(0).getImages().size() > 0)
-                mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter(response));
+                //    mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter(response));
 
 
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
+                mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
     }
 
     @Override
     public void viewCart() {
 
-        Intent intent = MainActivity.newIntent(KitchenDishActivity.this);
+        Intent intent = MainActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("cart", true);
         startActivity(intent);
         finish();
@@ -323,8 +405,8 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
 
 
     private void subscribeToLiveData() {
-        mKitchenDishViewModel.getKitchenItemsLiveData().observe(this,
-                kitchenItemViewModel -> mKitchenDishViewModel.addDishItemsToList(kitchenItemViewModel));
+        mKitchenDetailsViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mKitchenDetailsViewModel.addDishItemsToList(kitchenItemViewModel));
 
 
     }
@@ -336,8 +418,9 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-        mKitchenDishViewModel.fetchRepos(kitchenID);
+        mKitchenDetailsViewModel.fetchRepos(kitchenID);
     }
+
 
     @Override
     public void onItemClickData(KitchenDishResponse.Result blogUrl) {
@@ -347,7 +430,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void sendCart() {
 
-        mKitchenDishViewModel.totalCart();
+        mKitchenDetailsViewModel.totalCart();
 
 
     }
@@ -357,23 +440,23 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
        /* mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
 
-        mKitchenDishViewModel.fetchRepos();*/
+        mKitchenDetailsViewModel.fetchRepos();*/
     }
 
     @Override
     public void addDishFavourite(Integer favId, String fav) {
 
-        mKitchenDishViewModel.addFavourite(favId);
+        mKitchenDetailsViewModel.addFavourite(favId);
     }
 
     @Override
     public void productNotAvailable() {
-        Toast.makeText(KitchenDishActivity.this, "Entered quantity not available now", Toast.LENGTH_SHORT).show();
+        Toast.makeText(KitchenDetailsActivity.this, "Entered quantity not available now", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void removeDishFavourite(Integer favId) {
-        mKitchenDishViewModel.removeFavourite(favId);
+        mKitchenDetailsViewModel.removeFavourite(favId);
     }
 
 
@@ -381,7 +464,7 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     public void confirmClick(boolean status) {
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
-        mKitchenDishViewModel.fetchRepos(kitchenID);
+        mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
     }
 

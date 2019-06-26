@@ -43,7 +43,10 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
+import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.region.RegionsAdapter;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
@@ -56,7 +59,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter {
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter,KitchenAdapter.LiveProductsAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -68,6 +71,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     KitchenAdapter adapter;
     @Inject
     RegionsCardAdapter regionListAdapter;
+
+    @Inject
+    StoriesCardAdapter storiesCardAdapter;
+
+
     DecodeBitmapTask decodeBitmapTask;
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
@@ -179,6 +187,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onCreate(savedInstanceState);
         mHomeTabViewModel.setNavigator(this);
         mHomeTabViewModel.updateAddressTitle();
+        adapter.setListener(this);
     }
 
 
@@ -229,6 +238,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
+
+
+
+        LinearLayoutManager mLayoutManager3
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        mLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mFragmentHomeBinding.recyclerViewStory.setLayoutManager(mLayoutManager3);
+        mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
+
+
+
+
         // subscribeToLiveData();
 
        /* mFragmentHomeBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -268,6 +290,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
+
+
+
+
+     //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
+
+
+
         mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -278,6 +308,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
         CardSliderLayoutManager  layoutManger = (CardSliderLayoutManager)    mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+
+
+
+
 
         new CardSnapHelper().attachToRecyclerView(   mFragmentHomeBinding.recyclerViewRegion);
         
@@ -473,6 +507,27 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         mHomeTabViewModel.fetchRepos();
 
+
+    }
+
+    @Override
+    public void onItemClickData(Integer kitchenId) {
+
+
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
+        intent.putExtra("kitchenId", kitchenId);
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public void removeDishFavourite(Integer favId) {
+
+    }
+
+    @Override
+    public void addFav(Integer id, String fav) {
 
     }
 }

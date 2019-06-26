@@ -23,27 +23,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 
 
-/**
- * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
- */
 public class CardSliderLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
-    private static final int DEFAULT_ACTIVE_CARD_LEFT_OFFSET = 10;
-    private static final int DEFAULT_CARD_WIDTH = 250;
-    private static final int DEFAULT_CARDS_GAP = -150;
-    private static final int LEFT_CARD_COUNT = 1;
+    private static final int DEFAULT_ACTIVE_CARD_LEFT_OFFSET = 50;
+    private static final int DEFAULT_CARD_WIDTH = 220;
+    private static final int DEFAULT_CARDS_GAP = 12;
+    private static final int LEFT_CARD_COUNT = 2;
 
     private final SparseArray<View> viewCache = new SparseArray<>();
     private final SparseIntArray cardsXCoords = new SparseIntArray();
 
     private int cardWidth;
     private int activeCardLeft;
-    private int activeCardRight = 0;
+    private int activeCardRight;
     private int activeCardCenter;
 
     private float cardsGap;
-
 
     private int scrollRequestedPosition = 0;
 
@@ -61,10 +57,9 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
 
         /**
          * Called on view update (scroll, layout).
-         *
-         * @param view     Updating view
-         * @param position Position of card relative to the current active card position of the layout manager.
-         *                 0 is active card. 1 is first right card, and -1 is first left (stacked) card.
+         * @param view      Updating view
+         * @param position  Position of card relative to the current active card position of the layout manager.
+         *                  0 is active card. 1 is first right card, and -1 is first left (stacked) card.
          */
         void updateView(@NonNull View view, float position);
     }
@@ -112,13 +107,20 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
     /**
      * Creates CardSliderLayoutManager with default values
      *
-     * @param context Current context, will be used to access resources.
+     * @param context   Current context, will be used to access resources.
      */
     public CardSliderLayoutManager(@NonNull Context context) {
         this(context, null, 0, 0);
     }
 
-
+    /**
+     * Constructor used when layout manager is set in XML by RecyclerView attribute
+     * "layoutManager".
+     *
+     * See {@link R.styleable#CardSlider_activeCardLeftOffset}
+     * See {@link R.styleable#CardSlider_cardWidth}
+     * See {@link R.styleable#CardSlider_cardsGap}
+     */
     public CardSliderLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final float density = context.getResources().getDisplayMetrics().density;
 
@@ -152,9 +154,9 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
     /**
      * Creates CardSliderLayoutManager with specified values in pixels.
      *
-     * @param activeCardLeft Active card offset from start of RecyclerView. Default value is 50dp.
-     * @param cardWidth      Card width. Default value is 148dp.
-     * @param cardsGap       Distance between cards. Default value is 12dp.
+     * @param activeCardLeft    Active card offset from start of RecyclerView. Default value is 50dp.
+     * @param cardWidth         Card width. Default value is 148dp.
+     * @param cardsGap          Distance between cards. Default value is 12dp.
      */
     public CardSliderLayoutManager(int activeCardLeft, int cardWidth, float cardsGap) {
         initialize(activeCardLeft, cardWidth, cardsGap, null);
@@ -163,8 +165,6 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
     private void initialize(int left, int width, float gap, @Nullable ViewUpdater updater) {
         this.cardWidth = width;
         this.activeCardLeft = left;
-
-
         this.activeCardRight = activeCardLeft + cardWidth;
         this.activeCardCenter = activeCardLeft + ((this.activeCardRight - activeCardLeft) / 2);
         this.cardsGap = gap;
@@ -200,7 +200,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
             final LinkedList<Integer> removed = new LinkedList<>();
             for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
                 final View child = getChildAt(i);
-                final boolean isRemoved = ((RecyclerView.LayoutParams) child.getLayoutParams()).isItemRemoved();
+                final boolean isRemoved = ((RecyclerView.LayoutParams)child.getLayoutParams()).isItemRemoved();
                 if (isRemoved) {
                     removed.add(getPosition(child));
                 }
@@ -232,7 +232,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
                 public void run() {
                     updateViewScale();
                 }
-            }, 200);
+            }, 415);
         } else {
             updateViewScale();
         }
@@ -525,7 +525,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
             }
         }
 
-        for (View view : rightViews) {
+        for (View view: rightViews) {
             final int border = activeCardLeft + getPosition(view) * cardWidth;
             final int allowedDelta = getAllowedRightDelta(view, dx, border);
             view.offsetLeftAndRight(-allowedDelta);
@@ -714,4 +714,5 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
             viewUpdater.updateView(view, position);
         }
     }
+
 }

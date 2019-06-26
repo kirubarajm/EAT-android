@@ -407,7 +407,7 @@ public class RegionFragment extends BaseFragment<FragmentRegionBinding, RegionVi
     /*@Override
     public void onKitchenClicked(Integer kitchenId) {
 
-        Intent intent = KitchenDishActivity.newIntent(getContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
