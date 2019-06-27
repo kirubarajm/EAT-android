@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -28,21 +29,21 @@ public class InfoImageItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
 
     public final DishItemViewModelListener mListener;
-    private final KitchenDetailsResponse.Productlist dishList;
-    private final KitchenDetailsResponse.Result originalResult;
+    private final KitchenDishResponse.Productlist dishList;
+    private final KitchenDishResponse.Result originalResult;
 
 
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
 
-    KitchenDetailsResponse.Result response = new KitchenDetailsResponse.Result();
+    KitchenDishResponse.Result response = new KitchenDishResponse.Result();
 
 
     Integer favID;
 
 
-    public InfoImageItemViewModel(DishItemViewModelListener mListener, KitchenDetailsResponse.Productlist dishList, KitchenDetailsResponse.Result response) {
+    public InfoImageItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response) {
 
         this.originalResult = response;
         this.mListener = mListener;

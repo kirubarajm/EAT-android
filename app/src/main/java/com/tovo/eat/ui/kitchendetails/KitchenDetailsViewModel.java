@@ -117,6 +117,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void menu() {
         if (!optionmenu.get()) {
             optionmenu.set(true);
+            getNavigator().animChanges(true);
 
         }
     }
@@ -126,7 +127,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void info() {
         if (optionmenu.get()) {
             optionmenu.set(false);
-
+            getNavigator().animChanges(false);
         }
     }
 

@@ -11,6 +11,7 @@ import com.tovo.eat.databinding.ListItemInfoGallaryBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
@@ -18,18 +19,18 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<KitchenDetailsResponse.Result> response;
-    private List<KitchenDetailsResponse.Productlist> item_list;
+    List<KitchenDishResponse.Result> response;
+    private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
 
 
-    public InfoImageAdapter(List<KitchenDetailsResponse.Productlist> item_list) {
+    public InfoImageAdapter(List<KitchenDishResponse.Productlist> item_list) {
         this.item_list = item_list;
     }
 
 
-    public InfoImageAdapter(List<KitchenDetailsResponse.Productlist> item_list, DataManager dataManager) {
+    public InfoImageAdapter(List<KitchenDishResponse.Productlist> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -78,7 +79,7 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenDetailsResponse.Productlist> blogList, List<KitchenDetailsResponse.Result> response) {
+    public void addItems(List<KitchenDishResponse.Productlist> blogList, List<KitchenDishResponse.Result> response) {
         item_list.addAll(blogList);
 
         this.response = response;
@@ -92,7 +93,7 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDetailsResponse.Result blogUrl);
+        void onItemClickData(KitchenDishResponse.Result blogUrl);
 
         void sendCart();
 
@@ -140,8 +141,8 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final KitchenDetailsResponse.Productlist blog = item_list.get(position);
-            final KitchenDetailsResponse.Result result = response.get(0);
+            final KitchenDishResponse.Productlist blog = item_list.get(position);
+            final KitchenDishResponse.Result result = response.get(0);
 
             mLiveProductsItemViewModel = new InfoImageItemViewModel(this, blog, result);
             mListItemLiveProductsBinding.setInfoImageItemViewModel(mLiveProductsItemViewModel);

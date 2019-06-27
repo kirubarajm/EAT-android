@@ -160,104 +160,107 @@
 
 
                 <RelativeLayout
+                    android:animateLayoutChanges="true"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_anchor="@id/app_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/tab"
+                        android:layout_width="220dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/light_gray"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_alignParentTop="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:cardCornerRadius="20dp">
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="0dp"
+                                android:onClick="@{()->kitchenDetailsViewModel.menu()}"
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/eat_color:@color/light_gray}"
+                                app:cardCornerRadius="20dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:text="MENU"
+                                        android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/white:@color/dark_gray}"
+                                        android:textSize="14sp" />
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
+
+                            <android.support.v7.widget.CardView
+
+                                app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/light_gray:@color/eat_color}"
+                                android:onClick="@{()->kitchenDetailsViewModel.info()}"
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentTop="true"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="0dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:text="INFO"
+                                        android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/dark_gray:@color/white}"
+                                        android:textSize="14sp" />
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
                     <android.support.v4.widget.NestedScrollView
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/tab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
                         <RelativeLayout
+                            android:id="@+id/parent"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-
-                            <android.support.v7.widget.CardView
-                                android:id="@+id/tab"
-                                android:layout_width="220dp"
-                                android:layout_height="40dp"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="20dp"
-                                app:cardBackgroundColor="@color/light_gray"
-                                app:cardCornerRadius="20dp"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_alignParentTop="true"
-                                    android:gravity="center"
-                                    android:orientation="horizontal"
-                                    app:cardCornerRadius="20dp">
-
-                                    <android.support.v7.widget.CardView
-                                        app:cardElevation="0dp"
-                                        android:onClick="@{()->kitchenDetailsViewModel.menu()}"
-                                        android:layout_width="110dp"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center_horizontal"
-                                        android:gravity="center"
-                                        app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/eat_color:@color/light_gray}"
-                                        app:cardCornerRadius="20dp">
-
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent">
-
-                                            <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerInParent="true"
-                                                android:text="MENU"
-                                                android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/white:@color/dark_gray}"
-                                                android:textSize="14sp" />
-                                        </RelativeLayout>
-
-                                    </android.support.v7.widget.CardView>
-
-
-                                    <android.support.v7.widget.CardView
-
-                                        app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/light_gray:@color/eat_color}"
-                                        android:onClick="@{()->kitchenDetailsViewModel.info()}"
-                                        android:layout_width="110dp"
-                                        android:layout_height="match_parent"
-                                        android:layout_alignParentTop="true"
-                                        app:cardCornerRadius="20dp"
-                                        app:cardElevation="0dp">
-
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent">
-
-                                            <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerInParent="true"
-                                                android:text="INFO"
-                                                android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/dark_gray:@color/white}"
-                                                android:textSize="14sp" />
-                                        </RelativeLayout>
-
-                                    </android.support.v7.widget.CardView>
-
-
-                                </LinearLayout>
-
-
-                            </android.support.v7.widget.CardView>
-
-
                             <LinearLayout
-                                android:visibility="@{kitchenDetailsViewModel.optionmenu?View.GONE:View.VISIBLE}"
                                 android:id="@+id/about"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tab"
+
                                 android:layout_marginTop="10dp"
                                 android:orientation="vertical">
 
@@ -283,7 +286,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:text="@string/icon_home"
-                                            android:textSize="22sp" />
+                                            android:textSize="18sp" />
 
 
                                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -309,7 +312,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:text="@string/icon_home"
-                                            android:textSize="22sp" />
+                                            android:textSize="18sp" />
 
 
                                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -332,7 +335,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginStart="20dp"
-                                    android:layout_marginTop="15dp"
+                                    android:layout_marginTop="25dp"
                                     android:layout_marginEnd="20dp"
                                     android:orientation="horizontal"
                                     android:weightSum="2">
@@ -349,7 +352,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:text="@string/icon_home"
-                                            android:textSize="22sp" />
+                                            android:textSize="18sp" />
 
 
                                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -376,7 +379,7 @@
                                             android:layout_gravity="center_vertical"
                                             android:text="@string/icon_favorites"
                                             android:textColor="@color/eat_color"
-                                            android:textSize="22sp" />
+                                            android:textSize="18sp" />
 
 
                                         <LinearLayout
@@ -471,12 +474,15 @@
                                         android:layout_marginStart="15dp"
                                         android:layout_marginTop="5dp"
                                         android:text="@string/specialities"
-                                        android:textColor="@color/dark_gray"
+                                        android:textColor="@color/black"
                                         android:textSize="18sp" />
 
 
 
                                     <android.support.v7.widget.RecyclerView
+                                        android:layout_gravity="center_horizontal"
+                                        android:paddingLeft="16dp"
+                                        android:paddingRight="16dp"
                                         android:id="@+id/recyclerview_gallery_image"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -512,11 +518,14 @@
                                         android:layout_marginStart="15dp"
                                         android:layout_marginTop="5dp"
                                         android:text="@string/food_badges"
-                                        android:textColor="@color/dark_gray"
+                                        android:textColor="@color/black"
                                         android:textSize="18sp" />
 
 
                                     <android.support.v7.widget.RecyclerView
+                                        android:layout_gravity="center_horizontal"
+                                        android:paddingLeft="16dp"
+                                        android:paddingRight="16dp"
                                         android:id="@+id/recyclerview_food_badges"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -539,8 +548,7 @@
 
 
                             <LinearLayout
-                                android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}"
-                                android:id="@+id/title"
+                                android:id="@+id/menu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/about"
@@ -648,7 +656,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
                         android:text="@string/view_cart"

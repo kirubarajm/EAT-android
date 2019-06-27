@@ -166,7 +166,7 @@ public final class BindingUtils {
 
 
     @BindingAdapter({"infoadapter"})
-    public static void addinfoCardItems(RecyclerView recyclerView, List<KitchenDetailsResponse.Result> response) {
+    public static void addinfoCardItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {
         InfoImageAdapter adapter = (InfoImageAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();

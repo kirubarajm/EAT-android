@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -134,6 +135,11 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         Intent intent = KitchenDishActivity.newIntent(RegionListActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
+    }
+
+    @Override
+    public void animateView(View view) {
+
     }
 
     @Override

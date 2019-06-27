@@ -24,11 +24,14 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
 import com.tovo.eat.R;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -154,16 +157,23 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
         mItemScrollDuration = duration;
     }
 
+
+    static Context context;
+    static  View view = null;
+
     public SlidingItemMenuRecyclerView(Context context) {
         this(context, null);
+        this.context=context;
     }
 
     public SlidingItemMenuRecyclerView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+        this.context=context;
     }
 
     public SlidingItemMenuRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.context=context;
         final float dp = context.getResources().getDisplayMetrics().density;
         mTouchSlop = ViewConfiguration.getTouchSlop() * dp;
         mItemMinimumFlingVelocity = 200f * dp;
@@ -201,6 +211,9 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
             resetTouch();
         }
 
+
+
+
         if (mVelocityTracker == null)
             mVelocityTracker = VelocityTracker.obtain();
         mVelocityTracker.addMovement(e);
@@ -227,6 +240,12 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
                             itemChildCount - 1 : 1);
                     if (!(itemLastChild instanceof FrameLayout)) break;
                     final FrameLayout itemMenu = (FrameLayout) itemLastChild;
+
+
+
+
+                    view=itemMenu.getChildAt(0);
+
 
                     final int menuItemCount = itemMenu.getChildCount();
                     final int[] menuItemWidths = new int[menuItemCount];
@@ -279,6 +298,11 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
 
             case MotionEvent.ACTION_MOVE:
                 markCurrTouchPoint(e.getX(), e.getY());
+
+                assert view != null;
+             //   animateView(view);
+
+
 
                 intercept = tryHandleItemScrollingEvent();
                 // If the user initially put his/her finger down on the fully opened itemView's menu,
@@ -676,6 +700,10 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
                     ensureChildrenLayerTypes();
                     for (int i = childrenLayerTypes.size() - 1; i >= 0; i--) {
                         final View child = childrenLayerTypes.keyAt(i);
+
+
+
+
                         child.setLayerType(LAYER_TYPE_HARDWARE, null);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1
                                 && ViewCompat.isAttachedToWindow(child)) {
@@ -686,6 +714,10 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    final View child = childrenLayerTypes.keyAt(0);
+
+                    stopAnim(view);
+
                     for (int i = childrenLayerTypes.size() - 1; i >= 0; i--) {
                         childrenLayerTypes.keyAt(i).setLayerType(
                                 childrenLayerTypes.valueAt(i), null);
@@ -711,6 +743,15 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
             cachedDeltaTransX = 0;
             super.start();
         }
+    }
+    public static void animateView(View view){
+        Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
+        view.startAnimation(shake);
+    }
+
+
+    public static void stopAnim(View view){
+        view.clearAnimation();
     }
 
     @Override

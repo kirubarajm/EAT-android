@@ -1,18 +1,29 @@
 package com.tovo.eat.ui.kitchendetails;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,6 +36,8 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
+import com.tovo.eat.utilities.swipe.ItemTouchHelperCallback;
+import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
 import javax.inject.Inject;
 
@@ -53,6 +66,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     private float collapsedScale;
     private float expandedScale;
 
+    public ItemTouchHelperExtension mItemTouchHelper;
+    public ItemTouchHelperExtension.Callback mCallback;
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
@@ -226,6 +241,52 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.recyclerviewOrders.setAdapter(adapter);
 
 
+
+
+
+       /* mCallback = new ItemTouchHelperCallback();
+        mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
+        mItemTouchHelper.attachToRecyclerView( mFragmentDishBinding.recyclerviewOrders);
+        adapter.setItemTouchHelperExtension(mItemTouchHelper);*/
+
+/*
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return super.getDragDirs(recyclerView, viewHolder);
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                // when user swipe thr recyclerview item to right remove item from avorite list
+                if (direction == ItemTouchHelper.RIGHT) {
+                  //  favAdapter.addToFav(viewHolder.getAdapterPosition(), false);
+
+
+
+                }
+                // when user swipe thr recyclerview item to left remove item from avorite list
+                else if (direction == ItemTouchHelper.LEFT) {
+                    */
+/*favAdapter.addToFav(viewHolder.getAdapterPosition(), true);*//*
+
+
+                }
+
+
+
+
+            }
+        }).attachToRecyclerView( mFragmentDishBinding.recyclerviewOrders);
+*/
+
         // mKitchenDetailsViewModel.fetchRepos();
 
         subscribeToLiveData();
@@ -235,11 +296,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
 
-        GridLayoutManager   gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        GridLayoutManager   gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerviewGalleryImage.setLayoutManager(gridLayoutManager);
-        mFragmentDishBinding.recyclerviewOrders.setAdapter(infoImageAdapter);
+        mFragmentDishBinding.recyclerviewGalleryImage.setAdapter(infoImageAdapter);
 
-        GridLayoutManager   gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 2);
+        GridLayoutManager   gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
         mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(infoImageAdapter);
 
@@ -403,6 +464,97 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         finish();
     }
 
+    @Override
+    public void animChanges(boolean status) {
+
+
+        if (status){
+
+
+          animFade(mFragmentDishBinding.menu,mFragmentDishBinding.about);
+
+
+        }else{
+           animFade(mFragmentDishBinding.about,mFragmentDishBinding.menu);
+        }
+    }
+
+
+
+    public void animFade(View view,View view2){
+
+
+
+
+        Transition transition = new Fade();
+        transition.setDuration(6000);
+        transition.addTarget(R.id.image);
+        TransitionManager.beginDelayedTransition(mFragmentDishBinding.parent, transition);
+        view2.setVisibility(View.GONE);
+
+
+
+        transition.setDuration(6000);
+        transition.addTarget(R.id.image);
+        TransitionManager.beginDelayedTransition(mFragmentDishBinding.parent, transition);
+        view.setVisibility(View.VISIBLE);
+
+
+
+
+
+
+       /* view.animate()
+                .translationY(view.getHeight())
+                .alpha(0.0f)
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                        super.onAnimationEnd(animation);
+                        view.setVisibility(View.GONE);
+                    }
+                });*/
+      /*  TranslateAnimation animate = new TranslateAnimation(0,view.getWidth(),0,0);
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);*/
+      /*  view.setVisibility(View.GONE);*/
+
+
+
+
+
+
+        /*view.setVisibility(View.VISIBLE);
+        view.setAlpha(0.0f);
+        view.animate()
+                .setDuration(500)
+                .alpha(1.0f)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        view.animate().setListener(null);
+                    }
+                })
+        ;
+
+        view2.animate()
+                .setDuration(500)
+                .translationY(view2.getHeight());*/
+
+
+
+
+
+
+
+
+
+    }
+
 
     private void subscribeToLiveData() {
         mKitchenDetailsViewModel.getKitchenItemsLiveData().observe(this,
@@ -423,10 +575,15 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
     @Override
-    public void onItemClickData(KitchenDishResponse.Result blogUrl) {
+    public void onItemClickData(KitchenDishResponse.Result blogUrl,View view) {
+
+       animateView(view);
 
     }
-
+        public void animateView(View view){
+            Animation shake = AnimationUtils.loadAnimation(KitchenDetailsActivity.this, R.anim.shake);
+            view.startAnimation(shake);
+        }
     @Override
     public void sendCart() {
 

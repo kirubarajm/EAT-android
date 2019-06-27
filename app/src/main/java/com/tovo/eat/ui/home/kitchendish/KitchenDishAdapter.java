@@ -3,6 +3,7 @@ package com.tovo.eat.ui.home.kitchendish;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
@@ -91,23 +92,25 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDishResponse.Result blogUrl);
+        void onItemClickData(KitchenDishResponse.Result blogUrl, View view);
 
         void sendCart();
 
         void dishRefresh();
 
-        void  addDishFavourite(Integer dishId, String fav);
+        void addDishFavourite(Integer dishId, String fav);
 
         void productNotAvailable();
 
-        void  removeDishFavourite(Integer favId);
+        void removeDishFavourite(Integer favId);
+
         void showToast(String msg);
-        void otherKitchenDish(Integer makeitId,Integer productId,Integer quantity,Integer price);
+
+        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -134,6 +137,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public LiveProductsViewHolder(ListItemKitchenDishesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
+
         }
 
         @Override
@@ -145,6 +149,15 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, result);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);
 
+            mLiveProductsAdapterListener.onItemClickData(null, mListItemLiveProductsBinding.fav);
+
+            /*ObjectAnimator rotate = ObjectAnimator.ofFloat(mListItemLiveProductsBinding.fav, "rotation", 0f, 20f, 0f, -20f, 0f); // rotate o degree then 20 degree and so on for one loop of rotation.
+// animateView (View object)
+            rotate.setRepeatCount(20); // repeat the loop 20 times
+            rotate.setDuration(100); // animation play time 100 ms
+            rotate.start();*/
+
+
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
             // the next frame. There are times, however, when binding must be executed immediately.
@@ -153,8 +166,9 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void onItemClick() {
+        public void onItemClick(KitchenDishResponse.Result blogUrl) {
 
+            mLiveProductsAdapterListener.onItemClickData(blogUrl, mListItemLiveProductsBinding.fav);
         }
 
         @Override
@@ -191,7 +205,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void addFavourites(Integer dishId, String fav) {
-            mLiveProductsAdapterListener.addDishFavourite(dishId,fav);
+            mLiveProductsAdapterListener.addDishFavourite(dishId, fav);
         }
 
         @Override
@@ -224,7 +238,7 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
-            mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
+            mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
         }
 
     }

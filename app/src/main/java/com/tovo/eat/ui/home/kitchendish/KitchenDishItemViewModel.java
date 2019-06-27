@@ -377,7 +377,7 @@ public class KitchenDishItemViewModel {
 
 
     public void fav() {
-
+        mListener.onItemClick(response);
 
         if (isFavourite.get()) {
             removeFavourite();
@@ -467,7 +467,7 @@ public class KitchenDishItemViewModel {
 
 
     public void onItemClick() {
-        mListener.onItemClick();
+        mListener.onItemClick(response);
 
         //     mListener.addQuantity();
 
@@ -478,7 +478,7 @@ public class KitchenDishItemViewModel {
     public interface DishItemViewModelListener {
         // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
 
-        void onItemClick();
+        void onItemClick(KitchenDishResponse.Result blogUrl);
 
         String addQuantity();
 

@@ -149,8 +149,9 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
+
         @Override
-        public void onItemClick() {
+        public void onItemClick(KitchenDishResponse.Result blogUrl) {
 
         }
 

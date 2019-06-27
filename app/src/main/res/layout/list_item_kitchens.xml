@@ -19,41 +19,6 @@
     <!--CENTER. app:gravity="center" - is default value -->
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
-
-
-        <com.daimajia.swipe.SwipeLayout
-            xmlns:swipe="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/swipe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            swipe:drag_edge="left"
-            swipe:leftEdgeSwipeOffset="0dp"
-            swipe:rightEdgeSwipeOffset="0dp">
-
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:background="@color/eat_color"
-                android:gravity="center"
-                android:tag="Bottom3">
-
-                <ImageView
-                    android:id="@+id/trash"
-                    android:layout_width="27dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_fav_selected"
-                    android:tint="@color/white" />
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -254,38 +219,41 @@
 
                 </LinearLayout>
 
+                <FrameLayout
 
-                <!-- <FrameLayout
-                     android:layout_width="100dp"
-                     android:layout_height="match_parent">
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent">
 
-                     &lt;!&ndash; Put your menu items here. The first one will be shown at the horizontal start. &ndash;&gt;
-
-
-                     <FrameLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:background="#FFC107">
-
-                         <TextView
-                             android:id="@+id/button_top"
-                             android:layout_width="80dp"
-                             android:layout_height="match_parent"
-                             android:gravity="center"
-                             android:text="FAV"
-                             android:textColor="@android:color/white"
-                             android:textSize="16sp" />
+                    <!-- Put your menu items here. The first one will be shown at the horizontal start. -->
 
 
-                     </FrameLayout>
-                 </FrameLayout>-->
+                    <FrameLayout
+                        android:onClick="@{()->kitchenItemViewModel.fav()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@{kitchenItemViewModel.isFavourite?@color/eat_color:@color/light_gray}">
+
+
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/fav"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/icon_fav"
+                            android:textSize="25dp"
+                            android:textColor="@{kitchenItemViewModel.isFavourite?@color/white:@color/eat_color}"
+                            android:gravity="center" />
+
+
+                    </FrameLayout>
+
+
+                </FrameLayout>
+
+
+
             </LinearLayout>
 
 
-        </com.daimajia.swipe.SwipeLayout>
-
-
-    </RelativeLayout>
 
     <!--  &lt;!&ndash;RIGHT&ndash;&gt;
       <LinearLayout

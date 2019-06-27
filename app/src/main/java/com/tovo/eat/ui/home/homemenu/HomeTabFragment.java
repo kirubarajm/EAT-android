@@ -23,6 +23,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -508,6 +510,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.fetchRepos();
 
 
+    }
+
+
+    @Override
+    public void animateView(View view){
+        Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        view.startAnimation(shake);
     }
 
     @Override

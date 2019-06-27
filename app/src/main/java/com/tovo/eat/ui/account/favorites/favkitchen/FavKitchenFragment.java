@@ -170,6 +170,11 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
     }
 
+    @Override
+    public void animateView(View view) {
+
+    }
+
 
     @Override
     public void addFav(Integer id, String fav) {

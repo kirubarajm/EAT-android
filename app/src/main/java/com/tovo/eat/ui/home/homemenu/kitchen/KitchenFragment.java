@@ -272,6 +272,11 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     }
 
+    @Override
+    public void animateView(View view) {
+
+    }
+
 
     @Override
     public void addFav(Integer id, String fav) {

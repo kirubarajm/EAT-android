@@ -341,6 +341,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
+    public void animateView(View view) {
+
+    }
+
+    @Override
     public void showMore(Integer regionId) {
 
         Intent intent = KitchenDishActivity.newIntent(getContext());

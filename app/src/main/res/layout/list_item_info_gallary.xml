@@ -12,11 +12,16 @@
     </data>
 
 
-    <com.tovo.eat.utilities.RoundCornerImageView
-        cusrsiveImageUrl="@{infoImageItemViewModel.image_url}"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:scaleType="fitXY" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_centerInParent="true"
+            imageUrl="@{infoImageItemViewModel.image_url}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
 </layout>

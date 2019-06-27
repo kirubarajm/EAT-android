@@ -105,7 +105,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsItemViewModel = new KitchenItemViewModel(this, blog);
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
 
-
+mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -152,6 +152,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(Integer kitchenId);
+
+        void animateView(View view);
 
 
         void removeDishFavourite(Integer favId);

@@ -339,8 +339,9 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
         mKitchenDishViewModel.fetchRepos(kitchenID);
     }
 
+
     @Override
-    public void onItemClickData(KitchenDishResponse.Result blogUrl) {
+    public void onItemClickData(KitchenDishResponse.Result blogUrl, View view) {
 
     }
 

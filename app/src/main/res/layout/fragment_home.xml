@@ -350,7 +350,8 @@
                         android:background="@drawable/gradient_view_kitchen" />
 
 
-                    <android.support.v7.widget.RecyclerView
+
+                    <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
                         android:id="@+id/recyclerview_orders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
