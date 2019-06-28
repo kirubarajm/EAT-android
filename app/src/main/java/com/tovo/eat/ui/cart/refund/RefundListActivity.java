@@ -1,5 +1,6 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,60 +10,48 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressListBinding;
+import com.tovo.eat.databinding.ActivityRefundListBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
-public class AddressListActivity extends BaseActivity<ActivityAddressListBinding, AddressListViewModel> implements AddressListNavigator, AddressListAdapter.LiveProductsAdapterListener {
+public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, RefundListViewModel> implements RefundListNavigator, RefundListAdapter.LiveProductsAdapterListener {
 
     @Inject
-    AddressListViewModel mAddressListViewModel;
+    RefundListViewModel mRefundListViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
-    AddressListAdapter adapter;
+    RefundListAdapter adapter;
 
-    ActivityAddressListBinding mActivityAddressListBinding;
+    ActivityRefundListBinding mActivityRefundListBinding;
 
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, AddressListActivity.class);
+        return new Intent(context, RefundListActivity.class);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityAddressListBinding = getViewDataBinding();
-        mAddressListViewModel.setNavigator(this);
+        mActivityRefundListBinding = getViewDataBinding();
+        mRefundListViewModel.setNavigator(this);
         adapter.setListener(this);
 
-
-      /*  Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            if (intent.getExtras().getString("for").equals("new")) {
-                if (!mAddressListViewModel.haveAddress) {
-                    Intent intentAddress = PaymentActivity.newIntent(RegionListActivity.this);
-                    startActivity(intentAddress);
-                    finish();
-                }
-            }
-        }*/
-
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityAddressListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
-        mActivityAddressListBinding.recyclerviewList.setAdapter(adapter);
+        mActivityRefundListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
+        mActivityRefundListBinding.recyclerviewList.setAdapter(adapter);
 
 
-        mActivityAddressListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mActivityRefundListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAddressListViewModel.fetchRepos();
+                mRefundListViewModel.fetchRepos();
             }
         });
 
@@ -72,17 +61,17 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public int getBindingVariable() {
-        return BR.addressListViewModel;
+        return BR.refundListViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_address_list;
+        return R.layout.activity_refund_list;
     }
 
     @Override
-    public AddressListViewModel getViewModel() {
-        return mAddressListViewModel;
+    public RefundListViewModel getViewModel() {
+        return mRefundListViewModel;
     }
 
     @Override
@@ -93,20 +82,20 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void addNewAddress() {
 
-        Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
+        Intent intent = AddAddressActivity.newIntent(RefundListActivity.this);
         startActivity(intent);
     }
 
     @Override
     public void editAddress() {
-        Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
+        Intent intent = EditAddressActivity.newIntent(RefundListActivity.this);
         //  intent.putExtra("aid",)
         startActivity(intent);
     }
 
     @Override
     public void listLoaded() {
-        mActivityAddressListBinding.refreshList.setRefreshing(false);
+        mActivityRefundListBinding.refreshList.setRefreshing(false);
 
     }
 
@@ -122,7 +111,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void addresDeleted() {
-        mAddressListViewModel.fetchRepos();
+        mRefundListViewModel.fetchRepos();
     }
 
     @Override
@@ -130,70 +119,35 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
        /* Intent intentAddress = AddAddressActivity.newIntent(RegionListActivity.this);
         startActivity(intentAddress);
         finish();*/
-        mActivityAddressListBinding.refreshList.setRefreshing(false);
+        mActivityRefundListBinding.refreshList.setRefreshing(false);
     }
 
 
     private void subscribeToLiveData() {
-        mAddressListViewModel.getAddrressListItemsLiveData().observe(this,
-                addrressListItemViewModel -> mAddressListViewModel.addDishItemsToList(addrressListItemViewModel));
+        mRefundListViewModel.getRefundListItemsLiveData().observe(this,
+                addrressListItemViewModel -> mRefundListViewModel.addDishItemsToList(addrressListItemViewModel));
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        mAddressListViewModel.fetchRepos();
+        mRefundListViewModel.fetchRepos();
         subscribeToLiveData();
 
 
     }
 
     @Override
-    public void onItemClickData(AddressListResponse.Result blogUrl) {
-
-        mAddressListViewModel.setCurrentAddress(blogUrl);
-        finish();
-    }
-
-    @Override
-    public void editAddressClick(AddressListResponse.Result address) {
-        Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
-        intent.putExtra("aid", address.getAid());
-        startActivity(intent);
-
-    }
-
-    @Override
-    public void deleteAddress(Integer aid) {
+    public void onItemClickData(RefundListResponse.Result list) {
 
 
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
-        builder1.setMessage("Are you sure want to delete?");
-        builder1.setCancelable(true);
+        mRefundListViewModel.saveRefundId(list.getRcid());
 
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        mAddressListViewModel.deleteAddress(aid);
-                        //   mAddressListViewModel.fetchRepos();
-
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-
+        Intent intent=new Intent();
+        intent.putExtra("refundid",list.getRcid());
+        setResult(Activity.RESULT_OK,intent);
+        finish();//finishing activity
 
     }
 
@@ -201,6 +155,19 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        Intent intent=new Intent();
+        setResult(Activity.RESULT_CANCELED,intent);
+        finish();//finishing activity
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent=new Intent();
+        setResult(Activity.RESULT_CANCELED,intent);
+        finish();//finishing activity
     }
 }
 

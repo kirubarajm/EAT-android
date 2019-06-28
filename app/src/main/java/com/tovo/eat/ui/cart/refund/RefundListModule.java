@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -10,24 +10,24 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AddressListModule {
+public class RefundListModule {
 
     DataManager dataManager;
 
     @Provides
-    AddressListViewModel provideAddressListViewModel(DataManager dataManager) {
+    RefundListViewModel provideRefundListViewModel(DataManager dataManager) {
         this.dataManager=dataManager;
-        return new AddressListViewModel(dataManager);
+        return new RefundListViewModel(dataManager);
     }
 
     @Provides
-    AddressListAdapter provideAddressListAdapter() {
-        return new AddressListAdapter(new ArrayList<>(),dataManager);
+    RefundListAdapter provideRefundListAdapter() {
+        return new RefundListAdapter(new ArrayList<>(),dataManager);
     }
 
 
     @Provides
-    LinearLayoutManager provideLinearLayoutManager(AddressListActivity activity) {
+    LinearLayoutManager provideLinearLayoutManager(RefundListActivity activity) {
         return new LinearLayoutManager(activity);
     }
 }

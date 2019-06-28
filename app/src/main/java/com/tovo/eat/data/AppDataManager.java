@@ -165,6 +165,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveRefundId(int rcid) {
+        mPreferencesHelper.setRefundId(rcid);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
         mPreferencesHelper.getOrderId();
@@ -457,6 +462,17 @@ public class AppDataManager implements DataManager {
     public void setOfficeAddressAdded(boolean status) {
         mPreferencesHelper.setOfficeAddressAdded(status);
     }
+
+    @Override
+    public int getRefundId() {
+        return mPreferencesHelper.getRefundId();
+    }
+
+    @Override
+    public void setRefundId(int rcid) {
+        mPreferencesHelper.setRefundId(rcid);
+    }
+
 
     @Override
     public String getCartDetails() {

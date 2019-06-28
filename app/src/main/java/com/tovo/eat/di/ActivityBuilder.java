@@ -49,6 +49,8 @@ import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartProvider;
+import com.tovo.eat.ui.cart.refund.RefundListActivity;
+import com.tovo.eat.ui.cart.refund.RefundListModule;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivity;
 import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivityModule;
@@ -169,6 +171,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = AddressListModule.class)
     abstract AddressListActivity bindAddressListActivity();
+
+
+    @ContributesAndroidInjector(modules = RefundListModule.class)
+    abstract RefundListActivity bindRefundListActivity();
 
 
     @ContributesAndroidInjector(modules = SelectAddressListModule.class)

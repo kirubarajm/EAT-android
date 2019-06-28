@@ -1,6 +1,6 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
-public interface AddressListNavigator {
+public interface RefundListNavigator {
 
     void handleError(Throwable throwable);
 

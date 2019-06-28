@@ -59,6 +59,13 @@ public interface DataManager extends PreferencesHelper {
 
     void totalOrders(Integer orders);
 
+
+
+    void saveRefundId(int rcid);
+
+
+
+
     void currentOrderId(Integer orderId);
 boolean homeAddressadded(boolean status);
 boolean officeAddressadded(boolean status);

@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.cart;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,19 +17,23 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.refund.RefundListActivity;
+import com.tovo.eat.ui.cart.refund.RefundListAdapter;
+import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
 import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener,RefundListAdapter.LiveProductsAdapterListener {
 
 
     /*  @Inject
@@ -39,6 +44,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     CartViewModel mCartViewModel;
     CartListener cartListener;
     private ActivityCartBinding mActivityCartBinding;
+
+    @Inject
+    RefundListAdapter refundListAdapter;
+
 
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
@@ -83,6 +92,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         // mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
+        refundListAdapter.setListener(this);
 
 
         /*if (mCartViewModel.getCartPojoDetails() == null) {
@@ -111,6 +121,26 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
+
+
+
+
+
+
+
+        LinearLayoutManager mLayoutManager2
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        mActivityCartBinding.recyclerviewList.setLayoutManager(mLayoutManager2);
+        mActivityCartBinding.recyclerviewList.setAdapter(refundListAdapter);
+
+
+
+
+
+
+
         subscribeToLiveData();
 
         //mCartViewModel.fetchRepos();
@@ -227,10 +257,39 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
+    @Override
+    public void refundList() {
+
+        Intent intent= RefundListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.REFUND_LIST_CODE);
+
+
+    }
+
+    @Override
+    public void promoList() {
+
+
+
+
+    }
+
     private void subscribeToLiveData() {
         mCartViewModel.getDishItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));
+
+
+
+        mCartViewModel.getRefundListItemsLiveData().observe(this,
+                kitchenItemViewModel -> mCartViewModel.addRefundItemsToList(kitchenItemViewModel));
+
+
+
+
     }
+
+
+
 
 
     @Override
@@ -281,14 +340,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (requestCode == CART_REQUESTCODE) {
 
-/*
-            if (resultCode == RESULT_OK) {
-
-                Intent intent = PaymentActivity.newIntent(getContext());
-                intent.putExtra("amount", mCartViewModel.grand_total.get());
-                startActivity(intent);*/
-
-
                 boolean status = data.getBooleanExtra("status", false);
                 if (status) {
                     Intent intent = PaymentActivity.newIntent(getContext());
@@ -296,10 +347,30 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                     startActivity(intent);
 
                 }
+        }else   if (requestCode==AppConstants.REFUND_LIST_CODE){
+
+
+            if (resultCode== RESULT_OK){
+
+                mCartViewModel.fetchRepos();
+
+
+            }
+
+
 
 
 
         }
+
+
+    }
+
+    @Override
+    public void onItemClickData(RefundListResponse.Result blogUrl) {
+
+
+
 
 
     }

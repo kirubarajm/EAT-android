@@ -12,21 +12,17 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -38,49 +34,38 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
-import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
-import com.tovo.eat.ui.home.region.RegionsAdapter;
+import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
-import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.CardSnapHelper;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
-import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter,KitchenAdapter.LiveProductsAdapterListener {
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter, KitchenAdapter.LiveProductsAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
-
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     @Inject
     HomeTabViewModel mHomeTabViewModel;
-    
     @Inject
     KitchenAdapter adapter;
     @Inject
     RegionsCardAdapter regionListAdapter;
-
     @Inject
     StoriesCardAdapter storiesCardAdapter;
-
-
     DecodeBitmapTask decodeBitmapTask;
-
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
+    RegionsResponse regionsResponse;
     private FragmentHomeBinding mFragmentHomeBinding;
     private GoogleApiClient mGoogleApiClient;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
@@ -114,6 +99,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     };
+
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -161,8 +147,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         transaction.replace(R.id.content_main, fragment);
         transaction.commitNow();*/
 
-       Intent intent=FavoritesTabActivity.newIntent(getContext());
-       startActivity(intent);
+        Intent intent = FavoritesTabActivity.newIntent(getContext());
+        startActivity(intent);
 
 
     }
@@ -180,8 +166,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.favIcon.set(true);
 
 
+    }
 
-
+    @Override
+    public void storiesLoaded(RegionsResponse regionResponse) {
+        this.regionsResponse = regionResponse;
     }
 
     @Override
@@ -209,18 +198,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding = getViewDataBinding();
 
 
-
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
-        if (mHomeTabViewModel.isAddressAdded()){
+        if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
             mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
             mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
             mHomeTabViewModel.favIcon.set(true);
 
-        }else {
-           startLocationTracking();
+        } else {
+            startLocationTracking();
         }
 
 
@@ -232,7 +220,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         subscribeToLiveData();
 
 
-
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
@@ -240,7 +227,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
-
 
 
         LinearLayoutManager mLayoutManager3
@@ -251,6 +237,24 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
 
 
+        mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+
+                LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
+
+                Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
+
+                if (regionsResponse != null)
+                    mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition).getRegionname());
+
+
+            }
+        });
 
 
         // subscribeToLiveData();
@@ -283,21 +287,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         };
 
 
-
         mFragmentHomeBinding.recyclerviewOrders.setOnScrollListener(onScrollListener);
-
-
 
 
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
 
-
-
-
-     //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
-
+        //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
 
 
         mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -305,17 +302,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     //onActiveCardChange();
+                } else {
+
+                    CardSliderLayoutManager ll = (CardSliderLayoutManager) recyclerView.getLayoutManager();
+
+                    int firstVisiblePosition = ll.getActiveCardPosition();
+
+
+                    //   Toast.makeText(getContext(), "Position : "+ firstVisiblePosition, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        CardSliderLayoutManager  layoutManger = (CardSliderLayoutManager)    mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+        CardSliderLayoutManager layoutManger = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
 
 
-
-
-
-        new CardSnapHelper().attachToRecyclerView(   mFragmentHomeBinding.recyclerViewRegion);
+        new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
         
         
         
@@ -328,10 +330,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         transaction.commit();*/
 
 
-
     }
-
-
 
 
     @Override
@@ -514,7 +513,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     @Override
-    public void animateView(View view){
+    public void animateView(View view) {
         Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
         view.startAnimation(shake);
     }

@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.home.MainViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
@@ -62,5 +63,9 @@ public class CartModule {
         return new LinearLayoutManager(activity.getContext());
     }
 
+    @Provides
+    RefundListAdapter provideRefundsListAdapter() {
+        return new RefundListAdapter(new ArrayList<>(),dataManager);
+    }
 
 }

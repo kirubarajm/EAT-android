@@ -44,6 +44,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
 
 
+    private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
+
+
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
 
 
@@ -355,6 +358,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setOfficeAddressAdded(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, status).apply();
+    }
+
+    @Override
+    public int getRefundId() {
+        return mPrefs.getInt(PREF_KEY_REFUND_ID, 0);
+    }
+
+    @Override
+    public void setRefundId(int rcid) {
+        mPrefs.edit().putInt(PREF_KEY_REFUND_ID, rcid).apply();
     }
 
     @Override

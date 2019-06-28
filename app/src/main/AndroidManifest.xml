@@ -140,6 +140,7 @@
         <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
         <activity android:name=".ui.track.help.OrderHelpActivity" />
         <activity android:name=".ui.kitchendetails.KitchenDetailsActivity" />
+        <activity android:name=".ui.cart.refund.RefundListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

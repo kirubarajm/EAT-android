@@ -159,4 +159,10 @@ public interface PreferencesHelper {
     void setOfficeAddressAdded(boolean status);
 
 
+
+    int getRefundId();
+    void setRefundId(int rcid);
+
+
+
 }

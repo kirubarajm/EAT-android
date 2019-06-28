@@ -518,4 +518,7 @@
     <string name="anything_else">Anything else?</string>
     <string name="food_badges">Food Badges</string>
     <string name="specialities">Specialities</string>
+    <string name="add_promo_code">Add Promo code</string>
+    <string name="add_your_refund_coupon">Add your refund coupon</string>
+    <string name="refund_coupon">Refund Coupon</string>
 </resources>

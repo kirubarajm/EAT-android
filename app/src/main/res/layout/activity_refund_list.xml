@@ -11,8 +11,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="addressListViewModel"
-            type="com.tovo.eat.ui.address.list.AddressListViewModel" />
+            name="refundListViewModel"
+            type="com.tovo.eat.ui.cart.refund.RefundListViewModel" />
 
     </data>
 
@@ -39,7 +39,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:onClick="@{()->addressListViewModel.goBack()}"
+                    android:onClick="@{()->refundListViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
                 <com.tovo.eat.utilities.fonts.CircularStdMedium
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/manage_address"
+                    android:text="@string/refund_coupon"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -72,46 +72,13 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layoutAnimation="@anim/lay_fall_down"
-                app:adapter="@{addressListViewModel.addrressListItemViewModels}"
-                tools:listitem="@layout/list_item_address" />
+                app:adapter="@{refundListViewModel.refundListItemViewModels}"
+                tools:listitem="@layout/list_item_refund" />
 
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
-        <LinearLayout
-            android:id="@+id/addAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:onClick="@{()->addressListViewModel.addAddress()}"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:gravity="center"
-                android:background="@drawable/curve_stroke"
-                android:orientation="vertical"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-
-                <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_horizontal"
-                    android:text="@string/add_new_address"
-                    android:textSize="16sp" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
 
 
     </RelativeLayout>

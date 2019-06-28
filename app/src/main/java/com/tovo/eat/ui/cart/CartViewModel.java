@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
@@ -58,8 +59,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean emptyCart = new ObservableBoolean();
 
+    public final ObservableBoolean refunds = new ObservableBoolean();
+
 
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
+
+
+
+    public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
+    boolean haveAddress = false;
+    private MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData;
+
     int favId;
     int makeitId;
     String isFav;
@@ -70,16 +80,51 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
+        refundListItemsLiveData = new MutableLiveData<>();
 
 
         if (getCartPojoDetails() != null)
             fetchRepos();
+
+
+        fetchRefunds();
 
         //  getDataManager().setisPasswordStatus(false);
 
 
 
     }
+
+
+    public ObservableList<RefundListResponse.Result> getRefundListItemViewModels() {
+        return refundListItemViewModels;
+    }
+
+    public void setRefundListItemViewModels(ObservableList<RefundListResponse.Result> refundListItemViewModels) {
+        this.refundListItemViewModels = refundListItemViewModels;
+    }
+
+    public MutableLiveData<List<RefundListResponse.Result>> getRefundListItemsLiveData() {
+        return refundListItemsLiveData;
+    }
+
+    public void setRefundListItemsLiveData(MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData) {
+        this.refundListItemsLiveData = refundListItemsLiveData;
+    }
+
+    public void refundCoupon(){
+
+        getNavigator().refundList();
+
+
+    }
+    public void promoCoupon(){
+
+        getNavigator().promoList();
+
+
+    }
+
 
 
     public void fav() {
@@ -131,7 +176,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
 
     }
+    public void addRefundItemsToList(List<RefundListResponse.Result> results) {
+        refundListItemViewModels.clear();
+        refundListItemViewModels.addAll(results);
 
+    }
 
     public void addFavourite(Integer kitchenId) {
 
@@ -213,6 +262,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         cartDishItemViewModels.clear();
         cartDishItemViewModels.addAll(ordersItems);
 
+
     }
 
 
@@ -253,6 +303,50 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         return getDataManager().getCartDetails();
     }
 
+
+
+    public void fetchRefunds() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_REFUND_LIST_URL + getDataManager().getCurrentUserId(), RefundListResponse.class, new Response.Listener<RefundListResponse>() {
+                @Override
+                public void onResponse(RefundListResponse response) {
+                    if (response != null) {
+
+                        if (response.getResult().size() == 0) {
+
+                            refunds.set(false);
+
+                        } else {
+                            refunds.set(true);
+                            refundListItemsLiveData.setValue(response.getResult());
+
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //   Log.e("", error.getMessage());
+                }
+            });
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+    }
+
+
     public void fetchRepos() {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -267,6 +361,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
             cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
+
+
+            if (getDataManager().getRefundId()!=0){
+                cartRequestPojo.setRcid(getDataManager().getRefundId());
+            }
+
 
             Gson gson = new Gson();
             String carts = gson.toJson(cartRequestPojo);

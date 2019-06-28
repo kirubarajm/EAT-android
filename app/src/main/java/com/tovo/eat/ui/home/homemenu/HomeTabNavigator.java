@@ -1,5 +1,8 @@
 package com.tovo.eat.ui.home.homemenu;
 
+import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.registration.RegionResponse;
+
 public interface HomeTabNavigator {
 
     void handleError(Throwable throwable);
@@ -11,5 +14,8 @@ public interface HomeTabNavigator {
 
     void disconnectGps();
     void loaded();
+
+    void storiesLoaded(RegionsResponse regionResponse);
+
 
 }

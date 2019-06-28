@@ -13,9 +13,25 @@ public class CartRequestPojo {
     @SerializedName("userid")
     @Expose
     private Integer userid;
+    @SerializedName("rcid")
+    @Expose
+    private Integer rcid;
+
     @SerializedName("orderitems")
     @Expose
     private List<Cartitem> cartitems = null;
+
+
+    public Integer getRcid() {
+        return rcid;
+    }
+
+    public void setRcid(Integer rcid) {
+        this.rcid = rcid;
+    }
+
+
+
 
 
     public Integer getUserid() {

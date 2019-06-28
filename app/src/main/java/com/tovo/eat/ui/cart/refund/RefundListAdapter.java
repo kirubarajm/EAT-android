@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,22 +8,24 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemAddressBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemRefundBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
-public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<AddressListResponse.Result> item_list;
+    private List<RefundListResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
     private DataManager dataManager;
 
+    private static int sSelected = -1;
 
-    public AddressListAdapter(List<AddressListResponse.Result> item_list,DataManager dataManager) {
+    public RefundListAdapter(List<RefundListResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager=dataManager;
     }
@@ -52,12 +54,16 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
+    public void selectedItem() {
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemAddressBinding blogViewBinding = ListItemAddressBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemRefundBinding blogViewBinding = ListItemRefundBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -96,7 +102,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<AddressListResponse.Result> blogList) {
+    public void addItems(List<RefundListResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -107,19 +113,16 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(AddressListResponse.Result blogUrl);
+        void onItemClickData(RefundListResponse.Result blogUrl);
 
-        void editAddressClick(AddressListResponse.Result blogUrl);
-
-        void deleteAddress(Integer aid);
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements AddressListItemViewModel.addressListItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements RefundListItemViewModel.RefundListItemViewModelListener {
 
-        ListItemAddressBinding mListItemLiveProductsBinding;
-        AddressListItemViewModel mLiveProductsItemViewModel;
+        ListItemRefundBinding mListItemLiveProductsBinding;
+        RefundListItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemAddressBinding binding) {
+        public LiveProductsViewHolder(ListItemRefundBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -127,44 +130,38 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final AddressListResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new AddressListItemViewModel(this, blog);
-            mListItemLiveProductsBinding.setAddressListItemViewModel(mLiveProductsItemViewModel);
+            final RefundListResponse.Result blog = item_list.get(position);
+            mLiveProductsItemViewModel = new RefundListItemViewModel(this, blog);
+            mListItemLiveProductsBinding.setRefundListItemViewModel(mLiveProductsItemViewModel);
+
+
+
+
+
+            if (sSelected == position) {
+                mListItemLiveProductsBinding.op.setChecked(true);
+            } else {
+                mListItemLiveProductsBinding.op.setChecked(false);
+            }
+
+
+
+
+
+
+
 
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
 
         @Override
-        public void onItemClick(AddressListResponse.Result result) {
-
+        public void onItemClick(RefundListResponse.Result result) {
+            sSelected = getAdapterPosition();
 
             mLiveProductsAdapterListener.onItemClickData(result);
-
+            notifyDataSetChanged();
         }
 
-        @Override
-        public void editAddress(AddressListResponse.Result result) {
-            mLiveProductsAdapterListener.editAddressClick(result);
-        }
-
-        @Override
-        public void deleteAddress(Integer aid) {
-
-
-            mLiveProductsAdapterListener.deleteAddress(aid);
-
-
-        }
-
-        @Override
-        public void homeAddressAdded() {
-            dataManager.setHomeAddressAdded(true);
-        }
-
-        @Override
-        public void officeAddressAdded() {
-            dataManager.setOfficeAddressAdded(true);
-        }
     }
 }

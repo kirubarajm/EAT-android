@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
@@ -21,143 +21,53 @@ import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
-public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
+public class RefundListViewModel extends BaseViewModel<RefundListNavigator> {
 
 
-    public ObservableList<AddressListResponse.Result> addrressListItemViewModels = new ObservableArrayList<>();
+    public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
     boolean haveAddress = false;
-    private MutableLiveData<List<AddressListResponse.Result>> addrressListItemsLiveData;
+    private MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData;
 
-    public AddressListViewModel(DataManager dataManager) {
+    public RefundListViewModel(DataManager dataManager) {
         super(dataManager);
-        addrressListItemsLiveData = new MutableLiveData<>();
-
-        //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
+        refundListItemsLiveData = new MutableLiveData<>();
 
         fetchRepos();
     }
 
-    public ObservableList<AddressListResponse.Result> getAddrressListItemViewModels() {
-        return addrressListItemViewModels;
+
+
+    public void saveRefundId(int id){
+        getDataManager().saveRefundId(id);
     }
 
-    public void setAddrressListItemViewModels(ObservableList<AddressListResponse.Result> addrressListItemViewModels) {
-        this.addrressListItemViewModels = addrressListItemViewModels;
+
+    public ObservableList<RefundListResponse.Result> getRefundListItemViewModels() {
+        return refundListItemViewModels;
     }
 
-    public MutableLiveData<List<AddressListResponse.Result>> getAddrressListItemsLiveData() {
-        return addrressListItemsLiveData;
+    public void setRefundListItemViewModels(ObservableList<RefundListResponse.Result> refundListItemViewModels) {
+        this.refundListItemViewModels = refundListItemViewModels;
     }
 
-    public void setAddrressListItemsLiveData(MutableLiveData<List<AddressListResponse.Result>> addrressListItemsLiveData) {
-        this.addrressListItemsLiveData = addrressListItemsLiveData;
+    public MutableLiveData<List<RefundListResponse.Result>> getRefundListItemsLiveData() {
+        return refundListItemsLiveData;
     }
 
-    public void addDishItemsToList(List<AddressListResponse.Result> ordersItems) {
-        addrressListItemViewModels.clear();
-        addrressListItemViewModels.addAll(ordersItems);
-
+    public void setRefundListItemsLiveData(MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData) {
+        this.refundListItemsLiveData = refundListItemsLiveData;
     }
 
+    public void addDishItemsToList(List<RefundListResponse.Result> ordersItems) {
+        refundListItemViewModels.clear();
+        refundListItemViewModels.addAll(ordersItems);
+
+    }
 
     public void goBack() {
 
         getNavigator().goBack();
     }
-
-
-    public void addAddress() {
-
-        getNavigator().addNewAddress();
-
-
-    }
-
-
-    public void deleteAddress(Integer aid) {
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DELETE_ADDRESS_URL, CommonResponse.class, new AddressDeleteRequest(aid), new Response.Listener<CommonResponse>() {
-                @Override
-                public void onResponse(CommonResponse response) {
-                    if (response != null) {
-
-                        getNavigator().showToast(response.getMessage());
-                        getNavigator().addresDeleted();
-
-                        if (getDataManager().getAddressId()==aid){
-
-                            getDataManager().setAddressId(0);
-                            getDataManager().setCurrentAddress(null);
-                            getDataManager().setCurrentAddressArea(null);
-                            getDataManager().setCurrentAddressTitle(null);
-                            getDataManager().setCurrentLat(0.0);
-                            getDataManager().setCurrentLng(0.0);
-
-
-                        }
-
-
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-
-                }
-            });
-
-
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception ee){
-
-        ee.printStackTrace();
-
-    }
-
-
-    }
-
-
-    public void setCurrentAddress(AddressListResponse.Result request) {
-
-
-
-        getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), request.getAid());
-
-
-
-        getDataManager().setCurrentAddress(request.getAddress());
-
-
-
-
-        defaultAddress(request.getAid());
-
-
-        FilterRequestPojo filterRequestPojo;
-
-        Gson sGson = new GsonBuilder().create();
-        filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-        filterRequestPojo.setLat(getDataManager().getCurrentLat());
-        filterRequestPojo.setLat(getDataManager().getCurrentLng());
-
-        Gson gson = new Gson();
-        String json = gson.toJson(filterRequestPojo);
-        getDataManager().setFilterSort(json);
-    }
-
 
     public void fetchRepos() {
 
@@ -165,24 +75,18 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL + getDataManager().getCurrentUserId(), AddressListResponse.class, new Response.Listener<AddressListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_REFUND_LIST_URL + getDataManager().getCurrentUserId(), RefundListResponse.class, new Response.Listener<RefundListResponse>() {
                 @Override
-                public void onResponse(AddressListResponse response) {
+                public void onResponse(RefundListResponse response) {
                     if (response != null) {
 
                         if (response.getResult().size() == 0) {
 
-                            haveAddress = false;
-
                             getNavigator().noAddress();
-
 
                         } else {
 
-                            addrressListItemsLiveData.setValue(response.getResult());
-                            Log.e("----response:---------", response.toString());
-
-                            haveAddress = true;
+                            refundListItemsLiveData.setValue(response.getResult());
 
                             getNavigator().listLoaded();
                         }
@@ -206,38 +110,6 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     }
     }
 
-    public void defaultAddress(Integer aid ){
-
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
-                @Override
-                public void onResponse(CommonResponse response) {
-
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-
-                }
-            });
-
-
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception ee){
-
-        ee.printStackTrace();
-
-    }
-
-
-
-    }
 
 
 }

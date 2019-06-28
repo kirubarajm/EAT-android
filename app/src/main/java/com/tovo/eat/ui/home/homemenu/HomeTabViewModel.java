@@ -37,6 +37,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
 
+    public final ObservableField<String> firstRegion = new ObservableField<>();
+
+
+
 
 
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
@@ -124,6 +128,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
                         try {
+
+
+                            getNavigator().storiesLoaded(response);
 
 
                             regionItemsLiveData.setValue(response.getResult());

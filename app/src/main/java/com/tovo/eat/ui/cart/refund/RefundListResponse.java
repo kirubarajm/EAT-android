@@ -1,11 +1,11 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class AddressListResponse {
+public class RefundListResponse {
 
     @SerializedName("success")
     @Expose
@@ -31,51 +31,90 @@ public class AddressListResponse {
         this.result = result;
     }
 
+
     public class Result {
 
+        @SerializedName("rcid")
+        @Expose
+        private Integer rcid;
+        @SerializedName("orderid")
+        @Expose
+        private Integer orderid;
+        @SerializedName("refund_used_orderid")
+        @Expose
+        private Object refundUsedOrderid;
+        @SerializedName("rcoupon")
+        @Expose
+        private String rcoupon;
+        @SerializedName("refundamount")
+        @Expose
+        private Integer refundamount;
+        @SerializedName("active_status")
+        @Expose
+        private Integer activeStatus;
         @SerializedName("userid")
         @Expose
         private Integer userid;
-        @SerializedName("address_title")
+        @SerializedName("refund_balance")
         @Expose
-        private String addressTitle;
-        @SerializedName("address")
+        private Integer refundBalance;
+        @SerializedName("refund_used_date_time")
         @Expose
-        private String address;
-        @SerializedName("flatno")
-        @Expose
-        private String flatno;
-        @SerializedName("locality")
-        @Expose
-        private String locality;
-        @SerializedName("pincode")
-        @Expose
-        private String pincode;
-        @SerializedName("aid")
-        @Expose
-        private Integer aid;
-        @SerializedName("lat")
-        @Expose
-        private Double lat;
-        @SerializedName("lon")
-        @Expose
-        private Double lon;
-        @SerializedName("landmark")
-        @Expose
-        private String landmark;
-        @SerializedName("address_type")
-        @Expose
-        private String addressType;
-        @SerializedName("delete_status")
-        @Expose
-        private String deleteStatus;
+        private Object refundUsedDateTime;
         @SerializedName("created_at")
         @Expose
         private String createdAt;
         @SerializedName("updated_at")
         @Expose
-        private String updatedAt;
+        private Object updatedAt;
 
+        public Integer getRcid() {
+            return rcid;
+        }
+
+        public void setRcid(Integer rcid) {
+            this.rcid = rcid;
+        }
+
+        public Integer getOrderid() {
+            return orderid;
+        }
+
+        public void setOrderid(Integer orderid) {
+            this.orderid = orderid;
+        }
+
+        public Object getRefundUsedOrderid() {
+            return refundUsedOrderid;
+        }
+
+        public void setRefundUsedOrderid(Object refundUsedOrderid) {
+            this.refundUsedOrderid = refundUsedOrderid;
+        }
+
+        public String getRcoupon() {
+            return rcoupon;
+        }
+
+        public void setRcoupon(String rcoupon) {
+            this.rcoupon = rcoupon;
+        }
+
+        public Integer getRefundamount() {
+            return refundamount;
+        }
+
+        public void setRefundamount(Integer refundamount) {
+            this.refundamount = refundamount;
+        }
+
+        public Integer getActiveStatus() {
+            return activeStatus;
+        }
+
+        public void setActiveStatus(Integer activeStatus) {
+            this.activeStatus = activeStatus;
+        }
 
         public Integer getUserid() {
             return userid;
@@ -85,92 +124,20 @@ public class AddressListResponse {
             this.userid = userid;
         }
 
-        public String getAddressTitle() {
-            return addressTitle;
+        public Integer getRefundBalance() {
+            return refundBalance;
         }
 
-        public void setAddressTitle(String addressTitle) {
-            this.addressTitle = addressTitle;
+        public void setRefundBalance(Integer refundBalance) {
+            this.refundBalance = refundBalance;
         }
 
-        public String getAddress() {
-            return address;
+        public Object getRefundUsedDateTime() {
+            return refundUsedDateTime;
         }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getFlatno() {
-            return flatno;
-        }
-
-        public void setFlatno(String flatno) {
-            this.flatno = flatno;
-        }
-
-        public String getLocality() {
-            return locality;
-        }
-
-        public void setLocality(String locality) {
-            this.locality = locality;
-        }
-
-        public String getPincode() {
-            return pincode;
-        }
-
-        public void setPincode(String pincode) {
-            this.pincode = pincode;
-        }
-
-        public Integer getAid() {
-            return aid;
-        }
-
-        public void setAid(Integer aid) {
-            this.aid = aid;
-        }
-
-        public Double getLat() {
-            return lat;
-        }
-
-        public void setLat(Double lat) {
-            this.lat = lat;
-        }
-
-        public Double getLon() {
-            return lon;
-        }
-
-        public void setLon(Double lon) {
-            this.lon = lon;
-        }
-
-        public String getLandmark() {
-            return landmark;
-        }
-
-        public void setLandmark(String landmark) {
-            this.landmark = landmark;
-        }
-
-        public String getAddressType() {
-            return addressType;
-        }
-
-        public void setAddressType(String addressType) {
-            this.addressType = addressType;
-        }
-
-        public String getDeleteStatus() {
-            return deleteStatus;
-        }
-
-        public void setDeleteStatus(String deleteStatus) {
-            this.deleteStatus = deleteStatus;
+        public void setRefundUsedDateTime(Object refundUsedDateTime) {
+            this.refundUsedDateTime = refundUsedDateTime;
         }
 
         public String getCreatedAt() {
@@ -181,13 +148,13 @@ public class AddressListResponse {
             this.createdAt = createdAt;
         }
 
-        public String getUpdatedAt() {
+        public Object getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(String updatedAt) {
+        public void setUpdatedAt(Object updatedAt) {
             this.updatedAt = updatedAt;
         }
-    }
 
+    }
 }

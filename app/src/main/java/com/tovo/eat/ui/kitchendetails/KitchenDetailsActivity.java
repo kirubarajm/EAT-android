@@ -467,7 +467,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void animChanges(boolean status) {
 
-
+/*
         if (status){
 
 
@@ -476,15 +476,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         }else{
            animFade(mFragmentDishBinding.about,mFragmentDishBinding.menu);
-        }
+        }*/
     }
 
 
 
     public void animFade(View view,View view2){
-
-
-
 
         Transition transition = new Fade();
         transition.setDuration(6000);

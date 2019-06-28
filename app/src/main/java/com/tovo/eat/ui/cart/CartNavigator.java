@@ -25,7 +25,7 @@ public interface CartNavigator {
 
     void emptyCart();
 
-    void postRegistration(String type,String totalAmount);
+    void postRegistration(String type, String totalAmount);
 
 
     void toastMessage(String msg);
@@ -34,6 +34,8 @@ public interface CartNavigator {
     void paymentGateway(String totalAmount);
 
 
+    void refundList();
 
+    void promoList();
 
 }

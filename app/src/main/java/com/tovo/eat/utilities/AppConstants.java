@@ -22,6 +22,8 @@ public class AppConstants {
 
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
+    public static final int REFUND_LIST_CODE  = 1110;
+
 
     public static final String FCM_RECEIVER = "ALERT";
 
@@ -112,6 +114,12 @@ public class AppConstants {
 
 
     public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
+
+
+    public static final String EAT_REFUND_LIST_URL = URL_SERVER_IP_PORT + "/eat/refund/";
+
+
+
     public static final String EAT_CART_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/cartdetails/";
 
     public static final String EAT_CREATE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/proceedtopay";

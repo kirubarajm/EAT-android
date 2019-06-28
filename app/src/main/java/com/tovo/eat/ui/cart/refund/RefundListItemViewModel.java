@@ -1,103 +1,52 @@
-package com.tovo.eat.ui.address.list;
+package com.tovo.eat.ui.cart.refund;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.tovo.eat.utilities.CartRequestPojo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class AddressListItemViewModel {
+public class RefundListItemViewModel {
 
 
 
 
 
 
-    public final ObservableField<String> addressTitle = new ObservableField<>();
-    public final ObservableField<String> address = new ObservableField<>();
-
-
-    public final ObservableBoolean isHome = new ObservableBoolean();
-    public final ObservableBoolean isWork = new ObservableBoolean();
+    public final ObservableField<String> code = new ObservableField<>();
+    public final ObservableField<String> amount = new ObservableField<>();
 
 
 
 
-    public final addressListItemViewModelListener mListener;
-    private final AddressListResponse.Result addressList;
+
+    public final RefundListItemViewModelListener mListener;
+    private final RefundListResponse.Result refundList;
 
 
 
-    public AddressListItemViewModel(addressListItemViewModelListener mListener, AddressListResponse.Result addressList) {
+    public RefundListItemViewModel(RefundListItemViewModelListener mListener, RefundListResponse.Result refundList) {
 
 
         this.mListener = mListener;
-        this.addressList = addressList;
-
-        if (addressList.getAddressType().equalsIgnoreCase("1")){
-            isHome.set(true);
-            isWork.set(false);
-            mListener.homeAddressAdded();
-        }else if (addressList.getAddressType().equalsIgnoreCase("2")){
-            isHome.set(false);
-            isWork.set(true);
-            mListener.officeAddressAdded();
-        }else if (addressList.getAddressType().equalsIgnoreCase("3")){
-            isHome.set(false);
-            isWork.set(false);
-        }else {
-            isHome.set(false);
-            isWork.set(false);
-        }
+        this.refundList = refundList;
+        code.set(refundList.getRcoupon());
+        amount.set(String.valueOf(refundList.getRefundamount()));
 
 
-        addressTitle.set(addressList.getAddressTitle());
-        address.set(addressList.getAddress());
-
-
-    }
-
-    public void deleteAddress(){
-
-        mListener.deleteAddress(addressList.getAid());
-    }
-
-
-
-    public void editAddress(){
-      //  mListener.editAddress(addressList.getAid(),addressList.getAddressTitle(),addressList.getAddress(),addressList.getFlatno(),addressList.getLocality(),addressList.getPincode(),addressList.getLat(),addressList.getLon(),addressList.getLandmark(),addressList.getAddressType());
-        mListener.editAddress(addressList);
     }
 
 
     public void onItemClick() {
-      //  mListener.onItemClick(addressList.getAid(),addressList.getAddressTitle(),addressList.getAddress(),addressList.getFlatno(),addressList.getLocality(),addressList.getPincode(),addressList.getLat(),addressList.getLon(),addressList.getLandmark(),addressList.getAddressType());
-        mListener.onItemClick(addressList);
+        mListener.onItemClick(refundList);
 
     }
 
-    public interface addressListItemViewModelListener {
-        // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
-
-      //  void onItemClick(Integer aid,String addressTitle,String address,String flatno,String locality,String pincode, Double lat, Double lon, String landmark,String addressType);
-
-     //   void editAddress(Integer aid,String addressTitle,String address,String flatno,String locality,String pincode, Double lat, Double lon, String landmark,String addressType);
+    public interface RefundListItemViewModelListener {
 
 
-        void onItemClick(AddressListResponse.Result result);
-        void editAddress(AddressListResponse.Result result);
+        void onItemClick(RefundListResponse.Result result);
 
-         void deleteAddress(Integer aid);
-         void homeAddressAdded();
-         void officeAddressAdded();
+
+
 
 
     }
