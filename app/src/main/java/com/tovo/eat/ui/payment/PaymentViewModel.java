@@ -27,14 +27,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.PlaceOrderRequestPojo;
-import com.tovo.eat.ui.track.OrderTrackingResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
-import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
@@ -65,6 +62,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableBoolean upiClicked = new ObservableBoolean();
     public final ObservableBoolean codClicked = new ObservableBoolean();
     public final ObservableBoolean walletClicked = new ObservableBoolean();
+
+
+    public int refundBalance = 0;
 
 
     public PaymentViewModel(DataManager dataManager) {
@@ -173,7 +173,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                     placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), orderitems);
+                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), orderitems);
 
 
                     Gson gson = new Gson();
@@ -299,7 +299,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), orderitems);
+            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(), orderitems);
 
 
             Gson gson = new Gson();
@@ -321,6 +321,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                                 Integer orderId = response.getInt("orderid");
                                 getDataManager().setOrderId(orderId);
 
+                                if (getDataManager().getRefundId() != 0)
+                                    refundBalance = response.getInt("refund_balance");
 
                                 getNavigator().orderGenerated(response.getInt("orderid"), response.getString("razer_customerid"), response.getInt("price"));
 
@@ -378,7 +380,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
             json.put("transactionid", paymentId);
             json.put("payment_status", status);
             json.put("orderid", getDataManager().getOrderId());
+            json.put("refund_balance", refundBalance);
 
+
+            Log.e("asdaf",json.toString());
 
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_ORDER_SUCCESS, json, new Response.Listener<JSONObject>() {
                 @Override
@@ -388,6 +393,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         if (response.getBoolean("status")) {
                             getNavigator().paymentSuccessed(true);
                             getDataManager().setCartDetails("");
+                            getDataManager().saveRefundId(0);
                         } else {
                             getNavigator().paymentSuccessed(false);
 

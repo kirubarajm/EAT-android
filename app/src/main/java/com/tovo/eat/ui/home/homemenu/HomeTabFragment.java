@@ -248,10 +248,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
 
                 Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
+                try {
 
-                if (regionsResponse != null)
-                    mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition).getRegionname());
-
+                    if (regionsResponse.getResult() != null)
+                        mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition).getRegionname());
+                } catch (NullPointerException ne) {
+                    ne.printStackTrace();
+                }catch (Exception x){
+                    x.printStackTrace();
+                }
 
             }
         });

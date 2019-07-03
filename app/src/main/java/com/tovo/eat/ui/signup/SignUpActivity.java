@@ -13,8 +13,11 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySignupBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
+import com.tovo.eat.ui.signup.privacy.PrivacyActivity;
+import com.tovo.eat.ui.signup.tandc.TermsAndConditionActivity;
 import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
@@ -49,6 +52,27 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
             startActivity(intent);
             finish();*/
         }
+    }
+
+    @Override
+    public void faqs() {
+        Intent intent = FaqActivity.newIntent(SignUpActivity.this);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void privacy() {
+        Intent intent = PrivacyActivity.newIntent(SignUpActivity.this);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void termsandconditions() {
+        Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
+        startActivity(intent);
+
     }
 
     @Override

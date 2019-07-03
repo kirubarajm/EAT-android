@@ -85,9 +85,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void regSuccess(String strSucess) {
-        mActivityRegistrationBinding.edtEmail.setText("");
-        mActivityRegistrationBinding.edtPassword.setText("");
-        mActivityRegistrationBinding.edtReTypePassword.setText("");
+
         Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
 
 

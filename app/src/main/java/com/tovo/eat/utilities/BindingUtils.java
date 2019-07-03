@@ -69,6 +69,8 @@ import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
 import com.tovo.eat.ui.search.SearchResponse;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
+import com.tovo.eat.ui.signup.faqs.FaqResponse;
+import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
 
 import java.util.List;
 
@@ -124,7 +126,14 @@ public final class BindingUtils {
         }
     }
 
-
+    @BindingAdapter({"adapter"})
+    public static void addFaqItems(RecyclerView recyclerView, List<FaqResponse.ProductList> blogs) {
+        FaqsAdapter adapter = (FaqsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
 
     @BindingAdapter({"adapter"})
     public static void addDishItems(RecyclerView recyclerView, List<DishResponse.Result> dishes) {

@@ -4,7 +4,6 @@ import android.databinding.ObservableField;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
@@ -30,49 +29,72 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         getNavigator().verifyUser();
     }
 
+
+    public void faqs() {
+
+        getNavigator().faqs();
+
+    }
+
+
+    public void privacy() {
+
+        getNavigator().privacy();
+
+
+    }
+
+    public void termsandconditions() {
+
+        getNavigator().termsandconditions();
+
+
+    }
+
+
     public void users(String phoneNumber) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
-            @Override
-            public void onResponse(SignUpResponse response) {
-                if (response != null) {
-                    passwordstatus = response.getPasswordstatus();
-                    otpStatus = response.getOtpstatus();
-                    genderstatus = response.getGenderstatus();
-                    getDataManager().updateUserGender(genderstatus);
-                    getDataManager().updateUserPasswordStatus(passwordstatus);
-                    if (!passwordstatus) {
-                        OtpId = response.getOid();
-                    }else {
-                        userId = response.getUserid();
-                    }
-
-                    if (passwordstatus) {
-                        getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
-                    } else {
-                        if (otpStatus) {
-                            if (genderstatus) {
-                                getNavigator().openHomeScreen(otpStatus);
-                            } else {
-                                getDataManager().updateUserGender(genderstatus);
-                            }
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
+                @Override
+                public void onResponse(SignUpResponse response) {
+                    if (response != null) {
+                        passwordstatus = response.getPasswordstatus();
+                        otpStatus = response.getOtpstatus();
+                        genderstatus = response.getGenderstatus();
+                        getDataManager().updateUserGender(genderstatus);
+                        getDataManager().updateUserPasswordStatus(passwordstatus);
+                        if (!passwordstatus) {
+                            OtpId = response.getOid();
                         } else {
-                            getNavigator().otpScreenFalse(otpStatus, OtpId,userId);
+                            userId = response.getUserid();
+                        }
+
+                        if (passwordstatus) {
+                            getNavigator().otpScreenFalse(otpStatus, OtpId, userId);
+                        } else {
+                            if (otpStatus) {
+                                if (genderstatus) {
+                                    getNavigator().openHomeScreen(otpStatus);
+                                } else {
+                                    getDataManager().updateUserGender(genderstatus);
+                                }
+                            } else {
+                                getNavigator().otpScreenFalse(otpStatus, OtpId, userId);
+                            }
                         }
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                getNavigator().loginError(false);
-                setIsLoading(false);
-            }
-        });
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    getNavigator().loginError(false);
+                    setIsLoading(false);
+                }
+            });
 
         /*gsonRequest.setRetryPolicy(new RetryPolicy() {
             @Override
@@ -90,9 +112,9 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
 
             }
         });*/
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
-        }catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 

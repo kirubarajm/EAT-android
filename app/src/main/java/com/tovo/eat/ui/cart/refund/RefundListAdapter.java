@@ -113,7 +113,7 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(RefundListResponse.Result blogUrl);
+        void onItemClickData(RefundListResponse.Result result,int selected);
 
     }
 
@@ -146,20 +146,22 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
 
-
-
-
-
-
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
 
         @Override
         public void onItemClick(RefundListResponse.Result result) {
-            sSelected = getAdapterPosition();
 
-            mLiveProductsAdapterListener.onItemClickData(result);
+
+            if (sSelected==getAdapterPosition()){
+                sSelected=-1;
+            }else {
+                sSelected = getAdapterPosition();
+
+            }
+
+            mLiveProductsAdapterListener.onItemClickData(result,sSelected);
             notifyDataSetChanged();
         }
 

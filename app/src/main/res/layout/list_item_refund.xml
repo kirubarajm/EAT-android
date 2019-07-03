@@ -29,11 +29,8 @@
             android:layout_margin="10dp">
 
 
-
-
-
-
             <RadioButton
+                android:onClick="@{()->refundListItemViewModel.onItemClick()}"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/op"
                 android:layout_alignParentEnd="true"
@@ -103,11 +100,12 @@
 
         
 
-        <View
+       <!-- <View
+
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/eat_color" />
+            android:background="@color/eat_color" />-->
 
     </LinearLayout>
 

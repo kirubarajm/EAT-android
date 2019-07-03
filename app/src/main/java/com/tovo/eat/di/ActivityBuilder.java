@@ -84,10 +84,16 @@ import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.search.dish.SearchDishModule;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.SignUpActivityModule;
+import com.tovo.eat.ui.signup.faqs.FaqActivity;
+import com.tovo.eat.ui.signup.faqs.FaqFragmentModule;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivityModule;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivityModule;
+import com.tovo.eat.ui.signup.privacy.PrivacyActivity;
+import com.tovo.eat.ui.signup.privacy.PrivacyModule;
+import com.tovo.eat.ui.signup.tandc.TermsAndConditionActivity;
+import com.tovo.eat.ui.signup.tandc.TermsAndConditionModule;
 import com.tovo.eat.ui.splash.SplashActivity;
 import com.tovo.eat.ui.splash.SplashActivityModule;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
@@ -168,6 +174,9 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = EditAddressModule.class)
     abstract EditAddressActivity bindEditAddressActivity();
 
+    @ContributesAndroidInjector(modules = PrivacyModule.class)
+    abstract PrivacyActivity bindPrivacyActivity();
+
 
     @ContributesAndroidInjector(modules = AddressListModule.class)
     abstract AddressListActivity bindAddressListActivity();
@@ -175,6 +184,13 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = RefundListModule.class)
     abstract RefundListActivity bindRefundListActivity();
+
+ @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
+    abstract TermsAndConditionActivity bindTermsAndConditionActivity();
+
+
+ @ContributesAndroidInjector(modules = FaqFragmentModule.class)
+    abstract FaqActivity bindFaqActivity();
 
 
     @ContributesAndroidInjector(modules = SelectAddressListModule.class)

@@ -23,14 +23,11 @@
             android:layout_margin="50dp"
             android:src="@drawable/eat_login_logo" />
 
-        <ScrollView
-            android:layout_below="@+id/img_logo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <RelativeLayout
+                android:layout_below="@+id/img_logo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,36 +47,63 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/enter_phone_num"
+                            android:imeOptions="actionDone"
                             android:inputType="phone"
                             android:lines="1"
-                            android:imeOptions="actionDone"
                             android:maxLength="10"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
-                        android:textSize="14sp"
                         android:id="@+id/txt_message"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
                         android:gravity="center"
-                        android:text="@string/login_message" />
+                        android:text="@string/login_message"
+                        android:textSize="14sp" />
+
+
+                    <LinearLayout
+                        android:onClick="@{()->signup.termsandconditions()}"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/terms_and_condition"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_marginTop="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/dark_gray" />
+
+
+                    </LinearLayout>
+
 
                     <RelativeLayout
-                        android:layout_marginTop="60dp"
-                        android:gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        android:gravity="center">
 
                         <com.tovo.eat.utilities.fonts.CircularStdMedium
-                            android:gravity="center"
                             android:id="@+id/btn_sign_in"
                             android:layout_width="160dp"
                             android:layout_height="40dp"
                             android:background="@drawable/verify_btn_bck"
+                            android:gravity="center"
                             android:onClick="@{()->signup.usersLoginMain()}"
                             android:text="@string/verify"
                             android:textAllCaps="true"
@@ -89,7 +113,70 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:onClick="@{()->signup.faqs()}"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/faqsupport"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_marginTop="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dark_gray" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:onClick="@{()->signup.privacy()}"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:text="privacy and policy"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_marginTop="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dark_gray" />
+
+
+                </LinearLayout>
+
+
             </RelativeLayout>
-        </ScrollView>
+
     </RelativeLayout>
 </layout>

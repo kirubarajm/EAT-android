@@ -6,6 +6,11 @@ public interface SignUpActivityNavigator {
 
     void verifyUser();
 
+
+    void faqs();
+    void privacy();
+    void termsandconditions();
+
     void loginError(boolean strError);
 
     void otpScreenFalse(boolean trurOrFalse,int passwordSuccess,int UserId);

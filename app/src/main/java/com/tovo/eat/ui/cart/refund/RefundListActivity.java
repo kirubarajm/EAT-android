@@ -138,18 +138,6 @@ public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, 
 
     }
 
-    @Override
-    public void onItemClickData(RefundListResponse.Result list) {
-
-
-        mRefundListViewModel.saveRefundId(list.getRcid());
-
-        Intent intent=new Intent();
-        intent.putExtra("refundid",list.getRcid());
-        setResult(Activity.RESULT_OK,intent);
-        finish();//finishing activity
-
-    }
 
 
     @Override
@@ -167,6 +155,17 @@ public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, 
         super.onDestroy();
         Intent intent=new Intent();
         setResult(Activity.RESULT_CANCELED,intent);
+        finish();//finishing activity
+    }
+
+    @Override
+    public void onItemClickData(RefundListResponse.Result result, int selected) {
+
+        mRefundListViewModel.saveRefundId(result.getRcid());
+
+        Intent intent=new Intent();
+        intent.putExtra("refundid",result.getRcid());
+        setResult(Activity.RESULT_OK,intent);
         finish();//finishing activity
     }
 }

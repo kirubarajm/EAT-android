@@ -45,6 +45,7 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
 
     @Override
     public void ratingSuccess() {
+        finish();
         Toast.makeText(getApplicationContext(), "Rating Success", Toast.LENGTH_SHORT).show();
     }
 

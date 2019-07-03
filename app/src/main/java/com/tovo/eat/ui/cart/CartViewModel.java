@@ -65,14 +65,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
 
 
-
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
     boolean haveAddress = false;
-    private MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData;
-
     int favId;
     int makeitId;
+    int totalAmount;
     String isFav;
+    private MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData;
     private String sPaymentMode = "";
     private MutableLiveData<List<CartPageResponse.Item>> dishItemsLiveData;
 
@@ -89,8 +88,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         fetchRefunds();
 
-        //  getDataManager().setisPasswordStatus(false);
+        getDataManager().saveRefundId(0);
 
+        //  getDataManager().setisPasswordStatus(false);
 
 
     }
@@ -112,19 +112,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         this.refundListItemsLiveData = refundListItemsLiveData;
     }
 
-    public void refundCoupon(){
+    public void refundCoupon() {
 
         getNavigator().refundList();
 
 
     }
-    public void promoCoupon(){
+
+    public void promoCoupon() {
 
         getNavigator().promoList();
 
 
     }
-
 
 
     public void fav() {
@@ -176,6 +176,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
 
     }
+
     public void addRefundItemsToList(List<RefundListResponse.Result> results) {
         refundListItemViewModels.clear();
         refundListItemViewModels.addAll(results);
@@ -232,9 +233,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         address.set(getDataManager().getCurrentAddressTitle());
         current_address.set(getDataManager().getCurrentAddress());
 
-        if (getDataManager().getAddressId()==0){
+        if (getDataManager().getAddressId() == 0) {
             changeAddress.set("Add Address");
-        }else {
+        } else {
 
             changeAddress.set("Change");
         }
@@ -295,14 +296,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             if (cartRequestPojo.getCartitems().size() == 0) {
                 getDataManager().setCartDetails(null);
                 emptyCart.set(true);
-            }else {
+            } else {
                 emptyCart.set(false);
             }
         }
 
         return getDataManager().getCartDetails();
     }
-
 
 
     public void fetchRefunds() {
@@ -339,11 +339,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
         }
+    }
+
+
+    public void saveRefundandCalculate(int rcid) {
+
+        getDataManager().saveRefundId(rcid);
+        fetchRepos();
+
+
     }
 
 
@@ -363,7 +372,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
 
 
-            if (getDataManager().getRefundId()!=0){
+            if (getDataManager().getRefundId() != 0) {
                 cartRequestPojo.setRcid(getDataManager().getRefundId());
             }
 
@@ -411,8 +420,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
                             //  makeit_category.set(response.getResult().get(0).getCategory());
 
+
+                            totalAmount=cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
+
+
                             total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
-                            grand_total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal()));
+                            grand_total.set(String.valueOf(totalAmount));
                             gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
                             delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
@@ -502,16 +515,27 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         } else {
             if (getDataManager().getTotalOrders() == 0) {
-                getNavigator().paymentGateway(grand_total.get());
 
+                if (totalAmount==0){
+                    cashMode();
+                }else {
+
+                    getNavigator().paymentGateway(grand_total.get());
+                }
             } else {
 
                 if (getDataManager().getisPasswordStatus()) {
-
-                    getNavigator().paymentGateway(grand_total.get());
-
+                    if (totalAmount==0){
+                        cashMode();
+                    }else {
+                        getNavigator().paymentGateway(grand_total.get());
+                    }
                 } else {
-                    getNavigator().postRegistration("cart",grand_total.get());
+
+
+
+                        getNavigator().postRegistration("cart", grand_total.get());
+
                 }
 
             }
@@ -531,6 +555,121 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             getNavigator().paymentMode(sPaymentMode);
 
 
+        }
+
+    }
+
+
+    public void cashMode() {
+        if (getDataManager().getisPasswordStatus()) {
+            try {
+
+                if (getDataManager().getAddressId() != 0) {
+
+
+                    if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+                    //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+
+                    List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
+                    List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
+
+                    PlaceOrderRequestPojo placeOrderRequestPojo = new PlaceOrderRequestPojo();
+
+                    PlaceOrderRequestPojo.Orderitem orderitem;
+
+
+                    Gson sGson = new GsonBuilder().create();
+                    CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+
+                    cartitems.addAll(cartRequestPojo.getCartitems());
+
+
+                    for (int i = 0; i < cartitems.size(); i++) {
+
+                        orderitem = new PlaceOrderRequestPojo.Orderitem();
+                        orderitem.setProductid(cartitems.get(i).getProductid());
+                        orderitem.setQuantity(cartitems.get(i).getQuantity());
+                        orderitems.add(orderitem);
+
+                    }
+
+
+                    placeOrderRequestPojo.setOrderitems(orderitems);
+
+                    placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+
+                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), orderitems);
+
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(placeOrderRequestPojo1);
+
+                    Log.e("sfsdfd", json);
+
+                    setIsLoading(true);
+
+
+                    JsonObjectRequest jsonObjectRequest = null;
+                    try {
+                        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+
+
+                                    if (response.getBoolean("status")) {
+
+                                        getDataManager().currentOrderId(response.getInt("orderid"));
+                                        getDataManager().setCartDetails("");
+                                        getNavigator().orderCompleted();
+                                        getDataManager().saveRefundId(0);
+
+                                    } else {
+
+                                        getNavigator().showToast(response.getString("message"));
+
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+
+                                //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
+                            }
+                        }) {
+
+                            /**
+                             * Passing some request headers
+                             */
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/json");
+
+                                return headers;
+                            }
+                        };
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+                } else {
+                    //  getNavigator().showToast("Please select the address...");
+                }
+            } catch (Exception ee) {
+
+                ee.printStackTrace();
+
+            }
         }
 
     }

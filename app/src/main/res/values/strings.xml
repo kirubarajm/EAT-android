@@ -388,7 +388,7 @@
     <string name="proceed">PROCEED</string>
     <string name="type_your_feedback">Type your feedback here</string>
     <string name="re_type_password">Re-type Password</string>
-    <string name="enter_email_password">ENTER EMAIL AND PASSWORD</string>
+    <string name="enter_email_password">ENTER EMAIL</string>
 
 
     <string name="oh_snap">Oh Snap!</string>
@@ -521,4 +521,6 @@
     <string name="add_promo_code">Add Promo code</string>
     <string name="add_your_refund_coupon">Add your refund coupon</string>
     <string name="refund_coupon">Refund Coupon</string>
+    <string name="faqsupport">FAQs and Support</string>
+    <string name="privacy">Privacy</string>
 </resources>

@@ -3,38 +3,24 @@ package com.tovo.eat.ui.registration;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.cart.PlaceOrderRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RegistrationActivityViewModel extends BaseViewModel<RegistrationActivityNavigator> {
 
     public ObservableList<RegionResponse.Result> regionItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<RegionResponse.Result>> regionItemsLiveData;
     List<RegionResponse.Result> regionList;
     Response.ErrorListener errorListener;
+    private MutableLiveData<List<RegionResponse.Result>> regionItemsLiveData;
 
     public RegistrationActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -61,33 +47,34 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
 
     public void userRegistrationServiceCall(String strEmail, String strReTypePass) {
         int userId = getDataManager().getCurrentUserId();
-        if(!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
 
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId,strEmail, strReTypePass), new Response.Listener<RegistrationResponse>() {
-            @Override
-            public void onResponse(RegistrationResponse response) {
-                if (response != null) {
-                    if (response.getStatus())
-                    {
-                        getDataManager().updateUserPasswordStatus(true);
-                    }else {
-                        getDataManager().updateUserPasswordStatus(false);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId, strEmail, strReTypePass), new Response.Listener<RegistrationResponse>() {
+                @Override
+                public void onResponse(RegistrationResponse response) {
+                    if (response != null) {
+                        if (response.getStatus()) {
+                            getDataManager().updateUserPasswordStatus(true);
+                            getNavigator().regSuccess(response.getMessage());
+                        } else {
+                            getDataManager().updateUserPasswordStatus(false);
+                            getNavigator().regFailure();
+                        }
+
                     }
-                    getNavigator().regSuccess(response.getMessage());
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().regFailure();
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().regFailure();
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -95,28 +82,28 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
     }
 
     public void fetchRegionList() {
-        if(!MvvmApp.getInstance().onCheckNetWork()) return;
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
 
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REGION_LIST, RegionResponse.class, new Response.Listener<RegionResponse>() {
-            @Override
-            public void onResponse(RegionResponse response) {
-                if (response != null) {
-                    regionList=response.getResult();
-                    getNavigator().regionList(regionList);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REGION_LIST, RegionResponse.class, new Response.Listener<RegionResponse>() {
+                @Override
+                public void onResponse(RegionResponse response) {
+                    if (response != null) {
+                        regionList = response.getResult();
+                        getNavigator().regionList(regionList);
+                    }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
 
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 

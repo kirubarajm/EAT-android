@@ -1,12 +1,10 @@
 package com.tovo.eat.ui.cart;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -21,7 +19,6 @@ import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.CartListener;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
@@ -33,7 +30,7 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener,RefundListAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener {
 
 
     /*  @Inject
@@ -43,11 +40,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Inject
     CartViewModel mCartViewModel;
     CartListener cartListener;
-    private ActivityCartBinding mActivityCartBinding;
-
     @Inject
     RefundListAdapter refundListAdapter;
-
+    private ActivityCartBinding mActivityCartBinding;
 
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
@@ -123,22 +118,12 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
 
 
-
-
-
-
-
         LinearLayoutManager mLayoutManager2
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewList.setLayoutManager(mLayoutManager2);
         mActivityCartBinding.recyclerviewList.setAdapter(refundListAdapter);
-
-
-
-
-
 
 
         subscribeToLiveData();
@@ -260,7 +245,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void refundList() {
 
-        Intent intent= RefundListActivity.newIntent(getContext());
+        Intent intent = RefundListActivity.newIntent(getContext());
         startActivityForResult(intent, AppConstants.REFUND_LIST_CODE);
 
 
@@ -270,8 +255,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void promoList() {
 
 
-
-
     }
 
     private void subscribeToLiveData() {
@@ -279,17 +262,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));
 
 
-
         mCartViewModel.getRefundListItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addRefundItemsToList(kitchenItemViewModel));
 
 
-
-
     }
-
-
-
 
 
     @Override
@@ -340,25 +317,23 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (requestCode == CART_REQUESTCODE) {
 
-                boolean status = data.getBooleanExtra("status", false);
-                if (status) {
-                    Intent intent = PaymentActivity.newIntent(getContext());
-                    intent.putExtra("amount", mCartViewModel.grand_total.get());
-                    startActivity(intent);
+            boolean status = data.getBooleanExtra("status", false);
+            if (status) {
+                mCartViewModel.paymentModeCheck();
+               /* Intent intent = PaymentActivity.newIntent(getContext());
+                intent.putExtra("amount", mCartViewModel.grand_total.get());
+                startActivity(intent);*/
 
-                }
-        }else   if (requestCode==AppConstants.REFUND_LIST_CODE){
+            }
+        } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
 
 
-            if (resultCode== RESULT_OK){
+            if (resultCode == RESULT_OK) {
 
                 mCartViewModel.fetchRepos();
 
 
             }
-
-
-
 
 
         }
@@ -367,11 +342,13 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void onItemClickData(RefundListResponse.Result blogUrl) {
+    public void onItemClickData(RefundListResponse.Result result, int selected) {
 
-
-
-
+        if (selected == -1) {
+            mCartViewModel.saveRefundandCalculate(0);
+        }else {
+            mCartViewModel.saveRefundandCalculate(result.getRcid());
+        }
 
     }
 }
