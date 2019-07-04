@@ -7,17 +7,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemRegionCardBinding;
 import com.tovo.eat.databinding.ListItemStoryCardBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
-import com.tovo.eat.ui.home.region.RegionItemViewModel;
-import com.tovo.eat.ui.home.region.RegionKitchenAdapter;
+import com.tovo.eat.ui.home.region.RegionsItemViewModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.registration.RegionItemViewModel;
 
 import java.util.List;
 
-public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> implements RegionKitchenAdapter.LiveProductsAdapterListener{
+public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     private static final int VIEW_TYPE_NORMAL = 1;
@@ -70,12 +69,6 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> imp
         }
     }
 
-    @Override
-    public void onKitchenClicked(Integer kitchenId) {
-
-mLiveProductsAdapterListener.onItemClickData(kitchenId);
-
-    }
 
     public class EmptyViewHolder extends BaseViewHolder  {
 
@@ -97,9 +90,9 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements RegionItemViewModel.RegionItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder {
         ListItemStoryCardBinding mListItemLiveProductsBinding;
-       RegionItemViewModel mLiveProductsItemViewModel;
+        RegionsItemViewModel mLiveProductsItemViewModel;
 
         public LiveProductsViewHolder(ListItemStoryCardBinding binding) {
             super(binding.getRoot());
@@ -112,7 +105,7 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final RegionsResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new RegionItemViewModel(this,blog);
+            mLiveProductsItemViewModel = new RegionsItemViewModel(this,blog,position);
             mListItemLiveProductsBinding.setRegionItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -127,17 +120,7 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
         }
 
 
-        @Override
-        public void onItemClick(Integer id) {
-            mLiveProductsAdapterListener.onItemClickData(id);
 
-
-        }
-
-        @Override
-        public void showMore(Integer id) {
-            mLiveProductsAdapterListener.showMore(id);
-        }
 
 
     }

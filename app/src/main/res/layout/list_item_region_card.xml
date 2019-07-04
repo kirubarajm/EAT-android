@@ -8,7 +8,7 @@
 
         <variable
             name="regionItemViewModel"
-            type="com.tovo.eat.ui.home.region.RegionItemViewModel" />
+            type="com.tovo.eat.ui.home.homemenu.RegionCardItemViewModel" />
 
     </data>
 
@@ -22,6 +22,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="@{()->regionItemViewModel.onItemClick()}"
         app:cardCornerRadius="7dp">
 
 
@@ -33,40 +34,50 @@
             android:focusable="true"
             android:orientation="vertical">
 
-
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/title"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="Mumbai"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
 
-            <View
-                android:id="@+id/separator"
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/gradient_view_kitchen" />
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@{regionItemViewModel.regionName}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/gradient_view_kitchen" />
 
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="Yeh Mumbai meri jaan!"
-                android:textColor="@color/dark_gray"
-                android:textSize="12sp"
-                android:textStyle="italic" />
-
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@{regionItemViewModel.tagline}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_width="220dp"
-                android:layout_height="wrap_content"
+                android:layout_height="320dp"
                 android:layout_gravity="center_horizontal"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="7dp"
@@ -74,26 +85,18 @@
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <com.tovo.eat.utilities.RoundCornerImageView
                         cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
                         android:layout_width="180dp"
                         android:layout_height="200dp"
                         android:layout_margin="10dp"
+                        android:onClick="@{()->regionItemViewModel.onItemClick()}"
                         android:scaleType="fitXY" />
 
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="10dp"
-                        android:visibility="gone"
-                        app:cardBackgroundColor="@color/eat_color"
-                        app:cardCornerRadius="7dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -106,8 +109,8 @@
                         <com.tovo.eat.utilities.fonts.CircularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Kitchens of mumbai"
+                            android:layout_marginTop="5dp"
+                            android:text="@{regionItemViewModel.title}"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -125,8 +128,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="5dp"
-                            android:text="Food from the neighborhoods of Mumbai 12 Kitchen in Santhome."
-                            android:textColor="@color/dark_gray"
+                            android:text="@{regionItemViewModel.content}"                            android:textColor="@color/dark_gray"
                             android:textSize="12sp"
                             android:textStyle="italic" />
                     </LinearLayout>

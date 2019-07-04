@@ -78,7 +78,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
 
-
+   public RegionsResponse regionResult;
 
 
 
@@ -128,7 +128,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
                         try {
-
+                            regionResult=response;
 
                             getNavigator().storiesLoaded(response);
 

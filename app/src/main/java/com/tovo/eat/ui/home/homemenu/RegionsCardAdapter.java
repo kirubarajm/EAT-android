@@ -2,31 +2,26 @@ package com.tovo.eat.ui.home.homemenu;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemRegionBinding;
 import com.tovo.eat.databinding.ListItemRegionCardBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
-import com.tovo.eat.ui.home.region.RegionItemViewModel;
-import com.tovo.eat.ui.home.region.RegionKitchenAdapter;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 
 import java.util.List;
 
-public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> implements RegionKitchenAdapter.LiveProductsAdapterListener{
+public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
 
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    ListItemRegionCardBinding mProductsBinding;
     private List<RegionsResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
-
-
 
     public RegionsCardAdapter(List<RegionsResponse.Result> item_list) {
         this.item_list = item_list;
@@ -71,14 +66,30 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> imp
         }
     }
 
-    @Override
-    public void onKitchenClicked(Integer kitchenId) {
 
-mLiveProductsAdapterListener.onItemClickData(kitchenId);
+
+    public void clearItems() {
+        item_list.clear();
+    }
+
+    public void addItems(List<RegionsResponse.Result> blogList, Context context) {
+        item_list.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(LiveProductsAdapterListener listener) {
+        this.mLiveProductsAdapterListener = listener;
+    }
+
+    public interface LiveProductsAdapterListener {
+
+        void onItemClickData(Integer kitchenId, int position);
+
+        void showMore(Integer regionId);
 
     }
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -98,13 +109,14 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements RegionItemViewModel.RegionItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements RegionCardItemViewModel.RegionItemViewModelListener {
         ListItemRegionCardBinding mListItemLiveProductsBinding;
-       RegionItemViewModel mLiveProductsItemViewModel;
+        RegionCardItemViewModel mLiveProductsItemViewModel;
 
         public LiveProductsViewHolder(ListItemRegionCardBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
+            mProductsBinding = binding;
 
 
         }
@@ -113,7 +125,7 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final RegionsResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new RegionItemViewModel(this,blog);
+            mLiveProductsItemViewModel = new RegionCardItemViewModel(this, blog, position);
             mListItemLiveProductsBinding.setRegionItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -123,14 +135,21 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
             mListItemLiveProductsBinding.executePendingBindings();
 
 
+          /*  if (position ==getAdapterPosition()) {
+
+                mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
+
+            } else {
+                mListItemLiveProductsBinding.title.setVisibility(View.INVISIBLE);
+            }*/
 
 
         }
 
 
         @Override
-        public void onItemClick(Integer id) {
-            mLiveProductsAdapterListener.onItemClickData(id);
+        public void onItemClick(Integer id, int position) {
+            mLiveProductsAdapterListener.onItemClickData(id, position);
 
 
         }
@@ -143,24 +162,11 @@ mLiveProductsAdapterListener.onItemClickData(kitchenId);
 
     }
 
-    public void clearItems() {
-        item_list.clear();
-    }
+    public void viewRegion(){
 
-    public void addItems(List<RegionsResponse.Result> blogList, Context context) {
-        item_list.addAll(blogList);
-        notifyDataSetChanged();
-    }
 
-    public void setListener(LiveProductsAdapterListener listener) {
-        this.mLiveProductsAdapterListener = listener;
-    }
-
-    public interface LiveProductsAdapterListener {
-
-        void onItemClickData(Integer kitchenId);
-        void showMore(Integer regionId);
 
     }
+
 
 }

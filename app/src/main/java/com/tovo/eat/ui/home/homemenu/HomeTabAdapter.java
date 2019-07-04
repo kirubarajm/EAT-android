@@ -4,10 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
-import com.tovo.eat.ui.home.homemenu.dish.DishFragment;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
-import com.tovo.eat.ui.home.region.RegionFragment;
 
 public class HomeTabAdapter extends FragmentStatePagerAdapter {
 
@@ -24,7 +21,7 @@ public class HomeTabAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return KitchenFragment.newInstance();
             case 1:
-                return RegionFragment.newInstance();
+               // return RegionFragment.newInstance();
             default:
                 return null;
         }

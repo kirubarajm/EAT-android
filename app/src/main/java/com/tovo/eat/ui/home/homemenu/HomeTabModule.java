@@ -8,8 +8,6 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
-import com.tovo.eat.ui.home.region.RegionsAdapter;
-import com.tovo.eat.ui.registration.RegionAdapter;
 
 import java.util.ArrayList;
 

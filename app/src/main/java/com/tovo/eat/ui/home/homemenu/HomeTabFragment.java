@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.home.homemenu;
 
 import android.Manifest;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,11 +21,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageSwitcher;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -51,7 +58,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter, KitchenAdapter.LiveProductsAdapterListener {
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -66,7 +73,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     StoriesCardAdapter storiesCardAdapter;
     DecodeBitmapTask decodeBitmapTask;
     RegionsResponse regionsResponse;
+    CardSliderLayoutManager cardSliderLayoutManager;
     private FragmentHomeBinding mFragmentHomeBinding;
+    private ImageSwitcher mapSwitcher;
+    private TextSwitcher temperatureSwitcher;
+    private TextSwitcher placeSwitcher;
+    private TextSwitcher clockSwitcher;
+    private TextSwitcher descriptionsSwitcher;
+    private View greenDot;
+    private int countryOffset1;
+    private int countryOffset2;
+    private long countryAnimDuration;
+    private int currentPosition;
+    private DecodeBitmapTask decodeMapBitmapTask;
+    private DecodeBitmapTask.Listener mapLoadListener;
+
+
     private GoogleApiClient mGoogleApiClient;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
             .ConnectionCallbacks() {
@@ -171,6 +193,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void storiesLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
+        initCountryText();
     }
 
     @Override
@@ -179,6 +202,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.setNavigator(this);
         mHomeTabViewModel.updateAddressTitle();
         adapter.setListener(this);
+        regionListAdapter.setListener(this);
     }
 
 
@@ -254,7 +278,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition).getRegionname());
                 } catch (NullPointerException ne) {
                     ne.printStackTrace();
-                }catch (Exception x){
+                } catch (Exception x) {
                     x.printStackTrace();
                 }
 
@@ -306,12 +330,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //onActiveCardChange();
+                    onActiveCardChange();
                 } else {
 
-                    CardSliderLayoutManager ll = (CardSliderLayoutManager) recyclerView.getLayoutManager();
+                    cardSliderLayoutManager = (CardSliderLayoutManager) recyclerView.getLayoutManager();
 
-                    int firstVisiblePosition = ll.getActiveCardPosition();
+                    int firstVisiblePosition = cardSliderLayoutManager.getActiveCardPosition();
 
 
                     //   Toast.makeText(getContext(), "Position : "+ firstVisiblePosition, Toast.LENGTH_SHORT).show();
@@ -319,7 +343,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-        CardSliderLayoutManager layoutManger = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
 
 
         new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
@@ -541,6 +565,221 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void addFav(Integer id, String fav) {
+
+    }
+
+
+    private void initCountryText() {
+
+
+
+       // setCountryText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname(),true );
+      //  setCountryTextSlogan(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname(),true );
+
+
+
+      //  mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+       // mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+
+
+        countryAnimDuration = 350;
+        countryOffset1 = getResources().getDimensionPixelSize(R.dimen.left_offset);
+        countryOffset2 = getResources().getDimensionPixelSize(R.dimen.card_width);
+       // mFragmentHomeBinding.area1.setX(countryOffset1);
+       // mFragmentHomeBinding.area2.setX(countryOffset2);
+        mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+        mFragmentHomeBinding.area2.setAlpha(0f);
+
+     //   mFragmentHomeBinding.slogan1.setX(countryOffset1);
+      //  mFragmentHomeBinding.slogan2.setX(countryOffset2);
+        mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+        mFragmentHomeBinding.slogan2.setAlpha(0f);
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    private void setCountryText(String text, boolean left2right) {
+        final TextView invisibleText;
+        final TextView visibleText;
+        if (mFragmentHomeBinding.area1.getAlpha() > mFragmentHomeBinding.area2.getAlpha()) {
+            visibleText = mFragmentHomeBinding.area1;
+            invisibleText = mFragmentHomeBinding.area2;
+        } else {
+            visibleText = mFragmentHomeBinding.area2;
+            invisibleText = mFragmentHomeBinding.area1;
+        }
+
+        final int vOffset;
+        if (left2right) {
+          //  invisibleText.setX(0);
+            vOffset = countryOffset2;
+        } else {
+          //  invisibleText.setX(countryOffset2);
+            vOffset = 0;
+        }
+
+        invisibleText.setText(text);
+
+        final ObjectAnimator iAlpha = ObjectAnimator.ofFloat(invisibleText, "alpha", 1f);
+        final ObjectAnimator vAlpha = ObjectAnimator.ofFloat(visibleText, "alpha", 0f);
+        final ObjectAnimator iX = ObjectAnimator.ofFloat(invisibleText, "x", countryOffset1);
+        final ObjectAnimator vX = ObjectAnimator.ofFloat(visibleText, "x", vOffset);
+
+        final AnimatorSet animSet = new AnimatorSet();
+        animSet.playTogether(iAlpha, vAlpha, iX, vX);
+        animSet.setDuration(countryAnimDuration);
+        animSet.start();
+    }
+
+    private void setCountryTextSlogan(String text, boolean left2right) {
+        final TextView invisibleText;
+        final TextView visibleText;
+        if (mFragmentHomeBinding.slogan1.getAlpha() > mFragmentHomeBinding.slogan2.getAlpha()) {
+            visibleText = mFragmentHomeBinding.slogan1;
+            invisibleText = mFragmentHomeBinding.slogan2;
+        } else {
+            visibleText = mFragmentHomeBinding.slogan2;
+            invisibleText = mFragmentHomeBinding.slogan1;
+        }
+
+        final int vOffset;
+        if (left2right) {
+            //invisibleText.setX(0);
+            vOffset = countryOffset2;
+        } else {
+           // invisibleText.setX(countryOffset2);
+            vOffset = 0;
+        }
+
+        invisibleText.setText(text);
+        final ObjectAnimator iAlpha = ObjectAnimator.ofFloat(invisibleText, "alpha", 0f);
+        final ObjectAnimator vAlpha = ObjectAnimator.ofFloat(visibleText, "alpha", 0f);
+        final ObjectAnimator iX = ObjectAnimator.ofFloat(invisibleText, "x", 0);
+        final ObjectAnimator vX = ObjectAnimator.ofFloat(visibleText, "x", 0);
+
+        final AnimatorSet animSet = new AnimatorSet();
+        animSet.playTogether(iAlpha, vAlpha, iX, vX);
+        animSet.setDuration(countryAnimDuration);
+        animSet.start();
+    }
+
+    private void onActiveCardChange() {
+        final int pos = cardSliderLayoutManager.getActiveCardPosition();
+        if (pos == RecyclerView.NO_POSITION || pos == currentPosition) {
+            return;
+        }
+
+
+
+        onActiveCardChange(pos);
+    }
+
+    private void onActiveCardChange(int pos) {
+
+        final boolean left2right = pos < currentPosition;
+
+
+        mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
+        mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
+
+
+     //   setCountryText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
+      //  setCountryTextSlogan(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
+
+        currentPosition = pos;
+    }
+
+    @Override
+    public void onItemClickData(Integer kitchenId, int position) {
+
+
+        final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+
+        if (lm.isSmoothScrolling()) {
+            return;
+        }
+
+        final int activeCardPosition = lm.getActiveCardPosition();
+        if (activeCardPosition == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        if (position == activeCardPosition) {
+
+        } else if (position > activeCardPosition) {
+            mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
+            onActiveCardChange(position);
+        }
+
+
+    }
+
+    @Override
+    public void showMore(Integer regionId) {
+
+    }
+
+    private class OnCardClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+
+            if (lm.isSmoothScrolling()) {
+                return;
+            }
+
+            final int activeCardPosition = lm.getActiveCardPosition();
+            if (activeCardPosition == RecyclerView.NO_POSITION) {
+                return;
+            }
+
+            final int clickedPosition = mFragmentHomeBinding.recyclerViewRegion.getChildAdapterPosition(view);
+            if (clickedPosition == activeCardPosition) {
+
+            } else if (clickedPosition > activeCardPosition) {
+                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(clickedPosition);
+                onActiveCardChange(clickedPosition);
+            }
+        }
+    }
+    private class TextViewFactory implements  ViewSwitcher.ViewFactory {
+
+        @StyleRes
+        final int styleId;
+        final boolean center;
+
+        TextViewFactory(@StyleRes int styleId, boolean center) {
+            this.styleId = styleId;
+            this.center = center;
+        }
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public View makeView() {
+            final TextView textView = new TextView(getContext());
+
+            if (center) {
+                textView.setGravity(Gravity.CENTER);
+            }
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                textView.setTextAppearance(getContext(), styleId);
+            } else {
+                textView.setTextAppearance(styleId);
+            }
+
+            return textView;
+        }
 
     }
 }

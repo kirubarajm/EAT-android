@@ -64,7 +64,6 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
-import com.tovo.eat.ui.home.region.RegionProvider;
 import com.tovo.eat.ui.home.region.list.RegionListActivity;
 import com.tovo.eat.ui.home.region.list.RegionListModule;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
@@ -124,7 +123,6 @@ public abstract class ActivityBuilder {
             FilterProvider.class,
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
-            RegionProvider.class,
             SearchProvider.class
 
 

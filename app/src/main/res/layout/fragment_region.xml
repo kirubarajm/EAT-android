@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+<!--
     <data>
 
         <import type="android.view.View" />
@@ -13,7 +13,7 @@
             type="com.tovo.eat.ui.home.region.RegionViewModel">
 
         </variable>
-    </data>
+    </data>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,10 +88,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="1dp"
                         android:animateLayoutChanges="false"
-                        android:background="@android:color/white"
-                        android:nestedScrollingEnabled="false"
-                        app:adapter="@{regionViewModel.regionItemViewModels}"
-                        tools:listitem="@layout/list_item_region" />
+                        android:background="@android:color/white"/>
 
 
                 </android.support.v4.widget.SwipeRefreshLayout>
