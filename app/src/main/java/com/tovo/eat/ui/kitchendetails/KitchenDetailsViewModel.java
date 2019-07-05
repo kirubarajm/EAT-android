@@ -5,7 +5,6 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,16 +21,15 @@ import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigator> {
-
 
     public MutableLiveData<List<KitchenDishResponse.Result>> dishItemFullViewModels;
 
     public ObservableList<KitchenDishResponse.Productlist> dishItemViewModels = new ObservableArrayList<>();
     public ObservableList<KitchenDishResponse.Result> dishFullItemViewModels = new ObservableArrayList<>();
-
 
     public ObservableField<String> kitchenName = new ObservableField<>();
     public ObservableField<String> kitchenImage = new ObservableField<>();
@@ -40,25 +38,35 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> cartPrice = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
 
-
     public ObservableBoolean cart = new ObservableBoolean();
 
+    public ObservableBoolean imageOrVideo = new ObservableBoolean();
 
     public ObservableBoolean optionmenu = new ObservableBoolean();
 
-
     public ObservableBoolean isFavourite = new ObservableBoolean();
     public ObservableField<KitchenDishResponse> kitchenDishModells = new ObservableField<>();
+    public ObservableList<KitchenDishResponse.Kitchenmenuimage> kitchenInfoImagesListViewModels = new ObservableArrayList<>();
+    public MutableLiveData<List<KitchenDishResponse.Kitchenmenuimage>> kitchenInfoImagesListLiveData;
+    public ObservableList<KitchenDishResponse.Foodbadge> foodbadgeObservableArrayListViewModels = new ObservableArrayList<>();
+    public MutableLiveData<List<KitchenDishResponse.Foodbadge>> fListMutableLiveData;
     int favId;
     int makeitId;
     String isFav;
+    List<KitchenDishResponse.Kitchenmenuimage> commonKitchenImagesList = new ArrayList<>();
+    List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList = new ArrayList<>();
+    List<KitchenDishResponse.Kitcheninfoimage> kitchenInfoimageArrayList = new ArrayList<>();
+    KitchenDishResponse.Kitchenmenuimage kitchenmenuimage;
     private MutableLiveData<List<KitchenDishResponse.Productlist>> dishItemsLiveData;
 
 
     public KitchenDetailsViewModel(DataManager dataManager) {
         super(dataManager);
+        fListMutableLiveData = new MutableLiveData<>();
         dishItemsLiveData = new MutableLiveData<>();
+        kitchenInfoImagesListLiveData = new MutableLiveData<>();
         optionmenu.set(true);
+        imageOrVideo.set(true);
 
         //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
@@ -106,34 +114,45 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     }
 
-
     public String getCartPojoDetails() {
 
         return getDataManager().getCartDetails();
     }
 
-
-
     public void menu() {
         if (!optionmenu.get()) {
             optionmenu.set(true);
             getNavigator().animChanges(true);
+        }
 
+        kitchenInfoImagesListLiveData = new MutableLiveData<>();
+        commonKitchenImagesList = new ArrayList<>();
+        commonKitchenImagesList = kitchenmenuimageArrayList;
+        if (commonKitchenImagesList != null) {
+            kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
+            addkitchenCommonImagesList(commonKitchenImagesList);
         }
     }
-
-
 
     public void info() {
         if (optionmenu.get()) {
             optionmenu.set(false);
             getNavigator().animChanges(false);
         }
+
+        commonKitchenImagesList = new ArrayList<>();
+        for (int i = 0; i < kitchenInfoimageArrayList.size(); i++) {
+            kitchenmenuimage = new KitchenDishResponse.Kitchenmenuimage();
+            kitchenmenuimage.setType(kitchenInfoimageArrayList.get(i).getType());
+            kitchenmenuimage.setImgUrl(kitchenInfoimageArrayList.get(i).getImgUrl());
+
+            commonKitchenImagesList.add(kitchenmenuimage);
+        }
+        kitchenInfoImagesListLiveData = new MutableLiveData<>();
+        if (commonKitchenImagesList != null) {
+            addkitchenCommonImagesList(commonKitchenImagesList);
+        }
     }
-
-
-
-
 
     public void fav() {
         if (isFavourite.get()) {
@@ -146,7 +165,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         }
         //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
-
 
     public void removeFavourite(Integer favId) {
 
@@ -185,7 +203,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     }
 
-
     public void addFavourite(Integer kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -223,82 +240,83 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void totalCart() {
-
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
-
         cart.set(false);
-
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
-
         int count = 0;
         int price = 0;
-
         if (cartRequestPojo.getCartitems() != null) {
-
             if (cartRequestPojo.getCartitems().size() == 0) {
-
                 cart.set(false);
-
             } else {
-
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
-
                     count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
                     price = price + ((cartRequestPojo.getCartitems().get(i).getPrice()) * cartRequestPojo.getCartitems().get(i).getQuantity());
-
                 }
-
                 if (count <= 0) {
                     cart.set(false);
                 } else {
                     if (count == 1) {
-
                         cartItems.set(String.valueOf(count) + " Item");
                         cart.set(true);
-
                         cartPrice.set(String.valueOf(price));
-
                         items.set("Item");
                     } else {
-
                         cartItems.set(String.valueOf(count) + " Items");
                         cart.set(true);
                         cartPrice.set(String.valueOf(price));
                         items.set("Items");
                     }
-
                 }
             }
         }
     }
 
-
     public void fetchRepos(Integer kitchenId) {
-        // if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
+        //if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        //AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
         try {
-
-            //  setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class, new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()), kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
+            //setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
+                    new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
+                            91/*kitchenId*/, 73/*getDataManager().getCurrentUserId()*/), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
+                    //setIsLoading(false);
                     if (response != null) {
                         //     dishItemsLiveData.setValue(response.getResult().get(0).getProductlist());
                         //     dishItemFullViewModels.setValue(response.getResult());
 
                         totalCart();
                         if (response.getResult() != null)
-
                             if (response.getResult().size() != 0) {
 
+                                fListMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
+
+                                kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
+                                kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
+
+                                commonKitchenImagesList = kitchenmenuimageArrayList;
+                                if (commonKitchenImagesList != null) {
+                                    kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
+                                }
+
+                                /*for (int i = 0; i < kitchenInfoimageArrayList.size(); i++) {
+                                    kitchenmenuimage = new KitchenDishResponse.Kitchenmenuimage();
+                                    kitchenmenuimage.setType(kitchenInfoimageArrayList.get(i).getType());
+                                    kitchenmenuimage.setImgUrl(kitchenInfoimageArrayList.get(i).getImgUrl());
+
+                                    commonKitchenImagesList.add(kitchenmenuimage);
+                                }
+                                if (commonKitchenImagesList != null) {
+                                    kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
+                                }
+*/
                                 dishFullItemViewModels.addAll(response.getResult());
 
                                 makeitId = response.getResult().get(0).getMakeituserid();
-
 
                                 kitchenImage.set(response.getResult().get(0).getMakeitimg());
 
@@ -312,10 +330,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 if (response.getResult().get(0).getIsfav().equals("0")) {
                                     isFavourite.set(false);
                                 } else {
-
                                     isFavourite.set(true);
                                 }
-
                                 if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
 
                                     kitchenName.set(response.getResult().get(0).getMakeitusername());
@@ -325,13 +341,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                     kitchenName.set(response.getResult().get(0).getMakeitbrandname());
                                 }
 
-
-                                Log.e("----response:---------", response.toString());
-
                                 getNavigator().dishListLoaded(response);
                             }
-
-
 
                         getNavigator().dishListLoaded(response);
                     }
@@ -339,23 +350,16 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    //setIsLoading(false);
                     getNavigator().dishListLoaded(null);
                 }
             });
 
-
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-
         } catch (Exception ee) {
-
             ee.printStackTrace();
-
         }
-
-
     }
-
 
     public void viewCart() {
         getNavigator().viewCart();
@@ -364,4 +368,39 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void back() {
         getNavigator().back();
     }
+
+    public void previousClick() {
+        getNavigator().previousImage();
+    }
+
+    public void nextClick() {
+        getNavigator().nextImage();
+    }
+
+    public void addkitchenCommonImagesList(List<KitchenDishResponse.Kitchenmenuimage> kitchenCommonimageList) {
+        kitchenInfoImagesListViewModels.clear();
+        kitchenInfoImagesListViewModels.addAll(kitchenCommonimageList);
+    }
+
+    public ObservableList<KitchenDishResponse.Kitchenmenuimage> getKicthenCommonImagesItemViewModels() {
+        return kitchenInfoImagesListViewModels;
+    }
+
+    public MutableLiveData<List<KitchenDishResponse.Kitchenmenuimage>> getKitchenCommonImages() {
+        return kitchenInfoImagesListLiveData;
+    }
+
+    public void addFoodBadgesImagesList(List<KitchenDishResponse.Foodbadge> kitchenCommonimageList) {
+        foodbadgeObservableArrayListViewModels.clear();
+        foodbadgeObservableArrayListViewModels.addAll(kitchenCommonimageList);
+    }
+
+    public ObservableList<KitchenDishResponse.Foodbadge> getFoodBadgesImagesItemViewModels() {
+        return foodbadgeObservableArrayListViewModels;
+    }
+
+    public MutableLiveData<List<KitchenDishResponse.Foodbadge>> getFoodBadgesImages() {
+        return fListMutableLiveData;
+    }
+
 }
