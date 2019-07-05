@@ -24,6 +24,8 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
     public final ObservableField<String> regionName = new ObservableField<>();
     public final ObservableField<String> totalKitchens = new ObservableField<>();
+    public final ObservableField<String> tagline = new ObservableField<>();
+    public final ObservableField<String> detailImageUrl = new ObservableField<>();
 
 
 
@@ -75,7 +77,6 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {
-
 
 
                         if (response.getResult().size()!=0) {

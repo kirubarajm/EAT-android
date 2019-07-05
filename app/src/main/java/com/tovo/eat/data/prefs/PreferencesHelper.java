@@ -164,5 +164,9 @@ public interface PreferencesHelper {
     void setRefundId(int rcid);
 
 
+    int getRegionId();
+    void setRegionId(int regiionId);
+
+
 
 }

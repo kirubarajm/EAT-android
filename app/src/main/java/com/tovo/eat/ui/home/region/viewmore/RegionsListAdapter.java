@@ -20,7 +20,7 @@ import com.tovo.eat.ui.home.region.RegionsResponse;
 
 import java.util.List;
 
-public class ReegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class RegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
@@ -30,12 +30,12 @@ public class ReegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private DataManager dataManager;
 
 
-    public ReegionsListAdapter(List<RegionsResponse.Result> item_list) {
+    public RegionsListAdapter(List<RegionsResponse.Result> item_list) {
         this.item_list = item_list;
     }
 
 
-    public ReegionsListAdapter(List<RegionsResponse.Result> item_list, DataManager dataManager) {
+    public RegionsListAdapter(List<RegionsResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
@@ -84,11 +84,8 @@ public class ReegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<RegionsResponse.Result> blogList, List<KitchenDishResponse.Result> response) {
-        item_list.addAll(blogList);
-
-        this.response = response;
-
+    public void addItems(List<RegionsResponse.Result> list) {
+        item_list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -98,7 +95,7 @@ public class ReegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(Integer regionId);
+        void onItemClickData(RegionsResponse.Result mRegionList);
 
 
     }
@@ -151,8 +148,8 @@ public class ReegionsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(Integer id) {
-            mLiveProductsAdapterListener.onItemClickData(id);
+        public void onItemClick(RegionsResponse.Result mRegionList) {
+            mLiveProductsAdapterListener.onItemClickData(mRegionList);
         }
     }
 

@@ -60,6 +60,7 @@ import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.home.region.viewmore.RegionsListAdapter;
 import com.tovo.eat.ui.kitchendetails.InfoImageAdapter;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
@@ -68,6 +69,7 @@ import com.tovo.eat.ui.search.SearchResponse;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 import com.tovo.eat.ui.signup.faqs.FaqResponse;
 import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
+import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
 
 import java.util.List;
 
@@ -161,6 +163,14 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(dishes,recyclerView.getContext());
+        }
+    }
+ @BindingAdapter({"regionListAdapter"})
+    public static void addRegionListItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
+        RegionsListAdapter adapter = (RegionsListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes);
         }
     }
 

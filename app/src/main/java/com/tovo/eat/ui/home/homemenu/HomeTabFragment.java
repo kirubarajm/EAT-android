@@ -46,7 +46,10 @@ import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
+import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
@@ -692,7 +695,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId, int position) {
+    public void onItemClickData( RegionsResponse.Result mRegionList, int position) {
 
 
         final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
@@ -707,6 +710,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
         if (position == activeCardPosition) {
+
+            Intent intent = RegionDetailsActivity.newIntent(getContext());
+            intent.putExtra("image", mRegionList.getRegionDetailImage());
+            intent.putExtra("id", mRegionList.getRegionid());
+            intent.putExtra("tagline", mRegionList.getTagline());
+            startActivity(intent);
+
 
         } else if (position > activeCardPosition) {
             mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
@@ -737,6 +747,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
         if (mHomeTabViewModel.regionResult.getResult().size() == activeCardPosition) {
+
+
+            Intent intent= RegionListActivity.newIntent(getContext());
+         startActivity(intent);
+
+
 
 
         } else if (mHomeTabViewModel.regionResult.getResult().size() > activeCardPosition) {

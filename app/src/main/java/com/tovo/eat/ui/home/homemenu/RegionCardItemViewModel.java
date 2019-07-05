@@ -36,7 +36,7 @@ public class RegionCardItemViewModel {
 
 
     public void onItemClick() {
-        mListener.onItemClick(mRegionList.getRegionid(), position);
+        mListener.onItemClick(mRegionList, position);
     }
 
 
@@ -47,7 +47,7 @@ public class RegionCardItemViewModel {
     }
 
     public interface RegionItemViewModelListener {
-        void onItemClick(Integer id, int position);
+        void onItemClick( RegionsResponse.Result mRegionList, int position);
 
         void showMore(Integer id);
 

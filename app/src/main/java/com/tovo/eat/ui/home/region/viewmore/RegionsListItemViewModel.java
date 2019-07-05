@@ -14,6 +14,12 @@ public class RegionsListItemViewModel {
     public final ObservableField<String> imageUrl = new ObservableField<>();
 
 
+    public final ObservableField<String> totalKitchens = new ObservableField<>();
+    public final ObservableField<String> stateName = new ObservableField<>();
+    public final ObservableField<String> famousfood = new ObservableField<>();
+    public final ObservableField<String> identityImage = new ObservableField<>();
+    public final ObservableField<String> spclFoodImage = new ObservableField<>();
+
     public final RegionItemViewModelListener mListener;
     public final RegionsResponse.Result mRegionList;
 
@@ -21,10 +27,9 @@ public class RegionsListItemViewModel {
     int position;
 
 
-    public RegionsListItemViewModel(RegionItemViewModelListener mListener, RegionsResponse.Result mRegionList, int position) {
+    public RegionsListItemViewModel(RegionItemViewModelListener mListener, RegionsResponse.Result mRegionList) {
         this.mListener = mListener;
         this.mRegionList = mRegionList;
-        this.position = position;
 
         regionName.set(mRegionList.getRegionname());
         tagline.set(mRegionList.getTagline());
@@ -32,24 +37,25 @@ public class RegionsListItemViewModel {
         content.set(mRegionList.getSliderContent());
         imageUrl.set(mRegionList.getRegionImage());
 
+        totalKitchens.set(mRegionList.getKitchencount()+" Kitchens");
+        stateName.set(mRegionList.getStatename());
+        famousfood.set(mRegionList.getSpecialitiesFoodContent());
+        identityImage.set(mRegionList.getIdentityImg());
+        spclFoodImage.set(mRegionList.getSpecialDishImg());
+
+
     }
 
 
     public void onItemClick() {
-        mListener.onItemClick(mRegionList.getRegionid(), position);
+        mListener.onItemClick(mRegionList);
     }
 
 
-    public void showMore() {
-        mListener.showMore(mRegionList.getRegionid());
-
-
-    }
 
     public interface RegionItemViewModelListener {
-        void onItemClick(Integer id, int position);
+        void onItemClick(RegionsResponse.Result mRegionList);
 
-        void showMore(Integer id);
 
     }
 

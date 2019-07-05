@@ -24,17 +24,19 @@
         <android.support.v7.widget.CardView
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             app:cardElevation="10dp"
             app:cardMaxElevation="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
@@ -43,31 +45,18 @@
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
-            <LinearLayout
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
+
 
                 <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="@{regionListViewModel.regionName}"
+                    android:text="Regionals"
                     android:textSize="18sp" />
 
-
-                <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:layout_marginTop="1dp"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/medium_gray"
-                    android:layout_height="wrap_content"
-                    android:text="@{regionListViewModel.totalKitchens}"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </android.support.v7.widget.CardView>
@@ -87,9 +76,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
-                android:layoutAnimation="@anim/lay_fall_down"
-                app:adapter="@{regionListViewModel.kitchenListItemViewModels}"
-                tools:listitem="@layout/list_item_kitchens" />
+                app:regionListAdapter="@{regionListViewModel.regionResults}"
+                tools:listitem="@layout/list_item_region_list" />
 
 
         </android.support.v4.widget.SwipeRefreshLayout>

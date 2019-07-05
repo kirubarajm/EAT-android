@@ -120,16 +120,18 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                 passwordstatus = response.getPasswordstatus();
                                 otpStatus = response.getOtpstatus();
                                 genderstatus = response.getGenderstatus();
-                                oId.set(String.valueOf(response.getOid()));
+
                                 userId.set(String.valueOf(response.getUserid()));
                                 CurrentuserId = response.getUserid();
 
 
-                                if (response.getAddressdetails().size() != 0) {
-                                    getDataManager().setCurrentAddressTitle(response.getAddressdetails().get(0).getAddressTitle());
-                                    getDataManager().setCurrentLat(response.getAddressdetails().get(0).getLat());
-                                    getDataManager().setCurrentLng(response.getAddressdetails().get(0).getLon());
-                                    getDataManager().setAddressId(response.getAddressdetails().get(0).getAid());
+                                getDataManager().saveRegionId(response.getRegionid());
+
+                                if (response.getResult().size() != 0) {
+                                    getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                    getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                    getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                    getDataManager().setAddressId(response.getResult().get(0).getAid());
 
                                 }
 

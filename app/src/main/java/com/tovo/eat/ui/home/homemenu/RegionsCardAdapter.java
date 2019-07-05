@@ -103,7 +103,7 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(Integer kitchenId, int position);
+        void onItemClickData( RegionsResponse.Result mRegionList, int position);
 
         void showMore(Integer regionId);
 
@@ -199,8 +199,8 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(Integer id, int position) {
-            mLiveProductsAdapterListener.onItemClickData(id, position);
+        public void onItemClick( RegionsResponse.Result mRegionList, int position) {
+            mLiveProductsAdapterListener.onItemClickData(mRegionList, position);
 
 
         }

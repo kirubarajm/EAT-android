@@ -3,7 +3,6 @@ package com.tovo.eat.ui.home.region.viewmore;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 
 import java.util.ArrayList;
 
@@ -22,8 +21,8 @@ public class RegionListModule {
     }
 
     @Provides
-    KitchenAdapter provideRegionListAdapter() {
-        return new KitchenAdapter(new ArrayList<>());
+    RegionsListAdapter provideRegionListAdapter() {
+        return new RegionsListAdapter(new ArrayList<>());
     }
 
 

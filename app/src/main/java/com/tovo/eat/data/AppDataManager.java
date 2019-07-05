@@ -170,6 +170,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveRegionId(int regionid) {
+        setRegionId(regionid);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
         mPreferencesHelper.getOrderId();
@@ -471,6 +476,18 @@ public class AppDataManager implements DataManager {
     @Override
     public void setRefundId(int rcid) {
         mPreferencesHelper.setRefundId(rcid);
+    }
+
+    @Override
+    public int getRegionId() {
+        return mPreferencesHelper.getRegionId();
+    }
+
+    @Override
+    public void setRegionId(int regiionId) {
+
+        mPreferencesHelper.setRegionId(regiionId);
+
     }
 
 

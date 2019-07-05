@@ -5,26 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 
 import javax.inject.Inject;
 
-public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, RegionListViewModel> implements RegionListNavigator, KitchenAdapter.LiveProductsAdapterListener {
+public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, RegionListViewModel> implements RegionListNavigator, RegionsListAdapter.LiveProductsAdapterListener {
 
     @Inject
     RegionListViewModel mRegionListViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
-    KitchenAdapter adapter;
+    RegionsListAdapter adapter;
 
     ActivityRegionListBinding mActivityRegionListBinding;
 
@@ -41,11 +41,14 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         adapter.setListener(this);
 
 
-        Intent intent = getIntent();
+        subscribeToLiveData();
+
+       /* Intent intent = getIntent();
         if (intent.getExtras() != null) {
             mRegionListViewModel.fetchRepos(intent.getExtras().getInt("id"));
+
             subscribeToLiveData();
-        }
+        }*/
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRegionListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
@@ -55,7 +58,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         mActivityRegionListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRegionListViewModel.fetchRepos(intent.getExtras().getInt("id"));
+                mRegionListViewModel.fetchRepos();
             }
         });
 
@@ -103,7 +106,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
 
 
     private void subscribeToLiveData() {
-        mRegionListViewModel.getkitchenListItemsLiveData().observe(this,
+        mRegionListViewModel.getRegionListItemsLiveData().observe(this,
                kitchensListItemViewModel -> mRegionListViewModel.addDishItemsToList(kitchensListItemViewModel));
     }
 
@@ -124,27 +127,15 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(RegionsResponse.Result mRegionList) {
 
-
-        Intent intent = KitchenDishActivity.newIntent(RegionListActivity.this);
-        intent.putExtra("kitchenId", kitchenId);
+        Intent intent = RegionDetailsActivity.newIntent(RegionListActivity.this);
+        intent.putExtra("image", mRegionList.getRegionDetailImage());
+        intent.putExtra("id", mRegionList.getRegionid());
+        intent.putExtra("tagline", mRegionList.getTagline());
         startActivity(intent);
     }
 
-    @Override
-    public void animateView(View view) {
 
-    }
-
-    @Override
-    public void removeDishFavourite(Integer favId) {
-
-    }
-
-    @Override
-    public void addFav(Integer id, String fav) {
-
-    }
 }
 

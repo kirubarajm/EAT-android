@@ -9,35 +9,35 @@ public class OtpResponse {
 
     @SerializedName("success")
     @Expose
-    public Boolean success;
+    private Boolean success;
     @SerializedName("status")
     @Expose
-    public Boolean status;
+    private Boolean status;
     @SerializedName("passwordstatus")
     @Expose
-    public Boolean passwordstatus;
+    private Boolean passwordstatus;
     @SerializedName("otpstatus")
     @Expose
-    public Boolean otpstatus;
+    private Boolean otpstatus;
     @SerializedName("genderstatus")
     @Expose
-    public Boolean genderstatus;
-    @SerializedName("oid")
-    @Expose
-    public Integer oid;
+    private Boolean genderstatus;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    private Integer userid;
+    @SerializedName("regionid")
+    @Expose
+    private Integer regionid;
     @SerializedName("result")
     @Expose
-    private List<Addressdetails> addressdetails = null;
+    private List<Result> result = null;
 
-    public List<Addressdetails> getAddressdetails() {
-        return addressdetails;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setAddressdetails(List<Addressdetails> addressdetails) {
-        this.addressdetails = addressdetails;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
     public Boolean getStatus() {
@@ -46,22 +46,6 @@ public class OtpResponse {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
     }
 
     public Boolean getPasswordstatus() {
@@ -88,36 +72,83 @@ public class OtpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Integer getOid() {
-        return oid;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setOid(Integer oid) {
-        this.oid = oid;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
+    public Integer getRegionid() {
+        return regionid;
+    }
 
-    public class Addressdetails{
+    public void setRegionid(Integer regionid) {
+        this.regionid = regionid;
+    }
 
-        @SerializedName("aid")
+    public List<Result> getResult() {
+        return result;
+    }
+
+    public void setResult(List<Result> result) {
+        this.result = result;
+    }
+    public class Result {
+
+        @SerializedName("userid")
         @Expose
-        private Integer aid;
+        private Integer userid;
         @SerializedName("address_title")
         @Expose
         private String addressTitle;
+        @SerializedName("address")
+        @Expose
+        private String address;
+        @SerializedName("flatno")
+        @Expose
+        private String flatno;
+        @SerializedName("locality")
+        @Expose
+        private String locality;
+        @SerializedName("pincode")
+        @Expose
+        private String pincode;
+        @SerializedName("aid")
+        @Expose
+        private Integer aid;
         @SerializedName("lat")
         @Expose
         private Double lat;
         @SerializedName("lon")
         @Expose
         private Double lon;
+        @SerializedName("landmark")
+        @Expose
+        private String landmark;
+        @SerializedName("address_type")
+        @Expose
+        private Integer addressType;
+        @SerializedName("delete_status")
+        @Expose
+        private Integer deleteStatus;
+        @SerializedName("address_default")
+        @Expose
+        private Integer addressDefault;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
+        @SerializedName("updated_at")
+        @Expose
+        private String updatedAt;
 
-        public Integer getAid() {
-            return aid;
+        public Integer getUserid() {
+            return userid;
         }
 
-        public void setAid(Integer aid) {
-            this.aid = aid;
+        public void setUserid(Integer userid) {
+            this.userid = userid;
         }
 
         public String getAddressTitle() {
@@ -126,6 +157,46 @@ public class OtpResponse {
 
         public void setAddressTitle(String addressTitle) {
             this.addressTitle = addressTitle;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getFlatno() {
+            return flatno;
+        }
+
+        public void setFlatno(String flatno) {
+            this.flatno = flatno;
+        }
+
+        public String getLocality() {
+            return locality;
+        }
+
+        public void setLocality(String locality) {
+            this.locality = locality;
+        }
+
+        public String getPincode() {
+            return pincode;
+        }
+
+        public void setPincode(String pincode) {
+            this.pincode = pincode;
+        }
+
+        public Integer getAid() {
+            return aid;
+        }
+
+        public void setAid(Integer aid) {
+            this.aid = aid;
         }
 
         public Double getLat() {
@@ -144,8 +215,54 @@ public class OtpResponse {
             this.lon = lon;
         }
 
+        public String getLandmark() {
+            return landmark;
+        }
+
+        public void setLandmark(String landmark) {
+            this.landmark = landmark;
+        }
+
+        public Integer getAddressType() {
+            return addressType;
+        }
+
+        public void setAddressType(Integer addressType) {
+            this.addressType = addressType;
+        }
+
+        public Integer getDeleteStatus() {
+            return deleteStatus;
+        }
+
+        public void setDeleteStatus(Integer deleteStatus) {
+            this.deleteStatus = deleteStatus;
+        }
+
+        public Integer getAddressDefault() {
+            return addressDefault;
+        }
+
+        public void setAddressDefault(Integer addressDefault) {
+            this.addressDefault = addressDefault;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+        }
 
     }
-
 
 }

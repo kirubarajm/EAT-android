@@ -46,6 +46,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
 
+    private static final String PREF_KEY_REGION_ID = "REGION_ID";
+
 
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
 
@@ -368,6 +370,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setRefundId(int rcid) {
         mPrefs.edit().putInt(PREF_KEY_REFUND_ID, rcid).apply();
+    }
+
+    @Override
+    public int getRegionId() {
+        return mPrefs.getInt(PREF_KEY_REGION_ID, 0);
+    }
+
+    @Override
+    public void setRegionId(int regiionId) {
+        mPrefs.edit().putInt(PREF_KEY_REGION_ID, regiionId).apply();
     }
 
     @Override

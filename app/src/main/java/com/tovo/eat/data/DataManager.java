@@ -64,6 +64,9 @@ public interface DataManager extends PreferencesHelper {
     void saveRefundId(int rcid);
 
 
+    void saveRegionId(int regionid);
+
+
 
 
     void currentOrderId(Integer orderId);

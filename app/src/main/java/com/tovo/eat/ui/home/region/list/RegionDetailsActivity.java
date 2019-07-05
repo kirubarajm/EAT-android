@@ -2,14 +2,19 @@ package com.tovo.eat.ui.home.region.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
+import com.tovo.eat.databinding.ActivityRegionDetailsBinding;
 import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -17,7 +22,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBinding, RegionDetailsViewModel> implements RegionDetailsNavigator, KitchenAdapter.LiveProductsAdapterListener {
+public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBinding, RegionDetailsViewModel> implements RegionDetailsNavigator, KitchenAdapter.LiveProductsAdapterListener {
 
     @Inject
     RegionDetailsViewModel mRegionDetailsViewModel;
@@ -26,7 +31,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBindin
     @Inject
     KitchenAdapter adapter;
 
-    ActivityRegionListBinding mActivityRegionListBinding;
+    ActivityRegionDetailsBinding mActivityRegionListBinding;
 
     public static Intent newIntent(Context context) {
 
@@ -40,24 +45,76 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBindin
         mRegionDetailsViewModel.setNavigator(this);
         adapter.setListener(this);
 
+        setSupportActionBar(mActivityRegionListBinding.toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
+        getSupportActionBar().setHomeAsUpIndicator(backArrow);
+
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
+
+            mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
+            mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
             mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             subscribeToLiveData();
         }
 
+
+        setTitle(mRegionDetailsViewModel.regionName.get());
+      //  mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+        mActivityRegionListBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
+        mActivityRegionListBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            //private State state;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+
+
+                    //   Toast.makeText(KitchenDetailsActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
+
+                    //   setTitle(" ");
+                    mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+
+                    // Toast.makeText(KitchenDetailsActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
+                    // setTitle("Kitchen");
+                    mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
+                    //  mFragmentDishBinding.toolbar.setVisibility(View.GONE);
+                    // mFragmentDishBinding.image.setVisibility(View.GONE);
+
+                } else {
+                    //   Toast.makeText(KitchenDetailsActivity.this, "d", Toast.LENGTH_SHORT).show();
+                    //   setTitle(" ");
+                    //  mFragmentDishBinding.toolbar.setVisibility(View.VISIBLE);
+                    // mFragmentDishBinding.image.setVisibility(View.VISIBLE);
+
+                    mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+                }
+            }
+        });
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mActivityRegionListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
-        mActivityRegionListBinding.recyclerviewList.setAdapter(adapter);
+        mActivityRegionListBinding.recyclerviewOrders.setLayoutManager(new LinearLayoutManager(this));
+        mActivityRegionListBinding.recyclerviewOrders.setAdapter(adapter);
 
-
-        mActivityRegionListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+/*
+        mActivityRegionListBinding.r.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             }
-        });
+        });*/
 
 
     }
@@ -83,10 +140,19 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBindin
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void listLoaded() {
-        mActivityRegionListBinding.refreshList.setRefreshing(false);
+        //mActivityRegionListBinding.refreshList.setRefreshing(false);
 
     }
 
