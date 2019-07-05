@@ -298,8 +298,8 @@ public class KitchenDishActivity extends BaseActivity<FragmentKitchenDishBinding
     @Override
     public void dishListLoaded(KitchenDishResponse response) {
         //mFragmentDishBinding.refreshList.setRefreshing(false);
-        if (response.getResult().get(0).getImages() != null)
-            if (response.getResult().get(0).getImages().size() > 0)
+        if (response.getResult().get(0).getKitchenmenuimage() != null)
+            if (response.getResult().get(0).getKitchenmenuimage().size() > 0)
                 mFragmentDishBinding.kitchenSlider.setAdapter(new MainSliderAdapter(response));
 
 

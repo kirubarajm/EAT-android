@@ -280,7 +280,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                                 kitchenCategory.set(response.getResult().get(0).getLocalityname());
 
                                 if (response.getResult().get(0).getFavid() != null) {
-                                    favId = response.getResult().get(0).getFavid();
+                                    favId = (int) response.getResult().get(0).getFavid();
                                 }
                                 if (response.getResult().get(0).getIsfav().equals("0")) {
                                     isFavourite.set(false);

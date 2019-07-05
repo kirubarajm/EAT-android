@@ -62,6 +62,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.viewmore.RegionsListAdapter;
 import com.tovo.eat.ui.kitchendetails.InfoImageAdapter;
+import com.tovo.eat.ui.kitchendetails.MenuKitchenInfoImageAdapter;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
@@ -194,6 +195,14 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter({"kitchenCommonadapter"})
+    public static void addKitchenCommonItems(RecyclerView recyclerView, List<KitchenDishResponse.Kitchenmenuimage> blogs) {
+        MenuKitchenInfoImageAdapter adapter = (MenuKitchenInfoImageAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(blogs);
+        }
+    }
 
 
     /*@BindingAdapter({"adapter"})

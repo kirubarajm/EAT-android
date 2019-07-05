@@ -33,7 +33,10 @@ public class KitchenDetailsModule {
         return new InfoImageAdapter(new ArrayList<>(),dataManager);
     }
 
-
+    @Provides
+    MenuKitchenInfoImageAdapter provideKitchenCommonImageAdapter() {
+        return new MenuKitchenInfoImageAdapter(new ArrayList<>());
+    }
 
     @Provides
     LinearLayoutManager provideLinearLayoutManager(KitchenDetailsActivity activity) {

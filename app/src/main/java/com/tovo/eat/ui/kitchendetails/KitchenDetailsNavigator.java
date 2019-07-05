@@ -18,5 +18,9 @@ public interface KitchenDetailsNavigator {
 
     void animChanges(boolean status);
 
+    void previousImage();
+
+    void nextImage();
+
 
 }

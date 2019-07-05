@@ -15,13 +15,13 @@ public class MainSliderAdapter extends SliderAdapter {
 
     @Override
     public int getItemCount() {
-        return response.getResult().get(0).getImages().size();
+        return response.getResult().get(0).getKitcheninfoimage().size();
     }
 
     @Override
     public void onBindImageSlide(int position, ImageSlideViewHolder viewHolder) {
 
-        viewHolder.bindImageSlide(response.getResult().get(0).getImages().get(position));
+        viewHolder.bindImageSlide(String.valueOf(response.getResult().get(0).getKitcheninfoimage().get(position)));
 
     }
 }
