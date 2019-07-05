@@ -116,7 +116,7 @@ public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, 
 
     @Override
     public void noAddress() {
-       /* Intent intentAddress = AddAddressActivity.newIntent(RegionListActivity.this);
+       /* Intent intentAddress = AddAddressActivity.newIntent(RegionDetailsActivity.this);
         startActivity(intentAddress);
         finish();*/
         mActivityRefundListBinding.refreshList.setRefreshing(false);

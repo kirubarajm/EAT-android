@@ -11,8 +11,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="regionListViewModel"
-            type="com.tovo.eat.ui.home.region.list.RegionListViewModel" />
+            name="regionDetailsViewModel"
+            type="com.tovo.eat.ui.home.region.list.RegionDetailsViewModel" />
 
     </data>
 
@@ -39,7 +39,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:onClick="@{()->regionListViewModel.goBack()}"
+                    android:onClick="@{()->regionDetailsViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="@{regionListViewModel.regionName}"
+                    android:text="@{regionDetailsViewModel.regionName}"
                     android:textSize="18sp" />
 
 
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/medium_gray"
                     android:layout_height="wrap_content"
-                    android:text="@{regionListViewModel.totalKitchens}"
+                    android:text="@{regionDetailsViewModel.totalKitchens}"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 android:layoutAnimation="@anim/lay_fall_down"
-                app:adapter="@{regionListViewModel.kitchenListItemViewModels}"
+                app:adapter="@{regionDetailsViewModel.kitchenListItemViewModels}"
                 tools:listitem="@layout/list_item_kitchens" />
 
 

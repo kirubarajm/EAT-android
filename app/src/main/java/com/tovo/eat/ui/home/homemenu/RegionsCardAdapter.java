@@ -8,17 +8,19 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemRegionCardBinding;
+import com.tovo.eat.databinding.ListItemRegionMoreCardBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 
 import java.util.List;
 
-public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
+public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_MORE = 2;
     ListItemRegionCardBinding mProductsBinding;
     private List<RegionsResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
@@ -34,6 +36,10 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
                 ListItemRegionCardBinding blogViewBinding = ListItemRegionCardBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
+            case VIEW_TYPE_MORE:
+                ListItemRegionMoreCardBinding moreCardBinding = ListItemRegionMoreCardBinding.inflate(LayoutInflater.from(parent.getContext()),
+                        parent, false);
+                return new ViewMoreViewHolder(moreCardBinding);
             case VIEW_TYPE_EMPTY:
             default:
                 ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
@@ -50,8 +56,9 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
 
     @Override
     public int getItemCount() {
+
         if (item_list != null && item_list.size() > 0) {
-            return item_list.size();
+            return item_list.size() + 1;
         } else {
             return 1;
         }
@@ -59,13 +66,21 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
 
     @Override
     public int getItemViewType(int position) {
-        if (item_list != null && !item_list.isEmpty()) {
-            return VIEW_TYPE_NORMAL;
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }
-    }
 
+
+        if (position == item_list.size()) {
+            return VIEW_TYPE_MORE;
+
+        } else {
+            if (item_list != null && !item_list.isEmpty()) {
+                return VIEW_TYPE_NORMAL;
+            } else {
+                return VIEW_TYPE_EMPTY;
+            }
+        }
+
+
+    }
 
 
     public void clearItems() {
@@ -81,11 +96,18 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
         this.mLiveProductsAdapterListener = listener;
     }
 
+    public void viewRegion() {
+
+
+    }
+
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(Integer kitchenId, int position);
 
         void showMore(Integer regionId);
+
+        void viewMoreRegions();
 
     }
 
@@ -109,6 +131,32 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
 
     }
 
+    public class ViewMoreViewHolder extends BaseViewHolder implements RegionCardMoreItemViewModel.RegionMoreItemViewModelListener {
+
+        private final ListItemRegionMoreCardBinding mBinding;
+
+
+        RegionCardMoreItemViewModel regionCardMoreItemViewModel;
+
+        public ViewMoreViewHolder(ListItemRegionMoreCardBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            regionCardMoreItemViewModel = new RegionCardMoreItemViewModel(this);
+            mBinding.setRegionCardMoreItemViewModel(regionCardMoreItemViewModel);
+        }
+
+        @Override
+        public void viewMoreRegions() {
+
+            mLiveProductsAdapterListener.viewMoreRegions();
+
+        }
+    }
+
     public class LiveProductsViewHolder extends BaseViewHolder implements RegionCardItemViewModel.RegionItemViewModelListener {
         ListItemRegionCardBinding mListItemLiveProductsBinding;
         RegionCardItemViewModel mLiveProductsItemViewModel;
@@ -124,17 +172,20 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final RegionsResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new RegionCardItemViewModel(this, blog, position);
-            mListItemLiveProductsBinding.setRegionItemViewModel(mLiveProductsItemViewModel);
-
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
-            mListItemLiveProductsBinding.executePendingBindings();
 
 
+            if (position < item_list.size()) {
+                final RegionsResponse.Result blog = item_list.get(position);
+                mLiveProductsItemViewModel = new RegionCardItemViewModel(this, blog, position);
+                mListItemLiveProductsBinding.setRegionItemViewModel(mLiveProductsItemViewModel);
+
+                // Immediate Binding
+                // When a variable or observable changes, the binding will be scheduled to change before
+                // the next frame. There are times, however, when binding must be executed immediately.
+                // To force execution, use the executePendingBindings() method.
+                mListItemLiveProductsBinding.executePendingBindings();
+
+            }
           /*  if (position ==getAdapterPosition()) {
 
                 mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
@@ -158,12 +209,6 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder>  {
         public void showMore(Integer id) {
             mLiveProductsAdapterListener.showMore(id);
         }
-
-
-    }
-
-    public void viewRegion(){
-
 
 
     }

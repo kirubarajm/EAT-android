@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="regionCardMoreItemViewModel"
+            type="com.tovo.eat.ui.home.homemenu.RegionCardMoreItemViewModel" />
+
+    </data>
+
+    <!--  <com.tovo.eat.utilities.SwipeLayout
+          android:layout_width="match_parent"
+          android:layout_height="100dp">
+  -->
+    <!--CENTER. app:gravity="center" - is default value -->
+
+
+    <android.support.v7.widget.CardView
+        app:cardBackgroundColor="@color/light_gray"
+        android:layout_width="210dp"
+        android:layout_height="310dp"
+        android:onClick="@{()->regionCardMoreItemViewModel.onItemClick()}"
+        app:cardCornerRadius="7dp">
+
+
+        <com.tovo.eat.utilities.fonts.CircularStdMedium
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="@string/view_more"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+
+    </android.support.v7.widget.CardView>
+</layout>

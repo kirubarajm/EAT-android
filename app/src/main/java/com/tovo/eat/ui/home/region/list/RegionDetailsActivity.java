@@ -1,31 +1,26 @@
 package com.tovo.eat.ui.home.region.list;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityAddressListBinding;
 import com.tovo.eat.databinding.ActivityRegionListBinding;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
-import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, RegionListViewModel> implements RegionListNavigator, KitchenAdapter.LiveProductsAdapterListener {
+public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBinding, RegionDetailsViewModel> implements RegionDetailsNavigator, KitchenAdapter.LiveProductsAdapterListener {
 
     @Inject
-    RegionListViewModel mRegionListViewModel;
+    RegionDetailsViewModel mRegionDetailsViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
@@ -35,20 +30,20 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
 
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, RegionListActivity.class);
+        return new Intent(context, RegionDetailsActivity.class);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRegionListBinding = getViewDataBinding();
-        mRegionListViewModel.setNavigator(this);
+        mRegionDetailsViewModel.setNavigator(this);
         adapter.setListener(this);
 
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            mRegionListViewModel.fetchRepos(intent.getExtras().getInt("id"));
+            mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             subscribeToLiveData();
         }
 
@@ -60,7 +55,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         mActivityRegionListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRegionListViewModel.fetchRepos(intent.getExtras().getInt("id"));
+                mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             }
         });
 
@@ -79,8 +74,8 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     }
 
     @Override
-    public RegionListViewModel getViewModel() {
-        return mRegionListViewModel;
+    public RegionDetailsViewModel getViewModel() {
+        return mRegionDetailsViewModel;
     }
 
     @Override
@@ -108,8 +103,8 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
 
 
     private void subscribeToLiveData() {
-        mRegionListViewModel.getkitchenListItemsLiveData().observe(this,
-               kitchensListItemViewModel -> mRegionListViewModel.addDishItemsToList(kitchensListItemViewModel));
+        mRegionDetailsViewModel.getkitchenListItemsLiveData().observe(this,
+               kitchensListItemViewModel -> mRegionDetailsViewModel.addDishItemsToList(kitchensListItemViewModel));
     }
 
 
@@ -132,7 +127,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     public void onItemClickData(Integer kitchenId) {
 
 
-        Intent intent = KitchenDishActivity.newIntent(RegionListActivity.this);
+        Intent intent = KitchenDishActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
     }

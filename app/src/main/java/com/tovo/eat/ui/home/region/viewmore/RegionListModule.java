@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.region.list;
+package com.tovo.eat.ui.home.region.viewmore;
 
 import android.support.v7.widget.LinearLayoutManager;
 

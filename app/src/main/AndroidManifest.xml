@@ -134,7 +134,7 @@
         <activity android:name=".ui.account.favorites.FavoritesTabActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.payment.PaymentActivity" />
-        <activity android:name=".ui.home.region.list.RegionListActivity" />
+        <activity android:name=".ui.home.region.list.RegionDetailsActivity" />
         <activity android:name=".ui.search.dish.SearchDishActivity" />
         <activity android:name=".ui.account.edit.EditAccountActivity" />
         <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
@@ -144,6 +144,7 @@
         <activity android:name=".ui.signup.tandc.TermsAndConditionActivity" />
         <activity android:name=".ui.signup.privacy.PrivacyActivity" />
         <activity android:name=".ui.signup.faqs.FaqActivity" />
+        <activity android:name=".ui.home.region.viewmore.RegionListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

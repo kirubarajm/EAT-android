@@ -21,8 +21,6 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
-import com.tovo.eat.ui.home.region.list.RegionListActivity;
-import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 
 import javax.inject.Inject;
@@ -313,7 +311,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                /* mFragmentSearchBinding.searchh.clearFocus();
                 mFragmentSearchBinding.searchh.setQuery("",false);*/
 
-                /*Intent intent2 = RegionListActivity.newIntent(getContext());
+                /*Intent intent2 = RegionDetailsActivity.newIntent(getContext());
                 intent2.putExtra("id", result.getId());
                 startActivity(intent2);*/
                 break;

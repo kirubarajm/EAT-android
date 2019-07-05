@@ -4,26 +4,20 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
-public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
+public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator> {
 
 
 
@@ -37,7 +31,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
     boolean haveAddress = false;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
 
-    public RegionListViewModel(DataManager dataManager) {
+    public RegionDetailsViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenListItemsLiveData = new MutableLiveData<>();
 
@@ -77,7 +71,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionListRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {

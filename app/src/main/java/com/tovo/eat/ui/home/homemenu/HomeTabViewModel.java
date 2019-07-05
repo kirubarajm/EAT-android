@@ -22,7 +22,7 @@ import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
-import com.tovo.eat.ui.home.region.list.RegionListRequest;
+import com.tovo.eat.ui.home.region.list.RegionDetailsRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -122,7 +122,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager() .getCurrentUserId(),regionId), new Response.Listener<RegionsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager() .getCurrentUserId(),regionId), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {

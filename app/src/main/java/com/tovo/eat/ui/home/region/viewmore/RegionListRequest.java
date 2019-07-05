@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.region.list;
+package com.tovo.eat.ui.home.region.viewmore;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
