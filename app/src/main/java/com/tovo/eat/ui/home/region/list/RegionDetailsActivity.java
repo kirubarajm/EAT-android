@@ -65,12 +65,12 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionListBindin
 
     @Override
     public int getBindingVariable() {
-        return BR.regionListViewModel;
+        return BR.regionDetailsViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_region_list;
+        return R.layout.activity_region_details;
     }
 
     @Override
