@@ -17,6 +17,10 @@ public class FilterRequestPojo {
     @SerializedName("lon")
     @Expose
     private String lon;
+
+
+
+
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
@@ -34,7 +38,17 @@ public class FilterRequestPojo {
     @SerializedName("sortlist")
     @Expose
     private List<Sortlist> sortlist = null;
+    @SerializedName("vegtype")
+    @Expose
+    private String vegtype;
 
+    public String getVegtype() {
+        return vegtype;
+    }
+
+    public void setVegtype(String vegtype) {
+        this.vegtype = vegtype;
+    }
 
     public Integer getSortid() {
         return sortid;

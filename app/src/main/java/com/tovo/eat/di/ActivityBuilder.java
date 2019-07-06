@@ -19,9 +19,12 @@ package com.tovo.eat.di;
 import com.tovo.eat.ui.account.MyAccountProvider;
 import com.tovo.eat.ui.account.edit.EditAccountActivity;
 import com.tovo.eat.ui.account.edit.EditAccountModule;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivityModule;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivityProvider;
+import com.tovo.eat.ui.account.favorites.FavouritesActivity;
+import com.tovo.eat.ui.account.favorites.FavouritesModule;
+import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenModule;
+import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
+import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivityModule;
+import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivityProvider;
 import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
@@ -174,6 +177,11 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PaymentModule.class)
     abstract PaymentActivity bindPaymentActivity();
+
+
+
+    @ContributesAndroidInjector(modules ={ FavouritesModule.class,FavoritesDishProvider.class, FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
+    abstract FavouritesActivity bindFavouritesActivity();
 
 
     @ContributesAndroidInjector(modules = EditAddressModule.class)

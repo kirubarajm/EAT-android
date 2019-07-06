@@ -31,8 +31,8 @@
         <com.tovo.eat.utilities.RoundCornerImageView
             android:layout_width="60dp"
             android:layout_margin="5dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            android:src="@drawable/stories"
             android:layout_height="60dp"/>
 
 

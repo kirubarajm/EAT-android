@@ -7,6 +7,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
@@ -14,6 +15,8 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -436,15 +439,34 @@ public class DishItemViewModel {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    mListener.favChanged();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
-        try {
+        /*try {
 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
+                        mListener.favChanged();
 
                         mListener.showToast(response.getMessage());
 
@@ -453,19 +475,19 @@ public class DishItemViewModel {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+
                 }
             });
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
 
-    public void addFavourite(Integer kitchenId) {
+    public void addFavourite(Integer favid) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -473,16 +495,17 @@ public class DishItemViewModel {
 
         try {
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(mListener.getEatId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(mListener.getEatId()), String.valueOf(favid)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
 
-                        if (response.getFavid() != null)
+                        if (response.getFavid() != null) {
                             favID = response.getFavid();
-
-                        mListener.showToast(response.getMessage());
+                            mListener.favChanged();
+                            mListener.showToast(response.getMessage());
+                        }
 
                     }
                 }
@@ -542,6 +565,8 @@ public class DishItemViewModel {
 
         void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
 
+
+        void favChanged();
 
     }
 

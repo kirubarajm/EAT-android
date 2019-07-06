@@ -9,8 +9,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:title="Refresh" />
 
     <item
+        app:showAsAction="ifRoom"
         android:id="@+id/order_cancel"
-        android:title="Order Cancel" />
+        android:title="@string/help" />
 
 
 </menu>

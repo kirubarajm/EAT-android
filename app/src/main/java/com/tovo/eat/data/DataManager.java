@@ -45,11 +45,15 @@ public interface DataManager extends PreferencesHelper {
 
      void updateUserGender(boolean genderStatus);
 
+     void updateEmailStatus(boolean status);
+
      void updateUserPasswordStatus(boolean passwordStatus);
 
     void saveMaster(String master);
 
     void saveFilterSort(String filters);
+
+    void saveVegType(String type);
 
     void currentFragment(Integer id);
 

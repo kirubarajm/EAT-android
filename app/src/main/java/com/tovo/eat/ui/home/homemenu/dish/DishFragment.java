@@ -121,7 +121,10 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     public void handleError(Throwable throwable) {
 
     }
-
+    @Override
+    public void favChanged() {
+        mDishViewModel.fetchRepos();
+    }
     @Override
     public void gotoJobCompleted() {
 

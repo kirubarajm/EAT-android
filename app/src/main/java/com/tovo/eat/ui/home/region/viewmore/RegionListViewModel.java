@@ -73,7 +73,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), getDataManager().getRegionId()), new Response.Listener<RegionsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), getDataManager().getRegionId(),getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {

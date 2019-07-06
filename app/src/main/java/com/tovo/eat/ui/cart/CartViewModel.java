@@ -524,7 +524,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 }
             } else {
 
-                if (getDataManager().getisPasswordStatus()) {
+                if (getDataManager().getEmailStatus()) {
                     if (totalAmount==0){
                         cashMode();
                     }else {
@@ -561,7 +561,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void cashMode() {
-        if (getDataManager().getisPasswordStatus()) {
+        if (getDataManager().getEmailStatus()) {
             try {
 
                 if (getDataManager().getAddressId() != 0) {

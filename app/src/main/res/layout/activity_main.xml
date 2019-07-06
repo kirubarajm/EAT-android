@@ -358,9 +358,10 @@
 
 
             <LinearLayout
+                android:gravity="center_vertical"
                 android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
@@ -383,10 +384,11 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:gravity="center"
-                        android:src="@drawable/ic_home_black_24dp"
+                        android:src="@drawable/eat_login_logo"
                         android:tint="@{viewModel.isHome?@color/eat_color:@color/dark_gray}" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -419,6 +421,7 @@
                         android:src="@drawable/ic_search_black_24dp"/>
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -460,6 +463,7 @@
                                 android:src="@drawable/ic_shopping_cart_black_24dp" />
 
                             <com.tovo.eat.utilities.fonts.CircularTextView
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -505,6 +509,7 @@
                         android:src="@drawable/ic_perm_identity_black_24dp" />
 
                     <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

@@ -25,6 +25,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
@@ -56,8 +57,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         if (data == null) {
             sendNotification(notification);
         } else {
-
-            sendNotification(notification, data);
+            sendNotification(data);
         }
 
 
@@ -109,7 +109,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         saveToken(s);
     }
 
-    private void sendNotification(RemoteMessage.Notification notification, Map<String, String> data) {
+    private void sendNotification( Map<String, String> data) {
               /*pageidOrder_Post:1,
                 pageidOrder_Accept:2,
                 pageidOrder_Preparing:3,
@@ -151,6 +151,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                     break;
                 case "7":
                     intent = new Intent(this, OrderHistoryActivity.class);
+                    break;
+                case "8":
+                    intent = new Intent(this, RepliesActivity.class);
                     break;
                 default:
                     intent = new Intent(this, MainActivity.class);

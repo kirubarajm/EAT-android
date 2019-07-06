@@ -132,6 +132,7 @@ mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
         public void removeFavourites(Integer favId) {
 
             mLiveProductsAdapterListener.removeDishFavourite(favId);
+            removeAt(getAdapterPosition());
         }
     }
 
@@ -155,10 +156,13 @@ mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
 
         void animateView(View view);
 
-
         void removeDishFavourite(Integer favId);
 
         void addFav(Integer id, String fav);
     }
-
+    public void removeAt(int position) {
+        item_list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, item_list.size());
+    }
 }

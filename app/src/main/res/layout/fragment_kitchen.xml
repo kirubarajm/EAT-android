@@ -22,6 +22,7 @@
         android:background="@color/white">
 
         <com.facebook.shimmer.ShimmerFrameLayout
+            android:visibility="gone"
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,6 +61,7 @@
 
 
         <com.tovo.eat.utilities.fonts.CircularTextView
+            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
             android:id="@+id/filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
 
 
         <com.tovo.eat.utilities.fonts.TovoTextView
+            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -87,6 +90,7 @@
 
 
         <View
+            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
@@ -105,7 +109,7 @@
             android:layout_marginTop="10dp">
 
 
-            <android.support.v7.widget.RecyclerView
+            <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
                 android:id="@+id/recyclerview_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

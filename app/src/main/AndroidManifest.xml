@@ -131,7 +131,7 @@
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.favorites.FavoritesTabActivity"
+        <activity android:name=".ui.account.favorites.tab.FavoritesTabActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.payment.PaymentActivity" />
         <activity android:name=".ui.home.region.list.RegionDetailsActivity" />
@@ -145,6 +145,7 @@
         <activity android:name=".ui.signup.privacy.PrivacyActivity" />
         <activity android:name=".ui.signup.faqs.FaqActivity" />
         <activity android:name=".ui.home.region.viewmore.RegionListActivity" />
+        <activity android:name=".ui.account.favorites.FavouritesActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

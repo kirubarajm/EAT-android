@@ -115,6 +115,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void updateEmailStatus(boolean status) {
+        setEmailStatus(status);
+    }
+
+    @Override
     public void updateUserPasswordStatus(boolean passwordStatus) {
 
 
@@ -145,6 +150,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void saveFilterSort(String filters) {
         setFilterSort(filters);
+    }
+
+    @Override
+    public void saveVegType(String type) {
+        setVegType(type);
     }
 
     @Override
@@ -488,6 +498,26 @@ public class AppDataManager implements DataManager {
 
         mPreferencesHelper.setRegionId(regiionId);
 
+    }
+
+    @Override
+    public boolean getEmailStatus() {
+        return mPreferencesHelper.getEmailStatus();
+    }
+
+    @Override
+    public void setEmailStatus(boolean status) {
+        mPreferencesHelper.setEmailStatus(status);
+    }
+
+    @Override
+    public String getVegType() {
+        return mPreferencesHelper.getVegType();
+    }
+
+    @Override
+    public void setVegType(String type) {
+        mPreferencesHelper.setVegType(type);
     }
 
 

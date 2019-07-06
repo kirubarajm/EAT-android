@@ -39,14 +39,14 @@ import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.account.favorites.FavouritesActivity;
+import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -168,11 +168,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void favourites() {
 
        /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FavoritesTabActivity fragment = new FavoritesTabActivity();
+        FavoritesActivity fragment = new FavoritesActivity();
         transaction.replace(R.id.content_main, fragment);
         transaction.commitNow();*/
-
-        Intent intent = FavoritesTabActivity.newIntent(getContext());
+        Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
 
 
@@ -538,7 +537,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void applyFilter() {
 
-        mHomeTabViewModel.fetchRepos();
+        mHomeTabViewModel. fetchKitchen();
 
 
     }
@@ -593,7 +592,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         //   mFragmentHomeBinding.slogan1.setX(countryOffset1);
         //  mFragmentHomeBinding.slogan2.setX(countryOffset2);
-        mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+        mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getTagline());
         mFragmentHomeBinding.slogan2.setAlpha(0f);
 
 
@@ -685,7 +684,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mFragmentHomeBinding.slogan1.setText("");
         } else {
             mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
-            mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
+            mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
         }
 
         //   setCountryText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
@@ -789,34 +788,4 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
     }
 
-    private class TextViewFactory implements ViewSwitcher.ViewFactory {
-
-        @StyleRes
-        final int styleId;
-        final boolean center;
-
-        TextViewFactory(@StyleRes int styleId, boolean center) {
-            this.styleId = styleId;
-            this.center = center;
-        }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public View makeView() {
-            final TextView textView = new TextView(getContext());
-
-            if (center) {
-                textView.setGravity(Gravity.CENTER);
-            }
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                textView.setTextAppearance(getContext(), styleId);
-            } else {
-                textView.setTextAppearance(styleId);
-            }
-
-            return textView;
-        }
-
-    }
 }

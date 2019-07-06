@@ -133,7 +133,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     public void cashMode() {
-        if (getDataManager().getisPasswordStatus()) {
+        if (getDataManager().getEmailStatus()) {
             try {
 
 
@@ -252,7 +252,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void paymentModeCheck() {
 
-        if (getDataManager().getisPasswordStatus()) {
+        if (getDataManager().getEmailStatus()) {
 
             payOnline();
 

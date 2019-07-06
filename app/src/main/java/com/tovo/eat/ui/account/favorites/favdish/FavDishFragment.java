@@ -13,8 +13,6 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentDishBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.CartListener;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishNavigator;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
@@ -67,15 +65,13 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         super.onViewCreated(view, savedInstanceState);
         mFragmentDishBinding = getViewDataBinding();
 
-      setUp();
+        setUp();
 
 
     }
 
 
-
-
-    public void setUp(){
+    public void setUp() {
 
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -174,7 +170,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
 //        ((TestActivity) getActivity()).statusUpdate();
 
-       // mDishViewModel.fetchRepos();
+        // mDishViewModel.fetchRepos();
     }
 
     @Override
@@ -206,7 +202,6 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         toastMessage("Entered quantity not available now");
 
 
-
     }
 
     @Override
@@ -227,15 +222,21 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     }
 
     @Override
+    public void favChanged() {
+        mDishViewModel.fetchRepos();
+    }
+
+    @Override
     public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
 
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         fragment.setTargetFragment(this, 0);
         fragment.setCancelable(false);
 
-       DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
+        DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(), makeitId, productId, quantity, price);
 
     }
+
     @Override
     public void applyFilter() {
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);

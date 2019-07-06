@@ -6,14 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentMyAccountBinding;
 import com.tovo.eat.ui.account.edit.EditAccountActivity;
-import com.tovo.eat.ui.account.favorites.FavoritesTabActivity;
+import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;
@@ -118,9 +117,9 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
 /*
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FavoritesTabActivity fragment = new FavoritesTabActivity();
+        FavoritesActivity fragment = new FavoritesActivity();
         transaction.replace(R.id.content_main, fragment);
-       // transaction.addToBackStack(FavoritesTabActivity.class.getSimpleName());
+       // transaction.addToBackStack(FavoritesActivity.class.getSimpleName());
       //  transaction.addToBackStack(null);
         transaction.commitNow();
         // transaction.commitNowAllowingStateLoss();*/

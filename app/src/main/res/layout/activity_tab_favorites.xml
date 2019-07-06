@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.account.favorites.FavoritesTabActivity">
+    tools:context=".ui.account.favorites.tab.FavoritesTabActivity">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="favTabViewModel"
-            type="com.tovo.eat.ui.account.favorites.FavoritesTabActivityViewModel" />
+            type="com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivityViewModel" />
 
     </data>
 

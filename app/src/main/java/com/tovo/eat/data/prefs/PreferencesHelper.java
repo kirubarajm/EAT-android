@@ -168,5 +168,11 @@ public interface PreferencesHelper {
     void setRegionId(int regiionId);
 
 
+    boolean getEmailStatus();
 
+    void setEmailStatus(boolean status);
+
+    String getVegType();
+
+    void setVegType(String type);
 }

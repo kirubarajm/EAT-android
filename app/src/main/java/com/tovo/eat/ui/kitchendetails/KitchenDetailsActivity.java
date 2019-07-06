@@ -146,11 +146,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset == 0 || verticalOffset <= mFragmentDishBinding.toolbar.getHeight()){
-                    Toast.makeText(KitchenDetailsActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FavouritesActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
 
 
                 }else if(!mFragmentDishBinding.toolbar.getTitle().equals(null)){
-                    Toast.makeText(KitchenDetailsActivity.this, "un-collapsed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FavouritesActivity.this, "un-collapsed", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -205,21 +205,21 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 if (verticalOffset == 0) {
 
 
-                    //   Toast.makeText(KitchenDetailsActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
+                    //   Toast.makeText(FavouritesActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
 
                     //   setTitle(" ");
                     mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
 
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
 
-                    // Toast.makeText(KitchenDetailsActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(FavouritesActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
                     // setTitle("Kitchen");
                     mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
                     //  mFragmentDishBinding.toolbar.setVisibility(View.GONE);
                     // mFragmentDishBinding.image.setVisibility(View.GONE);
 
                 } else {
-                    //   Toast.makeText(KitchenDetailsActivity.this, "d", Toast.LENGTH_SHORT).show();
+                    //   Toast.makeText(FavouritesActivity.this, "d", Toast.LENGTH_SHORT).show();
                     //   setTitle(" ");
                     //  mFragmentDishBinding.toolbar.setVisibility(View.VISIBLE);
                     // mFragmentDishBinding.image.setVisibility(View.VISIBLE);

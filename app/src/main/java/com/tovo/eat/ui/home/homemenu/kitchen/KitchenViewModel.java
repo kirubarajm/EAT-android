@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -33,11 +34,23 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
 
+    public ObservableBoolean favFragment=new ObservableBoolean();
+
+
+
 
     public KitchenViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
+
+        if (getDataManager().getIsFav()) {
+            favFragment.set(false);
+        }else {
+            favFragment.set(true);
+        }
+
         fetchRepos();
+
     }
 
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
@@ -78,7 +91,6 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
 
 
-
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -95,7 +107,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
                         getNavigator().toastMessage(response.getMessage());
 
-                        fetchRepos();
+                        //fetchRepos();
 
                     }
                 }

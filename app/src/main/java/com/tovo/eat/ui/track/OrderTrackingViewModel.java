@@ -191,7 +191,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
 
-                                getNavigator().orderPickedUp(response.getResult().get(0).getOrderid());
+                                getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
                                 isReeceived.set(false);

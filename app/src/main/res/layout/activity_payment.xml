@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.MainActivity">
@@ -18,10 +19,389 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray">
-
+        android:background="@color/white">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:onClick="@{()->paymentViewModel.goBack()}"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/payments"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <LinearLayout
+            android:background="@color/white"
+            android:id="@+id/amount"
+            android:layout_below="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+
+            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/total_amount"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/icon_inr"
+                    android:textSize="16sp" />
+
+                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="1dp"
+                    android:text="@{paymentViewModel.amount}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/amount"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{()->paymentViewModel.paymentModeCheck()}"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wallet"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:id="@+id/separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_below="@+id/details"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/paytm" />
+
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/freecharge" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{()->paymentViewModel.paymentModeCheck()}"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/credit_debit_cards"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/save_and_pay_via_cards"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/visacard" />
+
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/americancard" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/mastercard" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{()->paymentViewModel.paymentModeCheck()}"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upi"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/gpay" />
+
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/phonepay" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{()->paymentViewModel.paymentModeCheck()}"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/netbanking"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/netbanking" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{()->paymentViewModel.cashMode()}"
+                    android:orientation="vertical">
+
+
+                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_on_delivery"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/cod" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cash_on_delivery"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/keep_change"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+        <!--<android.support.v7.widget.CardView
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -294,983 +674,979 @@
                 android:textSize="9sp" />
 
 
-        </LinearLayout>
-
-
-        <!--  <ScrollView
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_below="@+id/header"
-              android:background="@color/light_gray">
-
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="@color/light_gray"
-                  android:orientation="vertical">
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/amount"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardBackgroundColor="@color/white"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_margin="10dp"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical">
-
-
-                          <com.tovo.eat.utilities.fonts.CircularStdMedium
-                              android:id="@+id/title"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_gravity="center_horizontal"
-                              android:text="@string/total_amount"
-                              android:textAlignment="center"
-                              android:textColor="@color/black"
-                              android:textSize="16sp" />
-
-
-                          <LinearLayout
-                              android:layout_gravity="center_horizontal"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:orientation="horizontal">
-
-                              <com.tovo.eat.utilities.fonts.TovoTextView
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:textSize="16sp"
-                                  android:text="@string/icon_inr"/>
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_horizontal"
-                                  android:layout_margin="1dp"
-                                  android:text="2455"
-                                  android:textAlignment="center"
-                                  android:textColor="@color/black"
-                                  android:textSize="20sp" />
-
-                          </LinearLayout>
-
-                          <com.tovo.eat.utilities.fonts.CircularTextView
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_gravity="center_horizontal"
-                              android:layout_margin="1dp"
-                              android:text="2455"
-                              android:textAlignment="center"
-                              android:textColor="@color/black"
-                              android:textSize="14sp" />
-
-                      </LinearLayout>
-                  </android.support.v7.widget.CardView>
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/card"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:background="@color/white"
-                          android:orientation="vertical">
-
-                          <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:onClick="@{()->paymentViewModel.card()}">
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_alignParentStart="true"
-                                  android:layout_alignParentLeft="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/card"
-                                  android:textColor="@color/eat_color"
-                                  android:textSize="16sp" />
-
-
-                              <ImageView
-                                  android:layout_width="30dp"
-                                  android:layout_height="30dp"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_alignParentRight="true"
-                                  android:layout_centerVertical="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_marginStart="20dp"
-                                  android:layout_marginLeft="20dp"
-                                  android:src="@drawable/ic_chevron_right_black_24dp"
-                                  android:tint="@color/dark_gray" />
-
-
-                          </RelativeLayout>
-
-                          <LinearLayout
-                              android:id="@+id/card_details"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:orientation="vertical"
-                              android:visibility="@{paymentViewModel.cardClicked?View.VISIBLE:View.GONE}">
-
-                              <android.support.design.widget.TextInputLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="5dp">
-
-                                  <android.support.design.widget.TextInputEditText
-                                      android:layout_width="match_parent"
-                                      android:layout_height="wrap_content"
-                                      android:hint="@string/card_number"
-                                      android:inputType="text"
-                                      android:textSize="14sp" />
-                              </android.support.design.widget.TextInputLayout>
-
-
-                              <android.support.design.widget.TextInputLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="5dp">
-
-                                  <android.support.design.widget.TextInputEditText
-                                      android:layout_width="match_parent"
-                                      android:layout_height="wrap_content"
-                                      android:hint="@string/card_holder_name"
-                                      android:inputType="text"
-                                      android:textSize="14sp" />
-                              </android.support.design.widget.TextInputLayout>
-
-                              <LinearLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp"
-                                  android:orientation="horizontal"
-                                  android:weightSum="2">
-
-                                  <LinearLayout
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_weight="1"
-                                      android:orientation="horizontal">
-
-
-                                      <com.tovo.eat.utilities.fonts.CircularTextView
-                                          android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="center_vertical"
-                                          android:text="@string/expiry_date"
-                                          android:textColor="@color/dark_gray"
-                                          android:textSize="14sp"
-                                          android:visibility="visible" />
-
-
-                                      <android.support.design.widget.TextInputEditText
-                                          android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="center_vertical"
-                                          android:layout_marginStart="10dp"
-                                          android:layout_marginLeft="10dp"
-                                          android:gravity="center_vertical"
-                                          android:hint="@string/mm"
-                                          android:inputType="number"
-                                          android:maxLength="5"
-                                          android:textSize="14sp" />
-
-
-                                  </LinearLayout>
-
-
-                                  <LinearLayout
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_weight="1"
-                                      android:orientation="horizontal">
-
-                                      <com.tovo.eat.utilities.fonts.CircularTextView
-                                          android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="center_vertical"
-                                          android:text="@string/cvv"
-                                          android:textColor="@color/eat_color"
-                                          android:textSize="14sp"
-                                          android:visibility="gone" />
-
-
-                                      <android.support.design.widget.TextInputEditText
-                                          android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="center_vertical"
-                                          android:layout_marginStart="10dp"
-                                          android:layout_marginLeft="10dp"
-                                          android:gravity="center_vertical"
-                                          android:hint="@string/cvv"
-                                          android:inputType="number"
-                                          android:maxLength="3"
-                                          android:textSize="14sp" />
-
-
-                                      <ImageView
-                                          android:layout_width="30dp"
-                                          android:layout_height="30dp"
-                                          android:layout_gravity="center_vertical"
-                                          android:layout_marginStart="20dp"
-                                          android:layout_marginLeft="20dp"
-                                          android:src="@drawable/ic_credit_card_black_24dp"
-                                          android:tint="@color/dark_gray" />
-
-
-                                  </LinearLayout>
-
-                              </LinearLayout>
-
-                              <RelativeLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp">
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentEnd="true"
-                                      android:layout_alignParentRight="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:background="@drawable/curve_stroke"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/pay"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="16sp"
-                                      android:visibility="visible" />
-
-
-                              </RelativeLayout>
-                          </LinearLayout>
-
-
-                      </LinearLayout>
-
-
-                  </android.support.v7.widget.CardView>
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/netbanking"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:background="@color/white"
-                          android:orientation="vertical">
-
-                          <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:onClick="@{()->paymentViewModel.netbanking()}">
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/netbanking"
-                                  android:textColor="@color/eat_color"
-                                  android:textSize="16sp" />
-
-
-                              <ImageView
-                                  android:layout_width="30dp"
-                                  android:layout_height="30dp"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_alignParentRight="true"
-                                  android:layout_centerVertical="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_marginStart="20dp"
-                                  android:layout_marginLeft="20dp"
-                                  android:src="@drawable/ic_chevron_right_black_24dp"
-                                  android:tint="@color/dark_gray" />
-
-                          </RelativeLayout>
-
-                          <LinearLayout
-                              android:id="@+id/netbanking_details"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:orientation="vertical"
-                              android:visibility="@{paymentViewModel.netbankingClicked?View.VISIBLE:View.GONE}">
-
-
-                              <LinearLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp"
-                                  android:orientation="horizontal">
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                              </LinearLayout>
-
-
-                              <RelativeLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp">
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentStart="true"
-                                      android:layout_alignParentLeft="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/more_options"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="14sp"
-                                      android:visibility="visible" />
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentEnd="true"
-                                      android:layout_alignParentRight="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:background="@drawable/curve_stroke"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/pay"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="16sp"
-                                      android:visibility="visible" />
-
-
-                              </RelativeLayout>
-
-                          </LinearLayout>
-
-
-                      </LinearLayout>
-                  </android.support.v7.widget.CardView>
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/upi"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:background="@color/white"
-                          android:orientation="vertical">
-
-
-                          <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:onClick="@{()->paymentViewModel.upi()}">
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/upi"
-                                  android:textColor="@color/eat_color"
-                                  android:textSize="16sp" />
-
-                              <ImageView
-                                  android:layout_width="30dp"
-                                  android:layout_height="30dp"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_alignParentRight="true"
-                                  android:layout_centerVertical="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_marginStart="20dp"
-                                  android:layout_marginLeft="20dp"
-                                  android:src="@drawable/ic_chevron_right_black_24dp"
-                                  android:tint="@color/dark_gray" />
-
-                          </RelativeLayout>
-
-
-                          <LinearLayout
-                              android:id="@+id/upi_details"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:orientation="vertical"
-                              android:visibility="@{paymentViewModel.upiClicked?View.VISIBLE:View.GONE}">
-
-
-                              <android.support.design.widget.TextInputLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="5dp">
-
-                                  <android.support.design.widget.TextInputEditText
-                                      android:layout_width="match_parent"
-                                      android:layout_height="wrap_content"
-                                      android:hint="UPI id eg:aaa@icici"
-                                      android:inputType="text"
-                                      android:textSize="14sp" />
-                              </android.support.design.widget.TextInputLayout>
-
-
-                              <LinearLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp"
-                                  android:orientation="horizontal">
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                              </LinearLayout>
-
-
-                              <RelativeLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp">
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentStart="true"
-                                      android:layout_alignParentLeft="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/more_options"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="14sp"
-                                      android:visibility="gone" />
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentEnd="true"
-                                      android:layout_alignParentRight="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:background="@drawable/curve_stroke"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/pay"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="16sp"
-                                      android:visibility="visible" />
-
-
-                              </RelativeLayout>
-
-
-                          </LinearLayout>
-
-
-                      </LinearLayout>
-                  </android.support.v7.widget.CardView>
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/wallet"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:background="@color/white"
-                          android:orientation="vertical">
-
-
-                          <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:onClick="@{()->paymentViewModel.wallet()}">
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/wallet"
-                                  android:textColor="@color/eat_color"
-                                  android:textSize="16sp" />
-
-                              <ImageView
-                                  android:layout_width="30dp"
-                                  android:layout_height="30dp"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_alignParentRight="true"
-                                  android:layout_centerVertical="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_marginStart="20dp"
-                                  android:layout_marginLeft="20dp"
-                                  android:src="@drawable/ic_chevron_right_black_24dp"
-                                  android:tint="@color/dark_gray" />
-
-                          </RelativeLayout>
-
-
-                          <LinearLayout
-                              android:id="@+id/wallet_details"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:orientation="vertical"
-                              android:visibility="@{paymentViewModel.walletClicked?View.VISIBLE:View.GONE}">
-
-
-                              <LinearLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp"
-                                  android:orientation="horizontal">
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-                                  <ImageView
-                                      android:layout_width="30dp"
-                                      android:layout_height="30dp"
-                                      android:layout_gravity="center_vertical"
-                                      android:layout_marginStart="20dp"
-                                      android:layout_marginLeft="20dp"
-                                      android:src="@drawable/ic_credit_card_black_24dp"
-                                      android:tint="@color/dark_gray" />
-
-
-                              </LinearLayout>
-
-
-                              <RelativeLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp">
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentStart="true"
-                                      android:layout_alignParentLeft="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/more_options"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="14sp"
-                                      android:visibility="gone" />
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentEnd="true"
-                                      android:layout_alignParentRight="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:background="@drawable/curve_stroke"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/pay"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="16sp"
-                                      android:visibility="visible" />
-
-
-                              </RelativeLayout>
-
-
-                          </LinearLayout>
-
-
-                      </LinearLayout>
-                  </android.support.v7.widget.CardView>
-
-
-                  <android.support.v7.widget.CardView
-                      android:id="@+id/cod"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      app:cardCornerRadius="7dp"
-                      app:cardElevation="10dp"
-                      app:cardMaxElevation="10dp">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:background="@color/white"
-                          android:orientation="vertical">
-
-                          <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:onClick="@{()->paymentViewModel.cod()}">
-
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/cash_on_delivery"
-                                  android:textColor="@color/eat_color"
-                                  android:textSize="16sp" />
-
-
-                              <ImageView
-                                  android:layout_width="30dp"
-                                  android:layout_height="30dp"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_alignParentRight="true"
-                                  android:layout_centerVertical="true"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_marginStart="20dp"
-                                  android:layout_marginLeft="20dp"
-                                  android:src="@drawable/ic_chevron_right_black_24dp"
-                                  android:tint="@color/dark_gray" />
-
-                          </RelativeLayout>
-
-                          <LinearLayout
-                              android:id="@+id/cod_details"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:orientation="vertical"
-                              android:visibility="@{paymentViewModel.codClicked?View.VISIBLE:View.GONE}">
-
-                              <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center_vertical"
-                                  android:layout_margin="10dp"
-                                  android:text="@string/cash_on_delivery"
-                                  android:textColor="@color/dark_gray"
-                                  android:textSize="14sp" />
-
-
-                              <RelativeLayout
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginTop="10dp">
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentStart="true"
-                                      android:layout_alignParentLeft="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/more_options"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="14sp"
-                                      android:visibility="gone" />
-
-
-                                  <com.tovo.eat.utilities.fonts.CircularTextView
-                                      android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_alignParentEnd="true"
-                                      android:layout_alignParentRight="true"
-                                      android:layout_gravity="center_vertical"
-                                      android:background="@drawable/curve_stroke"
-                                      android:paddingLeft="10dp"
-                                      android:paddingTop="5dp"
-                                      android:paddingRight="10dp"
-                                      android:paddingBottom="5dp"
-                                      android:text="@string/pay"
-                                      android:textColor="@color/eat_color"
-                                      android:textSize="16sp"
-                                      android:visibility="visible" />
-
-
-                              </RelativeLayout>
-                          </LinearLayout>
-                      </LinearLayout>
-                  </android.support.v7.widget.CardView>
-
-
-              </LinearLayout>
-
-          </ScrollView>-->
-
-
+        </LinearLayout>-->
+        <!--<ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:background="@color/light_gray">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_gray"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/total_amount"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+
+                        <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@string/icon_inr"/>
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="1dp"
+                                android:text="2455"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="1dp"
+                            android:text="2455"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->paymentViewModel.card()}">
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/card"
+                                android:textColor="@color/eat_color"
+                                android:textSize="16sp" />
+
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/card_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="@{paymentViewModel.cardClicked?View.VISIBLE:View.GONE}">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/card_number"
+                                    android:inputType="text"
+                                    android:textSize="14sp" />
+                            </android.support.design.widget.TextInputLayout>
+
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/card_holder_name"
+                                    android:inputType="text"
+                                    android:textSize="14sp" />
+                            </android.support.design.widget.TextInputLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+
+                                    <com.tovo.eat.utilities.fonts.CircularTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/expiry_date"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="14sp"
+                                        android:visibility="visible" />
+
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:gravity="center_vertical"
+                                        android:hint="@string/mm"
+                                        android:inputType="number"
+                                        android:maxLength="5"
+                                        android:textSize="14sp" />
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <com.tovo.eat.utilities.fonts.CircularTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/cvv"
+                                        android:textColor="@color/eat_color"
+                                        android:textSize="14sp"
+                                        android:visibility="gone" />
+
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:gravity="center_vertical"
+                                        android:hint="@string/cvv"
+                                        android:inputType="number"
+                                        android:maxLength="3"
+                                        android:textSize="14sp" />
+
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:src="@drawable/ic_credit_card_black_24dp"
+                                        android:tint="@color/dark_gray" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/pay"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/netbanking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->paymentViewModel.netbanking()}">
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/netbanking"
+                                android:textColor="@color/eat_color"
+                                android:textSize="16sp" />
+
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/netbanking_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="@{paymentViewModel.netbankingClicked?View.VISIBLE:View.GONE}">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                            </LinearLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/more_options"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="visible" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/pay"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/upi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->paymentViewModel.upi()}">
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/upi"
+                                android:textColor="@color/eat_color"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/upi_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="@{paymentViewModel.upiClicked?View.VISIBLE:View.GONE}">
+
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="UPI id eg:aaa@icici"
+                                    android:inputType="text"
+                                    android:textSize="14sp" />
+                            </android.support.design.widget.TextInputLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                            </LinearLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/more_options"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/pay"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->paymentViewModel.wallet()}">
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/wallet"
+                                android:textColor="@color/eat_color"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/wallet_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="@{paymentViewModel.walletClicked?View.VISIBLE:View.GONE}">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:src="@drawable/ic_credit_card_black_24dp"
+                                    android:tint="@color/dark_gray" />
+
+
+                            </LinearLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/more_options"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/pay"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->paymentViewModel.cod()}">
+
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/cash_on_delivery"
+                                android:textColor="@color/eat_color"
+                                android:textSize="16sp" />
+
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_chevron_right_black_24dp"
+                                android:tint="@color/dark_gray" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cod_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="@{paymentViewModel.codClicked?View.VISIBLE:View.GONE}">
+
+                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:text="@string/cash_on_delivery"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="14sp" />
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/more_options"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+
+                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/curve_stroke"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/pay"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="16sp"
+                                    android:visibility="visible" />
+
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+        </ScrollView>-->
     </RelativeLayout>
 
 

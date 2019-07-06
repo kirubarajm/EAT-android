@@ -125,7 +125,6 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
-
                         getNavigator().toastMessage(response.getMessage());
 
 

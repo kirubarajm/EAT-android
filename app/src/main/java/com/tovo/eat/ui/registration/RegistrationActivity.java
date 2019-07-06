@@ -71,8 +71,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     public void usersRegistrationMain() {
         if (validForProceed()) {
             String strEmail = mActivityRegistrationBinding.edtEmail.getText().toString();
-            String strReTypePass = mActivityRegistrationBinding.edtReTypePassword.getText().toString();
-            mRegistrationActivityViewModel.userRegistrationServiceCall(strEmail, strReTypePass);
+            mRegistrationActivityViewModel.userRegistrationServiceCall(strEmail);
         }
     }
 
@@ -254,8 +253,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
     private boolean validForProceed() {
-        String cpass = mActivityRegistrationBinding.edtReTypePassword.getText().toString();
-        String pass = mActivityRegistrationBinding.edtPassword.getText().toString();
 
         if (mActivityRegistrationBinding.edtEmail.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_EMAIL, Toast.LENGTH_SHORT).show();
@@ -263,19 +260,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         }
         if (!EMAIL_ADDRESS_PATTERN.matcher(mActivityRegistrationBinding.edtEmail.getText().toString()).matches()) {
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_INVALID_EMAIL, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mActivityRegistrationBinding.edtPassword.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mActivityRegistrationBinding.edtReTypePassword.getText().toString().equals("")) {
-            Toast.makeText(getApplicationContext(), AppConstants.TOAST_ENTER_RE_ENTER_PASSWORD, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (!pass.equals(cpass)) {
-            Toast.makeText(getApplicationContext(), AppConstants.TOAST_PASSWORD_NOT_MATCHING, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.LocationCallback;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -499,8 +502,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
-    public void orderPickedUp(Integer orderID) {
-        loadPreviousStatuses(orderID);
+    public void orderPickedUp(Integer moveitId) {
+        loadPreviousStatuses(moveitId);
     }
 
     @Override
@@ -525,8 +528,58 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
 
-    private void loadPreviousStatuses(Integer orderID) {
-        //  String transportId = mPrefs.getString(getString(R.string.transport_id), "");
+    private void loadPreviousStatuses(Integer moveitId) {
+
+
+
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference("");
+        GeoFire geoFire = new GeoFire(ref);
+
+
+        geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {
+            @Override
+            public void onLocationResult(String key, GeoLocation location) {
+                if (location != null) {
+                    System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
+
+
+                    LatLng latLng = new LatLng(location.latitude, location.longitude);
+
+                    if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
+
+
+                        mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+
+                        if (moveitLocationMarker == null) {
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+                        }
+
+                        showMarker1(latLng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    }
+
+
+
+
+
+
+                } else {
+                    System.out.println(String.format("There is no location for key %s in GeoFire", key));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.err.println("There was an error getting the GeoFire location: " + databaseError);
+            }
+        });
+
+
+
+      /*  //  String transportId = mPrefs.getString(getString(R.string.transport_id), "");
         // FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(MoveitId));
         FirebaseAnalytics.getInstance(this).setUserProperty("transportID", String.valueOf(orderID));
 
@@ -539,16 +592,16 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         // mFirebaseTransportRef = FirebaseDatabase.getInstance().getReference(path);
 
         // Manually configure Firebase Options
-        /*FirebaseOptions options = new FirebaseOptions.Builder()
+        *//*FirebaseOptions options = new FirebaseOptions.Builder()
                 .setDatabaseUrl("https://tovologies-1550475998119.firebaseio.com") // Required for RTDB.
                 .build();
 
 
         // Initialize with secondary app.
-        FirebaseApp.initializeApp(this *//* Context *//*, options, "secondary");
+        FirebaseApp.initializeApp(this *//**//* Context *//**//*, options, "secondary");
 
 // Retrieve secondary app.
-        FirebaseApp secondary = FirebaseApp.getInstance("secondary");*/
+        FirebaseApp secondary = FirebaseApp.getInstance("secondary");*//*
 // Get the database for the other app.
         mFirebaseTransportRef = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference(path);
 
@@ -596,7 +649,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             public void onCancelled(DatabaseError error) {
                 // TODO: Handle gracefully
             }
-        });
+        });*/
     }
 
 

@@ -18,10 +18,9 @@ public class RegistrationRequest {
     @Expose
     public String password;
 
-    public RegistrationRequest(Integer userid, String email, String password) {
+    public RegistrationRequest(Integer userid, String email) {
         this.userid = userid;
         this.email = email;
-        this.password = password;
     }
 
     public Integer getHometownid() {

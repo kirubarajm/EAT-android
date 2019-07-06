@@ -16,13 +16,25 @@ public class RegionDetailsRequest {
     @SerializedName("regionid")
     @Expose
     private Integer regionid;
+    @SerializedName("vegtype")
+    @Expose
+    private String vegtype;
+
+    public String getVegtype() {
+        return vegtype;
+    }
+
+    public void setVegtype(String vegtype) {
+        this.vegtype = vegtype;
+    }
 
 
-    public RegionDetailsRequest(String lat, String lon, Integer eatuserid, Integer regionid) {
+    public RegionDetailsRequest(String lat, String lon, Integer eatuserid, Integer regionid,String vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.eatuserid = eatuserid;
         this.regionid = regionid;
+        this.vegtype=vegtype;
     }
 
     public String getLat() {

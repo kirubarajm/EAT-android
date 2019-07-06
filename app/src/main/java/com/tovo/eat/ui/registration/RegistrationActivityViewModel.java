@@ -45,19 +45,20 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         getNavigator().usersRegistrationMain();
     }
 
-    public void userRegistrationServiceCall(String strEmail, String strReTypePass) {
+    public void userRegistrationServiceCall(String strEmail) {
         int userId = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
 
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId, strEmail, strReTypePass), new Response.Listener<RegistrationResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId, strEmail), new Response.Listener<RegistrationResponse>() {
                 @Override
                 public void onResponse(RegistrationResponse response) {
                     if (response != null) {
                         if (response.getStatus()) {
                             getDataManager().updateUserPasswordStatus(true);
+                            getDataManager().updateEmailStatus(true);
                             getNavigator().regSuccess(response.getMessage());
                         } else {
                             getDataManager().updateUserPasswordStatus(false);

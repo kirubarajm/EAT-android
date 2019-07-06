@@ -59,9 +59,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
-
-
-
                                 if (response.getResult().get(0).getAid()!=null) {
                                     getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
                                     getDataManager().setCurrentLat(response.getResult().get(0).getLat());
@@ -121,6 +118,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                 otpStatus = response.getOtpstatus();
                                 genderstatus = response.getGenderstatus();
 
+                                getDataManager().updateEmailStatus(response.getEmailstatus());
+
                                 userId.set(String.valueOf(response.getUserid()));
                                 CurrentuserId = response.getUserid();
 
@@ -142,6 +141,18 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                 } else {
                                     getNavigator().nameGenderScreen();
                                 }
+
+
+                                if (response.getResult().get(0).getAid()!=null) {
+                                    getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                    getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                    getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                    getDataManager().setAddressId(response.getResult().get(0).getAid());
+                                    getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
+
+                                }
+
+
                             } else {
                                 getNavigator().loginFailure();
                             }

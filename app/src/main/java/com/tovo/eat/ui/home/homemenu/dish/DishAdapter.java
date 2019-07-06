@@ -87,6 +87,13 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.mLiveProductsAdapterListener = listener;
     }
 
+    public void removeAt(int position) {
+        item_list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, item_list.size());
+    }
+
+
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(DishResponse.Result blogUrl);
@@ -103,9 +110,10 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void showToast(String msg);
 
+        void favChanged();
+
         void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
     }
-
 
     public class EmptyViewHolder extends BaseViewHolder {
 
@@ -231,6 +239,16 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
 
         }
-    }
 
+        @Override
+        public void favChanged() {
+
+            //notifyItemRemoved(getAdapterPosition());
+
+            removeAt(getAdapterPosition());
+
+
+       //     mLiveProductsAdapterListener.favChanged();
+        }
+    }
 }

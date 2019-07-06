@@ -506,6 +506,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.totalCart();
         mMainViewModel.liveOrders();
         mMainViewModel.saveRequestData();
+        mMainViewModel.getDataManager().setIsFav(false);
 
         if (mMainViewModel.isAddressAdded()) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());

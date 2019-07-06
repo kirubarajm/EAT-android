@@ -47,6 +47,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
+    private static final String PREF_KEY_VEG_TYPE = "VEG_TYPE";
+
+    private static final String PREF_KEY_EMAIL_STATUS = "EMAIL_STATUS";
 
 
     private static final String PREF_KEY_IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
@@ -380,6 +383,26 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setRegionId(int regiionId) {
         mPrefs.edit().putInt(PREF_KEY_REGION_ID, regiionId).apply();
+    }
+
+    @Override
+    public boolean getEmailStatus() {
+        return  mPrefs.getBoolean(PREF_KEY_EMAIL_STATUS, false);
+    }
+
+    @Override
+    public void setEmailStatus(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_EMAIL_STATUS, status).apply();
+    }
+
+    @Override
+    public String getVegType() {
+        return mPrefs.getString(PREF_KEY_VEG_TYPE, "0");
+    }
+
+    @Override
+    public void setVegType(String type) {
+        mPrefs.edit().putString(PREF_KEY_VEG_TYPE, type).apply();
     }
 
     @Override

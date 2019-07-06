@@ -16,6 +16,10 @@ public class OtpResponse {
     @SerializedName("passwordstatus")
     @Expose
     private Boolean passwordstatus;
+    @SerializedName("emailstatus")
+    @Expose
+    private Boolean emailstatus;
+
     @SerializedName("otpstatus")
     @Expose
     private Boolean otpstatus;
@@ -31,6 +35,15 @@ public class OtpResponse {
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
+    public Boolean getEmailstatus() {
+        return emailstatus;
+    }
+
+    public void setEmailstatus(Boolean emailstatus) {
+        this.emailstatus = emailstatus;
+    }
 
     public Boolean getSuccess() {
         return success;

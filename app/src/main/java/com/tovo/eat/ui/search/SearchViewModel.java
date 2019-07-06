@@ -397,7 +397,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId,getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {

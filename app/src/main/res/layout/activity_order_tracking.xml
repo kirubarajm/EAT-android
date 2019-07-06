@@ -12,6 +12,7 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -86,7 +87,7 @@
             app:title="@string/deliver_to" />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/mapSize"
             android:layout_above="@+id/bottom_sheet"
             android:layout_below="@+id/header"
@@ -99,7 +100,38 @@
                 android:layout_height="match_parent"
                 />
 
-        </LinearLayout>
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="#CBFFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_order_will_arrive_by"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{orderTrackingViewModel.eta}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
         <ScrollView
@@ -184,7 +216,7 @@
                 </RelativeLayout>
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -194,12 +226,16 @@
                     android:weightSum="7">
 
                     <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tt"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
                         android:orientation="vertical">
 
                         <com.tovo.eat.utilities.fonts.CircularTextView
+                            android:textAllCaps="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/order_status"
@@ -210,33 +246,38 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+
+                    <View
+                        android:id="@+id/separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_below="@+id/details"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/gradient_view_kitchen" />
+
+
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:onClick="@{()->orderTrackingViewModel.orderDetails()}"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/details"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:background="@drawable/curve_stroke"
+                        android:layout_marginEnd="15dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Your order will arrive in"
-                            android:textAlignment="center"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@{orderTrackingViewModel.eta}"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                        android:text="@string/check_order_details"
+                        android:textAlignment="center"
+                        android:textColor="@color/eat_color"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
 
 
-                    </LinearLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -299,32 +340,6 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:onClick="@{()->orderTrackingViewModel.orderDetails()}"
-                        android:orientation="vertical">
-
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Check order details"
-                            android:textAlignment="center"
-                            android:textColor="@color/eat_color"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/eat_color" />
-
-
-                    </LinearLayout>
 
 
                 </RelativeLayout>
