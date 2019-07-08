@@ -22,5 +22,8 @@ public interface KitchenDetailsNavigator {
 
     void nextImage();
 
+    void update(int count);
+
+
 
 }

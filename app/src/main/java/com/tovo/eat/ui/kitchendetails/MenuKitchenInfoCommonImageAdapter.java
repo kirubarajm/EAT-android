@@ -18,14 +18,14 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
-public class MenuKitchenInfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class MenuKitchenInfoCommonImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     List<KitchenDishResponse.Kitchenmenuimage> item_list;
     MenuProductsAdapterListener mMenuProductsAdapterListener;
 
-    public MenuKitchenInfoImageAdapter(List<KitchenDishResponse.Kitchenmenuimage> item_list) {
+    public MenuKitchenInfoCommonImageAdapter(List<KitchenDishResponse.Kitchenmenuimage> item_list) {
         this.item_list = item_list;
     }
 
@@ -113,12 +113,12 @@ public class MenuKitchenInfoImageAdapter extends RecyclerView.Adapter<BaseViewHo
         public void onItemClick(KitchenDishResponse.Result mBlog,String days) {
             if (mBlog.getProductid() != null) {
                 try {
-                    mMenuProductsAdapterListener.onItemClicked(mBlog,days);
+                    mMenuProductsAdapterListener.onSliderItemClicked(mBlog,days);
                 } catch (Exception e) {
                     Log.e("url error","");
                 }
             }else {
-                mMenuProductsAdapterListener.onItemClicked(mBlog,days);
+                mMenuProductsAdapterListener.onSliderItemClicked(mBlog,days);
             }
         }
 */
@@ -144,7 +144,7 @@ public class MenuKitchenInfoImageAdapter extends RecyclerView.Adapter<BaseViewHo
 
     public interface MenuProductsAdapterListener {
 
-        void onItemClicked(KitchenDishResponse.Kitchenmenuimage mBlog, String days);
+        void onSliderItemClicked(KitchenDishResponse.Kitchenmenuimage mBlog, String days);
     }
 
 }

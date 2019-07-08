@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class DialogChangeKitchenDishProvider {
+public abstract class DialogChangeKitchenDetailsProvider {
 
     @ContributesAndroidInjector(modules = DialogChangeKitchenModule.class)
     abstract DialogChangeKitchen provideChangeKitchenDishFactory();
