@@ -250,7 +250,8 @@
                         android:orientation="vertical">
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -261,16 +262,16 @@
                             android:textStyle="bold" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:singleLine="true"
                             android:text="@{viewModel.products}"
-                            android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -285,7 +286,9 @@
                         android:orientation="horizontal">
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -294,11 +297,12 @@
                             android:gravity="center"
                             android:minLines="2"
                             android:text="@string/eta"
-                            android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"/>
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -309,11 +313,11 @@
                             android:gravity="center"
                             android:minLines="2"
                             android:text="@{viewModel.eta}"
-                            android:textColor="#000"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
                             android:paddingTop="3dp"
                             android:paddingBottom="3dp"
                             android:layout_width="match_parent"
@@ -380,8 +384,8 @@
 
                     <ImageView
                         android:background="@color/white"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:gravity="center"
                         android:src="@drawable/eat_login_logo"

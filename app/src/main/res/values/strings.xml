@@ -534,4 +534,6 @@
     <string name="credit_debit_cards">Credit/Debit Cards</string>
     <string name="keep_change">Please keep the extra change handly to help us serve you better</string>
     <string name="veg_only">Veg only</string>
+    <string name="payment_refund_and_bill_related_queries">Payment, Refund and Bill related queries</string>
+    <string name="devivery_executive">Want to pass on instructions to the delivery executive</string>
 </resources>
