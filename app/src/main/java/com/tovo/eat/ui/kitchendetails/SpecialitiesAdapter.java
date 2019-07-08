@@ -7,40 +7,32 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemInfoGallaryBinding;
-import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
+import com.tovo.eat.databinding.ListItemSpecialitiesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
-public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class SpecialitiesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     List<KitchenDishResponse.Result> response;
-    private List<KitchenDishResponse.Productlist> item_list;
+    private List<KitchenDishResponse.Specialitem> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
 
-
-    public InfoImageAdapter(List<KitchenDishResponse.Productlist> item_list) {
-        this.item_list = item_list;
-    }
-
-
-    public InfoImageAdapter(List<KitchenDishResponse.Productlist> item_list, DataManager dataManager) {
+    public SpecialitiesAdapter(List<KitchenDishResponse.Specialitem> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
     }
-
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemInfoGallaryBinding blogViewBinding = ListItemInfoGallaryBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemSpecialitiesBinding blogViewBinding = ListItemSpecialitiesBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -79,11 +71,8 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenDishResponse.Productlist> blogList, List<KitchenDishResponse.Result> response) {
+    public void addItems(List<KitchenDishResponse.Specialitem> blogList) {
         item_list.addAll(blogList);
-
-        this.response = response;
-
         notifyDataSetChanged();
     }
 
@@ -93,26 +82,14 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDishResponse.Result blogUrl);
+        void onSpecialItemClickData(KitchenDishResponse.Specialitem blogUrl);
 
-        void sendCart();
-
-        void dishRefresh();
-
-        void  addDishFavourite(Integer dishId, String fav);
-
-        void productNotAvailable();
-
-        void  removeDishFavourite(Integer favId);
-        void showToast(String msg);
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
     public class EmptyViewHolder extends BaseViewHolder  {
 
         private final ListItemEmptyBinding mBinding;
-
 
         EmptyItemViewModel emptyItemViewModel;
 
@@ -126,14 +103,13 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             emptyItemViewModel = new EmptyItemViewModel("No results found for your selection");
             mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
-
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements InfoImageItemViewModel.DishItemViewModelListener {
-        ListItemInfoGallaryBinding mListItemLiveProductsBinding;
-        InfoImageItemViewModel mLiveProductsItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements SpecialitiesItemViewModel.SpecialitiesItemViewModelListener {
+        ListItemSpecialitiesBinding mListItemLiveProductsBinding;
+        SpecialitiesItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemInfoGallaryBinding binding) {
+        public LiveProductsViewHolder(ListItemSpecialitiesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -141,16 +117,9 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final KitchenDishResponse.Productlist blog = item_list.get(position);
-            final KitchenDishResponse.Result result = response.get(0);
-
-            mLiveProductsItemViewModel = new InfoImageItemViewModel(this, blog, result);
-            mListItemLiveProductsBinding.setInfoImageItemViewModel(mLiveProductsItemViewModel);
-
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
+            final KitchenDishResponse.Specialitem blog = item_list.get(position);
+            mLiveProductsItemViewModel = new SpecialitiesItemViewModel(this, blog);
+            mListItemLiveProductsBinding.setSpecialitiesItemViewModel(mLiveProductsItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
@@ -158,9 +127,5 @@ public class InfoImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onItemClick() {
 
         }
-
-
-
     }
-
 }

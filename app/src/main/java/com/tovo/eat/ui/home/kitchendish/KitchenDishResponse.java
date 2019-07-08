@@ -59,7 +59,7 @@ public class KitchenDishResponse {
         public String makeitimg;
         @SerializedName("about")
         @Expose
-        public Object about;
+        public String about;
         @SerializedName("member_type")
         @Expose
         public Object memberType;
@@ -135,7 +135,7 @@ public class KitchenDishResponse {
             return makeitimg;
         }
 
-        public Object getAbout() {
+        public String getAbout() {
             return about;
         }
 
@@ -218,6 +218,14 @@ public class KitchenDishResponse {
         @SerializedName("productimage")
         @Expose
         public String productimage;
+
+        @SerializedName("makeit_userid")
+        @Expose
+        public Integer makeitUserid;
+
+        public Integer getMakeitUserid() {
+            return makeitUserid;
+        }
 
         public Integer getFavid() {
             return favid;

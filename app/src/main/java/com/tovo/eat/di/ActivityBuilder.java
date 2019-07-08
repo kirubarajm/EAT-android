@@ -21,12 +21,11 @@ import com.tovo.eat.ui.account.edit.EditAccountActivity;
 import com.tovo.eat.ui.account.edit.EditAccountModule;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.account.favorites.FavouritesModule;
-import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenModule;
+import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
+import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
 import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
 import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivityModule;
 import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivityProvider;
-import com.tovo.eat.ui.account.favorites.favdish.FavoritesDishProvider;
-import com.tovo.eat.ui.account.favorites.favkitchen.FavoritesKitchenProvider;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivityModule;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
@@ -73,6 +72,7 @@ import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListModule;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsModule;
+import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchenDetailsProvider;
 import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
@@ -138,8 +138,7 @@ public abstract class ActivityBuilder {
     abstract KitchenDishActivity bindKitchenDishActivity();
 
 
-
-    @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDishProvider.class})
+    @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDetailsProvider.class})
     abstract KitchenDetailsActivity bindKitchenDetailsActivity();
 
     @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
@@ -148,18 +147,16 @@ public abstract class ActivityBuilder {
 
 
     @ContributesAndroidInjector(modules = AddAddressModule.class)
-    abstract AddAddressActivity bindAddAddressActivity();
 
+    abstract AddAddressActivity bindAddAddressActivity();
 
 
     @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class})
     abstract SearchDishActivity bindSearchDishActivity();
 
 
-
     @ContributesAndroidInjector(modules = RegionDetailsModule.class)
     abstract RegionDetailsActivity bindRegionDetailsActivity();
-
 
 
     @ContributesAndroidInjector(modules = RegionListModule.class)
@@ -170,17 +167,15 @@ public abstract class ActivityBuilder {
     abstract OrderDetailsActivity bindOrderDetailsActivity();
 
 
-   @ContributesAndroidInjector(modules = OrderHelpModule.class)
+    @ContributesAndroidInjector(modules = OrderHelpModule.class)
     abstract OrderHelpActivity bindOrderHelpActivity();
-
 
 
     @ContributesAndroidInjector(modules = PaymentModule.class)
     abstract PaymentActivity bindPaymentActivity();
 
 
-
-    @ContributesAndroidInjector(modules ={ FavouritesModule.class,FavoritesDishProvider.class, FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
+    @ContributesAndroidInjector(modules = {FavouritesModule.class, FavoritesDishProvider.class, FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
     abstract FavouritesActivity bindFavouritesActivity();
 
 
@@ -198,11 +193,11 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = RefundListModule.class)
     abstract RefundListActivity bindRefundListActivity();
 
- @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
+    @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
     abstract TermsAndConditionActivity bindTermsAndConditionActivity();
 
 
- @ContributesAndroidInjector(modules = FaqFragmentModule.class)
+    @ContributesAndroidInjector(modules = FaqFragmentModule.class)
     abstract FaqActivity bindFaqActivity();
 
 

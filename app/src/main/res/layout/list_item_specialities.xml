@@ -6,8 +6,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="foodBadgesItemViewModel"
-            type="com.tovo.eat.ui.kitchendetails.FoodBadgesItemViewModel" />
+            name="specialitiesItemViewModel"
+            type="com.tovo.eat.ui.kitchendetails.SpecialitiesItemViewModel" />
 
     </data>
 
@@ -18,7 +18,7 @@
 
         <ImageView
             android:layout_centerInParent="true"
-            imageUrl="@{foodBadgesItemViewModel.image_url}"
+            imageUrl="@{specialitiesItemViewModel.image_url}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
