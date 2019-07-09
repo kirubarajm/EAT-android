@@ -184,7 +184,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         }
 
-        if (!locationAddress.equals("") && !house.equals("") && !area.equals("") && !landmark.equals("")) {
+        if (!locationAddress.equals("") && !house.equals("") && !area.equals("")) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;

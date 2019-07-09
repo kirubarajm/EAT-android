@@ -18,127 +18,164 @@
 
 
         <android.support.v7.widget.Toolbar
-            android:elevation="5dp"
             android:id="@+id/toolbar_history_view"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
+            android:elevation="5dp"
             app:title="@string/help" />
 
 
         <LinearLayout
-            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar_history_view"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/help_order_title" />
+                android:text="@string/help_order_title"
+                android:textColor="@color/black" />
 
             <RelativeLayout
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp">
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:textColor="@color/black"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancel_my_order" />
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/cancel_my_order"
+                    android:textColor="@color/black" />
 
 
                 <ImageView
-                    android:tint="@color/black"
-                    android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:textSize="16sp" />
-
-
+                    android:textSize="16sp"
+                    android:tint="@color/black" />
 
 
             </RelativeLayout>
 
 
-
             <RelativeLayout
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp">
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:textColor="@color/black"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/where_is_my_order" />
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/payment_refund_and_bill_related_queries"
+                    android:textColor="@color/black" />
 
 
                 <ImageView
-                    android:tint="@color/black"
-                    android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:textSize="16sp" />
-
-
+                    android:textSize="16sp"
+                    android:tint="@color/black" />
 
 
             </RelativeLayout>
 
 
-
-
             <RelativeLayout
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp">
 
 
                 <com.tovo.eat.utilities.fonts.CircularTextView
-                    android:textColor="@color/black"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
+                    android:id="@+id/delivery_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/food_preparation" />
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/devivery_executive"
+                    android:textColor="@color/black" />
 
 
                 <ImageView
-                    android:tint="@color/black"
-                    android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="25dp"
-                    android:layout_marginRight="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:tint="@color/black" />
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/delivery_contact"
+                    android:layout_margin="10dp">
+
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        android:layout_marginEnd="35dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Call now"
+                        android:textColor="@color/eat_color"
+                        app:font_name="poppinsSemiBold" />
+
+
+                    <LinearLayout
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ebin Kurian"
+                            android:textColor="@color/black"
+                            app:font_name="poppinsSemiBold" />
+
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/black"
+                            android:layout_height="wrap_content"
+                            android:text="99999999999"
+                            app:font_name="poppinsRegular" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
 
 
             </RelativeLayout>
@@ -146,51 +183,47 @@
 
         </LinearLayout>
 
-<LinearLayout
-    android:layout_alignParentBottom="true"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-
-
-
-
-    <com.tovo.eat.utilities.fonts.CircularTextView
-        android:textColor="@color/black"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/anything_else" />
-
-
-
-
-        <RelativeLayout
-            android:id="@+id/rel_repeat_this_order"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
 
             <com.tovo.eat.utilities.fonts.CircularTextView
-                android:id="@+id/ccare"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:layout_width="match_parent"
-                android:textAlignment="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/curve_stroke"
-                android:text="@string/contact_cus_care"
-                android:textAllCaps="true"
-                android:textColor="@color/eat_color"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="@string/anything_else"
+                android:textColor="@color/black" />
 
 
-</LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rel_repeat_this_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+
+                <com.tovo.eat.utilities.fonts.CircularTextView
+                    android:id="@+id/ccare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/curve_stroke"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/contact_cus_care"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/eat_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -131,8 +131,10 @@
                         android:layout_marginEnd="20dp"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsSemiBold"
                             android:layout_width="wrap_content"
+                            android:textStyle="bold"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="@{regionItemViewModel.title}"
@@ -147,15 +149,15 @@
                             android:background="@color/black" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="5dp"
                             android:text="@{regionItemViewModel.content}"                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
+                            android:textSize="12sp"/>
                     </LinearLayout>
                 </LinearLayout>
 

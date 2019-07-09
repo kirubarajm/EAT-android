@@ -21,19 +21,20 @@
 
 
         <android.support.v7.widget.CardView
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="60dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <ImageView
+                   android:layout_centerVertical="true"
                     android:onClick="@{()->addAddressViewModel.goBack()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -41,15 +42,19 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="match_parent"
+                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    app:font_name="poppinsMedium"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/add_new_address"
                     android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
@@ -188,7 +193,9 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        app:font_name="poppinsMedium"
+                        android:textStyle="bold"
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
@@ -201,7 +208,7 @@
 
 
                     <LinearLayout
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -209,7 +216,7 @@
 
 
                         <LinearLayout
-                            android:visibility="@{addAddressViewModel.home?View.INVISIBLE:View.VISIBLE}"
+                            android:visibility="@{addAddressViewModel.home?View.GONE:View.VISIBLE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -226,10 +233,13 @@
                                 android:text="@string/icon_selected"
                                 android:textColor="@color/eat_color"
                                 android:textSize="14sp"
-                                android:visibility="@{addAddressViewModel.typeHome? View.VISIBLE: View.GONE}" />
+                                android:visibility="@{addAddressViewModel.typeHome? View.VISIBLE: View.INVISIBLE}" />
 
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                android:textAllCaps="true"
+                                app:font_name="poppinsMedium"
+                                android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
@@ -243,7 +253,7 @@
 
 
                         <LinearLayout
-                            android:visibility="@{addAddressViewModel.office?View.INVISIBLE:View.VISIBLE}"
+                            android:visibility="@{addAddressViewModel.office?View.GONE:View.VISIBLE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -261,9 +271,12 @@
                                 android:text="@string/icon_selected"
                                 android:textColor="@color/eat_color"
                                 android:textSize="14sp"
-                                android:visibility="@{addAddressViewModel.typeOffice? View.VISIBLE: View.GONE}" />
+                                android:visibility="@{addAddressViewModel.typeOffice? View.VISIBLE: View.INVISIBLE}" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                android:textAllCaps="true"
+                                app:font_name="poppinsMedium"
+                                android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
@@ -293,9 +306,12 @@
                                 android:text="@string/icon_selected"
                                 android:textColor="@color/eat_color"
                                 android:textSize="14sp"
-                                android:visibility="@{addAddressViewModel.typeOther? View.VISIBLE: View.GONE}" />
+                                android:visibility="@{addAddressViewModel.typeOther? View.VISIBLE: View.INVISIBLE}" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                android:textAllCaps="true"
+                                app:font_name="poppinsMedium"
+                                android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
@@ -334,7 +350,10 @@
                         android:background="@drawable/curve_stroke"
                         android:onClick="@{()->addAddressViewModel.saveAddress(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString(),title.getText().toString())}">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            android:textAllCaps="true"
+                            app:font_name="poppinsSemiBold"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -349,7 +368,10 @@
                 </LinearLayout>
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+
+                    app:font_name="poppinsMedium"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

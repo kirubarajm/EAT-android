@@ -253,7 +253,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         if (response.getOrderdetails().size() > 0) {
 
-
                             if (!response.getOrderdetails().get(0).getRating())
                                 getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid());
 

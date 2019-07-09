@@ -233,7 +233,7 @@
     <string name="save_signature">Save Signature</string>
     <string name="documentation">Documentation</string>
     <string name="next">Next</string>
-    <string name="kitchen">Kitchen</string>
+    <string name="kitchen">Kitchens</string>
     <string name="kitchen_appliances">Kitchen Appliances</string>
     <string name="packaging">Packaging</string>
     <string name="appointment_scheduled">Appointment Scheduled</string>
@@ -534,5 +534,12 @@
     <string name="credit_debit_cards">Credit/Debit Cards</string>
     <string name="keep_change">Please keep the extra change handly to help us serve you better</string>
     <string name="veg_only">Veg only</string>
+
     <string name="today_s_menu">Today\'s Menu</string>
+
+    <string name="payment_refund_and_bill_related_queries">Payment, Refund and Bill related queries</string>
+    <string name="devivery_executive">Want to pass on instructions to the delivery executive</string>
+    <string name="order_delivered_at">Order delivered at</string>
+    <string name="placed_at">Order placed at</string>
+
 </resources>
