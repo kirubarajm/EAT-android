@@ -33,6 +33,9 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> paymentType = new ObservableField<>();
     public final ObservableField<String> strPaymentType = new ObservableField<>();
     public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
+    public final ObservableField<String> gst = new ObservableField<>();
+    public final ObservableField<String> delivery = new ObservableField<>();
+    public final ObservableField<String> image = new ObservableField<>();
 
     public final ObservableField<String> locality = new ObservableField<>();
 
@@ -106,17 +109,21 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
 
                             kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
+                            gst.set(String.valueOf(response.getResult().get(0).getGst()));
+                            delivery.set(response.getResult().get(0).getDeliveryCharge());
+                            home.set(response.getResult().get(0).getLocality());
+                          //  image.set(response.getResult().get(0).getMakeitdetail().ge);
                             address.set(response.getResult().get(0).getLocality());
-                            price.set("Rs."+String.valueOf(response.getResult().get(0).getPrice()));
+                            price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
                             locality.set("Delivered | "+String.valueOf(response.getResult().get(0).getLocality()));
-                            //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
+                           // actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
                             if (paymentType.equals("0")) {
-                                strPaymentType.set("Cash On Delivery");
+                                strPaymentType.set("Paid through Cash On Delivery");
                             } else {
-                                strPaymentType.set("Online Payment");
+                                strPaymentType.set("Paid through Online");
                             }
 
                             try {

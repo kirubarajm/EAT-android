@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -19,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                app:font_name="poppinsRegular"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -54,8 +56,8 @@
                     android:textSize="8sp"/>
 
 
-
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    app:font_name="poppinsRegular"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"

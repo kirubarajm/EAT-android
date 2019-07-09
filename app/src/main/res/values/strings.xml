@@ -343,7 +343,7 @@
     <string name="referrals">Referrals</string>
     <string name="offers">Offers</string>
     <string name="feedback_and_support">Feedback and Support</string>
-    <string name="gst">GST</string>
+    <string name="gst">GST Charges</string>
     <string name="delivery_charge">Delivery charge</string>
     <string name="grand_total">Grand Total</string>
     <string name="items">Items</string>
@@ -541,5 +541,6 @@
     <string name="devivery_executive">Want to pass on instructions to the delivery executive</string>
     <string name="order_delivered_at">Order delivered at</string>
     <string name="placed_at">Order placed at</string>
+    <string name="total_cart_amount">Total cart amount</string>
 
 </resources>

@@ -14,7 +14,7 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
     }
 
     public void checkIsUserLoggedInOrNot(){
-        if (getDataManager().getCurrentUserId()!=null)
+        /*if (getDataManager().getCurrentUserId()!=null)
         {
             int userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
@@ -24,9 +24,9 @@ public class OnBoardingActivityViewModel extends BaseViewModel<OnBoardingActivit
             }else {
                 getNavigator().checkForUserGenderStatus(true);
             }
-        }else {
+        }else {*/
             getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
-        }
+      //  }
 
     }
 }
