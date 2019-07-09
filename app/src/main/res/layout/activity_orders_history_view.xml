@@ -96,11 +96,11 @@
                             android:orientation="horizontal">
 
 
-                            <com.tovo.eat.utilities.RoundCornerImageView
+                           <!-- <com.tovo.eat.utilities.RoundCornerImageView
                                 cusrsiveImageUrl="@{dishItemViewModel.image}"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:scaleType="fitXY" />
+                                android:scaleType="fitXY" />-->
 
 
                             <LinearLayout
