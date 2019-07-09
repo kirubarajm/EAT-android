@@ -49,6 +49,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableList<KitchenDishResponse.Foodbadge> foodBadgeObservableArrayListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Foodbadge>> foodBadgesMutableLiveData;
     ////
+    public ObservableBoolean favorites = new ObservableBoolean();
+    public ObservableBoolean todaysMenu = new ObservableBoolean();
+    public ObservableBoolean specialities = new ObservableBoolean();
+    public ObservableBoolean foodBadges = new ObservableBoolean();
     public ObservableBoolean imageOrVideo = new ObservableBoolean();
     public ObservableList<KitchenDishResponse.Specialitem> specialItemsListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Specialitem>> specialitemsMutableLiveData;
@@ -115,6 +119,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
+
+        getNavigator().update(kitchenmenuimageArrayList.size());
     }
 
     public void info() {
@@ -128,6 +134,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             commonKitchenImagesList = kitchenInfoTempArray;
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
+
+        getNavigator().update(kitchenInfoTempArray.size());
     }
 
     public void fav() {
@@ -256,7 +264,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
                     new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
-                            91/*kitchenId*/, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
+                            kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
                     if (response != null) {
@@ -275,13 +283,27 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);
                                 todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
+                                if (favoriteProductlists.size()>0){
+                                    favorites.set(true);
+                                }
+                                if (todaysMenuProductlists.size()>0){
+                                    todaysMenu.set(true);
+                                }
 
                                 favAndTodayMenuArrayListLiveData.setValue(response.getResult());
                                 foodBadgesMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
                                 specialitemsMutableLiveData.setValue(response.getResult().get(0).getSpecialitems());
 
+                                if (response.getResult().get(0).getFoodbadge().size()>0){
+                                    foodBadges.set(true);
+                                }
+                                if (response.getResult().get(0).getSpecialitems().size()>0){
+                                    specialities.set(true);
+                                }
+
                                 kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
                                 kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
+
                                 int count = kitchenmenuimageArrayList.size();
                                 getNavigator().update(count);
                                 /////menu slider details
@@ -359,14 +381,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     public void back() {
         getNavigator().back();
-    }
-
-    public void previousClick() {
-        getNavigator().previousImage();
-    }
-
-    public void nextClick() {
-        getNavigator().nextImage();
     }
 
     public void addkitchenCommonImagesList(List<KitchenDishResponse.Kitchenmenuimage> kitchenCommonimageList) {
