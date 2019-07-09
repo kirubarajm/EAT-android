@@ -155,11 +155,8 @@
                                 android:onClick="@{()->kitchenDetailsViewModel.nextClick()}"
                                 android:src="@drawable/ic_chevron_right_black_24dp" />
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
                                 <LinearLayout
+                                    android:layout_centerInParent="true"
                                     android:id="@+id/layoutDots"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -168,8 +165,6 @@
                                     android:gravity="center"
                                     android:orientation="horizontal"
                                     android:padding="10dp" />
-
-                            </RelativeLayout>
 
                         </RelativeLayout>
 
@@ -566,7 +561,7 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-
+                            
                             <LinearLayout
                                 android:id="@+id/menu"
                                 android:layout_width="match_parent"
@@ -593,7 +588,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_below="@+id/menu"
                                 android:id="@+id/ssd"
-                                android:text="sdfsdfasdfsdfsdf"
+                                android:text="@string/today_s_menu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 

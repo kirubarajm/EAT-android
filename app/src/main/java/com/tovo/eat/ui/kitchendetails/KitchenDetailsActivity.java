@@ -11,7 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.text.Html;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -19,9 +21,11 @@ import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +47,8 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsBinding, KitchenDetailsViewModel> implements KitchenDetailsNavigator,
         FavoriteAdapter.LiveProductsAdapterListener, AddKitchenDishListener, HasSupportFragmentInjector,
-        MenuKitchenInfoCommonImageAdapter.MenuProductsAdapterListener,SpecialitiesAdapter.LiveProductsAdapterListener,FoodBadgeAdapter.LiveProductsAdapterListener,
-        TodaysMenuAdapter.LiveProductsAdapterListener{
+        MenuKitchenInfoCommonImageAdapter.MenuProductsAdapterListener, SpecialitiesAdapter.LiveProductsAdapterListener, FoodBadgeAdapter.LiveProductsAdapterListener,
+        TodaysMenuAdapter.LiveProductsAdapterListener {
 
     public ItemTouchHelperExtension mItemTouchHelper;
     public ItemTouchHelperExtension.Callback mCallback;
@@ -66,11 +70,14 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     ActivityKitchenDetailsBinding mFragmentDishBinding;
     Integer kitchenID;
+    int firstVisiblePosition;
     private float collapsedScale;
     private float expandedScale;
     private TextView[] dots;
     private int[] layouts;
-    int firstVisiblePosition;
+    int totalCount;
+    TextView rowTextView;
+    TextView[] myTextViews;
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
@@ -379,6 +386,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.recyclerKitchenCommonSlider.setLayoutManager(linearLayoutManager);
         mFragmentDishBinding.recyclerKitchenCommonSlider.setAdapter(kitchenCommonAdapter);
 
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mFragmentDishBinding.recyclerKitchenCommonSlider);
+
         GridLayoutManager gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
         mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(foodBadgesImageAdapter);
@@ -388,10 +398,27 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void update(int count){
-        firstVisiblePosition = count;
-        layouts = new int[firstVisiblePosition];
-        addBottomDots(0);
+    public void update(int count) {
+        totalCount = count;
+
+        dots = new TextView[totalCount];
+
+        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+
+
+        mFragmentDishBinding.layoutDots.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(this);
+            dots[i].setText("-");
+            dots[i].setTextSize(35);
+            dots[i].setPadding(0, 0, 30, 0);
+            dots[i].setTextColor(Color.DKGRAY);
+            mFragmentDishBinding.layoutDots.addView(dots[i]);
+        }
+
+        if (dots.length > 0)
+            dots[0].setTextColor(Color.YELLOW);
 
         mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -399,31 +426,39 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 super.onScrollStateChanged(recyclerView, newState);
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
                 int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
-                //int firstVisiblePosition = ll.getItemCount();
+                int firstVisiblePositionasd = ll.getItemCount();
 
-               // addBottomDots(firstVisiblePosition);
+                int currentFirstVisible = ll.findFirstVisibleItemPosition();
+                addBottomDots(currentFirstVisible);
             }
         });
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
+        try {
+            dots = new TextView[totalCount];
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+            int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+            int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
-        mFragmentDishBinding.layoutDots.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setPadding(0, 0, 20, 0);
-            dots[i].setTextColor(colorsInactive[currentPage]);
-            mFragmentDishBinding.layoutDots.addView(dots[i]);
+            int fs = dots.length;
+            Log.e("zscd",""+fs);
+            mFragmentDishBinding.layoutDots.removeAllViews();
+            for (int i = 0; i < dots.length; i++) {
+                dots[i] = new TextView(this);
+                dots[i].setText("-");
+                dots[i].setTextSize(35);
+                dots[i].setPadding(0, 0, 30, 0);
+                dots[i].setTextColor(Color.DKGRAY);
+                mFragmentDishBinding.layoutDots.addView(dots[i]);
+            }
+
+            if (dots.length > 0)
+                dots[currentPage].setTextColor(Color.YELLOW);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
 
@@ -463,8 +498,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.activity_kitchen_details;
+    public int getLayoutId() { return R.layout.activity_kitchen_details;
     }
 
     @Override
@@ -536,10 +570,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
         int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
         int firstVisiblePosition1 = ll.getItemCount();
-        Log.e("sdf",""+firstVisiblePosition1);
-        if (firstVisiblePosition>0 && firstVisiblePosition<firstVisiblePosition1) {
+        Log.e("sdf", "" + firstVisiblePosition1);
+        if (firstVisiblePosition > 0 && firstVisiblePosition < firstVisiblePosition1) {
             mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(firstVisiblePosition - 1);
-            addBottomDots(firstVisiblePosition-1);
         }
 
     }
@@ -549,7 +582,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
         int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
         mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(firstVisiblePosition + 1);
-        addBottomDots(firstVisiblePosition+1);
     }
 
     public void animFade(View view, View view2) {

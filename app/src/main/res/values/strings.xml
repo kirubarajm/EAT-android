@@ -534,4 +534,5 @@
     <string name="credit_debit_cards">Credit/Debit Cards</string>
     <string name="keep_change">Please keep the extra change handly to help us serve you better</string>
     <string name="veg_only">Veg only</string>
+    <string name="today_s_menu">Today\'s Menu</string>
 </resources>
