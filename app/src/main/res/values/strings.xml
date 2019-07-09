@@ -541,6 +541,10 @@
     <string name="devivery_executive">Want to pass on instructions to the delivery executive</string>
     <string name="order_delivered_at">Order delivered at</string>
     <string name="placed_at">Order placed at</string>
+
     <string name="total_cart_amount">Total cart amount</string>
+
+    <string name="favorites">Favorites</string>
+
 
 </resources>
