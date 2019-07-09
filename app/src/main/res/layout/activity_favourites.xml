@@ -105,7 +105,9 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        app:font_name="poppinsMedium"
+                        android:textStyle="bold"
                         android:textAllCaps="true"
                         android:layout_centerInParent="true"
                         android:textAlignment="center"
@@ -156,11 +158,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                app:font_name="poppinsMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="Kitchens"
+                                android:text="@string/kitchen"
                                 android:textAllCaps="true"
                                 android:textColor="@{favouritesViewModel.optionmenu?@color/white:@color/dark_gray}"
                                 android:textSize="14sp" />
@@ -183,7 +186,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                app:font_name="poppinsMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
