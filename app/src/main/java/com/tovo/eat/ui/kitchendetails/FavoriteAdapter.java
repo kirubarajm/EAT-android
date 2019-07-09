@@ -93,7 +93,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDishResponse.Result blogUrl, View view);
+        void onItemClickData(KitchenDishResponse.Productlist blogUrl, View view);
 
         void sendCart();
 
@@ -166,7 +166,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void onItemClick(KitchenDishResponse.Result blogUrl) {
+        public void onItemClick(KitchenDishResponse.Productlist blogUrl) {
 
             mLiveProductsAdapterListener.onItemClickData(blogUrl, mListItemLiveProductsBinding.fav);
         }

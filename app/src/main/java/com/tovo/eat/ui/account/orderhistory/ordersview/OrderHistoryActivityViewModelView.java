@@ -36,6 +36,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
+    public final ObservableField<String> ordertitle = new ObservableField<>();
 
     public final ObservableField<String> locality = new ObservableField<>();
 
@@ -114,6 +115,9 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             home.set(response.getResult().get(0).getLocality());
                           //  image.set(response.getResult().get(0).getMakeitdetail().ge);
                             address.set(response.getResult().get(0).getLocality());
+
+                            ordertitle.set("#"+response.getResult().get(0).getOrderid()+" Order");
+
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
                             locality.set("Delivered | "+String.valueOf(response.getResult().get(0).getLocality()));

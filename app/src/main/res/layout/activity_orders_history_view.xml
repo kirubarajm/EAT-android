@@ -24,8 +24,8 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_details"
+                    android:text="@{OrdersHistryViewModel.ordertitle}"
                     android:textSize="18sp" />
 
             </RelativeLayout>
@@ -99,14 +99,14 @@
 
                             <com.tovo.eat.utilities.RoundCornerImageView
                               android:src="@drawable/imagenotavailable"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:scaleType="fitXY" />
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:scaleType="centerInside" />
 
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="70dp"
                                 android:layout_marginStart="10dp"
                                 android:orientation="vertical">
 
@@ -123,7 +123,6 @@
                                 <com.tovo.eat.utilities.fonts.poppins.EatTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
                                     android:text="@{OrdersHistryViewModel.kitchenName}"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
@@ -132,7 +131,6 @@
                                 <com.tovo.eat.utilities.fonts.poppins.EatTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
                                     android:text="@{OrdersHistryViewModel.locality}"
                                     android:textColor="@color/medium_gray"
                                     android:textSize="14sp"
@@ -147,7 +145,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/kitchen_details"
-                            android:layout_marginStart="70dp"
+                            android:layout_marginStart="100dp"
                             android:layout_marginTop="20dp"
                             android:orientation="vertical">
 
@@ -164,7 +162,6 @@
                             <com.tovo.eat.utilities.fonts.poppins.EatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
                                 android:text="@{OrdersHistryViewModel.address}"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
@@ -173,7 +170,6 @@
                             <com.tovo.eat.utilities.fonts.poppins.EatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
                                 android:text="@{OrdersHistryViewModel.address}"
                                 android:textColor="@color/medium_gray"
                                 android:textSize="14sp"
@@ -184,7 +180,8 @@
 
                     </RelativeLayout>
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        app:font_name="poppinsMedium"
                         android:id="@+id/txt_order_delivered_date_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -193,7 +190,7 @@
                         android:layout_marginRight="10dp"
                         android:text="@{OrdersHistryViewModel.actualDeliveryTime}"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view_1"
@@ -259,8 +256,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginEnd="10dp">
 
 
@@ -313,8 +308,6 @@
                         android:layout_below="@+id/r1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginEnd="10dp">
 
 
@@ -362,11 +355,11 @@
 
 
                     <RelativeLayout
+                        android:layout_marginEnd="10dp"
                         android:id="@+id/r3"
                         android:layout_below="@+id/r2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
+                        android:layout_height="wrap_content">
 
 
 

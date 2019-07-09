@@ -38,6 +38,8 @@ public class OrdersHistoryActivityListItemViewModel {
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> moveitName = new ObservableField<>();
     public final ObservableField<String> makeitName = new ObservableField<>();
+    public final ObservableField<String> vegType = new ObservableField<>();
+
 
     private  OrdersHistoryActivityResponse.Result.Item mOrderLists;
 
@@ -48,6 +50,7 @@ public class OrdersHistoryActivityListItemViewModel {
         productid.set(String.valueOf(mOrderList.getProductid()));
         product_name.set(String.valueOf(mOrderList.getProductName()));
         price.set(String.valueOf(mOrderList.getPrice()));
+
 
         mOrderLists=mOrderList;
     }

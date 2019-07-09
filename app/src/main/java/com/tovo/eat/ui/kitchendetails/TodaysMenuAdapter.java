@@ -92,7 +92,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDishResponse.Result blogUrl, View view);
+        void onItemClickData(KitchenDishResponse.Productlist blogUrl, View view);
 
         void sendCart();
 
@@ -161,9 +161,10 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
-        @Override
-        public void onItemClick(KitchenDishResponse.Result blogUrl) {
 
+
+        @Override
+        public void onItemClick(KitchenDishResponse.Productlist blogUrl) {
             mLiveProductsAdapterListener.onItemClickData(blogUrl, mListItemLiveProductsBinding.fav);
         }
 

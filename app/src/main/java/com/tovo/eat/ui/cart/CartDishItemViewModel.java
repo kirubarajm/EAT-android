@@ -24,6 +24,7 @@ public class CartDishItemViewModel {
     public final ObservableField<String> availability = new ObservableField<>();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final ObservableBoolean isAvailable = new ObservableBoolean();
+    public final ObservableBoolean isVeg = new ObservableBoolean();
     private final ObservableField<Integer> price = new ObservableField<>();
     private final ObservableField<Integer> quantity = new ObservableField<>();
     private final DishItemViewModelListener mListener;
@@ -65,13 +66,15 @@ public class CartDishItemViewModel {
 
 
         if (dishList.getVegtype().equalsIgnoreCase("0")) {
-
+            isVeg.set(true);
             veg_type.set("Veg");
         } else {
             veg_type.set("Non-Veg");
+            isVeg.set(false);
 
         }
-        producttype.set("Mediterranean" + " | " + veg_type.get());
+       // producttype.set(dishList.getCusine() + " | " + veg_type.get());
+        producttype.set(String.valueOf(dishList.getCusine()));
 
     }
 

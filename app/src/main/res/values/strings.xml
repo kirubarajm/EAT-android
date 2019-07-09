@@ -447,7 +447,6 @@
     <string name="icon_eat">&#xe92b;</string>
     <string name="icon_divider">&#xe927;</string>
 
-
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="address_edit">Address edit</string>
@@ -545,6 +544,8 @@
     <string name="total_cart_amount">Total cart amount</string>
 
     <string name="favorites">Favorites</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="looks_like_you_haven_t_added_anything_to_the_cart">Looks like you haven’t added anything to the cart</string>
 
 
 </resources>

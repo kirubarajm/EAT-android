@@ -615,7 +615,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void onItemClickData(KitchenDishResponse.Result blogUrl, View view) {
+    public void onItemClickData(KitchenDishResponse.Productlist blogUrl, View view) {
 
         animateView(view);
 
@@ -625,6 +625,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         Animation shake = AnimationUtils.loadAnimation(KitchenDetailsActivity.this, R.anim.shake);
         view.startAnimation(shake);
     }
+
 
     @Override
     public void sendCart() {
