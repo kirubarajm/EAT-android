@@ -25,8 +25,8 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,8 +45,8 @@
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="match_parent"
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/payments"
@@ -62,16 +62,16 @@
 
 
         <LinearLayout
-            android:background="@color/white"
             android:id="@+id/amount"
-            android:layout_below="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/topBar"
             android:layout_marginTop="10dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:text="@string/icon_inr"
                     android:textSize="16sp" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -129,14 +129,14 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/wallet"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <View
                         android:id="@+id/separator"
@@ -149,16 +149,18 @@
 
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
                         android:layout_marginTop="10dp"
+                        android:scaleType="fitStart"
                         android:src="@drawable/paytm" />
 
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitStart"
                         android:src="@drawable/freecharge" />
 
                 </LinearLayout>
@@ -172,14 +174,14 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/credit_debit_cards"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -189,7 +191,7 @@
                         android:background="@drawable/gradient_view_kitchen" />
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
@@ -197,7 +199,7 @@
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                     <LinearLayout
@@ -209,21 +211,26 @@
 
 
                         <ImageView
-                            android:layout_width="70dp"
+                            android:layout_width="50dp"
                             android:layout_height="30dp"
+
+                            android:scaleType="fitStart"
                             android:src="@drawable/visacard" />
 
 
                         <ImageView
-                            android:layout_width="100dp"
+                            android:layout_width="50dp"
                             android:layout_height="30dp"
-                            android:scaleType="centerInside"
+                            android:layout_marginStart="10dp"
+                            android:scaleType="fitStart"
                             android:src="@drawable/americancard" />
 
+
                         <ImageView
-                            android:layout_width="100dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_width="50dp"
                             android:layout_height="30dp"
-                            android:scaleType="centerInside"
+                            android:scaleType="fitStart"
                             android:src="@drawable/mastercard" />
 
 
@@ -240,14 +247,14 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/upi"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -292,14 +299,14 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/netbanking"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -338,14 +345,14 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularStdMedium
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cash_on_delivery"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -356,6 +363,7 @@
 
 
                     <LinearLayout
+                        android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -367,21 +375,22 @@
                             android:src="@drawable/cod" />
 
                         <LinearLayout
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
 
-                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/cash_on_delivery"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
                                 android:textColor="@color/black"
-                                android:textSize="18sp" />
+                                android:textSize="14sp" />
 
-                            <com.tovo.eat.utilities.fonts.CircularStdMedium
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/keep_change"

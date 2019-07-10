@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:background="@color/white">
 
                 <ImageView
+                    android:layout_alignParentStart="true"
                     android:onClick="@{()->chatViewModel.goBack()}"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -39,15 +39,17 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="match_parent"
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/support_replies"
                     android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
@@ -58,7 +60,7 @@
 
 
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             android:id="@+id/txt_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +73,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:id="@+id/txt_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,7 +127,7 @@
                 android:hint="@string/type_here"
                 android:layout_marginStart="5dp" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

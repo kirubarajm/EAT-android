@@ -42,8 +42,7 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                    app:font_name="poppinsMedium"
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:textStyle="bold"
                     android:textAllCaps="true"
                     android:layout_centerInParent="true"
@@ -193,19 +192,13 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsMedium"
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/select_pin"/>
-
-
-
-
-
 
                     <LinearLayout
                         android:layout_marginTop="10dp"
@@ -236,9 +229,8 @@
                                 android:visibility="@{addAddressViewModel.typeHome? View.VISIBLE: View.INVISIBLE}" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:textAllCaps="true"
-                                app:font_name="poppinsMedium"
                                 android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
@@ -273,9 +265,9 @@
                                 android:textSize="14sp"
                                 android:visibility="@{addAddressViewModel.typeOffice? View.VISIBLE: View.INVISIBLE}" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:textAllCaps="true"
-                                app:font_name="poppinsMedium"
+                             
                                 android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
@@ -308,9 +300,9 @@
                                 android:textSize="14sp"
                                 android:visibility="@{addAddressViewModel.typeOther? View.VISIBLE: View.INVISIBLE}" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:textAllCaps="true"
-                                app:font_name="poppinsMedium"
+                             
                                 android:textStyle="bold"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
@@ -350,7 +342,7 @@
                         android:background="@drawable/curve_stroke"
                         android:onClick="@{()->addAddressViewModel.saveAddress(location.getText().toString(),house.getText().toString(),area.getText().toString(),landmark.getText().toString(),title.getText().toString())}">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:textAllCaps="true"
                             app:font_name="poppinsSemiBold"
                             android:textStyle="bold"
@@ -368,9 +360,7 @@
                 </LinearLayout>
 
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-
-                    app:font_name="poppinsMedium"
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

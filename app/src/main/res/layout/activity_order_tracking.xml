@@ -18,65 +18,6 @@
         android:orientation="vertical"
         android:paddingBottom="20dp">
 
-        <!--<RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="35dp"
-                android:layout_height="55dp"
-                android:layout_alignParentStart="true"
-                android:onClick="@{()->orderTrackingViewModel.backClick()}"
-                android:padding="5dp"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:tint="@color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:layout_toRightOf="@id/img_back"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delivering_to"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{orderTrackingViewModel.addressTitle}"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="55dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                android:onClick="@{()->orderTrackingViewModel.getOrderDetails()}"
-                android:padding="5dp"
-                android:src="@drawable/ic_refresh_black_24dp"
-                android:tint="@color/black" />
-        </RelativeLayout>-->
-
-
         <android.support.v7.widget.Toolbar
             android:elevation="5dp"
             android:id="@+id/header"
@@ -110,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/your_order_will_arrive_by"
@@ -119,7 +60,7 @@
                     android:textSize="14sp"
                     android:textStyle="normal" />
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{orderTrackingViewModel.eta}"
@@ -160,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/orders"
@@ -169,7 +110,7 @@
                             android:textStyle="normal" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderTrackingViewModel.products}"
@@ -202,7 +143,7 @@
                             android:textSize="10sp" />
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -234,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:textAllCaps="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -258,7 +199,7 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:onClick="@{()->orderTrackingViewModel.orderDetails()}"
                         android:layout_centerVertical="true"
                         android:id="@+id/details"
@@ -316,7 +257,7 @@
                             android:background="@color/white"
                             android:orientation="vertical">
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{orderTrackingViewModel.orderReceivedStatus}"
@@ -325,7 +266,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="normal" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -378,7 +319,7 @@
                         android:orientation="vertical">
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderTrackingViewModel.orderPreparedStatus}"
@@ -387,7 +328,7 @@
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -439,7 +380,7 @@
                             android:orientation="vertical">
 
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{orderTrackingViewModel.orderDeliveryStatus}"
@@ -448,7 +389,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="normal" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -484,7 +425,7 @@
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"

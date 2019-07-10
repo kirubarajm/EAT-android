@@ -42,7 +42,7 @@
                     android:onClick="@{()->editAccountViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textAllCaps="true"
@@ -51,7 +51,7 @@
                     android:layout_centerInParent="true"
                     android:text="@string/edit_info"
                     android:textSize="18sp"
-                    app:font_name="poppinsMedium" />
+                    />
 
             </RelativeLayout>
 
@@ -67,9 +67,8 @@
             android:orientation="vertical">
 
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textStyle="bold"
-                app:font_name="poppinsMedium"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -259,8 +258,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                 android:textStyle="bold"
                 app:font_name="poppinsSemiBold"
                 android:id="@+id/btn_sign_in"

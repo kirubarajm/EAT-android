@@ -29,8 +29,7 @@
             app:cardElevation="0dp"
             app:cardMaxElevation="0dp">
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                app:font_name="poppinsMedium"
+            <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                 android:id="@+id/title_toolbar"
                 android:layout_width="match_parent"
                 android:textAllCaps="true"
@@ -68,8 +67,7 @@
                 android:src="@drawable/empty_cart" />
 
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                app:font_name="poppinsMedium"
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/tt1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,8 +79,7 @@
                 android:textSize="16sp" />
 
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                app:font_name="poppinsMedium"
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tt1"
@@ -138,8 +135,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsMedium"
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@{cartViewModel.makeit_brand_name}"
@@ -175,8 +171,8 @@
                             </RelativeLayout>
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -185,8 +181,8 @@
                                 android:textSize="14sp" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -249,8 +245,7 @@
                     android:visibility="visible">
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:onClick="@{()->cartViewModel.promoCoupon()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -268,8 +263,8 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                         android:visibility="@{cartViewModel.refunds?View.VISIBLE:View.GONE}"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
@@ -291,8 +286,8 @@
                         tools:listitem="@layout/list_item_refund" />
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                         android:visibility="@{cartViewModel.refunds?View.VISIBLE:View.GONE}"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
@@ -314,8 +309,8 @@
                     android:orientation="vertical">
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsMedium"
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                       
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bill_details"
@@ -330,8 +325,8 @@
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -365,8 +360,8 @@
                                     android:textSize="10sp" />
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                     android:id="@+id/price2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -386,8 +381,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -419,8 +414,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="10sp" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                     android:id="@+id/price3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -440,8 +435,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -473,8 +468,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="10sp" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                     android:id="@+id/price4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -503,8 +498,8 @@
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -536,8 +531,8 @@
                                     android:textColor="@color/black"
                                     android:textSize="10sp" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                     android:id="@+id/price5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -575,8 +570,7 @@
                                 android:orientation="horizontal">
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -585,8 +579,8 @@
                                     android:textSize="16sp"
                                     android:textStyle="normal" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                    app:font_name="poppinsRegular"
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
@@ -599,8 +593,8 @@
 
                             </LinearLayout>
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -612,8 +606,8 @@
                         </LinearLayout>
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsSemiBold"
+                        <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+
                             android:id="@+id/select"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -634,8 +628,8 @@
                     </RelativeLayout>
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -673,8 +667,7 @@
                     </RadioGroup>
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

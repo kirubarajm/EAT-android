@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.signin.SignActivityMain">
 
     <data>
@@ -21,11 +22,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                android:textStyle="bold"
                 android:id="@+id/txt_name_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
                 android:gravity="center"
                 android:text="@string/name_and_avator"
                 android:textSize="18dp" />
@@ -75,14 +76,36 @@
 
 
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/region_list"
+                android:id="@+id/tl_referral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp">
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/referral"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="REFERRAL CODE (Optional)"
+                    android:textSize="14sp"
+                    android:theme="@style/EditTextHint" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/region_list"
+                android:layout_below="@+id/tl_referral"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:textColor="@color/dark_gray"
                 android:gravity="left|center"
@@ -94,7 +117,7 @@
             <RelativeLayout
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/txt_choose_avator"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:visibility="visible"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
@@ -116,7 +139,7 @@
                     android:layout_height="45dp">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:textColor="@color/dark_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,7 +161,7 @@
                     android:layout_height="50dp">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:textColor="@color/eat_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -165,7 +188,7 @@
                     android:layout_height="45dp">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:textColor="@color/dark_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -188,7 +211,7 @@
                     android:layout_height="50dp">
 
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="28sp"
@@ -200,32 +223,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </RelativeLayout>
-            
-            
-
-
-
-
 
 
         </RelativeLayout>
@@ -237,16 +235,17 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                app:font_name="poppinsSemiBold"
                 android:gravity="center"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:background="@drawable/verify_btn_bck"
+                android:background="@drawable/curve_stroke"
                 android:onClick="@{()->nameGenderViewModel.proceed()}"
                 android:text="@string/proceed"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/eat_color"
                 android:textStyle="bold" />
 
         </RelativeLayout>

@@ -60,17 +60,12 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
         mFaqViewModel.setNavigator(this);
         mActivityFaqsBinding = getViewDataBinding();
 
-        setSupportActionBar(mActivityFaqsBinding.toolbar1);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);
         mActivityFaqsBinding.recyclerFaqs.setAdapter(mFaqsAdapter);
         subscribeToLiveData();
-        mActivityFaqsBinding.toolbar1.setTitle("FAQs");
     }
 
 

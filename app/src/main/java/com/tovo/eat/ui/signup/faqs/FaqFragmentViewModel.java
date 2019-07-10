@@ -44,6 +44,10 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
         getNavigator().backClick();
     }
 
+
+
+
+
     private void fetchRepos() {
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
 

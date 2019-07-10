@@ -46,8 +46,7 @@
 
 
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                    app:font_name="poppinsMedium"
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:textStyle="bold"
                     android:textAllCaps="true"
                     android:layout_centerInParent="true"
@@ -111,30 +110,27 @@
                                 android:orientation="vertical">
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/placed_at"
                                     android:textColor="@color/medium_gray"
-                                    android:textSize="14sp"
-                                    app:font_name="poppinsMedium" />
+                                    android:textSize="14sp" />
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@{OrdersHistryViewModel.kitchenName}"
                                     android:textColor="@color/black"
-                                    android:textSize="16sp"
-                                    app:font_name="poppinsMedium" />
+                                    android:textSize="16sp" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@{OrdersHistryViewModel.locality}"
                                     android:textColor="@color/medium_gray"
-                                    android:textSize="14sp"
-                                    app:font_name="poppinsMedium" />
+                                    android:textSize="14sp"/>
 
 
                             </LinearLayout>
@@ -150,37 +146,34 @@
                             android:orientation="vertical">
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/order_delivered_at"
                                 android:textColor="@color/medium_gray"
-                                android:textSize="14sp"
-                                app:font_name="poppinsMedium" />
+                                android:textSize="14sp"/>
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@{OrdersHistryViewModel.address}"
                                 android:textColor="@color/black"
-                                android:textSize="16sp"
-                                app:font_name="poppinsMedium" />
+                                android:textSize="16sp"/>
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@{OrdersHistryViewModel.address}"
                                 android:textColor="@color/medium_gray"
-                                android:textSize="14sp"
-                                app:font_name="poppinsMedium" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
 
 
                     </RelativeLayout>
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         app:font_name="poppinsMedium"
                         android:id="@+id/txt_order_delivered_date_time"
                         android:layout_width="match_parent"
@@ -210,8 +203,7 @@
                         android:layout_margin="10dp">
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsMedium"
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:textStyle="bold"
                             android:id="@+id/txt_order_details"
                             android:layout_width="match_parent"
@@ -260,8 +252,7 @@
 
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -288,8 +279,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="8sp" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{OrdersHistryViewModel.gst}"
@@ -311,8 +301,7 @@
                         android:layout_marginEnd="10dp">
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -339,8 +328,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="8sp" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{OrdersHistryViewModel.delivery}"
@@ -363,8 +351,7 @@
 
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/total_cart_amount"
@@ -391,8 +378,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="10sp" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@{OrdersHistryViewModel.price}"
@@ -404,8 +390,7 @@
 
                     </RelativeLayout>
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_below="@+id/r3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -423,8 +408,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/curve_stroke"
