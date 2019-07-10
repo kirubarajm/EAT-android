@@ -46,7 +46,9 @@ import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
+import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -61,7 +63,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener, StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener {
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener,
+        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener,StoriesCardAdapter.StoriesAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -205,8 +208,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.updateAddressTitle();
         adapter.setListener(this);
         regionListAdapter.setListener(this);
+        storiesCardAdapter.setListener(this);
     }
-
 
     @Override
     public void onPause() {
@@ -363,7 +366,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -371,7 +373,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     }
-
 
     private boolean checkAndRequestPermissions() {
 
@@ -406,12 +407,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         return true;
     }
 
-
     private void subscribeToLiveData() {
         mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
                 kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
         mHomeTabViewModel.getregionItemsLiveData().observe(this,
                 regionItemViewModel -> mHomeTabViewModel.addRegionItemsToList(regionItemViewModel));
+        mHomeTabViewModel.getStoriesItemsImages().observe(this,
+                regionItemViewModel -> mHomeTabViewModel.addStoriesImagesList(regionItemViewModel));
     }
 
     private void startLocationTracking() {
@@ -526,7 +528,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
         mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
@@ -541,7 +542,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     }
-
 
     @Override
     public void animateView(View view) {
@@ -570,7 +570,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
-
     private void initCountryText() {
 
 
@@ -597,7 +596,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     }
-
 
     private void setCountryText(String text, boolean left2right) {
         final TextView invisibleText;
@@ -764,6 +762,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+    @Override
+    public void onItemClickData(StoriesResponse.Result result) {
+        Intent intent = StoriesActivity.newIntent(getContext());
+        intent.putExtra("stories", result);
+        startActivity(intent);
+    }
+
     private class OnCardClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -787,5 +792,4 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         }
     }
-
 }

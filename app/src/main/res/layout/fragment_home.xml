@@ -324,15 +324,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:visibility="visible"
-                        app:storiesadapter="@{homeTabViewModel.regionItemViewModels}"
-                        tools:listitem="@layout/list_item_story_card" />
-
+                        app:storiesadapter="@{homeTabViewModel.storiesItemViewModels}"
+                        tools:listitem="@layout/list_item_stories" />
 
                 </LinearLayout>
-
-
-
-
 
                 <LinearLayout
                     android:orientation="vertical"
