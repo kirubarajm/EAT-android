@@ -91,8 +91,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsMedium"
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -100,8 +99,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="18sp" />
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:textColor="@color/dark_gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -121,8 +119,7 @@
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/curve_stroke">
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsMedium"
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
@@ -146,14 +143,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{regionItemViewModel.totalKitchens}"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:textColor="@color/dark_gray"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

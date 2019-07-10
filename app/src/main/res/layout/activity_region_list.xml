@@ -44,10 +44,9 @@
                     android:onClick="@{()->regionListViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:layout_centerInParent="true"
                     android:textAllCaps="true"
-                    app:font_name="poppinsMedium"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

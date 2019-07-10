@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:minWidth="70dp"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:minWidth="70dp"
@@ -79,7 +79,7 @@
             </LinearLayout>
 
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_marginTop="5dp"
@@ -119,8 +119,4 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray" />
 </LinearLayout>

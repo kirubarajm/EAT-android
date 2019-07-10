@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityTermsAndConditionBinding;
@@ -57,15 +56,16 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     }
 
     @Override
+    public void goBack() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityTermsAndConditionBinding = getViewDataBinding();
         mTermsAndConditionModel.setNavigator(this);
 
-        setSupportActionBar(mActivityTermsAndConditionBinding.toolbar1);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
 
@@ -73,6 +73,7 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     public void onBackPressed() {
         super.onBackPressed();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

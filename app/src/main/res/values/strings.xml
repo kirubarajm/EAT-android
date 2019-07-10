@@ -547,6 +547,9 @@
     <string name="your_cart_is_empty">Your cart is empty</string>
     <string name="looks_like_you_haven_t_added_anything_to_the_cart">Looks like you haven’t added anything to the cart</string>
     <string name="order_help">Order Help</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="privacy_and_policy">privacy and policy</string>
+    <string name="selected_region_has_no_kitchens">Selected region has no kitchens</string>
 
 
 </resources>

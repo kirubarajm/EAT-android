@@ -12,4 +12,10 @@ public class TermsAndConditionViewModel extends BaseViewModel<TermsAndConditionN
     public void onAgreeAndAcceptClick(){
         getNavigator().openRegActivity();
     }
+
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
 }

@@ -39,7 +39,7 @@
                 android:textSize="30sp" />
 
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:text="@string/sorry"
                 android:textSize="20sp" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:textAlignment="center"

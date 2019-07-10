@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                app:font_name="poppinsRegular"
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_gravity="center_vertical"
                 android:id="@+id/coupon"
                 android:layout_marginStart="10dp"
@@ -48,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/eat_color"
                 android:text="@{refundListItemViewModel.code}"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textAllCaps="true"/>
 
 
@@ -78,14 +77,13 @@
                     android:textColor="@color/dark_gray"/>
 
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                    app:font_name="poppinsRegular"
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_gray"
                     android:text="@{refundListItemViewModel.amount}"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textAllCaps="true"/>
 
 

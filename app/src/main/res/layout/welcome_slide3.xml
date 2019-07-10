@@ -34,7 +34,7 @@
 
         </RelativeLayout>
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:layout_below="@+id/rel_1"
             android:id="@+id/txt_get_started"
             android:layout_width="match_parent"

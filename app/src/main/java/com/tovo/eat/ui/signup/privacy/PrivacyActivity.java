@@ -57,16 +57,17 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     }
 
     @Override
+    public void goBack() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityPrivacyBinding = getViewDataBinding();
         mPrivacyViewModel.setNavigator(this);
 
 
-        setSupportActionBar(mActivityPrivacyBinding.toolbar1);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -74,12 +75,4 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
        super.onBackPressed();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:text="4"
             android:gravity="center"
             android:layout_width="match_parent"

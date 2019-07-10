@@ -35,17 +35,17 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/title"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:background="@color/white"
                 android:clickable="true"
                 android:focusable="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -64,7 +64,7 @@
                     android:background="@drawable/gradient_view_kitchen" />
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -90,37 +90,35 @@
                     android:orientation="vertical">
 
                     <com.tovo.eat.utilities.RoundCornerImageView
-                        android:layout_gravity="center_horizontal"
                         cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
                         android:layout_width="180dp"
                         android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_margin="10dp"
                         android:onClick="@{()->regionItemViewModel.onItemClick()}"
                         android:scaleType="fitXY" />
 
 
-
-                   <!-- <android.support.v7.widget.CardView
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp"
-                        android:layout_margin="10dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="0dp">
-
+                    <!-- <android.support.v7.widget.CardView
+                         android:layout_gravity="center_horizontal"
+                         android:layout_width="180dp"
+                         android:layout_height="200dp"
+                         android:layout_margin="10dp"
+                         app:cardBackgroundColor="@color/white"
+                         app:cardCornerRadius="5dp"
+                         app:cardElevation="0dp">
 
 
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="View More"/>
 
-                    </android.support.v7.widget.CardView>-->
+                         <com.tovo.eat.utilities.fonts.CircularTextView
+                             android:layout_gravity="center_horizontal|center_vertical"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="View More"/>
 
+                     </android.support.v7.widget.CardView>-->
 
 
                     <LinearLayout
@@ -131,15 +129,14 @@
                         android:layout_marginEnd="20dp"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsSemiBold"
+                        <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="wrap_content"
-                            android:textStyle="bold"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="@{regionItemViewModel.title}"
                             android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
 
                         <View
@@ -149,15 +146,15 @@
                             android:background="@color/black" />
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@{regionItemViewModel.content}"                            android:textColor="@color/dark_gray"
-                            android:textSize="12sp"/>
+                            android:text="@{regionItemViewModel.content}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 

@@ -5,4 +5,5 @@ public interface TermsAndConditionNavigator {
     void handleError(Throwable throwable);
 
     void openRegActivity();
+    void goBack();
 }

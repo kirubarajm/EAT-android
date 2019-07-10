@@ -106,6 +106,12 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         return getDataManager().getCartDetails();
     }
 
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
+
     public void menu() {
         if (!optionmenu.get()) {
             optionmenu.set(true);
@@ -379,9 +385,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         getNavigator().viewCart();
     }
 
-    public void back() {
-        getNavigator().back();
-    }
 
     public void addkitchenCommonImagesList(List<KitchenDishResponse.Kitchenmenuimage> kitchenCommonimageList) {
         kitchenInfoImagesListViewModels.clear();

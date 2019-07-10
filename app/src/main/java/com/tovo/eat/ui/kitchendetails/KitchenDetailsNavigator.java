@@ -14,7 +14,7 @@ public interface KitchenDetailsNavigator {
     void viewCart();
 
 
-    void back();
+    void goBack();
 
     void animChanges(boolean status);
 

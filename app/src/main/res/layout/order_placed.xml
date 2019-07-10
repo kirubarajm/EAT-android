@@ -29,7 +29,7 @@
                 android:textColor="@color/green"
                 android:textSize="75sp"/>
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"

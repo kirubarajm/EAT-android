@@ -34,7 +34,7 @@
 
         </RelativeLayout>
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:paddingLeft="40dp"
             android:gravity="center"
             android:paddingRight="40dp"
