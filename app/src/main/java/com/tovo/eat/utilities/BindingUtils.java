@@ -57,6 +57,7 @@ import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
+import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
@@ -193,7 +194,7 @@ public final class BindingUtils {
 
 
     @BindingAdapter({"storiesadapter"})
-    public static void addStoriesCardItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
+    public static void addStoriesCardItems(RecyclerView recyclerView, List<StoriesResponse.Result> dishes) {
         StoriesCardAdapter adapter = (StoriesCardAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();

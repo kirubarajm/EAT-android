@@ -200,7 +200,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
 
 
-       /* startActivity(new Intent(OnBoardingActivity.this, SplashActivity.class));
+       /* startActivity(new Intent(OnBoardingActivity.this, StoriesActivity.class));
         finish();*/
 
 

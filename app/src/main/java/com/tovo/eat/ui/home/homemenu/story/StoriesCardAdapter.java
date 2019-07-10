@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemStoryCardBinding;
+import com.tovo.eat.databinding.ListItemStoriesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
-import com.tovo.eat.ui.home.region.RegionsItemViewModel;
-import com.tovo.eat.ui.home.region.RegionsResponse;
-import com.tovo.eat.ui.registration.RegionItemViewModel;
 
 import java.util.List;
 
@@ -21,12 +18,11 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<RegionsResponse.Result> item_list;
-    private LiveProductsAdapterListener mLiveProductsAdapterListener;
+    private List<StoriesResponse.Result> item_list;
+    private StoriesAdapterListener mStoriesAdapterListener;
 
 
-
-    public StoriesCardAdapter(List<RegionsResponse.Result> item_list) {
+    public StoriesCardAdapter(List<StoriesResponse.Result> item_list) {
         this.item_list = item_list;
     }
 
@@ -34,7 +30,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemStoryCardBinding blogViewBinding = ListItemStoryCardBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemStoriesBinding blogViewBinding = ListItemStoriesBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -90,58 +86,47 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder {
-        ListItemStoryCardBinding mListItemLiveProductsBinding;
-        RegionsItemViewModel mLiveProductsItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements StoriesItemViewModel.StoriesItemViewModelListener {
+        ListItemStoriesBinding mListItemLiveProductsBinding;
+        StoriesItemViewModel mStoriesItemViewModel;
 
-        public LiveProductsViewHolder(ListItemStoryCardBinding binding) {
+        public LiveProductsViewHolder(ListItemStoriesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
-
 
         }
 
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final RegionsResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new RegionsItemViewModel(this,blog,position);
-            mListItemLiveProductsBinding.setRegionItemViewModel(mLiveProductsItemViewModel);
-
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
+            final StoriesResponse.Result blog = item_list.get(position);
+            mStoriesItemViewModel = new StoriesItemViewModel(this,blog);
+            mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
-
-
-
-
         }
 
-
-
-
-
+        @Override
+        public void onItemClick(StoriesResponse.Result blog) {
+            mStoriesAdapterListener.onItemClickData(blog);
+        }
     }
 
     public void clearItems() {
         item_list.clear();
     }
 
-    public void addItems(List<RegionsResponse.Result> blogList, Context context) {
+    public void addItems(List<StoriesResponse.Result> blogList, Context context) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
 
-    public void setListener(LiveProductsAdapterListener listener) {
-        this.mLiveProductsAdapterListener = listener;
+    public void setListener(StoriesAdapterListener listener) {
+        this.mStoriesAdapterListener = listener;
     }
 
-    public interface LiveProductsAdapterListener {
+    public interface StoriesAdapterListener {
 
-        void onItemClickData(Integer kitchenId);
-        void showMore(Integer regionId);
+        void onItemClickData(StoriesResponse.Result result);
 
     }
 

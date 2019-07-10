@@ -20,6 +20,8 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
+import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsRequest;
@@ -35,7 +37,6 @@ import java.util.Map;
 
 public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
-
     public final ObservableField<String> firstRegion = new ObservableField<>();
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public ObservableBoolean isVeg = new ObservableBoolean();
@@ -43,18 +44,24 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
     public RegionsResponse regionResult;
     public ObservableBoolean favIcon = new ObservableBoolean();
+    public ObservableList<StoriesResponse.Result> storiesItemViewModels = new ObservableArrayList<>();
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
+
+    private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
+
 
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
         regionItemsLiveData = new MutableLiveData<>();
+        storiesItemsLiveData = new MutableLiveData<>();
         fetchKitchen();
         fetchRepos(0);
+        fetchStories();
 
-        if (getDataManager().getVegType().equalsIgnoreCase("1")){
+        if (getDataManager().getVegType().equalsIgnoreCase("1")) {
             isVeg.set(true);
         }
 
@@ -129,7 +136,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId,getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {
@@ -272,11 +279,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     }
 
-
     public void filter() {
         getNavigator().filter();
     }
-
 
     public void setCurrentFragment(Integer id) {
         getDataManager().setCurrentFragment(id);
@@ -286,7 +291,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         getDataManager().setIsFav(true);
         getNavigator().favourites();
     }
-
 
     public boolean isAddressAdded() {
 
@@ -311,7 +315,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
 
     }
-
 
     public void fetchKitchen() {
 
@@ -362,7 +365,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
                         getDataManager().setFilterSort(json);
-
 
 
                     } else {
@@ -470,5 +472,39 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
     }
 
+    public void fetchStories() {
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_STORIES_LIST, StoriesResponse.class, new Response.Listener<StoriesResponse>() {
+                @Override
+                public void onResponse(StoriesResponse response) {
+                    if (response != null) {
+                        storiesItemsLiveData.setValue(response.getResult());
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("",""+error.getMessage());
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    public void addStoriesImagesList(List<StoriesResponse.Result> resultList) {
+        storiesItemViewModels.clear();
+        storiesItemViewModels.addAll(resultList);
+    }
+
+    public ObservableList<StoriesResponse.Result> getStoriesItemViewModels() {
+        return storiesItemViewModels;
+    }
+
+    public MutableLiveData<List<StoriesResponse.Result>> getStoriesItemsImages() {
+        return storiesItemsLiveData;
+    }
 }
