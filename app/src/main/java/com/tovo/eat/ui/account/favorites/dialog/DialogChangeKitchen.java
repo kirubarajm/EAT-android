@@ -46,7 +46,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
-       // fragment.setTargetFragment(new DialogChangeKitchen(),0);
+       // fragment.setTargetFragment(new DialogRefundAlert(),0);
         fragment.setCancelable(false);
         return fragment;
     }

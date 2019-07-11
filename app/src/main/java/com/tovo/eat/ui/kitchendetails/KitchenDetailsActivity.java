@@ -368,12 +368,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerFav.setLayoutManager(new LinearLayoutManager(this));
         mFragmentDishBinding.recyclerFav.setAdapter(mFavTodaysMenuAdapter);
-        mFragmentDishBinding.recyclerFav.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+      //  mFragmentDishBinding.recyclerFav.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerTodaysMenu.setLayoutManager(new LinearLayoutManager(this));
         mFragmentDishBinding.recyclerTodaysMenu.setAdapter(mTodaysMenuAdapter);
-        mFragmentDishBinding.recyclerTodaysMenu.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+      //  mFragmentDishBinding.recyclerTodaysMenu.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerSpecialities.setLayoutManager(gridLayoutManager);

@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/img_1"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             app:imageUrl="@{kitchenCommonImagesViewModel.image_url}"
             android:layout_width="match_parent"
             android:layout_height="300dp" />

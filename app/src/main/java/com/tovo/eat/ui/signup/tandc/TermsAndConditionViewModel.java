@@ -9,8 +9,8 @@ public class TermsAndConditionViewModel extends BaseViewModel<TermsAndConditionN
         super(dataManager);
     }
 
-    public void onAgreeAndAcceptClick(){
-        getNavigator().openRegActivity();
+    public void accept(){
+        getNavigator().accept();
     }
 
 

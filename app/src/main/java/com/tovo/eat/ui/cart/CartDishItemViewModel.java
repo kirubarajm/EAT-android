@@ -74,7 +74,7 @@ public class CartDishItemViewModel {
 
         }
        // producttype.set(dishList.getCusine() + " | " + veg_type.get());
-        producttype.set(String.valueOf(dishList.getCusine()));
+        producttype.set(dishList.getCuisinename());
 
     }
 

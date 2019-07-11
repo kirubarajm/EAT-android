@@ -22,7 +22,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
             if (genderStatus) {
                 getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
             }else {
-                getNavigator().checkForUserGenderStatus(true);
+                getNavigator().checkForUserGenderStatus(false);
             }
         }else {
             getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);

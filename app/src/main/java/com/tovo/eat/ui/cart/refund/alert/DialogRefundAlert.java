@@ -1,7 +1,8 @@
-package com.tovo.eat.ui.home.kitchendish.dialog;
+package com.tovo.eat.ui.cart.refund.alert;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,37 +14,38 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.DialogChangeKitchenBinding;
+import com.tovo.eat.databinding.DialogRefundAlertBinding;
 import com.tovo.eat.ui.base.BaseDialog;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenCallBack;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenViewModel;
+import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
+import com.tovo.eat.ui.payment.PaymentActivity;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
-public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitchenCallBack {
+public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCallBack {
 
-    private static final String TAG = DialogChangeKitchen.class.getSimpleName();
+    private static final String TAG = DialogRefundAlert.class.getSimpleName();
     String strProductId = "";
     @Inject
-    DialogChangeKitchenViewModel mDialogChangeKitchenViewModel;
-    DialogChangeKitchenBinding binding;
+    DialogRefundAlertViewModel mDialogRefundAlertViewModel;
+    DialogRefundAlertBinding binding;
     Activity activity;
 
+String totalAmount;
 
-    Integer makeitId, productId,quantity,price;
-
-
-    AddKitchenDishListener addKitchenDishListener;
+   Context context;
 
 
-    public DialogChangeKitchen() {
+    public DialogRefundAlert() {
 
     }
 
 
-    public static DialogChangeKitchen newInstance() {
-        DialogChangeKitchen fragment = new DialogChangeKitchen();
+    public static DialogRefundAlert newInstance() {
+        DialogRefundAlert fragment = new DialogRefundAlert();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
        // fragment.setTargetFragment(new DialogRefundAlert(),0);
@@ -52,25 +54,14 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     }
 
 
-    public static DialogChangeKitchen newInstance(DialogChangeKitchen fragment) {
+    public static DialogRefundAlert newInstance(DialogRefundAlert fragment) {
         return fragment;
     }
 
 
-    @Override
-    public void onAttach(Context context) {
-
-        addKitchenDishListener =(AddKitchenDishListener)context;
-
-        super.onAttach(context);
-    }
-
-    public void show(FragmentManager fragmentManager, Activity activity, Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void show(FragmentManager fragmentManager, Activity activity,String totalAmount) {
         this.activity = activity;
-        this.makeitId=makeitId;
-        this.productId=productId;
-        this.quantity=quantity;
-        this.price=price;
+        this.totalAmount=totalAmount;
         super.show(fragmentManager, TAG);
     }
 
@@ -82,16 +73,14 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void confirmClick() {
         dismissDialog();
-
-        mDialogChangeKitchenViewModel.addToCart(makeitId,productId,quantity,price);
-
-        addKitchenDishListener.confirmClick(true);
+        Intent intent = PaymentActivity.newIntent(getContext());
+        intent.putExtra("amount", totalAmount);
+        startActivity(intent);
 
     }
 
     @Override
     public void cancelClick() {
-        addKitchenDishListener.confirmClick(false);
         dismissDialog();
     }
 
@@ -108,11 +97,11 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_change_kitchen, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_refund_alert, container, false);
         View view = binding.getRoot();
         AndroidSupportInjection.inject(this);
-        binding.setDialogChangeKitchenViewModel(mDialogChangeKitchenViewModel);
-        mDialogChangeKitchenViewModel.setNavigator(this);
+        binding.setDialogRefundAlertViewModel(mDialogRefundAlertViewModel);
+        mDialogRefundAlertViewModel.setNavigator(this);
         return view;
     }
 }

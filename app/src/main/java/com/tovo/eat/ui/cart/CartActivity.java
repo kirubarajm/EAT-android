@@ -18,8 +18,10 @@ import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
+import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -254,6 +256,17 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void promoList() {
 
+
+    }
+
+    @Override
+    public void refundAlert() {
+
+        DialogRefundAlert fragment = new DialogRefundAlert();
+        fragment.setTargetFragment(this, 0);
+        fragment.setCancelable(false);
+
+        DialogRefundAlert.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),mCartViewModel.grand_total.get());
 
     }
 

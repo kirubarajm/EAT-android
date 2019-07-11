@@ -19,6 +19,17 @@ public class NameGenderRequest {
     @Expose
     public Integer regionId;
 
+    @SerializedName("referredby")
+    @Expose
+    public String  referredby;
+
+    public String getReferredby() {
+        return referredby;
+    }
+
+    public void setReferredby(String referredby) {
+        this.referredby = referredby;
+    }
 
     public Integer getRegionId() {
         return regionId;
@@ -32,6 +43,14 @@ public class NameGenderRequest {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
+    }
+
+    public NameGenderRequest(Integer userid, String name, Integer gender, Integer regionId,String referredby) {
+        this.userid = userid;
+        this.name = name;
+        this.gender = gender;
+        this.regionId = regionId;
+        this.referredby=referredby;
     }
 
     public NameGenderRequest(Integer userid, String name, Integer gender, Integer regionId) {

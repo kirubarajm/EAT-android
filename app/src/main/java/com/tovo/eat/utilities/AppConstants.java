@@ -10,7 +10,7 @@ public class AppConstants {
 
     public static final int NULL_INDEX = 0;
 
-    public static final String PREF_NAME = "eat_pref";
+    public static final String PREF_NAME = "tovologies_eat_pref";
 
     public static final String SEED_DATABASE_OPTIONS = "seed/options.json";
 
@@ -172,6 +172,7 @@ public class AppConstants {
     public static final String TOAST_PASSWORD_NOT_MATCHING = "Password not matching";
     public static final String TOAST_LOGIN_SUCCESS = "Login success";
     public static final String TOAST_LOGIN_FAILED = "Login failed";
+    public static final int TERMS_AND_CONDITION_REQUEST_CODE = 701;
 
     public AppConstants() {
         // This utility class is not publicly instantiable

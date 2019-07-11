@@ -8,20 +8,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivityNavigator> {
 
+    public ObservableBoolean male = new ObservableBoolean();
+    public ObservableBoolean haveReferral = new ObservableBoolean();
+    public ObservableBoolean female = new ObservableBoolean();
     Response.ErrorListener errorListener;
-
-    public ObservableBoolean male=new ObservableBoolean();
-    public  ObservableBoolean female=new ObservableBoolean();
-    int gender=0;
+    int gender = 0;
 
     public NameGenderActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -33,60 +31,68 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
-
-
-
-    public void maleClicked(){
+    public void maleClicked() {
         male.set(true);
 
     }
 
 
-    public void feMaleClicked(){
+    public void feMaleClicked() {
         male.set(false);
 
     }
 
 
+    public void referralCode() {
+        haveReferral.set(true);
+    }
 
 
-    public void insertNameGenderServiceCall(String name,int regionId) {
+    public void insertNameGenderServiceCall(String name, int regionId, String referral) {
 
 
+        if (male.get()) {
+            gender = 1;
+        } else {
+            gender = 2;
+        }
 
-        if (male.get()){
-            gender=1;
-        }else {
-            gender=2;
+        int userIdMain = getDataManager().getCurrentUserId();
+        NameGenderRequest nameGenderRequest;
+
+        if (referral.isEmpty()) {
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId);
+        } else {
+
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId,referral);
         }
 
 
-        int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new NameGenderRequest(userIdMain, name, gender,regionId), new Response.Listener<NameGenderResponse>() {
-            @Override
-            public void onResponse(NameGenderResponse response) {
-                if (response != null) {
-                    Log.i("", "" + response.getSuccess());
-                    getNavigator().genderSuccess(response.getMessage());
-                    if (response.getStatus()) {
-                        getDataManager().updateUserGender(true);
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class,nameGenderRequest, new Response.Listener<NameGenderResponse>() {
+                @Override
+                public void onResponse(NameGenderResponse response) {
+                    if (response != null) {
+                        Log.i("", "" + response.getSuccess());
+                        getNavigator().genderSuccess(response.getMessage());
+                        if (response.getStatus()) {
+                            getDataManager().updateUserGender(true);
+                        }
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().genderFailure("Failed to update");
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().genderFailure("Failed to update");
+                }
+            });
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -119,11 +125,11 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
 
 
     }

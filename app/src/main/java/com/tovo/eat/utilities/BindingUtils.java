@@ -104,7 +104,7 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
 
-            adapter.addItems(response.get(0).getProductlist(), response);
+            adapter.addItems( response);
         }
     }
 

@@ -221,6 +221,20 @@ public class CartPageResponse {
         @Expose
         private Integer cartquantity;
 
+
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
+
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
+
         public Integer getMakeitUserid() {
             return makeitUserid;
         }

@@ -265,7 +265,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
        DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
 
-      /*  DialogChangeKitchen fragment = new DialogChangeKitchen();
+      /*  DialogRefundAlert fragment = new DialogRefundAlert();
         fragment.setTargetFragment(this, 0);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();

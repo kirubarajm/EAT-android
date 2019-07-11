@@ -2,9 +2,11 @@ package com.tovo.eat.ui.signup;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -13,6 +15,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySignupBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.signup.fagsandsupport.FaqsAndSupportActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
@@ -46,8 +49,14 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         finish();*/
 
         if (validForMobileNo()) {
-            String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
-            mLoginViewModelMain.users(strPhoneNumber);
+
+            if (mActivitySignupBinding.acceptTandC.isChecked()) {
+                String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
+                mLoginViewModelMain.users(strPhoneNumber);
+            }else {
+
+                Toast.makeText(this, "Accept terms and conditions and continue", Toast.LENGTH_SHORT).show();
+            }
             /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
             startActivity(intent);
             finish();*/
@@ -56,7 +65,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void faqs() {
-        Intent intent = FaqActivity.newIntent(SignUpActivity.this);
+        Intent intent = FaqsAndSupportActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
 
     }
@@ -71,8 +80,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     public void termsandconditions() {
         Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
-        startActivity(intent);
-
+        startActivityForResult(intent,AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
     }
 
     @Override
@@ -81,7 +89,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     }
 
     @Override
-    public void otpScreenFalse(boolean trurOrFalse, int opt,int UserId) {
+    public void otpScreenFalse(boolean trurOrFalse, int opt, int UserId) {
         String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
         Intent intent = OtpActivity.newIntent(SignUpActivity.this);
         intent.putExtra("booleanOpt", String.valueOf(trurOrFalse));
@@ -133,7 +141,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         mActivitySignupBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
         FirebaseAnalytics.getInstance(this);
-        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS}, 0);
+        requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 0);
     }
 
     @Override
@@ -154,5 +162,16 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == AppConstants.TERMS_AND_CONDITION_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                mActivitySignupBinding.acceptTandC.setChecked(true);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                mActivitySignupBinding.acceptTandC.setChecked(false);
+            }
+        }
+    }
 
 }

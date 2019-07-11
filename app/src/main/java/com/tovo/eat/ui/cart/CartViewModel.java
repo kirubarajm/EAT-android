@@ -199,7 +199,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         getNavigator().toastMessage(response.getMessage());
 
-                        favId = response.getFavid();
+
+                        if (response.getFavid() != null)
+                            favId = response.getFavid();
 
 
                     }
@@ -421,7 +423,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             //  makeit_category.set(response.getResult().get(0).getCategory());
 
 
-                            totalAmount=cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
+                            totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
 
 
                             total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
@@ -440,7 +442,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 favId = cartPageResponse.getResult().get(0).getFavid();
 
 
-                            StringBuilder itemsBuilder = new StringBuilder();
+                          /*  StringBuilder itemsBuilder = new StringBuilder();
                             for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
 
                                 itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
@@ -454,8 +456,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
 
                             }
-                            String items = itemsBuilder.toString();
-                            cuisines.set(items);
+                            String items = itemsBuilder.toString();*/
+                            //cuisines.set(items);
+                            cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from " + cartPageResponse.getResult().get(0).getRegionname());
 
 
                         }
@@ -516,25 +519,38 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         } else {
             if (getDataManager().getTotalOrders() == 0) {
 
-                if (totalAmount==0){
-                    cashMode();
-                }else {
+                if (totalAmount == 0) {
+                    if (getDataManager().getRefundId() != 0) {
+                        getNavigator().refundAlert();
+                    } else {
+                        cashMode();
+                    }
+                } else {
+                    if (getDataManager().getRefundId() != 0) {
+                        getNavigator().refundAlert();
+                    } else {
+                        getNavigator().paymentGateway(grand_total.get());
+                    }
 
-                    getNavigator().paymentGateway(grand_total.get());
                 }
             } else {
 
                 if (getDataManager().getEmailStatus()) {
-                    if (totalAmount==0){
-                        cashMode();
-                    }else {
-                        getNavigator().paymentGateway(grand_total.get());
+                    if (totalAmount == 0) {
+                        if (getDataManager().getRefundId() != 0) {
+                            getNavigator().refundAlert();
+                        } else {
+                            cashMode();
+                        }
+                    } else {
+                        if (getDataManager().getRefundId() != 0) {
+                            getNavigator().refundAlert();
+                        } else {
+                            getNavigator().paymentGateway(grand_total.get());
+                        }
                     }
                 } else {
-
-
-
-                        getNavigator().postRegistration("cart", grand_total.get());
+                    getNavigator().postRegistration("cart", grand_total.get());
 
                 }
 

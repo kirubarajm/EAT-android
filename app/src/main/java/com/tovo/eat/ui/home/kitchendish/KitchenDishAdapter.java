@@ -78,8 +78,8 @@ public class KitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<KitchenDishResponse.Productlist> blogList, List<KitchenDishResponse.Result> response) {
-        item_list.addAll(blogList);
+    public void addItems( List<KitchenDishResponse.Result> response) {
+        item_list.addAll(response.get(0).getProductlist());
 
         this.response = response;
 

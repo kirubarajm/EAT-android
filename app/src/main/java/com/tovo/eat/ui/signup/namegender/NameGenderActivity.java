@@ -58,9 +58,10 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     @Override
     public void proceedClick() {
         String name = mActivityNameGenderBinding.edtName.getText().toString();
+        String referral = mActivityNameGenderBinding.referral.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name,regionId);
+            mLoginViewModelMain.insertNameGenderServiceCall(name,regionId,referral);
     }
 
     @Override

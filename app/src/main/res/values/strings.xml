@@ -550,6 +550,19 @@
     <string name="contact_support">Contact Support</string>
     <string name="privacy_and_policy">privacy and policy</string>
     <string name="selected_region_has_no_kitchens">Selected region has no kitchens</string>
+    <string name="got_general_app_details_here">Got general app details here</string>
+    <string name="customer_care_and_support">Customer care and support</string>
+    <string name="customer_care">Customer Care</string>
+    <string name="call_now">Call Now</string>
+    <string name="have_referral_code">Have Referral code?</string>
+    <string name="enter_referral_code_here">ENTER REFERRAL CODE HERE</string>
+    <string name="accept_and_continue">Accept and Continue</string>
+    <string name="please_note">Please note!</string>
+    <string name="refund_alert_msg">The refund coupon contains the entire amount of refund value and can be used only once per order. Do you wish to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="refund_adjustments">Refund adjustments</string>
+    <string name="rating">Rating</string>
 
 
 </resources>

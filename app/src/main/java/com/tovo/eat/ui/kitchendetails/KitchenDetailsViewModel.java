@@ -62,6 +62,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> rating = new ObservableField<>();
     public ObservableField<String> memberTypeDesc = new ObservableField<>();
     public ObservableField<String> about = new ObservableField<>();
+    public ObservableField<String> signatureImageUrl = new ObservableField<>();
+
+
+
+
     List<KitchenDishResponse.Productlist> favoriteProductlists = new ArrayList<>();
     List<KitchenDishResponse.Productlist> todaysMenuProductlists = new ArrayList<>();
     int favId;
@@ -296,6 +301,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                     todaysMenu.set(true);
                                 }
 
+
+                                signatureImageUrl.set(response.getResult().get(0).getKitchensignature());
+
+
                                 favAndTodayMenuArrayListLiveData.setValue(response.getResult());
                                 foodBadgesMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
                                 specialitemsMutableLiveData.setValue(response.getResult().get(0).getSpecialitems());
@@ -350,17 +359,20 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 }
 
                                 rating.set(String.valueOf(response.getResult().get(0).getRating()));
-                                region.set(response.getResult().get(0).getRegionname());
-                                localityName.set(response.getResult().get(0).getLocalityname());
+                                region.set("from "+ response.getResult().get(0).getRegionname());
+                                localityName.set("Lives"+ response.getResult().get(0).getLocalityname());
                                 memberType.set(String.valueOf(response.getResult().get(0).getMemberType()));
+
                                 about.set(response.getResult().get(0).getAbout());
 
                                 if (memberType.equals("1")) {
-                                    memberTypeDesc.set("Gold");
+                                    memberTypeDesc.set("Gold member");
                                 } else if (memberType.equals("2")) {
-                                    memberTypeDesc.set("Silver");
+                                    memberTypeDesc.set("Silver member");
                                 } else if (memberType.equals("3")) {
-                                    memberTypeDesc.set("Bronze");
+                                    memberTypeDesc.set("Bronze member");
+                                }else {
+                                    memberTypeDesc.set("null");
                                 }
                             }
 

@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.signup.tandc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,15 +49,16 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     }
 
+
     @Override
-    public void openRegActivity() {
-        Intent intent = RegistrationActivity.newIntent(TermsAndConditionActivity.this);
-        startActivity(intent);
+    public void goBack() {
         finish();
     }
 
     @Override
-    public void goBack() {
+    public void accept() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
 
@@ -71,13 +73,17 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
                 finish();
         }
         return super.onOptionsItemSelected(item);

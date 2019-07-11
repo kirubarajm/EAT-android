@@ -90,13 +90,20 @@ public class KitchenDishResponse {
         @SerializedName("kitchenmenuimage")
         @Expose
         public List<Kitchenmenuimage> kitchenmenuimage = null;
+
         @SerializedName("kitchensignature")
         @Expose
-        public List<Object> kitchensignature = null;
+        public String kitchensignature;
 
+        @SerializedName("foodbadge")
         @Expose
         public List<Foodbadge> foodbadge = null;
-        @SerializedName("foodbadge")
+
+
+
+
+
+
 
 
         public Integer getMakeituserid() {
@@ -179,7 +186,7 @@ public class KitchenDishResponse {
             return kitchenmenuimage;
         }
 
-        public List<Object> getKitchensignature() {
+        public String getKitchensignature() {
             return kitchensignature;
         }
 

@@ -76,24 +76,42 @@
 
 
 
-            <android.support.design.widget.TextInputLayout
+
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textSize="14sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@+id/region_list"
+                android:id="@+id/referral_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/eat_color"
+                android:textAllCaps="true"
+                android:text="@string/have_referral_code"/>
+
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/referral_tx"
                 android:id="@+id/tl_referral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp">
-
 
                 <AutoCompleteTextView
                     android:id="@+id/referral"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="REFERRAL CODE (Optional)"
+                    android:hint="@string/enter_referral_code_here"
                     android:textSize="14sp"
                     android:theme="@style/EditTextHint" />
+
             </android.support.design.widget.TextInputLayout>
 
 

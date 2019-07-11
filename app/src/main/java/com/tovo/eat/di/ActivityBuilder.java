@@ -53,6 +53,7 @@ import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListModule;
+import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlertProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivity;
 import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivityModule;
@@ -90,6 +91,8 @@ import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.search.dish.SearchDishModule;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.SignUpActivityModule;
+import com.tovo.eat.ui.signup.fagsandsupport.FaqsAndSupportActivity;
+import com.tovo.eat.ui.signup.fagsandsupport.FaqsAndSupportModule;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.ui.signup.faqs.FaqFragmentModule;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
@@ -130,6 +133,7 @@ public abstract class ActivityBuilder {
             FilterProvider.class,
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
+            DialogRefundAlertProvider.class,
             SearchProvider.class
 
 
@@ -159,6 +163,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = RegionDetailsModule.class)
     abstract RegionDetailsActivity bindRegionDetailsActivity();
+
+
+    @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
+    abstract FaqsAndSupportActivity bindFaqsAndSupportActivity();
 
 
     @ContributesAndroidInjector(modules = RegionListModule.class)

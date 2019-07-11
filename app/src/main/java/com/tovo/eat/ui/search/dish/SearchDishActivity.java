@@ -189,7 +189,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this, makeitId, productId, quantity, price);
 
 
-      /*  DialogChangeKitchen fragment = new DialogChangeKitchen();
+      /*  DialogRefundAlert fragment = new DialogRefundAlert();
         fragment.setTargetFragment(this, 0);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
