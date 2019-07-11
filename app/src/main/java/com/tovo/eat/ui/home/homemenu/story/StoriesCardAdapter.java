@@ -90,6 +90,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         ListItemStoriesBinding mListItemLiveProductsBinding;
         StoriesItemViewModel mStoriesItemViewModel;
 
+        int pos;
         public LiveProductsViewHolder(ListItemStoriesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
@@ -98,6 +99,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onBind(int position) {
+            pos = position;
             if (item_list.isEmpty()) return;
             final StoriesResponse.Result blog = item_list.get(position);
             mStoriesItemViewModel = new StoriesItemViewModel(this,blog);
@@ -107,7 +109,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(StoriesResponse.Result blog) {
-            mStoriesAdapterListener.onItemClickData(blog);
+            mStoriesAdapterListener.onItemClickData(blog,pos);
         }
     }
 
@@ -126,7 +128,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface StoriesAdapterListener {
 
-        void onItemClickData(StoriesResponse.Result result);
+        void onItemClickData(StoriesResponse.Result result,int pos);
 
     }
 

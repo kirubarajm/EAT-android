@@ -69,11 +69,11 @@ public class AppConstants {
    //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
      // public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
-      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
+      //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.3:3000";////basheer 3000
-   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
@@ -145,8 +145,8 @@ public class AppConstants {
     public static final String EAT_MASTER_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";
     public static final String EAT_REGION_KITCHEN_LIST = URL_SERVER_IP_PORT + "/eat/kitche/showmore";
     public static final String EAT_EXPLORE_SEARCH = URL_SERVER_IP_PORT + "/eat/quicksearch";
+    public static final String EAT_STORIES_LIST = URL_SERVER_IP_PORT + "/eat/stories";
   //  public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
-    public static final String EAT_STORIES_LIST=  "http://192.168.1.102/tovo/stories.json";
 
 
     public static final int ADMIN = 0;
