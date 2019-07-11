@@ -20,10 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.tovo.eat.utilities.fonts.poppins.EatTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/name"
                 android:layout_alignParentTop="true"
-                app:font_name="poppinsRegular"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
 
 
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:textSize="14sp"
                 android:textColor="@color/dark_gray"
                 android:layout_width="wrap_content"
@@ -69,8 +68,7 @@
                     android:textSize="8sp"/>
 
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                    app:font_name="poppinsRegular"
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"

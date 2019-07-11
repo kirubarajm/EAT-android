@@ -18,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.tovo.eat.utilities.fonts.CircularTextView
+    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
         android:padding="5dp"
         android:id="@+id/txt_spinner"
         android:layout_width="match_parent"

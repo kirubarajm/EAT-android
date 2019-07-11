@@ -52,10 +52,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/pName"
                             android:layout_centerVertical="true"
-                            app:font_name="poppinsMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{cartDishItemViewModel.product_name}"
@@ -80,8 +79,7 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -107,8 +105,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr" />
 
-                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                            app:font_name="poppinsRegular"
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_marginLeft="2dp"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -177,8 +174,7 @@
                             android:orientation="horizontal"
                             android:visibility="@{cartDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:id="@+id/minus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"
@@ -199,8 +195,7 @@
                                 android:background="@color/dark_gray" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:id="@+id/quan"
                                 android:layout_centerVertical="true"
                                 android:layout_width="wrap_content"
@@ -218,8 +213,7 @@
                                 android:background="@color/dark_gray" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                app:font_name="poppinsRegular"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:id="@+id/plus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"

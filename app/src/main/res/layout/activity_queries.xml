@@ -19,46 +19,54 @@
         android:background="@color/white">
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/toolbar1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
 
-            <LinearLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:onClick="@{()->queriesViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="match_parent"
+
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
+                    android:layout_centerInParent="true"
                     android:text="@string/queries"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </android.support.v7.widget.CardView>
+
+
 
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_queries"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar1"
+            android:layout_below="@+id/topBar"
             android:background="@color/white"
             app:onRefreshListener="@{()->queriesViewModel.onRefreshLayout()}">
 
@@ -73,37 +81,6 @@
                     android:background="@android:color/white"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:id="@+id/rel_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/white"
-                        android:gravity="center"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/img_back"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:onClick="@{()->queriesViewModel.imgBackClick()}"
-                            android:padding="5dp"
-                            android:src="@drawable/ic_arrow_back_black_24dp" />
-
-                        <com.tovo.eat.utilities.fonts.CircularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_toEndOf="@+id/img_back"
-                            android:layout_toRightOf="@+id/img_back"
-                            android:gravity="left|center"
-                            android:paddingLeft="15dp"
-                            android:text="@string/queries"
-                            android:textColor="@color/green"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -111,40 +88,43 @@
                         android:layout_marginTop="10dp"
                         android:padding="15dp">
 
-                        <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/txt_contact_support"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Contact Support"
+                            android:text="@string/contact_support"
                             android:textSize="18sp"/>
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/txt_contact_support"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:background="@drawable/textview_border_call"
+                            android:background="@drawable/curve_stroke"
                             android:onClick="@{()->queriesViewModel.callAdmin()}"
                             android:padding="10dp">
 
                             <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/icon_call"
                                 android:textColor="@color/eat_color" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                                android:layout_gravity="center_vertical"
                                 android:id="@+id/txt_call"
-                                android:layout_width="60dp"
-                                android:layout_height="20sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Call" />
 
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -206,14 +186,14 @@
                                 android:orientation="horizontal"
                                 android:padding="20dp">
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/replies"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
-                                <com.tovo.eat.utilities.fonts.CircularTextView
+                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
@@ -233,7 +213,7 @@
                                 android:layout_marginTop="10dp"
                                 android:background="@android:color/black" />
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:id="@+id/txt_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"

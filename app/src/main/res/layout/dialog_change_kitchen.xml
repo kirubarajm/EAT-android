@@ -26,7 +26,7 @@
             android:background="@drawable/dialog_background"
             android:orientation="vertical">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_kitchen_title"
@@ -37,7 +37,7 @@
                 android:gravity="start" />
 
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:layout_alignParentStart="true"
                     android:id="@+id/cancel"
                     android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/add"

@@ -60,7 +60,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
             android:id="@+id/filter"
             android:layout_width="wrap_content"

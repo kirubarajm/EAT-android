@@ -61,9 +61,8 @@
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:textAllCaps="true"
-                        app:font_name="poppinsMedium"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -72,8 +71,7 @@
                         android:textSize="16sp" />
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsRegular"
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:textColor="@color/dark_gray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,7 +97,7 @@
         </RelativeLayout>
 
 
-        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             app:font_name="poppinsRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

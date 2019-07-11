@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/txt_cust_name"
                 android:textSize="18sp"
                 android:textColor="@color/black"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{ordersListItemViewModel.makeitName}" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/txt_place"
                 android:textSize="12sp"
                 android:textColor="@color/medium_gray"
@@ -40,7 +40,7 @@
                 android:layout_marginTop="5dp"
                 android:text="@{ordersListItemViewModel.makeitLocality}" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_toEndOf="@+id/txt_place"
                 android:id="@+id/txt_rupees"
                 android:textSize="12sp"
@@ -56,7 +56,7 @@
 
 
 
-        <com.tovo.eat.utilities.fonts.CircularTextView
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             android:maxLines="1"
             android:layout_below="@+id/rel_1"
             android:layout_marginTop="15dp"
@@ -76,7 +76,7 @@
             android:layout_below="@+id/dots"
             android:layout_marginTop="15dp">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/txt_order_name"
                 android:layout_width="wrap_content"
                 android:ellipsize="end"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{ordersListItemViewModel.productsItems}" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/txt_date_time"
                 android:textSize="12sp"
                 android:textColor="@color/medium_gray"
@@ -96,7 +96,7 @@
                 android:layout_marginTop="5dp"
                 android:text="@{ordersListItemViewModel.moveit_actual_delivered_time}" />
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textSize="14sp"
                 android:id="@+id/txt_view_details"
                 android:layout_width="wrap_content"

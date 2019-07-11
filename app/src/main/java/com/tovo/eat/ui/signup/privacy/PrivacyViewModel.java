@@ -12,4 +12,10 @@ public class PrivacyViewModel extends BaseViewModel<PrivacyNavigator> {
     public void onAgreeAndAcceptClick(){
         getNavigator().openRegActivity();
     }
+
+
+    public void goBack(){
+        getNavigator().goBack();
+    }
+
 }

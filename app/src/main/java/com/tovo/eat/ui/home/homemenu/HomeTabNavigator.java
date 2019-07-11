@@ -17,5 +17,7 @@ public interface HomeTabNavigator {
 
     void storiesLoaded(RegionsResponse regionResponse);
 
+    void goBack();
+
 
 }

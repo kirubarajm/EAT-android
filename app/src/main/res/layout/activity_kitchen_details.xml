@@ -78,10 +78,8 @@
             <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
                 android:background="@color/white"
                 android:fitsSystemWindows="true">
-
 
                 <android.support.design.widget.AppBarLayout
                     android:id="@+id/app_bar"
@@ -91,14 +89,14 @@
                     android:fitsSystemWindows="true"
                     android:theme="@style/AppTheme.AppBarOverlay">
 
+
                     <android.support.design.widget.CollapsingToolbarLayout
                         android:id="@+id/toolbar_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fitsSystemWindows="true"
                         app:contentScrim="@color/white"
-                        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                        app:toolbarId="@id/toolbar">
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -136,32 +134,176 @@
                         <android.support.v7.widget.Toolbar
                             android:id="@+id/toolbar"
                             android:layout_width="match_parent"
-                            android:layout_height="?actionBarSize"
+                            android:layout_height="160dp"
                             android:layout_alignParentTop="true"
                             app:layout_collapseMode="pin"
                             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                             app:popupTheme="@style/AppTheme.PopupOverlay"
-                            app:titleTextColor="@color/eat_color" />
+                            app:titleTextColor="@color/eat_color">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/topBar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    app:cardElevation="0dp"
+                                    app:cardMaxElevation="0dp">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/white"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_margin="10dp"
+                                            android:onClick="@{()->kitchenDetailsViewModel.goBack()}"
+                                            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                                        <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_margin="10dp"
+                                            android:text="@{kitchenDetailsViewModel.kitchenName}"
+                                            android:textAllCaps="true"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                    </RelativeLayout>
+
+
+                                </android.support.v7.widget.CardView>
+
+
+                            </RelativeLayout>
+
+
+                        </android.support.v7.widget.Toolbar>
 
                         <RelativeLayout
-                            android:layout_width="200dp"
-                            android:layout_height="50dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center_horizontal|bottom"
-                            android:background="@drawable/coner_radius_layout"
-                            app:layout_collapseMode="none">
+                            app:layout_collapseMode="pin">
 
-                            <TextView
+
+                            <RelativeLayout
+                                android:id="@+id/signature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="cursive"
-                                android:gravity="center"
-                                android:text="@{kitchenDetailsViewModel.kitchenName}"
-                                android:textColor="@color/eat_color"
-                                android:textSize="30sp"
-                                android:textStyle="italic" />
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center_horizontal|bottom"
+                                android:background="@drawable/coner_radius_layout"
+                                app:layout_collapseMode="none">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="cursive"
+                                    android:gravity="center"
+                                    android:text="@{kitchenDetailsViewModel.kitchenName}"
+                                    android:textColor="@color/eat_color"
+                                    android:textSize="30sp"
+                                    android:textStyle="italic" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:layout_below="@+id/signature"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:background="@color/white"
+                                app:layout_collapseMode="none">
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/tab"
+                                    android:layout_width="220dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:padding="10dp"
+                                    app:cardBackgroundColor="@color/light_gray"
+                                    app:cardCornerRadius="20dp"
+                                    app:cardElevation="0dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_alignParentTop="true"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        app:cardCornerRadius="20dp">
+
+                                        <android.support.v7.widget.CardView
+                                            android:layout_width="110dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_gravity="center_horizontal"
+                                            android:gravity="center"
+                                            android:onClick="@{()->kitchenDetailsViewModel.menu()}"
+                                            app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/eat_color:@color/light_gray}"
+                                            app:cardCornerRadius="20dp"
+                                            app:cardElevation="0dp">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerInParent="true"
+                                                    android:text="MENU"
+                                                    android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/white:@color/dark_gray}"
+                                                    android:textSize="14sp" />
+                                            </RelativeLayout>
+
+                                        </android.support.v7.widget.CardView>
+
+                                        <android.support.v7.widget.CardView
+
+                                            android:layout_width="110dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentTop="true"
+                                            android:onClick="@{()->kitchenDetailsViewModel.info()}"
+                                            app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/light_gray:@color/eat_color}"
+                                            app:cardCornerRadius="20dp"
+                                            app:cardElevation="0dp">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerInParent="true"
+                                                    android:text="INFO"
+                                                    android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/dark_gray:@color/white}"
+                                                    android:textSize="14sp" />
+                                            </RelativeLayout>
+
+                                        </android.support.v7.widget.CardView>
+
+                                    </LinearLayout>
+
+                                </android.support.v7.widget.CardView>
+                            </RelativeLayout>
 
                         </RelativeLayout>
 
@@ -179,78 +321,6 @@
                     app:layout_anchorGravity="bottom"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/tab"
-                        android:layout_width="220dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
-                        app:cardBackgroundColor="@color/light_gray"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            app:cardCornerRadius="20dp">
-
-                            <android.support.v7.widget.CardView
-                                android:layout_width="110dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center"
-                                android:onClick="@{()->kitchenDetailsViewModel.menu()}"
-                                app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/eat_color:@color/light_gray}"
-                                app:cardCornerRadius="20dp"
-                                app:cardElevation="0dp">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:text="MENU"
-                                        android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/white:@color/dark_gray}"
-                                        android:textSize="14sp" />
-                                </RelativeLayout>
-
-                            </android.support.v7.widget.CardView>
-
-                            <android.support.v7.widget.CardView
-
-                                android:layout_width="110dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentTop="true"
-                                android:onClick="@{()->kitchenDetailsViewModel.info()}"
-                                app:cardBackgroundColor="@{kitchenDetailsViewModel.optionmenu?@color/light_gray:@color/eat_color}"
-                                app:cardCornerRadius="20dp"
-                                app:cardElevation="0dp">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <com.tovo.eat.utilities.fonts.CircularStdMedium
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:text="INFO"
-                                        android:textColor="@{kitchenDetailsViewModel.optionmenu?@color/dark_gray:@color/white}"
-                                        android:textSize="14sp" />
-                                </RelativeLayout>
-
-                            </android.support.v7.widget.CardView>
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
 
                     <android.support.v4.widget.NestedScrollView
                         android:id="@+id/nested_scroll_1"
@@ -460,11 +530,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginStart="15dp"
-                                        android:visibility="@{kitchenDetailsViewModel.specialities?View.VISIBLE:View.GONE}"
                                         android:layout_marginTop="5dp"
                                         android:text="@string/specialities"
                                         android:textColor="@color/black"
-                                        android:textSize="18sp" />
+                                        android:textSize="18sp"
+                                        android:visibility="@{kitchenDetailsViewModel.specialities?View.VISIBLE:View.GONE}" />
 
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/recycler_specialities"
@@ -499,11 +569,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginStart="15dp"
-                                        android:visibility="@{kitchenDetailsViewModel.foodBadges?View.VISIBLE:View.GONE}"
                                         android:layout_marginTop="5dp"
                                         android:text="@string/food_badges"
                                         android:textColor="@color/black"
-                                        android:textSize="18sp" />
+                                        android:textSize="18sp"
+                                        android:visibility="@{kitchenDetailsViewModel.foodBadges?View.VISIBLE:View.GONE}" />
 
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/recyclerview_food_badges"
@@ -523,75 +593,75 @@
                             </LinearLayout>
 
                             <RelativeLayout
-                                android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_below="@+id/about"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                android:id="@+id/txt_favorites"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/favorites"
-                                android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}"
-                                app:font_name="poppinsMedium" />
-
-                            <LinearLayout
-                                android:id="@+id/menu"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/txt_favorites"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical"
                                 android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
 
-                                <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
-                                    android:id="@+id/recycler_fav"
+                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                    android:id="@+id/txt_favorites"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="1dp"
-                                    android:layout_marginBottom="30dp"
-                                    android:background="@android:color/white"
-                                    android:layoutAnimation="@anim/lay_fall_down"
-                                    app:favoriteadapter="@{kitchenDetailsViewModel.favoriteArrayViewModels}"
-                                    tools:listitem="@layout/list_item_fav_" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/favorites"
+                                    android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}"
+                                    app:font_name="poppinsMedium" />
 
-                            </LinearLayout>
-
-                            <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                                android:id="@+id/txt_todays_menu"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/menu"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/today_s_menu"
-                                android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"
-                                app:font_name="poppinsMedium" />
-
-                            <LinearLayout
-                                android:id="@+id/todays"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/txt_todays_menu"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical"
-                                android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
-
-                                <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
-                                    android:id="@+id/recycler_todays_menu"
+                                <LinearLayout
+                                    android:id="@+id/menu"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="1dp"
-                                    android:layout_marginBottom="30dp"
-                                    android:background="@android:color/white"
-                                    android:layoutAnimation="@anim/lay_fall_down"
-                                    app:todaysMenuadapter="@{kitchenDetailsViewModel.todaysMenuArrayViewModels}"
-                                    tools:listitem="@layout/list_item_fav_" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/txt_favorites"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical"
+                                    android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
 
-                            </LinearLayout>
+                                    <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                                        android:id="@+id/recycler_fav"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="1dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@android:color/white"
+                                        android:layoutAnimation="@anim/lay_fall_down"
+                                        app:favoriteadapter="@{kitchenDetailsViewModel.favoriteArrayViewModels}"
+                                        tools:listitem="@layout/list_item_fav_" />
+
+                                </LinearLayout>
+
+                                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                                    android:id="@+id/txt_todays_menu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/menu"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/today_s_menu"
+                                    android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"
+                                    app:font_name="poppinsMedium" />
+
+                                <LinearLayout
+                                    android:id="@+id/todays"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/txt_todays_menu"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical"
+                                    android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
+
+                                    <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                                        android:id="@+id/recycler_todays_menu"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="1dp"
+                                        android:layout_marginBottom="30dp"
+                                        android:background="@android:color/white"
+                                        android:layoutAnimation="@anim/lay_fall_down"
+                                        app:todaysMenuadapter="@{kitchenDetailsViewModel.todaysMenuArrayViewModels}"
+                                        tools:listitem="@layout/list_item_fav_" />
+
+                                </LinearLayout>
 
                             </RelativeLayout>
 

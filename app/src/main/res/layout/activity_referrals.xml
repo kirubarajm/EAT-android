@@ -19,42 +19,49 @@
         android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/toolbar_referrals"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
 
-            <LinearLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:onClick="@{()->referralsViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
-                    android:layout_width="match_parent"
+
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
+                    android:layout_centerInParent="true"
                     android:text="@string/referrals"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </android.support.v7.widget.CardView>
 
 
         <ImageView
+            android:layout_below="@+id/topBar"
             android:id="@+id/img_referrals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="200dp">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/txt_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +83,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_1"
@@ -98,17 +105,17 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.tovo.eat.utilities.fonts.CircularStdMedium
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                 android:gravity="center"
                 android:padding="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20sp"
-                android:background="@drawable/stoke"
+                android:background="@drawable/curve_stroke"
                 android:onClick="@{()->referralsViewModel.sendReferrals()}"
                 android:text="@string/send_referrals"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/eat_color"
                 android:textSize="16sp" />
 
         </RelativeLayout>

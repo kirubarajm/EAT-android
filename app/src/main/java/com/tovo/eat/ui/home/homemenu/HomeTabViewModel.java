@@ -48,7 +48,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
+
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
+
 
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);

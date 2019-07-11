@@ -33,7 +33,7 @@
                 android:src="@drawable/ic_check_circle_black_24dp"
                 android:tint="@color/eat_color" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.tovo.eat.utilities.fonts.CircularStdMedium
+        <com.tovo.eat.utilities.fonts.poppins.TitleTextView
             android:textColor="@color/black"
             android:id="@+id/txt_name_email"
             android:layout_width="match_parent"

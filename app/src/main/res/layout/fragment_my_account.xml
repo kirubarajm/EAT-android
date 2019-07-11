@@ -41,8 +41,9 @@
                     android:onClick="@{()->repliesViewModel.goBack()}"
                     android:src="@drawable/ic_arrow_back_black_24dp" />-->
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:layout_width="match_parent"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
@@ -202,7 +203,7 @@
 
                         </RelativeLayout>
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -249,7 +250,7 @@
                         </RelativeLayout>
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -298,7 +299,7 @@
 
                         </RelativeLayout>
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -348,7 +349,7 @@
                         </RelativeLayout>
 
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -390,7 +391,7 @@
                             android:textSize="18sp"
                             android:tint="@color/black" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -442,7 +443,7 @@
 
                         </RelativeLayout>
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -497,7 +498,7 @@
 
                         </RelativeLayout>
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -510,11 +511,10 @@
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <com.tovo.eat.utilities.fonts.CircularTextView
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:layout_marginEnd="25dp"
                             android:layout_marginRight="25dp"
                             android:text=">"

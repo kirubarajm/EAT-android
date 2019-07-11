@@ -122,15 +122,15 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         specialitiesAdapter.setListener(this);
         kitchenCommonAdapter.setListener(this);
         mFragmentDishBinding = getViewDataBinding();
-
+/*
         setSupportActionBar(mFragmentDishBinding.toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
-        Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
-        /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
-        getSupportActionBar().setHomeAsUpIndicator(backArrow);
+       /* Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        *//*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*//*
+        getSupportActionBar().setHomeAsUpIndicator(backArrow);*/
 
         mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
         mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -523,9 +523,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void back() {
+    public void goBack() {
         finish();
     }
+
+
 
     @Override
     public void animChanges(boolean status) {

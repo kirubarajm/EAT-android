@@ -20,7 +20,7 @@
             android:background="#FFFFFF"
             android:padding="15dp">
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/txt_3"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -31,7 +31,7 @@
                 android:text="@{faqsItemViewModel.question}"
                 android:textStyle="bold" />
 
-            <com.tovo.eat.utilities.fonts.CircularTextView
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
