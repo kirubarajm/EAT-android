@@ -21,7 +21,6 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsRequest;
@@ -51,7 +50,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
 
-
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
@@ -64,8 +62,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         if (getDataManager().getVegType().equalsIgnoreCase("1")) {
             isVeg.set(true);
         }
-
-
     }
 
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
@@ -480,12 +476,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onResponse(StoriesResponse response) {
                     if (response != null) {
                         storiesItemsLiveData.setValue(response.getResult());
+                        getNavigator().getFullStories(response);
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("",""+error.getMessage());
+                    Log.e("", "" + error.getMessage());
                 }
             });
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

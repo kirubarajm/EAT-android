@@ -14,7 +14,7 @@ public class StoriesItemViewModel {
         this.mListener = mListener;
         this.blog = blog;
 
-        this.stories_url.set(blog.getThumbnail());
+        this.stories_url.set(blog.getThumb());
     }
 
     public void onItemClick() {

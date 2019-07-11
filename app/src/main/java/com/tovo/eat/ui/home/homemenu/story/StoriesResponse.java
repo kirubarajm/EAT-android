@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class StoriesResponse {
+public class StoriesResponse implements Serializable {
 
     @SerializedName("success")
     @Expose
@@ -32,46 +32,44 @@ public class StoriesResponse {
 
     public class Result implements Serializable {
 
-        @SerializedName("thumbnail")
+        @SerializedName("storyid")
         @Expose
-        public String thumbnail;
-        @SerializedName("stories")
+        public Integer storyid;
+        @SerializedName("thumb")
         @Expose
-        public List<Story> stories = null;
-        @SerializedName("url")
+        public String thumb;
+        @SerializedName("thumb_title")
         @Expose
-        public String url;
-        @SerializedName("type")
-        @Expose
-        public Integer type;
-        @SerializedName("link")
-        @Expose
-        public Integer link;
+        public String thumbTitle;
         @SerializedName("title")
         @Expose
         public String title;
         @SerializedName("description")
         @Expose
         public String description;
+        @SerializedName("story_img")
+        @Expose
+        public String storyImg;
+        @SerializedName("created_at")
+        @Expose
+        public String createdAt;
+        @SerializedName("updated_at")
+        @Expose
+        public Object updatedAt;
+        @SerializedName("stories")
+        @Expose
+        public List<Story> stories = null;
 
-        public String getThumbnail() {
-            return thumbnail;
+        public Integer getStoryid() {
+            return storyid;
         }
 
-        public List<Story> getStories() {
-            return stories;
+        public String getThumb() {
+            return thumb;
         }
 
-        public String getUrl() {
-            return url;
-        }
-
-        public Integer getType() {
-            return type;
-        }
-
-        public Integer getLink() {
-            return link;
+        public String getThumbTitle() {
+            return thumbTitle;
         }
 
         public String getTitle() {
@@ -82,44 +80,76 @@ public class StoriesResponse {
             return description;
         }
 
+        public String getStoryImg() {
+            return storyImg;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public Object getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public List<Story> getStories() {
+            return stories;
+        }
+
         public class Story implements Serializable {
 
+            @SerializedName("id")
+            @Expose
+            public Integer id;
+            @SerializedName("mediatype")
+            @Expose
+            public Integer mediatype;
             @SerializedName("url")
             @Expose
             public String url;
-            @SerializedName("type")
+            @SerializedName("storyid")
             @Expose
-            public Integer type;
-            @SerializedName("link")
+            public Integer storyid;
+            @SerializedName("pos")
             @Expose
-            public Integer link;
-            @SerializedName("title")
+            public String pos;
+            @SerializedName("created_at")
             @Expose
-            public String title;
-            @SerializedName("description")
+            public String createdAt;
+            @SerializedName("updated_at")
             @Expose
-            public String description;
+            public Object updatedAt;
+
+
+            public Integer getId() {
+                return id;
+            }
+
+            public Integer getMediatype() {
+                return mediatype;
+            }
 
             public String getUrl() {
                 return url;
             }
 
-            public Integer getType() {
-                return type;
+            public Integer getStoryid() {
+                return storyid;
             }
 
-            public Integer getLink() {
-                return link;
+            public String getPos() {
+                return pos;
             }
 
-            public String getTitle() {
-                return title;
+            public String getCreatedAt() {
+                return createdAt;
             }
 
-            public String getDescription() {
-                return description;
+            public Object getUpdatedAt() {
+                return updatedAt;
             }
         }
 
     }
+
 }

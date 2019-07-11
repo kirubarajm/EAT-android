@@ -3,7 +3,13 @@ package com.tovo.eat.ui.home.homemenu.story;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
@@ -53,11 +59,36 @@ public class StoriesActivity extends BaseActivity<ActivityStoriesBinding, Storie
         mActivityStoriesBinding = getViewDataBinding();
         mStoriesActivityViewModel.setNavigator(this);
 
-        Bundle bundle = getIntent().getExtras();
+        MediaController mediaController= new MediaController(this);
+        mediaController.setAnchorView(mActivityStoriesBinding.storiesVideoView);
+        mActivityStoriesBinding.storiesVideoView.setMediaController(mediaController);
+        //mActivityStoriesBinding.storiesVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.fishvideo));
+        mActivityStoriesBinding.storiesVideoView.setVideoPath("https://www.radiantmediaplayer.com/media/bbb-360p.mp4");
+        mActivityStoriesBinding.storiesVideoView.requestFocus();
+        mActivityStoriesBinding.storiesVideoView.start();
+
+        mActivityStoriesBinding.storiesVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.e("",""+what);
+                Log.e("",""+mp.toString());
+                Log.e("",""+extra);
+                return false;
+            }
+        });
+
+        mActivityStoriesBinding.storiesVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+            }
+        });
+
+       /* Bundle bundle = getIntent().getExtras();
 
         if (bundle!=null){
             result = (StoriesResponse.Result) bundle.getSerializable("stories");
-        }
+        }*/
     }
 
     @Override

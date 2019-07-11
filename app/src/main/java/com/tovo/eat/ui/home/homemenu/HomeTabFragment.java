@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,7 +20,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,27 +27,24 @@ import android.widget.ImageSwitcher;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.rahuljanagouda.statusstories.StatusStoriesActivity;
 import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
-import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
-import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
+import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -59,7 +54,6 @@ import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.CardSnapHelper;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +89,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private int currentPosition;
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
+    StoriesResponse storiesFullResponse;
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -206,6 +201,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void goBack() {
 
+    }
+
+    @Override
+    public void getFullStories(StoriesResponse storiesResponse) {
+        this.storiesFullResponse = storiesResponse;
     }
 
     @Override
@@ -756,23 +756,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             Intent intent= RegionListActivity.newIntent(getContext());
          startActivity(intent);
 
-
-
-
         } else if (mHomeTabViewModel.regionResult.getResult().size() > activeCardPosition) {
             mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(mHomeTabViewModel.regionResult.getResult().size());
               onActiveCardChange(mHomeTabViewModel.regionResult.getResult().size());
-
-
         }
-
-
     }
 
     @Override
-    public void onItemClickData(StoriesResponse.Result result) {
+    public void onItemClickData(StoriesResponse.Result result,int pos) {
+
         Intent intent = StatusStoriesActivity.newIntent(getContext());
-        intent.putExtra("stories", (Serializable) result.getStories());
+        intent.putExtra("position", pos);
+        intent.putExtra("fullStories", storiesFullResponse);
         startActivity(intent);
     }
 
