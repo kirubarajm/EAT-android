@@ -82,7 +82,7 @@ public class StoriesResponse {
             return description;
         }
 
-        public class Story {
+        public class Story implements Serializable {
 
             @SerializedName("url")
             @Expose

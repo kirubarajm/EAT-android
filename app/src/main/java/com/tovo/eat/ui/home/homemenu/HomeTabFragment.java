@@ -35,6 +35,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.rahuljanagouda.statusstories.StatusStoriesActivity;
 import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
@@ -58,6 +59,7 @@ import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.CardSnapHelper;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -764,8 +766,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void onItemClickData(StoriesResponse.Result result) {
-        Intent intent = StoriesActivity.newIntent(getContext());
-        intent.putExtra("stories", result);
+        Intent intent = StatusStoriesActivity.newIntent(getContext());
+        intent.putExtra("stories", (Serializable) result.getStories());
         startActivity(intent);
     }
 

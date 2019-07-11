@@ -151,7 +151,7 @@ dependencies {
 
 
     implementation 'com.firebase:geofire-java:3.0.0'
-
+    implementation project(':statusstories')
 
 }
 apply plugin: 'com.google.gms.google-services'
