@@ -76,6 +76,8 @@ import com.tovo.eat.ui.home.region.viewmore.RegionListModule;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsModule;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchenDetailsProvider;
+import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
+import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageModule;
 import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
@@ -155,6 +157,10 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = AddAddressModule.class)
 
     abstract AddAddressActivity bindAddAddressActivity();
+
+
+    @ContributesAndroidInjector(modules = ViewImageModule.class)
+    abstract ViewImageActivity bindViewImageActivity();
 
 
     @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class})

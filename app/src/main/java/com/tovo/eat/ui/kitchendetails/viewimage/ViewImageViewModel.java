@@ -26,7 +26,7 @@ import com.tovo.eat.utilities.MvvmApp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewImageViewModel extends BaseViewModel<KitchenDetailsNavigator> {
+public class ViewImageViewModel extends BaseViewModel<ViewImageNavigator> {
 
 
 

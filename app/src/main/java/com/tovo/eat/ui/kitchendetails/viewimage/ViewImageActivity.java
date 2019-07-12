@@ -2,58 +2,39 @@ package com.tovo.eat.ui.kitchendetails.viewimage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.transition.Fade;
 import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.view.MenuItem;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
+import com.tovo.eat.databinding.ActivityViewImageBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
-import com.tovo.eat.ui.kitchendetails.FavoriteAdapter;
-import com.tovo.eat.ui.kitchendetails.FoodBadgeAdapter;
-import com.tovo.eat.ui.kitchendetails.KitchenDetailsNavigator;
-import com.tovo.eat.ui.kitchendetails.KitchenDetailsViewModel;
-import com.tovo.eat.ui.kitchendetails.MenuKitchenInfoCommonImageAdapter;
-import com.tovo.eat.ui.kitchendetails.SpecialitiesAdapter;
-import com.tovo.eat.ui.kitchendetails.TodaysMenuAdapter;
-import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
-import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
-import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
-public class ViewImageActivity extends BaseActivity<ActivityKitchenDetailsBinding, KitchenDetailsViewModel> implements KitchenDetailsNavigator {
+public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, ViewImageViewModel> implements ViewImageNavigator {
 
 
     @Inject
-    KitchenDetailsViewModel mKitchenDetailsViewModel;
+    ViewImageViewModel mViewImageViewModel;
 
-    ActivityKitchenDetailsBinding mFragmentDishBinding;
+    ActivityViewImageBinding mActivityViewImageBinding;
 
 
     public static Intent newIntent(Context context) {
@@ -62,31 +43,39 @@ public class ViewImageActivity extends BaseActivity<ActivityKitchenDetailsBindin
         return new Intent(context, ViewImageActivity.class);
     }
 
-    private static void scalePhotoImage(ImageView photoView, float scale) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float pixels, int width, int height) {
+        final Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(output);
 
-        Drawable photo = photoView.getDrawable();
-        int bitmapWidth = 0;
-        int bitmapHeight = 0;
+        final int sourceWidth = bitmap.getWidth();
+        final int sourceHeight = bitmap.getHeight();
 
+        float xScale = (float) width / bitmap.getWidth();
+        float yScale = (float) height / bitmap.getHeight();
+        float scale = Math.max(xScale, yScale);
 
-        try {
-            bitmapWidth = photo.getIntrinsicWidth();
-            bitmapHeight = photo.getIntrinsicHeight();
-        } catch (NullPointerException ne) {
-            ne.printStackTrace();
-        }
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
 
-        float offsetX = (photoView.getWidth() - bitmapWidth) / 2F;
-        float offsetY = (photoView.getHeight() - bitmapHeight) / 2F;
+        float left = (width - scaledWidth) / 2;
+        float top = (height - scaledHeight) / 2;
 
-        float centerX = photoView.getWidth() / 2F;
-        float centerY = photoView.getHeight() / 2F;
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
 
-        Matrix imageMatrix = new Matrix();
-        imageMatrix.setScale(scale, scale, centerX, centerY);
-        imageMatrix.preTranslate(offsetX, offsetY);
+        final RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
 
-        photoView.setImageMatrix(imageMatrix);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, pixels, pixels, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, null, targetRect, paint);
+
+        return output;
     }
 
     @Override
@@ -95,7 +84,7 @@ public class ViewImageActivity extends BaseActivity<ActivityKitchenDetailsBindin
        /* KitchenDishSubBinding mBinding = DataBindingUtil
                 .setContentView(this, R.layout.kitchen_dish_sub);*/
 
-        mKitchenDetailsViewModel.setNavigator(this);
+        mViewImageViewModel.setNavigator(this);
 
        /* Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -104,24 +93,111 @@ public class ViewImageActivity extends BaseActivity<ActivityKitchenDetailsBindin
             mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
         }*/
+        String url = getIntent().getExtras().getString("image", null);
+
+
+
+        Bitmap bitmap=getBitmapFromURL(url);
+
+        mActivityViewImageBinding.image.setImageBitmap(bitmap);
+
+        mActivityViewImageBinding.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewImageActivity.super.onBackPressed();
+            }
+        });
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            loadFullSizeBitmap(bitmap);
+        } else {
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+
+                private boolean isClosing = false;
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    if (isClosing) {
+//                        addCardCorners();
+                    }
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    if (!isClosing) {
+                        isClosing = true;
+
+                       /* removeCardCorners();*/
+                        loadFullSizeBitmap(bitmap);
+                    }
+                }
+            });
+        }
+
+    }
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void loadFullSizeBitmap(Bitmap bitmap) {
+
+
+        final DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+
+        final int w = metrics.widthPixels;
+        final int h = metrics.heightPixels;
+
+        Bitmap result;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            result = getRoundedCornerBitmap(bitmap,
+                    10, w, h);
+        } else {
+            result = bitmap;
+        }
+
+
+
+        mActivityViewImageBinding.image.setImageBitmap(result);
 
 
     }
 
-
     @Override
     public int getBindingVariable() {
-        return BR.kitchenDetailsViewModel;
+        return BR.viewImageViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_kitchen_details;
+        return R.layout.activity_view_image;
     }
 
     @Override
-    public KitchenDetailsViewModel getViewModel() {
-        return mKitchenDetailsViewModel;
+    public ViewImageViewModel getViewModel() {
+        return mViewImageViewModel;
     }
 
     @Override
