@@ -80,6 +80,10 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:onClick="@{()->orderHelpViewModel.cancelDetails()}"
+                    android:textSize="14sp"
+                    android:id="@+id/cancel_title"
+                    android:layout_marginEnd="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -88,7 +92,74 @@
                     android:textColor="@color/black" />
 
 
+
+                <LinearLayout
+                    android:visibility="@{orderHelpViewModel.cancelClicked?View.VISIBLE:View.GONE}"
+                    android:background="@color/gray"
+                    android:orientation="vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/cancel_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                         android:onClick="@{()->orderHelpViewModel.cancelOrder1()}"
+                         android:padding="10dp"
+                         android:layout_marginEnd="30dp"
+                         android:layout_width="wrap_content"
+                         android:textSize="14sp"
+                         android:layout_height="wrap_content"
+                         android:text="@string/i_entered_the_wrong_delivery_address"
+                         android:textColor="@color/black" />
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white"/>
+
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:onClick="@{()->orderHelpViewModel.cancelOrder2()}"
+                        android:padding="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wrong_items"
+                        android:textColor="@color/black" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/white"/>
+
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:onClick="@{()->orderHelpViewModel.cancelOrder3()}"
+                        android:padding="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mistake_order"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+
                 <ImageView
+                    android:onClick="@{()->orderHelpViewModel.cancelDetails()}"
+                    android:rotation="@{orderHelpViewModel.cancelClicked?90:0}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -96,13 +167,13 @@
                     android:layout_marginEnd="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
                     android:textSize="16sp"
-                    android:tint="@color/black" />
+                    android:tint="@color/dark_gray" />
 
 
             </RelativeLayout>
 
-
             <RelativeLayout
+                android:onClick="@{()->orderHelpViewModel.supportQuery()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -110,6 +181,8 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:textSize="14sp"
+                    android:layout_marginEnd="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -128,7 +201,7 @@
                     android:layout_marginRight="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
                     android:textSize="16sp"
-                    android:tint="@color/black" />
+                    android:tint="@color/dark_gray" />
 
 
             </RelativeLayout>
@@ -142,6 +215,9 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:onClick="@{()->orderHelpViewModel.deliveryDetails()}"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="30dp"
                     android:id="@+id/delivery_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,6 +228,8 @@
 
 
                 <ImageView
+                    android:onClick="@{()->orderHelpViewModel.deliveryDetails()}"
+                    android:rotation="@{orderHelpViewModel.deliveryClicked?90:0}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -160,24 +238,29 @@
                     android:layout_marginEnd="25dp"
                     android:src="@drawable/ic_chevron_right_black_24dp"
                     android:textSize="16sp"
-                    android:tint="@color/black" />
+                    android:tint="@color/dark_gray" />
 
 
                 <RelativeLayout
+                    android:visibility="@{orderHelpViewModel.deliveryClicked?View.VISIBLE:View.GONE}"
+                    android:background="@color/gray"
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/delivery_contact"
-                    android:layout_margin="10dp">
-
-
+                    android:layout_below="@+id/delivery_contact">
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:onClick="@{()->orderHelpViewModel.calldelivery()}"
                         android:layout_marginEnd="35dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Call now"
+                        android:text="@string/call_now"
                         android:textColor="@color/eat_color"
                         app:font_name="poppinsSemiBold" />
 
@@ -192,7 +275,7 @@
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ebin Kurian"
+                            android:text="@{orderHelpViewModel.deliveryName}"
                             android:textColor="@color/black"
                             app:font_name="poppinsSemiBold" />
 
@@ -200,7 +283,7 @@
                             android:layout_width="wrap_content"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content"
-                            android:text="99999999999"
+                            android:text="@{orderHelpViewModel.deliveryNumber}"
                             app:font_name="poppinsRegular" />
 
                     </LinearLayout>
@@ -211,8 +294,10 @@
 
             </RelativeLayout>
 
-
         </LinearLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -238,6 +323,7 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:onClick="@{()->orderHelpViewModel.contactCare()}"
                     android:id="@+id/ccare"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -146,7 +146,7 @@
                     android:text="@string/icon_inr"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"

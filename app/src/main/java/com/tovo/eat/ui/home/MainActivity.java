@@ -167,6 +167,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.toolbarTitle.set("Cart");
         mMainViewModel.titleVisible.set(true);
 
+        mMainViewModel.isHome.set(false);
+        mMainViewModel.isExplore.set(false);
+        mMainViewModel.isCart.set(true);
+        mMainViewModel.isMyAccount.set(false);
 
     }
 

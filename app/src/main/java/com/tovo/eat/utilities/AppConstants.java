@@ -66,14 +66,11 @@ public class AppConstants {
     public static final int ONLINE_REQUESTCODE = 333;
 
     ///////Server Ip Ports
-   //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-     // public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
-      //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
-
+      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.3:3000";////basheer 3000
-    public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
 
@@ -99,6 +96,7 @@ public class AppConstants {
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
     public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
+    public static final String URL_CANCEL_ORDER= URL_SERVER_IP_PORT + "/eat/order/cancel/";/////POST method
 
 
     public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
@@ -173,6 +171,9 @@ public class AppConstants {
     public static final String TOAST_LOGIN_SUCCESS = "Login success";
     public static final String TOAST_LOGIN_FAILED = "Login failed";
     public static final int TERMS_AND_CONDITION_REQUEST_CODE = 701;
+    public static final String CANCEL_ORDER_MEAASAGE_1 ="I entered the wrong delivery address" ;
+    public static final String CANCEL_ORDER_MEAASAGE_2 ="I added the wrong items";
+    public static final String CANCEL_ORDER_MEAASAGE_3 ="Placed order by mistake";
 
     public AppConstants() {
         // This utility class is not publicly instantiable

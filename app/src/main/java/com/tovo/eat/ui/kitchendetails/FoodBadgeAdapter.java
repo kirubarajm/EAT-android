@@ -83,7 +83,7 @@ public class FoodBadgeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onFoodBadgesItemClickData(KitchenDishResponse.Foodbadge blogUrl);
+        void onFoodBadgesItemClickData(String url);
 
     }
 
@@ -125,8 +125,8 @@ public class FoodBadgeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void onItemClick() {
-
+        public void onItemClick(String url) {
+mLiveProductsAdapterListener.onFoodBadgesItemClickData(url);
         }
     }
 }

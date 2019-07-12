@@ -10,19 +10,21 @@ public class SpecialitiesItemViewModel {
 
     public final ObservableField<String> image_url = new ObservableField<>();
     public final SpecialitiesItemViewModelListener mListener;
+    KitchenDishResponse.Specialitem foodBadges;
 
     public SpecialitiesItemViewModel(SpecialitiesItemViewModelListener mListener, KitchenDishResponse.Specialitem foodBadges) {
         this.mListener = mListener;
+        this.foodBadges=foodBadges;
         image_url.set(foodBadges.getImgUrl());
     }
 
     public void onItemClick() {
-        mListener.onItemClick();
+        mListener.onItemClick(foodBadges.getImgUrl());
     }
 
     public interface SpecialitiesItemViewModelListener {
 
-        void onItemClick();
+        void onItemClick(String url);
     }
 
 }

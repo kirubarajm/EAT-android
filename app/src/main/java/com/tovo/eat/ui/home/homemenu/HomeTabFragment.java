@@ -206,6 +206,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void getFullStories(StoriesResponse storiesResponse) {
         this.storiesFullResponse = storiesResponse;
+        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
     }
 
     @Override
@@ -239,8 +241,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
-            mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-            mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
+          /*  mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+            mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
             mHomeTabViewModel.favIcon.set(true);
 
         } else {
@@ -377,7 +379,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
         mHomeTabViewModel.updateAddressTitle();
-
+       /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
 
     }
 

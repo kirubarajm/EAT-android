@@ -28,7 +28,7 @@ import java.util.List;
 
 public class ViewImageViewModel extends BaseViewModel<ViewImageNavigator> {
 
-
+public ObservableField<String> imageUrl=new ObservableField<>();
 
     public ViewImageViewModel(DataManager dataManager) {
         super(dataManager);

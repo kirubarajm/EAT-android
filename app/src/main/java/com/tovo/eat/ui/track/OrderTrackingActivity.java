@@ -317,8 +317,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         }
         else if(id==R.id.order_cancel){
             Intent intent = OrderHelpActivity.newIntent(this);
-            intent.putExtra("orderId",
-                    String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId()) );
+            intent.putExtra("name",mOrderTrackingViewModel.getDataManager().getOrderId() );
+            intent.putExtra("number",String.valueOf(mOrderTrackingViewModel.deliveryManNumber) );
+            intent.putExtra("status",mOrderTrackingViewModel.track.get());
             startActivity(intent);
         }
        // return true;

@@ -409,43 +409,60 @@
     <string name="camera_icon">&#xe901;</string>
     <string name="sales_icon">&#xe902;</string>
     <string name="training_icon">&#xe903;</string>
-    <string name="call_icon">&#xe904;</string>
+    <string name="call_icon">&#xe925;</string>
     <string name="right_arrow_icon">&#xe905;</string>
     <string name="alert_bell_icon">&#xe906;</string>
     <string name="kitchen_home_icon">&#xe907;</string>
     <string name="document_icon">&#xe908;</string>
     <string name="video_document_icon">&#xe909;</string>
-    <string name="home_icon">&#xe900;</string>
+    <string name="home_icon">&#xe922;</string>
     <string name="female">&#xe91a;</string>
     <string name="male">&#xe91b;</string>
-    <string name="icon_manage_address">&#xe906;</string>
-    <string name="icon_order_history">&#xe908;</string>
-    <string name="icon_referrals">&#xe909;</string>
-    <string name="icon_offers">&#xe90a;</string>
-    <string name="icon_favorites">&#xe920;</string>
-    <string name="icon_feedback_support">&#xe91d;</string>
-    <string name="icon_call">&#xe912;</string>
-    <string name="icon_error">&#xe917;</string>
 
 
-    <string name="smiley_low">&#xe914;</string>
-    <string name="smiley_medium">&#xe915;</string>
-    <string name="smiley_high">&#xe916;</string>
+    <string name="icon_manage_address">&#xe917;</string>
+    <string name="icon_order_history">&#xe919;</string>
+    <string name="icon_referrals">&#xe91b;</string>
+    <string name="icon_offers">&#xe936;</string>
+    <string name="icon_favorites">&#xe924;</string>
+    <string name="icon_feedback_support">&#xe91c;</string>
+    <string name="icon_call">&#xe925;</string>
+    <string name="icon_error">&#xe90d;</string>
 
-    <string name="icon_selected">&#xe901;</string>
-    <string name="icon_inr">&#xe91c;</string>
-    <string name="icon_logout">&#xe91e;</string>
-    <string name="icon_filter">&#xe900;</string>
+    <string name="icon_region_home">&#xe921;</string>
+
+
+    <string name="smiley_low">&#xe926;</string>
+    <string name="smiley_medium">&#xe927;</string>
+    <string name="smiley_high">&#xe928;</string>
+
+    <string name="icon_selected">&#xe913;</string>
+    <string name="icon_inr">&#xe90a;</string>
+    <string name="icon_logout">&#xe91d;</string>
+    <string name="icon_filter">&#xe912;</string>
     <string name="icon_fav">&#xe924;</string>
-    <string name="icon_fav_heart_selected">&#xe926;</string>
-    <string name="icon_fav_heart_unselected">&#xe922;</string>
-    <string name="icon_home">&#xe902;</string>
+    <string name="icon_fav_heart_selected">&#xe924;</string>
+    <string name="icon_fav_heart_unselected">&#xe924;</string>
+    <string name="icon_home">&#xe922;</string>
     <string name="icon_office">&#xe922;</string>
-    <string name="icon_veg_only">&#xe925;</string>
-    <string name="icon_veg">&#xe905;</string>
-    <string name="icon_non_veg">&#xe906;</string>
-    <string name="icon_eat">&#xe92b;</string>
+    <string name="icon_veg_only">&#xe923;</string>
+    <string name="icon_veg">&#xe915;</string>
+    <string name="icon_non_veg">&#xe916;</string>
+    <string name="icon_eat">&#xe90e;</string>
     <string name="icon_divider">&#xe927;</string>
+    <string name="icon_member">&#xe91f;</string>
+    <string name="icon_star">&#xe914;</string>
+    <string name="icon_search">&#xe911;</string>
+    <string name="icon_account">&#xe910;</string>
+    <string name="icon_cart">&#xe90f;</string>
+    <string name="icon_delete">&#xe920;</string>
+    <string name="icon_address_not_servicable">&#xe90c;</string>
+
+
+
+
+
+
 
     <string name="minus">-</string>
     <string name="plus">+</string>
@@ -563,5 +580,8 @@
     <string name="no">No</string>
     <string name="refund_adjustments">Refund adjustments</string>
     <string name="rating">Rating</string>
+    <string name="i_entered_the_wrong_delivery_address">I entered the wrong delivery address</string>
+    <string name="wrong_items">I added the wrong items</string>
+    <string name="mistake_order">Placed order by mistake</string>
 
 </resources>

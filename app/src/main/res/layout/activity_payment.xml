@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/icon_inr"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="match_parent"

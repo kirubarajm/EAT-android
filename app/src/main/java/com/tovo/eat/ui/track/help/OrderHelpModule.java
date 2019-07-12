@@ -14,18 +14,8 @@ import dagger.Provides;
 public class OrderHelpModule {
 
     @Provides
-    OrderHelpViewModel provideOrdersHistoryviewViewModel(DataManager dataManager) {
+    OrderHelpViewModel provideOrdersCancelViewModel(DataManager dataManager) {
         return new OrderHelpViewModel(dataManager);
     }
 
-
-    @Provides
-    OrdersHistoryActivityItemAdapter provideOrdersHistoryViewItemListAdapter() {
-        return new OrdersHistoryActivityItemAdapter(new ArrayList<>());
-    }
-
-    @Provides
-    LinearLayoutManager provideLinearLayoutManager(OrderHelpActivity activity) {
-        return new LinearLayoutManager(activity);
-    }
 }

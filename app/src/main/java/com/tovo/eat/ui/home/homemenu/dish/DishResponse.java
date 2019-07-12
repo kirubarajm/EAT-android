@@ -73,6 +73,9 @@ public class DishResponse {
         @SerializedName("cuisinename")
         @Expose
         private String cusinename;
+ @SerializedName("vegtype")
+        @Expose
+        private String vegtype;
 
 
         @SerializedName("regionname")
@@ -89,6 +92,13 @@ public class DishResponse {
         @Expose
         private String eta;
 
+        public String getVegtype() {
+            return vegtype;
+        }
+
+        public void setVegtype(String vegtype) {
+            this.vegtype = vegtype;
+        }
 
         public String getRegionname() {
             return regionname;

@@ -114,6 +114,11 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("updated_at")
         @Expose
         public String updatedAt;
+
+        @SerializedName("address_title")
+        @Expose
+        public String address_title;
+
         @SerializedName("order_assigned_time")
         @Expose
         public String orderAssignedTime;
@@ -130,6 +135,14 @@ public class OrdersHistoryActivityResponse {
         @Expose
         public List<Item> items = null;
 
+
+        public String getAddress_title() {
+            return address_title;
+        }
+
+        public void setAddress_title(String address_title) {
+            this.address_title = address_title;
+        }
 
         public Integer getOrderid() {
             return orderid;
@@ -636,6 +649,18 @@ public class OrdersHistoryActivityResponse {
             @SerializedName("product_name")
             @Expose
             public String productName;
+            @SerializedName("vegtype")
+            @Expose
+            public String vegtype;
+
+
+            public String getVegtype() {
+                return vegtype;
+            }
+
+            public void setVegtype(String vegtype) {
+                this.vegtype = vegtype;
+            }
 
             public Integer getGst() {
                 return gst;

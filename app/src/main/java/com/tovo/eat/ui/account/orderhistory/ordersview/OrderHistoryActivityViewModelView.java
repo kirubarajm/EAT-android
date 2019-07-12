@@ -29,6 +29,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> kitchenName = new ObservableField<>();
     public final ObservableField<String> home = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
+    public final ObservableField<String> addressTitle = new ObservableField<>();
     public final ObservableField<String> price = new ObservableField<>();
     public final ObservableField<String> paymentType = new ObservableField<>();
     public final ObservableField<String> strPaymentType = new ObservableField<>();
@@ -117,7 +118,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             address.set(response.getResult().get(0).getLocality());
 
                             ordertitle.set("#"+response.getResult().get(0).getOrderid()+" Order");
-
+                            addressTitle.set(response.getResult().get(0).getAddress_title());
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
                             locality.set("Delivered | "+String.valueOf(response.getResult().get(0).getLocality()));

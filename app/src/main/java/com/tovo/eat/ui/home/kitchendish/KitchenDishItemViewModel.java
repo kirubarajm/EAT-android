@@ -52,6 +52,8 @@ public class KitchenDishItemViewModel {
 
     Integer favID;
 
+    public ObservableBoolean isVeg=new ObservableBoolean();
+
 
     public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response) {
 
@@ -64,15 +66,16 @@ public class KitchenDishItemViewModel {
         //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+        this.producttype.set(dishList.getCuisinename());
 
+        if (dishList.getVegtype().equals("0")){
 
-        if(dishList.getVegtype().equals("1")){
-            this.producttype.set(dishList.getCuisinename()+" | Non-Veg");
+            isVeg.set(true);
 
         }else {
-            this.producttype.set(dishList.getCuisinename()+" | Veg");
-        }
 
+            isVeg.set(false);
+        }
 
 
 

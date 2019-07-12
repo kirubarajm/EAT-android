@@ -2,12 +2,14 @@ package com.tovo.eat.ui.track.help;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -17,19 +19,15 @@ import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItem
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 
 import javax.inject.Inject;
 
-public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator,
-        OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener{
+public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator{
 
     @Inject
     OrderHelpViewModel mOrderHelpViewModel;
     ActivityOrderHelpBinding mActivityOrderHelpBinding;
-    @Inject
-    OrdersHistoryActivityItemAdapter mOrderDetailsAdapter;
-    @Inject
-    LinearLayoutManager mLayoutManager;
     String strOrderId;
     public static Intent newIntent(Context context) {
 
@@ -42,52 +40,48 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     }
 
-    @Override
-    public void clearCart() {
-
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHelpActivity.this);
-        builder1.setMessage("Already you have added items in cart. Do you want to clear?");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                       /* Intent intent= TestActivity.newIntent(OrderHelpActivity.this);
-                        intent.putExtra("cart",true);
-                        startActivity(intent);*/
-
-                       mOrderHelpViewModel.orderAvailable();
-
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-
-
-
-    }
-
-    @Override
-    public void orderRepeat() {
-        Intent intent= MainActivity.newIntent(OrderHelpActivity.this);
-        intent.putExtra("cart",true);
-        startActivity(intent);
-    }
 
     @Override
     public void goBack() {
        finish();
+    }
+
+    @Override
+    public void callDelivery() {
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(callIntent);
+
+
+    }
+
+    @Override
+    public void gotoSupport() {
+
+    }
+
+    @Override
+    public void orderCanceled() {
+
+        Intent intent= MainActivity.newIntent(OrderHelpActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+        Toast.makeText(this, "Order canceled", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void orderCancelFailed() {
+        finish();
+        Toast.makeText(this, "Sorry! Cannot cancel this order", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -110,31 +104,17 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         super.onCreate(savedInstanceState);
         mActivityOrderHelpBinding = getViewDataBinding();
         mOrderHelpViewModel.setNavigator(this);
-        mOrderDetailsAdapter.setListener(this);
-
-
 
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-           // String strOrderId=bundle.getString("orderId");
-             strOrderId=getIntent().getExtras().getString("orderId");
-
-
-
+             mOrderHelpViewModel.deliveryName.set(getIntent().getExtras().getString("name"));
+             mOrderHelpViewModel.deliveryNumber.set(getIntent().getExtras().getString("number"));
+             mOrderHelpViewModel.deliveryAssigned.set(getIntent().getExtras().getBoolean(   "status"));
         }
 
 
     }
 
-    private void subscribeToLiveData() {
-        mOrderHelpViewModel.getOrders().observe(this,
-                ordersItemViewModel -> mOrderHelpViewModel.addOrdersListItemsToList(ordersItemViewModel));
-    }
-
-
-    @Override
-    public void listItem(OrdersHistoryActivityResponse.Result mOrderList) {
-
-    }
 }
+

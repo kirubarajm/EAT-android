@@ -51,6 +51,8 @@ public class DishItemViewModel {
     private Integer favID;
 
 
+    public ObservableBoolean isVeg=new ObservableBoolean();
+
     public DishItemViewModel(DishItemViewModelListener mListener, DishResponse.Result dishList) {
 
         this.mListener = mListener;
@@ -72,6 +74,16 @@ public class DishItemViewModel {
         } else {
             isFavourite.set(false);
         }
+
+        if (dishList.getVegtype().equals("0")){
+
+            isVeg.set(true);
+
+        }else {
+
+            isVeg.set(false);
+        }
+
 
 
         this.locality.set(dishList.getLocalityname());

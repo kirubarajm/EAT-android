@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.kitchendetails;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,12 +21,14 @@ import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
@@ -34,6 +37,8 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
+import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
 import javax.inject.Inject;
@@ -610,8 +615,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void onResume() {
         super.onResume();
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+      /*  mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
         //mKitchenDetailsViewModel.fetchRepos(kitchenID);
     }
@@ -685,13 +690,47 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void onSpecialItemClickData(KitchenDishResponse.Specialitem blogUrl) {
+    public void onSpecialItemClickData(String url) {
+
+        /*Intent intent= ViewImageActivity.newIntent(KitchenDetailsActivity.this);
+        intent.putExtra("image",url);
+        startActivity(intent);*/
+
+
+        viewImage(url);
+
 
     }
 
     @Override
-    public void onFoodBadgesItemClickData(KitchenDishResponse.Foodbadge blogUrl) {
+    public void onFoodBadgesItemClickData(String url) {
+        /*Intent intent= ViewImageActivity.newIntent(KitchenDetailsActivity.this);
+        intent.putExtra("image",url);
+        startActivity(intent);*/
+       viewImage(url);
 
+    }
+
+
+
+    public void viewImage(String url){
+        final Dialog nagDialog = new Dialog(KitchenDetailsActivity.this, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
+        nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        nagDialog.setCancelable(true);
+        nagDialog.setContentView(R.layout.preview_image);
+        ButtonTextView btnClose =nagDialog.findViewById(R.id.btnIvClose);
+        ImageView ivPreview = (ImageView) nagDialog.findViewById(R.id.iv_preview_image);
+        if (url != null) {
+            Glide.with(getApplicationContext()).load(url).placeholder(null).centerCrop()
+                    .error(R.drawable.images_loading).into(ivPreview);
+        }
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                nagDialog.dismiss();
+            }
+        });
+        nagDialog.show();
     }
 }
 

@@ -197,12 +197,26 @@
 
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{kitchenDishItemViewModel.product_name}"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
+
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_marginStart="3dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/name"
+                            android:layout_marginEnd="1dp"
+                            android:textColor="@{kitchenDishItemViewModel.isVeg?@color/green:@color/red}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_veg"
+                            android:textSize="6sp"/>
+
 
 
                     </RelativeLayout>
@@ -231,7 +245,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr"
                             android:textColor="@color/black"
-                            android:textSize="9sp" />
+                            android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"

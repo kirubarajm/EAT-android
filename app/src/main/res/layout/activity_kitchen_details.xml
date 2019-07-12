@@ -372,7 +372,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-                                            android:text="@string/icon_home"
+                                            android:text="@string/icon_region_home"
                                             android:textSize="18sp" />
 
                                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -430,7 +430,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-                                            android:text="@string/icon_home"
+                                            android:text="@string/icon_member"
                                             android:textSize="18sp" />
 
                                         <com.tovo.eat.utilities.fonts.CircularTextView
@@ -453,7 +453,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
-                                            android:text="@string/icon_favorites"
+                                            android:text="@string/icon_star"
                                             android:textColor="@color/eat_color"
                                             android:textSize="18sp" />
 
@@ -672,7 +672,6 @@
                                         android:background="@android:color/white"
                                         app:favoriteadapter="@{kitchenDetailsViewModel.favoriteArrayViewModels}"
                                         tools:listitem="@layout/list_item_fav_" />
-
                                 </LinearLayout>
 
                                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
@@ -684,10 +683,8 @@
                                     android:layout_marginTop="10dp"
                                     android:text="@string/today_s_menu"
                                     android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"/>
-
-
-
                                 <View
+                                    android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"
                                     android:id="@+id/separator2"
                                     android:layout_width="match_parent"
                                     android:layout_height="0.7dp"
@@ -696,7 +693,6 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginEnd="20dp"
                                     android:background="@drawable/gradient_view_kitchen" />
-
 
                                 <LinearLayout
                                     android:id="@+id/todays"
@@ -784,7 +780,7 @@
                             android:text="@string/icon_inr"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
 
                         <com.tovo.eat.utilities.fonts.CircularStdMedium
                             android:layout_width="wrap_content"

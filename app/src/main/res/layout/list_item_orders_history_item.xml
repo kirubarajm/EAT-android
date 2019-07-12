@@ -8,7 +8,7 @@
 
         <variable
             name="ordersProductListItemViewModel"
-            type="com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityListItemViewModel"></variable>
+            type="com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityListItemViewModel"/>
     </data>
 
     <RelativeLayout
@@ -31,15 +31,16 @@
                 android:text="@{ordersProductListItemViewModel.product_name}"
                 android:layout_alignParentStart="true" />
 
-           <!-- <com.tovo.eat.utilities.fonts.TovoTextView
-                android:layout_alignParentTop="true"
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_marginStart="3dp"
+               android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/name"
                 android:layout_marginEnd="1dp"
-                android:textColor="@color/black"
+                android:textColor="@{ordersProductListItemViewModel.isVeg?@color/green:@color/red}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{ordersProductListItemViewModel.product_name}"
-                android:textSize="10sp"/>-->
+                android:text="@string/icon_veg"
+                android:textSize="5sp"/>
 
 
 
@@ -65,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/icon_inr"
-                    android:textSize="8sp"/>
+                    android:textSize="10sp"/>
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView

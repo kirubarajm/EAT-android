@@ -168,7 +168,7 @@
                                     android:singleLine="true"
                                     android:text="@string/icon_inr"
                                     android:textColor="@color/medium_gray"
-                                    android:textSize="8sp" />
+                                    android:textSize="9sp" />
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView

@@ -12,9 +12,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.Transition;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -22,8 +20,6 @@ import com.tovo.eat.databinding.ActivityViewImageBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.inject.Inject;
@@ -78,6 +74,35 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
         return output;
     }
 
+    public static Bitmap getBitmapFromURL(String src) {
+
+
+        Bitmap image = null;
+
+        try {
+            URL url = new URL(src);
+            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+
+        return image;
+
+     /*   try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }*/
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +120,10 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
         }*/
         String url = getIntent().getExtras().getString("image", null);
 
+        mViewImageViewModel.imageUrl.set(url);
 
 
-        Bitmap bitmap=getBitmapFromURL(url);
+       /* Bitmap bitmap=getBitmapFromURL(url);
 
         mActivityViewImageBinding.image.setImageBitmap(bitmap);
 
@@ -139,28 +165,15 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
                     if (!isClosing) {
                         isClosing = true;
 
-                       /* removeCardCorners();*/
+                       *//* removeCardCorners();*//*
                         loadFullSizeBitmap(bitmap);
                     }
                 }
             });
-        }
+        }*/
 
     }
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
     private void loadFullSizeBitmap(Bitmap bitmap) {
 
 
@@ -177,7 +190,6 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
         } else {
             result = bitmap;
         }
-
 
 
         mActivityViewImageBinding.image.setImageBitmap(result);

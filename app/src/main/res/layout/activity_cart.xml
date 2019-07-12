@@ -344,18 +344,15 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="3dp"
                                     android:paddingTop="8dp"
-                                    android:paddingRight="3dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-
                                     android:id="@+id/price2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -402,14 +399,12 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="3dp"
                                     android:paddingTop="8dp"
-                                    android:paddingRight="3dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
@@ -457,14 +452,12 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="3dp"
                                     android:paddingTop="8dp"
-                                    android:paddingRight="3dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
 
@@ -511,14 +504,12 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="3dp"
                                     android:paddingTop="8dp"
-                                    android:paddingRight="3dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
 
@@ -574,14 +565,12 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingLeft="3dp"
                                     android:paddingTop="8dp"
-                                    android:paddingRight="3dp"
                                     android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="10sp" />
+                                    android:textSize="12sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
 

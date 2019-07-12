@@ -82,12 +82,12 @@ public class SpecialitiesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onSpecialItemClickData(KitchenDishResponse.Specialitem blogUrl);
+        void onSpecialItemClickData(String url);
 
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -124,8 +124,8 @@ public class SpecialitiesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void onItemClick() {
-
+        public void onItemClick(String url) {
+            mLiveProductsAdapterListener.onSpecialItemClickData(url);
         }
     }
 }
