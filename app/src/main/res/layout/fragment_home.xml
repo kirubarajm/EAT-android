@@ -187,7 +187,7 @@
               android:id="@+id/recyclerview_orders"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layoutAnimation="@anim/lay_fall_down"
+              android:layoutAnimation="@rotate_out/lay_fall_down"
               android:background="@android:color/white"
               app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
               tools:listitem="@layout/list_item_kitchens">

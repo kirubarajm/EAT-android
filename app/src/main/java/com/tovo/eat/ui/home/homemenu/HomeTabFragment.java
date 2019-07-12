@@ -44,6 +44,7 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
+import com.tovo.eat.ui.home.homemenu.story.library.ActivitySwitcher;
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
@@ -723,6 +724,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             intent.putExtra("id", mRegionList.getRegionid());
             intent.putExtra("tagline", mRegionList.getTagline());
             startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.rotate_out,R.anim.rotate_in);
 
 
         } else if (position > activeCardPosition) {
@@ -772,6 +774,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         intent.putExtra("position", pos);
         intent.putExtra("fullStories", storiesFullResponse);
         startActivity(intent);
+/*
+        ActivitySwitcher.animationOut(getView().findViewById(R.id.homemain), getActivity().getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
+            @Override
+            public void onAnimationFinished() {
+                startActivity(intent);
+            }
+        });
+*/
     }
 
     private class OnCardClickListener implements View.OnClickListener {

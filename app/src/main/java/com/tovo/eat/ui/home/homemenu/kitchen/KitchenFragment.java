@@ -227,7 +227,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         ViewFragment fragment = new VideoActivity();
-        transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+        transaction.setCustomAnimations(R.rotate_out.slide_left, R.rotate_out.slide_right);
         transaction.replace(R.id.frame_food, fragment);
         transaction.commit();
 
