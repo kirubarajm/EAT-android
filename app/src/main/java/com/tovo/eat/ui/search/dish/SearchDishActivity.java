@@ -193,7 +193,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         fragment.setTargetFragment(this, 0);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_in);
+        ft.setCustomAnimations(R.rotate_out.fade_in, R.rotate_out.fade_in);
         fragment.show(ft, "UploadDialogFragment");
         fragment.setCancelable(false);*/
     }

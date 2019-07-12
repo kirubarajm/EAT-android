@@ -173,7 +173,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         ViewFragment fragment = new VideoActivity();
-        transaction.setCustomAnimations(R.anim.slide_left, R.anim.slide_right);
+        transaction.setCustomAnimations(R.rotate_out.slide_left, R.rotate_out.slide_right);
         transaction.replace(R.id.frame_food, fragment);
         transaction.commit();
 
@@ -269,7 +269,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         fragment.setTargetFragment(this, 0);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_in);
+        ft.setCustomAnimations(R.rotate_out.fade_in, R.rotate_out.fade_in);
         fragment.show(ft, "UploadDialogFragment");
         fragment.setCancelable(false);*/
     }

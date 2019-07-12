@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +20,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
-
 import com.tovo.eat.R;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
@@ -31,170 +31,189 @@ import java.util.Locale;
 public class StatusStoriesActivity extends AppCompatActivity implements StoryStatusView.UserInteractionListener {
 
     private static StoryStatusView storyStatusView;
+    private static boolean isTextEnabled = true;
+    StoriesResponse.Result storiesResponse;
+    StoriesResponse storiesFullResponse;
+    VideoView videoView;
+    int position;
     private ImageView image;
     private int counter = 0;
-
     private String[] statusResources;
     //    private long[] statusResourcesDuration;
     private long statusDuration;
     private boolean isImmersive = true;
     private boolean isCaching = true;
-    private static boolean isTextEnabled = true;
     private ProgressTarget<String, Bitmap> target;
-    StoriesResponse.Result storiesResponse;
-    StoriesResponse storiesFullResponse;
-    VideoView videoView;
-
-    int position;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status_stories);
-
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle!=null){
-            position = bundle.getInt("position");
-            storiesFullResponse = (StoriesResponse) bundle.getSerializable("fullStories");
-            if (position>storiesFullResponse.getResult().size())return;
-            storiesResponse = storiesFullResponse.getResult().get(position);
-        }
-
-        ProgressBar imageProgressBar = findViewById(R.id.imageProgressBar);
-        TextView textView = findViewById(R.id.textView);
-        image = findViewById(R.id.image_stories);
-        videoView = findViewById(R.id.video_view);
-
-        storyStatusView = findViewById(R.id.storiesStatus);
-        storyStatusView.setStoriesCount(storiesResponse.getStories().size());
-        storyStatusView.setStoryDuration(3000L);
-        // or
-        //statusView.setStoriesCountWithDurations(statusResourcesDuration);
-        storyStatusView.setUserInteractionListener(this);
-        if (position>storiesFullResponse.getResult().size())return;
-        storyStatusView.playStories();
-
-        target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, textView);
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                storyStatusView.skip();
-            }
-        });
-
-        findViewById(R.id.reverse).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                storyStatusView.reverse();
-            }
-        });
-
-        findViewById(R.id.skip).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                storyStatusView.skip();
-            }
-        });
-
-        findViewById(R.id.actions).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    storyStatusView.pause();
-                } else {
-                    storyStatusView.resume();
-                }
-                return true;
-            }
-        });
-
-        if (storiesResponse.getStories().get(counter).getMediatype()==1) {
-            videoView.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-            storyStatusView.pause();
-            target.setModel(storiesResponse.getStories().get(counter).getUrl());
-            Glide.with(image.getContext())
-                    .load(target.getModel())
-                    .asBitmap()
-                    .crossFade()
-                    .skipMemoryCache(!isCaching)
-                    .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                    .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                    .listener(new LoggingListener<String, Bitmap>())
-                    .into(target);
-        }else if (storiesResponse.getStories().get(counter).getMediatype()==2){
-            videoView.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
-            videoView.start();
-        }
-    }
 
     public static Intent newIntent(Context context) {
         return new Intent(context, StatusStoriesActivity.class);
     }
 
     @Override
-    public void onNext() {
-        counter++;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_status_stories);
 
-        if (storiesResponse.getStories().get(counter).getMediatype()==1) {
+        try {
+            Bundle bundle = getIntent().getExtras();
+
+            if (bundle != null) {
+                position = bundle.getInt("position");
+                storiesFullResponse = (StoriesResponse) bundle.getSerializable("fullStories");
+                if (position > storiesFullResponse.getResult().size()) return;
+                storiesResponse = storiesFullResponse.getResult().get(position);
+            }
+
+            ProgressBar imageProgressBar = findViewById(R.id.imageProgressBar);
+            TextView textView = findViewById(R.id.textView);
+            image = findViewById(R.id.image_stories);
+            videoView = findViewById(R.id.video_view);
+
+            storyStatusView = findViewById(R.id.storiesStatus);
+            storyStatusView.setStoriesCount(storiesResponse.getStories().size());
             storyStatusView.setStoryDuration(3000L);
-            videoView.stopPlayback();
-            videoView.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-            storyStatusView.pause();
-            target.setModel(storiesResponse.getStories().get(counter).getUrl());
-            Glide.with(image.getContext())
-                    .load(target.getModel())
-                    .asBitmap()
-                    .crossFade()
-                    .centerCrop()
-                    .skipMemoryCache(!isCaching)
-                    .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                    .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                    .listener(new LoggingListener<String, Bitmap>())
-                    .into(target);
-        }else if (storiesResponse.getStories().get(counter).getMediatype()==2){
-            storyStatusView.setStoryDuration(30000L);
-            videoView.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
-            videoView.setVideoURI(uri);
-            videoView.start();
+            // or
+            //statusView.setStoriesCountWithDurations(statusResourcesDuration);
+            storyStatusView.setUserInteractionListener(this);
+            if (position > storiesFullResponse.getResult().size()) return;
+            if (storiesResponse.getStories().size() > 0) {
+                storyStatusView.playStories();
+            }
+
+            target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, textView);
+
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyStatusView.skip();
+                }
+            });
+
+            findViewById(R.id.reverse).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyStatusView.reverse();
+                }
+            });
+
+            findViewById(R.id.skip).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storyStatusView.skip();
+                }
+            });
+
+            findViewById(R.id.actions).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                        storyStatusView.pause();
+                    } else {
+                        storyStatusView.resume();
+                    }
+                    return true;
+                }
+            });
+
+            if (storiesResponse.getStories().size() > 0) {
+                if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                    videoView.setVisibility(View.GONE);
+                    image.setVisibility(View.VISIBLE);
+                    storyStatusView.pause();
+                    target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                    Glide.with(image.getContext())
+                            .load(target.getModel())
+                            .asBitmap()
+                            .crossFade()
+                            .skipMemoryCache(!isCaching)
+                            .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                            .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                            .listener(new LoggingListener<String, Bitmap>())
+                            .into(target);
+                } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+                    videoView.setVisibility(View.VISIBLE);
+                    image.setVisibility(View.GONE);
+                    videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
+                    videoView.start();
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onNext() {
+        Log.e("", "" + counter);
+        storyStatusView.pause();
+        counter++;
+        if (counter > storiesResponse.getStories().size()) return;
+        if (storiesResponse.getStories().get(counter) != null) {
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                storyStatusView.setStoryDuration(3000L);
+                videoView.stopPlayback();
+                videoView.setVisibility(View.GONE);
+                image.setVisibility(View.VISIBLE);
+                storyStatusView.pause();
+                target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        .asBitmap()
+                        .crossFade()
+                        .centerCrop()
+                        .skipMemoryCache(!isCaching)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                        .listener(new LoggingListener<String, Bitmap>())
+                        .into(target);
+            } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+                storyStatusView.setStoryDuration(30000L);
+                videoView.setVisibility(View.VISIBLE);
+                image.setVisibility(View.GONE);
+                Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
+                videoView.setVideoURI(uri);
+                videoView.start();
+            }
         }
     }
 
     @Override
     public void onPrev() {
-        counter--;
-
-        if (storiesResponse.getStories().get(counter).getMediatype()==1) {
-            storyStatusView.setStoryDuration(3000L);
-            if (counter - 1 < 0) return;
-            storyStatusView.pause();
-            videoView.stopPlayback();
-            target.setModel(storiesResponse.getStories().get(counter).getUrl());
-            Glide.with(image.getContext())
-                    .load(target.getModel())
-                    .asBitmap()
-                    .centerCrop()
-                    .crossFade()
-                    .skipMemoryCache(!isCaching)
-                    .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                    .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                    .listener(new LoggingListener<String, Bitmap>())
-                    .into(target);
+        Log.e("", "" + counter);
+        storyStatusView.pause();
+        --counter;
+        if (counter < 0) {
+            onCompletePrev();
+            return;
         }
-        else if (storiesResponse.getStories().get(counter).getMediatype()==2){
-            storyStatusView.setStoryDuration(30000L);
-            videoView.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
-            videoView.setVideoURI(uri);
-            videoView.start();
+        if (storiesResponse.getStories().get(counter) != null) {
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                storyStatusView.setStoryDuration(3000L);
+                if (counter - 1 < 0) return;
+                storyStatusView.pause();
+                videoView.stopPlayback();
+                target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        .asBitmap()
+                        .centerCrop()
+                        .crossFade()
+                        .skipMemoryCache(!isCaching)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                        .listener(new LoggingListener<String, Bitmap>())
+                        .into(target);
+            } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+                storyStatusView.setStoryDuration(30000L);
+                videoView.setVisibility(View.VISIBLE);
+                image.setVisibility(View.GONE);
+                Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
+                videoView.setVideoURI(uri);
+                videoView.start();
             }
+        }
     }
 
     @Override
@@ -213,16 +232,55 @@ public class StatusStoriesActivity extends AppCompatActivity implements StorySta
 
     @Override
     public void onComplete() {
-        if (videoView!=null) {
+        int pos = position + 1;
+        if (videoView != null) {
             videoView.stopPlayback();
         }
         storyStatusView.destroy();
-        finish();
-        Intent intent = StatusStoriesActivity.newIntent(this);
-        intent.putExtra("position", position+1);
-        intent.putExtra("fullStories", storiesFullResponse);
-        startActivity(intent);
-        overridePendingTransition(R.anim.fall_down, R.anim.lay_fall_down);
+        if (pos > storiesFullResponse.getResult().size()) {
+            finish();
+        } else {
+            finish();
+            Intent intent = StatusStoriesActivity.newIntent(this);
+            intent.putExtra("position", pos);
+            intent.putExtra("fullStories", storiesFullResponse);
+            startActivity(intent);
+/*
+            ActivitySwitcher.animationOut(findViewById(R.id.container),getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
+                @Override
+                public void onAnimationFinished() {
+                    startActivity(intent);
+                }
+            });
+*/
+
+        }
+    }
+
+    private void onCompletePrev() {
+        int pos = position - 1;
+        if (videoView != null) {
+            videoView.stopPlayback();
+        }
+        storyStatusView.destroy();
+        if (pos < 0) {
+            finish();
+        } else {
+            finish();
+            Intent intent = StatusStoriesActivity.newIntent(this);
+            intent.putExtra("position", pos);
+            intent.putExtra("fullStories", storiesFullResponse);
+            startActivity(intent);
+/*
+            ActivitySwitcher.animationOut(findViewById(R.id.container),getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
+                @Override
+                public void onAnimationFinished() {
+                    startActivity(intent);
+                }
+            });
+*/
+
+        }
     }
 
     @Override
@@ -231,11 +289,14 @@ public class StatusStoriesActivity extends AppCompatActivity implements StorySta
         super.onDestroy();
     }
 
+/*
     @Override
     protected void onResume() {
+        // animateIn this activity
+        //ActivitySwitcher.animationIn(findViewById(R.id.container), getWindowManager());
         super.onResume();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+*/
 
     /**
      * Demonstrates 3 different ways of showing the progress:

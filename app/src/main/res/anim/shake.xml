@@ -3,7 +3,7 @@
     <!--<rotate
         android:duration="70"
         android:fromDegrees="0"
-        android:interpolator="@android:anim/linear_interpolator"
+        android:interpolator="@android:rotate_out/linear_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
         android:repeatCount="5"
@@ -12,7 +12,7 @@
     <translate
         android:duration="70"
         android:fromXDelta="40"
-        android:interpolator="@android:anim/linear_interpolator"
+        android:interpolator="@android:rotate_out/linear_interpolator"
         android:repeatCount="5"
         android:repeatMode="reverse"
         android:toXDelta="-40" />-->
