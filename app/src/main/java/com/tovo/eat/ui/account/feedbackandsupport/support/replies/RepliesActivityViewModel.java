@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.feedbackandsupport.support.replies;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -22,6 +23,10 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
     Response.ErrorListener errorListener;
     private MutableLiveData<List<RepliesResponse.Result>> ordersItemsLiveData;
     int userId;
+
+
+    public ObservableBoolean emptyReplies=new ObservableBoolean();
+
 
     public RepliesActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -69,11 +74,15 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
                 new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
             @Override
             public void onResponse(RepliesResponse response) {
-                if (response != null) {
+                if (response.getResult().size()>0) {
                     ordersItemsLiveData.setValue(response.getResult());
                     if (val == 1) {
                         getNavigator().onRefreshSuccess();
                     }
+                    emptyReplies.set(false);
+
+                }else {
+                    emptyReplies.set(true);
                 }
             }
         }, errorListener = new Response.ErrorListener() {

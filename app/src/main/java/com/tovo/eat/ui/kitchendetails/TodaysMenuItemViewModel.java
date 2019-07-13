@@ -37,6 +37,7 @@ public class TodaysMenuItemViewModel {
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
@@ -68,6 +69,12 @@ public class TodaysMenuItemViewModel {
         }else {
             this.producttype.set(dishList.getCuisinename()+" | Veg");
         }
+
+
+        if (dishList.getProductimage()!=null){
+            isFavouriteMenu.set(true);
+        }
+
 
 
         if (cartRequestPojo == null) {

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.homemenu.dish;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -29,6 +30,10 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
     public ObservableList<DishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<DishResponse.Result>> dishItemsLiveData;
+
+    public ObservableBoolean emptyDish=new ObservableBoolean();
+
+
 
 
     public DishViewModel(DataManager dataManager) {
@@ -241,7 +246,17 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                                     Gson sGson = new GsonBuilder().create();
                                     dishResponse = sGson.fromJson(response.toString(), DishResponse.class);
 
-                                    dishItemsLiveData.setValue(dishResponse.getResult());
+
+                                    if (dishResponse.getResult().size()>0){
+                                        dishItemsLiveData.setValue(dishResponse.getResult());
+                                        emptyDish.set(false);
+                                    }else {
+                                        emptyDish.set(true);
+
+                                    }
+
+
+
                                     Log.e("----response:---------", response.toString());
                                     getNavigator().dishListLoaded();
 
@@ -254,7 +269,8 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // Log.e("", error.getMessage());
-                                DishViewModel.this.getNavigator().dishListLoaded();
+                                emptyDish.set(true);
+                                getNavigator().dishListLoaded();
                             }
                         });
 
@@ -279,9 +295,20 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                             @Override
                             public void onResponse(DishResponse response) {
                                 if (response != null) {
-                                    dishItemsLiveData.setValue(response.getResult());
+
+
+                                    if (response.getResult().size()>0){
+                                        dishItemsLiveData.setValue(response.getResult());
+                                        emptyDish.set(false);
+
+                                    }else {
+
+                                        emptyDish.set(true);
+                                    }
+
+
                                     Log.e("----response:---------", response.toString());
-                                    DishViewModel.this.getNavigator().dishListLoaded();
+                                  getNavigator().dishListLoaded();
 
                                 }
                             }
@@ -289,7 +316,8 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // Log.e("", error.getMessage());
-                                DishViewModel.this.getNavigator().dishListLoaded();
+                                emptyDish.set(true);
+                                getNavigator().dishListLoaded();
                             }
                         });
 

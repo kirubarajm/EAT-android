@@ -60,13 +60,14 @@
                 android:layout_margin="10dp">
 
                 <com.tovo.eat.utilities.RoundCornerImageView
+                    android:visibility="@{favTodaysMenuItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
                     cusrsiveImageUrl="@{favTodaysMenuItemViewModel.image}"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY" />
 
 
-                <ImageView
+              <!--  <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentStart="true"
@@ -76,7 +77,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:src="@{favTodaysMenuItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
 
             </RelativeLayout>

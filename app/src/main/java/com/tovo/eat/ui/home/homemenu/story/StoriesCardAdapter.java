@@ -49,11 +49,17 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (item_list != null && item_list.size() > 0) {
+
+        return item_list.size() * 3;
+
+        //return Integer.MAX_VALUE;
+
+
+        /*if (item_list != null && item_list.size() > 0) {
             return item_list.size();
         } else {
             return 1;
-        }
+        }*/
     }
 
     @Override
@@ -65,8 +71,26 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    public void clearItems() {
+        item_list.clear();
+    }
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public void addItems(List<StoriesResponse.Result> blogList, Context context) {
+        item_list.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(StoriesAdapterListener listener) {
+        this.mStoriesAdapterListener = listener;
+    }
+
+    public interface StoriesAdapterListener {
+
+        void onItemClickData(StoriesResponse.Result result, int pos);
+
+    }
+
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -91,6 +115,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         StoriesItemViewModel mStoriesItemViewModel;
 
         int pos;
+
         public LiveProductsViewHolder(ListItemStoriesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
@@ -100,36 +125,18 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             pos = position;
+            /*position % item_list.size()*/
             if (item_list.isEmpty()) return;
-            final StoriesResponse.Result blog = item_list.get(position);
-            mStoriesItemViewModel = new StoriesItemViewModel(this,blog);
+            final StoriesResponse.Result blog = item_list.get(position%3);
+            mStoriesItemViewModel = new StoriesItemViewModel(this, blog);
             mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
         @Override
         public void onItemClick(StoriesResponse.Result blog) {
-            mStoriesAdapterListener.onItemClickData(blog,pos);
+            mStoriesAdapterListener.onItemClickData(blog, pos);
         }
-    }
-
-    public void clearItems() {
-        item_list.clear();
-    }
-
-    public void addItems(List<StoriesResponse.Result> blogList, Context context) {
-        item_list.addAll(blogList);
-        notifyDataSetChanged();
-    }
-
-    public void setListener(StoriesAdapterListener listener) {
-        this.mStoriesAdapterListener = listener;
-    }
-
-    public interface StoriesAdapterListener {
-
-        void onItemClickData(StoriesResponse.Result result,int pos);
-
     }
 
 }

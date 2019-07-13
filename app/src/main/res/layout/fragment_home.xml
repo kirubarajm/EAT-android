@@ -29,10 +29,10 @@
             app:cardElevation="5dp">
 
             <LinearLayout
-                android:layout_gravity="center_vertical"
                 android:id="@+id/main_tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -57,11 +57,11 @@
 
                         <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                             android:layout_width="wrap_content"
-                            android:textStyle="bold"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/medium_gray"
                             android:text="@string/deliver_now"
-                            android:textSize="12sp" />
+                            android:textColor="@color/medium_gray"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -71,14 +71,14 @@
                             android:orientation="horizontal">
 
                             <com.tovo.eat.utilities.fonts.poppins.TitleTextView
-                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{()->homeTabViewModel.selectAddress()}"
                                 android:singleLine="true"
                                 android:text="@{homeTabViewModel.addressTitle}"
                                 android:textColor="@color/black"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -112,10 +112,10 @@
 
 
                             <LinearLayout
-                                android:onClick="@{()->homeTabViewModel.vegType()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:onClick="@{()->homeTabViewModel.vegType()}"
                                 android:orientation="vertical">
 
 
@@ -129,21 +129,21 @@
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                     android:layout_width="wrap_content"
-                                    android:textStyle="bold"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@{homeTabViewModel.isVeg?@color/green:@color/dark_gray}"
                                     android:text="@string/veg_only"
-                                    android:textSize="8sp" />
+                                    android:textColor="@{homeTabViewModel.isVeg?@color/green:@color/dark_gray}"
+                                    android:textSize="8sp"
+                                    android:textStyle="bold" />
 
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:onClick="@{()->homeTabViewModel.favourites()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:gravity="center"
+                                android:onClick="@{()->homeTabViewModel.favourites()}"
                                 android:orientation="vertical">
 
 
@@ -158,11 +158,11 @@
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                     android:layout_width="wrap_content"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/dark_gray"
                                     android:layout_height="wrap_content"
                                     android:text="@string/favourites"
-                                    android:textSize="8sp" />
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="8sp"
+                                    android:textStyle="bold" />
 
 
                             </LinearLayout>
@@ -279,46 +279,44 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="7dp"
                         app:cardElevation="5dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp">
+                        app:cardUseCompatPadding="true">
 
 
                         <ImageView
-                            android:layout_margin="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/story_card"/>
+                            android:layout_margin="10dp"
+                            android:src="@drawable/story_card" />
 
 
-
-                       <!-- <com.tovo.eat.utilities.fonts.CircularStdMedium
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="2dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{homeTabViewModel.firstRegion}"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"/>
--->
+                        <!-- <com.tovo.eat.utilities.fonts.CircularStdMedium
+                             android:layout_gravity="center_horizontal|center_vertical"
+                             android:layout_margin="2dp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@{homeTabViewModel.firstRegion}"
+                             android:textColor="@color/black"
+                             android:textSize="10sp"/>
+ -->
 
 
                     </android.support.v7.widget.CardView>
 
 
-
                     <android.support.v7.widget.RecyclerView
-                        android:layout_gravity="center_vertical"
                         android:id="@+id/recycler_view_story"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="70dp"
+                        android:layout_gravity="center_vertical"
                         android:visibility="visible"
                         app:storiesadapter="@{homeTabViewModel.storiesItemViewModels}"
                         tools:listitem="@layout/list_item_stories" />
@@ -326,94 +324,136 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <RelativeLayout
-                        android:visibility="visible"
-                        android:layout_alignParentTop="true"
-                        android:id="@+id/area"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true">
+                        android:layout_height="400dp"
+                        android:visibility="@{homeTabViewModel.emptyRegion?View.VISIBLE:View.GONE}">
 
-                        <com.tovo.eat.utilities.fonts.RegionNameTextView
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:id="@+id/area1"
-                            android:layout_width="wrap_content"
-                            android:textAlignment="center"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.RegionNameTextView
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:id="@+id/area2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center_vertical|center_horizontal"/>
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_horizontal"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/empty_cart" />
+
+
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:text="No Regionals found"
+                                android:textAlignment="center"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
 
                     </RelativeLayout>
 
-                    <ImageView
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:layout_width="70dp"
-                        android:layout_height="10dp"
-                        android:layout_marginTop="1dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/divider"/>
 
-
-
-                    <FrameLayout
-                        android:visibility="visible"
-                        android:layout_marginTop="1dp"
-                        android:layout_below="@+id/area"
-                        android:id="@+id/slogan"
+                    <LinearLayout
+                        android:visibility="@{homeTabViewModel.emptyRegion?View.GONE:View.VISIBLE}"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                            android:gravity="center"
-                            android:id="@+id/slogan1"
-                            android:textColor="@color/medium_gray"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <RelativeLayout
+                            android:id="@+id/area"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            android:visibility="visible">
+
+                            <com.tovo.eat.utilities.fonts.RegionNameTextView
+                                android:id="@+id/area1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:gravity="center"
+                                android:textAlignment="center"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <com.tovo.eat.utilities.fonts.RegionNameTextView
+                                android:id="@+id/area2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:gravity="center"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="10dp"
                             android:layout_gravity="center_vertical|center_horizontal"
-                            android:textSize="14sp" />
-
-                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                            android:textColor="@color/medium_gray"
-                            android:gravity="center"
-                            android:id="@+id/slogan2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_gravity="center_vertical|center_horizontal"/>
-
-                    </FrameLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_below="@+id/slogan"
-                        android:id="@+id/recycler_view_region"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        android:layout_gravity="center_horizontal"
-                        android:visibility="visible"
-                        app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
-                        app:layoutManager="com.tovo.eat.utilities.card.CardSliderLayoutManager"
-                        tools:listitem="@layout/list_item_region_card" />
+                            android:layout_marginTop="1dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/divider" />
 
 
+                        <FrameLayout
+                            android:id="@+id/slogan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/area"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="1dp"
+                            android:visibility="visible">
+
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/slogan1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:gravity="center"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="14sp" />
+
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/slogan2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:gravity="center"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="14sp" />
+
+                        </FrameLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="350dp"
+                            android:layout_below="@+id/slogan"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="visible"
+                            app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
+                            app:layoutManager="com.tovo.eat.utilities.card.CardSliderLayoutManager"
+                            tools:listitem="@layout/list_item_region_card" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -430,10 +470,10 @@
                     android:layout_height="wrap_content">
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                        android:layout_width="wrap_content"
                         android:id="@+id/filter"
-                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:text="Kitchens near you"
@@ -443,9 +483,9 @@
 
 
                     <com.tovo.eat.utilities.fonts.TovoTextView
-                        android:layout_alignParentTop="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
@@ -468,8 +508,8 @@
                         android:background="@drawable/gradient_view_kitchen" />
 
 
-
                     <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                        android:visibility="@{homeTabViewModel.emptyKitchen?View.GONE:View.VISIBLE}"
                         android:id="@+id/recyclerview_orders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -478,6 +518,41 @@
                         android:background="@android:color/white"
                         app:adapter="@{homeTabViewModel.kitchenItemViewModels}"
                         tools:listitem="@layout/list_item_kitchens" />
+
+
+
+
+                    <LinearLayout
+                        android:visibility="@{homeTabViewModel.emptyKitchen?View.VISIBLE:View.GONE}"
+                        android:layout_marginBottom="25dp"
+                        android:layout_below="@+id/separator"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/empty_cart" />
+
+
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:text="No Regionals found"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
 
 
                 </RelativeLayout>

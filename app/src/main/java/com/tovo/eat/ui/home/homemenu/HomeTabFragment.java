@@ -44,7 +44,6 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.homemenu.story.library.ActivitySwitcher;
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
@@ -61,7 +60,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener,
-        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener,StoriesCardAdapter.StoriesAdapterListener {
+        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -77,6 +76,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     DecodeBitmapTask decodeBitmapTask;
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
+    StoriesResponse storiesFullResponse;
     private FragmentHomeBinding mFragmentHomeBinding;
     private ImageSwitcher mapSwitcher;
     private TextSwitcher temperatureSwitcher;
@@ -90,9 +90,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private int currentPosition;
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
-    StoriesResponse storiesFullResponse;
-
-
     private GoogleApiClient mGoogleApiClient;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
             .ConnectionCallbacks() {
@@ -276,6 +273,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
 
 
+     /*   SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
+        snapHelper.attachToRecyclerView(    mFragmentHomeBinding.recyclerViewStory);*/
+
+
+        //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
+
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -286,11 +289,20 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                 int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
 
+                if (regionsResponse != null)
+                    if (regionsResponse.getResult() != null)
+
+                        if (ll.findLastVisibleItemPosition() == 38) {
+
+                            mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(1);
+                        }
+
+
                 Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
                 try {
 
                     if (regionsResponse.getResult() != null)
-                        mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition).getRegionname());
+                        mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition % 3).getRegionname());
                 } catch (NullPointerException ne) {
                     ne.printStackTrace();
                 } catch (Exception x) {
@@ -549,7 +561,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void applyFilter() {
 
-        mHomeTabViewModel. fetchKitchen();
+        mHomeTabViewModel.fetchKitchen();
 
 
     }
@@ -703,7 +715,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void onItemClickData( RegionsResponse.Result mRegionList, int position) {
+    public void onItemClickData(RegionsResponse.Result mRegionList, int position) {
 
 
         final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
@@ -724,7 +736,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             intent.putExtra("id", mRegionList.getRegionid());
             intent.putExtra("tagline", mRegionList.getTagline());
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.rotate_out,R.anim.rotate_in);
+            getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
 
 
         } else if (position > activeCardPosition) {
@@ -758,17 +770,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         if (mHomeTabViewModel.regionResult.getResult().size() == activeCardPosition) {
 
 
-            Intent intent= RegionListActivity.newIntent(getContext());
-         startActivity(intent);
+            Intent intent = RegionListActivity.newIntent(getContext());
+            startActivity(intent);
 
         } else if (mHomeTabViewModel.regionResult.getResult().size() > activeCardPosition) {
             mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(mHomeTabViewModel.regionResult.getResult().size());
-              onActiveCardChange(mHomeTabViewModel.regionResult.getResult().size());
+            onActiveCardChange(mHomeTabViewModel.regionResult.getResult().size());
         }
     }
 
     @Override
-    public void onItemClickData(StoriesResponse.Result result,int pos) {
+    public void onItemClickData(StoriesResponse.Result result, int pos) {
 
         Intent intent = StatusStoriesActivity.newIntent(getContext());
         intent.putExtra("position", pos);

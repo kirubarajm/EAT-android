@@ -16,113 +16,153 @@
     </data>
 
     <RelativeLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:visibility="gone"
-            android:id="@+id/shimmer_view_container"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"
             android:orientation="vertical"
-            shimmer:duration="800">
+            android:visibility="@{kitchenViewModel.emptyKitchen?View.VISIBLE:View.GONE}">
 
-            <!-- Adding 7 rows of placeholders -->
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerInside"
+                android:src="@drawable/empty_cart" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-            </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="No Kitchens found"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
 
-        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
-            android:id="@+id/filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:text="Kitchens near you"
-            android:textColor="@color/dark_gray"
-            android:textSize="16sp" />
+        </LinearLayout>
 
 
-        <com.tovo.eat.utilities.fonts.TovoTextView
-            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@id/filter"
-            android:gravity="center"
-            android:onClick="@{()->kitchenViewModel.filter()}"
-            android:text="@string/icon_filter"
-            android:textColor="@color/dark_gray"
-            android:textSize="20sp" />
-
-
-        <View
-            android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:layout_below="@+id/filter"
-            android:background="@drawable/gradient_view_kitchen" />
-
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refreshList"
+        <RelativeLayout
+            android:visibility="@{kitchenViewModel.emptyKitchen?View.GONE:View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/separator"
-            android:layout_marginTop="10dp">
+            android:background="@color/white">
 
 
-            <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
-                android:id="@+id/recyclerview_orders"
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                shimmer:duration="800">
+
+                <!-- Adding 7 rows of placeholders -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+
+                    <include layout="@layout/list_item_loader" />
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:animateLayoutChanges="false"
-                android:nestedScrollingEnabled="false"
-                android:background="@android:color/white"
-                app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
-                tools:listitem="@layout/list_item_kitchens" />
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="Kitchens near you"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}" />
 
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@id/filter"
+                android:gravity="center"
+                android:onClick="@{()->kitchenViewModel.filter()}"
+                android:text="@string/icon_filter"
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"
+                android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}" />
 
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_below="@+id/filter"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/gradient_view_kitchen"
+                android:visibility="@{kitchenViewModel.favFragment?View.VISIBLE:View.GONE}" />
+
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/separator"
+                android:layout_marginTop="10dp">
+
+
+                <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                    android:id="@+id/recyclerview_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:animateLayoutChanges="false"
+                    android:background="@android:color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
+                    tools:listitem="@layout/list_item_kitchens" />
+
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 </layout>

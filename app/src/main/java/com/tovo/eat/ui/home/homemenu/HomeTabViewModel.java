@@ -39,6 +39,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public final ObservableField<String> firstRegion = new ObservableField<>();
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public ObservableBoolean isVeg = new ObservableBoolean();
+    public ObservableBoolean emptyRegion = new ObservableBoolean();
+    public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
     public RegionsResponse regionResult;
@@ -56,7 +58,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         regionItemsLiveData = new MutableLiveData<>();
         storiesItemsLiveData = new MutableLiveData<>();
         fetchKitchen();
-        fetchRepos(0);
+        fetchRepos(getDataManager().getRegionId());
         fetchStories();
 
         if (getDataManager().getVegType().equalsIgnoreCase("1")) {
@@ -138,14 +140,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
                         try {
-                            regionResult = response;
+                            if (response.getResult().size() > 0) {
+                                emptyRegion.set(false);
+                                getNavigator().storiesLoaded(response);
+                                regionItemsLiveData.setValue(response.getResult());
 
-                            getNavigator().storiesLoaded(response);
-
-
-                            regionItemsLiveData.setValue(response.getResult());
-
+                            }else {
+                                emptyRegion.set(true);
+                            }
                             Log.e("Region----response:", response.toString());
+
+                            regionResult = response;
 
 
                         } catch (Exception ee) {
@@ -155,6 +160,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         }
                     }
                 }
+
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {

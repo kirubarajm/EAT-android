@@ -15,6 +15,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderDetailsBinding;
 import com.tovo.eat.databinding.ActivityOrderHelpBinding;
+import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseActivity;
@@ -59,6 +60,10 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void gotoSupport() {
+
+        Intent intent= SupportActivity.newIntent(OrderHelpActivity.this);
+        startActivity(intent);
+
 
     }
 

@@ -35,6 +35,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
 
     public ObservableBoolean favFragment=new ObservableBoolean();
+    public ObservableBoolean emptyKitchen=new ObservableBoolean();
 
 
 
@@ -251,11 +252,22 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             public void onResponse(JSONObject response) {
 
                                 if (response != null) {
+
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
-                                    kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+                                    if (kitchenResponse.getResult().size()>0){
+                                        emptyKitchen.set(false);
+                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+                                    }else {
+
+                                        emptyKitchen.set(true);
+                                    }
+
+
                                     Log.e("Kitchen----response:", response.toString());
 
 

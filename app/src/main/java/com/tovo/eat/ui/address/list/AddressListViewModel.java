@@ -2,6 +2,7 @@ package com.tovo.eat.ui.address.list;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -25,6 +26,14 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
     public ObservableList<AddressListResponse.Result> addrressListItemViewModels = new ObservableArrayList<>();
+
+
+
+    public ObservableBoolean emptyAddress=new ObservableBoolean();
+
+
+
+
     boolean haveAddress = false;
     private MutableLiveData<List<AddressListResponse.Result>> addrressListItemsLiveData;
 
@@ -177,8 +186,11 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                             getNavigator().noAddress();
 
 
-                        } else {
+                            emptyAddress.set(true);
 
+
+                        } else {
+                            emptyAddress.set(false);
                             addrressListItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", response.toString());
 

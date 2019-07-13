@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.orderhistory.historylist;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
@@ -22,6 +23,13 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
     public ObservableList<OrdersHistoryListResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<OrdersHistoryListResponse.Result>> ordersItemsLiveData;
     public final ObservableField<String> makeItLocality = new ObservableField<>();
+
+
+
+    public ObservableBoolean emptyHistory=new ObservableBoolean();
+
+
+
 
     public OrderHistoryActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -55,13 +63,16 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                 @Override
                 public void onResponse(OrdersHistoryListResponse response) {
                     try {
-                        if (response != null && response.getResult() != null) {
+                        if ( response.getResult().size() >0) {
+                            emptyHistory.set(false);
                             ordersItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             if (val == 0) {
                                 setIsLoading(false);
                             }
                             getNavigator().onRefreshSuccess();
+                        }else {
+                            emptyHistory.set(true);
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -70,6 +81,7 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    emptyHistory.set(true);
                     try {
                         if (val == 0) {
                             setIsLoading(false);

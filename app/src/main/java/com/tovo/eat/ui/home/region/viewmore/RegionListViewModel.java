@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.region.viewmore;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
@@ -27,7 +28,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
     public final ObservableField<String> identityImage = new ObservableField<>();
     public final ObservableField<String> spclFoodImage = new ObservableField<>();
 
-
+public ObservableBoolean emptyRegion=new ObservableBoolean();
 
     public ObservableList<RegionsResponse.Result> regionResults = new ObservableArrayList<>();
     private MutableLiveData<List<RegionsResponse.Result>> regionListItemsLiveData;
@@ -78,8 +79,8 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {
 
-                        if (response.getResult().size() != 0) {
-
+                        if (response.getResult().size() >0) {
+                            emptyRegion.set(false);
                             regionListItemsLiveData.setValue(response.getResult());
 
                             regionName.set(response.getResult().get(0).getRegionname());
@@ -87,6 +88,9 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
                             getNavigator().listLoaded();
+                        }else {
+
+                            emptyRegion.set(true);
                         }
 
                     }
@@ -95,6 +99,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    emptyRegion.set(true);
                     getNavigator().listLoaded();
                 }
             });

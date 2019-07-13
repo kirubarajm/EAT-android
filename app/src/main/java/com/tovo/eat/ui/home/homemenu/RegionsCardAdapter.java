@@ -67,18 +67,20 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
 
+        if (position != 0) {
+            if (position == item_list.size()) {
+                return VIEW_TYPE_MORE;
 
-        if (position == item_list.size()) {
-            return VIEW_TYPE_MORE;
-
-        } else {
-            if (item_list != null && !item_list.isEmpty()) {
-                return VIEW_TYPE_NORMAL;
             } else {
-                return VIEW_TYPE_EMPTY;
+                if (item_list != null && !item_list.isEmpty()) {
+                    return VIEW_TYPE_NORMAL;
+                } else {
+                    return VIEW_TYPE_EMPTY;
+                }
             }
+        }else {
+            return VIEW_TYPE_EMPTY;
         }
-
 
     }
 
@@ -103,7 +105,7 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData( RegionsResponse.Result mRegionList, int position);
+        void onItemClickData(RegionsResponse.Result mRegionList, int position);
 
         void showMore(Integer regionId);
 
@@ -199,7 +201,7 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick( RegionsResponse.Result mRegionList, int position) {
+        public void onItemClick(RegionsResponse.Result mRegionList, int position) {
             mLiveProductsAdapterListener.onItemClickData(mRegionList, position);
 
 

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.address.select;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -25,9 +26,8 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
 
     public ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels = new ObservableArrayList<>();
-
+    public ObservableBoolean emptyAddress = new ObservableBoolean();
     private MutableLiveData<List<SelectAddressListResponse.Result>> selectAddrressListItemsLiveData;
-
 
     public SelectAddressListViewModel(DataManager dataManager) {
         super(dataManager);
@@ -80,14 +80,13 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
     }
 
-    public void defaultAddress(Integer aid ){
+    public void defaultAddress(Integer aid) {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class, new DefaultAddressRequest(getDataManager().getCurrentUserId(), aid), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
-
 
 
                 }
@@ -104,7 +103,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -153,8 +151,10 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
                             getNavigator().listLoaded();
 
-                        } else {
+                            emptyAddress.set(true);
 
+                        } else {
+                            emptyAddress.set(false);
                             selectAddrressListItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", response.toString());
 

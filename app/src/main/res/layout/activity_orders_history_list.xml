@@ -59,7 +59,41 @@
 
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            android:visibility="@{ordersHistoryViewModel.emptyHistory?View.VISIBLE:View.GONE}">
+
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerInside"
+                android:src="@drawable/empty_cart" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="No Kitchens found"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+
         <android.support.v4.widget.SwipeRefreshLayout
+            android:visibility="@{ordersHistoryViewModel.emptyHistory?View.GONE:View.VISIBLE}"
             android:id="@+id/swipe_orders_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
