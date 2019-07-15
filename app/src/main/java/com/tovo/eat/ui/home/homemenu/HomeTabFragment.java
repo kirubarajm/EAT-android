@@ -191,7 +191,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void storiesLoaded(RegionsResponse regionResponse) {
+    public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
         initCountryText();
     }
@@ -236,6 +236,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
+
+
+        regionsResponse=new RegionsResponse();
+
 
         if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
@@ -602,21 +606,20 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         //  mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
         // mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+        if (mHomeTabViewModel.regionResult != null) {
+            countryAnimDuration = 350;
+            countryOffset1 = getResources().getDimensionPixelSize(R.dimen.left_offset);
+            countryOffset2 = getResources().getDimensionPixelSize(R.dimen.card_width);
+            // mFragmentHomeBinding.area1.setX(countryOffset1);
+            // mFragmentHomeBinding.area2.setX(countryOffset2);
+            mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
+            mFragmentHomeBinding.area2.setAlpha(0f);
 
-
-        countryAnimDuration = 350;
-        countryOffset1 = getResources().getDimensionPixelSize(R.dimen.left_offset);
-        countryOffset2 = getResources().getDimensionPixelSize(R.dimen.card_width);
-        // mFragmentHomeBinding.area1.setX(countryOffset1);
-        // mFragmentHomeBinding.area2.setX(countryOffset2);
-        mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
-        mFragmentHomeBinding.area2.setAlpha(0f);
-
-        //   mFragmentHomeBinding.slogan1.setX(countryOffset1);
-        //  mFragmentHomeBinding.slogan2.setX(countryOffset2);
-        mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getTagline());
-        mFragmentHomeBinding.slogan2.setAlpha(0f);
-
+            //   mFragmentHomeBinding.slogan1.setX(countryOffset1);
+            //  mFragmentHomeBinding.slogan2.setX(countryOffset2);
+            mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getTagline());
+            mFragmentHomeBinding.slogan2.setAlpha(0f);
+        }
 
     }
 
