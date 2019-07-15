@@ -16,7 +16,7 @@ public interface HomeTabNavigator {
     void disconnectGps();
     void loaded();
 
-    void storiesLoaded(RegionsResponse regionResponse);
+    void regionsLoaded(RegionsResponse regionResponse);
 
     void goBack();
 

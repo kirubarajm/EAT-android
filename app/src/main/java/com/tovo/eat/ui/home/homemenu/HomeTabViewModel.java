@@ -142,7 +142,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         try {
                             if (response.getResult().size() > 0) {
                                 emptyRegion.set(false);
-                                getNavigator().storiesLoaded(response);
+                               // getNavigator().storiesLoaded(response);
                                 regionItemsLiveData.setValue(response.getResult());
 
                             }else {

@@ -375,9 +375,6 @@
                             android:id="@+id/area"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerVertical="true"
                             android:visibility="visible">
 
                             <com.tovo.eat.utilities.fonts.RegionNameTextView
@@ -446,7 +443,6 @@
                             android:id="@+id/recycler_view_region"
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
-                            android:layout_below="@+id/slogan"
                             android:layout_gravity="center_horizontal"
                             android:visibility="visible"
                             app:cardadapter="@{homeTabViewModel.regionItemViewModels}"

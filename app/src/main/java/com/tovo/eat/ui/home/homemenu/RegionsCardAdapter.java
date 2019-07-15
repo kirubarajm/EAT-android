@@ -67,10 +67,12 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
 
-        if (position != 0) {
+
+     //   return VIEW_TYPE_NORMAL;
+
+        /*if (position != 0) {*/
             if (position == item_list.size()) {
                 return VIEW_TYPE_MORE;
-
             } else {
                 if (item_list != null && !item_list.isEmpty()) {
                     return VIEW_TYPE_NORMAL;
@@ -78,9 +80,9 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     return VIEW_TYPE_EMPTY;
                 }
             }
-        }else {
+       /* }else {
             return VIEW_TYPE_EMPTY;
-        }
+        }*/
 
     }
 
