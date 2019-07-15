@@ -181,7 +181,6 @@
             </intent-filter>
         </receiver>
 
-
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_3cduMl5T89iR9G"

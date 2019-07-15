@@ -102,7 +102,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
                     emptyRegion.set(true);
                     getNavigator().listLoaded();
                 }
-            });
+            },AppConstants.API_VERSION_TWO);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

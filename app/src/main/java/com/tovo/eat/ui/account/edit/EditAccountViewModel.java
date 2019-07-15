@@ -75,7 +75,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 setIsLoading(false);
                 getNavigator().genderFailure("Failed to update");
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 
@@ -108,7 +108,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

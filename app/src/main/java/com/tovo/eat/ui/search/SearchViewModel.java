@@ -175,7 +175,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
 
                     }
-                });
+                },AppConstants.API_VERSION_ONE);
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
             } catch (NullPointerException e) {
@@ -270,7 +270,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -308,7 +308,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -430,7 +430,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().listLoaded();
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

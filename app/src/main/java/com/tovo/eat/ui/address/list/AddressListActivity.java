@@ -165,7 +165,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     }
 
     @Override
-    public void deleteAddress(Integer aid) {
+    public void deleteAddress(AddressListResponse.Result addressList) {
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
@@ -177,8 +177,15 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        mAddressListViewModel.deleteAddress(aid);
+                        mAddressListViewModel.deleteAddress(addressList.getAid());
                         //   mAddressListViewModel.fetchRepos();
+
+                        if (addressList.getAddressType().equals("1")){
+                            mAddressListViewModel.getDataManager().setHomeAddressAdded(false);
+                        }else
+                        if (addressList.getAddressType().equals("2")){
+                            mAddressListViewModel.getDataManager().setOfficeAddressAdded(false);
+                        }
 
                     }
                 });

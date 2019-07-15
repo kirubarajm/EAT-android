@@ -423,7 +423,7 @@ public class KitchenDetailsItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -455,7 +455,7 @@ public class KitchenDetailsItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

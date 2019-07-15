@@ -1,35 +1,32 @@
 package com.tovo.eat.ui.track.help;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityOrderDetailsBinding;
 import com.tovo.eat.databinding.ActivityOrderHelpBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
-import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
-import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 
 import javax.inject.Inject;
 
-public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator{
+public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener {
 
     @Inject
     OrderHelpViewModel mOrderHelpViewModel;
     ActivityOrderHelpBinding mActivityOrderHelpBinding;
     String strOrderId;
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, OrderHelpActivity.class);
@@ -44,7 +41,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void goBack() {
-       finish();
+        finish();
     }
 
     @Override
@@ -61,7 +58,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void gotoSupport() {
 
-        Intent intent= SupportActivity.newIntent(OrderHelpActivity.this);
+        Intent intent = SupportActivity.newIntent(OrderHelpActivity.this);
         startActivity(intent);
 
 
@@ -70,8 +67,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void orderCanceled() {
 
-        Intent intent= MainActivity.newIntent(OrderHelpActivity.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent intent = MainActivity.newIntent(OrderHelpActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
         Toast.makeText(this, "Order canceled", Toast.LENGTH_SHORT).show();
@@ -112,14 +109,90 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
-             mOrderHelpViewModel.deliveryName.set(getIntent().getExtras().getString("name"));
-             mOrderHelpViewModel.deliveryNumber.set(getIntent().getExtras().getString("number"));
-             mOrderHelpViewModel.deliveryAssigned.set(getIntent().getExtras().getBoolean(   "status"));
+        if (bundle != null) {
+            mOrderHelpViewModel.deliveryName.set(getIntent().getExtras().getString("name"));
+            mOrderHelpViewModel.deliveryNumber.set(getIntent().getExtras().getString("number"));
+            mOrderHelpViewModel.deliveryAssigned.set(getIntent().getExtras().getBoolean("status"));
         }
 
 
+        mActivityOrderHelpBinding.cancelReason1.setOnTouchListener(this);
+        mActivityOrderHelpBinding.cancelReason2.setOnTouchListener(this);
+        mActivityOrderHelpBinding.cancelReason3.setOnTouchListener(this);
+
+
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        int id = v.getId();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                v.setBackgroundColor(getResources().getColor(R.color.light_eat_color));
+                break;
+            case MotionEvent.ACTION_UP:
+                v.setBackgroundColor(getResources().getColor(R.color.gray));
+                //set color back to default
+
+                showAlert(id);
+                /*
+                switch (id) {
+                    case R.id.cancel_reason1:
+                        //    mOrderHelpViewModel.cancelOrder1();
+                        break;
+                    case R.id.cancel_reason2:
+                        //  mOrderHelpViewModel.cancelOrder2();
+                        break;
+                    case R.id.cancel_reason3:
+                        //  mOrderHelpViewModel.cancelOrder3();
+                        break;
+
+                }*/
+                break;
+        }
+        return true;
+    }
+
+
+    public void showAlert(int id) {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(OrderHelpActivity.this).create();
+        alertDialog.setTitle("Are you sure want cancel this order?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        switch (id) {
+                            case R.id.cancel_reason1:
+                                    mOrderHelpViewModel.cancelOrder1();
+                                break;
+                            case R.id.cancel_reason2:
+                                 mOrderHelpViewModel.cancelOrder2();
+                                break;
+                            case R.id.cancel_reason3:
+                                  mOrderHelpViewModel.cancelOrder3();
+                                break;
+
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+
+    }
+
 
 }
 

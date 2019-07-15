@@ -68,7 +68,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                         e.printStackTrace();
                     }
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

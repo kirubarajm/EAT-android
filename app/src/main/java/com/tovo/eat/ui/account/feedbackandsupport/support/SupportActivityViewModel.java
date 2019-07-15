@@ -89,7 +89,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                 }
                 getNavigator().onRefreshSuccess();
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 
@@ -124,7 +124,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                 setIsLoading(false);
                 getNavigator().failure("Failed to insert");
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 

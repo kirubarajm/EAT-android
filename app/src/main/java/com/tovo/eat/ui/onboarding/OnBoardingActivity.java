@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOnboardingBinding;
@@ -22,10 +25,8 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
-import com.tovo.eat.ui.splash.SplashActivity;
 
 import javax.inject.Inject;
-
 
 
 public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, OnBoardingActivityViewModel>
@@ -204,10 +205,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         finish();*/
 
 
-
-
-
-
     }
 
     /**
@@ -236,6 +233,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
+
 
             return view;
         }

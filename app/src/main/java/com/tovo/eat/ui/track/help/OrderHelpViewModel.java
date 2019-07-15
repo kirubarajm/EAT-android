@@ -137,7 +137,7 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                     setIsLoading(false);
                     getNavigator().orderCancelFailed();
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 

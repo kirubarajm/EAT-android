@@ -52,7 +52,7 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 
@@ -88,7 +88,7 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 
@@ -118,7 +118,7 @@ public class ForgotPasswordActivityViewModel extends BaseViewModel<ForgotPasswor
                 setIsLoading(false);
                 getNavigator().confirmPassFailre();
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 

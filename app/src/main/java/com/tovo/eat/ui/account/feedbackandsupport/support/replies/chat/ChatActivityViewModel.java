@@ -79,7 +79,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                     e.printStackTrace();
                 }
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 
@@ -112,7 +112,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                 setIsLoading(false);
                 getNavigator().sendSuccess(strMessage);
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 

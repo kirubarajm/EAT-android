@@ -379,6 +379,7 @@
 
                             <com.tovo.eat.utilities.fonts.RegionNameTextView
                                 android:id="@+id/area1"
+                                android:text="@{homeTabViewModel.region1}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
@@ -389,6 +390,7 @@
                                 android:textStyle="bold" />
 
                             <com.tovo.eat.utilities.fonts.RegionNameTextView
+                                android:text="@{homeTabViewModel.region2}"
                                 android:id="@+id/area2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -420,6 +422,7 @@
                             android:visibility="visible">
 
                             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:text="@{homeTabViewModel.slogan1}"
                                 android:id="@+id/slogan1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -430,6 +433,7 @@
 
                             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:id="@+id/slogan2"
+                                android:text="@{homeTabViewModel.slogan2}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical|center_horizontal"
@@ -486,12 +490,11 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
                         android:layout_toStartOf="@id/filter"
-                        android:gravity="center"
+                        android:padding="5dp"
                         android:onClick="@{()->homeTabViewModel.filter()}"
                         android:text="@string/icon_filter"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
-
+                        android:textSize="18sp" />
 
                     <View
                         android:id="@+id/separator"

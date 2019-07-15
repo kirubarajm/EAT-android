@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="colorPrimary">@color/primary_new</item>
-        <item name="colorPrimaryDark">@color/red</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/eat_color</item>
         <item name="android:textColorPrimary">@color/black_effective</item>
         <item name="android:textColor">@color/black_effective</item>
         <item name="android:windowBackground">@color/bg_color</item>

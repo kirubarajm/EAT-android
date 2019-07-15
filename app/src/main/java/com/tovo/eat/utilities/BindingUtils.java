@@ -16,11 +16,13 @@
 
 package com.tovo.eat.utilities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -202,6 +204,25 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter("touchListener")
+    public void setTouchListener(View self,boolean value){
+        self.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                // Check if the button is PRESSED
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    //do some thing
+                    view.setBackgroundColor(R.color.eat_color);
+
+                }// Check if the button is RELEASED
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //do some thing
+                }
+                return false;
+            }
+        });
+    }
 
     @BindingAdapter({"foodBadgesadapter"})
     public static void addFoodBadgesCardItems(RecyclerView recyclerView, List<KitchenDishResponse.Foodbadge> response) {

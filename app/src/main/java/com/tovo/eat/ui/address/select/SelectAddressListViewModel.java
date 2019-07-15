@@ -96,7 +96,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -168,7 +168,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

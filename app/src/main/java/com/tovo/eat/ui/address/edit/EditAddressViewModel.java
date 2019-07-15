@@ -260,7 +260,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                     }
-                });
+                },AppConstants.API_VERSION_ONE);
 
 
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -330,7 +330,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
             }
-        });
+        },AppConstants.API_VERSION_ONE);
 
 
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -352,7 +352,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

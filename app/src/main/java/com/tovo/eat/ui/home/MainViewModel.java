@@ -270,7 +270,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     setIsLoading(false);
                     isLiveOrder.set(false);
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
@@ -302,7 +302,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -479,7 +479,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     //  Log.e("", error.getMessage());
                     setIsLoading(false);
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {

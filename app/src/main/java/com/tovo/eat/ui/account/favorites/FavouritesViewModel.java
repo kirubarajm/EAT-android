@@ -112,7 +112,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -148,7 +148,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

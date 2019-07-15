@@ -90,7 +90,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                     setIsLoading(false);
                     getNavigator().genderFailure("Failed to update");
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -119,7 +119,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

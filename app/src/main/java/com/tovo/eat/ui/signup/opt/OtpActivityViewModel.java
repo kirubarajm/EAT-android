@@ -43,50 +43,50 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber, strPassword), new Response.Listener<LoginResponse>() {
-            @Override
-            public void onResponse(LoginResponse response) {
-                if (response != null) {
-                    if (response.getStatus()) {
-                        if (response.getResult() != null && response.getResult().size() > 0) {
-                            try {
-                                int userId = response.getResult().get(0).getUserid();
-                                String UserName = response.getResult().get(0).getName();
-                                String UserEmail = response.getResult().get(0).getEmail();
-                                String userPhoneNumber = response.getResult().get(0).getPhoneno();
-                                String userReferralCode = response.getResult().get(0).getPhoneno();
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOGIN_MAIN, LoginResponse.class, new LoginRequest(strPhoneNumber, strPassword), new Response.Listener<LoginResponse>() {
+                @Override
+                public void onResponse(LoginResponse response) {
+                    if (response != null) {
+                        if (response.getStatus()) {
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+                                try {
+                                    int userId = response.getResult().get(0).getUserid();
+                                    String UserName = response.getResult().get(0).getName();
+                                    String UserEmail = response.getResult().get(0).getEmail();
+                                    String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                    String userReferralCode = response.getResult().get(0).getPhoneno();
 
-                                getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                    getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
-                                if (response.getResult().get(0).getAid()!=null) {
-                                    getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
-                                    getDataManager().setCurrentLat(response.getResult().get(0).getLat());
-                                    getDataManager().setCurrentLng(response.getResult().get(0).getLon());
-                                    getDataManager().setAddressId(response.getResult().get(0).getAid());
-                                    getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
+                                    if (response.getResult().get(0).getAid() != null) {
+                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                        getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                        getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                        getDataManager().setAddressId(response.getResult().get(0).getAid());
+                                        getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
 
+                                    }
+                                    getNavigator().loginSuccess();
+
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
                                 }
-                                getNavigator().loginSuccess();
-
-                            } catch (NumberFormatException e) {
-                                e.printStackTrace();
                             }
+                        } else {
+                            getNavigator().loginFailure();
                         }
-                    } else {
-                        getNavigator().loginFailure();
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().loginFailure();
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().loginFailure();
+                }
+            },AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -102,77 +102,73 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         try {
 
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
-            @Override
-            public void onResponse(OtpResponse response) {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
+                @Override
+                public void onResponse(OtpResponse response) {
 
-                try {
-                    int CurrentuserId = 0;
+                    try {
+                        int CurrentuserId = 0;
 
-                    if (response != null) {
+                        if (response != null) {
 
-                        if (response.getStatus() != null)
-                            if (response.getStatus()) {
-                                passwordstatus = response.getPasswordstatus();
-                                otpStatus = response.getOtpstatus();
-                                genderstatus = response.getGenderstatus();
+                            if (response.getStatus() != null)
+                                if (response.getStatus()) {
+                                    passwordstatus = response.getPasswordstatus();
+                                    otpStatus = response.getOtpstatus();
+                                    genderstatus = response.getGenderstatus();
 
-                                getDataManager().updateEmailStatus(response.getEmailstatus());
+                                    getDataManager().updateEmailStatus(response.getEmailstatus());
 
-                                userId.set(String.valueOf(response.getUserid()));
-                                CurrentuserId = response.getUserid();
+                                    userId.set(String.valueOf(response.getUserid()));
+                                    CurrentuserId = response.getUserid();
 
 
-                                getDataManager().saveRegionId(response.getRegionid());
+                                    if (response.getRegionid() == null) {
+                                        getDataManager().saveRegionId(0);
+                                    }else {
+                                        getDataManager().saveRegionId(response.getRegionid());
+                                    }
 
-                                if (response.getResult().size() != 0) {
-                                    getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
-                                    getDataManager().setCurrentLat(response.getResult().get(0).getLat());
-                                    getDataManager().setCurrentLng(response.getResult().get(0).getLon());
-                                    getDataManager().setAddressId(response.getResult().get(0).getAid());
 
-                                }
+                                    if (response.getResult().size() > 0) {
+                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                        getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                        getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                        getDataManager().setAddressId(response.getResult().get(0).getAid());
+                                        getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
 
-                                getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+                                    }
 
-                                if (genderstatus) {
-                                    getNavigator().openHomeActivity(true);
+                                    getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
+
+                                    if (genderstatus) {
+                                        getNavigator().openHomeActivity(true);
+                                    } else {
+                                        getNavigator().nameGenderScreen();
+                                    }
+
+
                                 } else {
-                                    getNavigator().nameGenderScreen();
+                                    getNavigator().loginFailure();
                                 }
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    } catch (Exception ee) {
 
-
-                                if (response.getResult().get(0).getAid()!=null) {
-                                    getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
-                                    getDataManager().setCurrentLat(response.getResult().get(0).getLat());
-                                    getDataManager().setCurrentLng(response.getResult().get(0).getLon());
-                                    getDataManager().setAddressId(response.getResult().get(0).getAid());
-                                    getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
-
-                                }
-
-
-                            } else {
-                                getNavigator().loginFailure();
-                            }
+                        ee.printStackTrace();
                     }
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (Exception ee) {
 
-                    ee.printStackTrace();
                 }
-
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            },AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -181,8 +177,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
     public void goBack() {
-
-
         getNavigator().goBack();
     }
 
@@ -192,26 +186,26 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         try {
 
 
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
-            @Override
-            public void onResponse(CommonResponse response) {
-                if (response != null) {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
 
-                    if (response.isStatus()) {
+                        if (response.isStatus()) {
 
 
+                        }
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-            }
-        });
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                }
+            },AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 

@@ -93,7 +93,7 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
                     getNavigator().onRefreshFailure();
                 }
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 

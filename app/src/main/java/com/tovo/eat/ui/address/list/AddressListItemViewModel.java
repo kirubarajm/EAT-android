@@ -67,7 +67,7 @@ public class AddressListItemViewModel {
 
     public void deleteAddress(){
 
-        mListener.deleteAddress(addressList.getAid());
+        mListener.deleteAddress(addressList);
     }
 
 
@@ -94,8 +94,7 @@ public class AddressListItemViewModel {
 
         void onItemClick(AddressListResponse.Result result);
         void editAddress(AddressListResponse.Result result);
-
-         void deleteAddress(Integer aid);
+         void deleteAddress(AddressListResponse.Result addressList);
          void homeAddressAdded();
          void officeAddressAdded();
 
