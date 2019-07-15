@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,12 +40,14 @@ import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesActivity;
+import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -101,7 +104,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             request.setFastestInterval(1000);
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-
             try {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -110,16 +112,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         request, HomeTabFragment.this::onLocationChanged);
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
-
         }
 
         @Override
         public void onConnectionSuspended(int reason) {
             // TODO: Handle gracefully
         }
-
 
     };
 
@@ -238,7 +237,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
 
-        regionsResponse=new RegionsResponse();
+        regionsResponse = new RegionsResponse();
 
 
         if (mHomeTabViewModel.isAddressAdded()) {
@@ -785,10 +784,21 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        Intent intent = StatusStoriesActivity.newIntent(getContext());
+        /*Intent intent = MainActivity.newIntent(getContext());
         intent.putExtra("position", pos);
         intent.putExtra("fullStories", storiesFullResponse);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        /*Bundle bundle = new Bundle();
+        bundle.putSerializable("fullStories", storiesFullResponse);
+        bundle.putInt("position",pos);
+        StatusStoriesFragment fragment = new StatusStoriesFragment();
+        fragment.setArguments(bundle);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();*/
+
 /*
         ActivitySwitcher.animationOut(getView().findViewById(R.id.homemain), getActivity().getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
             @Override
@@ -797,6 +807,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 */
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        StatusStoriesFragment fragment = new StatusStoriesFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("fullStories", storiesFullResponse);
+        args.putInt("position",pos);
+        fragment.setArguments(args);
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commitNow();
     }
 
     private class OnCardClickListener implements View.OnClickListener {
