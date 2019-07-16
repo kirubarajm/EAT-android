@@ -380,7 +380,7 @@
                             <com.tovo.eat.utilities.fonts.RegionNameTextView
                                 android:id="@+id/area1"
                                 android:text="@{homeTabViewModel.region1}"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_gravity="center_vertical|center_horizontal"

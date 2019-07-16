@@ -37,6 +37,7 @@ public class FavTodaysMenuItemViewModel {
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
@@ -63,10 +64,13 @@ public class FavTodaysMenuItemViewModel {
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
         if(dishList.getVegtype().equals("1")){
-            this.producttype.set(dishList.getCuisinename()+" | Non-Veg");
+            this.producttype.set(dishList.getCuisinename());
+            this.isVeg.set(false);
+
 
         }else {
-            this.producttype.set(dishList.getCuisinename()+" | Veg");
+            this.producttype.set(dishList.getCuisinename());
+            this.isVeg.set(true);
         }
 
 

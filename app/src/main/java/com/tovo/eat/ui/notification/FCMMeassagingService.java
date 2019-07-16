@@ -161,8 +161,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                     break;
                 default:
                     intent = new Intent(this, MainActivity.class);
-
-
             }
 
 

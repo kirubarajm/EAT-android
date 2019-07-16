@@ -37,6 +37,7 @@ public class TodaysMenuItemViewModel {
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
@@ -64,11 +65,15 @@ public class TodaysMenuItemViewModel {
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
         if(dishList.getVegtype().equals("1")){
-            this.producttype.set(dishList.getCuisinename()+" | Non-Veg");
+            this.producttype.set(dishList.getCuisinename());
+            this.isVeg.set(false);
+
 
         }else {
-            this.producttype.set(dishList.getCuisinename()+" | Veg");
+            this.producttype.set(dishList.getCuisinename());
+            this.isVeg.set(true);
         }
+
 
 
         if (dishList.getProductimage()!=null){
@@ -141,12 +146,11 @@ public class TodaysMenuItemViewModel {
                 isAddClicked.set(false);
             }
 
-        if (dishList.getIsfav().equals("0")) {
-            this.isFavourite.set(false);
-        } else {
+        if (dishList.getIsfav()==1) {
             this.isFavourite.set(true);
+        } else {
+            this.isFavourite.set(false);
         }
-
 
     }
 

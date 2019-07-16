@@ -12,12 +12,46 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:id="@+id/order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Orders" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grill chicken, Pepper chicken" />
+
+
+        </LinearLayout>
+
+
+
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:layout_below="@+id/order"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/txt_how_was_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +75,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.foodLow()}"
                 android:text="@string/smiley_low"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
             <com.tovo.eat.utilities.fonts.TovoTextView
                 android:id="@+id/smiley_food_medium"
@@ -51,7 +85,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.foodMedium()}"
                 android:text="@string/smiley_medium"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
             <com.tovo.eat.utilities.fonts.TovoTextView
                 android:id="@+id/smiley_food_high"
@@ -61,7 +95,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.foodHigh()}"
                 android:text="@string/smiley_high"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -71,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/how_was_delivery" />
@@ -92,7 +126,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.deliveryLow()}"
                 android:text="@string/smiley_low"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
             <com.tovo.eat.utilities.fonts.TovoTextView
                 android:id="@+id/smiley_delivery_medium"
@@ -102,7 +136,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.deliveryMedium()}"
                 android:text="@string/smiley_medium"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
             <com.tovo.eat.utilities.fonts.TovoTextView
                 android:id="@+id/smiley_delivery_high"
@@ -112,7 +146,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.deliveryHigh()}"
                 android:text="@string/smiley_high"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -121,12 +155,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_2"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:padding="10dp">
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/txt_how_can_we_met_exceptation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,12 +187,12 @@
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/txt_how_was_your_delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_suggestion"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:gravity="left|center"
                 android:text="@string/how_was_your_delivery" />
 
@@ -183,20 +217,41 @@
 
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                android:layout_alignParentBottom="true"
+                android:id="@+id/submit"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/rel_main"
                 android:padding="5dp"
                 android:gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="30sp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/curve_stroke"
                 android:onClick="@{()->orderRatingViewModel.submitClick()}"
                 android:text="@string/submit"
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
+
+        <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/submit"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curve_stroke"
+            android:onClick="@{()->orderRatingViewModel.submitClick()}"
+            android:text="May be later"
+            android:textAllCaps="true"
+            android:textColor="@color/eat_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

@@ -280,7 +280,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = EditAccountModule.class)
     abstract EditAccountActivity bindEditAccountActivity();
 
-    @ContributesAndroidInjector(modules = StoriesActivityModule.class)
+    @ContributesAndroidInjector(modules = {StoriesActivityModule.class,StatusStoriesProvider.class})
     abstract StoriesActivity bindStoriesActivity();
 
 
