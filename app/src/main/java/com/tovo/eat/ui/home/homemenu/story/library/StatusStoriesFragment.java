@@ -36,7 +36,8 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBinding,StatusStoriesFramentViewModel> implements StatusStoriesNavigator  {
+public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBinding,StatusStoriesFramentViewModel> implements
+        StatusStoriesNavigator,StoryStatusView.UserInteractionListener  {
 
     private static StoryStatusView storyStatusView;
     private static boolean isTextEnabled = true;
@@ -59,6 +60,9 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     FragmentStatusStoriesBinding mFragmentStatusStoriesBinding;
     @Inject
     StatusStoriesFramentViewModel mStatusStoriesFramentViewModel;
+
+    static int pos;
+    TextView textView;
 
     public static StatusStoriesFragment newInstance() {
         Bundle args = new Bundle();
@@ -86,14 +90,12 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mStatusStoriesFramentViewModel.setNavigator(this);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentStatusStoriesBinding = getViewDataBinding();
-
 
         if (getArguments() != null) {
             storiesFullResponse = (StoriesResponse) getArguments().getSerializable("fullStories");
@@ -103,7 +105,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
         isImmersive = true;
         isCaching = true;
         isTextEnabled = true;
-        MyViewPagerAdapter adapter = new MyViewPagerAdapter(storiesResponse, getActivity());
+        /*MyViewPagerAdapter adapter = new MyViewPagerAdapter(storiesResponse, getActivity());
         ViewPager pager = view.findViewById(R.id.pager);
         pager.setPageTransformer(true, new CubeTransformer());
         pager.setAdapter(adapter);
@@ -156,7 +158,198 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
 
             }
         };
-        pager.addOnPageChangeListener(viewPagerPageChangeListener);
+        pager.addOnPageChangeListener(viewPagerPageChangeListener);*/
+
+        image = view.findViewById(R.id.image_stories);
+        View reverseClick = view.findViewById(R.id.reverse);
+        View skipClick = view.findViewById(R.id.skip);
+        txtProgress = view.findViewById(R.id.textView);
+        View actions = view.findViewById(R.id.actions);
+        storyStatusView = view.findViewById(R.id.storiesStatus);
+        imageProgressBar = view.findViewById(R.id.imageProgressBar);
+        videoView = view.findViewById(R.id.video_view);
+
+        int count = storiesResponse.getStories().size();
+        if (count > 0) {
+            storyStatusView.setStoriesCount(storiesResponse.getStories().size());
+        }
+        storyStatusView.setStoryDuration(statusDuration);
+        // or
+        // statusView.setStoriesCountWithDurations(statusResourcesDuration);
+        storyStatusView.setUserInteractionListener(this);
+        storyStatusView.playStories();
+
+        if (position == 0) {
+            if (storiesResponse.getStories().size() > 0) {
+                if (storiesResponse.getStories().get(position).getMediatype() == 1) {
+                    target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+                    target.setModel(storiesResponse.getStories().get(position).getUrl());
+                    Glide.with(image.getContext())
+                            .load(target.getModel())
+                            .asBitmap()
+                            .crossFade()
+                            .skipMemoryCache(!isCaching)
+                            .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                            .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                            .listener(new LoggingListener<String, Bitmap>())
+                            .into(target);
+                } else {
+                    videoView.setVisibility(View.VISIBLE);
+                    image.setVisibility(View.GONE);
+                    videoView.setVideoPath(storiesResponse.getStories().get(position).getUrl());
+                    videoView.start();
+                }
+            }
+        }
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storyStatusView.skip();
+            }
+        });
+
+        reverseClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                storyStatusView.reverse();
+            }
+        });
+
+        skipClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                storyStatusView.skip();
+            }
+        });
+
+        actions.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    storyStatusView.pause();
+                } else {
+                    storyStatusView.resume();
+                }
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onNext() {
+        try {
+            Log.e("", "" + counter);
+            storyStatusView.pause();
+            counter++;
+            if (counter<storiesResponse.getStories().size()) {
+                if (counter > storiesResponse.getStories().size()) return;
+                if (storiesResponse.getStories().get(counter) != null) {
+                    if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                        storyStatusView.setStoryDuration(3000L);
+                        videoView.stopPlayback();
+                        videoView.setVisibility(View.GONE);
+                        image.setVisibility(View.VISIBLE);
+                        storyStatusView.pause();
+                        target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+                        target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                        Glide.with(image.getContext())
+                                .load(target.getModel())
+                                .asBitmap()
+                                .crossFade()
+                                .centerCrop()
+                                .skipMemoryCache(!isCaching)
+                                .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                                .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                                .listener(new LoggingListener<String, Bitmap>())
+                                .into(target);
+                    } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+                        storyStatusView.setStoryDuration(30000L);
+                        videoView.setVisibility(View.VISIBLE);
+                        image.setVisibility(View.GONE);
+                        Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
+                        videoView.setVideoURI(uri);
+                        videoView.start();
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPrev() {
+        try {
+            Log.e("", "" + counter);
+            storyStatusView.pause();
+            --counter;
+            if (counter < 0) {
+                onCompletePrev();
+                return;
+            }
+            if (storiesResponse.getStories().get(counter) != null) {
+                if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                    storyStatusView.setStoryDuration(3000L);
+                    if (counter - 1 < 0) return;
+                    storyStatusView.pause();
+                    videoView.stopPlayback();
+                    target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+                    target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                    Glide.with(image.getContext())
+                            .load(target.getModel())
+                            .asBitmap()
+                            .centerCrop()
+                            .crossFade()
+                            .skipMemoryCache(!isCaching)
+                            .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                            .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                            .listener(new LoggingListener<String, Bitmap>())
+                            .into(target);
+                } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+                    storyStatusView.setStoryDuration(30000L);
+                    videoView.setVisibility(View.VISIBLE);
+                    image.setVisibility(View.GONE);
+                    Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
+                    videoView.setVideoURI(uri);
+                    videoView.start();
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onComplete() {
+        try {
+            int pos = position + 1;
+            if (videoView != null) {
+                videoView.stopPlayback();
+            }
+            storyStatusView.destroy();
+            if (pos > storiesFullResponse.getResult().size()) {
+                //finish();
+            } else {
+                //finish();
+                onDetach();
+                //Intent intent = StatusStoriesFragment.newIntent(getContext());
+                //intent.putExtra("position", pos);
+                //intent.putExtra("fullStories", storiesFullResponse);
+                //startActivity(intent);
+/*
+            ActivitySwitcher.animationOut(findViewById(R.id.container),getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
+                @Override
+                public void onAnimationFinished() {
+                    startActivity(intent);
+                }
+            });
+*/
+
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -290,6 +483,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
         super.onDestroy();
     }
 
+
     /**
      * Demonstrates 3 different ways of showing the txtProgress:
      * <ul>
@@ -371,7 +565,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
         }
     }
 
-    protected class MyViewPagerAdapter extends PagerAdapter implements StoryStatusView.UserInteractionListener {
+    protected class MyViewPagerAdapter extends PagerAdapter  {
 
         StoriesResponse.Result storiesResponse;
         Context context;
@@ -397,80 +591,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
 
             View view = inflater.inflate(R.layout.view_pager_item, container, false);
             container.addView(view);
-            image = view.findViewById(R.id.image_stories);
-            View reverseClick = view.findViewById(R.id.reverse);
-            View skipClick = view.findViewById(R.id.skip);
-            txtProgress = view.findViewById(R.id.textView);
-            View actions = view.findViewById(R.id.actions);
-            storyStatusView = view.findViewById(R.id.storiesStatus);
-            imageProgressBar = view.findViewById(R.id.imageProgressBar);
-            videoView = view.findViewById(R.id.video_view);
 
-            int count = storiesResponse.getStories().size();
-            if (count > 0) {
-                storyStatusView.setStoriesCount(storiesResponse.getStories().size());
-            }
-            storyStatusView.setStoryDuration(statusDuration);
-            // or
-            // statusView.setStoriesCountWithDurations(statusResourcesDuration);
-            storyStatusView.setUserInteractionListener(this);
-            storyStatusView.playStories();
-
-            if (position == 0) {
-                if (storiesResponse.getStories().size() > 0) {
-                    if (storiesResponse.getStories().get(position).getMediatype() == 1) {
-                        target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
-                        target.setModel(storiesResponse.getStories().get(position).getUrl());
-                        Glide.with(image.getContext())
-                                .load(target.getModel())
-                                .asBitmap()
-                                .crossFade()
-                                .skipMemoryCache(!isCaching)
-                                .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                                .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                                .listener(new LoggingListener<String, Bitmap>())
-                                .into(target);
-                    } else {
-                        videoView.setVisibility(View.VISIBLE);
-                        image.setVisibility(View.GONE);
-                        videoView.setVideoPath(storiesResponse.getStories().get(position).getUrl());
-                        videoView.start();
-                    }
-                }
-            }
-
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    storyStatusView.skip();
-                }
-            });
-
-            reverseClick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    storyStatusView.reverse();
-                }
-            });
-
-            skipClick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    storyStatusView.skip();
-                }
-            });
-
-            actions.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                        storyStatusView.pause();
-                    } else {
-                        storyStatusView.resume();
-                    }
-                    return true;
-                }
-            });
             return view;
         }
 
@@ -479,121 +600,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             container.removeView((View) object);
         }
 
-        @Override
-        public void onNext() {
-            try {
-                Log.e("", "" + counter);
-                storyStatusView.pause();
-                counter++;
-                if (counter<storiesResponse.getStories().size()) {
-                    if (counter > storiesResponse.getStories().size()) return;
-                    if (storiesResponse.getStories().get(counter) != null) {
-                        if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-                            storyStatusView.setStoryDuration(3000L);
-                            videoView.stopPlayback();
-                            videoView.setVisibility(View.GONE);
-                            image.setVisibility(View.VISIBLE);
-                            storyStatusView.pause();
-                            target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
-                            target.setModel(storiesResponse.getStories().get(counter).getUrl());
-                            Glide.with(image.getContext())
-                                    .load(target.getModel())
-                                    .asBitmap()
-                                    .crossFade()
-                                    .centerCrop()
-                                    .skipMemoryCache(!isCaching)
-                                    .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                                    .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                                    .listener(new LoggingListener<String, Bitmap>())
-                                    .into(target);
-                        } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
-                            storyStatusView.setStoryDuration(30000L);
-                            videoView.setVisibility(View.VISIBLE);
-                            image.setVisibility(View.GONE);
-                            Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
-                            videoView.setVideoURI(uri);
-                            videoView.start();
-                        }
-                    }
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
-        }
 
-        @Override
-        public void onPrev() {
-            try {
-                Log.e("", "" + counter);
-                storyStatusView.pause();
-                --counter;
-                if (counter < 0) {
-                    onCompletePrev();
-                    return;
-                }
-                if (storiesResponse.getStories().get(counter) != null) {
-                    if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-                        storyStatusView.setStoryDuration(3000L);
-                        if (counter - 1 < 0) return;
-                        storyStatusView.pause();
-                        videoView.stopPlayback();
-                        target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
-                        target.setModel(storiesResponse.getStories().get(counter).getUrl());
-                        Glide.with(image.getContext())
-                                .load(target.getModel())
-                                .asBitmap()
-                                .centerCrop()
-                                .crossFade()
-                                .skipMemoryCache(!isCaching)
-                                .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                                .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                                .listener(new LoggingListener<String, Bitmap>())
-                                .into(target);
-                    } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
-                        storyStatusView.setStoryDuration(30000L);
-                        videoView.setVisibility(View.VISIBLE);
-                        image.setVisibility(View.GONE);
-                        Uri uri = Uri.parse(storiesResponse.getStories().get(counter).getUrl());
-                        videoView.setVideoURI(uri);
-                        videoView.start();
-                    }
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onComplete() {
-            try {
-                int pos = position + 1;
-                if (videoView != null) {
-                    videoView.stopPlayback();
-                }
-                storyStatusView.destroy();
-                if (pos > storiesFullResponse.getResult().size()) {
-                    //finish();
-                } else {
-                    //finish();
-                    onDetach();
-                    //Intent intent = StatusStoriesFragment.newIntent(getContext());
-                    //intent.putExtra("position", pos);
-                    //intent.putExtra("fullStories", storiesFullResponse);
-                    //startActivity(intent);
-/*
-            ActivitySwitcher.animationOut(findViewById(R.id.container),getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
-                @Override
-                public void onAnimationFinished() {
-                    startActivity(intent);
-                }
-            });
-*/
-
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 }

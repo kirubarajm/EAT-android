@@ -2,6 +2,10 @@ package com.tovo.eat.ui.home.homemenu.story.library;
 
 
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+
+import java.util.ArrayList;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,5 +16,4 @@ public class StatusStoriesModule {
     StatusStoriesFramentViewModel provideStatusStoriesViewModel(DataManager dataManager) {
         return new StatusStoriesFramentViewModel(dataManager);
     }
-
 }
