@@ -24,20 +24,20 @@ public class GsonRequest extends Request {
     private final Response.Listener listener;
 
     public GsonRequest(int get, String url, Class myClass,
-                       Response.Listener listener, Response.ErrorListener errorListener) {
+                       Response.Listener listener, Response.ErrorListener errorListener,String version) {
         super(Method.GET, url, errorListener);
         this.myClass = myClass;
-        this.headers = addHeaders();
+        this.headers = addHeaders(version);
         this.params = null;
         this.listener = listener;
     }
 
     public GsonRequest(int type, String url, Class myClass,
                        Object params,
-                       Response.Listener listener, Response.ErrorListener errorListener) {
+                       Response.Listener listener, Response.ErrorListener errorListener,String version) {
         super(type, url, errorListener);
         this.myClass = myClass;
-        this.headers = addHeaders();
+        this.headers = addHeaders(version);
         this.params = getStringMap(params);
         this.listener = listener;
     }
@@ -83,10 +83,10 @@ public class GsonRequest extends Request {
         return 0;
     }
 
-    public Map<String, String> addHeaders(){
+    public Map<String, String> addHeaders(String version){
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-       // headers.put("Content-Type", "application/json");
+        headers.put("accept-version",version);
         return  headers;
     }
 

@@ -19,12 +19,14 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsRequest;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
@@ -38,6 +40,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public final ObservableField<String> firstRegion = new ObservableField<>();
     public final ObservableField<String> addressTitle = new ObservableField<>();
+    public final ObservableField<String> region1 = new ObservableField<>();
+    public final ObservableField<String> region2 = new ObservableField<>();
+    public final ObservableField<String> slogan1 = new ObservableField<>();
+    public final ObservableField<String> slogan2 = new ObservableField<>();
     public ObservableBoolean isVeg = new ObservableBoolean();
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
@@ -124,6 +130,79 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     }
 
+    public void removeFavourite(Integer favId) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                  //      getNavigator().toastMessage(response.getMessage());
+
+                        //fetchRepos();
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            },AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+
+    }
+
+
+    public void addFavourite(Integer kitchenId, String fav) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            },AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
     public void fetchRepos(Integer regionId) {
 
 
@@ -144,6 +223,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 emptyRegion.set(false);
                                 getNavigator().regionsLoaded(response);
                                 regionItemsLiveData.setValue(response.getResult());
+
+
+                                region1.set(response.getResult().get(0).getRegionname());
+                                slogan1.set(response.getResult().get(0).getTagline());
+
+
 
                             }else {
                                 emptyRegion.set(true);
@@ -168,7 +253,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_TWO);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -439,37 +524,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 }
 
 
-            } else {
-
-                try {
-                    setIsLoading(true);
-                    GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_KITCHEN_LIST_URL + getDataManager().getCurrentUserId(), KitchenResponse.class, new Response.Listener<KitchenResponse>() {
-                        @Override
-                        public void onResponse(KitchenResponse response) {
-                            if (response != null) {
-                                kitchenItemsLiveData.setValue(response.getResult());
-                                //    Log.e("----response:---------", response.toString());
-                                //     getNavigator().kitchenListLoaded();
-
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //     Log.e("", error.getMessage());
-                            //     getNavigator().kitchenListLoaded();
-                        }
-                    });
-
-
-                    MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (Exception ee) {
-
-                    ee.printStackTrace();
-
-                }
             }
         }
     }
@@ -490,7 +544,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", "" + error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();

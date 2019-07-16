@@ -194,7 +194,7 @@
     <string name="training_videos">Training Videos</string>
     <string name="tutorial_diys">Video DIYs</string>
     <string name="queries">Queries</string>
-    <string name="faqs">FAQs</string>
+    <string name="faqs">FAQ\'s</string>
 
 
     <string name="start_tracking">Start Tracking</string>
@@ -542,8 +542,8 @@
     <string name="add_promo_code">Add Promo code</string>
     <string name="add_your_refund_coupon">Add your refund coupon</string>
     <string name="refund_coupon">Refund Coupon</string>
-    <string name="faqsupport">FAQs and Support</string>
-    <string name="privacy">Privacy</string>
+    <string name="faqsupport">FAQ\'s and Support</string>
+    <string name="privacy">Privacy Policy</string>
     <string name="view_more">View More</string>
     <string name="your_order_will_arrive_by">Your order will arrive by</string>
     <string name="check_order_details">Check order details</string>
@@ -583,5 +583,6 @@
     <string name="i_entered_the_wrong_delivery_address">I entered the wrong delivery address</string>
     <string name="wrong_items">I added the wrong items</string>
     <string name="mistake_order">Placed order by mistake</string>
+    <string name="explore_kitchens">Explore kitchens</string>
 
 </resources>

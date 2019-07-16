@@ -72,7 +72,7 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
                     e.printStackTrace();
                 }
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 }

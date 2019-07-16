@@ -121,7 +121,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -182,11 +182,10 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                         if (response.getResult().size() == 0) {
 
                             haveAddress = false;
-
                             getNavigator().noAddress();
-
-
                             emptyAddress.set(true);
+                            getDataManager().setHomeAddressAdded(false);
+                            getDataManager().setOfficeAddressAdded(false);
 
 
                         } else {
@@ -195,6 +194,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                             Log.e("----response:---------", response.toString());
 
                             haveAddress = true;
+
+
 
                             getNavigator().listLoaded();
                         }
@@ -205,7 +206,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                 public void onErrorResponse(VolleyError error) {
                  //   Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -235,7 +236,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

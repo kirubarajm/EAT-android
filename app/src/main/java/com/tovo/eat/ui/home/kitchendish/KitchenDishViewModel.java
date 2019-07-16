@@ -145,7 +145,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -182,7 +182,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -315,7 +315,7 @@ public class KitchenDishViewModel extends BaseViewModel<KitchenDishNavigator> {
 
                     getNavigator().dishListLoaded(null);
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

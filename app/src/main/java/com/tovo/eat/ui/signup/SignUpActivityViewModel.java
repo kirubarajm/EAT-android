@@ -94,7 +94,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                     getNavigator().loginError(false);
                     setIsLoading(false);
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
         /*gsonRequest.setRetryPolicy(new RetryPolicy() {
             @Override

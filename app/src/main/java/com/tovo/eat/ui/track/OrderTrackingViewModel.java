@@ -36,6 +36,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableBoolean isReeceived = new ObservableBoolean();
     public final ObservableBoolean isPrepared = new ObservableBoolean();
     public final ObservableBoolean isDeliverd = new ObservableBoolean();
+    public final ObservableBoolean orderAccepted = new ObservableBoolean();
 
     public final ObservableBoolean iconReeceived = new ObservableBoolean();
     public final ObservableBoolean iconPrepared = new ObservableBoolean();
@@ -139,7 +140,6 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 isPrepared.set(false);
                                 isDeliverd.set(false);
 
-
                                 iconReeceived.set(false);
                                 iconPrepared.set(false);
                                 iconDeliverd.set(false);
@@ -154,6 +154,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconPrepared.set(false);
                                 iconDeliverd.set(false);
 
+                                orderAccepted.set(true);
 
                             } else if (response.getResult().get(0).getOrderstatus() == 2) {
                                 isReeceived.set(false);
@@ -164,6 +165,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
 
+                                orderAccepted.set(true);
                             } else if (response.getResult().get(0).getOrderstatus() == 3) {
                                 isReeceived.set(false);
                                 isPrepared.set(false);
@@ -172,6 +174,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconReeceived.set(true);
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
+                                orderAccepted.set(true);
 
                             } else if (response.getResult().get(0).getOrderstatus() == 4) {
                                 isReeceived.set(false);
@@ -181,6 +184,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconReeceived.set(true);
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
+                                orderAccepted.set(true);
 
                             } else if (response.getResult().get(0).getOrderstatus() == 5) {
                                 isReeceived.set(false);
@@ -190,7 +194,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconReeceived.set(true);
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
-
+                                orderAccepted.set(true);
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
@@ -201,6 +205,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconReeceived.set(true);
                                 iconPrepared.set(true);
                                 iconDeliverd.set(true);
+
+                                orderAccepted.set(false);
 
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
@@ -217,7 +223,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                 public void onErrorResponse(VolleyError error) {
                   //  Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

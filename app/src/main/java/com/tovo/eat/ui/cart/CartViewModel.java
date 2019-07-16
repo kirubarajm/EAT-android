@@ -42,6 +42,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> makeit_category = new ObservableField<>();
     public final ObservableField<String> total = new ObservableField<>();
     public final ObservableField<String> grand_total = new ObservableField<>();
+    public final ObservableField<String> refundFare = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery_charge = new ObservableField<>();
     public final ObservableField<String> makeit_brand_name = new ObservableField<>();
@@ -126,6 +127,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
+  public void redirectKitchen() {
+
+        getNavigator().redirectHome();
+
+
+    }
+
 
     public void fav() {
         if (isFavourite.get()) {
@@ -164,7 +172,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -211,7 +219,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -335,7 +343,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

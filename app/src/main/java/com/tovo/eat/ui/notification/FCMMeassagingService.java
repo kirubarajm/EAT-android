@@ -116,7 +116,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 pageidOrder_Prepared:4,
                 pageidOrder_Pickedup:5,
                 pageidOrder_Reached:6,
-                pageidOrder_Delivered:7,*/
+                pageidOrder_Delivered:7,
+                pageidOrder_canceled:8,*/
 
         Bundle bundle = new Bundle();
         Intent intent;
@@ -153,6 +154,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                     intent = new Intent(this, OrderHistoryActivity.class);
                     break;
                 case "8":
+                    intent = new Intent(this, MainActivity.class);
+                    break;
+                    case "9":
                     intent = new Intent(this, RepliesActivity.class);
                     break;
                 default:
@@ -299,7 +303,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 

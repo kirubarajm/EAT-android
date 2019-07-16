@@ -45,13 +45,11 @@ public class DishItemViewModel {
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final DishResponse.Result dishList;
+    public ObservableBoolean isVeg = new ObservableBoolean();
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
     private Integer favID;
-
-
-    public ObservableBoolean isVeg=new ObservableBoolean();
 
     public DishItemViewModel(DishItemViewModelListener mListener, DishResponse.Result dishList) {
 
@@ -75,15 +73,16 @@ public class DishItemViewModel {
             isFavourite.set(false);
         }
 
-        if (dishList.getVegtype().equals("0")){
+        if (dishList.getVegtype() != null)
 
-            isVeg.set(true);
+            if (dishList.getVegtype().equals("0")) {
 
-        }else {
+                isVeg.set(true);
 
-            isVeg.set(false);
-        }
+            } else {
 
+                isVeg.set(false);
+            }
 
 
         this.locality.set(dishList.getLocalityname());
@@ -526,7 +525,7 @@ public class DishItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

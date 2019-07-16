@@ -164,10 +164,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void favourites() {
 
-       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FavoritesActivity fragment = new FavoritesActivity();
+     /*   FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        CartActivity fragment = new CartActivity();
+
+        Bundle args = new Bundle();
+        args.putString("text", "text created");
+        fragment.setArguments(args);
+
         transaction.replace(R.id.content_main, fragment);
         transaction.commitNow();*/
+
+
+
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
 
@@ -301,7 +309,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         }
 
 
-                Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
                 try {
 
                     if (regionsResponse.getResult() != null)
@@ -583,16 +591,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
-
     }
 
     @Override
     public void removeDishFavourite(Integer favId) {
-
+        mHomeTabViewModel.removeFavourite(favId);
     }
 
     @Override
     public void addFav(Integer id, String fav) {
+
+        mHomeTabViewModel.addFavourite(id, fav);
 
     }
 
@@ -706,8 +715,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mFragmentHomeBinding.area1.setText("");
             mFragmentHomeBinding.slogan1.setText("");
         } else {
-            mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
-            mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
+            mHomeTabViewModel.region1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
+            mHomeTabViewModel.region1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
         }
 
         //   setCountryText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
@@ -738,7 +747,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             intent.putExtra("id", mRegionList.getRegionid());
             intent.putExtra("tagline", mRegionList.getTagline());
             startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
+         //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
 
 
         } else if (position > activeCardPosition) {

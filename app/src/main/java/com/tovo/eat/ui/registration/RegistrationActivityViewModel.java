@@ -73,7 +73,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                     setIsLoading(false);
                     getNavigator().regFailure();
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -102,7 +102,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                     setIsLoading(false);
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 

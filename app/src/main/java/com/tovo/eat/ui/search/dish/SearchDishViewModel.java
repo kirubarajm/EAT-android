@@ -174,7 +174,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -212,7 +212,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

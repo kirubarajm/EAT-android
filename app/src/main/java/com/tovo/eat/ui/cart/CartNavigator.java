@@ -38,5 +38,6 @@ public interface CartNavigator {
 
     void promoList();
     void  refundAlert();
+    void redirectHome();
 
 }

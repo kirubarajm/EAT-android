@@ -63,7 +63,7 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
                     setIsLoading(false);
                     getNavigator().ratingFailure();
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
 

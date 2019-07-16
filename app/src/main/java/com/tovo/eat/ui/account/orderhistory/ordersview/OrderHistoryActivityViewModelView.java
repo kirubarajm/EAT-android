@@ -179,7 +179,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                         e.printStackTrace();
                     }
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();

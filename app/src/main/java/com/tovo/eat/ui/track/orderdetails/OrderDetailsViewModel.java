@@ -162,7 +162,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                         e.printStackTrace();
                     }
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();

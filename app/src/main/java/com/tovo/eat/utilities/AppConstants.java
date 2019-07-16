@@ -28,6 +28,9 @@ public class AppConstants {
     public static final String FCM_RECEIVER = "ALERT";
 
 
+    public static final String FCM_RECEIVER_ORDER = "ORDER RECEIVER";
+
+
     public static final String PACKAGE_NAME = "com.tovo.sales";
 
     public static final String GEOFENCES_ADDED_KEY = PACKAGE_NAME + ".GEOFENCES_ADDED_KEY";
@@ -65,13 +68,24 @@ public class AppConstants {
     public static final int COD_REQUESTCODE = 222;
     public static final int ONLINE_REQUESTCODE = 333;
 
+
+    public static final String API_VERSION_ONE = "1.0.0";
+    public static final String API_VERSION_TWO = "2.0.0";
+    public static final String API_VERSION_THEREE = "3.0.0";
+    public static final String API_VERSION_FOUR = "4.0.0";
+
+
+
+
+
+
     ///////Server Ip Ports
 
    //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
      // public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
       public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
-     // public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
+   //   public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.3:3000";////basheer 3000
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
@@ -98,25 +112,16 @@ public class AppConstants {
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
     public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
     public static final String URL_CANCEL_ORDER= URL_SERVER_IP_PORT + "/eat/order/cancel/";/////POST method
-
-
     public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
     public static final String EAT_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/dishlist";
     public static final String EAT_SEARCH_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/product/search";
-
     public static final String EAT_FAV_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/dishlist/";
     public static final String EAT_FAV_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/fav/kitchenlist/";
-
-
     public static final String EAT_KITCHEN_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/products";
     public static final String EAT_ADD_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/address";
     public static final String EAT_GET_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addresslist/";
-
     public static final String EAT_DELETE_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addressdelete/";
-
-
     public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
-
 
     public static final String EAT_REFUND_LIST_URL = URL_SERVER_IP_PORT + "/eat/refund/";
 

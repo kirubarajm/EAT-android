@@ -55,11 +55,16 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.ui.notification.FCMMeassagingService;
+import com.tovo.eat.ui.notification.FirebaseDataReceiver;
+
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
+
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
@@ -85,6 +90,41 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
     private MainViewModel mMainViewModel;
+
+    FirebaseDataReceiver dataReceiver=new FirebaseDataReceiver(){
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            super.onReceive(context, intent);
+
+
+            Bundle bundle = intent.getExtras();
+            if (bundle == null) return;
+            String pageid = bundle.getString("pageid");
+
+
+            Toast.makeText(context, pageid, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+    /*BroadcastReceiver orderReciever=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+        }
+    };
+
+    class OrderReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // do your stuff here
+        }
+    }*/
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -271,7 +311,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
       /*  new CustomToast(this, msg);
         CustomToast.show();*/
-
 
     }
 
@@ -480,6 +519,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerWifiReceiver();
 
 
+
+
+        IntentFilter intentFilter= new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver,intentFilter);
+
+
+
+
+       /* IntentFilter intentFilter= new IntentFilter(AppConstants.FCM_RECEIVER_ORDER);
+        registerReceiver(orderReciever,intentFilter);*/
+
+
       //  checkAndRequestPermissions();
 
 
@@ -545,12 +596,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         statusUpdate();
 
+        IntentFilter intentFilter= new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver,intentFilter);
+
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(dataReceiver);
+
     }
 
     private boolean checkAndRequestPermissions() {
@@ -689,6 +745,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onDestroy() {
         super.onDestroy();
         unregisterWifiReceiver();
+        unregisterReceiver(dataReceiver);
     }
 
     private void startLocationTracking() {

@@ -258,7 +258,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
                     }
-                });
+                },AppConstants.API_VERSION_ONE);
 
 
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -297,7 +297,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

@@ -100,7 +100,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().listLoaded();
                 }
-            });
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

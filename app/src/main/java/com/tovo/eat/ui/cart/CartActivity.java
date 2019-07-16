@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.cart;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
 import com.tovo.eat.ui.home.CartListener;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
@@ -106,6 +108,15 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivityCartBinding = getViewDataBinding();
+
+
+
+       /* if(getArguments()!=null)
+        {
+            String text = getArguments().getString("text", null);
+            Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        }*/
+
 
         mCartViewModel.toolbarTitle.set(getString(R.string.cart));
         LinearLayoutManager mLayoutManager
@@ -267,6 +278,24 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         fragment.setCancelable(false);
 
         DialogRefundAlert.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),mCartViewModel.grand_total.get());
+
+    }
+
+    @Override
+    public void redirectHome() {
+
+
+
+        ((MainActivity) getActivity()).openHome();
+
+
+
+
+       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        HomeTabFragment fragment = new HomeTabFragment();
+        transaction.replace(R.id.content_main, fragment);
+        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        transaction.commit();*/
 
     }
 
