@@ -45,6 +45,7 @@ import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
@@ -794,10 +795,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        /*Intent intent = MainActivity.newIntent(getContext());
+        Intent intent = StoriesActivity.newIntent(getContext());
         intent.putExtra("position", pos);
         intent.putExtra("fullStories", storiesFullResponse);
-        startActivity(intent);*/
+        startActivity(intent);
 
         /*Bundle bundle = new Bundle();
         bundle.putSerializable("fullStories", storiesFullResponse);
@@ -818,14 +819,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 */
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
         StatusStoriesFragment fragment = new StatusStoriesFragment();
         Bundle args = new Bundle();
         args.putSerializable("fullStories", storiesFullResponse);
         args.putInt("position",pos);
         fragment.setArguments(args);
         transaction.replace(R.id.content_main, fragment);
-        transaction.commitNow();
+        transaction.commitNow();*/
     }
 
     private class OnCardClickListener implements View.OnClickListener {

@@ -137,7 +137,6 @@ public abstract class ActivityBuilder {
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
-            StatusStoriesProvider.class,
             SearchProvider.class
 
 
@@ -193,7 +192,8 @@ public abstract class ActivityBuilder {
     abstract PaymentActivity bindPaymentActivity();
 
 
-    @ContributesAndroidInjector(modules = {FavouritesModule.class, FavoritesDishProvider.class, FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
+    @ContributesAndroidInjector(modules = {FavouritesModule.class, FavoritesDishProvider.class, FavoritesKitchenProvider.class,
+            DialogChangeKitchenProvider.class})
     abstract FavouritesActivity bindFavouritesActivity();
 
 
@@ -280,7 +280,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = EditAccountModule.class)
     abstract EditAccountActivity bindEditAccountActivity();
 
-    @ContributesAndroidInjector(modules = StoriesActivityModule.class)
+    @ContributesAndroidInjector(modules = {StoriesActivityModule.class,StatusStoriesProvider.class})
     abstract StoriesActivity bindStoriesActivity();
 
 
