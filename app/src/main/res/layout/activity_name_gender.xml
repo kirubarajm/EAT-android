@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.signin.SignActivityMain">
 
     <data>
@@ -15,7 +15,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,13 +24,13 @@
             android:layout_margin="20dp">
 
             <com.tovo.eat.utilities.fonts.poppins.TitleTextView
-                android:textStyle="bold"
                 android:id="@+id/txt_name_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/name_and_avator"
-                android:textSize="18dp" />
+                android:text="@string/name_and_gender"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_name"
@@ -41,7 +42,6 @@
                 android:layout_marginRight="20dp">
 
                 <android.support.design.widget.TextInputEditText
-                    android:textSize="14sp"
                     android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,65 +49,59 @@
                     android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLength="30"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textSize="14sp" />
             </android.support.design.widget.TextInputLayout>
 
 
-
             <android.support.design.widget.TextInputLayout
-                android:layout_below="@+id/input_name"
                 android:id="@+id/region_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/input_name"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp">
 
 
-            <AutoCompleteTextView
-                android:id="@+id/region"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="ENTER YOUR HOMETOWN"
-                android:textSize="14sp"
-                android:theme="@style/EditTextHint" />
+                <AutoCompleteTextView
+                    android:id="@+id/region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="ENTER YOUR HOMETOWN"
+                    android:textSize="14sp"
+                    android:theme="@style/EditTextHint" />
             </android.support.design.widget.TextInputLayout>
 
 
-
-
-
-
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:textSize="14sp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/region_list"
                 android:id="@+id/referral_tx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/eat_color"
+                android:layout_below="@+id/region_list"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/have_referral_code"
                 android:textAllCaps="true"
-                android:text="@string/have_referral_code"/>
-
-
+                android:textColor="@color/eat_color"
+                android:textSize="14sp" />
 
 
             <android.support.design.widget.TextInputLayout
-                android:layout_below="@+id/referral_tx"
                 android:id="@+id/tl_referral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/referral_tx"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/referral"
-                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:hint="@string/enter_referral_code_here"
                     android:textSize="14sp"
                     android:theme="@style/EditTextHint" />
@@ -116,8 +110,6 @@
 
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:textStyle="bold"
-                android:textAlignment="center"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,120 +117,110 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
-                android:textColor="@color/dark_gray"
                 android:gravity="left|center"
                 android:text="@string/choose_avator"
-                android:textSize="14dp" />
-
+                android:textAlignment="center"
+                android:textColor="@color/dark_gray"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
 
             <RelativeLayout
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/txt_choose_avator"
-                android:layout_marginTop="25dp"
-                android:visibility="visible"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
+                android:layout_below="@+id/txt_choose_avator"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
 
                 <LinearLayout
-                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
-                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="48dp"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
                     android:background="@drawable/curve_stroke_gray"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp">
-
-
-                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:textColor="@color/dark_gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:text="F" />
-
-
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
-                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}"
-                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:background="@drawable/curve_stroke"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp">
-
-
-                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:textColor="@color/eat_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:text="M" />
-
-
-                </LinearLayout>
-
-
-
-
-
-
-
-
-                <LinearLayout
-                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}"
-                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:background="@drawable/curve_stroke_gray"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp">
-
-
-                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:textColor="@color/dark_gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:text="M" />
-
-
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}"
                     android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
-                    android:layout_marginStart="40dp"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:background="@drawable/curve_stroke"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp">
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}">
 
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:textColor="@color/eat_color"
-                        android:text="F" />
+                        android:text="F"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="28sp" />
 
 
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/curve_stroke"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.VISIBLE:View.GONE}">
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M"
+                        android:textColor="@color/eat_color"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/curve_stroke_gray"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.maleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}">
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="M"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/curve_stroke"
+                    android:gravity="center"
+                    android:onClick="@{()->nameGenderViewModel.feMaleClicked()}"
+                    android:visibility="@{nameGenderViewModel.male?View.GONE:View.VISIBLE}">
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="F"
+                        android:textColor="@color/eat_color"
+                        android:textSize="28sp" />
+
+
+                </LinearLayout>
 
 
             </RelativeLayout>
@@ -254,17 +236,17 @@
             android:padding="10dp">
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                app:font_name="poppinsSemiBold"
-                android:gravity="center"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:background="@drawable/curve_stroke"
+                android:gravity="center"
                 android:onClick="@{()->nameGenderViewModel.proceed()}"
                 android:text="@string/proceed"
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:font_name="poppinsSemiBold" />
 
         </RelativeLayout>
 

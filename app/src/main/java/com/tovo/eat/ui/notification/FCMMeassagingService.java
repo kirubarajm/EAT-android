@@ -117,7 +117,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 pageidOrder_Pickedup:5,
                 pageidOrder_Reached:6,
                 pageidOrder_Delivered:7,
-                pageidOrder_canceled:8,*/
+                pageidOrder_canceled:8 ,*/
 
         Bundle bundle = new Bundle();
         Intent intent;

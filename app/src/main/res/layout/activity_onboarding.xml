@@ -41,7 +41,7 @@
                     android:id="@+id/btn_get_started"
                     android:layout_width="125dp"
                     android:layout_height="45dp"
-                    android:background="@drawable/curve_stroke_empty"
+                    android:background="@drawable/curve_stroke"
                     android:text="@string/get_started"
                     android:textColor="@color/eat_color" />
 

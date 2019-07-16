@@ -67,10 +67,19 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchRepos(getDataManager().getRegionId());
         fetchStories();
 
-        if (getDataManager().getVegType().equalsIgnoreCase("1")) {
+        if (getDataManager().getVegType()==1) {
             isVeg.set(true);
         }
     }
+
+
+
+    public  void loadAllApis(){
+        fetchKitchen();
+        fetchRepos(getDataManager().getRegionId());
+        fetchStories();
+    }
+
 
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
         return kitchenItemViewModels;
@@ -118,11 +127,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         if (isVeg.get()) {
             isVeg.set(false);
-            getDataManager().saveVegType("0");
+            getDataManager().saveVegType(0);
 
         } else {
             isVeg.set(true);
-            getDataManager().saveVegType("1");
+            getDataManager().saveVegType(1);
         }
 
         fetchKitchen();

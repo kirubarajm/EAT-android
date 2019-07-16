@@ -190,6 +190,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void loaded() {
         setUp();
+        mHomeTabViewModel.loadAllApis();
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
         mHomeTabViewModel.favIcon.set(true);
@@ -712,11 +713,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
         if (pos == mHomeTabViewModel.regionResult.getResult().size()) {
-            mFragmentHomeBinding.area1.setText("");
-            mFragmentHomeBinding.slogan1.setText("");
+            mHomeTabViewModel.region1.set("");
+            mHomeTabViewModel.slogan1.set("");
         } else {
             mHomeTabViewModel.region1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname());
-            mHomeTabViewModel.region1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
+            mHomeTabViewModel.slogan1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
         }
 
         //   setCountryText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);

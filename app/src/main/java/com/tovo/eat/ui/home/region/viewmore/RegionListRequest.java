@@ -18,17 +18,17 @@ public class RegionListRequest {
     private Integer regionid;
     @SerializedName("vegtype")
     @Expose
-    private String vegtype;
+    private Integer vegtype;
 
-    public String getVegtype() {
+    public Integer getVegtype() {
         return vegtype;
     }
 
-    public void setVegtype(String vegtype) {
+    public void setVegtype(Integer vegtype) {
         this.vegtype = vegtype;
     }
 
-    public RegionListRequest(String lat, String lon, Integer eatuserid, Integer regionid,String vegtype) {
+    public RegionListRequest(String lat, String lon, Integer eatuserid, Integer regionid,Integer vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.eatuserid = eatuserid;

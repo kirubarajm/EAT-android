@@ -53,7 +53,7 @@ public interface DataManager extends PreferencesHelper {
 
     void saveFilterSort(String filters);
 
-    void saveVegType(String type);
+    void saveVegType(Integer type);
 
     void currentFragment(Integer id);
 

@@ -584,5 +584,6 @@
     <string name="wrong_items">I added the wrong items</string>
     <string name="mistake_order">Placed order by mistake</string>
     <string name="explore_kitchens">Explore kitchens</string>
+    <string name="name_and_gender">Name and Gender</string>
 
 </resources>

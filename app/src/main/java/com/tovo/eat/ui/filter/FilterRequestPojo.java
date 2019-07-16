@@ -40,13 +40,13 @@ public class FilterRequestPojo {
     private List<Sortlist> sortlist = null;
     @SerializedName("vegtype")
     @Expose
-    private String vegtype;
+    private Integer vegtype;
 
-    public String getVegtype() {
+    public Integer getVegtype() {
         return vegtype;
     }
 
-    public void setVegtype(String vegtype) {
+    public void setVegtype(Integer vegtype) {
         this.vegtype = vegtype;
     }
 

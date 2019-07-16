@@ -172,7 +172,7 @@ public interface PreferencesHelper {
 
     void setEmailStatus(boolean status);
 
-    String getVegType();
+    Integer getVegType();
 
-    void setVegType(String type);
+    void setVegType(Integer type);
 }

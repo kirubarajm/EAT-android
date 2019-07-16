@@ -396,13 +396,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public String getVegType() {
-        return mPrefs.getString(PREF_KEY_VEG_TYPE, "0");
+    public Integer getVegType() {
+        return mPrefs.getInt(PREF_KEY_VEG_TYPE, 0);
     }
 
     @Override
-    public void setVegType(String type) {
-        mPrefs.edit().putString(PREF_KEY_VEG_TYPE, type).apply();
+    public void setVegType(Integer type) {
+        mPrefs.edit().putInt(PREF_KEY_VEG_TYPE, type).apply();
     }
 
     @Override

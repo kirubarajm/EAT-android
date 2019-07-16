@@ -153,7 +153,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void saveVegType(String type) {
+    public void saveVegType(Integer type) {
         setVegType(type);
     }
 
@@ -511,12 +511,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public String getVegType() {
+    public Integer getVegType() {
         return mPreferencesHelper.getVegType();
     }
 
     @Override
-    public void setVegType(String type) {
+    public void setVegType(Integer type) {
         mPreferencesHelper.setVegType(type);
     }
 

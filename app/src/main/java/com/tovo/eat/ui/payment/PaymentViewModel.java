@@ -339,7 +339,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("test", error.getMessage());
+                      //  Log.e("test", error.getMessage());
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
                 }) {

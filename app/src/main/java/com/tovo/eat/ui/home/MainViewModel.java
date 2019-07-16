@@ -171,7 +171,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                             if (response.getResult().size() != 0) {
 
-
                                 isLiveOrder.set(true);
 
                                 kitchenImage.set(response.getResult().get(0).getMakeitimage());
@@ -182,10 +181,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                     kitchenName.set(response.getResult().get(0).getMakeitbrandname());
                                 }
-
-
                                 // 2019-05-09T13:21:54.000Z
-
                                 try {
                                     String strDate = response.getResult().get(0).getDeliverytime();
                                     DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
@@ -200,12 +196,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
-
-
                             /*String startTime = response.getResult().get(0).getDeliverytime();
-
-
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                             SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm a");
@@ -235,7 +226,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                     if (response.getResult().get(0).getItems().size() - 1 != i) {
                                         itemsBuilder.append(" , ");
                                     }
-
                                 }
 
                                 String item = itemsBuilder.toString();

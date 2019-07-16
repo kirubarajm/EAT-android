@@ -66,6 +66,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                     if (response.getStatus()) {
                         getDataManager().updateUserGender(true);
                         getNavigator().genderSuccess(response.getMessage());
+                        getDataManager().saveRegionId(regionId);
                     }
                 }
             }
