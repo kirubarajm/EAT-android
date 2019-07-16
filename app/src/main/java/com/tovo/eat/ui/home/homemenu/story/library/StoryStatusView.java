@@ -100,7 +100,6 @@ public class StoryStatusView extends LinearLayout {
         this.userInteractionListener = userInteractionListener;
     }
 
-
     public void skip() {
         if (isComplete) return;
         ProgressBar p = progressBars.get(current);
@@ -121,7 +120,6 @@ public class StoryStatusView extends LinearLayout {
         p.setProgress(p.getProgress());
         animators.get(current).resume();
     }
-
 
     public void reverse() {
         if (isComplete) return;
@@ -172,7 +170,7 @@ public class StoryStatusView extends LinearLayout {
     }
 
     private ObjectAnimator createAnimator(final int index, long duration) {
-        ObjectAnimator animation = ObjectAnimator.ofInt(progressBars.get(index), "progress", MAX_PROGRESS);
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBars.get(index), "txtProgress", MAX_PROGRESS);
         animation.setInterpolator(new LinearInterpolator());
         animation.setDuration(duration);
         animation.addListener(new Animator.AnimatorListener() {

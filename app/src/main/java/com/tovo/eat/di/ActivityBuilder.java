@@ -66,6 +66,7 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
 import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesActivityModule;
+import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesProvider;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
@@ -136,6 +137,7 @@ public abstract class ActivityBuilder {
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
+            StatusStoriesProvider.class,
             SearchProvider.class
 
 
