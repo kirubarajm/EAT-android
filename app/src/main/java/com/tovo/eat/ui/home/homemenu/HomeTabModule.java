@@ -47,12 +47,12 @@ public class HomeTabModule {
         return new LinearLayoutManager(fragment.getActivity());
     }
    /* @Provides
-    HomeTabAdapter provideHomePagerAdapter(HomeTabFragment activityHomeTabFragment) {
+    HomeTabAdapter provideHomePagerAdapter(SamplePagerFragment activityHomeTabFragment) {
         return new HomeTabAdapter(activityHomeTabFragment.getChildFragmentManager());
     }*/
 
    /* @Provides
-    ViewModelProvider.Factory provideMyAccountViewModel(HomeTabViewModel mHomeTabViewModel) {
+    ViewModelProvider.Factory provideMyAccountViewModel(SamplePagerFragmentViewModel mHomeTabViewModel) {
         return new ViewModelProviderFactory<>(mHomeTabViewModel);
     }*/
 }

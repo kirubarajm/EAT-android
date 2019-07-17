@@ -207,7 +207,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void orderCompleted() {
 
        /* FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
+        SamplePagerFragment fragment = new SamplePagerFragment();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();*/
 
@@ -292,9 +292,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
        /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
+        SamplePagerFragment fragment = new SamplePagerFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        //  transaction.addToBackStack(SamplePagerFragment.class.getSimpleName());
         transaction.commit();*/
 
     }

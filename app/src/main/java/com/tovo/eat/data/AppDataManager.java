@@ -153,6 +153,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveStoriesList(String stories) {
+        setStoriesList(stories);
+    }
+
+    @Override
     public void saveVegType(Integer type) {
         setVegType(type);
     }
@@ -385,6 +390,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setFilterSort(String filters) {
         mPreferencesHelper.setFilterSort(filters);
+    }
+
+    @Override
+    public String getStoriesList() {
+        return mPreferencesHelper.getStoriesList();
+    }
+
+    @Override
+    public void setStoriesList(String stories) {
+        mPreferencesHelper.setStoriesList(stories);
     }
 
     @Override

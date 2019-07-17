@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="statusStoriesViewModel"
-            type="com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFramentViewModel">
+            name="sampleFragmentViewModel"
+            type="com.tovo.eat.ui.home.homemenu.story.sample.fragment.SamplePagerFragmentViewModel">
 
         </variable>
 

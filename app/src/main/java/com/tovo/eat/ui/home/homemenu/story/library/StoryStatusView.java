@@ -19,9 +19,6 @@ import com.tovo.eat.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rahuljanagouda on 29/09/17.
- */
 
 public class StoryStatusView extends LinearLayout {
 
@@ -89,12 +86,10 @@ public class StoryStatusView extends LinearLayout {
         return v;
     }
 
-
     public void setStoriesCount(int storiesCount) {
         this.storiesCount = storiesCount;
         bindViews();
     }
-
 
     public void setUserInteractionListener(UserInteractionListener userInteractionListener) {
         this.userInteractionListener = userInteractionListener;
@@ -136,14 +131,12 @@ public class StoryStatusView extends LinearLayout {
         }
     }
 
-
     public void setStoryDuration(long duration) {
         animators.clear();
         for (int i = 0; i < progressBars.size(); i++) {
             animators.add(createAnimator(i, duration));
         }
     }
-
 
     public void setStoriesCountWithDurations(@NonNull long[] durations) {
         storiesCount = durations.length;
@@ -153,7 +146,6 @@ public class StoryStatusView extends LinearLayout {
             animators.add(createAnimator(i, durations[i]));
         }
     }
-
 
     public void playStories() {
         animators.get(0).start();
@@ -170,7 +162,7 @@ public class StoryStatusView extends LinearLayout {
     }
 
     private ObjectAnimator createAnimator(final int index, long duration) {
-        ObjectAnimator animation = ObjectAnimator.ofInt(progressBars.get(index), "txtProgress", MAX_PROGRESS);
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBars.get(index), "progress", MAX_PROGRESS);
         animation.setInterpolator(new LinearInterpolator());
         animation.setDuration(duration);
         animation.addListener(new Animator.AnimatorListener() {

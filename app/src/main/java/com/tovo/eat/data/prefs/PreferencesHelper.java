@@ -109,6 +109,10 @@ public interface PreferencesHelper {
 
     void setFilterSort(String master);
 
+    String getStoriesList();
+
+    void setStoriesList(String stories);
+
 
     Integer getCurrentFragment();
 

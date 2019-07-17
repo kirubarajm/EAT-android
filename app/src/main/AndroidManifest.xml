@@ -147,11 +147,18 @@
         <activity android:name=".ui.signup.faqs.FaqActivity" />
         <activity android:name=".ui.home.region.viewmore.RegionListActivity" />
         <activity android:name=".ui.account.favorites.FavouritesActivity" />
-        <activity android:name=".ui.home.homemenu.story.StoriesActivity" />
 
         <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
         <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivityOP" />
         <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivity" />
+        <activity android:name=".ui.home.homemenu.story.sample.SampleTabActivity" >
+
+
+        </activity>
+        <activity android:name=".ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity" >
+
+
+        </activity>
 
 
         <meta-data

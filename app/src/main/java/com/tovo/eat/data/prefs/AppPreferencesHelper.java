@@ -60,6 +60,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ORDER_ID = "ORDER_ID";
     private static final String PREF_KEY_MASTER = "MASTER";
     private static final String PREF_KEY_FILTER = "FILTER";
+    private static final String PREF_KEY_STORIES_LIST = "STORIES_IST";
     private static final String PREF_KEY_CURRENT_FRAGMENT = "CURRENT_FRAGMENT";
 
 
@@ -75,9 +76,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_REFERRALS = "CURRENT_USER_REFERRALS";
     private static final String PREF_KEY_GENDER_STATUS = "CURRENT_GENDER_STATUS";
     private static final String PREF_KEY_PASSWORD_STATUS = "CURRENT_PASSWORD_STATUS";
-    private static final String PREF_KEY_TOTAL_ORDERS= "TOTAL_ORDERS";
-    private static final String PREF_KEY_HOME_ADDRESS_ADDED= "HOME_ADDRESS_ADDED";
-    private static final String PREF_KEY_OFFICE_ADDRESS_ADDED= "OFFICE_ADDRESS_ADDED";
+    private static final String PREF_KEY_TOTAL_ORDERS = "TOTAL_ORDERS";
+    private static final String PREF_KEY_HOME_ADDRESS_ADDED = "HOME_ADDRESS_ADDED";
+    private static final String PREF_KEY_OFFICE_ADDRESS_ADDED = "OFFICE_ADDRESS_ADDED";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -274,6 +275,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public String getStoriesList() {
+        return mPrefs.getString(PREF_KEY_STORIES_LIST, null);
+    }
+
+    @Override
+    public void setStoriesList(String stories) {
+        mPrefs.edit().putString(PREF_KEY_STORIES_LIST, stories).apply();
+    }
+
+    @Override
     public Integer getCurrentFragment() {
         return mPrefs.getInt(PREF_KEY_CURRENT_FRAGMENT, 0);
     }
@@ -282,7 +293,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setCurrentFragment(Integer id) {
         mPrefs.edit().putInt(PREF_KEY_CURRENT_FRAGMENT, id).apply();
     }
-
 
 
     @Override
@@ -347,7 +357,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean isHomeAddressAdded() {
-        return  mPrefs.getBoolean(PREF_KEY_HOME_ADDRESS_ADDED, false);
+        return mPrefs.getBoolean(PREF_KEY_HOME_ADDRESS_ADDED, false);
     }
 
     @Override
@@ -357,7 +367,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean isOfficeAddressAdded() {
-        return  mPrefs.getBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, false);
+        return mPrefs.getBoolean(PREF_KEY_OFFICE_ADDRESS_ADDED, false);
     }
 
     @Override
@@ -387,7 +397,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean getEmailStatus() {
-        return  mPrefs.getBoolean(PREF_KEY_EMAIL_STATUS, false);
+        return mPrefs.getBoolean(PREF_KEY_EMAIL_STATUS, false);
     }
 
     @Override
