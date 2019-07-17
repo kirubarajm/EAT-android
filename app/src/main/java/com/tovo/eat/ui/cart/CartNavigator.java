@@ -35,6 +35,8 @@ public interface CartNavigator {
 
 
     void refundList();
+    void checkRefund();
+
 
     void promoList();
     void  refundAlert();

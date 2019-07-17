@@ -23,6 +23,7 @@ public class AppConstants {
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
     public static final int REFUND_LIST_CODE  = 1110;
+    public static final int COUPON_LIST_CODE  = 1111;
 
 
     public static final String FCM_RECEIVER = "ALERT";
@@ -74,17 +75,14 @@ public class AppConstants {
     public static final String API_VERSION_THEREE = "3.0.0";
     public static final String API_VERSION_FOUR = "4.0.0";
 
-
-
-
-
+    
 
     ///////Server Ip Ports
 
    //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
+    //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
-     // public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
+      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
    //   public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.3:3000";////basheer 3000
 
@@ -128,6 +126,8 @@ public class AppConstants {
     public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
 
     public static final String EAT_REFUND_LIST_URL = URL_SERVER_IP_PORT + "/eat/refund/";
+    public static final String EAT_COUPON_LIST_URL = URL_SERVER_IP_PORT + "/eat/coupon/";
+    public static final String EAT_COUPON_CHECK_URL = URL_SERVER_IP_PORT + "/eat/coupon/validate/";
 
     public static final String URL_FAQS = URL_SERVER_IP_PORT + "/faqs/";/////PUT method0
 

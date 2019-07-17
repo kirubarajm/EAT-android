@@ -117,11 +117,6 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
                         }
 
-
-
-
-
-
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }

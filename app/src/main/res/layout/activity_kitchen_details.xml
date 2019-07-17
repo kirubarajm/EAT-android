@@ -184,6 +184,40 @@
                                             android:textSize="18sp"
                                             android:textStyle="bold" />
 
+
+
+
+                                        <LinearLayout
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginEnd="15dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:onClick="@{()->kitchenDetailsViewModel.vegType()}"
+                                            android:orientation="vertical">
+
+
+                                            <com.tovo.eat.utilities.fonts.TovoTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/icon_veg_only"
+                                                android:textColor="@{kitchenDetailsViewModel.isVegOnly?@color/green:@color/dark_gray}"
+                                                android:textSize="20sp" />
+
+
+                                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="@string/veg_only"
+                                                android:textColor="@{kitchenDetailsViewModel.isVegOnly?@color/green:@color/dark_gray}"
+                                                android:textSize="8sp"
+                                                android:textStyle="bold" />
+
+
+                                        </LinearLayout>
+
+
                                     </RelativeLayout>
 
 

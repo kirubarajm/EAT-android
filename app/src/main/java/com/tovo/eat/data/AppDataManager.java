@@ -185,6 +185,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveCouponId(int couponid) {
+        setCouponId(couponid);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
         mPreferencesHelper.getOrderId();
@@ -498,6 +503,16 @@ public class AppDataManager implements DataManager {
 
         mPreferencesHelper.setRegionId(regiionId);
 
+    }
+
+    @Override
+    public int getCouponId() {
+        return mPreferencesHelper.getCouponId();
+    }
+
+    @Override
+    public void setCouponId(int couponId) {
+        mPreferencesHelper.setCouponId(couponId);
     }
 
     @Override

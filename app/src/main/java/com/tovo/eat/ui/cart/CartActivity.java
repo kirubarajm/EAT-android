@@ -16,6 +16,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
@@ -224,10 +225,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void emptyCart() {
-        FragmentTransaction transaction = getBaseActivity().getSupportFragmentManager().beginTransaction();
+      /*  FragmentTransaction transaction = getBaseActivity().getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+        transaction.commit();*/
 
     }
 
@@ -258,8 +259,22 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void refundList() {
 
-        Intent intent = RefundListActivity.newIntent(getContext());
-        startActivityForResult(intent, AppConstants.REFUND_LIST_CODE);
+      /*  Intent intent = RefundListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.REFUND_LIST_CODE);*/
+
+
+    }
+
+    @Override
+    public void checkRefund() {
+
+
+        if (mActivityCartBinding.refundCheck.isChecked()){
+            mCartViewModel.refundChecked.set(true);
+        }else {
+            mCartViewModel.refundChecked.set(false);
+        }
+
 
 
     }
@@ -267,6 +282,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void promoList() {
 
+
+        Intent intent = CouponListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.COUPON_LIST_CODE);
 
     }
 
@@ -349,8 +367,12 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void reloadCart() {
-        if (mCartViewModel.getCartPojoDetails() != null)
+        if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.fetchRepos();
+            mCartViewModel.emptyCart.set(false);
+        }else {
+            mCartViewModel.emptyCart.set(true);
+        }
     }
 
     @Override
@@ -368,6 +390,17 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
             }
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
+
+
+            if (resultCode == RESULT_OK) {
+
+                mCartViewModel.fetchRepos();
+
+
+            }
+
+
+        }else if (requestCode == AppConstants.COUPON_LIST_CODE) {
 
 
             if (resultCode == RESULT_OK) {

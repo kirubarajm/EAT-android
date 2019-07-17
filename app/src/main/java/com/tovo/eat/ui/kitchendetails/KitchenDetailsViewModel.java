@@ -43,6 +43,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableBoolean cart = new ObservableBoolean();
     public ObservableBoolean optionmenu = new ObservableBoolean();
     public ObservableBoolean isFavourite = new ObservableBoolean();
+    public ObservableBoolean isVegOnly = new ObservableBoolean();
     public ObservableField<KitchenDishResponse> kitchenDishModells = new ObservableField<>();
     public ObservableList<KitchenDishResponse.Kitchenmenuimage> kitchenInfoImagesListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Kitchenmenuimage>> kitchenInfoImagesListLiveData;
@@ -72,6 +73,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     int favId;
     int makeitId;
     String isFav;
+    int vegid;
     List<KitchenDishResponse.Kitchenmenuimage> commonKitchenImagesList = new ArrayList<>();
     List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList = new ArrayList<>();
     List<KitchenDishResponse.Kitchenmenuimage> kitchenInfoTempArray = new ArrayList<>();
@@ -114,6 +116,16 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     public void goBack(){
         getNavigator().goBack();
+    }
+
+    public void vegType(){
+       if (isVegOnly.get()){
+           isVegOnly.set(false);
+           vegid=0;
+       }else {
+           isVegOnly.set(true);
+           vegid=1;
+       }
     }
 
 
@@ -275,7 +287,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
                     new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
-                            kitchenId, getDataManager().getCurrentUserId()), new Response.Listener<KitchenDishResponse>() {
+                            kitchenId, getDataManager().getCurrentUserId(),vegid), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
                     if (response != null) {

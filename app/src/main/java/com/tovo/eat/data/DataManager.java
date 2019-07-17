@@ -69,6 +69,7 @@ public interface DataManager extends PreferencesHelper {
 
 
     void saveRegionId(int regionid);
+    void saveCouponId(int couponid);
 
 
 

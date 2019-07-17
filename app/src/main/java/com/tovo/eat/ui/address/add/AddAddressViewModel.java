@@ -203,7 +203,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 request.setAddressType(1);
 
             } else if (typeOffice.get()) {
-                request.setAddressTitle("Office");
+                request.setAddressTitle("Work");
                 request.setAddressType(2);
 
             } else if (typeOther.get()) {
@@ -238,16 +238,16 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                             getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
                             FilterRequestPojo filterRequestPojo;
 
-                            Gson sGson = new GsonBuilder().create();
+                           /* Gson sGson = new GsonBuilder().create();
                             filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
-                            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                          *//*  filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                             filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                            filterRequestPojo.setLat(getDataManager().getCurrentLng());
+                            filterRequestPojo.setLat(getDataManager().getCurrentLng());*//*
 
                             Gson gson = new Gson();
                             String json = gson.toJson(filterRequestPojo);
-                            getDataManager().setFilterSort(json);
+                            getDataManager().setFilterSort(json);*/
                         }
 
 

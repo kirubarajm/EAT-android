@@ -17,7 +17,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
     public ObservableBoolean male = new ObservableBoolean();
     public ObservableBoolean haveReferral = new ObservableBoolean();
-    public ObservableBoolean female = new ObservableBoolean();
+    public ObservableBoolean referral = new ObservableBoolean();
     Response.ErrorListener errorListener;
     int gender = 0;
 
@@ -43,6 +43,16 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
+    public void viewReferral() {
+        if (referral.get()) {
+            referral.set(false);
+        } else {
+            referral.set(true);
+        }
+
+    }
+
+
     public void referralCode() {
         haveReferral.set(true);
     }
@@ -64,7 +74,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId);
         } else {
 
-            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId,referral);
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral);
         }
 
 
@@ -73,7 +83,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class,nameGenderRequest, new Response.Listener<NameGenderResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, nameGenderRequest, new Response.Listener<NameGenderResponse>() {
                 @Override
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
@@ -90,7 +100,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                     setIsLoading(false);
                     getNavigator().genderFailure("Failed to update");
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -119,7 +129,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

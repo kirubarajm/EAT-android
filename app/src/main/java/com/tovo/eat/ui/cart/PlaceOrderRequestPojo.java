@@ -32,6 +32,9 @@ public class PlaceOrderRequestPojo {
     @SerializedName("rcid")
     @Expose
     private Integer rcid;
+  @SerializedName("cid")
+    @Expose
+    private Integer cid;
 
     @SerializedName("orderitems")
     @Expose
@@ -41,15 +44,24 @@ public class PlaceOrderRequestPojo {
     public PlaceOrderRequestPojo() {
     }
 
-    public PlaceOrderRequestPojo(Integer userid,  Integer makeitUserid, Integer paymentType, Integer aid,Integer rcid, List<Orderitem> orderitems) {
+    public PlaceOrderRequestPojo(Integer userid,  Integer makeitUserid, Integer paymentType, Integer aid,Integer rcid,Integer cid, List<Orderitem> orderitems) {
         this.userid = userid;
         this.makeitUserId = makeitUserid;
         this.paymentType = paymentType;
         this.aid = aid;
         this.orderitems = orderitems;
         this.rcid=rcid;
+        this.cid=cid;
     }
 
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
 
     public Integer getRcid() {
         return rcid;

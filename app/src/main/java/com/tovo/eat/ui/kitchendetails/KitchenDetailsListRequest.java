@@ -20,6 +20,9 @@ public class KitchenDetailsListRequest {
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
+    @SerializedName("vegtype")
+    @Expose
+    private Integer vegtype;
 
 
     public Integer getEatuserid() {
@@ -30,11 +33,12 @@ public class KitchenDetailsListRequest {
         this.eatuserid = eatuserid;
     }
 
-    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid, Integer eatuserid) {
+    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid, Integer eatuserid, Integer vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.makeit_userid = makeit_userid;
         this.eatuserid = eatuserid;
+        this.vegtype = vegtype;
     }
 
     public String getLat() {

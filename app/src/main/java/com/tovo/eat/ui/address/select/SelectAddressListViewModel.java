@@ -119,7 +119,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         defaultAddress(aid);
 
 
-        FilterRequestPojo filterRequestPojo;
+      /*  FilterRequestPojo filterRequestPojo;
 
         Gson sGson = new GsonBuilder().create();
         filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
@@ -130,7 +130,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         Gson gson = new Gson();
         String json = gson.toJson(filterRequestPojo);
-        getDataManager().setFilterSort(json);
+        getDataManager().setFilterSort(json);*/
 
     }
 

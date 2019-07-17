@@ -585,5 +585,9 @@
     <string name="mistake_order">Placed order by mistake</string>
     <string name="explore_kitchens">Explore kitchens</string>
     <string name="name_and_gender">Name and Gender</string>
+    <string name="coupons">Coupons</string>
+    <string name="coupon_adjustments">Coupon Adjustments</string>
+    <string name="use_refund_coupon_for_current_order">Use refund coupon for current order</string>
+    <string name="enter_coupon">ENTER COUPON CODE HERE</string>
 
 </resources>

@@ -656,10 +656,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void checkCart() {
         if (!mMainViewModel.totalCart()) {
-            mMainViewModel.isHome.set(true);
+           /* mMainViewModel.isHome.set(true);
             mMainViewModel.isExplore.set(false);
             mMainViewModel.isCart.set(false);
-            mMainViewModel.isMyAccount.set(false);
+            mMainViewModel.isMyAccount.set(false);*/
 
         }
     }

@@ -45,6 +45,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
+    private static final String PREF_KEY_COUPON_ID = "PREF_KEY_COUPON_ID";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
     private static final String PREF_KEY_VEG_TYPE = "VEG_TYPE";
@@ -383,6 +384,17 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setRegionId(int regiionId) {
         mPrefs.edit().putInt(PREF_KEY_REGION_ID, regiionId).apply();
+    }
+
+    @Override
+    public int getCouponId() {
+        return mPrefs.getInt(PREF_KEY_COUPON_ID, 0);
+
+    }
+
+    @Override
+    public void setCouponId(int couponId) {
+        mPrefs.edit().putInt(PREF_KEY_COUPON_ID, couponId).apply();
     }
 
     @Override

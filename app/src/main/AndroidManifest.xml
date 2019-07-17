@@ -152,6 +152,7 @@
         <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
         <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivityOP" />
         <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivity" />
+        <activity android:name=".ui.cart.coupon.CouponListActivity" />
 
 
         <meta-data

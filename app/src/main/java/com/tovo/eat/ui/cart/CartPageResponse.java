@@ -8,66 +8,41 @@ import java.util.List;
 public class CartPageResponse {
 
 
-    @SerializedName("success")
-    @Expose
-    private Boolean success;
-    @SerializedName("status")
-    @Expose
-    private Boolean status;
-    @SerializedName("message")
-    @Expose
-    private String message;
-    @SerializedName("result")
-    @Expose
-    private List<Result> result = null;
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<Result> getResult() {
-        return result;
-    }
-
-    public void setResult(List<Result> result) {
-        this.result = result;
-    }
-
-
     public class Amountdetails {
 
         @SerializedName("grandtotal")
         @Expose
         private Integer grandtotal;
+        @SerializedName("original_price")
+        @Expose
+        private Integer originalPrice;
+        @SerializedName("refund_balance")
+        @Expose
+        private Integer refundBalance;
         @SerializedName("gstcharge")
         @Expose
         private Integer gstcharge;
-        @SerializedName("totalamount")
-        @Expose
-        private Integer totalamount;
         @SerializedName("delivery_charge")
         @Expose
         private Integer deliveryCharge;
+        @SerializedName("refund_coupon_adjustment")
+        @Expose
+        private Integer refundCouponAdjustment;
+        @SerializedName("product_orginal_price")
+        @Expose
+        private Integer productOrginalPrice;
+        @SerializedName("totalamount")
+        @Expose
+        private Integer totalamount;
+        @SerializedName("couponstatus")
+        @Expose
+        private Boolean couponstatus;
+        @SerializedName("refundcouponstatus")
+        @Expose
+        private Boolean refundcouponstatus;
+        @SerializedName("coupon_discount_amount")
+        @Expose
+        private Integer couponDiscountAmount;
 
         public Integer getGrandtotal() {
             return grandtotal;
@@ -75,6 +50,22 @@ public class CartPageResponse {
 
         public void setGrandtotal(Integer grandtotal) {
             this.grandtotal = grandtotal;
+        }
+
+        public Integer getOriginalPrice() {
+            return originalPrice;
+        }
+
+        public void setOriginalPrice(Integer originalPrice) {
+            this.originalPrice = originalPrice;
+        }
+
+        public Integer getRefundBalance() {
+            return refundBalance;
+        }
+
+        public void setRefundBalance(Integer refundBalance) {
+            this.refundBalance = refundBalance;
         }
 
         public Integer getGstcharge() {
@@ -85,14 +76,6 @@ public class CartPageResponse {
             this.gstcharge = gstcharge;
         }
 
-        public Integer getTotalamount() {
-            return totalamount;
-        }
-
-        public void setTotalamount(Integer totalamount) {
-            this.totalamount = totalamount;
-        }
-
         public Integer getDeliveryCharge() {
             return deliveryCharge;
         }
@@ -101,9 +84,55 @@ public class CartPageResponse {
             this.deliveryCharge = deliveryCharge;
         }
 
+        public Integer getRefundCouponAdjustment() {
+            return refundCouponAdjustment;
+        }
+
+        public void setRefundCouponAdjustment(Integer refundCouponAdjustment) {
+            this.refundCouponAdjustment = refundCouponAdjustment;
+        }
+
+        public Integer getProductOrginalPrice() {
+            return productOrginalPrice;
+        }
+
+        public void setProductOrginalPrice(Integer productOrginalPrice) {
+            this.productOrginalPrice = productOrginalPrice;
+        }
+
+        public Integer getTotalamount() {
+            return totalamount;
+        }
+
+        public void setTotalamount(Integer totalamount) {
+            this.totalamount = totalamount;
+        }
+
+        public Boolean getCouponstatus() {
+            return couponstatus;
+        }
+
+        public void setCouponstatus(Boolean couponstatus) {
+            this.couponstatus = couponstatus;
+        }
+
+        public Boolean getRefundcouponstatus() {
+            return refundcouponstatus;
+        }
+
+        public void setRefundcouponstatus(Boolean refundcouponstatus) {
+            this.refundcouponstatus = refundcouponstatus;
+        }
+
+        public Integer getCouponDiscountAmount() {
+            return couponDiscountAmount;
+        }
+
+        public void setCouponDiscountAmount(Integer couponDiscountAmount) {
+            this.couponDiscountAmount = couponDiscountAmount;
+        }
+
     }
-
-
     public class Cuisine {
 
         @SerializedName("cid")
@@ -142,7 +171,6 @@ public class CartPageResponse {
 
     }
 
-
     public class Item {
 
         @SerializedName("makeit_userid")
@@ -157,18 +185,12 @@ public class CartPageResponse {
         @SerializedName("image")
         @Expose
         private String image;
-        @SerializedName("active_status")
-        @Expose
-        private String activeStatus;
         @SerializedName("preparetime")
         @Expose
         private Object preparetime;
         @SerializedName("vegtype")
         @Expose
         private String vegtype;
-        @SerializedName("created_at")
-        @Expose
-        private String createdAt;
         @SerializedName("price")
         @Expose
         private Integer price;
@@ -205,12 +227,39 @@ public class CartPageResponse {
         @SerializedName("quantity")
         @Expose
         private Integer quantity;
-        @SerializedName("cusine")
+        @SerializedName("cuisine")
         @Expose
-        private Integer cusine;
+        private Integer cuisine;
+        @SerializedName("delete_status")
+        @Expose
+        private Integer deleteStatus;
+        @SerializedName("approved_status")
+        @Expose
+        private Integer approvedStatus;
+        @SerializedName("approved_time")
+        @Expose
+        private Object approvedTime;
+        @SerializedName("approvedby")
+        @Expose
+        private Object approvedby;
+        @SerializedName("clusterid")
+        @Expose
+        private Integer clusterid;
+        @SerializedName("approval_status")
+        @Expose
+        private Object approvalStatus;
+        @SerializedName("active_status")
+        @Expose
+        private Integer activeStatus;
         @SerializedName("updated_at")
         @Expose
         private String updatedAt;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
         @SerializedName("availablity")
         @Expose
         private Boolean availablity;
@@ -220,20 +269,6 @@ public class CartPageResponse {
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
-
-
-        @SerializedName("cuisinename")
-        @Expose
-        private String cuisinename;
-
-
-        public String getCuisinename() {
-            return cuisinename;
-        }
-
-        public void setCuisinename(String cuisinename) {
-            this.cuisinename = cuisinename;
-        }
 
         public Integer getMakeitUserid() {
             return makeitUserid;
@@ -267,14 +302,6 @@ public class CartPageResponse {
             this.image = image;
         }
 
-        public String getActiveStatus() {
-            return activeStatus;
-        }
-
-        public void setActiveStatus(String activeStatus) {
-            this.activeStatus = activeStatus;
-        }
-
         public Object getPreparetime() {
             return preparetime;
         }
@@ -289,14 +316,6 @@ public class CartPageResponse {
 
         public void setVegtype(String vegtype) {
             this.vegtype = vegtype;
-        }
-
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(String createdAt) {
-            this.createdAt = createdAt;
         }
 
         public Integer getPrice() {
@@ -395,12 +414,68 @@ public class CartPageResponse {
             this.quantity = quantity;
         }
 
-        public Integer getCusine() {
-            return cusine;
+        public Integer getCuisine() {
+            return cuisine;
         }
 
-        public void setCusine(Integer cusine) {
-            this.cusine = cusine;
+        public void setCuisine(Integer cuisine) {
+            this.cuisine = cuisine;
+        }
+
+        public Integer getDeleteStatus() {
+            return deleteStatus;
+        }
+
+        public void setDeleteStatus(Integer deleteStatus) {
+            this.deleteStatus = deleteStatus;
+        }
+
+        public Integer getApprovedStatus() {
+            return approvedStatus;
+        }
+
+        public void setApprovedStatus(Integer approvedStatus) {
+            this.approvedStatus = approvedStatus;
+        }
+
+        public Object getApprovedTime() {
+            return approvedTime;
+        }
+
+        public void setApprovedTime(Object approvedTime) {
+            this.approvedTime = approvedTime;
+        }
+
+        public Object getApprovedby() {
+            return approvedby;
+        }
+
+        public void setApprovedby(Object approvedby) {
+            this.approvedby = approvedby;
+        }
+
+        public Integer getClusterid() {
+            return clusterid;
+        }
+
+        public void setClusterid(Integer clusterid) {
+            this.clusterid = clusterid;
+        }
+
+        public Object getApprovalStatus() {
+            return approvalStatus;
+        }
+
+        public void setApprovalStatus(Object approvalStatus) {
+            this.approvalStatus = approvalStatus;
+        }
+
+        public Integer getActiveStatus() {
+            return activeStatus;
+        }
+
+        public void setActiveStatus(Integer activeStatus) {
+            this.activeStatus = activeStatus;
         }
 
         public String getUpdatedAt() {
@@ -409,6 +484,22 @@ public class CartPageResponse {
 
         public void setUpdatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
         }
 
         public Boolean getAvailablity() {
@@ -437,6 +528,42 @@ public class CartPageResponse {
 
     }
 
+
+
+        @SerializedName("success")
+        @Expose
+        private Boolean success;
+        @SerializedName("status")
+        @Expose
+        private Boolean status;
+        @SerializedName("result")
+        @Expose
+        private List<Result> result = null;
+
+        public Boolean getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(Boolean success) {
+            this.success = success;
+        }
+
+        public Boolean getStatus() {
+            return status;
+        }
+
+        public void setStatus(Boolean status) {
+            this.status = status;
+        }
+
+        public List<Result> getResult() {
+            return result;
+        }
+
+        public void setResult(List<Result> result) {
+            this.result = result;
+        }
+
     public class Result {
 
         @SerializedName("makeituserid")
@@ -448,15 +575,12 @@ public class CartPageResponse {
         @SerializedName("makeitbrandname")
         @Expose
         private String makeitbrandname;
-        @SerializedName("region")
+        @SerializedName("regionid")
         @Expose
-        private Integer region;
+        private Integer regionid;
         @SerializedName("regionname")
         @Expose
         private String regionname;
-        @SerializedName("ordercount")
-        @Expose
-        private String ordercount;
         @SerializedName("localityname")
         @Expose
         private String localityname;
@@ -475,15 +599,9 @@ public class CartPageResponse {
         @SerializedName("item")
         @Expose
         private List<Item> item = null;
-
-
-        public String getOrdercount() {
-            return ordercount;
-        }
-
-        public void setOrdercount(String ordercount) {
-            this.ordercount = ordercount;
-        }
+        @SerializedName("ordercount")
+        @Expose
+        private Integer ordercount;
 
         public Integer getMakeituserid() {
             return makeituserid;
@@ -509,12 +627,12 @@ public class CartPageResponse {
             this.makeitbrandname = makeitbrandname;
         }
 
-        public Integer getRegion() {
-            return region;
+        public Integer getRegionid() {
+            return regionid;
         }
 
-        public void setRegion(Integer region) {
-            this.region = region;
+        public void setRegionid(Integer regionid) {
+            this.regionid = regionid;
         }
 
         public String getRegionname() {
@@ -573,6 +691,13 @@ public class CartPageResponse {
             this.item = item;
         }
 
-    }
+        public Integer getOrdercount() {
+            return ordercount;
+        }
 
+        public void setOrdercount(Integer ordercount) {
+            this.ordercount = ordercount;
+        }
+
+    }
 }

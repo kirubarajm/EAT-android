@@ -173,7 +173,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                     placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), orderitems);
+                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
 
 
                     Gson gson = new Gson();
@@ -299,7 +299,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(), orderitems);
+            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(),getDataManager().getCouponId(), orderitems);
 
 
             Gson gson = new Gson();
@@ -339,7 +339,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                      //  Log.e("test", error.getMessage());
+                        //  Log.e("test", error.getMessage());
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
                 }) {
@@ -380,10 +380,19 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
             json.put("transactionid", paymentId);
             json.put("payment_status", status);
             json.put("orderid", getDataManager().getOrderId());
-            json.put("refund_balance", refundBalance);
 
 
-            Log.e("asdaf",json.toString());
+            if (getDataManager().getCouponId() != 0) {
+                json.put("cid", getDataManager().getCouponId());
+            }
+
+            if (getDataManager().getRefundId() != 0) {
+                json.put("rcid", getDataManager().getCouponId());
+                json.put("refund_balance", refundBalance);
+            }
+
+
+            Log.e("asdaf", json.toString());
 
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_ORDER_SUCCESS, json, new Response.Listener<JSONObject>() {
                 @Override
@@ -394,6 +403,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                             getNavigator().paymentSuccessed(true);
                             getDataManager().setCartDetails("");
                             getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
                         } else {
                             getNavigator().paymentSuccessed(false);
 

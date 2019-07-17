@@ -21,7 +21,6 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,6 +49,8 @@ import com.tovo.eat.ui.address.select.SelectAddressListAdapter;
 import com.tovo.eat.ui.address.select.SelectAddressListResponse;
 import com.tovo.eat.ui.cart.CartDishAdapter;
 import com.tovo.eat.ui.cart.CartPageResponse;
+import com.tovo.eat.ui.cart.coupon.CouponListAdapter;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.filter.FilterAdapter;
@@ -61,7 +62,6 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.homemenu.story.TabsPagerAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
@@ -97,7 +97,16 @@ public final class BindingUtils {
         KitchenAdapter adapter = (KitchenAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(sales,recyclerView.getContext());
+            adapter.addItems(sales, recyclerView.getContext());
+        }
+    }
+
+    @BindingAdapter({"adapter"})
+    public static void addCouponListItems(RecyclerView recyclerView, List<CouponListResponse.Result> results) {
+        CouponListAdapter adapter = (CouponListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
         }
     }
 
@@ -108,19 +117,18 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
 
-            adapter.addItems( response);
+            adapter.addItems(response);
         }
     }
 
     @BindingAdapter({"dishadapter"})
     public static void addSearchDishItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {
-       SearchDishAdapter adapter = (SearchDishAdapter) recyclerView.getAdapter();
+        SearchDishAdapter adapter = (SearchDishAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(response,recyclerView.getContext());
+            adapter.addItems(response, recyclerView.getContext());
         }
     }
-
 
 
     @BindingAdapter({"adapter"})
@@ -159,6 +167,7 @@ public final class BindingUtils {
             adapter.addItems(dishes);
         }
     }
+
     @BindingAdapter({"todaysMenuadapter"})
     public static void addTodaysMenuItems(RecyclerView recyclerView, List<KitchenDishResponse.Productlist> dishes) {
         TodaysMenuAdapter adapter = (TodaysMenuAdapter) recyclerView.getAdapter();
@@ -178,16 +187,16 @@ public final class BindingUtils {
     }
 
 
-
     @BindingAdapter({"cardadapter"})
     public static void addRegionCardItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
         RegionsCardAdapter adapter = (RegionsCardAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(dishes,recyclerView.getContext());
+            adapter.addItems(dishes, recyclerView.getContext());
         }
     }
- @BindingAdapter({"regionListAdapter"})
+
+    @BindingAdapter({"regionListAdapter"})
     public static void addRegionListItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
         RegionsListAdapter adapter = (RegionsListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
@@ -202,28 +211,8 @@ public final class BindingUtils {
         StoriesCardAdapter adapter = (StoriesCardAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(dishes,recyclerView.getContext());
+            adapter.addItems(dishes, recyclerView.getContext());
         }
-    }
-
-    @BindingAdapter("touchListener")
-    public void setTouchListener(View self,boolean value){
-        self.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                // Check if the button is PRESSED
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    //do some thing
-                    view.setBackgroundColor(R.color.eat_color);
-
-                }// Check if the button is RELEASED
-                else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    //do some thing
-                }
-                return false;
-            }
-        });
     }
 
     @BindingAdapter({"foodBadgesadapter"})
@@ -253,17 +242,6 @@ public final class BindingUtils {
         }
     }
 
-
-    /*@BindingAdapter({"adapter"})
-    public static void addRegionKitchenItems(RecyclerView recyclerView, List<RegionsResponse.Kitchen> dishes) {
-        DishKitchenAdapter adapter = (DishKitchenAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(dishes,recyclerView.getContext());
-        }
-    }*/
-
-
     @BindingAdapter({"adapter"})
     public static void addCartDishItems(RecyclerView recyclerView, List<CartPageResponse.Item> dishes) {
         CartDishAdapter adapter = (CartDishAdapter) recyclerView.getAdapter();
@@ -274,6 +252,15 @@ public final class BindingUtils {
     }
 
 
+    /*@BindingAdapter({"adapter"})
+    public static void addRegionKitchenItems(RecyclerView recyclerView, List<RegionsResponse.Kitchen> dishes) {
+        DishKitchenAdapter adapter = (DishKitchenAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes,recyclerView.getContext());
+        }
+    }*/
+
     @BindingAdapter({"adapter"})
     public static void addAddressListItems(RecyclerView recyclerView, List<AddressListResponse.Result> response) {
         AddressListAdapter adapter = (AddressListAdapter) recyclerView.getAdapter();
@@ -282,7 +269,6 @@ public final class BindingUtils {
             adapter.addItems(response);
         }
     }
-
 
     @BindingAdapter({"adapter"})
     public static void addSelectAddressListItems(RecyclerView recyclerView, List<SelectAddressListResponse.Result> response) {
@@ -302,7 +288,6 @@ public final class BindingUtils {
         }
     }
 
-
     @BindingAdapter({"filteradapter"})
     public static void addFilterItems(RecyclerView recyclerView, List<FilterItems> filterItems) {
         FilterAdapter adapter = (FilterAdapter) recyclerView.getAdapter();
@@ -311,7 +296,6 @@ public final class BindingUtils {
             adapter.addItems(filterItems, 1);
         }
     }
-
 
     @BindingAdapter({"adapter"})
     public static void addChatItems(RecyclerView recyclerView, List<ChatResponse.Result> blogs) {
@@ -381,7 +365,6 @@ public final class BindingUtils {
         Glide.with(context).load(url).into(imageView);
     }
 
-
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
@@ -391,7 +374,6 @@ public final class BindingUtils {
         Glide.with(context).load(url).into(imageView);
 
     }
-
 
     @BindingAdapter("cusrsiveImageUrl")
     public static void setCursiveImageUrl(RoundCornerImageView imageView, String url) {
@@ -404,13 +386,11 @@ public final class BindingUtils {
                 .into(imageView);
     }
 
-
     @BindingAdapter("setBitmap")
     public static void setBitmap(ImageView imageView, Bitmap bitmap) {
         Context context = imageView.getContext();
         imageView.setImageBitmap(bitmap);
     }
-
 
     @BindingAdapter({"setWebViewClient"})
     public static void setWebViewClient(WebView view, WebViewClient client) {
@@ -421,7 +401,6 @@ public final class BindingUtils {
     public static void loadUrl(WebView view, String url) {
         view.loadUrl(url);
     }
-
 
     @BindingAdapter({"videoUrl"})
     public static void setVideourl(VideoView view, String url) {
@@ -447,6 +426,26 @@ public final class BindingUtils {
             adapter.clearItems();
             adapter.addOrderItems(blogs);
         }
+    }
+
+    @BindingAdapter("touchListener")
+    public void setTouchListener(View self, boolean value) {
+        self.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                // Check if the button is PRESSED
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //do some thing
+                    view.setBackgroundColor(R.color.eat_color);
+
+                }// Check if the button is RELEASED
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //do some thing
+                }
+                return false;
+            }
+        });
     }
 
 

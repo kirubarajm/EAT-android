@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="couponListItemViewModel"
+            type="com.tovo.eat.ui.cart.coupon.CouponListItemViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->couponListItemViewModel.onItemClick()}"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curve_stroke_gray">
+
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:padding="5dp"
+                    android:text="@{couponListItemViewModel.description}"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    android:padding="5dp"
+                    android:text="@{couponListItemViewModel.expiry}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="10sp" />
+
+
+            </RelativeLayout>
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/curve_stroke"
+                android:padding="5dp"
+                android:text="@{couponListItemViewModel.code}"
+                android:textColor="@color/eat_color"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/op"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{()->couponListItemViewModel.onItemClick()}" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@{couponListItemViewModel.code}"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textSize="14sp" />
+
+
+            <LinearLayout
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/coupon"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/icon_inr"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="10sp" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@{couponListItemViewModel.amount}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>-->
+
+
+        <!-- <View
+
+             android:layout_marginTop="10dp"
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:background="@color/eat_color" />-->
+
+    </LinearLayout>
+
+</layout>

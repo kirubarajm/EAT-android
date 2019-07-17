@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.cart.refund;
+package com.tovo.eat.ui.cart.coupon;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -6,29 +6,28 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.databinding.ListItemAddressBinding;
+import com.tovo.eat.databinding.ListItemCouponBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemRefundBinding;
+import com.tovo.eat.databinding.ListItemCouponBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
 import java.util.List;
 
-public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<RefundListResponse.Result> item_list;
+    private List<CouponListResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
     private DataManager dataManager;
 
     private static int sSelected = -1;
 
-    public RefundListAdapter(List<RefundListResponse.Result> item_list, DataManager dataManager) {
+    public CouponListAdapter(List<CouponListResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager=dataManager;
-        sSelected = -1;
     }
 
 
@@ -48,7 +47,7 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("");
+            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
             mBinding.setEmptyItemViewModel(emptyItemViewModel);
         }
 
@@ -64,7 +63,7 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemRefundBinding blogViewBinding = ListItemRefundBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemCouponBinding blogViewBinding = ListItemCouponBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -103,7 +102,7 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.clear();
     }
 
-    public void addItems(List<RefundListResponse.Result> blogList) {
+    public void addItems(List<CouponListResponse.Result> blogList) {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
@@ -114,16 +113,16 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(RefundListResponse.Result result,int selected);
+        void onItemClickData(CouponListResponse.Result result, int selected);
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements RefundListItemViewModel.RefundListItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements CouponListItemViewModel.RefundListItemViewModelListener {
 
-        ListItemRefundBinding mListItemLiveProductsBinding;
-        RefundListItemViewModel mLiveProductsItemViewModel;
+        ListItemCouponBinding mListItemLiveProductsBinding;
+        CouponListItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemRefundBinding binding) {
+        public LiveProductsViewHolder(ListItemCouponBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -131,16 +130,19 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final RefundListResponse.Result blog = item_list.get(position);
-            mLiveProductsItemViewModel = new RefundListItemViewModel(this, blog);
-            mListItemLiveProductsBinding.setRefundListItemViewModel(mLiveProductsItemViewModel);
+            final CouponListResponse.Result blog = item_list.get(position);
+            mLiveProductsItemViewModel = new CouponListItemViewModel(this, blog);
+            mListItemLiveProductsBinding.setCouponListItemViewModel(mLiveProductsItemViewModel);
 
 
+
+
+/*
             if (sSelected == position) {
                 mListItemLiveProductsBinding.op.setChecked(true);
             } else {
                 mListItemLiveProductsBinding.op.setChecked(false);
-            }
+            }*/
 
 
 
@@ -149,13 +151,14 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(RefundListResponse.Result result) {
+        public void onItemClick(CouponListResponse.Result result) {
 
 
             if (sSelected==getAdapterPosition()){
                 sSelected=-1;
             }else {
                 sSelected = getAdapterPosition();
+
             }
 
             mLiveProductsAdapterListener.onItemClickData(result,sSelected);

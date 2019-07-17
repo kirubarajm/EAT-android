@@ -171,7 +171,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
                 .setContentTitle(title)
                 .setContentText(message)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)

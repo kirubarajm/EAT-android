@@ -168,6 +168,10 @@ public interface PreferencesHelper {
     void setRegionId(int regiionId);
 
 
+    int getCouponId();
+    void setCouponId(int couponId);
+
+
     boolean getEmailStatus();
 
     void setEmailStatus(boolean status);

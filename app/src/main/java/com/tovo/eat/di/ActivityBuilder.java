@@ -51,6 +51,8 @@ import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.cart.CartProvider;
+import com.tovo.eat.ui.cart.coupon.CouponListActivity;
+import com.tovo.eat.ui.cart.coupon.CouponListModule;
 import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListModule;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlertProvider;
@@ -282,6 +284,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {StoriesActivityModule.class,StatusStoriesProvider.class})
     abstract StoriesActivity bindStoriesActivity();
+
+  @ContributesAndroidInjector(modules = {CouponListModule.class})
+    abstract CouponListActivity bindCouponListActivity();
 
 
 }

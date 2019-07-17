@@ -177,6 +177,9 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+
+
+
                         mAddressListViewModel.deleteAddress(addressList.getAid());
                         //   mAddressListViewModel.fetchRepos();
 

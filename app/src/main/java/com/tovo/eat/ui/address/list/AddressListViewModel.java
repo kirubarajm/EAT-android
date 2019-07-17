@@ -88,8 +88,11 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
     }
 
-
     public void deleteAddress(Integer aid) {
+
+        Log.e("sfsg",String.valueOf(aid));
+
+
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DELETE_ADDRESS_URL, CommonResponse.class, new AddressDeleteRequest(aid), new Response.Listener<CommonResponse>() {
@@ -97,21 +100,22 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
-                        getNavigator().showToast(response.getMessage());
-                        getNavigator().addresDeleted();
+                        if (getDataManager().getAddressId().equals(aid)){
 
-                        if (getDataManager().getAddressId()==aid){
+                            getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0,null, 0);
+                            getDataManager().setCurrentAddress(null);
 
-                            getDataManager().setAddressId(0);
+                          /*  getDataManager().setAddressId(0);
                             getDataManager().setCurrentAddress(null);
                             getDataManager().setCurrentAddressArea(null);
                             getDataManager().setCurrentAddressTitle(null);
                             getDataManager().setCurrentLat(0.0);
-                            getDataManager().setCurrentLng(0.0);
-
-
+                            getDataManager().setCurrentLng(0.0);*/
                         }
 
+
+                        getNavigator().showToast(response.getMessage());
+                        getNavigator().addresDeleted();
 
                     }
                 }
@@ -142,29 +146,24 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
         getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), request.getLat(), request.getLon(), request.getLocality(), request.getAid());
-
-
-
         getDataManager().setCurrentAddress(request.getAddress());
-
-
 
 
         defaultAddress(request.getAid());
 
-
+/*
         FilterRequestPojo filterRequestPojo;
 
         Gson sGson = new GsonBuilder().create();
         filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
-        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+        *//*filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
         filterRequestPojo.setLat(getDataManager().getCurrentLat());
-        filterRequestPojo.setLat(getDataManager().getCurrentLng());
+        filterRequestPojo.setLat(getDataManager().getCurrentLng());*//*
 
         Gson gson = new Gson();
         String json = gson.toJson(filterRequestPojo);
-        getDataManager().setFilterSort(json);
+        getDataManager().setFilterSort(json);*/
     }
 
 

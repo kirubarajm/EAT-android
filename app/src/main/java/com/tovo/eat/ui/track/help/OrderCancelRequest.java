@@ -9,7 +9,7 @@ public class OrderCancelRequest {
     @Expose
     public Integer orderid;
 
-    @SerializedName("reason")
+    @SerializedName("cancel_reason")
     @Expose
     public String reason;
 
