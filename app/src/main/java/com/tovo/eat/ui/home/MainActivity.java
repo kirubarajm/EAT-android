@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
                     transaction.replace(R.id.content_main, fragment);
-                    //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+                    //  transaction.addToBackStack(SamplePagerFragment.class.getSimpleName());
                     transaction.commit();
                     mMainViewModel.isHome.set(true);
                     mMainViewModel.isExplore.set(false);
@@ -216,7 +216,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        //  transaction.addToBackStack(SamplePagerFragment.class.getSimpleName());
         transaction.commit();
 
         mMainViewModel.toolbarTitle.set("Home");
@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(HomeTabFragment.class.getSimpleName());
+        //  transaction.addToBackStack(SamplePagerFragment.class.getSimpleName());
         transaction.commit();
 
 
@@ -353,11 +353,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }, 2000);
 
            /* FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentByTag(HomeTabFragment.TAG);
+            Fragment fragment = fragmentManager.findFragmentByTag(SamplePagerFragment.TAG);
             if (fragment == null) {
                 super.onBackPressed();
             } else {
-                onFragmentDetached(HomeTabFragment.TAG);
+                onFragmentDetached(SamplePagerFragment.TAG);
             }*/
 
         //  showExitDialog();
@@ -365,14 +365,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
        /* FragmentManager fm = getSupportFragmentManager();
 
 
-      //  Fragment fragment = fm.findFragmentByTag(HomeTabFragment.TAG);
+      //  Fragment fragment = fm.findFragmentByTag(SamplePagerFragment.TAG);
 
         Fragment fragment = fm.findFragmentById(R.id.content_main);
 
 
 
 
-        if (fragment instanceof HomeTabFragment) {
+        if (fragment instanceof SamplePagerFragment) {
 
 
                 if (doubleBackToExitPressedOnce) {

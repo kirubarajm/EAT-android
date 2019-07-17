@@ -66,9 +66,14 @@ import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
-import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
-import com.tovo.eat.ui.home.homemenu.story.StoriesActivityModule;
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesProvider;
+import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
+import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivityModule;
+import com.tovo.eat.ui.home.homemenu.story.sample.fragment.SampleViewPagerProvider;
+import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
+import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivityModule;
+import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerProvider;
+
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchenDishProvider;
@@ -139,9 +144,8 @@ public abstract class ActivityBuilder {
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
+            StoriesViewPagerProvider.class,
             SearchProvider.class
-
-
     })
     abstract MainActivity bindMainActivity();
 
@@ -282,11 +286,15 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = EditAccountModule.class)
     abstract EditAccountActivity bindEditAccountActivity();
 
-    @ContributesAndroidInjector(modules = {StoriesActivityModule.class,StatusStoriesProvider.class})
-    abstract StoriesActivity bindStoriesActivity();
+    @ContributesAndroidInjector(modules = {SampleTabActivityModule.class, SampleViewPagerProvider.class})
+    abstract SampleTabActivity bindSampleActivity();
+
 
   @ContributesAndroidInjector(modules = {CouponListModule.class})
     abstract CouponListActivity bindCouponListActivity();
+
+    @ContributesAndroidInjector(modules = {StoriesViewPagerActivityModule.class, StatusStoriesProvider.class})
+    abstract StoriesViewPagerActivity binStoriesActivity();
 
 
 }

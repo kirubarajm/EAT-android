@@ -547,6 +547,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
                         storiesItemsLiveData.setValue(response.getResult());
                         getNavigator().getFullStories(response);
+
+                        if (response.getResult().size()>0) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(response);
+                            getDataManager().setStoriesList(json);
+                        }
                     }
                 }
             }, new Response.ErrorListener() {

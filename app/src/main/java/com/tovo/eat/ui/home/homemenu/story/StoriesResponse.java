@@ -30,6 +30,18 @@ public class StoriesResponse implements Serializable {
         return result;
     }
 
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public void setResult(List<Result> result) {
+        this.result = result;
+    }
+
     public class Result implements Serializable {
 
         @SerializedName("storyid")
@@ -59,6 +71,43 @@ public class StoriesResponse implements Serializable {
         @SerializedName("stories")
         @Expose
         public List<Story> stories = null;
+
+
+        public void setStoryid(Integer storyid) {
+            this.storyid = storyid;
+        }
+
+        public void setThumb(String thumb) {
+            this.thumb = thumb;
+        }
+
+        public void setThumbTitle(String thumbTitle) {
+            this.thumbTitle = thumbTitle;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setStoryImg(String storyImg) {
+            this.storyImg = storyImg;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public void setUpdatedAt(Object updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
+        public void setStories(List<Story> stories) {
+            this.stories = stories;
+        }
 
         public Integer getStoryid() {
             return storyid;
@@ -120,6 +169,33 @@ public class StoriesResponse implements Serializable {
             @Expose
             public Object updatedAt;
 
+            public void setId(Integer id) {
+                this.id = id;
+            }
+
+            public void setMediatype(Integer mediatype) {
+                this.mediatype = mediatype;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public void setStoryid(Integer storyid) {
+                this.storyid = storyid;
+            }
+
+            public void setPos(String pos) {
+                this.pos = pos;
+            }
+
+            public void setCreatedAt(String createdAt) {
+                this.createdAt = createdAt;
+            }
+
+            public void setUpdatedAt(Object updatedAt) {
+                this.updatedAt = updatedAt;
+            }
 
             public Integer getId() {
                 return id;

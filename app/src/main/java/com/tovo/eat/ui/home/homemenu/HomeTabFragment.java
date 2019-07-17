@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +26,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -40,15 +38,12 @@ import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
-import com.tovo.eat.ui.home.homemenu.story.StoriesActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
+import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -795,7 +790,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        Intent intent = StoriesActivity.newIntent(getContext());
+        Intent intent = StoriesViewPagerActivity.newIntent(getContext());
         intent.putExtra("position", pos);
         intent.putExtra("fullStories", storiesFullResponse);
         startActivity(intent);
@@ -820,7 +815,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 */
 
         /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        StatusStoriesFragment fragment = new StatusStoriesFragment();
+        StoriesViewPagerActivity fragment = new StoriesViewPagerActivity();
         Bundle args = new Bundle();
         args.putSerializable("fullStories", storiesFullResponse);
         args.putInt("position",pos);

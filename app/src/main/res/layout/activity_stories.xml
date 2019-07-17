@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="storiesViewModel"
-            type="com.tovo.eat.ui.home.homemenu.story.StoriesActivityViewModel"/>
+            name="storiesViewPagerViewModel"
+            type="com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivityViewModel"/>
     </data>
 
     <RelativeLayout

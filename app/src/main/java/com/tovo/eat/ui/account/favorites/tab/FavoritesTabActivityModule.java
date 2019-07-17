@@ -14,8 +14,8 @@ public class FavoritesTabActivityModule {
     }
 
   /*  @Provides
-    FavoritesTabAdapter provideFavoritesTabPagerAdapter(FavoritesActivity mFavoritesTabActivity) {
-        return new FavoritesTabAdapter(mFavoritesTabActivity.getChildFragmentManager());
+    SampleTabAdapter provideFavoritesTabPagerAdapter(FavoritesActivity mFavoritesTabActivity) {
+        return new SampleTabAdapter(mFavoritesTabActivity.getChildFragmentManager());
     }*/
 
 
