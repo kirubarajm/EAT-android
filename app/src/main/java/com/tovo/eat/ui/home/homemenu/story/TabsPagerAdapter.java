@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
 import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
 
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
+    private static final int DEFAULT_OFFSCREEN_PAGES = 0;
     StoriesResponse storiesFullResponse;
     int Count;
 

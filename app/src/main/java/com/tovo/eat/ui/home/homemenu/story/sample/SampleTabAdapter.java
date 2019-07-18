@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.home.homemenu.story.sample;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -20,12 +21,18 @@ public class SampleTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return SamplePagerFragment.newInstance();
+
+        Bundle args = new Bundle();
+        //args.putSerializable("fullResponse", (Serializable) storiesFullResponse.getResult());
+        args.putInt("position",position);
+        SamplePagerFragment fragment = new SamplePagerFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 6;
     }
 
     public void setCount(int count) {

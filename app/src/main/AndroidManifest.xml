@@ -115,12 +115,6 @@
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -155,6 +149,12 @@
         <activity android:name=".ui.cart.coupon.CouponListActivity" />
 
         <activity android:name=".ui.home.homemenu.story.sample.SampleTabActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>

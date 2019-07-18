@@ -33,6 +33,7 @@ import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
+import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
 
 import java.util.Locale;
 
@@ -47,7 +48,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     StoriesResponse storiesFullResponse;
     VideoView videoView;
     int position;
-    int tempPosition=0;
+    int tempPosition;
     ProgressBar imageProgressBar;
     TextView txtProgress;
     String strPosition = "";
@@ -63,6 +64,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     FragmentStatusStoriesBinding mFragmentStatusStoriesBinding;
     @Inject
     StatusStoriesFramentViewModel mStatusStoriesFramentViewModel;
+    StoriesViewPagerActivity storiesViewPagerActivity;
 
 
     public static StatusStoriesFragment newInstance() {
@@ -91,6 +93,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mStatusStoriesFramentViewModel.setNavigator(this);
+        counter=0;
     }
 
     @Override
@@ -147,16 +150,16 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
 */
         //afterViewCreated();
 
+        mStatusStoriesFramentViewModel.getData();
     }
 
     public void setUserVisibleHint(int pos,StoriesResponse storiesResponseFull) {
         this.position = pos;
         this.storiesFullResponse = storiesResponseFull;
-        afterViewCreated();
+        //afterViewCreated();
     }
 
     public void afterViewCreated(){
-
             storiesResponse = storiesFullResponse.getResult().get(position);
 
             isImmersive = false;
@@ -169,8 +172,9 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             }
             storyStatusView.setStoryDuration(statusDuration);
             storyStatusView.setUserInteractionListener(this);
-            storyStatusView.playStories();
+
             target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+
             if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
                 videoView.setVisibility(View.GONE);
                 image.setVisibility(View.VISIBLE);
@@ -185,22 +189,29 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
                         .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);
-            }else {
+            } else {
                 videoView.setVisibility(View.VISIBLE);
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
             }
+
+        if (position==tempPosition) {
+            storyStatusView.playStories();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        tempPosition=((StoriesViewPagerActivity)getActivity()).methodDDD();
+        Log.e("position",""+position);
+        afterViewCreated();
     }
 
     @Override
     public void onNext() {
-        storyStatusView.pause();
+        //storyStatusView.pause();
         counter++;
         if (counter > storiesResponse.getStories().size()) {
             onCompletePrev();
@@ -211,7 +222,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             storyStatusView.setStoryDuration(statusDuration);
             videoView.setVisibility(View.GONE);
             image.setVisibility(View.VISIBLE);
-            storyStatusView.pause();
+            //storyStatusView.pause();
             videoView.stopPlayback();
             target.setModel(storiesResponse.getStories().get(counter).getUrl());
             Glide.with(image.getContext())
@@ -226,7 +237,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
                     .into(target);
         }else {
             storyStatusView.setStoryDuration(statusDuration);
-            storyStatusView.pause();
+            //storyStatusView.pause();
             videoView.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
             videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
@@ -275,7 +286,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     public void onPrev() {
         try {
             Log.e("", "" + counter);
-            storyStatusView.pause();
+            //storyStatusView.pause();
             --counter;
             if (counter < 0) {
                 onCompletePrev();
@@ -285,7 +296,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
                 if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
                     storyStatusView.setStoryDuration(statusDuration);
                     if (counter - 1 < 0) return;
-                    storyStatusView.pause();
+                    //storyStatusView.pause();
                     videoView.stopPlayback();
                     target.setModel(storiesResponse.getStories().get(counter).getUrl());
                     Glide.with(image.getContext())
@@ -299,7 +310,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
                             .listener(new LoggingListener<String, Bitmap>())
                             .into(target);
                 } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
-                    storyStatusView.pause();
+                    //storyStatusView.pause();
                     storyStatusView.setStoryDuration(statusDuration);
                     videoView.setVisibility(View.VISIBLE);
                     image.setVisibility(View.GONE);
@@ -433,6 +444,12 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     }
 */
 
+    @Override
+    public void onPause() {
+        //storyStatusView.pause();
+        super.onPause();
+    }
+
     private void onCompletePrev() {
         int pos = position - 1;
         if (videoView != null) {
@@ -455,6 +472,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     @Override
     public void onDestroy() {
         // Very important !
+        storyStatusView.destroy();
         super.onDestroy();
     }
 
@@ -504,7 +522,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             } else {
                 text.setVisibility(View.INVISIBLE);
             }
-            storyStatusView.pause();
+            //storyStatusView.pause();
         }
 
         @Override
@@ -521,7 +539,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             }
 
 
-            storyStatusView.pause();
+            //storyStatusView.pause();
 
         }
 
@@ -534,14 +552,14 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
             } else {
                 text.setVisibility(View.INVISIBLE);
             }
-            storyStatusView.pause();
+            //storyStatusView.pause();
         }
 
         @Override
         protected void onDelivered() {
             progress.setVisibility(View.INVISIBLE);
             text.setVisibility(View.INVISIBLE);
-            storyStatusView.resume();
+           // storyStatusView.resume();
         }
     }
 }

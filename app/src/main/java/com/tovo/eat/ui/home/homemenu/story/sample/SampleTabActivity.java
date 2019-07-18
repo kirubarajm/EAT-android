@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -13,6 +14,10 @@ import com.tovo.eat.databinding.ActivitySampleBinding;
 import com.tovo.eat.ui.account.favorites.favdish.CartFavListener;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.story.library.CubeTransformer;
+import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesFragment;
+import com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView;
+import com.tovo.eat.ui.home.homemenu.story.sample.fragment.SamplePagerFragment;
 
 import javax.inject.Inject;
 
@@ -32,17 +37,23 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
+    int position=0,crPosition=0;
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, SampleTabActivity.class);
     }
 
+    public Integer methodDDD(){
+
+        return position;
+
+    }
 
     @Override
     public void handleError(Throwable throwable) {
 
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -69,8 +80,38 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
 
     private void setUp() {
         mFavoritesTabAdapter.setCount(2);
+        mActivitySampleBinding.viewPagerSample.setPageTransformer(true, new CubeTransformer());
         mActivitySampleBinding.viewPagerSample.setAdapter(mFavoritesTabAdapter);
+        mActivitySampleBinding.viewPagerSample.setOffscreenPageLimit(1);
+
+        ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int positions) {
+                position = positions;
+                SamplePagerFragment frag1 = (SamplePagerFragment)mActivitySampleBinding.viewPagerSample
+                        .getAdapter()
+                        .instantiateItem(mActivitySampleBinding.viewPagerSample, mActivitySampleBinding.viewPagerSample.getCurrentItem());
+                frag1.onPlayStorie(positions);
+
+                SamplePagerFragment fragmentToPrev = (SamplePagerFragment)mActivitySampleBinding.viewPagerSample.getAdapter().instantiateItem(mActivitySampleBinding.viewPagerSample, crPosition);
+                fragmentToPrev.onPasue(positions);
+                crPosition = positions;
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+
+            }
+        };
+        mActivitySampleBinding.viewPagerSample.addOnPageChangeListener(viewPagerPageChangeListener);
+
     }
+
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
@@ -87,4 +128,6 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
     protected void onResume() {
         super.onResume();
     }
+
+
 }
