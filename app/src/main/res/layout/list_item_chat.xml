@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center"
                 android:text="@{chatItemViewModel.createdAtFinal}"
-                android:textColor="@color/gray"
+                android:textColor="@color/medium_gray"
                 android:textSize="12sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 

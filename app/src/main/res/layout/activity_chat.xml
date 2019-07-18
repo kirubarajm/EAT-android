@@ -81,7 +81,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:textColor="@color/gray"
+            android:textColor="@color/medium_gray"
             android:textSize="12sp" />
 
         <android.support.v4.widget.SwipeRefreshLayout

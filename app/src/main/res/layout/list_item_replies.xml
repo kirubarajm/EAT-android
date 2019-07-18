@@ -23,6 +23,7 @@
             android:gravity="center"
             android:padding="5dp">
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textColor="@color/black"
                 android:id="@+id/txt_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
                 android:textSize="16sp"/>
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:textColor="@color/medium_gray"
                 android:id="@+id/txt_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

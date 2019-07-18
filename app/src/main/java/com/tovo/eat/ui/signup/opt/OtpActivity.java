@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -86,7 +87,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         String otp = st1 + st2 + st3 + st4 + st5;
         if (validForOtp())
-            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp), Integer.parseInt(strOtpId));
+            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));
     }
 
     @Override
@@ -236,7 +237,12 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         if (bundle != null) {
             String booleanOtp = bundle.getString("booleanOpt");
             strOtpId = bundle.getString("optId");
+            mLoginViewModelMain.OtpId=Integer.parseInt(strOtpId);
+
             strPhoneNumber = bundle.getString("strPhoneNumber");
+
+            mLoginViewModelMain.number.set(strPhoneNumber);
+
             UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
                 mLoginViewModelMain.otp.set(true);
@@ -254,6 +260,29 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
 
         otpFocusOnTextChange();
+
+
+
+        mActivityOtpBinding.resend.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int id = v.getId();
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundColor(getResources().getColor(R.color.light_eat_color));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setBackgroundColor(getResources().getColor(R.color.white));
+                        //set color back to default
+                        mLoginViewModelMain.resendOtp();
+                        break;
+                }
+                return true;
+            }
+        });
+
+
     }
 
     private void otpFocusOnTextChange() {

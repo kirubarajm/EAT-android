@@ -28,6 +28,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public KitchenAdapter(List<KitchenResponse.Result> item_list) {
 
         this.item_list = item_list;
+
+
     }
 
     @Override

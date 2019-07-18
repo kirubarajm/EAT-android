@@ -127,137 +127,149 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashOnDelivery() {
 
-        getNavigator().clickCOD();
 
-    }
-
-
-    public void cashMode() {
-        if (getDataManager().getEmailStatus()) {
-            try {
+        try {
 
 
-                if (getDataManager().getAddressId() != 0) {
+            if (getDataManager().getAddressId() != 0) {
 
 
-                    if (!MvvmApp.getInstance().onCheckNetWork()) return;
+                if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-                    //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-
-                    List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
-                    List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
-
-                    PlaceOrderRequestPojo placeOrderRequestPojo = new PlaceOrderRequestPojo();
-
-                    PlaceOrderRequestPojo.Orderitem orderitem;
+                //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
-                    Gson sGson = new GsonBuilder().create();
-                    CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+                List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
+                List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
 
-                    cartitems.addAll(cartRequestPojo.getCartitems());
+                PlaceOrderRequestPojo placeOrderRequestPojo = new PlaceOrderRequestPojo();
 
-
-                    for (int i = 0; i < cartitems.size(); i++) {
-
-                        orderitem = new PlaceOrderRequestPojo.Orderitem();
-                        orderitem.setProductid(cartitems.get(i).getProductid());
-                        orderitem.setQuantity(cartitems.get(i).getQuantity());
-                        orderitems.add(orderitem);
-
-                    }
+                PlaceOrderRequestPojo.Orderitem orderitem;
 
 
-                    placeOrderRequestPojo.setOrderitems(orderitems);
+                Gson sGson = new GsonBuilder().create();
+                CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
-                    placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
-
-                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
-
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(placeOrderRequestPojo1);
-
-                    Log.e("sfsdfd", json);
-
-                    setIsLoading(true);
+                cartitems.addAll(cartRequestPojo.getCartitems());
 
 
-                    JsonObjectRequest jsonObjectRequest = null;
-                    try {
-                        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
+                for (int i = 0; i < cartitems.size(); i++) {
 
+                    orderitem = new PlaceOrderRequestPojo.Orderitem();
+                    orderitem.setProductid(cartitems.get(i).getProductid());
+                    orderitem.setQuantity(cartitems.get(i).getQuantity());
+                    orderitems.add(orderitem);
 
-                                    if (response.getBoolean("status")) {
-
-                                        getDataManager().currentOrderId(response.getInt("orderid"));
-                                        getDataManager().setCartDetails("");
-                                        getNavigator().orderCompleted();
-
-
-                                    } else {
-
-                                        getNavigator().showToast(response.getString("message"));
-
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-
-                                //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
-                            }
-                        }) {
-
-                            /**
-                             * Passing some request headers
-                             */
-                            @Override
-                            public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-
-                                return headers;
-                            }
-                        };
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-                } else {
-                    //  getNavigator().showToast("Please select the address...");
                 }
-            } catch (Exception ee) {
 
-                ee.printStackTrace();
 
+                placeOrderRequestPojo.setOrderitems(orderitems);
+
+                placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+
+                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
+
+
+                Gson gson = new Gson();
+                String json = gson.toJson(placeOrderRequestPojo1);
+
+                Log.e("sfsdfd", json);
+
+                setIsLoading(true);
+
+
+                JsonObjectRequest jsonObjectRequest = null;
+                try {
+                    jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+
+
+                                if (response.getBoolean("status")) {
+
+                                    getDataManager().currentOrderId(response.getInt("orderid"));
+                                    getDataManager().setCartDetails("");
+                                    getNavigator().orderCompleted();
+
+
+                                } else {
+
+                                    getNavigator().showToast(response.getString("message"));
+
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+
+                            //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
+                        }
+                    }) {
+
+                        /**
+                         * Passing some request headers
+                         */
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json");
+
+                            return headers;
+                        }
+                    };
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+            } else {
+                //  getNavigator().showToast("Please select the address...");
             }
-        } else {
-            getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
         }
 
     }
 
 
+    public void cashMode() {
+
+        if (getDataManager().getTotalOrders() == 0) {
+
+            cashOnDelivery();
+        } else {
+            if (getDataManager().getEmailStatus()) {
+                cashOnDelivery();
+            } else {
+                getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
+            }
+        }
+    }
+
+
     public void paymentModeCheck() {
 
-        if (getDataManager().getEmailStatus()) {
 
+        if (getDataManager().getTotalOrders() == 0) {
             payOnline();
 
         } else {
-            getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
+            if (getDataManager().getEmailStatus()) {
+
+                payOnline();
+
+            } else {
+                getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
+            }
         }
     }
 
@@ -299,7 +311,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(),getDataManager().getCouponId(), orderitems);
+            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
 
 
             Gson gson = new Gson();

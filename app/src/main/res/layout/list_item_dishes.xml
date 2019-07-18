@@ -316,7 +316,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@{dishItemViewModel.isFavourite?@color/eat_color:@color/light_gray}"
+                android:background="@{dishItemViewModel.isFavourite?@color/red:@color/light_gray}"
                 android:onClick="@{()->dishItemViewModel.fav()}">
 
 
@@ -326,7 +326,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/icon_fav"
-                    android:textColor="@{dishItemViewModel.isFavourite?@color/white:@color/eat_color}"
+                    android:textColor="@{dishItemViewModel.isFavourite?@color/white:@color/red}"
                     android:textSize="25dp" />
 
 

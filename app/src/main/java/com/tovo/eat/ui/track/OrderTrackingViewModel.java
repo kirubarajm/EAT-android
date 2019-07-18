@@ -26,6 +26,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableField<String> total = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> sItems = new ObservableField<>();
+    public final ObservableField<String> orderId = new ObservableField<>();
 
 
     public final ObservableField<String> orderReceivedStatus = new ObservableField<>();
@@ -51,6 +52,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public OrderTrackingViewModel(DataManager dataManager) {
         super(dataManager);
         getOrderDetails();
+        orderId.set("order #"+String.valueOf(getDataManager().getOrderId()));
     }
 
     public void callDeliveryMan() {
@@ -72,6 +74,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     }
 
     public void getOrderDetails() {
+
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

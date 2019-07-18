@@ -19,7 +19,6 @@
     <!--CENTER. app:gravity="center" - is default value -->
 
 
-
             <LinearLayout
                 android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
                 android:layout_width="match_parent"

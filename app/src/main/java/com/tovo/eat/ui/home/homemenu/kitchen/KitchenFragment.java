@@ -23,6 +23,7 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.SwipeController;
 import com.tovo.eat.utilities.SwipeControllerActions;
 
@@ -266,7 +267,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
         mKitchenViewModel.saveMakeitId(kitchenId);
 
-        Intent intent = KitchenDishActivity.newIntent(getContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 

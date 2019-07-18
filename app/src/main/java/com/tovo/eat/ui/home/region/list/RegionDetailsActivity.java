@@ -19,6 +19,7 @@ import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
 import javax.inject.Inject;
 
@@ -193,7 +194,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     public void onItemClickData(Integer kitchenId) {
 
 
-        Intent intent = KitchenDishActivity.newIntent(RegionDetailsActivity.this);
+        Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
     }

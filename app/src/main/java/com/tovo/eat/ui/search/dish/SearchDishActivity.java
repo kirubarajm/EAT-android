@@ -20,6 +20,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
 import javax.inject.Inject;
 
@@ -209,7 +210,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Override
     public void onItemClickData(Integer kitchenId) {
 
-        Intent intent = KitchenDishActivity.newIntent(getApplicationContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 

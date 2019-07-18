@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.signup.SignUpRequest;
+import com.tovo.eat.ui.signup.SignUpResponse;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
@@ -20,7 +22,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableField<String> userId = new ObservableField<>();
     public final ObservableField<String> oId = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> number = new ObservableField<>();
 
+    public Integer OtpId=0;
 
     public boolean passwordstatus;
     public boolean otpStatus;
@@ -97,13 +101,13 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         getNavigator().login();
     }
 
-    public void userContinueClick(String phoneNumber, int otp, int otpId) {
+    public void userContinueClick(String phoneNumber, int otp) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, otpId), new Response.Listener<OtpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, OtpId), new Response.Listener<OtpResponse>() {
                 @Override
                 public void onResponse(OtpResponse response) {
 
@@ -175,7 +179,52 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
         }
     }
 
+    public void resendOtp() {
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(number.get()), new Response.Listener<SignUpResponse>() {
+                @Override
+                public void onResponse(SignUpResponse response) {
+                    if (response != null) {
 
+                         OtpId = response.getOid();
+                        setIsLoading(false);
+                    }
+                }
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+                }
+            },AppConstants.API_VERSION_ONE);
+
+        /*gsonRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 2000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 2;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });*/
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+    }
     public void goBack() {
         getNavigator().goBack();
     }

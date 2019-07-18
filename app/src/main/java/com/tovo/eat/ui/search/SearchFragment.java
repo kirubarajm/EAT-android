@@ -21,6 +21,7 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 
 import javax.inject.Inject;
@@ -291,7 +292,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 break;
             case 2:
-                Intent intent1 = KitchenDishActivity.newIntent(getContext());
+                Intent intent1 = KitchenDetailsActivity.newIntent(getContext());
                 intent1.putExtra("kitchenId", result.getId());
                 startActivity(intent1);
                 break;
@@ -331,7 +332,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onItemClickData(Integer kitchenId) {
 
-        Intent intent = KitchenDishActivity.newIntent(getContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
@@ -346,7 +347,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void showMore(Integer regionId) {
 
-        Intent intent = KitchenDishActivity.newIntent(getContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", regionId);
         startActivity(intent);
 

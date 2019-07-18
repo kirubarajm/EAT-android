@@ -18,6 +18,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenNavigator;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
 import javax.inject.Inject;
 
@@ -164,7 +165,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
         mKitchenViewModel.saveMakeitId(kitchenId);
 
-        Intent intent = KitchenDishActivity.newIntent(getContext());
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
