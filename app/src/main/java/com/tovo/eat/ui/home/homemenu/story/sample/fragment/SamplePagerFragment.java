@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.homemenu.story.sample.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,13 +38,12 @@ import javax.inject.Inject;
 public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, SamplePagerFragmentViewModel>
         implements SamplePagerFragmentNavigator, StoryStatusView.UserInteractionListener {
 
-    private  StoryStatusView storyStatusView;
     private static boolean isTextEnabled = true;
     @Inject
     SamplePagerFragmentViewModel mSplashActivityViewModel;
     StoriesResponse storiesFullResponse;
     int position;
-    int tempPosition=0;
+    int tempPosition = 0;
     boolean isVisibleToUser;
     boolean isoNcREATRE;
     StoriesResponse.Result storiesResponse;
@@ -51,6 +51,7 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
     ProgressBar imageProgressBar;
     TextView txtProgress;
     String strPosition = "";
+    private StoryStatusView storyStatusView;
     private FragmentSampleBinding mFragmentSampleBinding;
     private ImageView image;
     private int counter = 0;
@@ -92,9 +93,9 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
         super.onCreate(savedInstanceState);
         mSplashActivityViewModel.setNavigator(this);
 
-
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -136,61 +137,71 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
 
         actions.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                         storyStatusView.pause();
-                } else {
-                      storyStatusView.resume();
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    storyStatusView.pause();
+                    videoView.pause();
+                } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+                    storyStatusView.resume();
+                    videoView.start();
                 }
                 return true;
             }
         });
 
         counter = 0;
-        tempPosition = ((SampleTabActivity) getActivity()).methodDDD();
-        Log.e("position", "" + position);
-        isoNcREATRE=true;
+        isoNcREATRE = true;
         mSplashActivityViewModel.getData();
-        if(position==0&&position==tempPosition) {
-            isVisibleToUser=true;
+        ((SampleTabActivity) getActivity()).methodDDD(position);
+        Log.e("position", "" + position);
+/*
+        if (position == 0 && position == tempPosition) {
+            isVisibleToUser = true;
             storyStatusView.playStories();
+            videoView.start();
         }
+*/
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-       // isoNcREATRE = isVisibleToUser;
+        // isoNcREATRE = isVisibleToUser;
 
     }
 
-    public void onPlayStorie(int position){
-        if(isVisibleToUser){
+    public void onPlayStorie(int position) {
+
+        if (!isoNcREATRE) return;
+        if (isVisibleToUser) {
             storyStatusView.resume();
-        }else if(position!=0) {
-            isVisibleToUser=true;
-           // mSplashActivityViewModel.getData();
+            //videoView.start();
+        } else if (position != 0) {
+            isVisibleToUser = true;
+            // mSplashActivityViewModel.getData();
             storyStatusView.playStories();
-        }else if(isoNcREATRE){
+            //videoView.start();
+        } else if (isoNcREATRE) {
             //mSplashActivityViewModel.getData();
             storyStatusView.playStories();
+            //videoView.start();
         }
     }
 
     public void onPasue(int position) {
+        if (!isoNcREATRE) return;
         storyStatusView.pause();
+        videoView.pause();
     }
-
 
     @Override
     public void getStoriesDataFromLocal(StoriesResponse storiesResponseFull) {
         this.storiesFullResponse = storiesResponseFull;
         storiesResponse = storiesFullResponse.getResult().get(position);
-        mainMethod();
-
+        mainFunction();
     }
 
-    public void mainMethod(){
+    public void mainFunction() {
         isImmersive = false;
         isCaching = true;
         isTextEnabled = false;
@@ -199,13 +210,12 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
         if (count > 0) {
             storyStatusView.setStoriesCount(count);
         }
-        storyStatusView.setStoryDuration(statusDuration);
         storyStatusView.setUserInteractionListener(this);
-        //storyStatusView.playStories();
+        //  storyStatusView.playStories();
         target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
         // storyStatusView.pause();
-        if (counter < storiesResponse.getStories().size()) {
             if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                storyStatusView.setStoryDuration(statusDuration);
                 videoView.setVisibility(View.GONE);
                 image.setVisibility(View.VISIBLE);
                 // storyStatusView.pause();
@@ -222,34 +232,26 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                         .into(target);
             } else {
                 // storyStatusView.pause();
+                storyStatusView.setStoryDuration(9000L);
                 videoView.setVisibility(View.VISIBLE);
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
             }
-        } else {
+       /* } else {
+            storyStatusView.clear();
             storyStatusView.destroy();
-        }
-    }
-
-    public void resetMethod(){
-        counter=0;
-        mainMethod();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
+            getActivity().finish();
+        }*/
     }
 
     @Override
     public void onNext() {
         // storyStatusView.pause();
         ++counter;
-        if (counter < storiesResponse.getStories().size()) {
+
             if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                storyStatusView.setStoryDuration(statusDuration);
                 videoView.setVisibility(View.GONE);
                 image.setVisibility(View.VISIBLE);
                 //storyStatusView.pause();
@@ -265,15 +267,18 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);
             } else {
+                storyStatusView.setStoryDuration(9000L);
                 //storyStatusView.pause();
                 videoView.setVisibility(View.VISIBLE);
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
             }
-        } else {
+        /*}else {
+            storyStatusView.clear();
             storyStatusView.destroy();
-        }
+            getActivity().finish();
+        }*/
     }
 
     @Override
@@ -281,34 +286,41 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
         if (counter - 1 < 0) return;
         // storyStatusView.pause();
         --counter;
-        if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-            videoView.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-            //storyStatusView.pause();
-            videoView.stopPlayback();
-            target.setModel(storiesResponse.getStories().get(counter).getUrl());
-            Glide.with(image.getContext())
-                    .load(target.getModel())
-                    .asBitmap()
-                    .crossFade()
-                    .skipMemoryCache(!isCaching)
-                    .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                    .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
-                    .listener(new LoggingListener<String, Bitmap>())
-                    .into(target);
-        } else {
-            //storyStatusView.pause();
-            videoView.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
-            videoView.start();
-        }
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
+                storyStatusView.setStoryDuration(statusDuration);
+                videoView.setVisibility(View.GONE);
+                image.setVisibility(View.VISIBLE);
+                //storyStatusView.pause();
+                videoView.stopPlayback();
+                target.setModel(storiesResponse.getStories().get(counter).getUrl());
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        .asBitmap()
+                        .crossFade()
+                        .skipMemoryCache(!isCaching)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(1000))
+                        .listener(new LoggingListener<String, Bitmap>())
+                        .into(target);
+            } else {
+                //storyStatusView.pause();
+                storyStatusView.setStoryDuration(9000L);
+                videoView.setVisibility(View.VISIBLE);
+                image.setVisibility(View.GONE);
+                videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
+                videoView.start();
+            }
+        /*}else {
+            storyStatusView.clear();
+            storyStatusView.destroy();
+            getActivity().finish();
+        }*/
     }
 
     @Override
     public void onComplete() {
         try {
-            isVisibleToUser=false;
+            isVisibleToUser = false;
             /*int pos = position + 1;
             if (videoView != null) {
                 videoView.stopPlayback();
@@ -324,11 +336,19 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                 //intent.putExtra("fullStories", storiesFullResponse);
                 //startActivity(intent);
             }*/
+            counter = 0;
+            storyStatusView.clear();
             resetMethod();
-            storyStatusView.playStories();
+            ((SampleTabActivity) getActivity()).moveToNext();
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void resetMethod() {
+        counter = 0;
+        mainFunction();
     }
 
     private void onCompletePrev() {
@@ -351,25 +371,40 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onDestroy() {
         // Very important !
         super.onDestroy();
+        storyStatusView.destroy();
+    }
 
-
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //resetMethod();
-        //storyStatusView.playStories();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
     /**

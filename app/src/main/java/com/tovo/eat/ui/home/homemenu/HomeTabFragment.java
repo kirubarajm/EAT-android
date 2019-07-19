@@ -43,6 +43,7 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
+import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
 import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
@@ -790,7 +791,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        Intent intent = StoriesViewPagerActivity.newIntent(getContext());
+        Intent intent = SampleTabActivity.newIntent(getContext());
         intent.putExtra("position", pos);
         intent.putExtra("fullStories", storiesFullResponse);
         startActivity(intent);

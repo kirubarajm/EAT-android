@@ -161,6 +161,12 @@ public class StoryStatusView extends LinearLayout {
         }
     }
 
+    public void clear(){
+        storiesCount=-1;
+        animators.clear();
+        progressBars.clear();
+    }
+
     private ObjectAnimator createAnimator(final int index, long duration) {
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBars.get(index), "progress", MAX_PROGRESS);
         animation.setInterpolator(new LinearInterpolator());
