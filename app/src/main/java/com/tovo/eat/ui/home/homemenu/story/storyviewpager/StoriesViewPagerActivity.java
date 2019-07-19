@@ -81,12 +81,13 @@ public class StoriesViewPagerActivity extends BaseActivity<ActivityStoriesBindin
         mTabsPagerAdapter.setCount(storiesFullResponse.getResult().size(),storiesFullResponse);
         mActivityStoriesBinding.pager.setPageTransformer(true, new CubeTransformer());
         mActivityStoriesBinding.pager.setAdapter(mTabsPagerAdapter);
+        mActivityStoriesBinding.pager.setOffscreenPageLimit(1);
 
 
         ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageSelected(int position) {
-                methodDDD();
+            public void onPageSelected(int positions) {
+                position = positions;
             }
 
             @Override
@@ -101,26 +102,31 @@ public class StoriesViewPagerActivity extends BaseActivity<ActivityStoriesBindin
         };
         mActivityStoriesBinding.pager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        mActivityStoriesBinding.pager.setCurrentItem(mActivityStoriesBinding.pager.getCurrentItem() + position);
+        mActivityStoriesBinding.pager.setCurrentItem(position);
 
         //Fragment activeFragment = mTabsPagerAdapter.getItem(mActivityStoriesBinding.pager.getCurrentItem());
         //((StatusStoriesFragment)activeFragment).setUserVisibleHint(mActivityStoriesBinding.pager.getCurrentItem(),storiesFullResponse);
         //methodDDD();
 
+/*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 methodDDD();
             }
         },500);
+*/
 
     }
 
-    private void methodDDD(){
-        StatusStoriesFragment frag1 = (StatusStoriesFragment)mActivityStoriesBinding.pager
+    public Integer methodDDD(){
+        /*StatusStoriesFragment frag1 = (StatusStoriesFragment)mActivityStoriesBinding.pager
                 .getAdapter()
                 .instantiateItem(mActivityStoriesBinding.pager, mActivityStoriesBinding.pager.getCurrentItem());
-        frag1.setUserVisibleHint(mActivityStoriesBinding.pager.getCurrentItem(),storiesFullResponse);
+        frag1.setUserVisibleHint(mActivityStoriesBinding.pager.getCurrentItem(),storiesFullResponse);*/
+
+        return position;
+
     }
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
