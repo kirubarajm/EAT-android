@@ -2,33 +2,34 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import com.tovo.eat.R;
+import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchensBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
-import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
-public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> implements CollectionAdapter.LiveProductsAdapterListener {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_COLLECTION = 2;
+    Context context;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
-    Context context;
 
     public KitchenAdapter(List<KitchenResponse.Result> item_list) {
 
         this.item_list = item_list;
-
 
     }
 
@@ -39,6 +40,12 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 ListItemKitchensBinding blogViewBinding = ListItemKitchensBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
+
+            case VIEW_TYPE_COLLECTION:
+                ListItemCollectionsBinding collectionBinding = ListItemCollectionsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                        parent, false);
+                return new CollectionViewHolder(collectionBinding);
+
             case VIEW_TYPE_EMPTY:
             default:
                 ListItemEmptyBinding blogViewBinding1 = ListItemEmptyBinding.inflate(LayoutInflater.from(parent.getContext()),
@@ -64,11 +71,68 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
+
+
+        if (item_list != null && !item_list.isEmpty()) {
+
+            if (item_list.get(position).getCollection() != null) {
+
+                return VIEW_TYPE_COLLECTION;
+            } else {
+
+                return VIEW_TYPE_NORMAL;
+            }
+
+
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
+
+
+      /*
+
         if (item_list != null && !item_list.isEmpty()) {
             return VIEW_TYPE_NORMAL;
         } else {
             return VIEW_TYPE_EMPTY;
-        }
+        }*/
+    }
+
+    public void clearItems() {
+        item_list.clear();
+    }
+
+    public void addItems(List<KitchenResponse.Result> blogList, Context context) {
+        this.context = context;
+        item_list.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(LiveProductsAdapterListener listener) {
+        this.mLiveProductsAdapterListener = listener;
+    }
+
+    public void removeAt(int position) {
+        item_list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, item_list.size());
+    }
+
+
+    @Override
+    public void onItemClickData(KitchenDishResponse.Result blogUrl) {
+
+    }
+
+    public interface LiveProductsAdapterListener {
+
+        void onItemClickData(Integer kitchenId);
+
+        void animateView(View view);
+
+        void removeDishFavourite(Integer favId);
+
+        void addFav(Integer id, String fav);
     }
 
     public class EmptyViewHolder extends BaseViewHolder {
@@ -107,7 +171,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsItemViewModel = new KitchenItemViewModel(this, blog);
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
 
-mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
+            mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -138,33 +202,40 @@ mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
         }
     }
 
-    public void clearItems() {
-        item_list.clear();
+
+    public class CollectionViewHolder extends BaseViewHolder {
+        ListItemCollectionsBinding mListItemLiveProductsBinding;
+        CollectionItemViewModel mLiveProductsItemViewModel;
+
+        public CollectionViewHolder(ListItemCollectionsBinding binding) {
+            super(binding.getRoot());
+            this.mListItemLiveProductsBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            if (item_list.get(position).getCollection().isEmpty()) return;
+          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
+            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
+
+
+            mListItemLiveProductsBinding.executePendingBindings();
+
+
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            CollectionAdapter collectionAdapter = new CollectionAdapter(item_list.get(position).getCollection());
+            mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(mLayoutManager);
+            mListItemLiveProductsBinding.recyclerCollection.setAdapter(collectionAdapter);
+
+            collectionAdapter.setListener(KitchenAdapter.this);
+
+
+        }
+
+
     }
 
-    public void addItems(List<KitchenResponse.Result> blogList, Context context) {
-        this.context = context;
-        item_list.addAll(blogList);
-        notifyDataSetChanged();
-    }
 
-    public void setListener(LiveProductsAdapterListener listener) {
-        this.mLiveProductsAdapterListener = listener;
-    }
-
-    public interface LiveProductsAdapterListener {
-
-        void onItemClickData(Integer kitchenId);
-
-        void animateView(View view);
-
-        void removeDishFavourite(Integer favId);
-
-        void addFav(Integer id, String fav);
-    }
-    public void removeAt(int position) {
-        item_list.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, item_list.size());
-    }
 }

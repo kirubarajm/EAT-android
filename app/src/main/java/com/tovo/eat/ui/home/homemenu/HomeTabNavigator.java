@@ -19,6 +19,7 @@ public interface HomeTabNavigator {
     void regionsLoaded(RegionsResponse regionResponse);
 
     void goBack();
+    void collectionLoaded();
 
     void getFullStories(StoriesResponse storiesResponse);
 

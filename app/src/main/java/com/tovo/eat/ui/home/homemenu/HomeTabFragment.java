@@ -206,6 +206,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
+    public void collectionLoaded() {
+
+      /*  mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));*/
+
+    }
+
+    @Override
     public void getFullStories(StoriesResponse storiesResponse) {
         this.storiesFullResponse = storiesResponse;
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);

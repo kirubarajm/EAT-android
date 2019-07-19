@@ -48,6 +48,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
+    public ObservableList<KitchenResponse.Collection> collectionItemViewModels = new ObservableArrayList<>();
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
     public RegionsResponse regionResult;
     public ObservableBoolean favIcon = new ObservableBoolean();
@@ -63,18 +64,18 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         kitchenItemsLiveData = new MutableLiveData<>();
         regionItemsLiveData = new MutableLiveData<>();
         storiesItemsLiveData = new MutableLiveData<>();
+        fetchCollections();
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
         fetchStories();
 
-        if (getDataManager().getVegType()==1) {
+        if (getDataManager().getVegType() == 1) {
             isVeg.set(true);
         }
     }
 
 
-
-    public  void loadAllApis(){
+    public void loadAllApis() {
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
         fetchStories();
@@ -98,8 +99,16 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
+
+        kitchenItemViewModels.clear();
+        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+        kitchenResponse1.setCollection(collectionItemViewModels);
+        ordersItems.add(2, kitchenResponse1);
+
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
+
+
     }
 
     public ObservableList<RegionsResponse.Result> getregionItemViewModels() {
@@ -153,7 +162,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
 
-                  //      getNavigator().toastMessage(response.getMessage());
+                        //      getNavigator().toastMessage(response.getMessage());
 
                         //fetchRepos();
 
@@ -164,12 +173,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -199,12 +208,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
@@ -239,8 +248,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 slogan1.set(response.getResult().get(0).getTagline());
 
 
-
-                            }else {
+                            } else {
                                 emptyRegion.set(true);
                             }
                             Log.e("Region----response:", response.toString());
@@ -263,7 +271,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                 }
-            },AppConstants.API_VERSION_TWO);
+            }, AppConstants.API_VERSION_TWO);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -485,13 +493,25 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             public void onResponse(JSONObject response) {
 
                                 if (response != null) {
+
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
-                                    kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-                                    Log.e("Kitchen----response:", response.toString());
+                                    if (kitchenResponse.getResult().size() > 0) {
 
+
+                                    /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                        kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+                                        kitchenItemViewModels.clear();
+                                        kitchenItemViewModels.add(3, kitchenResponse1);
+                                        kitchenResponse.setResult(kitchenItemViewModels);
+*/
+
+                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                        Log.e("Kitchen----response:", response.toString());
+                                    }
 
                                     //    getNavigator().kitchenListLoaded();
 
@@ -548,7 +568,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         storiesItemsLiveData.setValue(response.getResult());
                         getNavigator().getFullStories(response);
 
-                        if (response.getResult().size()>0) {
+                        if (response.getResult().size() > 0) {
                             Gson gson = new Gson();
                             String json = gson.toJson(response);
                             getDataManager().setStoriesList(json);
@@ -560,7 +580,33 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", "" + error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void fetchCollections() {
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class, new Response.Listener<KitchenResponse.Result>() {
+                @Override
+                public void onResponse(KitchenResponse.Result response) {
+                    if (response != null) {
+                        collectionItemViewModels.clear();
+                        collectionItemViewModels.addAll(response.getCollection());
+
+                        getNavigator().collectionLoaded();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();

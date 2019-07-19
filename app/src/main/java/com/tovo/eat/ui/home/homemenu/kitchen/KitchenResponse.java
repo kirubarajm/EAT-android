@@ -29,35 +29,7 @@ public class KitchenResponse {
         this.result = result;
     }
 
-
-    public class Cuisine {
-
-        @SerializedName("cuisineid")
-        @Expose
-        private Integer cuisineid;
-        @SerializedName("cuisinename")
-        @Expose
-        private String cuisinename;
-
-        public Integer getCuisineid() {
-            return cuisineid;
-        }
-
-        public void setCuisineid(Integer cuisineid) {
-            this.cuisineid = cuisineid;
-        }
-
-        public String getCuisinename() {
-            return cuisinename;
-        }
-
-        public void setCuisinename(String cuisinename) {
-            this.cuisinename = cuisinename;
-        }
-
-    }
-
-    public class Result {
+    public static class Result {
 
         @SerializedName("makeituserid")
         @Expose
@@ -98,9 +70,21 @@ public class KitchenResponse {
         @SerializedName("cuisines")
         @Expose
         private List<Cuisine> cuisines = null;
+        @SerializedName("collection")
+        @Expose
+        private List<Collection> collection = null;
         @SerializedName("eta")
         @Expose
         private String eta;
+
+
+        public List<Collection> getCollection() {
+            return collection;
+        }
+
+        public void setCollection(List<Collection> collection) {
+            this.collection = collection;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;
@@ -214,6 +198,147 @@ public class KitchenResponse {
             this.eta = eta;
         }
 
+    }
+
+    public class Cuisine {
+
+        @SerializedName("cuisineid")
+        @Expose
+        private Integer cuisineid;
+        @SerializedName("cuisinename")
+        @Expose
+        private String cuisinename;
+
+        public Integer getCuisineid() {
+            return cuisineid;
+        }
+
+        public void setCuisineid(Integer cuisineid) {
+            this.cuisineid = cuisineid;
+        }
+
+        public String getCuisinename() {
+            return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
+        }
+
+    }
+
+    public class Collection {
+
+        @SerializedName("cid")
+        @Expose
+        private Integer cid;
+        @SerializedName("name")
+        @Expose
+        private String name;
+        @SerializedName("active_status")
+        @Expose
+        private String activeStatus;
+        @SerializedName("query")
+        @Expose
+        private String query;
+        @SerializedName("category")
+        @Expose
+        private Integer category;
+        @SerializedName("img_url")
+        @Expose
+        private String imgUrl;
+        @SerializedName("heading")
+        @Expose
+        private String heading;
+        @SerializedName("subheading")
+        @Expose
+        private String subheading;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
+        @SerializedName("updated_at")
+        @Expose
+        private String  updatedAt;
+
+        public Integer getCid() {
+            return cid;
+        }
+
+        public void setCid(Integer cid) {
+            this.cid = cid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getActiveStatus() {
+            return activeStatus;
+        }
+
+        public void setActiveStatus(String activeStatus) {
+            this.activeStatus = activeStatus;
+        }
+
+        public String getQuery() {
+            return query;
+        }
+
+        public void setQuery(String query) {
+            this.query = query;
+        }
+
+        public Integer getCategory() {
+            return category;
+        }
+
+        public void setCategory(Integer category) {
+            this.category = category;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public String getHeading() {
+            return heading;
+        }
+
+        public void setHeading(String heading) {
+            this.heading = heading;
+        }
+
+        public String getSubheading() {
+            return subheading;
+        }
+
+        public void setSubheading(String subheading) {
+            this.subheading = subheading;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(String  updatedAt) {
+            this.updatedAt = updatedAt;
+        }
     }
 
 }
