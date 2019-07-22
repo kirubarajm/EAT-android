@@ -18,6 +18,7 @@ import com.tovo.eat.databinding.ActivityRegionDetailsBinding;
 import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
@@ -188,6 +189,11 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
     }
 
     @Override

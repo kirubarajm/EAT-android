@@ -14,6 +14,11 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator> {
 
 
@@ -97,7 +102,23 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
                             }
 
-                            eta.set(response.getResult().get(0).getEta());
+
+
+                            try {
+                                String strDate = response.getResult().get(0).getDeliverytime();
+                                DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                String outputDateStr = "";
+                                //Date  date1 = new Date(strDate);
+                                Date date = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(date);
+                                eta.set(outputDateStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
 
                             if (response.getResult().get(0).getMoveitdetail().getName() != null) {
                                 track.set(true);

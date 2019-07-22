@@ -39,11 +39,10 @@ public class SearchDishItemViewModel {
     public SearchDishItemViewModel(RegionItemViewModelListener mListener, KitchenDishResponse.Result mKitchenList) {
         this.mListener = mListener;
         this.mKitchenList = mKitchenList;
-        KitchenDishItemViewModels.addAll(mKitchenList.getProductlist());
 
+        if (mKitchenList.getProductlist() != null)
 
-
-
+            KitchenDishItemViewModels.addAll(mKitchenList.getProductlist());
 
 
         this.kitchen_image.set(mKitchenList.getMakeitimg());

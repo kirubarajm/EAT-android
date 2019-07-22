@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/dishes"
+                    android:text="@{searchDishViewModel.searched}"
                     android:textSize="18sp" />
 
             </RelativeLayout>
@@ -64,6 +64,7 @@
 
 
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:id="@+id/searched"
             android:layout_width="wrap_content"
@@ -75,6 +76,7 @@
             android:textSize="14sp" />
 
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+            android:visibility="gone"
             android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

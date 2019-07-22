@@ -16,6 +16,7 @@ import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenNavigator;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
@@ -159,6 +160,11 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
         super.onResume();
     }
 
+
+    @Override
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
 
     @Override
     public void onItemClickData(Integer kitchenId) {

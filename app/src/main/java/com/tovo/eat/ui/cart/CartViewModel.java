@@ -447,8 +447,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
 
 
-                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getTotalamount()));
+                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
+
                             grand_total.set(String.valueOf(totalAmount));
+
+
                             gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
                             delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 

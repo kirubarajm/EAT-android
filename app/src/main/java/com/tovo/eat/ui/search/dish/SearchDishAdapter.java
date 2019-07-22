@@ -5,15 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemEmptySearchBinding;
 import com.tovo.eat.databinding.ListItemSerachDishBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
-import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.search.EmptySearchItemViewModel;
 
@@ -200,14 +199,25 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
 
-            LinearLayoutManager mLayoutManager
-                    = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerviewKitchens.getContext(), LinearLayoutManager.VERTICAL, false);
 
-            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            SearchKitchenDishAdapter regionKitchenAdapter = new SearchKitchenDishAdapter(item_list.get(position).getProductlist(), item_list.get(position), dataManager);
-            mListItemLiveProductsBinding.recyclerviewKitchens.setLayoutManager(mLayoutManager);
-            mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
-            regionKitchenAdapter.setListener(SearchDishAdapter.this);
+            if (blog.getProductlist() != null && blog.getProductlist().size() > 0) {
+
+
+                mListItemLiveProductsBinding.recyclerviewKitchens.setVisibility(View.VISIBLE);
+                mListItemLiveProductsBinding.viewMenu.setVisibility(View.VISIBLE);
+
+                LinearLayoutManager mLayoutManager
+                        = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerviewKitchens.getContext(), LinearLayoutManager.VERTICAL, false);
+
+                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                SearchKitchenDishAdapter regionKitchenAdapter = new SearchKitchenDishAdapter(item_list.get(position).getProductlist(), item_list.get(position), dataManager);
+                mListItemLiveProductsBinding.recyclerviewKitchens.setLayoutManager(mLayoutManager);
+                mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
+                regionKitchenAdapter.setListener(SearchDishAdapter.this);
+            }else {
+                mListItemLiveProductsBinding.recyclerviewKitchens.setVisibility(View.GONE);
+                mListItemLiveProductsBinding.viewMenu.setVisibility(View.GONE);
+            }
 
         }
 

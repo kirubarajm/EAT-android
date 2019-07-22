@@ -5,16 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemCollectionCardBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemCollectionCardBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
-import com.tovo.eat.ui.home.region.RegionsResponse;
 
 import java.util.List;
 
@@ -26,13 +22,10 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-
     public CollectionAdapter(List<KitchenResponse.Collection> item_list) {
         this.item_list = item_list;
-   
+
     }
-
-
 
 
     @Override
@@ -84,16 +77,14 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-
-
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(KitchenDishResponse.Result blogUrl);
+        void collectionItemClick(KitchenResponse.Collection collection);
 
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -113,7 +104,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements CollectionCardItemViewModel.RegionItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements CollectionCardItemViewModel.CollectionItemViewModelListener {
         ListItemCollectionCardBinding mListItemLiveProductsBinding;
         CollectionCardItemViewModel mLiveProductsItemViewModel;
 
@@ -139,10 +130,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(RegionsResponse.Result mRegionList, int position) {
-            
-            
-            
+        public void onItemClick(KitchenResponse.Collection collection) {
+            mLiveProductsAdapterListener.collectionItemClick(collection);
         }
     }
 

@@ -62,7 +62,7 @@ public class KitchenDishResponse {
         public String about;
         @SerializedName("member_type")
         @Expose
-        public Object memberType;
+        public Integer memberType;
         @SerializedName("locality")
         @Expose
         public Object locality;
@@ -98,10 +98,6 @@ public class KitchenDishResponse {
         @SerializedName("foodbadge")
         @Expose
         public List<Foodbadge> foodbadge = null;
-
-
-
-
 
 
 

@@ -263,6 +263,11 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
 
     @Override
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
+
+    @Override
     public void onItemClickData(Integer kitchenId) {
 
         mKitchenViewModel.saveMakeitId(kitchenId);

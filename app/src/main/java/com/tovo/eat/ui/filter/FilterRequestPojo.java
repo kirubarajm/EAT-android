@@ -17,17 +17,16 @@ public class FilterRequestPojo {
     @SerializedName("lon")
     @Expose
     private String lon;
-
-
-
-
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
 
     @SerializedName("sortid")
     @Expose
-    private Integer sortid=0;
+    private Integer sortid = 0;
+    @SerializedName("cid")
+    @Expose
+    private Integer cid;
 
     @SerializedName("regionlist")
     @Expose
@@ -41,6 +40,14 @@ public class FilterRequestPojo {
     @SerializedName("vegtype")
     @Expose
     private Integer vegtype;
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
 
     public Integer getVegtype() {
         return vegtype;
@@ -115,13 +122,13 @@ public class FilterRequestPojo {
     }
 
     public static class Cusinelist {
-        public Cusinelist(Integer cusine) {
-            this.cusine = cusine;
-        }
-
         @SerializedName("cuisine")
         @Expose
         private Integer cusine;
+
+        public Cusinelist(Integer cusine) {
+            this.cusine = cusine;
+        }
 
         public Integer getCusine() {
             return cusine;
@@ -135,13 +142,13 @@ public class FilterRequestPojo {
 
     public static class Regionlist {
 
-        public Regionlist(Integer region) {
-            this.region = region;
-        }
-
         @SerializedName("region")
         @Expose
         private Integer region;
+
+        public Regionlist(Integer region) {
+            this.region = region;
+        }
 
         public Integer getRegion() {
             return region;
@@ -156,13 +163,13 @@ public class FilterRequestPojo {
     public static class Sortlist {
 
 
-        public Sortlist(Integer sort) {
-            this.sort = sort;
-        }
-
         @SerializedName("sort")
         @Expose
         private Integer sort;
+
+        public Sortlist(Integer sort) {
+            this.sort = sort;
+        }
 
         public Integer getSort() {
             return sort;

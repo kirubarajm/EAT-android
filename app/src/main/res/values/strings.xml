@@ -535,7 +535,7 @@
     <string name="cancel_my_order">I want to cancel my order</string>
     <string name="where_is_my_order">Where is my order?</string>
     <string name="food_preparation">Food preparation instructions</string>
-    <string name="contact_cus_care">CONTACT CUSTOMER CARE</string>
+    <string name="contact_cus_care">CONTACT US</string>
     <string name="anything_else">Anything else?</string>
     <string name="food_badges">Food Badges</string>
     <string name="specialities">Specialities</string>
@@ -591,7 +591,11 @@
     <string name="enter_coupon">ENTER COUPON CODE HERE</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="top_eat_suggestions">Top EAT Suggestions</string>
+
     <string name="see_more">SEE MORE</string>
     <string name="swipe_to_left">Swipe to left</string>
+
+    <string name="spoke_to_our_service_consistent_regarding_your_query">Spoke to our service consistent regarding your query</string>
+
 
 </resources>
