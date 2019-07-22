@@ -40,15 +40,19 @@ import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
 import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.CardSnapHelper;
@@ -73,6 +77,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     RegionsCardAdapter regionListAdapter;
     @Inject
     StoriesCardAdapter storiesCardAdapter;
+
     DecodeBitmapTask decodeBitmapTask;
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
@@ -229,6 +234,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         adapter.setListener(this);
         regionListAdapter.setListener(this);
         storiesCardAdapter.setListener(this);
+
     }
 
     @Override
@@ -831,6 +837,21 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         fragment.setArguments(args);
         transaction.replace(R.id.content_main, fragment);
         transaction.commitNow();*/
+    }
+
+
+    @Override
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
+
+        Intent intent = SearchDishActivity.newIntent(getContext());
+        intent.putExtra("cid", collection.getCid());
+        intent.putExtra("title", collection.getHeading());
+        startActivity(intent);
+
+
+
+
     }
 
     private class OnCardClickListener implements View.OnClickListener {

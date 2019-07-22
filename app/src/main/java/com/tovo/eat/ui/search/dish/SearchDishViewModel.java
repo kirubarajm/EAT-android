@@ -33,21 +33,15 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
 
     public ObservableList<KitchenDishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
-
-
     public ObservableField<String> kitchenName = new ObservableField<>();
     public ObservableField<String> kitchenImage = new ObservableField<>();
     public ObservableField<String> kitchenCategory = new ObservableField<>();
     public ObservableField<String> cartItems = new ObservableField<>();
     public ObservableField<String> cartPrice = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
-
-
     public ObservableBoolean cart = new ObservableBoolean();
-
-
-    public ObservableField<String> searched=new ObservableField<>();
+    public ObservableField<String> searched = new ObservableField<>();
+    private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
 
 
     public SearchDishViewModel(DataManager dataManager) {
@@ -85,7 +79,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
     }
 
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
 
     }
@@ -144,7 +138,6 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
     }
 
 
-
     public void viewCart() {
         getNavigator().viewCart();
     }
@@ -164,7 +157,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                     if (response != null) {
 
 
-                    //    getNavigator().toastMessage(response.getMessage());
+                        //    getNavigator().toastMessage(response.getMessage());
 
 
                     }
@@ -174,7 +167,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -202,7 +195,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                     if (response != null) {
 
 
-                    //    getNavigator().toastMessage(response.getMessage());
+                        //    getNavigator().toastMessage(response.getMessage());
 
 
                     }
@@ -212,7 +205,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -226,11 +219,134 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
     }
 
+    public void fetchKitchens(Integer cid) {
+
+//        FilterRequestPojo kitchenRequest = new FilterRequestPojo();
+//        kitchenRequest.setEatuserid(getDataManager().getCurrentUserId());
+//        kitchenRequest.setLat(getDataManager().getCurrentLat());
+//        kitchenRequest.setLon(getDataManager().getCurrentLng());
+//        kitchenRequest.setCid(cid);
+      /*  Gson gson = new Gson();
+        String json = gson.toJson(kitchenRequest);
+
+
+        Gson sGson = new GsonBuilder().create();
+        FilterRequestPojo filterRequestPojo = sGson.fromJson(json, FilterRequestPojo.class);*/
+
+
+
+
+/*
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_DETAILS_URL, KitchenDishResponse.class,kitchenRequest, new Response.Listener<KitchenDishResponse>() {
+                @Override
+                public void onResponse(KitchenDishResponse response) {
+                    if (response != null) {
+
+                        dishItemsLiveData.setValue(response.getResult());
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                    Log.e("sdfs","wetet");
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }*/
+
+
+
+
+
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        FilterRequestPojo filterRequestPojo = new FilterRequestPojo();
+        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+        filterRequestPojo.setLat(getDataManager().getCurrentLat());
+        filterRequestPojo.setLon(getDataManager().getCurrentLng());
+        filterRequestPojo.setCid(cid);
+        Gson gson = new Gson();
+        String json = gson.toJson(filterRequestPojo);
+
+        try {
+            setIsLoading(true);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_DETAILS_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+
+                    if (response != null) {
+                        KitchenDishResponse KitchenDishResponse;
+                        Gson sGson = new GsonBuilder().create();
+                        KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
+
+                        dishItemsLiveData.setValue(KitchenDishResponse.getResult());
+                        Log.e("----response:---------", response.toString());
+                        getNavigator().listLoaded();
+
+
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Log.e("", error.getMessage());
+                    //  SearchDishViewModel.this.getNavigator().dishListLoaded();
+                }
+            });
+
+            MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (JSONException j) {
+            j.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
 
     public String getCartPojoDetails() {
 
         return getDataManager().getCartDetails();
     }
+
 
     public void fetchRepos(String search) {
 
@@ -270,7 +386,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
-                  //  SearchDishViewModel.this.getNavigator().dishListLoaded();
+                    //  SearchDishViewModel.this.getNavigator().dishListLoaded();
                 }
             });
 

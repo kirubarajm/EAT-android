@@ -15,7 +15,7 @@ public class CollectionCardItemViewModel {
 
 
 
-    public final RegionItemViewModelListener mListener;
+    public final CollectionItemViewModelListener mListener;
 
     KitchenResponse.Collection collection;
 
@@ -23,11 +23,9 @@ public class CollectionCardItemViewModel {
     int position;
 
 
-    public CollectionCardItemViewModel(RegionItemViewModelListener mListener, KitchenResponse.Collection collection) {
+    public CollectionCardItemViewModel(CollectionItemViewModelListener mListener, KitchenResponse.Collection collection) {
         this.mListener = mListener;
        this.collection=collection;
-
-
 
        title.set(collection.getHeading());
        subTitle.set(collection.getSubheading());
@@ -39,17 +37,14 @@ public class CollectionCardItemViewModel {
 
 
     public void onItemClick() {
-        //mListener.onItemClick(mRegionList, position);
+        mListener.onItemClick(collection);
     }
 
 
 
 
-    public interface RegionItemViewModelListener {
-        void onItemClick(RegionsResponse.Result mRegionList, int position);
-
-
-
+    public interface CollectionItemViewModelListener {
+        void onItemClick( KitchenResponse.Collection collection);
     }
 
 }

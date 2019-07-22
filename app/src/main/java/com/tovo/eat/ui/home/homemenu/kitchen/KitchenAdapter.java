@@ -14,7 +14,6 @@ import com.tovo.eat.databinding.ListItemKitchensBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
@@ -120,11 +119,16 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
 
     @Override
-    public void onItemClickData(KitchenDishResponse.Result blogUrl) {
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
+
+        mLiveProductsAdapterListener.collectionItemClick(collection);
 
     }
 
     public interface LiveProductsAdapterListener {
+
+        void collectionItemClick(KitchenResponse.Collection collection);
 
         void onItemClickData(Integer kitchenId);
 

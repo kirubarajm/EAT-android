@@ -20,6 +20,7 @@ import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
@@ -328,6 +329,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     }
 
+
+    @Override
+    public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
 
     @Override
     public void onItemClickData(Integer kitchenId) {

@@ -17,10 +17,6 @@ public class OrderTrackingResponse {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("deliverytime")
-    @Expose
-    private String deliverytime;
-
 
     @SerializedName("status")
     @Expose
@@ -391,6 +387,10 @@ public class OrderTrackingResponse {
         @SerializedName("order_assigned_time")
         @Expose
         private String orderAssignedTime;
+        @SerializedName("deliverytime")
+        @Expose
+        private String deliverytime;
+
         @SerializedName("userdetail")
         @Expose
         private Userdetail userdetail;
@@ -415,6 +415,14 @@ public class OrderTrackingResponse {
 
         public void setTrackingstatus(Trackingstatus trackingstatus) {
             this.trackingstatus = trackingstatus;
+        }
+
+        public String getDeliverytime() {
+            return deliverytime;
+        }
+
+        public void setDeliverytime(String deliverytime) {
+            this.deliverytime = deliverytime;
         }
 
         public String getEta() {

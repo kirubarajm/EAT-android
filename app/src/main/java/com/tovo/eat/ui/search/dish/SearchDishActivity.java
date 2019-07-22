@@ -44,7 +44,8 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
 
-    String searchText;
+    int collectionId;
+    String collectionTitle;
 
 
     public static Intent newIntent(Context context) {
@@ -114,12 +115,20 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         subscribeToLiveData();
 
 
+
+       // mSearchDishViewModel.fetchRepos("grill");
+
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            if (intent.getExtras().getString("search") != null) {
-                searchText = intent.getExtras().getString("search");
-                mSearchDishViewModel.searched.set(searchText);
-                mSearchDishViewModel.fetchRepos(searchText);
+            if (intent.getExtras().getInt("cid") !=0) {
+                collectionId = intent.getExtras().getInt("cid");
+                collectionTitle = intent.getExtras().getString("title");
+                mSearchDishViewModel.searched.set(collectionTitle);
+                mSearchDishViewModel.fetchKitchens(collectionId);
+
+
+               // mSearchDishViewModel.fetchRepos(collectionId);
             }
         }
 
@@ -202,7 +211,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Override
     public void confirmClick(boolean status) {
 
-        mSearchDishViewModel.fetchRepos(searchText);
+     //   mSearchDishViewModel.fetchRepos(collectionId);
         mSearchDishViewModel.totalCart();
 
     }
