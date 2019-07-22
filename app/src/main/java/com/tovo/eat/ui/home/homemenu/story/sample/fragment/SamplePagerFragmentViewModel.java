@@ -1,6 +1,9 @@
 package com.tovo.eat.ui.home.homemenu.story.sample.fragment;
 
 
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.data.DataManager;
@@ -11,6 +14,13 @@ public class SamplePagerFragmentViewModel extends BaseViewModel<SamplePagerFragm
 
     StoriesResponse storiesResponse;
 
+    public ObservableField<String> title = new ObservableField<>();
+    public ObservableField<String> subTitle = new ObservableField<>();
+    public ObservableField<String> category_type = new ObservableField<>();
+    public ObservableField<String> category_id = new ObservableField<>();
+    public ObservableField<String> imageUrl = new ObservableField<>();
+    public ObservableBoolean aBooleanImg = new ObservableBoolean();
+
     public SamplePagerFragmentViewModel(DataManager dataManager) {
         super(dataManager);
         Gson sGson = new GsonBuilder().create();
@@ -19,6 +29,10 @@ public class SamplePagerFragmentViewModel extends BaseViewModel<SamplePagerFragm
 
     public void getData(){
         getNavigator().getStoriesDataFromLocal(storiesResponse);
+    }
+
+    public void onClickSeeMore(){
+        getNavigator().onSeeMore();
     }
 
 }

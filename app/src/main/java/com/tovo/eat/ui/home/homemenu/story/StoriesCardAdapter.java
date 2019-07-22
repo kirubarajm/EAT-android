@@ -50,7 +50,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
 
-        return item_list.size() * 3;
+        return item_list.size();
 
         //return Integer.MAX_VALUE;
 
@@ -125,9 +125,8 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             pos = position;
-            /*position % item_list.size()*/
             if (item_list.isEmpty()) return;
-            final StoriesResponse.Result blog = item_list.get(position%3);
+            final StoriesResponse.Result blog = item_list.get(position);
             mStoriesItemViewModel = new StoriesItemViewModel(this, blog);
             mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();

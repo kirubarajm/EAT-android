@@ -21,13 +21,71 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:background="@color/white"
+            android:visibility="@{sampleFragmentViewModel.aBooleanImg?View.VISIBLE:View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                imageUrl="@{sampleFragmentViewModel.imageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:background="@color/translucent_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                android:id="@+id/txt_title_main"
+                android:layout_marginTop="250dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:text="Eat Stories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/txt_subtitle_main"
+                android:layout_below="@+id/txt_title_main"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="Collection of EAT highlights and homecook stories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:textSize="12sp"
+                android:layout_marginTop="200dp"
+                android:layout_below="@+id/txt_subtitle_main"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="@string/swipe_to_left"
+                android:layout_marginBottom="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="@{sampleFragmentViewModel.aBooleanImg?View.GONE:View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <VideoView
+                android:scaleType="centerCrop"
                 android:id="@+id/video_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true" />
 
             <ImageView
@@ -85,7 +143,64 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
+
         </LinearLayout>
+
+        <RelativeLayout
+            android:gravity="center"
+            android:padding="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="20dp"
+                android:background="@drawable/curve_back_status"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                android:id="@+id/txt_title"
+                android:text="@{sampleFragmentViewModel.title}"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/txt_sub_title"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="@{sampleFragmentViewModel.subTitle}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/txt_sub_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/curve_see_more"
+                    android:text="@string/see_more"
+                    android:textSize="12sp"
+                    android:onClick="@{()->sampleFragmentViewModel.onClickSeeMore()}"
+                    android:textColor="@color/eat_color"
+                    android:gravity="center"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp" />
+
+            </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView
             android:id="@+id/storiesStatus"
@@ -94,5 +209,6 @@
             android:layout_gravity="top"
             android:layout_marginTop="8dp" />
 
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

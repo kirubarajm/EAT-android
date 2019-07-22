@@ -296,6 +296,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
 
+/*
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -328,6 +329,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });
+*/
 
 
         // subscribeToLiveData();
@@ -799,10 +801,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        Intent intent = SampleTabActivity.newIntent(getContext());
-        intent.putExtra("position", pos);
-        intent.putExtra("fullStories", storiesFullResponse);
-        startActivity(intent);
+        if (result.getStories().size()>0) {
+            Intent intent = SampleTabActivity.newIntent(getContext());
+            intent.putExtra("position", pos);
+            intent.putExtra("fullStories", storiesFullResponse);
+            startActivity(intent);
+        }
 
         /*Bundle bundle = new Bundle();
         bundle.putSerializable("fullStories", storiesFullResponse);

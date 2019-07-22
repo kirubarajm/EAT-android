@@ -591,5 +591,7 @@
     <string name="enter_coupon">ENTER COUPON CODE HERE</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="top_eat_suggestions">Top EAT Suggestions</string>
+    <string name="see_more">SEE MORE</string>
+    <string name="swipe_to_left">Swipe to left</string>
 
 </resources>

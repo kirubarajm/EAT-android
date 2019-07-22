@@ -18,31 +18,32 @@ public class StoriesResponse implements Serializable {
     @Expose
     public List<Result> result = null;
 
+
     public Boolean getSuccess() {
         return success;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public List<Result> getResult() {
-        return result;
     }
 
     public void setSuccess(Boolean success) {
         this.success = success;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public List<Result> getResult() {
+        return result;
     }
 
     public void setResult(List<Result> result) {
         this.result = result;
     }
 
-    public class Result implements Serializable {
+    public static class Result implements Serializable {
 
         @SerializedName("storyid")
         @Expose
@@ -72,80 +73,79 @@ public class StoriesResponse implements Serializable {
         @Expose
         public List<Story> stories = null;
 
+        public Integer getStoryid() {
+            return storyid;
+        }
 
         public void setStoryid(Integer storyid) {
             this.storyid = storyid;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public void setThumbTitle(String thumbTitle) {
-            this.thumbTitle = thumbTitle;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public void setStoryImg(String storyImg) {
-            this.storyImg = storyImg;
-        }
-
-        public void setCreatedAt(String createdAt) {
-            this.createdAt = createdAt;
-        }
-
-        public void setUpdatedAt(Object updatedAt) {
-            this.updatedAt = updatedAt;
-        }
-
-        public void setStories(List<Story> stories) {
-            this.stories = stories;
-        }
-
-        public Integer getStoryid() {
-            return storyid;
         }
 
         public String getThumb() {
             return thumb;
         }
 
+        public void setThumb(String thumb) {
+            this.thumb = thumb;
+        }
+
         public String getThumbTitle() {
             return thumbTitle;
+        }
+
+        public void setThumbTitle(String thumbTitle) {
+            this.thumbTitle = thumbTitle;
         }
 
         public String getTitle() {
             return title;
         }
 
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
         public String getDescription() {
             return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public String getStoryImg() {
             return storyImg;
         }
 
+        public void setStoryImg(String storyImg) {
+            this.storyImg = storyImg;
+        }
+
         public String getCreatedAt() {
             return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
         }
 
         public Object getUpdatedAt() {
             return updatedAt;
         }
 
+        public void setUpdatedAt(Object updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
         public List<Story> getStories() {
             return stories;
         }
 
-        public class Story implements Serializable {
+        public void setStories(List<Story> stories) {
+            this.stories = stories;
+        }
+
+        public static class Story implements Serializable {
 
             @SerializedName("id")
             @Expose
@@ -162,6 +162,18 @@ public class StoriesResponse implements Serializable {
             @SerializedName("pos")
             @Expose
             public String pos;
+            @SerializedName("title")
+            @Expose
+            public Object title;
+            @SerializedName("subtitle")
+            @Expose
+            public Object subtitle;
+            @SerializedName("cat_type")
+            @Expose
+            public Object catType;
+            @SerializedName("cat_ids")
+            @Expose
+            public Object catIds;
             @SerializedName("created_at")
             @Expose
             public String createdAt;
@@ -169,63 +181,95 @@ public class StoriesResponse implements Serializable {
             @Expose
             public Object updatedAt;
 
-            public void setId(Integer id) {
-                this.id = id;
-            }
-
-            public void setMediatype(Integer mediatype) {
-                this.mediatype = mediatype;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public void setStoryid(Integer storyid) {
-                this.storyid = storyid;
-            }
-
-            public void setPos(String pos) {
-                this.pos = pos;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public void setUpdatedAt(Object updatedAt) {
-                this.updatedAt = updatedAt;
-            }
 
             public Integer getId() {
                 return id;
+            }
+
+            public void setId(Integer id) {
+                this.id = id;
             }
 
             public Integer getMediatype() {
                 return mediatype;
             }
 
+            public void setMediatype(Integer mediatype) {
+                this.mediatype = mediatype;
+            }
+
             public String getUrl() {
                 return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
             }
 
             public Integer getStoryid() {
                 return storyid;
             }
 
+            public void setStoryid(Integer storyid) {
+                this.storyid = storyid;
+            }
+
             public String getPos() {
                 return pos;
+            }
+
+            public void setPos(String pos) {
+                this.pos = pos;
+            }
+
+            public Object getTitle() {
+                return title;
+            }
+
+            public void setTitle(Object title) {
+                this.title = title;
+            }
+
+            public Object getSubtitle() {
+                return subtitle;
+            }
+
+            public void setSubtitle(Object subtitle) {
+                this.subtitle = subtitle;
+            }
+
+            public Object getCatType() {
+                return catType;
+            }
+
+            public void setCatType(Object catType) {
+                this.catType = catType;
+            }
+
+            public Object getCatIds() {
+                return catIds;
+            }
+
+            public void setCatIds(Object catIds) {
+                this.catIds = catIds;
             }
 
             public String getCreatedAt() {
                 return createdAt;
             }
 
+            public void setCreatedAt(String createdAt) {
+                this.createdAt = createdAt;
+            }
+
             public Object getUpdatedAt() {
                 return updatedAt;
+            }
+
+            public void setUpdatedAt(Object updatedAt) {
+                this.updatedAt = updatedAt;
             }
         }
 
     }
-
 }

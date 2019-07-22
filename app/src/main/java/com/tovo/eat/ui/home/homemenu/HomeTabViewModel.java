@@ -32,6 +32,7 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
 
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
+
+    List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
 
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
@@ -567,6 +570,21 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
                         storiesItemsLiveData.setValue(response.getResult());
                         getNavigator().getFullStories(response);
+
+                        //storiesResponseList.add(response.getResult());
+
+                        for (int i=0;i<response.getResult().size();i++){
+                            if (response.getResult().get(i).getStories().size()>0) {
+                                StoriesResponse.Result.Story result = new StoriesResponse.Result.Story();
+
+                                result.setTitle(response.getResult().get(i).getTitle());
+                                result.setSubtitle(response.getResult().get(i).getDescription());
+                                result.setUrl(response.getResult().get(i).getStoryImg());
+                                result.setMediatype(0);
+
+                                //response.getResult().get(i).getStories()
+                            }
+                        }
 
                         if (response.getResult().size() > 0) {
                             Gson gson = new Gson();

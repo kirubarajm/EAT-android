@@ -6,5 +6,7 @@ public interface SamplePagerFragmentNavigator {
 
     void handleError(Throwable throwable);
 
+    void onSeeMore();
+
     void getStoriesDataFromLocal(StoriesResponse storiesResponse);
 }

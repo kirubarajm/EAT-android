@@ -62,6 +62,11 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
         mActivitySampleBinding.viewPagerSample.setCurrentItem(mActivitySampleBinding.viewPagerSample.getCurrentItem()+1);
     }
 
+    public void moveToPrevious(){
+
+        mActivitySampleBinding.viewPagerSample.setCurrentItem(mActivitySampleBinding.viewPagerSample.getCurrentItem()-1);
+    }
+
     @Override
     public void handleError(Throwable throwable) {
 
@@ -166,5 +171,12 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
         super.onResume();
     }
 
+    public void back(){
+        onBackPressed();
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

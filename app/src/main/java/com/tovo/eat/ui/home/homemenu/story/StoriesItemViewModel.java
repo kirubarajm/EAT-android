@@ -18,7 +18,9 @@ public class StoriesItemViewModel {
     }
 
     public void onItemClick() {
-        mListener.onItemClick(blog);
+        if (blog.getStories().size()>0) {
+            mListener.onItemClick(blog);
+        }
     }
 
     public interface StoriesItemViewModelListener {
