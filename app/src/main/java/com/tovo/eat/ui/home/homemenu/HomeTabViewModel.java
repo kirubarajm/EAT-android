@@ -582,7 +582,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 result.setUrl(response.getResult().get(i).getStoryImg());
                                 result.setMediatype(0);
 
-                                //response.getResult().get(i).getStories()
+                                response.getResult().get(i).getStories().add(0,result);
                             }
                         }
 
