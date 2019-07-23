@@ -151,6 +151,7 @@
 
 
                                 <ImageView
+                                    android:visibility="gone"
                                     android:layout_width="5dp"
                                     android:layout_height="5dp"
                                     android:layout_gravity="center_vertical"
@@ -161,6 +162,7 @@
 
 
                                 <com.tovo.eat.utilities.fonts.TovoTextView
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
@@ -172,6 +174,7 @@
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
@@ -181,6 +184,7 @@
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="2dp"
@@ -200,6 +204,7 @@
 
 
                     <View
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/medium_gray" />
@@ -231,32 +236,39 @@
                 android:animateLayoutChanges="false"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
-                tools:listitem="@layout/list_item_kitchen_dishes" />
+                tools:listitem="@layout/list_item_cart_dishes" />
 
             <RelativeLayout
                 android:id="@+id/viewMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray"
+                android:background="@color/white"
                 android:onClick="@{()->searchDishItemViewModel.showMore()}">
 
 
+                <View
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_gray" />
+
+
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:layout_below="@+id/view1"
                     android:id="@+id/showMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/curve_stroke_show_more"
+                    android:background="@color/gray"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:text="@string/view_menu"
-                    android:textColor="@color/eat_color"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
 

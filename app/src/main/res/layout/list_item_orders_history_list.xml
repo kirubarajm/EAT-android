@@ -24,7 +24,7 @@
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:id="@+id/txt_cust_name"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,10 +37,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_cust_name"
-                android:layout_marginTop="5dp"
                 android:text="@{ordersListItemViewModel.makeitLocality}" />
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:visibility="gone"
                 android:layout_toEndOf="@+id/txt_place"
                 android:id="@+id/txt_rupees"
                 android:textSize="12sp"
@@ -48,9 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_cust_name"
-                android:layout_marginTop="5dp"
-                android:text="@{ordersListItemViewModel.price}"
-                android:layout_toRightOf="@+id/txt_place" />
+                android:text="@{ordersListItemViewModel.price}" />
 
         </RelativeLayout>
 
@@ -59,7 +57,6 @@
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             android:maxLines="1"
             android:layout_below="@+id/rel_1"
-            android:layout_marginTop="15dp"
             android:id="@+id/dots"
             android:layout_width="match_parent"
             android:textSize="12sp"
@@ -74,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dots"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="5dp">
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/txt_order_name"
@@ -93,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_order_name"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:text="@{ordersListItemViewModel.moveit_actual_delivered_time}" />
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
@@ -117,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@+id/rel_2"
-            android:background="@color/black" />
+            android:background="@color/dark_gray" />
 
     </RelativeLayout>
 </layout>

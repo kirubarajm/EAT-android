@@ -91,7 +91,7 @@ public class SearchDishItemViewModel {
         cuisines.set(items);*/
 
 
-        cuisines.set("by " + mKitchenList.getMakeitusername() + " | " + mKitchenList.getRegionname());
+        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from " + mKitchenList.getRegionname());
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));

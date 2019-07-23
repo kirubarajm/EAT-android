@@ -76,8 +76,8 @@
             </LinearLayout>
 
             <android.support.v7.widget.CardView
-                android:layout_width="220dp"
-                android:layout_height="320dp"
+                android:layout_width="270dp"
+                android:layout_height="380dp"
                 android:layout_gravity="center_horizontal"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="7dp"
@@ -91,10 +91,10 @@
 
                     <com.tovo.eat.utilities.RoundCornerImageView
                         cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_margin="10dp"
+                        android:layout_margin="3dp"
                         android:onClick="@{()->regionItemViewModel.onItemClick()}"
                         android:scaleType="fitXY" />
 
