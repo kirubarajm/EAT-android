@@ -39,6 +39,7 @@ import java.util.Map;
 
 public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
+    public final ObservableField<String> firstStory = new ObservableField<>();
     public final ObservableField<String> firstRegion = new ObservableField<>();
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public final ObservableField<String> region1 = new ObservableField<>();

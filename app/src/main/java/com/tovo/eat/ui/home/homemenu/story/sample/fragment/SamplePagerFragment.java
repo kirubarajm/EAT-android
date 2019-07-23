@@ -223,9 +223,12 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
         //  storyStatusView.playStories();
         target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
         // storyStatusView.pause();
+        if (counter==0) {
+            mSplashActivityViewModel.aBooleanImg.set(true);
+        }
+
         if (storiesResponse.getStories().size() > 0) {
-            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-                mSplashActivityViewModel.aBooleanImg.set(false);
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1 ||storiesResponse.getStories().get(counter).getMediatype() == 0 ) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -246,7 +249,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2){
-                mSplashActivityViewModel.aBooleanImg.set(false);
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -257,9 +259,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
-            }else {
-                mSplashActivityViewModel.aBooleanImg.set(true);
-                mSplashActivityViewModel.imageUrl.set(storiesResponse.getStories().get(counter).getUrl());
             }
         }
        /* } else {
@@ -272,10 +271,9 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
     @Override
     public void onNext() {
         ++counter;
-
+        mSplashActivityViewModel.aBooleanImg.set(false);
         if (storiesResponse.getStories().size() > 0) {
-            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-                mSplashActivityViewModel.aBooleanImg.set(false);
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -296,7 +294,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2){
-                mSplashActivityViewModel.aBooleanImg.set(false);
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -307,9 +304,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
-            }else {
-                mSplashActivityViewModel.aBooleanImg.set(true);
-                mSplashActivityViewModel.imageUrl.set(storiesResponse.getStories().get(counter).getUrl());
             }
         }
         /*}else {
@@ -323,8 +317,11 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
     public void onPrev() {
         if (counter - 1 >= 0) {
             --counter;
-            if (storiesResponse.getStories().get(counter).getMediatype() == 1) {
-                mSplashActivityViewModel.aBooleanImg.set(false);
+            if(counter==0){
+                mSplashActivityViewModel.aBooleanImg.set(true);
+            }
+
+            if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -345,7 +342,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2){
-                mSplashActivityViewModel.aBooleanImg.set(false);
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 mSplashActivityViewModel.category_type.set(String.valueOf(storiesResponse.getStories().get(counter).getCatType()));
@@ -356,9 +352,6 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
-            }else {
-                mSplashActivityViewModel.aBooleanImg.set(true);
-                mSplashActivityViewModel.imageUrl.set(storiesResponse.getStories().get(counter).getUrl());
             }
         } else {
             onPreviousComplete();

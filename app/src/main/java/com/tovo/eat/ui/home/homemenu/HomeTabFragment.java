@@ -302,7 +302,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
 
-/*
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -313,8 +312,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                 int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
 
-                if (regionsResponse != null)
-                    if (regionsResponse.getResult() != null)
+                if (storiesFullResponse != null)
+                    if (storiesFullResponse.getResult() != null)
 
                         if (ll.findLastVisibleItemPosition() == 38) {
 
@@ -325,8 +324,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                // Toast.makeText(getContext(), "Position : " + firstVisiblePosition, Toast.LENGTH_SHORT).show();
                 try {
 
-                    if (regionsResponse.getResult() != null)
-                        mHomeTabViewModel.firstRegion.set(regionsResponse.getResult().get(firstVisiblePosition % 3).getRegionname());
+                    if (storiesFullResponse.getResult() != null)
+                        mHomeTabViewModel.firstStory.set(String.valueOf(storiesFullResponse.getResult().get(firstVisiblePosition % storiesFullResponse.getResult().size()).getStoryid()));
                 } catch (NullPointerException ne) {
                     ne.printStackTrace();
                 } catch (Exception x) {
@@ -335,7 +334,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });
-*/
 
 
         // subscribeToLiveData();
