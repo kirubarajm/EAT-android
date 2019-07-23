@@ -132,16 +132,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
+    public void promoCouponClose() {
+        getDataManager().saveCouponId(0);
+        couponSelected.set(false);
+        fetchRepos();
+
+    }
+
     public void refundView() {
         getNavigator().checkRefund();
 
     }
 
     public void redirectKitchen() {
-
         getNavigator().redirectHome();
-
-
     }
 
 
@@ -548,7 +552,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             }
 
-        }else {
+        } else {
             emptyCart.set(true);
         }
     }
@@ -659,7 +663,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                     placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(),getDataManager().getCouponId(), orderitems);
+                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
 
 
                     Gson gson = new Gson();

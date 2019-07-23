@@ -73,9 +73,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchRepos(getDataManager().getRegionId());
         fetchStories();
 
-        if (getDataManager().getVegType() == 1) {
+       /* if (getDataManager().getVegType() == 1) {
             isVeg.set(true);
-        }
+        }*/
     }
 
 
@@ -137,8 +137,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void vegType() {
-
-        if (isVeg.get()) {
+       /* if (isVeg.get()) {
             isVeg.set(false);
             getDataManager().saveVegType(0);
 
@@ -147,9 +146,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             getDataManager().saveVegType(1);
         }
 
-        fetchKitchen();
-
-
+        fetchKitchen();*/
     }
 
     public void removeFavourite(Integer favId) {
@@ -456,7 +453,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
-                        filterRequestPojo.setVegtype(getDataManager().getVegType());
+                    //    filterRequestPojo.setVegtype(getDataManager().getVegType());
 
                         if (filterRequestPojo.getCusinelist() != null) {
 
