@@ -20,6 +20,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int VIEW_TYPE_EMPTY = 0;
     private List<StoriesResponse.Result> item_list;
     private StoriesAdapterListener mStoriesAdapterListener;
+    private boolean mIsNotLoop = true;
 
 
     public StoriesCardAdapter(List<StoriesResponse.Result> item_list) {
@@ -50,9 +51,9 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
 
-        return item_list.size();
+    //    return item_list.size()*100;
 
-        //return Integer.MAX_VALUE;
+        return item_list.size()!=0? Integer.MAX_VALUE:1;
 
 
         /*if (item_list != null && item_list.size() > 0) {
@@ -124,9 +125,9 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onBind(int position) {
-            pos = position;
             if (item_list.isEmpty()) return;
-            final StoriesResponse.Result blog = item_list.get(position);
+            pos = position  % item_list.size();
+            final StoriesResponse.Result blog = item_list.get(pos);
             mStoriesItemViewModel = new StoriesItemViewModel(this, blog);
             mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();

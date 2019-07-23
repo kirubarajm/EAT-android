@@ -54,7 +54,6 @@ public class SampleTabActivity extends BaseActivity<ActivitySampleBinding, Sampl
                 .instantiateItem(mActivitySampleBinding.viewPagerSample, mActivitySampleBinding.viewPagerSample.getCurrentItem());
         frag1.onPlayStorie(position);
         }
-
     }
 
     public void moveToNext(){
