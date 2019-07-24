@@ -20,21 +20,50 @@
 
 
     <android.support.v7.widget.CardView
-        app:cardBackgroundColor="@color/light_gray"
-        android:layout_width="210dp"
-        android:layout_height="310dp"
+        android:layout_width="230dp"
+        android:layout_height="340dp"
         android:onClick="@{()->regionCardMoreItemViewModel.onItemClick()}"
-        app:cardCornerRadius="7dp">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp">
 
 
-        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:text="@string/view_more"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:orientation="vertical">
 
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/curve_stroke"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="@string/explore_all"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="@string/explore_our_wide_range_regional_food"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 </layout>

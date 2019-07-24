@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.databinding.ListItemCollectionDishesBinding;
+import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
@@ -42,7 +44,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemKitchenDishesBinding blogViewBinding = ListItemKitchenDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemCollectionDishesBinding blogViewBinding = ListItemCollectionDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -126,10 +128,10 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements KitchenDishItemViewModel.DishItemViewModelListener {
-        ListItemKitchenDishesBinding mListItemLiveProductsBinding;
+        ListItemCollectionDishesBinding mListItemLiveProductsBinding;
         KitchenDishItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemKitchenDishesBinding binding) {
+        public LiveProductsViewHolder(ListItemCollectionDishesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }

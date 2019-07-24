@@ -106,8 +106,8 @@
 
     <android.support.v7.widget.CardView
         android:onClick="@{()->regionItemViewModel.onItemClick()}"
-        android:layout_width="270dp"
-        android:layout_height="380dp"
+        android:layout_width="230dp"
+        android:layout_height="340dp"
         android:layout_gravity="center_horizontal"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="7dp"
@@ -130,16 +130,17 @@
 
 
             <LinearLayout
+                android:background="@color/white"
                 android:layout_marginBottom="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:orientation="vertical">
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -150,6 +151,8 @@
 
 
                 <View
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="0.7dp"
                     android:layout_marginTop="5dp"
@@ -157,6 +160,8 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

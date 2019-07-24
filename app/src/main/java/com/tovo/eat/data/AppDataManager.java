@@ -195,6 +195,17 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveRatingSkipDate(String date, int skips) {
+        setRatingSkips(skips);
+        setRatingDate(date);
+    }
+
+    @Override
+    public void saveApiToken(String token) {
+        setApiToken(token);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
         mPreferencesHelper.getOrderId();
@@ -548,6 +559,36 @@ public class AppDataManager implements DataManager {
     @Override
     public void setVegType(Integer type) {
         mPreferencesHelper.setVegType(type);
+    }
+
+    @Override
+    public Integer getRatingSkips() {
+        return mPreferencesHelper.getRatingSkips();
+    }
+
+    @Override
+    public void setRatingSkips(Integer skips) {
+        mPreferencesHelper.setRatingSkips(skips);
+    }
+
+    @Override
+    public String getRatingDate() {
+        return mPreferencesHelper.getRatingDate();
+    }
+
+    @Override
+    public void setRatingDate(String date) {
+        mPreferencesHelper.setRatingDate(date);
+    }
+
+    @Override
+    public String getApiToken() {
+        return mPreferencesHelper.getApiToken();
+    }
+
+    @Override
+    public void setApiToken(String token) {
+        mPreferencesHelper.setApiToken(token);
     }
 
 

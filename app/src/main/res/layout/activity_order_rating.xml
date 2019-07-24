@@ -27,21 +27,25 @@
 
 
 
-            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Orders" />
-
-
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grill chicken, Pepper chicken" />
+                android:layout_marginTop="10dp"
+                android:text="Orders #123456" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ebin kitchen" />
 
 
         </LinearLayout>
@@ -51,17 +55,18 @@
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             android:layout_below="@+id/order"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:id="@+id/txt_how_was_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/how_was_food" />
 
         <LinearLayout
+            android:layout_centerHorizontal="true"
             android:id="@+id/linear_1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_how_was_food"
             android:layout_marginTop="10dp"
@@ -91,8 +96,6 @@
                 android:id="@+id/smiley_food_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.foodHigh()}"
                 android:text="@string/smiley_high"
                 android:textSize="25sp" />
@@ -105,14 +108,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_1"
-            android:textSize="16sp"
-            android:layout_marginTop="30dp"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/how_was_delivery" />
 
         <LinearLayout
+            android:layout_centerHorizontal="true"
             android:id="@+id/linear_2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_how_was_delivery"
             android:layout_marginTop="10dp"
@@ -142,8 +146,6 @@
                 android:id="@+id/smiley_delivery_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:onClick="@{()->orderRatingViewModel.deliveryHigh()}"
                 android:text="@string/smiley_high"
                 android:textSize="25sp" />
@@ -160,7 +162,7 @@
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:id="@+id/txt_how_can_we_met_exceptation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,14 +182,13 @@
                     android:hint="@string/suggestion"
                     android:imeOptions="actionNext"
                     android:inputType="textLongMessage"
-                    android:lines="3"
-                    android:maxLength="100"
+                    android:lines="2"
                     android:singleLine="false" />
             </android.support.design.widget.TextInputLayout>
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:id="@+id/txt_how_was_your_delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,8 +210,7 @@
                     android:hint="@string/suggestion"
                     android:imeOptions="actionDone"
                     android:inputType="textLongMessage"
-                    android:lines="3"
-                    android:maxLength="100"
+                    android:lines="2"
                     android:singleLine="false" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
@@ -231,7 +231,7 @@
                 android:text="@string/submit"
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -250,7 +250,7 @@
             android:text="May be later"
             android:textAllCaps="true"
             android:textColor="@color/eat_color"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

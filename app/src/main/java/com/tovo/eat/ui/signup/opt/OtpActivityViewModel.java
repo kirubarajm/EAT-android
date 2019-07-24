@@ -122,6 +122,10 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     otpStatus = response.getOtpstatus();
                                     genderstatus = response.getGenderstatus();
 
+
+                                    getDataManager().saveApiToken(response.getToken());
+
+
                                     getDataManager().updateEmailStatus(response.getEmailstatus());
 
                                     userId.set(String.valueOf(response.getUserid()));

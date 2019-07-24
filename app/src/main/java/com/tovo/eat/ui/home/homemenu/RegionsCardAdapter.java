@@ -105,6 +105,12 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
+    @Override
+    public long getItemId(int position) {
+        setHasStableIds(true);
+        return super.getItemId(position);
+    }
+
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(RegionsResponse.Result mRegionList, int position);

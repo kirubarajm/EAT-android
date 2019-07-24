@@ -5,16 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.base.BaseBottomSheetFragment;
+import com.tovo.eat.ui.filter.FilterFragment;
 
 import javax.inject.Inject;
 
-public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding, OrderRatingActivityViewModel>
+public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRatingBinding, OrderRatingActivityViewModel>
         implements OrderRatingActivityNavigator {
 
     int foodRating = 0;
@@ -25,8 +30,11 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
     OrderRatingActivityViewModel mLoginViewModelMain;
     private ActivityOrderRatingBinding mActivityOrderRatingBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, OrderRatingActivity.class);
+    public static OrderRatingActivity newInstance() {
+        Bundle args = new Bundle();
+        OrderRatingActivity fragment = new OrderRatingActivity();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -45,13 +53,13 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
 
     @Override
     public void ratingSuccess() {
-        finish();
-        Toast.makeText(getApplicationContext(), "Rating Success", Toast.LENGTH_SHORT).show();
+        dismiss();
+        Toast.makeText(getContext(), "Rating Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ratingFailure() {
-        Toast.makeText(getApplicationContext(), "Rating Failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Rating Failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -117,43 +125,43 @@ public class OrderRatingActivity extends BaseActivity<ActivityOrderRatingBinding
         return mLoginViewModelMain;
     }
 
-    @Override
-    public void onFragmentDetached(String tag) {
 
-    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityOrderRatingBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
 
 
-
-
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            orderId=intent.getExtras().getInt("orderid");
-        }
-
-
-
     }
+
+
 
     @Override
-    public void onBackPressed() {
-        finish();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mActivityOrderRatingBinding = getViewDataBinding();
+
+
+      /*  Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            orderId=intent.getExtras().getInt("orderid");
+        }*/
+
+
     }
+
+
 
 
     private boolean validForRating() {
         if (foodRating == 0) {
-            Toast.makeText(getApplicationContext(), "Please give food rating", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please give food rating", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (deliveryRating == 0) {
-            Toast.makeText(getApplicationContext(), "Please give delivery rating", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please give delivery rating", Toast.LENGTH_SHORT).show();
             return false;
         }
 

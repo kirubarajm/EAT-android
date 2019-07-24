@@ -530,6 +530,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     }
                 }) {
 
+
                     /**
                      * Passing some request headers
                      */
@@ -537,8 +538,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
-                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
-
+                        headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                        //  headers.put("Authorization","Bearer");
+                        headers.put("Authorization","Bearer "+getDataManager().getApiToken());
                         return headers;
                     }
                 };
@@ -718,7 +720,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-
+                                headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                                //  headers.put("Authorization","Bearer");
+                                headers.put("Authorization","Bearer "+getDataManager().getApiToken());
                                 return headers;
                             }
                         };

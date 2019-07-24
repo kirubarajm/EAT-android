@@ -1,5 +1,7 @@
 package com.tovo.eat.api.remote;
 
+import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -9,6 +11,10 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.tovo.eat.data.DataManager;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -86,8 +92,19 @@ public class GsonRequest extends Request {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.put("accept-version",version);
+      //  headers.put("Authorization","Bearer");
+
+        AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+
+        headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
+
+       // headers.put("token",preferencesHelper.getApiToken());
+
+
         return  headers;
     }
+
+
 
     public HashMap<String, String> getStringMap(Object object) {
         try {

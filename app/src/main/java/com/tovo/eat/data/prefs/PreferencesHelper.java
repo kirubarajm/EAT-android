@@ -150,10 +150,6 @@ public interface PreferencesHelper {
     void setTotalOrders(Integer orders);
 
 
-
-
-
-
     boolean isHomeAddressAdded();
 
     void setHomeAddressAdded(boolean status);
@@ -163,16 +159,18 @@ public interface PreferencesHelper {
     void setOfficeAddressAdded(boolean status);
 
 
-
     int getRefundId();
+
     void setRefundId(int rcid);
 
 
     int getRegionId();
+
     void setRegionId(int regiionId);
 
 
     int getCouponId();
+
     void setCouponId(int couponId);
 
 
@@ -183,4 +181,18 @@ public interface PreferencesHelper {
     Integer getVegType();
 
     void setVegType(Integer type);
+
+    Integer getRatingSkips();
+
+    void setRatingSkips(Integer skips);
+
+
+    String getRatingDate();
+
+    void setRatingDate(String date);
+
+    String getApiToken();
+
+    void setApiToken(String token);
+
 }

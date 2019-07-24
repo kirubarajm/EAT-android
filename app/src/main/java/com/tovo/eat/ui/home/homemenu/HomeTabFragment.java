@@ -365,22 +365,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
+
           mStackLayoutManager = new StackLayoutManager();
-        mStackLayoutManager.setItemOffset(50);
-        mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
+        /*mStackLayoutManager.setItemOffset(50);*/
+       // mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
 
       /*  mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
         mStackLayoutManager.requestLayout();*/
        // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
 
 
-        mStackLayoutManager.setAnimation(new FadeInFadeOutAnimation(mStackLayoutManager.getScrollOrientation(),
-                mStackLayoutManager.getVisibleItemCount()));
-        mStackLayoutManager.requestLayout();
+
 
         mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
-
-
 
 
         mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {

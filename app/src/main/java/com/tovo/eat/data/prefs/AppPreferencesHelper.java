@@ -46,6 +46,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
     private static final String PREF_KEY_COUPON_ID = "PREF_KEY_COUPON_ID";
+  private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
+  private static final String PREF_KEY_RATING_DATE = "PREF_KEY_RATING_DATE";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
     private static final String PREF_KEY_VEG_TYPE = "VEG_TYPE";
@@ -80,6 +82,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_TOTAL_ORDERS = "TOTAL_ORDERS";
     private static final String PREF_KEY_HOME_ADDRESS_ADDED = "HOME_ADDRESS_ADDED";
     private static final String PREF_KEY_OFFICE_ADDRESS_ADDED = "OFFICE_ADDRESS_ADDED";
+    private static final String PREF_KEY_API_TOKEN = "API_TOKEN";
 
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
@@ -425,6 +428,36 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setVegType(Integer type) {
         mPrefs.edit().putInt(PREF_KEY_VEG_TYPE, type).apply();
+    }
+
+    @Override
+    public Integer getRatingSkips() {
+        return mPrefs.getInt(PREF_KEY_RATING_SKIPS, 0);
+    }
+
+    @Override
+    public void setRatingSkips(Integer skips) {
+        mPrefs.edit().putInt(PREF_KEY_RATING_SKIPS, skips).apply();
+    }
+
+    @Override
+    public String getRatingDate() {
+        return mPrefs.getString(PREF_KEY_RATING_DATE, null);
+    }
+
+    @Override
+    public void setRatingDate(String date) {
+        mPrefs.edit().putString(PREF_KEY_RATING_DATE, date).apply();
+    }
+
+    @Override
+    public String getApiToken() {
+        return mPrefs.getString(PREF_KEY_API_TOKEN, "login");
+    }
+
+    @Override
+    public void setApiToken(String token) {
+        mPrefs.edit().putString(PREF_KEY_API_TOKEN, token).apply();
     }
 
     @Override

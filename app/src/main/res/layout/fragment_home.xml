@@ -458,7 +458,7 @@
                             android:layout_marginBottom="10dp"
                             android:id="@+id/recycler_view_region"
                             android:layout_width="match_parent"
-                            android:layout_height="400dp"
+                            android:layout_height="350dp"
                             android:layout_gravity="center_horizontal"
                             android:visibility="visible"
                             app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
