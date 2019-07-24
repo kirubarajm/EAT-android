@@ -145,7 +145,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void redirectKitchen() {
+
         getNavigator().redirectHome();
+
+
     }
 
 

@@ -18,71 +18,14 @@
   -->
     <!--CENTER. app:gravity="center" - is default value -->
 
-
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{()->regionItemViewModel.onItemClick()}"
-        app:cardCornerRadius="7dp">
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/white"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:text="@{regionItemViewModel.regionName}"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.7dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/gradient_view_kitchen" />
-
-
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:text="@{regionItemViewModel.tagline}"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp"
-                    android:textStyle="italic" />
-            </LinearLayout>
-
-            <android.support.v7.widget.CardView
+            <!--<android.support.v7.widget.CardView
+                android:onClick="@{()->regionItemViewModel.onItemClick()}"
                 android:layout_width="270dp"
                 android:layout_height="380dp"
                 android:layout_gravity="center_horizontal"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="7dp"
-                app:cardElevation="5dp"
-                app:cardUseCompatPadding="true">
+                app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -99,7 +42,7 @@
                         android:scaleType="fitXY" />
 
 
-                    <!-- <android.support.v7.widget.CardView
+                    &lt;!&ndash; <android.support.v7.widget.CardView
                          android:layout_gravity="center_horizontal"
                          android:layout_width="180dp"
                          android:layout_height="200dp"
@@ -118,7 +61,7 @@
                              android:layout_height="wrap_content"
                              android:text="View More"/>
 
-                     </android.support.v7.widget.CardView>-->
+                     </android.support.v7.widget.CardView>&ndash;&gt;
 
 
                     <LinearLayout
@@ -158,10 +101,72 @@
                     </LinearLayout>
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>-->
 
 
-        </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:onClick="@{()->regionItemViewModel.onItemClick()}"
+        android:layout_width="270dp"
+        android:layout_height="380dp"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.tovo.eat.utilities.RoundCornerImageView
+                cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="3dp"
+                android:onClick="@{()->regionItemViewModel.onItemClick()}"
+                android:scaleType="centerCrop" />
+
+
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@{regionItemViewModel.title}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/black" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@{regionItemViewModel.content}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </layout>

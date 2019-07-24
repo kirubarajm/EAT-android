@@ -57,6 +57,8 @@ import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.CardSnapHelper;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
+import com.tovo.eat.utilities.stack.FadeInFadeOutAnimation;
+import com.tovo.eat.utilities.stack.StackLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +98,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
     private GoogleApiClient mGoogleApiClient;
+    StackLayoutManager  mStackLayoutManager;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
             .ConnectionCallbacks() {
 
@@ -362,10 +365,43 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
+          mStackLayoutManager = new StackLayoutManager();
+        mStackLayoutManager.setItemOffset(50);
+        mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
+
+      /*  mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
+        mStackLayoutManager.requestLayout();*/
+       // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
+
+
+        mStackLayoutManager.setAnimation(new FadeInFadeOutAnimation(mStackLayoutManager.getScrollOrientation(),
+                mStackLayoutManager.getVisibleItemCount()));
+        mStackLayoutManager.requestLayout();
+
+        mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
+
+
+
+
+        mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
+            @Override
+            public void onItemChanged(int position) {
+
+                onActiveCardChange(position);
+
+            }
+        });
+
+
+
+
+
+
+
 
         //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
 
-
+/*
         mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -383,10 +419,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();*/
 
 
-        new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
+  //      new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
         
         
         
@@ -731,13 +767,31 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onItemClickData(RegionsResponse.Result mRegionList, int position) {
 
 
-        final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
+    int activeCardPosition=  mStackLayoutManager.getFirstVisibleItemPosition();
+
+
+    /*
+        mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
+            @Override
+            public void onItemChanged(int positions) {
+
+
+               activeCardPosition=positions;
+
+
+            }
+        });*/
+
+
+
+
+      /*  final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
 
         if (lm.isSmoothScrolling()) {
             return;
-        }
+        }*/
 
-        final int activeCardPosition = lm.getActiveCardPosition();
+
         if (activeCardPosition == RecyclerView.NO_POSITION) {
             return;
         }
@@ -753,8 +807,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
         } else if (position > activeCardPosition) {
-            mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
-            onActiveCardChange();
+        //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
+           // onActiveCardChange();
         }
 
 
@@ -768,14 +822,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void viewMoreRegions() {
 
-
+/*
         final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
 
         if (lm.isSmoothScrolling()) {
             return;
         }
 
-        final int activeCardPosition = lm.getActiveCardPosition();
+        final int activeCardPosition = lm.getActiveCardPosition();*/
+
+
+        int activeCardPosition=  mStackLayoutManager.getFirstVisibleItemPosition();
+
         if (activeCardPosition == RecyclerView.NO_POSITION) {
             return;
         }

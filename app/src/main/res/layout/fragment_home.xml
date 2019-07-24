@@ -441,7 +441,7 @@
 
                         </FrameLayout>
 
-                        <android.support.v7.widget.RecyclerView
+                       <!-- <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_view_region"
                             android:layout_width="match_parent"
                             android:layout_height="380dp"
@@ -449,7 +449,21 @@
                             android:visibility="visible"
                             app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
                             app:layoutManager="com.tovo.eat.utilities.card.CardSliderLayoutManager"
+                            tools:listitem="@layout/list_item_region_card" />-->
+
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_marginBottom="10dp"
+                            android:id="@+id/recycler_view_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="visible"
+                            app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
                             tools:listitem="@layout/list_item_region_card" />
+
 
                     </LinearLayout>
                 </LinearLayout>
@@ -464,6 +478,7 @@
                      android:orientation="vertical" />-->
 
                 <RelativeLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -553,6 +568,7 @@
 
 
                 </RelativeLayout>
+
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
