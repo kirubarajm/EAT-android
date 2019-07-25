@@ -1,5 +1,9 @@
 package com.tovo.eat.utilities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AppConstants {
 
 
@@ -30,6 +34,9 @@ public class AppConstants {
 
 
     public static final String FCM_RECEIVER_ORDER = "ORDER RECEIVER";
+
+
+    public static final String CURRENT_DATE = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 
     public static final String PACKAGE_NAME = "com.tovo.sales";

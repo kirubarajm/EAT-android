@@ -47,7 +47,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
         if (validForRating()) {
             String strFood = mActivityOrderRatingBinding.edtFood.getText().toString();
             String strDelivery = mActivityOrderRatingBinding.edtDelivery.getText().toString();
-            mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery,orderId);
+            mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery);
         }
     }
 
@@ -111,6 +111,11 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     }
 
     @Override
+    public void maybeLater() {
+        dismiss();
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.orderRatingViewModel;
     }
@@ -142,6 +147,14 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivityOrderRatingBinding = getViewDataBinding();
+
+
+        if (getArguments() != null) {
+            mLoginViewModelMain.order.set("Order #"+ String.valueOf(getArguments().getInt("orderid")));
+            mLoginViewModelMain.kitchen.set(getArguments().getString("brandname"));
+
+        }
+
 
 
       /*  Intent intent = getIntent();

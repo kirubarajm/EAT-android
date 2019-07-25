@@ -25,6 +25,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.home.MainActivity;
@@ -281,8 +282,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
     public void saveToken(String token) {
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("tovo_pref", 0);
-        int userIdMain = pref.getInt("PREF_KEY_CURRENT_USER_ID", 0); // getting String
+
+        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
+        int userIdMain=appPreferencesHelper.getCurrentUserId();
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

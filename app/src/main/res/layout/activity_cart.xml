@@ -294,7 +294,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@string/add_promo_code"
+                            android:text="@{cartViewModel.promocode}"
                             android:textAllCaps="true"
                             android:textColor="@color/eat_color"
                             android:textSize="14sp" />
@@ -308,14 +308,14 @@
                             android:layout_gravity="center_horizontal"
                             android:text="@string/promo_code_applied"
                             android:textAllCaps="true"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="11sp" />
+                            android:textColor="@color/green"
+                            android:textSize="10sp" />
 
 
                         <ImageView
                             android:onClick="@{()->cartViewModel.promoCouponClose()}"
+                            android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentTop="true"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:tint="@color/red"

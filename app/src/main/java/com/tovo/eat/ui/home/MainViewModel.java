@@ -18,6 +18,7 @@ package com.tovo.eat.ui.home;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.icu.util.Calendar;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -40,6 +41,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -240,14 +242,31 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             isLiveOrder.set(false);
                         }
 
-
+                        String date = "";
                         if (response.getOrderdetails().size() > 0) {
 
-                            if (!response.getOrderdetails().get(0).getRating())
-                                getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid());
 
+
+                            boolean st=response.getOrderdetails().get(0).getRating();
+
+                            if (!st) {
+
+                                date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+                                if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
+                                    if (!date.equals(getDataManager().getRatingDate())) {
+                                        if (getDataManager().getRatingSkips() < 3) {
+                                            getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(),response.getOrderdetails().get(0).getBrandname() );
+
+                                        }
+                                    }
+                                } else {
+                                    getDataManager().saveRatingOrderId(response.getOrderdetails().get(0).getOrderid());
+                                    getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname() );
+
+                                }
+                            }
                         }
-
 
                     } else {
                         isLiveOrder.set(false);

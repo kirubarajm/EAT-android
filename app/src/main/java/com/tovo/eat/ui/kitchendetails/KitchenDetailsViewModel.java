@@ -372,7 +372,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                                 rating.set(String.valueOf(response.getResult().get(0).getRating()));
                                 region.set("from "+ response.getResult().get(0).getRegionname());
-                                localityName.set("Lives"+ response.getResult().get(0).getLocalityname());
+                                localityName.set("Lives in "+ response.getResult().get(0).getLocality());
                                 memberType.set(String.valueOf(response.getResult().get(0).getMemberType()));
 
                                 about.set(response.getResult().get(0).getAbout());

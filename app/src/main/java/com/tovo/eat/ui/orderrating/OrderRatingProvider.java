@@ -7,6 +7,6 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class OrderRatingProvider {
 
     @ContributesAndroidInjector(modules = OrderRatingActivityModule.class)
-    abstract OrderRatingActivity provideFilterFragmentFactory();
+    abstract OrderRatingActivity provideOrderRatingActivityFactory();
 
 }

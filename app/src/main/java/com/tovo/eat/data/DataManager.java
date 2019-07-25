@@ -73,8 +73,11 @@ public interface DataManager extends PreferencesHelper {
     void saveRegionId(int regionid);
     void saveCouponId(int couponid);
 
+    void saveRatingOrderId(int orderid);
+
     void saveRatingSkipDate(String date,int skips);
     void saveApiToken(String token);
+    void saveCouponCode(String coupon);
 
 
 

@@ -348,12 +348,24 @@ public class LiveOrderResponsePojo {
         @SerializedName("created_at")
         @Expose
         private String createdAt;
+        @SerializedName("brandname")
+        @Expose
+        private String brandname;
         @SerializedName("updated_at")
         @Expose
         private String updatedAt;
         @SerializedName("rating")
         @Expose
         private Boolean rating;
+
+
+        public String getBrandname() {
+            return brandname;
+        }
+
+        public void setBrandname(String brandname) {
+            this.brandname = brandname;
+        }
 
         public Integer getOrderid() {
             return orderid;

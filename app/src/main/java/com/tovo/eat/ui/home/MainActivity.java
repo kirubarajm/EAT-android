@@ -46,6 +46,7 @@ import com.tovo.eat.ui.account.MyAccountFragment;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
+import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
@@ -322,11 +323,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void showOrderRating(Integer orderId) {
+    public void showOrderRating(Integer orderId,String brandname) {
 
      /*   Intent intent = OrderRatingActivity.newIntent(MainActivity.this);
         intent.putExtra("orderid", orderId);
         startActivity(intent);*/
+
+
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("orderid",orderId);
+        bundle.putString("brandname",brandname);
+        OrderRatingActivity bottomSheetFragment = new OrderRatingActivity();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.setCancelable(false);
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+
     }
 
     @Override

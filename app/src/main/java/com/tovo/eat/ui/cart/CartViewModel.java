@@ -52,6 +52,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> current_address = new ObservableField<>();
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableField<String> localityname = new ObservableField<>();
+    public final ObservableField<String> promocode = new ObservableField<>();
 
     public final ObservableField<String> cuisines = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
@@ -384,6 +385,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void fetchRepos() {
 
+
+        promocode.set(getDataManager().getCouponCode());
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
 
@@ -712,7 +716,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                             }
                         }) {
-
                             /**
                              * Passing some request headers
                              */
@@ -721,7 +724,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
                                 headers.put("accept-version",AppConstants.API_VERSION_ONE);
-                                //  headers.put("Authorization","Bearer");
                                 headers.put("Authorization","Bearer "+getDataManager().getApiToken());
                                 return headers;
                             }

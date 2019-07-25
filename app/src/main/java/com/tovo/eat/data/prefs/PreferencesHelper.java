@@ -186,6 +186,10 @@ public interface PreferencesHelper {
 
     void setRatingSkips(Integer skips);
 
+    Integer getRatingOrderid();
+
+    void setRatingOrderid(Integer orderid);
+
 
     String getRatingDate();
 
@@ -194,5 +198,9 @@ public interface PreferencesHelper {
     String getApiToken();
 
     void setApiToken(String token);
+
+    String getCouponCode();
+
+    void setCouponCode(String coupon);
 
 }

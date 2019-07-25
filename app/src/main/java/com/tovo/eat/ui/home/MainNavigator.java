@@ -45,6 +45,6 @@ public interface MainNavigator {
     void trackLiveOrder(Integer orderId);
 
 
-    void showOrderRating(Integer orderId);
+    void showOrderRating(Integer orderId,String brandname);
 
 }

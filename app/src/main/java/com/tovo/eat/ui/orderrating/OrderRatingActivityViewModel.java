@@ -1,5 +1,7 @@
 package com.tovo.eat.ui.orderrating;
 
+import android.databinding.ObservableField;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -9,9 +11,20 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActivityNavigator> {
 
     Response.ErrorListener errorListener;
+
+
+    public final ObservableField<String> order = new ObservableField<>();
+    public final ObservableField<String> kitchen = new ObservableField<>();
+
+
+
 
     public OrderRatingActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -46,16 +59,19 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
         getNavigator().deliverySmileyHigh();
     }
 
-    public void orderRatingSubmit(int foodRating, int deliveryRating, String strFood, String strDelivery,Integer orderId) {
+    public void orderRatingSubmit(int foodRating, int deliveryRating, String strFood, String strDelivery) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, orderId), new Response.Listener<OrderRatingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, getDataManager().getRatingOrderid()), new Response.Listener<OrderRatingResponse>() {
                 @Override
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {
                         getNavigator().ratingSuccess();
                     }
+                    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                    getDataManager().saveRatingSkipDate("",0);
+
                 }
             }, errorListener = new Response.ErrorListener() {
                 @Override
@@ -71,4 +87,14 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
 
         }
     }
+
+    public void maybeLater(){
+
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        getDataManager().saveRatingSkipDate(date,getDataManager().getRatingSkips()+1);
+        getNavigator().maybeLater();
+    }
+
+
 }

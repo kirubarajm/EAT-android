@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
@@ -57,12 +56,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean favIcon = new ObservableBoolean();
     public ObservableList<StoriesResponse.Result> storiesItemViewModels = new ObservableArrayList<>();
     RegionSearchModel regionSearchModel = new RegionSearchModel();
+    List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
-
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
-
-    List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
 
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
@@ -106,9 +103,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
         kitchenItemViewModels.clear();
-        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-        kitchenResponse1.setCollection(collectionItemViewModels);
-        ordersItems.add(2, kitchenResponse1);
+
+
+        if (ordersItems.size() > 4) {
+            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+            kitchenResponse1.setCollection(collectionItemViewModels);
+            ordersItems.add(2, kitchenResponse1);
+        }
 
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
@@ -454,7 +455,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
-                    //    filterRequestPojo.setVegtype(getDataManager().getVegType());
+                        //    filterRequestPojo.setVegtype(getDataManager().getVegType());
 
                         if (filterRequestPojo.getCusinelist() != null) {
 
@@ -536,9 +537,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
                                 //  headers.put("Authorization","Bearer");
-                                headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                                 return headers;
                             }
                         };
@@ -575,8 +576,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         //storiesResponseList.add(response.getResult());
 
-                        for (int i=0;i<response.getResult().size();i++){
-                            if (response.getResult().get(i).getStories().size()>0) {
+                        for (int i = 0; i < response.getResult().size(); i++) {
+                            if (response.getResult().get(i).getStories().size() > 0) {
                                 StoriesResponse.Result.Story result = new StoriesResponse.Result.Story();
 
                                 result.setTitle(response.getResult().get(i).getTitle());
@@ -584,7 +585,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 result.setUrl(response.getResult().get(i).getStoryImg());
                                 result.setMediatype(0);
 
-                                response.getResult().get(i).getStories().add(0,result);
+                                response.getResult().get(i).getStories().add(0, result);
                             }
                         }
 
@@ -615,10 +616,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {
-                        collectionItemViewModels.clear();
-                        collectionItemViewModels.addAll(response.getCollection());
 
-                        getNavigator().collectionLoaded();
+
+                        if (collectionItemViewModels != null) {
+                            collectionItemViewModels.clear();
+                            collectionItemViewModels.addAll(response.getCollection());
+                            getNavigator().collectionLoaded();
+                        }
                     }
                 }
             }, new Response.ErrorListener() {

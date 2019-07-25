@@ -31,6 +31,14 @@ public class KitchenResponse {
 
     public static class Result {
 
+        @SerializedName("success")
+        @Expose
+        private Boolean success;
+
+        @SerializedName("status")
+        @Expose
+        private Boolean status;
+
         @SerializedName("makeituserid")
         @Expose
         private Integer makeituserid;
@@ -77,6 +85,22 @@ public class KitchenResponse {
         @Expose
         private String eta;
 
+
+        public Boolean getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(Boolean success) {
+            this.success = success;
+        }
+
+        public Boolean getStatus() {
+            return status;
+        }
+
+        public void setStatus(Boolean status) {
+            this.status = status;
+        }
 
         public List<Collection> getCollection() {
             return collection;
@@ -258,7 +282,7 @@ public class KitchenResponse {
         private String createdAt;
         @SerializedName("updated_at")
         @Expose
-        private String  updatedAt;
+        private String updatedAt;
 
         public Integer getCid() {
             return cid;
@@ -336,7 +360,7 @@ public class KitchenResponse {
             return updatedAt;
         }
 
-        public void setUpdatedAt(String  updatedAt) {
+        public void setUpdatedAt(String updatedAt) {
             this.updatedAt = updatedAt;
         }
     }

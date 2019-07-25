@@ -17,4 +17,6 @@ public interface OrderRatingActivityNavigator {
     void deliverySmileyLow();
     void deliverySmileyMedium();
     void deliverySmileyHigh();
+
+    void maybeLater();
 }

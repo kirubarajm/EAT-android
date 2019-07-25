@@ -92,6 +92,7 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
+import com.tovo.eat.ui.orderrating.OrderRatingProvider;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.payment.PaymentModule;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -141,6 +142,7 @@ public abstract class ActivityBuilder {
             CartProvider.class,
             InternetErrorProvider.class,
             FilterProvider.class,
+            OrderRatingProvider.class,
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
@@ -266,9 +268,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = RegistrationActivityModule.class)
     abstract RegistrationActivity bindRegistrationActivity();
-
+/*
     @ContributesAndroidInjector(modules = OrderRatingActivityModule.class)
-    abstract OrderRatingActivity bindorderRatingActivity();
+    abstract OrderRatingActivity bindorderRatingActivity();*/
 
     @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivity bindSplashActivity();

@@ -46,10 +46,12 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
     private static final String PREF_KEY_COUPON_ID = "PREF_KEY_COUPON_ID";
+    private static final String PREF_KEY_COUPON_CODE = "COUPON_CODE";
   private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
   private static final String PREF_KEY_RATING_DATE = "PREF_KEY_RATING_DATE";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
+    private static final String PREF_KEY_RATING_ORDER_ID = "RATING_ORDER_ID";
     private static final String PREF_KEY_VEG_TYPE = "VEG_TYPE";
 
     private static final String PREF_KEY_EMAIL_STATUS = "EMAIL_STATUS";
@@ -441,6 +443,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public Integer getRatingOrderid() {
+        return mPrefs.getInt(PREF_KEY_RATING_ORDER_ID, 0);
+    }
+
+    @Override
+    public void setRatingOrderid(Integer orderid) {
+        mPrefs.edit().putInt(PREF_KEY_RATING_ORDER_ID, orderid).apply();
+    }
+
+    @Override
     public String getRatingDate() {
         return mPrefs.getString(PREF_KEY_RATING_DATE, null);
     }
@@ -458,6 +470,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setApiToken(String token) {
         mPrefs.edit().putString(PREF_KEY_API_TOKEN, token).apply();
+    }
+
+    @Override
+    public String getCouponCode() {
+        return  mPrefs.getString(PREF_KEY_COUPON_CODE, null);
+    }
+
+    @Override
+    public void setCouponCode(String coupon) {
+        mPrefs.edit().putString(PREF_KEY_COUPON_CODE, coupon).apply();
     }
 
     @Override
