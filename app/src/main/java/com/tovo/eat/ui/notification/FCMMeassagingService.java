@@ -284,7 +284,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("tovo_pref", 0);
         int userIdMain = pref.getInt("PREF_KEY_CURRENT_USER_ID", 0); // getting String
 
-
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
@@ -293,7 +292,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 if (response != null) {
 
                     if (response.isStatus()) {
-
 
                     }
                 }
