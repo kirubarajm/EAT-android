@@ -46,8 +46,6 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
-import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;

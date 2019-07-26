@@ -18,6 +18,8 @@ package com.tovo.eat.utilities;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.tovo.eat.BuildConfig;
 import com.tovo.eat.di.component.DaggerAppComponent;
 
 import javax.inject.Inject;
@@ -67,6 +70,15 @@ public class MvvmApp extends Application implements HasActivityInjector {
         FirebaseAnalytics.getInstance(this);
 
 
+
+
+
+
+
+
+
+
+
         //AppLogger.init();
 
         /*AndroidNetworking.initialize(getApplicationContext());
@@ -87,6 +99,24 @@ public class MvvmApp extends Application implements HasActivityInjector {
         }
 
         return mRequestQueue;
+    }
+
+
+    public int getVersionCode(){
+        return BuildConfig.VERSION_CODE;
+
+       /*
+        try {
+            PackageInfo pInfo =getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+
+            return pInfo.getLongVersionCode();
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }*/
+
     }
 
 

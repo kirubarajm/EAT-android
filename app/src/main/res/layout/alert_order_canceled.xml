@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="orderCanceledViewModel"
+            type="com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/ico1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_error"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/unable_to_process_order"
+                android:textSize="18sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:text="@{orderCanceledViewModel.message}"
+                android:textSize="16sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:textColor="@color/dark_gray"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:text="@string/any_deducted_amount_will_be_refunded_to_you_within_2_4_working_days"
+                android:textSize="14sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:onClick="@{()->orderCanceledViewModel. dismiss()}"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="@drawable/curve_stroke"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:textColor="@color/eat_color"
+                android:text="@string/explore_kitchens"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</layout>

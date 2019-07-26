@@ -87,15 +87,15 @@ public class AppConstants {
     ///////Server Ip Ports
 
    //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
-      public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
+    //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
-    //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
+    public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
     //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
    //   public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.3:3000";////basheer 3000
 
 
-    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
@@ -158,6 +158,8 @@ public class AppConstants {
 
     public static final String EAT_FAV_URL = URL_SERVER_IP_PORT + "/eat/fav/";
     public static final String EAT_FCM_TOKEN_URL = URL_SERVER_IP_PORT + "/eat/pushid/add";
+
+    public static final String EAT_FCM_FORCE_UPDATE = URL_SERVER_IP_PORT + "/eat/versioncheck";
 
     public static final String EAT_DEFAULT_ADDRESS = URL_SERVER_IP_PORT + "/eat/defaultaddress";
     public static final String EAT_ORDER_SUCCESS = URL_SERVER_IP_PORT + "/eat/orderplace";

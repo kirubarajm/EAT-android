@@ -162,24 +162,27 @@ public class StoriesResponse implements Serializable {
             @SerializedName("pos")
             @Expose
             public String pos;
+            @SerializedName("duration")
+            @Expose
+            public Integer duration;
             @SerializedName("title")
             @Expose
-            public Object title;
+            public String title;
             @SerializedName("subtitle")
             @Expose
-            public Object subtitle;
+            public String subtitle;
             @SerializedName("cat_type")
             @Expose
-            public Object catType;
+            public Integer   catType;
             @SerializedName("cat_ids")
             @Expose
-            public Object catIds;
+            public Integer catIds;
             @SerializedName("created_at")
             @Expose
             public String createdAt;
             @SerializedName("updated_at")
             @Expose
-            public Object updatedAt;
+            public String updatedAt;
 
 
             public Integer getId() {
@@ -222,35 +225,43 @@ public class StoriesResponse implements Serializable {
                 this.pos = pos;
             }
 
-            public Object getTitle() {
+            public Integer getDuration() {
+                return duration*1000;
+            }
+
+            public void setDuration(Integer duration) {
+                this.duration = duration;
+            }
+
+            public String getTitle() {
                 return title;
             }
 
-            public void setTitle(Object title) {
+            public void setTitle(String title) {
                 this.title = title;
             }
 
-            public Object getSubtitle() {
+            public String getSubtitle() {
                 return subtitle;
             }
 
-            public void setSubtitle(Object subtitle) {
+            public void setSubtitle(String subtitle) {
                 this.subtitle = subtitle;
             }
 
-            public Object getCatType() {
+            public Integer getCatType() {
                 return catType;
             }
 
-            public void setCatType(Object catType) {
+            public void setCatType(Integer catType) {
                 this.catType = catType;
             }
 
-            public Object getCatIds() {
+            public Integer getCatIds() {
                 return catIds;
             }
 
-            public void setCatIds(Object catIds) {
+            public void setCatIds(Integer catIds) {
                 this.catIds = catIds;
             }
 
@@ -262,11 +273,11 @@ public class StoriesResponse implements Serializable {
                 this.createdAt = createdAt;
             }
 
-            public Object getUpdatedAt() {
+            public String getUpdatedAt() {
                 return updatedAt;
             }
 
-            public void setUpdatedAt(Object updatedAt) {
+            public void setUpdatedAt(String updatedAt) {
                 this.updatedAt = updatedAt;
             }
         }

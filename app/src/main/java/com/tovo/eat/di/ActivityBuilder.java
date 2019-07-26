@@ -50,6 +50,8 @@ import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
+import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
+import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledProvider;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListModule;
@@ -70,9 +72,6 @@ import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesProvider;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivityModule;
 import com.tovo.eat.ui.home.homemenu.story.sample.fragment.SampleViewPagerProvider;
-import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
-import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivityModule;
-import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerProvider;
 
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
@@ -122,6 +121,8 @@ import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.ui.track.help.OrderHelpModule;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsModule;
+import com.tovo.eat.ui.update.UpdateActivity;
+import com.tovo.eat.ui.update.UpdateModule;
 import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
 
 import dagger.Module;
@@ -143,121 +144,121 @@ public abstract class ActivityBuilder {
             InternetErrorProvider.class,
             FilterProvider.class,
             OrderRatingProvider.class,
+            OrderCanceledProvider.class,
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
-            StoriesViewPagerProvider.class,
             SearchProvider.class
+
     })
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules = {KitchenDishModule.class, DialogChangeKitchenDishProvider.class})
+    @ContributesAndroidInjector(modules = {KitchenDishModule.class, DialogChangeKitchenDishProvider.class,OrderCanceledProvider.class})
     abstract KitchenDishActivity bindKitchenDishActivity();
 
 
-    @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDetailsProvider.class})
+    @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDetailsProvider.class,OrderCanceledProvider.class})
     abstract KitchenDetailsActivity bindKitchenDetailsActivity();
 
     @ContributesAndroidInjector(modules = {FavoritesTabActivityModule.class, FavoritesDishProvider.class,
-            FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class})
+            FavoritesKitchenProvider.class, DialogChangeKitchenProvider.class,OrderCanceledProvider.class})
     abstract FavoritesTabActivity bindFavoritesTabActivity();
 
 
-    @ContributesAndroidInjector(modules = AddAddressModule.class)
-
+    @ContributesAndroidInjector(modules = {AddAddressModule.class,OrderCanceledProvider.class})
     abstract AddAddressActivity bindAddAddressActivity();
 
 
-    @ContributesAndroidInjector(modules = ViewImageModule.class)
+    @ContributesAndroidInjector(modules = {ViewImageModule.class,OrderCanceledProvider.class})
     abstract ViewImageActivity bindViewImageActivity();
 
 
-    @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class})
+    @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class,OrderCanceledProvider.class})
     abstract SearchDishActivity bindSearchDishActivity();
 
 
-    @ContributesAndroidInjector(modules = RegionDetailsModule.class)
+    @ContributesAndroidInjector(modules = {RegionDetailsModule.class,OrderCanceledProvider.class})
     abstract RegionDetailsActivity bindRegionDetailsActivity();
 
 
-    @ContributesAndroidInjector(modules = FaqsAndSupportModule.class)
+    @ContributesAndroidInjector(modules = {FaqsAndSupportModule.class,OrderCanceledProvider.class})
     abstract FaqsAndSupportActivity bindFaqsAndSupportActivity();
 
 
-    @ContributesAndroidInjector(modules = RegionListModule.class)
+    @ContributesAndroidInjector(modules ={ RegionListModule.class,OrderCanceledProvider.class})
     abstract RegionListActivity bindRegionListActivity();
 
 
-    @ContributesAndroidInjector(modules = OrderDetailsModule.class)
+    @ContributesAndroidInjector(modules = {OrderDetailsModule.class,OrderCanceledProvider.class})
     abstract OrderDetailsActivity bindOrderDetailsActivity();
 
 
-    @ContributesAndroidInjector(modules = OrderHelpModule.class)
+    @ContributesAndroidInjector(modules ={ OrderHelpModule.class,OrderCanceledProvider.class})
     abstract OrderHelpActivity bindOrderHelpActivity();
 
 
-    @ContributesAndroidInjector(modules = PaymentModule.class)
+    @ContributesAndroidInjector(modules = {PaymentModule.class,OrderCanceledProvider.class})
     abstract PaymentActivity bindPaymentActivity();
 
 
     @ContributesAndroidInjector(modules = {FavouritesModule.class, FavoritesDishProvider.class, FavoritesKitchenProvider.class,
-            DialogChangeKitchenProvider.class})
+            DialogChangeKitchenProvider.class,OrderCanceledProvider.class})
     abstract FavouritesActivity bindFavouritesActivity();
 
 
-    @ContributesAndroidInjector(modules = EditAddressModule.class)
+    @ContributesAndroidInjector(modules = {EditAddressModule.class,OrderCanceledProvider.class})
     abstract EditAddressActivity bindEditAddressActivity();
 
-    @ContributesAndroidInjector(modules = PrivacyModule.class)
+    @ContributesAndroidInjector(modules ={ PrivacyModule.class,OrderCanceledProvider.class})
     abstract PrivacyActivity bindPrivacyActivity();
 
 
-    @ContributesAndroidInjector(modules = AddressListModule.class)
+    @ContributesAndroidInjector(modules ={ AddressListModule.class,OrderCanceledProvider.class})
     abstract AddressListActivity bindAddressListActivity();
 
 
-    @ContributesAndroidInjector(modules = RefundListModule.class)
+    @ContributesAndroidInjector(modules = {RefundListModule.class,OrderCanceledProvider.class})
     abstract RefundListActivity bindRefundListActivity();
 
-    @ContributesAndroidInjector(modules = TermsAndConditionModule.class)
+    @ContributesAndroidInjector(modules ={ TermsAndConditionModule.class,OrderCanceledProvider.class})
     abstract TermsAndConditionActivity bindTermsAndConditionActivity();
 
 
-    @ContributesAndroidInjector(modules = FaqFragmentModule.class)
+    @ContributesAndroidInjector(modules = {FaqFragmentModule.class,OrderCanceledProvider.class})
     abstract FaqActivity bindFaqActivity();
 
 
-    @ContributesAndroidInjector(modules = SelectAddressListModule.class)
+    @ContributesAndroidInjector(modules ={ SelectAddressListModule.class,OrderCanceledProvider.class})
     abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
 
-    @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class})
+    @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class,OrderCanceledProvider.class})
     abstract FeedbackAndSupportActivity bindFeedbackSupportActivity();
 
-    @ContributesAndroidInjector(modules = {SupportActivityModule.class})
+    @ContributesAndroidInjector(modules = {SupportActivityModule.class,OrderCanceledProvider.class})
     abstract SupportActivity bindQueriesActivity();
 
-    @ContributesAndroidInjector(modules = {RepliesActivityModule.class})
+    @ContributesAndroidInjector(modules = {RepliesActivityModule.class,OrderCanceledProvider.class})
     abstract RepliesActivity bindRepliesActivity();
 
-    @ContributesAndroidInjector(modules = {ChatActivityModule.class})
+    @ContributesAndroidInjector(modules = {ChatActivityModule.class,OrderCanceledProvider.class})
     abstract ChatActivity bindChatActivity();
 
-    @ContributesAndroidInjector(modules = {FeedbackActivityModule.class})
+    @ContributesAndroidInjector(modules = {FeedbackActivityModule.class,OrderCanceledProvider.class})
     abstract FeedbackActivity bindFeedbackActivity();
 
-    @ContributesAndroidInjector(modules = {ReferralsActivityModule.class})
+    @ContributesAndroidInjector(modules = {ReferralsActivityModule.class,OrderCanceledProvider.class})
     abstract ReferralsActivity bindReferralskActivity();
 
-    @ContributesAndroidInjector(modules = {OrderHistoryActivityModule.class})
+    @ContributesAndroidInjector(modules = {OrderHistoryActivityModule.class,OrderCanceledProvider.class})
     abstract OrderHistoryActivity bindOrdersHistoryActivity();
 
-    @ContributesAndroidInjector(modules = {OrderHistoryActivityViewModule.class})
+    @ContributesAndroidInjector(modules = {OrderHistoryActivityViewModule.class,OrderCanceledProvider.class})
     abstract OrderHistoryActivityView bindOrdersHistoryViewActivity();
 
-    @ContributesAndroidInjector(modules = OrderTrackingModule.class)
+    @ContributesAndroidInjector(modules = {OrderTrackingModule.class,OrderCanceledProvider.class})
     abstract OrderTrackingActivity bindOrderTrackingActivity();
 
-    @ContributesAndroidInjector(modules = SignUpActivityModule.class)
+    @ContributesAndroidInjector(modules = {SignUpActivityModule.class,OrderCanceledProvider.class})
     abstract SignUpActivity bindSignUpActivity();
 
     @ContributesAndroidInjector(modules = OtpActivityModule.class)
@@ -269,8 +270,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = RegistrationActivityModule.class)
     abstract RegistrationActivity bindRegistrationActivity();
 /*
-    @ContributesAndroidInjector(modules = OrderRatingActivityModule.class)
-    abstract OrderRatingActivity bindorderRatingActivity();*/
+    @ContributesAndroidInjector(modules = OrderCanceledModule.class)
+    abstract OrderCanceledBottomFragment bindorderRatingActivity();*/
 
     @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivity bindSplashActivity();
@@ -285,18 +286,18 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = OnBoardingActivityModule.class)
     abstract OnBoardingActivity bindOnBoardingActivity();
 
-    @ContributesAndroidInjector(modules = EditAccountModule.class)
+    @ContributesAndroidInjector(modules = {EditAccountModule.class,OrderCanceledProvider.class})
     abstract EditAccountActivity bindEditAccountActivity();
 
     @ContributesAndroidInjector(modules = {SampleTabActivityModule.class, SampleViewPagerProvider.class})
     abstract SampleTabActivity bindSampleActivity();
 
 
-  @ContributesAndroidInjector(modules = {CouponListModule.class})
+  @ContributesAndroidInjector(modules = {CouponListModule.class,OrderCanceledProvider.class})
     abstract CouponListActivity bindCouponListActivity();
 
-    @ContributesAndroidInjector(modules = {StoriesViewPagerActivityModule.class, StatusStoriesProvider.class})
-    abstract StoriesViewPagerActivity binStoriesActivity();
+@ContributesAndroidInjector(modules = {UpdateModule.class,OrderCanceledProvider.class})
+    abstract UpdateActivity bindUpdateActivity();
 
 
 }

@@ -82,7 +82,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Inject
     OrderTrackingViewModel mOrderTrackingViewModel;
     ActivityOrderTrackingBinding mActivityDirectionBinding;
-    Bitmap origin_marker, destination_marker;
+    Bitmap origin_marker, destination_marker,moveit_marker;
     double deliveryBoyLat;
     double deliveryBoyLng;
     LatLng moveitLatLng;
@@ -153,11 +153,33 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void createMarker() {
         Drawable oDrawable = getResources().getDrawable(R.drawable.delivery_man_map_marker);
         Bitmap oBitmap = ((BitmapDrawable) oDrawable).getBitmap();
-        origin_marker = scaleBitmap(oBitmap, 85, 149);
+        moveit_marker = scaleBitmap(oBitmap, 80, 117);
 
         Drawable dDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
         Bitmap dBitmap = ((BitmapDrawable) dDrawable).getBitmap();
-        destination_marker = scaleBitmap(dBitmap, 85, 149);
+        destination_marker = scaleBitmap(dBitmap, 80, 117);
+
+        Drawable eDrawable = getResources().getDrawable(R.drawable.eat_marker);
+        Bitmap eBitmap = ((BitmapDrawable) eDrawable).getBitmap();
+        origin_marker = scaleBitmap(eBitmap, 80, 117);
+
+
+
+
+        /*int width = oBitmap.getWidth();
+        int height = oBitmap.getHeight();
+        float scaleWidth = ((float) 80) / width;
+        float scaleHeight = ((float) 140) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+         origin_marker = Bitmap.createBitmap(oBitmap, 0, 0, width, height,
+                matrix, false);*/
+
+
+
     }
 
     @Override
@@ -235,10 +257,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             LatLngBounds bounds = builder.build();
 
             //  int padding = 0; // offset from edges of the map in pixels
-
-
-
-
 
 
             int width = mActivityDirectionBinding.mapSize.getMeasuredWidth();
@@ -555,7 +573,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                         mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
-                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(latLng));
                         }
 
                         showMarker1(latLng);

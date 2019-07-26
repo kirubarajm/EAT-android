@@ -1,11 +1,22 @@
 package com.tovo.eat.ui.splash;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.signup.namegender.TokenRequest;
+import com.tovo.eat.ui.update.UpdateRequest;
+import com.tovo.eat.ui.update.UpdateResponse;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigator> {
 
@@ -13,21 +24,47 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
         super(dataManager);
     }
 
-    public void checkIsUserLoggedInOrNot(){
-        if (getDataManager().getCurrentUserId()!=null)
-        {
+    public void checkIsUserLoggedInOrNot() {
+        if (getDataManager().getCurrentUserId() != null) {
             int userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
             boolean genderStatus = getDataManager().getisGenderStatus();
             if (genderStatus) {
                 getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
-            }else {
+            } else {
                 getNavigator().checkForUserGenderStatus(false);
             }
-        }else {
+        } else {
             getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
         }
 
     }
+
+
+    public void checkUpdate() {
+     /*   MvvmApp.getInstance().getVersionCode()*/
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FCM_FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(MvvmApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
+            @Override
+            public void onResponse(UpdateResponse response) {
+
+                getNavigator().update(response.getResult().getVersionstatus(),response.getResult().getEatforceupdate());
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+
+    }
+
 
 }

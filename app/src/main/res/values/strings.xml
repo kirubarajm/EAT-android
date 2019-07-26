@@ -599,6 +599,49 @@
     <string name="promo_code_applied">Promo code applied!</string>
     <string name="explore_all">Explore all</string>
     <string name="explore_our_wide_range_regional_food">Explore our wide range regional food</string>
+    <string name="unable_to_process_order">UNABLE TO PROCESS ORDER</string>
+    <string name="any_deducted_amount_will_be_refunded_to_you_within_2_4_working_days">Any deducted amount will be refunded to you within 2-4 working days</string>
+    <string name="update">Update</string>
+    <string name="not_now">Not now</string>
+
+
+
+    <!--Empty list content-->
+
+
+<!--kitchen empty-->
+    <string name="kitchen_empty_title">empty</string>
+    <string name="kitchen_empty_sub_title"> empty</string>
+<!--Region empty-->
+    <string name="region_empty_title">empty </string>
+    <string name="region_empty_sub_title"> empty</string>
+<!--fav Dish empty-->
+    <string name="dish_empty_title">empty </string>
+    <string name="dish_empty_sub_title"> empty</string>
+<!--Fav kitchen empty-->
+    <string name="fav_kitchen_empty_title">empty </string>
+    <string name="fav_kitchen_empty_sub_title"> empty</string>
+<!--Address empty-->
+    <string name="address_empty_title">empty </string>
+    <string name="address_empty_sub_title"> empty</string>
+<!--Order history empty-->
+    <string name="history_empty_title">empty </string>
+    <string name="history_empty_sub_title"> empty</string>
+<!--Offer coupon empty-->
+    <string name="offer_empty_title">empty </string>
+    <string name="offer_empty_sub_title"> empty</string>
+<!--search before empty-->
+    <string name="before_empty_title">empty </string>
+    <string name="before_empty_sub_title"> empty</string>
+<!--search after empty-->
+    <string name="after_empty_title">empty </string>
+    <string name="after_empty_sub_title">empty</string>
+<!--cart empty-->
+    <string name="cart_empty_title">empty </string>
+    <string name="cart_empty_sub_title"> empty</string>
+
+
+
 
 
 </resources>

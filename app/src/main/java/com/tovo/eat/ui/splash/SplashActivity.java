@@ -15,6 +15,7 @@ import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.PrefManager;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.ui.update.UpdateActivity;
 
 import javax.inject.Inject;
 
@@ -47,6 +48,22 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void update(boolean updateStatus, boolean forceUpdateStatus) {
+
+
+        if (updateStatus) {
+            Intent intent = UpdateActivity.newIntent(SplashActivity.this);
+            intent.putExtra("forceUpdate",forceUpdateStatus);
+            startActivity(intent);
+            finish();
+        } else {
+            mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+        }
+
+
     }
 
     @Override
@@ -84,17 +101,17 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-               if (!prefManager.isFirstTimeLaunch()) {
+                if (!prefManager.isFirstTimeLaunch()) {
                     Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
 
-                mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+                    mSplashActivityViewModel.checkUpdate();
 
-               }
+                }
             }
-        },1000);
+        }, 1000);
 
     }
 

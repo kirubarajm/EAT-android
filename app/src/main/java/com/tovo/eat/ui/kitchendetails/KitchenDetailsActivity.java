@@ -147,8 +147,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getInt("kitchenId");
-
             mKitchenDetailsViewModel.fetchRepos(kitchenID);
+
+            if (intent.getExtras().getInt("type")==2){
+                mKitchenDetailsViewModel.info();
+            }
+
 
         }
 

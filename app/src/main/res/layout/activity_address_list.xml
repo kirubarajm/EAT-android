@@ -82,15 +82,28 @@
                 android:src="@drawable/empty_cart" />
 
 
-            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="No Kitchens found"
+                android:textColor="@color/black"
+                android:text="@string/kitchen_empty_title"
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@color/dark_gray"
+                android:text="@string/kitchen_empty_sub_title"
+                android:textAlignment="center"
+                android:textSize="12sp" />
 
 
         </LinearLayout>

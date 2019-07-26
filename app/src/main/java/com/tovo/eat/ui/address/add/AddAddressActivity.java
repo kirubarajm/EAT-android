@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.address.add;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,12 +23,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.GpsUtils;
 
 import java.io.IOException;
@@ -52,6 +51,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     boolean isFirstTime;
     Location mLocation;
     boolean isGPS;
+
+
+  //  private ProgressDialog dialog;
 
     public static Intent newIntent(Context context) {
 
@@ -87,7 +89,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);*/
         finish();
-    //    Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -127,6 +129,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         mAddAddressViewModel.setNavigator(this);
         //  startLocationTracking();
 
+       /* dialog = new ProgressDialog(this);
+        dialog.setMessage("Getting your location..");
+        dialog.setTitle("Please Wait!");
+        dialog.show();*/
+
         isFirstTime = true;
 
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
@@ -149,8 +156,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map.getUiSettings().setZoomControlsEnabled(true);
 
 
-                LatLng latLng = new LatLng(13.007479, 80.206195);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                Location location = getLocation();
+                if (location != null) {
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7));
+                    initCameraIdle();
+                }
                 initCameraIdle();
             }
         });
@@ -212,11 +223,38 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         } catch (IOException e) {
             e.printStackTrace();
             printToast("Could not get address..!");
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
+        }
     }
+
+
+    public Location getLocation() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null;
+            }
+            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocationGPS != null) {
+                return lastKnownLocationGPS;
+            } else {
+                Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                return loc;
+            }
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -255,13 +293,18 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         mLocation = location;
 
-        if (location != null)
+        if (location != null) {
+
+            /*if (dialog.isShowing())
+                dialog.dismiss();*/
+
             if (isFirstTime) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                 initCameraIdle();
                 isFirstTime = false;
             }
+        }
 
     }
 

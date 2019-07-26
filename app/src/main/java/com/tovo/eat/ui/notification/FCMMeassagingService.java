@@ -111,16 +111,17 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification( Map<String, String> data) {
-              /*pageidOrder_Post:1,
-                pageidOrder_Accept:2,
-                pageidOrder_Preparing:3,
-                pageidOrder_Prepared:4,
-                pageidOrder_Pickedup:5,
-                pageidOrder_Reached:6,
-                pageidOrder_Delivered:7,
-                pageidOrder_canceled:8
-                 pageid replies: 9,
-                 pageid rating: 10,*/
+        /*Pageid_eat_order_post:1,
+                Pageid_eat_order_accept:2,
+                Pageid_eat_order_preparing:3,
+                Pageid_eat_order_Prepared:4,
+                Pageid_eat_order_pickedup:5,
+                Pageid_eat_order_reached:6,
+                Pageid_eat_order_delivered:7,
+                Pageid_eat_order_cancel:8,
+                Pageid_eat_query_replay:9,
+                Pageid_eat_rating:10*/
+
 
         Bundle bundle = new Bundle();
         Intent intent;

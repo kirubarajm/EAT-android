@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,7 +28,9 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
@@ -314,7 +317,20 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                     // Log.e("", error.getMessage());
                     //  SearchDishViewModel.this.getNavigator().dishListLoaded();
                 }
-            });
+            }) {
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    //  headers.put("Authorization","Bearer");
+                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                    return headers;
+                }
+            };
 
             MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 

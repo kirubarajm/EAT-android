@@ -33,7 +33,6 @@ import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
-import com.tovo.eat.ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity;
 
 import java.util.Locale;
 
@@ -64,7 +63,6 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     FragmentStatusStoriesBinding mFragmentStatusStoriesBinding;
     @Inject
     StatusStoriesFramentViewModel mStatusStoriesFramentViewModel;
-    StoriesViewPagerActivity storiesViewPagerActivity;
 
 
     public static StatusStoriesFragment newInstance() {
@@ -204,7 +202,7 @@ public class StatusStoriesFragment extends BaseFragment<FragmentStatusStoriesBin
     @Override
     public void onResume() {
         super.onResume();
-        tempPosition=((StoriesViewPagerActivity)getActivity()).methodDDD();
+
         Log.e("position",""+position);
         afterViewCreated();
     }

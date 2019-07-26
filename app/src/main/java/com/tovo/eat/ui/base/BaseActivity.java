@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
+import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.utilities.CommonUtils;
 import com.tovo.eat.utilities.NetworkUtils;
 
@@ -41,8 +43,15 @@ BaseFragment.Callback{
                 if (bundle == null) return;
                 String pageid = bundle.getString("pageid");
                 if (pageid != null)
-                    if (pageid.equals("18")) {
-                        Toast.makeText(context, "Received", Toast.LENGTH_SHORT).show();
+                    if (pageid.equals("8")) {
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("message",bundle.getString("message"));
+                        OrderCanceledBottomFragment bottomSheetFragment = new OrderCanceledBottomFragment();
+                        bottomSheetFragment.setArguments(bundle);
+                        bottomSheetFragment.setCancelable(false);
+                        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
                     }
 
             } catch (Exception e) {

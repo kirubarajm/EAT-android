@@ -16,19 +16,16 @@
 
 package com.tovo.eat.ui.address.add;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.address.DefaultAddressRequest;
@@ -83,9 +80,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         home.set(getDataManager().isHomeAddressAdded());
         office.set(getDataManager().isOfficeAddressAdded());
+        clickOther();
 
     }
-
 
 
     public void locateMe() {
@@ -208,6 +205,12 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
             } else if (typeOther.get()) {
 
+                if (title.isEmpty()) {
+                    Toast.makeText(MvvmApp.getInstance(), "Please enter the address title", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 request.setAddressTitle(title);
                 request.setAddressType(3);
             } else {
@@ -258,7 +261,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
                     }
-                },AppConstants.API_VERSION_ONE);
+                }, AppConstants.API_VERSION_ONE);
 
 
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -297,7 +300,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

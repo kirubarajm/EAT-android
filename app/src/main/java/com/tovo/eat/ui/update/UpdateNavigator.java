@@ -1,10 +1,11 @@
-package com.tovo.eat.ui.splash;
+package com.tovo.eat.ui.update;
 
-public interface SplashActivityNavigator {
+public interface UpdateNavigator {
 
     void handleError(Throwable throwable);
 
     void checkForUserLoginMode(boolean trueOrFalse);
-    void update(boolean updateStatus,boolean forceUpdateStatus);
+    void update();
     void checkForUserGenderStatus(boolean trueOrFalse);
+
 }

@@ -325,7 +325,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void showOrderRating(Integer orderId,String brandname) {
 
-     /*   Intent intent = OrderRatingActivity.newIntent(MainActivity.this);
+     /*   Intent intent = OrderCanceledBottomFragment.newIntent(MainActivity.this);
         intent.putExtra("orderid", orderId);
         startActivity(intent);*/
 
