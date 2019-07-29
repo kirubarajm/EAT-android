@@ -10,18 +10,22 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemHomeOffersBinding;
 import com.tovo.eat.databinding.ListItemKitchensBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
+import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
 
 import java.util.List;
 
-public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> implements CollectionAdapter.LiveProductsAdapterListener {
+public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> implements CollectionAdapter.LiveProductsAdapterListener, OffersAdapter.LiveProductsAdapterListener {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_COLLECTION = 2;
+    private static final int VIEW_TYPE_COUPON= 3;
     Context context;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
@@ -44,6 +48,11 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
                 ListItemCollectionsBinding collectionBinding = ListItemCollectionsBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new CollectionViewHolder(collectionBinding);
+
+            case VIEW_TYPE_COUPON:
+                ListItemHomeOffersBinding offersBinding = ListItemHomeOffersBinding.inflate(LayoutInflater.from(parent.getContext()),
+                        parent, false);
+                return new OffernViewHolder(offersBinding);
 
             case VIEW_TYPE_EMPTY:
             default:
@@ -74,6 +83,30 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         if (item_list != null && !item_list.isEmpty()) {
 
+            if (item_list.get(position).getCollection()!=null && item_list.get(position).getCollection().size()>0) {
+
+                return VIEW_TYPE_COLLECTION;
+            } else if (item_list.get(position).getCoupons()!=null && item_list.get(position).getCoupons().size()>0) {
+
+                return VIEW_TYPE_COUPON;
+
+            }else {
+                return VIEW_TYPE_NORMAL;
+            }
+
+
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
+
+
+
+
+
+
+
+        /*if (item_list != null && !item_list.isEmpty()) {
+
             if (item_list.get(position).getCollection() != null) {
 
                 return VIEW_TYPE_COLLECTION;
@@ -85,7 +118,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         } else {
             return VIEW_TYPE_EMPTY;
-        }
+        }*/
 
 
       /*
@@ -126,9 +159,16 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
     }
 
+    @Override
+    public void offerItemClick(CouponListResponse.Result offers) {
+        mLiveProductsAdapterListener.offersItemClick(offers);
+    }
+
     public interface LiveProductsAdapterListener {
 
         void collectionItemClick(KitchenResponse.Collection collection);
+
+        void offersItemClick(CouponListResponse.Result offers);
 
         void onItemClickData(Integer kitchenId);
 
@@ -238,6 +278,39 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         }
 
+
+    }
+
+    public class OffernViewHolder extends BaseViewHolder {
+        ListItemHomeOffersBinding mListItemLiveProductsBinding;
+        CollectionItemViewModel mLiveProductsItemViewModel;
+
+        public OffernViewHolder(ListItemHomeOffersBinding binding) {
+            super(binding.getRoot());
+            this.mListItemLiveProductsBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            if (item_list.get(position).getCoupons().isEmpty()) return;
+          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
+            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
+
+
+            mListItemLiveProductsBinding.executePendingBindings();
+
+
+            LinearLayoutManager offerLayputManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+            offerLayputManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            OffersAdapter offersAdapter = new OffersAdapter(item_list.get(position).getCoupons());
+            mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(offerLayputManager);
+            mListItemLiveProductsBinding.recyclerCollection.setAdapter(offersAdapter);
+
+            offersAdapter.setListener(KitchenAdapter.this);
+
+
+        }
 
     }
 

@@ -311,18 +311,16 @@
                             android:textColor="@color/green"
                             android:textSize="10sp" />
 
-
                         <ImageView
                             android:onClick="@{()->cartViewModel.promoCouponClose()}"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:tint="@color/red"
                             android:src="@drawable/ic_close_black_24dp"/>
 
                     </RelativeLayout>
-
 
                     <View
                         android:visibility="@{cartViewModel.couponSelected?View.VISIBLE:View.GONE}"

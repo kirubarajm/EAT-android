@@ -107,12 +107,7 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity
-            android:name=".ui.orderrating.OrderRatingActivity"
-            android:screenOrientation="portrait">
 
-
-        </activity>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait">
@@ -160,10 +155,7 @@
 
 
         </activity>
-        <activity android:name=".ui.home.homemenu.story.storyviewpager.StoriesViewPagerActivity" >
 
-
-        </activity>
         <activity android:name=".ui.update.UpdateActivity" />
 
         <meta-data
@@ -195,9 +187,8 @@
 
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_3cduMl5T89iR9G"
+            android:value="rzp_live_BLJVf00DRLWexs"
             />
-
 
         <!--
                 <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">

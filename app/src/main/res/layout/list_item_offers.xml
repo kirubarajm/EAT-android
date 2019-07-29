@@ -7,22 +7,26 @@
         <import type="android.view.View" />
 
         <variable
-            name="storiesItemViewModel"
-            type="com.tovo.eat.ui.home.homemenu.story.StoriesItemViewModel" />
+            name="offerListItemViewModel"
+            type="com.tovo.eat.ui.home.homemenu.OfferListItemViewModel" />
 
     </data>
 
     <RelativeLayout
-        android:onClick="@{()->storiesItemViewModel.onItemClick()}"
-        android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{()->offerListItemViewModel.onItemClick()}"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.tovo.eat.utilities.RoundCornerImageView
-            android:layout_width="60dp"
-            android:layout_margin="5dp"
-            app:imageUrl="@{storiesItemViewModel.stories_url}"
-            android:scaleType="centerCrop"
-            android:layout_height="60dp"/>
+            android:layout_centerHorizontal="true"
+            android:layout_width="250dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}"
+            android:scaleType="centerInside"
+            android:layout_height="150dp"/>
 
     </RelativeLayout>
 

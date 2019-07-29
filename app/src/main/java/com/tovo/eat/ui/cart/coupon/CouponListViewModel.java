@@ -2,6 +2,7 @@ package com.tovo.eat.ui.cart.coupon;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
 import com.android.volley.Request;
@@ -21,6 +22,8 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     boolean haveAddress = false;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
+    public final ObservableBoolean notClickable = new ObservableBoolean();
+
 
     public CouponListViewModel(DataManager dataManager) {
         super(dataManager);
@@ -30,8 +33,9 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     }
 
 
-    public void saveCouponId(int id) {
+    public void saveCouponId(int id,String coupon) {
         getDataManager().saveCouponId(id);
+        getDataManager().saveCouponCode(coupon);
     }
 
 
@@ -119,6 +123,9 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
 
                             if (response.getResult().size() != 0) {
                                 getNavigator().couponValid(response.getResult().get(0).getCid());
+
+                                saveCouponId(response.getResult().get(0).getCid(),response.getResult().get(0).getCouponName());
+
 
                             }
                         }else {

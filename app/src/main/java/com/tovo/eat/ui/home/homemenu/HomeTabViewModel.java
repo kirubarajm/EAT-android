@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -54,6 +55,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
     public RegionsResponse regionResult;
     public ObservableBoolean favIcon = new ObservableBoolean();
+    public ObservableList<StoriesResponse.Result> storiesItemViewModelstemp = new ObservableArrayList<>();
     public ObservableList<StoriesResponse.Result> storiesItemViewModels = new ObservableArrayList<>();
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
@@ -61,15 +63,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
 
+
+
+    public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
+
+
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
         regionItemsLiveData = new MutableLiveData<>();
         storiesItemsLiveData = new MutableLiveData<>();
-        fetchCollections();
-        fetchKitchen();
-        fetchRepos(getDataManager().getRegionId());
-        fetchStories();
 
        /* if (getDataManager().getVegType() == 1) {
             isVeg.set(true);
@@ -78,9 +82,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     public void loadAllApis() {
+        fetchStories();
+        fetchCoupons();
+        fetchCollections();
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
-        fetchStories();
     }
 
 
@@ -102,18 +108,19 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
-        kitchenItemViewModels.clear();
 
-
-        if (ordersItems.size() > 4) {
             KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
             kitchenResponse1.setCollection(collectionItemViewModels);
-            ordersItems.add(2, kitchenResponse1);
-        }
+            ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
+
+
+            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+            kitchenResponse2.setCoupons(couponListItemViewModels);
+            ordersItems.add(2, kitchenResponse2);
+
 
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
-
 
     }
 
@@ -224,6 +231,43 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     }
+
+
+    public void fetchCoupons() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_COUPON_LIST_URL + getDataManager().getCurrentUserId(), CouponListResponse.class, new Response.Listener<CouponListResponse>() {
+                @Override
+                public void onResponse(CouponListResponse response) {
+                    if (response != null) {
+
+                        if (response.getResult().size() > 0) {
+                            couponListItemViewModels.addAll(response.getResult());
+                           // couponListItemsLiveData.setValue(response.getResult());
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //   Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+    }
+
 
     public void fetchRepos(Integer regionId) {
 
@@ -583,7 +627,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 result.setTitle(response.getResult().get(i).getTitle());
                                 result.setSubtitle(response.getResult().get(i).getDescription());
                                 result.setUrl(response.getResult().get(i).getStoryImg());
-                                result.setDuration(5);
+                                result.setDuration(response.getResult().get(i).getDuration());
                                 result.setMediatype(0);
 
                                 response.getResult().get(i).getStories().add(0, result);
@@ -642,6 +686,24 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addStoriesImagesList(List<StoriesResponse.Result> resultList) {
         storiesItemViewModels.clear();
         storiesItemViewModels.addAll(resultList);
+
+
+        /*storiesItemViewModelstemp.clear();
+        storiesItemViewModelstemp.addAll(resultList);
+
+
+
+        for (int i=0;i<resultList.size();i++){
+
+
+
+
+
+
+
+
+        }*/
+
     }
 
     public ObservableList<StoriesResponse.Result> getStoriesItemViewModels() {

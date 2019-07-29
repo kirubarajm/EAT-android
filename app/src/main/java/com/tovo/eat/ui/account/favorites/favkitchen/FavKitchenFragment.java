@@ -12,6 +12,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -163,6 +164,11 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
+
+    @Override
+    public void offersItemClick(CouponListResponse.Result offers) {
 
     }
 

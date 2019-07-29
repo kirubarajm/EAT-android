@@ -17,6 +17,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegionDetailsBinding;
 import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
@@ -193,6 +194,11 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
+
+    @Override
+    public void offersItemClick(CouponListResponse.Result offers) {
 
     }
 

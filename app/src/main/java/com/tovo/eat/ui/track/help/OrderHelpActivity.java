@@ -1,11 +1,15 @@
 package com.tovo.eat.ui.track.help;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +21,7 @@ import com.tovo.eat.databinding.ActivityOrderHelpBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -47,12 +52,19 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void callDelivery() {
 
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+      /*  Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(callIntent);
+        startActivity(callIntent);*/
 
-
+        if (ContextCompat.checkSelfPermission(OrderHelpActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(OrderHelpActivity.this, new String[]{Manifest.permission.CALL_PHONE}, AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE);
+        }else{
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(callIntent);
+        }
     }
 
     @Override
@@ -115,12 +127,9 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
             mOrderHelpViewModel.deliveryAssigned.set(getIntent().getExtras().getBoolean("status"));
         }
 
-
         mActivityOrderHelpBinding.cancelReason1.setOnTouchListener(this);
         mActivityOrderHelpBinding.cancelReason2.setOnTouchListener(this);
         mActivityOrderHelpBinding.cancelReason3.setOnTouchListener(this);
-
-
     }
 
     @Override
@@ -170,8 +179,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
-
                         switch (id) {
                             case R.id.cancel_reason1:
                                     mOrderHelpViewModel.cancelOrder1();
@@ -182,15 +189,31 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
                             case R.id.cancel_reason3:
                                   mOrderHelpViewModel.cancelOrder3();
                                 break;
-
                         }
-
                         dialog.dismiss();
                     }
                 });
         alertDialog.show();
-
-
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(callIntent);
+                } else{
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(callIntent);
+                }
+                return;
+            }
+        }
     }
 
 

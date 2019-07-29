@@ -1,8 +1,6 @@
 package com.tovo.eat.ui.splash;
 
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -11,11 +9,9 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.ui.update.UpdateRequest;
 import com.tovo.eat.ui.update.UpdateResponse;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigator> {
@@ -42,7 +38,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
 
     public void checkUpdate() {
-     /*   MvvmApp.getInstance().getVersionCode()*/
+        /*   MvvmApp.getInstance().getVersionCode()*/
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -51,8 +47,13 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
             @Override
             public void onResponse(UpdateResponse response) {
 
-                getNavigator().update(response.getResult().getVersionstatus(),response.getResult().getEatforceupdate());
 
+                if (response.getStatus()) {
+                    getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+                }else {
+                    getNavigator().update(false, false);
+
+                }
 
             }
         }, new Response.ErrorListener() {

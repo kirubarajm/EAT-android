@@ -72,7 +72,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
-    boolean haveAddress = false;
+
     int favId;
     int makeitId;
     int totalAmount;
@@ -149,9 +149,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         getNavigator().redirectHome();
 
-
     }
-
 
     public void fav() {
         if (isFavourite.get()) {

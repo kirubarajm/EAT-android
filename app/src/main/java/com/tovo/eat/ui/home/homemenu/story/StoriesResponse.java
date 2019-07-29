@@ -57,12 +57,18 @@ public class StoriesResponse implements Serializable {
         @SerializedName("title")
         @Expose
         public String title;
+        @SerializedName("seen")
+        @Expose
+        public boolean seen;
         @SerializedName("description")
         @Expose
         public String description;
         @SerializedName("story_img")
         @Expose
         public String storyImg;
+        @SerializedName("duration")
+        @Expose
+        public Integer duration;
         @SerializedName("created_at")
         @Expose
         public String createdAt;
@@ -72,6 +78,22 @@ public class StoriesResponse implements Serializable {
         @SerializedName("stories")
         @Expose
         public List<Story> stories = null;
+
+        public Integer getDuration() {
+            return duration;
+        }
+
+        public void setDuration(Integer duration) {
+            this.duration = duration;
+        }
+
+        public boolean isSeen() {
+            return seen;
+        }
+
+        public void setSeen(boolean seen) {
+            this.seen = seen;
+        }
 
         public Integer getStoryid() {
             return storyid;

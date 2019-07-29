@@ -3,9 +3,12 @@ package com.tovo.eat.ui.account.feedbackandsupport.support;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -107,6 +110,25 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     @Override
     public void callAdmin() {
 
+
+
+        if (ContextCompat.checkSelfPermission(SupportActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SupportActivity.this, new String[]{Manifest.permission.CALL_PHONE},AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE);
+        }
+        else
+        {
+            String number = "9597352662";
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(callIntent);
+        }
+
+
+
+
+
+      /*
         try {
 
         if (hasPermission(Manifest.permission.CALL_PHONE)) {
@@ -122,7 +144,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
             ee.printStackTrace();
 
-        }
+        }*/
 
 
     }
@@ -149,5 +171,24 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         }
         return true;
     }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode,
+                                               String permissions[], int[] grantResults) {
+            switch (requestCode) {
+                case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                       callAdmin();
+                    } else{
+                        String number = "9597352662";
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(callIntent);
+                    }
+                    return;
+                }
+            }
+        }
 
 }

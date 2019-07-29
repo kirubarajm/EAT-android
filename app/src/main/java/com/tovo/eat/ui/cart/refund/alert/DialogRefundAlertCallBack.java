@@ -6,5 +6,6 @@ public interface DialogRefundAlertCallBack {
 
     void confirmClick();
     void cancelClick();
+    void orderCompleted();
 
 }

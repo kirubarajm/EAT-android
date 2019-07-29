@@ -11,9 +11,6 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCouponListBinding;
-import com.tovo.eat.databinding.ActivityRefundListBinding;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
-import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -29,6 +26,10 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     ActivityCouponListBinding mActivityCouponListBinding;
 
+
+    boolean notClickable = false;
+
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, CouponListActivity.class);
@@ -40,6 +41,14 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         mActivityCouponListBinding = getViewDataBinding();
         mCouponListViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            notClickable = intent.getExtras().getBoolean("clickable");
+            mCouponListViewModel.notClickable.set( intent.getExtras().getBoolean("clickable"));
+        }
+
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCouponListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
@@ -101,10 +110,9 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void couponValid(Integer cid) {
-        mCouponListViewModel.saveCouponId(cid);
-        Intent intent=new Intent();
-        intent.putExtra("couponid",cid);
-        setResult(Activity.RESULT_OK,intent);
+        Intent intent = new Intent();
+        intent.putExtra("couponid", cid);
+        setResult(Activity.RESULT_OK, intent);
         finish();//finishing activity
 
 
@@ -125,13 +133,12 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     }
 
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent=new Intent();
-        setResult(Activity.RESULT_CANCELED,intent);
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
 
     }
@@ -139,19 +146,24 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent intent=new Intent();
-        setResult(Activity.RESULT_CANCELED,intent);
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
     }
 
     @Override
     public void onItemClickData(CouponListResponse.Result result, int selected) {
 
-        mCouponListViewModel.saveCouponId(result.getCid());
-        Intent intent=new Intent();
-        intent.putExtra("couponid",result.getCid());
-        setResult(Activity.RESULT_OK,intent);
-        finish();//finishing activity
+
+        if (!notClickable) {
+            mCouponListViewModel.saveCouponId(result.getCid(),result.getCouponName());
+
+
+            Intent intent = new Intent();
+            intent.putExtra("couponid", result.getCid());
+            setResult(Activity.RESULT_OK, intent);
+            finish();//finishing activity
+        }
     }
 }
 

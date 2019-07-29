@@ -15,6 +15,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSearchBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
@@ -332,6 +333,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
+
+    }
+
+    @Override
+    public void offersItemClick(CouponListResponse.Result offers) {
 
     }
 

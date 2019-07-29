@@ -38,6 +38,8 @@ import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.cart.coupon.CouponListActivity;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
@@ -194,8 +196,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void loaded() {
         setUp();
         mHomeTabViewModel.loadAllApis();
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
         mHomeTabViewModel.favIcon.set(true);
 
 
@@ -205,6 +205,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
         initCountryText();
+
+
+        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
+
+
     }
 
     @Override
@@ -223,8 +229,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void getFullStories(StoriesResponse storiesResponse) {
         this.storiesFullResponse = storiesResponse;
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
+
     }
 
     @Override
@@ -263,8 +268,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
-          /*  mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-            mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
+
+            mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
 
         } else {
@@ -892,6 +897,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getHeading());
+        startActivity(intent);
+
+
+
+
+    }
+
+    @Override
+    public void offersItemClick(CouponListResponse.Result offers) {
+
+
+        Intent intent = CouponListActivity.newIntent(getContext());
+        intent.putExtra("clickable", true);
         startActivity(intent);
 
 

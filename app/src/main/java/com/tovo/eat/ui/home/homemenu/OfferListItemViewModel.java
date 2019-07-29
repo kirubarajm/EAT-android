@@ -1,24 +1,22 @@
-package com.tovo.eat.ui.cart.coupon;
+package com.tovo.eat.ui.home.homemenu;
 
 import android.databinding.ObservableField;
+
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class CouponListItemViewModel {
+public class OfferListItemViewModel {
 
 
 
 
 
 
-    public final ObservableField<String> code = new ObservableField<>();
-    public final ObservableField<String> description = new ObservableField<>();
-    public final ObservableField<String> expiry = new ObservableField<>();
-
-
+    public final ObservableField<String> offerImage = new ObservableField<>();
 
 
 
@@ -27,14 +25,12 @@ public class CouponListItemViewModel {
 
 
 
-    public CouponListItemViewModel(RefundListItemViewModelListener mListener, CouponListResponse.Result refundList) {
+    public OfferListItemViewModel(RefundListItemViewModelListener mListener, CouponListResponse.Result refundList) {
 
 
         this.mListener = mListener;
         this.refundList = refundList;
-        code.set(refundList.getCouponName());
-        description.set(refundList.getDescription());
-        expiry.set("Expires "+ parseDateToddMMyyyy(refundList.getExpiryDate()));
+        offerImage.set(refundList.getImgUrl());
 
 
     }

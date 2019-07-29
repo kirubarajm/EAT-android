@@ -20,6 +20,162 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+
+
+
+
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            shimmer:duration="800">
+
+            <!-- Adding 7 rows of placeholders -->
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:background="@color/extra_light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_margin="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/extra_light_gray"
+                    android:layout_width="200dp"
+                    android:layout_height="300dp">
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
         <android.support.v7.widget.CardView
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
@@ -194,67 +350,6 @@
           </android.support.v7.widget.RecyclerView>-->
 
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            shimmer:duration="800">
-
-            <!-- Adding 7 rows of placeholders -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:layout_weight="1"
-                        android:background="@color/light_gray" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:layout_weight="1"
-                        android:background="@color/light_gray" />
-
-                </LinearLayout>
-
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-            </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -381,6 +476,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
+                            android:background="@color/white"
                             android:id="@+id/area"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -466,6 +562,7 @@
 
 
                         <android.support.v7.widget.RecyclerView
+                            android:background="@color/white"
                             android:layout_marginBottom="10dp"
                             android:id="@+id/recycler_view_region"
                             android:layout_width="match_parent"
@@ -489,6 +586,7 @@
                      android:orientation="vertical" />-->
 
                 <RelativeLayout
+                    android:background="@color/white"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

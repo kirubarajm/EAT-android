@@ -60,6 +60,9 @@ public class CouponListResponse {
         @SerializedName("coupon_name")
         @Expose
         private String couponName;
+        @SerializedName("img_url")
+        @Expose
+        private String imgUrl;
         @SerializedName("active_status")
         @Expose
         private Integer activeStatus;
@@ -92,6 +95,13 @@ public class CouponListResponse {
             return cid;
         }
 
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
 
         public String getDescription() {
             return description;

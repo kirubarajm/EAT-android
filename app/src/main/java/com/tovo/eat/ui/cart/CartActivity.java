@@ -271,8 +271,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (mActivityCartBinding.refundCheck.isChecked()){
             mCartViewModel.refundChecked.set(true);
+
         }else {
             mCartViewModel.refundChecked.set(false);
+            mCartViewModel.getDataManager().setRefundId(0);
         }
 
 
@@ -284,6 +286,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
         Intent intent = CouponListActivity.newIntent(getContext());
+        intent.putExtra("clickable", false);
         startActivityForResult(intent, AppConstants.COUPON_LIST_CODE);
 
     }

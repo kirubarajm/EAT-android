@@ -13,12 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.DialogChangeKitchenBinding;
 import com.tovo.eat.databinding.DialogRefundAlertBinding;
 import com.tovo.eat.ui.base.BaseDialog;
-import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenCallBack;
-import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenViewModel;
-import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 
 import javax.inject.Inject;
@@ -34,9 +31,9 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     DialogRefundAlertBinding binding;
     Activity activity;
 
-String totalAmount;
+    String totalAmount;
 
-   Context context;
+    Context context;
 
 
     public DialogRefundAlert() {
@@ -48,7 +45,7 @@ String totalAmount;
         DialogRefundAlert fragment = new DialogRefundAlert();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
-       // fragment.setTargetFragment(new DialogRefundAlert(),0);
+        // fragment.setTargetFragment(new DialogRefundAlert(),0);
         fragment.setCancelable(false);
         return fragment;
     }
@@ -59,9 +56,9 @@ String totalAmount;
     }
 
 
-    public void show(FragmentManager fragmentManager, Activity activity,String totalAmount) {
+    public void show(FragmentManager fragmentManager, Activity activity, String totalAmount) {
         this.activity = activity;
-        this.totalAmount=totalAmount;
+        this.totalAmount = totalAmount;
         super.show(fragmentManager, TAG);
     }
 
@@ -73,15 +70,28 @@ String totalAmount;
     @Override
     public void confirmClick() {
         dismissDialog();
-        Intent intent = PaymentActivity.newIntent(getContext());
-        intent.putExtra("amount", totalAmount);
-        startActivity(intent);
+        if (Integer.parseInt(totalAmount) >0) {
+            Intent intent = PaymentActivity.newIntent(getContext());
+            intent.putExtra("amount", totalAmount);
+            startActivity(intent);
 
+        }else {
+            mDialogRefundAlertViewModel.cashMode();
+        }
     }
 
     @Override
     public void cancelClick() {
         dismissDialog();
+    }
+
+    @Override
+    public void orderCompleted() {
+        dismissDialog();
+        Intent newIntent = OrderPlacedActivity.newIntent(getContext());
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(newIntent);
+
     }
 
 

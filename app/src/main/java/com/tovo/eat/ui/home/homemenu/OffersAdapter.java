@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.homemenu.collection;
+package com.tovo.eat.ui.home.homemenu;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,22 +7,24 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemCollectionCardBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemOffersBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionCardItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
-public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<KitchenResponse.Collection> item_list;
+    private List<CouponListResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-    public CollectionAdapter(List<KitchenResponse.Collection> item_list) {
+    public OffersAdapter(List<CouponListResponse.Result> item_list) {
         this.item_list = item_list;
 
     }
@@ -32,7 +34,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemCollectionCardBinding blogViewBinding = ListItemCollectionCardBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemOffersBinding blogViewBinding = ListItemOffersBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -79,7 +81,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void collectionItemClick(KitchenResponse.Collection collection);
+        void offerItemClick(CouponListResponse.Result collection);
 
     }
 
@@ -104,11 +106,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements CollectionCardItemViewModel.CollectionItemViewModelListener {
-        ListItemCollectionCardBinding mListItemLiveProductsBinding;
-        CollectionCardItemViewModel mLiveProductsItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements OfferListItemViewModel.RefundListItemViewModelListener {
+        ListItemOffersBinding mListItemLiveProductsBinding;
+        OfferListItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemCollectionCardBinding binding) {
+        public LiveProductsViewHolder(ListItemOffersBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -116,10 +118,10 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final KitchenResponse.Collection blog = item_list.get(position);
+            final CouponListResponse.Result blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new CollectionCardItemViewModel(this, blog);
-            mListItemLiveProductsBinding.setCollectionCardItemViewModel(mLiveProductsItemViewModel);
+            mLiveProductsItemViewModel = new OfferListItemViewModel(this, blog);
+            mListItemLiveProductsBinding.setOfferListItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
@@ -130,8 +132,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(KitchenResponse.Collection collection) {
-            mLiveProductsAdapterListener.collectionItemClick(collection);
+        public void onItemClick(CouponListResponse.Result collection) {
+            mLiveProductsAdapterListener.offerItemClick(collection);
         }
     }
 

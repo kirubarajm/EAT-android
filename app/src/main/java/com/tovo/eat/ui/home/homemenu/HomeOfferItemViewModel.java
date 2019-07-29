@@ -1,16 +1,16 @@
-package com.tovo.eat.ui.home.homemenu.collection;
+package com.tovo.eat.ui.home.homemenu;
 
-        import android.databinding.ObservableArrayList;
-        import android.databinding.ObservableField;
-        import android.databinding.ObservableList;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
-        import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-        import com.tovo.eat.ui.home.region.RegionsResponse;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
-        import java.util.List;
+import java.util.List;
 
 
-public class CollectionItemViewModel {
+public class HomeOfferItemViewModel {
 
     public final ObservableField<String> regionName = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
@@ -20,11 +20,11 @@ public class CollectionItemViewModel {
 
 
 
-    public final ObservableList<KitchenResponse.Collection> collections =new ObservableArrayList<>();
+    public final ObservableList<CouponListResponse.Result> collections =new ObservableArrayList<>();
 
 
 
-    public CollectionItemViewModel(  List<KitchenResponse.Collection> item_list) {
+    public HomeOfferItemViewModel(List<CouponListResponse.Result> item_list) {
 
         collections.addAll(item_list);
 

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 
 import java.util.List;
 
@@ -81,10 +82,20 @@ public class KitchenResponse {
         @SerializedName("collection")
         @Expose
         private List<Collection> collection = null;
+        @SerializedName("coupons")
+        @Expose
+        private List<CouponListResponse.Result> coupons = null;
         @SerializedName("eta")
         @Expose
         private String eta;
 
+        public List<CouponListResponse.Result> getCoupons() {
+            return coupons;
+        }
+
+        public void setCoupons(List<CouponListResponse.Result> coupons) {
+            this.coupons = coupons;
+        }
 
         public Boolean getSuccess() {
             return success;
