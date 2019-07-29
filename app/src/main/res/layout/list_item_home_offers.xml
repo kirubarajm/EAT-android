@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="collectionItemViewModel"
+            type="com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:orientation="vertical">
+
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="@string/top_eat_suggestions"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/gradient_view_kitchen" />
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@color/gray"
+            android:id="@+id/recycler_collection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            tools:listitem="@layout/list_item_collection_card" />
+
+    </LinearLayout>
+
+
+</layout>
