@@ -64,6 +64,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> memberTypeDesc = new ObservableField<>();
     public ObservableField<String> about = new ObservableField<>();
     public ObservableField<String> signatureImageUrl = new ObservableField<>();
+    public ObservableField<String> ratingCount = new ObservableField<>();
 
 
 
@@ -312,6 +313,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 if (todaysMenuProductlists.size()>0){
                                     todaysMenu.set(true);
                                 }
+
+
+                                ratingCount.set(String.valueOf(response.getResult().get(0).getRatingCount()));
+
+
 
 
                                 signatureImageUrl.set(response.getResult().get(0).getKitchensignature());

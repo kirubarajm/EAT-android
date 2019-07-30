@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="billItemViewModel"
+            type="com.tovo.eat.ui.cart.BillItemViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:padding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/name"
+                android:layout_alignParentTop="true"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{billItemViewModel.title}"
+                android:layout_alignParentStart="true" />
+
+
+
+
+            <LinearLayout
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_marginEnd="1dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_inr"
+                    android:textSize="10sp"/>
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{billItemViewModel.charges}" />
+
+
+            </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

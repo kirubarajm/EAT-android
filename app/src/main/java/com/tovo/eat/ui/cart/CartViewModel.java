@@ -53,6 +53,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableField<String> localityname = new ObservableField<>();
     public final ObservableField<String> promocode = new ObservableField<>();
+    public final ObservableField<String> grandTotalTitle = new ObservableField<>();
+    public final ObservableField<Integer> refundBalance = new ObservableField<>();
 
     public final ObservableField<String> cuisines = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
@@ -69,9 +71,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
-
-
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
+
+
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
+    public ObservableList<CartPageResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
 
     int favId;
     int makeitId;
@@ -86,6 +90,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
         refundListItemsLiveData = new MutableLiveData<>();
+        cartBillLiveData = new MutableLiveData<>();
 
 
         if (getCartPojoDetails() != null)
@@ -102,6 +107,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
+
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
+        return cartBillLiveData;
+    }
+
+    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
+        this.cartBillLiveData = cartBillLiveData;
+    }
 
     public ObservableList<RefundListResponse.Result> getRefundListItemViewModels() {
         return refundListItemViewModels;
@@ -204,6 +217,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public void addRefundItemsToList(List<RefundListResponse.Result> results) {
         refundListItemViewModels.clear();
         refundListItemViewModels.addAll(results);
+
+    }
+
+    public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+        cartdetails.clear();
+        cartdetails.addAll(results);
 
     }
 
@@ -445,6 +464,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             }
 
+                            cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartDetails());
+
 
                             getDataManager().totalOrders((cartPageResponse.getResult().get(0).getOrdercount()));
 
@@ -459,6 +480,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
 
                             grand_total.set(String.valueOf(totalAmount));
+
+                            grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandTotalTitle());
+                            refundBalance.set(cartPageResponse.getResult().get(0).getAmountdetails().getRefundBalance());
 
 
                             gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
@@ -575,7 +599,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                 if (totalAmount == 0) {
                     if (getDataManager().getRefundId() != 0) {
-                        getNavigator().refundAlert();
+
+                        if (refundBalance.get()>0){
+                            getNavigator().refundAlert();
+                        }else {
+                            getNavigator().paymentGateway(grand_total.get());
+                        }
+
                     } else {
                         cashMode();
                     }

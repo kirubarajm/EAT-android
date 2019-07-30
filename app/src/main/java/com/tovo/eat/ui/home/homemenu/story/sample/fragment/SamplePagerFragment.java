@@ -22,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
+import com.google.gson.Gson;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSampleBinding;
 import com.tovo.eat.ui.base.BaseFragment;
@@ -406,6 +407,20 @@ public class SamplePagerFragment extends BaseFragment<FragmentSampleBinding, Sam
                 //intent.putExtra("fullStories", storiesFullResponse);
                 //startActivity(intent);
             }*/
+
+
+            StoriesResponse  response=mSplashActivityViewModel.storiesResponse;
+
+            response.getResult().get(position).getStories().get(counter).setSeen(true);
+            response.getResult().get(position).setSeen(true);
+
+
+            Gson gson = new Gson();
+            String json = gson.toJson(response);
+            mSplashActivityViewModel. getDataManager().setStoriesList(null);
+            mSplashActivityViewModel.getDataManager().setStoriesList(json);
+
+
             counter = 0;
             storyStatusView.clear();
             resetMethod();

@@ -6,8 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -21,8 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -35,8 +31,6 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
@@ -110,7 +104,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         saveToken(s);
     }
 
-    private void sendNotification( Map<String, String> data) {
+    private void sendNotification(Map<String, String> data) {
         /*Pageid_eat_order_post:1,
                 Pageid_eat_order_accept:2,
                 Pageid_eat_order_preparing:3,
@@ -131,41 +125,41 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         String message = data.get("message");
 
 
-        if (pageId==null)  pageId="0";
+        if (pageId == null) pageId = "0";
 
-            switch (pageId) {
+        switch (pageId) {
 
-                case "1":
-                    intent = new Intent(this, MainActivity.class);
+            case "1":
+                intent = new Intent(this, MainActivity.class);
 
-                    break;
-                case "2":
-                    intent = new Intent(this, OrderTrackingActivity.class);
-                    break;
-                case "3":
-                    intent = new Intent(this, OrderTrackingActivity.class);
-                    break;
-                case "4":
-                    intent = new Intent(this, OrderTrackingActivity.class);
-                    break;
-                case "5":
-                    intent = new Intent(this, OrderTrackingActivity.class);
-                    break;
-                case "6":
-                    intent = new Intent(this, OrderTrackingActivity.class);
-                    break;
-                case "7":
-                    intent = new Intent(this, OrderHistoryActivity.class);
-                    break;
-                case "8":
-                    intent = new Intent(this, MainActivity.class);
-                    break;
-                    case "9":
-                    intent = new Intent(this, RepliesActivity.class);
-                    break;
-                default:
-                    intent = new Intent(this, MainActivity.class);
-            }
+                break;
+            case "2":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "3":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "4":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "5":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "6":
+                intent = new Intent(this, OrderTrackingActivity.class);
+                break;
+            case "7":
+                intent = new Intent(this, OrderHistoryActivity.class);
+                break;
+            case "8":
+                intent = new Intent(this, MainActivity.class);
+                break;
+            case "9":
+                intent = new Intent(this, RepliesActivity.class);
+                break;
+            default:
+                intent = new Intent(this, MainActivity.class);
+        }
 
 
         intent.putExtras(bundle);
@@ -284,11 +278,11 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     public void saveToken(String token) {
 
 
-        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
-        int userIdMain=appPreferencesHelper.getCurrentUserId();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+        int userIdMain = appPreferencesHelper.getCurrentUserId();
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
+        if (userIdMain == 0) return;
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override
             public void onResponse(CommonResponse response) {
@@ -304,7 +298,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             public void onErrorResponse(VolleyError error) {
 
             }
-        },AppConstants.API_VERSION_ONE);
+        }, AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 

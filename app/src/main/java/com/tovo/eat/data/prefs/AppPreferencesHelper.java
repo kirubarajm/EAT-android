@@ -122,7 +122,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
         //return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, null);
 
         int userId = mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
-        return userId == AppConstants.NULL_INDEX ? null : userId;
+        return userId;
     }
 
     @Override

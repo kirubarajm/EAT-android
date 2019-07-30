@@ -22,6 +22,9 @@ public class CartPageResponse {
         @SerializedName("gstcharge")
         @Expose
         private Integer gstcharge;
+        @SerializedName("grandtotaltitle")
+        @Expose
+        private String grandTotalTitle;
         @SerializedName("delivery_charge")
         @Expose
         private Integer deliveryCharge;
@@ -43,6 +46,14 @@ public class CartPageResponse {
         @SerializedName("coupon_discount_amount")
         @Expose
         private Integer couponDiscountAmount;
+
+        public String getGrandTotalTitle() {
+            return grandTotalTitle;
+        }
+
+        public void setGrandTotalTitle(String grandTotalTitle) {
+            this.grandTotalTitle = grandTotalTitle;
+        }
 
         public Integer getGrandtotal() {
             return grandtotal;
@@ -599,9 +610,21 @@ public class CartPageResponse {
         @SerializedName("item")
         @Expose
         private List<Item> item = null;
+        @SerializedName("cartdetails")
+        @Expose
+        private List<Cartdetail> cartDetails = null;
         @SerializedName("ordercount")
         @Expose
         private Integer ordercount;
+
+
+        public List<Cartdetail> getCartDetails() {
+            return cartDetails;
+        }
+
+        public void setCartDetails(List<Cartdetail> cartDetails) {
+            this.cartDetails = cartDetails;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;
@@ -697,6 +720,43 @@ public class CartPageResponse {
 
         public void setOrdercount(Integer ordercount) {
             this.ordercount = ordercount;
+        }
+
+    }
+    public class Cartdetail {
+
+        @SerializedName("title")
+        @Expose
+        private String title;
+        @SerializedName("charges")
+        @Expose
+        private Integer charges;
+        @SerializedName("status")
+        @Expose
+        private Boolean status;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public Integer getCharges() {
+            return charges;
+        }
+
+        public void setCharges(Integer charges) {
+            this.charges = charges;
+        }
+
+        public Boolean getStatus() {
+            return status;
+        }
+
+        public void setStatus(Boolean status) {
+            this.status = status;
         }
 
     }

@@ -67,5 +67,9 @@ public class CartModule {
     RefundListAdapter provideRefundsListAdapter() {
         return new RefundListAdapter(new ArrayList<>(),dataManager);
     }
+ @Provides
+    BillListAdapter provideBillListAdapter() {
+        return new BillListAdapter(new ArrayList<>());
+    }
 
 }

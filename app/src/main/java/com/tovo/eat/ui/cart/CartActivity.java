@@ -47,6 +47,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     CartListener cartListener;
     @Inject
     RefundListAdapter refundListAdapter;
+    @Inject
+    BillListAdapter billListAdapter;
     private ActivityCartBinding mActivityCartBinding;
 
     public static CartActivity newInstance() {
@@ -138,6 +140,13 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewList.setLayoutManager(mLayoutManager2);
         mActivityCartBinding.recyclerviewList.setAdapter(refundListAdapter);
+
+
+
+        LinearLayoutManager billLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mActivityCartBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
+        mActivityCartBinding.recyclerviewBill.setAdapter(billListAdapter);
 
 
         subscribeToLiveData();
@@ -275,9 +284,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         }else {
             mCartViewModel.refundChecked.set(false);
             mCartViewModel.getDataManager().setRefundId(0);
+            refundListAdapter.selectedItemClear();
+
+            mCartViewModel.getRefundListItemsLiveData().observe(this,
+                    kitchenItemViewModel -> mCartViewModel.addRefundItemsToList(kitchenItemViewModel));
+
+            mCartViewModel.fetchRepos();
+
         }
-
-
 
     }
 
@@ -324,9 +338,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mCartViewModel.getDishItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));
 
-
         mCartViewModel.getRefundListItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addRefundItemsToList(kitchenItemViewModel));
+
+   mCartViewModel.getCartBillLiveData().observe(this,
+                cartdetails -> mCartViewModel.addBillItemsToList(cartdetails));
 
 
     }

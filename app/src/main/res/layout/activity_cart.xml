@@ -246,7 +246,6 @@
                     android:layout_below="@+id/kitchen_details"
                     android:layout_marginTop="1dp"
                     android:background="@android:color/white"
-                    android:layoutAnimation="@anim/lay_fall_down"
                     android:visibility="visible"
                     app:adapter="@{cartViewModel.cartDishItemViewModels}"
                     tools:listitem="@layout/list_item_cart_dishes" />
@@ -327,7 +326,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/dark_gray"/>
+                        android:background="@color/medium_gray"/>
 
 
                     <LinearLayout
@@ -394,7 +393,32 @@
                         android:textStyle="bold" />
 
 
+
+
+
                     <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerview_bill"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@android:color/white"
+                            android:visibility="visible"
+                            app:adapter="@{cartViewModel.cartdetails}"
+                            tools:listitem="@layout/list_item_cart_bill" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -659,7 +683,7 @@
                             </LinearLayout>
                         </RelativeLayout>
 
-                    </LinearLayout>
+                    </LinearLayout>-->
 
 
                     <View
@@ -670,6 +694,8 @@
 
 
                     <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -680,7 +706,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/grand_total"
+                            android:text="@{cartViewModel.grandTotalTitle}"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="normal" />
@@ -699,19 +725,17 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingTop="8dp"
-                                    android:paddingBottom="8dp"
                                     android:text="@string/icon_inr"
+                                    android:layout_gravity="top"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                    android:textSize="10sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-
                                     android:id="@+id/price5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="end"
+                                    android:gravity="top"
                                     android:text="@{cartViewModel.grand_total}"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"

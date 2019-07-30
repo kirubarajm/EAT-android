@@ -66,7 +66,7 @@ public class StoriesResponse implements Serializable {
         @SerializedName("story_img")
         @Expose
         public String storyImg;
-        @SerializedName("duration")
+        @SerializedName("first_story_duration")
         @Expose
         public Integer duration;
         @SerializedName("created_at")
@@ -171,7 +171,7 @@ public class StoriesResponse implements Serializable {
 
             @SerializedName("id")
             @Expose
-            public Integer id;
+            public Integer id=0;
             @SerializedName("mediatype")
             @Expose
             public Integer mediatype;
@@ -196,6 +196,9 @@ public class StoriesResponse implements Serializable {
             @SerializedName("cat_type")
             @Expose
             public Integer   catType;
+            @SerializedName("seen")
+            @Expose
+            public boolean seen;
             @SerializedName("cat_ids")
             @Expose
             public Integer catIds;
@@ -206,6 +209,14 @@ public class StoriesResponse implements Serializable {
             @Expose
             public String updatedAt;
 
+
+            public boolean isSeen() {
+                return seen;
+            }
+
+            public void setSeen(boolean seen) {
+                this.seen = seen;
+            }
 
             public Integer getId() {
                 return id;

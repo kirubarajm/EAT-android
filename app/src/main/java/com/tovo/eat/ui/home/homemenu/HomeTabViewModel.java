@@ -57,15 +57,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean favIcon = new ObservableBoolean();
     public ObservableList<StoriesResponse.Result> storiesItemViewModelstemp = new ObservableArrayList<>();
     public ObservableList<StoriesResponse.Result> storiesItemViewModels = new ObservableArrayList<>();
+    public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
-
-
-
-    public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
 
 
@@ -109,14 +106,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
 
-            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-            kitchenResponse1.setCollection(collectionItemViewModels);
-            ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
+        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+        kitchenResponse1.setCollection(collectionItemViewModels);
+        ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
 
 
-            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-            kitchenResponse2.setCoupons(couponListItemViewModels);
-            ordersItems.add(2, kitchenResponse2);
+        KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+        kitchenResponse2.setCoupons(couponListItemViewModels);
+        ordersItems.add(2, kitchenResponse2);
 
 
         kitchenItemViewModels.clear();
@@ -246,7 +243,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         if (response.getResult().size() > 0) {
                             couponListItemViewModels.addAll(response.getResult());
-                           // couponListItemsLiveData.setValue(response.getResult());
+                            // couponListItemsLiveData.setValue(response.getResult());
                         }
                     }
                 }
@@ -615,15 +612,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onResponse(StoriesResponse response) {
                     if (response != null) {
-                        storiesItemsLiveData.setValue(response.getResult());
-                        getNavigator().getFullStories(response);
 
+                        //getDataManager().setStoriesList(null);
                         //storiesResponseList.add(response.getResult());
 
                         for (int i = 0; i < response.getResult().size(); i++) {
+
                             if (response.getResult().get(i).getStories().size() > 0) {
                                 StoriesResponse.Result.Story result = new StoriesResponse.Result.Story();
-
                                 result.setTitle(response.getResult().get(i).getTitle());
                                 result.setSubtitle(response.getResult().get(i).getDescription());
                                 result.setUrl(response.getResult().get(i).getStoryImg());
@@ -634,10 +630,99 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             }
                         }
 
-                        if (response.getResult().size() > 0) {
+
+                        StoriesResponse localStoriesResponse = new StoriesResponse();
+
+                        Gson sGson = new GsonBuilder().create();
+                        localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
+
+
+                        if (localStoriesResponse != null) {
+                            if (localStoriesResponse.getResult().size() > 0) {
+
+                                for (int i = 0; i < response.getResult().size(); i++) {
+
+                                    int sid = response.getResult().get(i).getStoryid();
+
+                                    for (int j = 0; j < localStoriesResponse.getResult().size(); j++) {
+
+                                        if (sid == localStoriesResponse.getResult().get(j).getStoryid()) {
+
+                                            for (int l = 0; l < response.getResult().get(j).getStories().size(); l++) {
+
+                                                int id = response.getResult().get(j).getStories().get(l).getId();
+
+                                                for (int k = 0; k < localStoriesResponse.getResult().get(j).getStories().size(); k++) {
+
+                                                    if (id == (localStoriesResponse.getResult().get(j).getStories().get(k).getId())) {
+
+                                                        response.getResult().get(i).getStories().get(k).setSeen(localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
+
+                                                    }
+
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                }
+
+
+                                List<StoriesResponse.Result> newStories = new ArrayList<>();
+                                List<StoriesResponse.Result> oldStories = new ArrayList<>();
+
+
+                                for (int i = 0; i < response.getResult().size(); i++) {
+
+                                    if (response.getResult().get(i).getStories().size() > 0)
+
+                                        if (!response.getResult().get(i).getStories().get(response.getResult().get(i).getStories().size() - 1).isSeen()) {
+
+                                            newStories.add(response.getResult().get(i));
+
+                                        } else {
+
+                                            oldStories.add(response.getResult().get(i));
+                                        }
+
+
+                                }
+
+                                StoriesResponse completeStories = new StoriesResponse();
+                                newStories.addAll(oldStories);
+                                completeStories.setResult(newStories);
+
+
+                                Gson gson = new Gson();
+                                String json = gson.toJson(completeStories);
+                                getDataManager().setStoriesList(null);
+                                getDataManager().setStoriesList(json);
+
+                                storiesItemsLiveData.setValue(completeStories.getResult());
+                                getNavigator().getFullStories(completeStories);
+                            } else {
+
+
+                                Gson gson = new Gson();
+                                String json = gson.toJson(response);
+                                getDataManager().setStoriesList(null);
+                                getDataManager().setStoriesList(json);
+
+                                storiesItemsLiveData.setValue(response.getResult());
+                                getNavigator().getFullStories(response);
+                            }
+
+
+                        } else {
+
                             Gson gson = new Gson();
                             String json = gson.toJson(response);
+                            getDataManager().setStoriesList(null);
                             getDataManager().setStoriesList(json);
+
+                            storiesItemsLiveData.setValue(response.getResult());
+                            getNavigator().getFullStories(response);
                         }
                     }
                 }
@@ -651,7 +736,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
     }
 
     public void fetchCollections() {
@@ -687,22 +771,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         storiesItemViewModels.clear();
         storiesItemViewModels.addAll(resultList);
 
-
-        /*storiesItemViewModelstemp.clear();
-        storiesItemViewModelstemp.addAll(resultList);
-
-
-
-        for (int i=0;i<resultList.size();i++){
-
-
-
-
-
-
-
-
-        }*/
 
     }
 

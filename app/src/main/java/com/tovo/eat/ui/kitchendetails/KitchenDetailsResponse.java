@@ -155,6 +155,9 @@ public class KitchenDetailsResponse {
         @SerializedName("region")
         @Expose
         private Integer region;
+        @SerializedName("rating_count")
+        @Expose
+        private Integer ratingCount;
         @SerializedName("regionname")
         @Expose
         private String regionname;
@@ -190,6 +193,13 @@ public class KitchenDetailsResponse {
         @Expose
         private List<Productlist> productlist = null;
 
+        public Integer getRatingCount() {
+            return ratingCount;
+        }
+
+        public void setRatingCount(Integer ratingCount) {
+            this.ratingCount = ratingCount;
+        }
 
         public List<String> getImages() {
             return images;

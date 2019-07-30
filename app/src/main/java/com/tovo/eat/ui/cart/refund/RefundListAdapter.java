@@ -59,6 +59,11 @@ public class RefundListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void selectedItemClear() {
+        sSelected=-1;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {

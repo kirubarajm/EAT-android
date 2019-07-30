@@ -54,6 +54,9 @@ public class KitchenDishResponse {
         @SerializedName("costfortwo")
         @Expose
         public Integer costfortwo;
+        @SerializedName("rating_count")
+        @Expose
+        private Integer ratingCount;
         @SerializedName("makeitimg")
         @Expose
         public String makeitimg;
@@ -99,8 +102,13 @@ public class KitchenDishResponse {
         @Expose
         public List<Foodbadge> foodbadge = null;
 
+        public Integer getRatingCount() {
+            return ratingCount;
+        }
 
-
+        public void setRatingCount(Integer ratingCount) {
+            this.ratingCount = ratingCount;
+        }
 
         public Integer getMakeituserid() {
             return makeituserid;
