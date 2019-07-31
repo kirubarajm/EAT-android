@@ -133,11 +133,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mMainViewModel.isMyAccount.set(false);
                 }
             } else {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
                 transaction.commit();
-                internetCheck = true;
+                internetCheck = true;*/
             }
 
         }

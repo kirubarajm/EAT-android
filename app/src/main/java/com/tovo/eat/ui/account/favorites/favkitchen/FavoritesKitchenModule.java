@@ -16,14 +16,14 @@ import dagger.Provides;
 public class FavoritesKitchenModule {
 
     @Provides
-    KitchenViewModel provideFavKitchenViewModel(DataManager dataManager) {
-        return new KitchenViewModel(dataManager);
+    FavKitchenViewModel provideFavKitchenViewModel(DataManager dataManager) {
+        return new FavKitchenViewModel(dataManager);
     }
 
 
     @Provides
-    KitchenAdapter provideFavKitchenAdapter() {
-        return new KitchenAdapter(new ArrayList<>());
+    FavKitchenAdapter provideFavKitchenAdapter() {
+        return new FavKitchenAdapter(new ArrayList<>());
     }
 
 

@@ -18,8 +18,16 @@ package com.tovo.eat.utilities;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -28,7 +36,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
+import com.tovo.eat.R;
 import com.tovo.eat.di.component.DaggerAppComponent;
+import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
@@ -58,6 +69,62 @@ public class MvvmApp extends Application implements HasActivityInjector {
         return activityDispatchingAndroidInjector;
     }
 
+
+
+
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+
+
+
+
+
+
+            } else {
+
+
+                startActivity(new Intent(InternetErrorFragment.newIntent(MvvmApp.getInstance())));
+
+
+
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+
+        }
+    };
+    private void unregisterWifiReceiver() {
+        unregisterReceiver(mWifiReceiver);
+    }
+
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+        if (networkInfo != null
+                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && networkInfo.isConnected()) {
+            return true;
+        } else return networkInfo != null
+                && networkInfo.isConnected();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -68,14 +135,6 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .inject(this);
 
         FirebaseAnalytics.getInstance(this);
-
-
-
-
-
-
-
-
 
 
 
@@ -121,6 +180,16 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
 
 
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mWifiReceiver, filter);
+    }
+
+
+
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
@@ -143,5 +212,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
         return isOnline;
 
     }
+
+
 
 }

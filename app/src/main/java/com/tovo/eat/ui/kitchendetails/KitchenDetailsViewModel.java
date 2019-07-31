@@ -298,7 +298,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             if (response.getResult().size() != 0) {
 
                                 for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null) {
+                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
                                         favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                     } else {
                                         todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));

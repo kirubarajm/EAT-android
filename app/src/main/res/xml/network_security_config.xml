@@ -34,4 +34,9 @@
     </domain-config>
 
 
+  <!--  <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">www.chinadaily.com.cn</domain>
+    </domain-config>-->
+
+
 </network-security-config>

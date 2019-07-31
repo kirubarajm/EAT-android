@@ -1,14 +1,14 @@
 package com.tovo.eat.ui.cart;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -17,18 +17,16 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
-import com.tovo.eat.ui.cart.refund.RefundListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
-import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 
 import javax.inject.Inject;
 
@@ -49,6 +47,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     RefundListAdapter refundListAdapter;
     @Inject
     BillListAdapter billListAdapter;
+    Dialog dialog;
     private ActivityCartBinding mActivityCartBinding;
 
     public static CartActivity newInstance() {
@@ -97,6 +96,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         refundListAdapter.setListener(this);
 
 
+
         /*if (mCartViewModel.getCartPojoDetails() == null) {
 
             ((MainActivity) getActivity()).openHome();
@@ -111,8 +111,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivityCartBinding = getViewDataBinding();
-
-
+        dialog = new Dialog(getBaseActivity());
 
        /* if(getArguments()!=null)
         {
@@ -140,7 +139,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityCartBinding.recyclerviewList.setLayoutManager(mLayoutManager2);
         mActivityCartBinding.recyclerviewList.setAdapter(refundListAdapter);
-
 
 
         LinearLayoutManager billLayoutManager
@@ -278,10 +276,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void checkRefund() {
 
 
-        if (mActivityCartBinding.refundCheck.isChecked()){
+        if (mActivityCartBinding.refundCheck.isChecked()) {
             mCartViewModel.refundChecked.set(true);
 
-        }else {
+        } else {
             mCartViewModel.refundChecked.set(false);
             mCartViewModel.getDataManager().setRefundId(0);
             refundListAdapter.selectedItemClear();
@@ -312,13 +310,12 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         fragment.setTargetFragment(this, 0);
         fragment.setCancelable(false);
 
-        DialogRefundAlert.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),mCartViewModel.grand_total.get());
+        DialogRefundAlert.newInstance(fragment).show(getFragmentManager(), getBaseActivity(), mCartViewModel.grand_total.get());
 
     }
 
     @Override
     public void redirectHome() {
-
 
 
         ((MainActivity) getActivity()).openHome();
@@ -334,6 +331,13 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
+    @Override
+    public void notServicable() {
+
+        if (!dialog.isShowing())
+            showDialog();
+    }
+
     private void subscribeToLiveData() {
         mCartViewModel.getDishItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addDishItemsToList(kitchenItemViewModel));
@@ -341,7 +345,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mCartViewModel.getRefundListItemsLiveData().observe(this,
                 kitchenItemViewModel -> mCartViewModel.addRefundItemsToList(kitchenItemViewModel));
 
-   mCartViewModel.getCartBillLiveData().observe(this,
+        mCartViewModel.getCartBillLiveData().observe(this,
                 cartdetails -> mCartViewModel.addBillItemsToList(cartdetails));
 
 
@@ -353,8 +357,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onResume();
         mCartViewModel.setAddressTitle();
 
-        if (mCartViewModel.getCartPojoDetails() != null)
-            mCartViewModel.fetchRepos();
+        /*if (mCartViewModel.getCartPojoDetails() != null)
+            mCartViewModel.fetchRepos();*/
     }
 
     @Override
@@ -389,7 +393,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         if (mCartViewModel.getCartPojoDetails() != null) {
             mCartViewModel.fetchRepos();
             mCartViewModel.emptyCart.set(false);
-        }else {
+        } else {
             mCartViewModel.emptyCart.set(true);
         }
     }
@@ -419,7 +423,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             }
 
 
-        }else if (requestCode == AppConstants.COUPON_LIST_CODE) {
+        } else if (requestCode == AppConstants.COUPON_LIST_CODE) {
 
 
             if (resultCode == RESULT_OK) {
@@ -440,9 +444,36 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (selected == -1) {
             mCartViewModel.saveRefundandCalculate(0);
-        }else {
+        } else {
             mCartViewModel.saveRefundandCalculate(result.getRcid());
         }
+
+    }
+
+    public void showDialog() {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_location_not_servicable);
+
+        ButtonTextView text = dialog.findViewById(R.id.changeAddress);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                selectAddress();
+            }
+        });
+
+        ButtonTextView dialogButton = dialog.findViewById(R.id.home);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectHome();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
 
     }
 }

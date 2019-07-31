@@ -294,6 +294,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                             } else {
                                 emptyRegion.set(true);
+
+
+                                getNavigator().dataLoaded();
+
+
                             }
                             Log.e("Region----response:", response.toString());
 

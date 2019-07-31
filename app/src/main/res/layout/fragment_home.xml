@@ -453,12 +453,14 @@
                                 android:textSize="14sp" />
 
                             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginStart="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center"
                                 android:textColor="@color/dark_gray"
-                                android:text="@string/region_empty_title"
+                                android:text="@string/region_empty_sub_title"
                                 android:textAlignment="center"
                                 android:textSize="12sp" />
 

@@ -24,6 +24,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public final ObservableField<String> userEmail = new ObservableField<>();
     public final ObservableField<String> userPhoneNo = new ObservableField<>();
     public final ObservableField<String> gender = new ObservableField<>();
+    public final ObservableField<String> regionname = new ObservableField<>();
 
     private GetUserDetailsResponse getUserDetailsResponse;
 
@@ -105,7 +106,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             userName.set(getDataManager().getCurrentUserName());
                             userEmail.set(getDataManager().getCurrentUserEmail());
                             userPhoneNo.set(getDataManager().getCurrentUserPhNo());
-
+                            regionname.set(response.getResult().get(0).getRegionname());
                             if (response.getResult().get(0).getGender() == 1) {
 
                                 gender.set("M");

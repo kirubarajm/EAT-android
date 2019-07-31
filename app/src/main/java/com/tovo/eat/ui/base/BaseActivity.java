@@ -22,6 +22,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
+import com.tovo.eat.utilities.ActiveActivitiesTracker;
 import com.tovo.eat.utilities.CommonUtils;
 import com.tovo.eat.utilities.NetworkUtils;
 
@@ -88,7 +89,6 @@ BaseFragment.Callback{
         performDependencyInjection();
         super.onCreate(savedInstanceState);
         performDataBinding();
-
 
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
@@ -165,6 +165,7 @@ BaseFragment.Callback{
     @Override
     protected void onStop() {
         super.onStop();
+        ActiveActivitiesTracker.activityStopped();
         try{
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -185,6 +186,10 @@ BaseFragment.Callback{
     @Override
     protected void onStart() {
         super.onStart();
+
+        ActiveActivitiesTracker.activityStarted();
+
+
 
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);

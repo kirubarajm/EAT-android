@@ -16,14 +16,34 @@ public class CartRequestPojo {
     @SerializedName("rcid")
     @Expose
     private Integer rcid;
- @SerializedName("cid")
+    @SerializedName("cid")
     @Expose
     private Integer cid;
-
+    @SerializedName("lat")
+    @Expose
+    private String lat;
+    @SerializedName("lon")
+    @Expose
+    private String lon;
     @SerializedName("orderitems")
     @Expose
     private List<Cartitem> cartitems = null;
 
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
 
     public Integer getRcid() {
         return rcid;
@@ -79,7 +99,6 @@ public class CartRequestPojo {
         @SerializedName("price")
         @Expose
         private Integer price;
-
 
 
         public Integer getPrice() {

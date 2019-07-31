@@ -42,6 +42,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.DrawableCrossFadeFactory;
 import com.bumptech.glide.request.target.Target;
 import com.tovo.eat.R;
+import com.tovo.eat.ui.account.favorites.favkitchen.FavKitchenAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesResponse;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapter;
@@ -106,6 +107,15 @@ public final class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void addKitchenItems(RecyclerView recyclerView, List<KitchenResponse.Result> sales) {
         KitchenAdapter adapter = (KitchenAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(sales, recyclerView.getContext());
+        }
+    }
+
+    @BindingAdapter({"favadapter"})
+    public static void addFavKitchenItems(RecyclerView recyclerView, List<KitchenResponse.Result> sales) {
+        FavKitchenAdapter adapter = (FavKitchenAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(sales, recyclerView.getContext());

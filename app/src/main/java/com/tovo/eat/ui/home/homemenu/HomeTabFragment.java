@@ -42,7 +42,6 @@ import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
@@ -55,9 +54,7 @@ import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
-import com.tovo.eat.utilities.card.CardSnapHelper;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
-import com.tovo.eat.utilities.stack.FadeInFadeOutAnimation;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
 
 import java.util.ArrayList;
@@ -84,6 +81,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
     StoriesResponse storiesFullResponse;
+    StackLayoutManager mStackLayoutManager;
     private FragmentHomeBinding mFragmentHomeBinding;
     private ImageSwitcher mapSwitcher;
     private TextSwitcher temperatureSwitcher;
@@ -98,7 +96,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
     private GoogleApiClient mGoogleApiClient;
-    StackLayoutManager  mStackLayoutManager;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
             .ConnectionCallbacks() {
 
@@ -180,7 +177,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         transaction.commitNow();*/
 
 
-
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
 
@@ -198,7 +194,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
-
+        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
     }
 
     @Override
@@ -207,10 +204,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         initCountryText();
 
 
+       /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
+
+
+    }
+
+    @Override
+    public void dataLoaded() {
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
-
-
     }
 
     @Override
@@ -262,6 +265,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
+        /*mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
 
         regionsResponse = new RegionsResponse();
 
@@ -273,7 +278,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.favIcon.set(true);
 
         } else {
+
+            mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+            mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
+
             startLocationTracking();
+
+
         }
 
 
@@ -369,15 +380,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
 
-          mStackLayoutManager = new StackLayoutManager();
+        mStackLayoutManager = new StackLayoutManager();
         /*mStackLayoutManager.setItemOffset(50);*/
-       // mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
+        // mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
 
       /*  mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
         mStackLayoutManager.requestLayout();*/
-       // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
-
-
+        // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
 
 
         mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
@@ -391,12 +400,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });
-
-
-
-
-
-
 
 
         //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
@@ -422,7 +425,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();*/
 
 
-  //      new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
+        //      new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
         
         
         
@@ -605,6 +608,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
         mHomeTabViewModel.favIcon.set(true);
 
+
     }
 
     @Override
@@ -767,7 +771,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onItemClickData(RegionsResponse.Result mRegionList, int position) {
 
 
-    int activeCardPosition=  mStackLayoutManager.getFirstVisibleItemPosition();
+        int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();
 
 
     /*
@@ -803,12 +807,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             intent.putExtra("id", mRegionList.getRegionid());
             intent.putExtra("tagline", mRegionList.getTagline());
             startActivity(intent);
-         //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
+            //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
 
 
         } else if (position > activeCardPosition) {
-        //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
-           // onActiveCardChange();
+            //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
+            // onActiveCardChange();
         }
 
 
@@ -832,7 +836,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         final int activeCardPosition = lm.getActiveCardPosition();*/
 
 
-        int activeCardPosition=  mStackLayoutManager.getFirstVisibleItemPosition();
+        int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();
 
         if (activeCardPosition == RecyclerView.NO_POSITION) {
             return;
@@ -853,7 +857,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
-        if (result.getStories().size()>0) {
+        if (result.getStories().size() > 0) {
             Intent intent = SampleTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);
@@ -900,8 +904,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         startActivity(intent);
 
 
-
-
     }
 
     @Override
@@ -911,8 +913,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);
-
-
 
 
     }

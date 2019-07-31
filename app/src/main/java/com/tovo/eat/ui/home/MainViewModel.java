@@ -187,7 +187,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 try {
                                     String strDate = response.getResult().get(0).getDeliverytime();
                                     DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                    DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                    DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     String outputDateStr = "";
                                     //Date  date1 = new Date(strDate);
                                     Date date = currentFormat.parse(strDate);

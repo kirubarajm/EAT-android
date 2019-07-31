@@ -17,6 +17,7 @@ public interface HomeTabNavigator {
     void loaded();
 
     void regionsLoaded(RegionsResponse regionResponse);
+    void dataLoaded();
 
     void goBack();
     void collectionLoaded();

@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.homemenu.kitchen;
+package com.tovo.eat.ui.account.favorites.favkitchen;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -17,10 +17,13 @@ import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenItemViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
 import java.util.List;
 
-public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> implements CollectionAdapter.LiveProductsAdapterListener, OffersAdapter.LiveProductsAdapterListener {
+public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> implements CollectionAdapter.LiveProductsAdapterListener, OffersAdapter.LiveProductsAdapterListener {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
@@ -30,7 +33,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
-    public KitchenAdapter(List<KitchenResponse.Result> item_list) {
+    public FavKitchenAdapter(List<KitchenResponse.Result> item_list) {
 
         this.item_list = item_list;
 
@@ -242,7 +245,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         public void removeFavourites(Integer favId) {
 
             mLiveProductsAdapterListener.removeDishFavourite(favId);
-           // removeAt(getAdapterPosition());
+            removeAt(getAdapterPosition());
         }
     }
 
@@ -273,7 +276,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(mLayoutManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(collectionAdapter);
 
-            collectionAdapter.setListener(KitchenAdapter.this);
+            collectionAdapter.setListener(FavKitchenAdapter.this);
 
 
         }
@@ -307,7 +310,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(offerLayputManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(offersAdapter);
 
-            offersAdapter.setListener(KitchenAdapter.this);
+            offersAdapter.setListener(FavKitchenAdapter.this);
 
 
         }

@@ -8,6 +8,52 @@ import java.util.List;
 public class CartPageResponse {
 
 
+    @SerializedName("success")
+    @Expose
+    private Boolean success;
+    @SerializedName("status")
+    @Expose
+    private Boolean status;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("result")
+    @Expose
+    private List<Result> result = null;
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public List<Result> getResult() {
+        return result;
+    }
+
+    public void setResult(List<Result> result) {
+        this.result = result;
+    }
+
     public class Amountdetails {
 
         @SerializedName("grandtotal")
@@ -144,6 +190,7 @@ public class CartPageResponse {
         }
 
     }
+
     public class Cuisine {
 
         @SerializedName("cid")
@@ -539,42 +586,6 @@ public class CartPageResponse {
 
     }
 
-
-
-        @SerializedName("success")
-        @Expose
-        private Boolean success;
-        @SerializedName("status")
-        @Expose
-        private Boolean status;
-        @SerializedName("result")
-        @Expose
-        private List<Result> result = null;
-
-        public Boolean getSuccess() {
-            return success;
-        }
-
-        public void setSuccess(Boolean success) {
-            this.success = success;
-        }
-
-        public Boolean getStatus() {
-            return status;
-        }
-
-        public void setStatus(Boolean status) {
-            this.status = status;
-        }
-
-        public List<Result> getResult() {
-            return result;
-        }
-
-        public void setResult(List<Result> result) {
-            this.result = result;
-        }
-
     public class Result {
 
         @SerializedName("makeituserid")
@@ -598,6 +609,9 @@ public class CartPageResponse {
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
+        @SerializedName("isfav")
+        @Expose
+        private String isFav = "0";
         @SerializedName("favid")
         @Expose
         private Integer favid;
@@ -616,7 +630,25 @@ public class CartPageResponse {
         @SerializedName("ordercount")
         @Expose
         private Integer ordercount;
+        @SerializedName("isAvaliablekitchen")
+        @Expose
+        private boolean isAvaliablekitchen;
 
+        public boolean isAvaliablekitchen() {
+            return isAvaliablekitchen;
+        }
+
+        public void setAvaliablekitchen(boolean avaliablekitchen) {
+            isAvaliablekitchen = avaliablekitchen;
+        }
+
+        public String getIsFav() {
+            return isFav;
+        }
+
+        public void setIsFav(String isFav) {
+            this.isFav = isFav;
+        }
 
         public List<Cartdetail> getCartDetails() {
             return cartDetails;
@@ -723,6 +755,7 @@ public class CartPageResponse {
         }
 
     }
+
     public class Cartdetail {
 
         @SerializedName("title")

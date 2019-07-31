@@ -278,7 +278,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@{favTodaysMenuItemViewModel.isFavourite?@color/eat_color:@color/light_gray}"
+                android:background="@{favTodaysMenuItemViewModel.isFavourite?@color/red:@color/light_gray}"
                 android:onClick="@{()->favTodaysMenuItemViewModel.fav()}">
 
 
@@ -288,7 +288,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/icon_fav"
-                    android:textColor="@{favTodaysMenuItemViewModel.isFavourite?@color/white:@color/eat_color}"
+                    android:textColor="@{favTodaysMenuItemViewModel.isFavourite?@color/white:@color/red}"
                     android:textSize="25dp" />
 
 

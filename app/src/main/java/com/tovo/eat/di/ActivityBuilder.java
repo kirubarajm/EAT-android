@@ -123,6 +123,8 @@ import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsModule;
 import com.tovo.eat.ui.update.UpdateActivity;
 import com.tovo.eat.ui.update.UpdateModule;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.tovo.eat.utilities.nointernet.InternetErrorModule;
 import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
 
 import dagger.Module;
@@ -141,7 +143,6 @@ public abstract class ActivityBuilder {
             MyAccountProvider.class,
             FavoritesTabActivityProvider.class,
             CartProvider.class,
-            InternetErrorProvider.class,
             FilterProvider.class,
             OrderRatingProvider.class,
             OrderCanceledProvider.class,
@@ -298,6 +299,8 @@ public abstract class ActivityBuilder {
 
 @ContributesAndroidInjector(modules = {UpdateModule.class,OrderCanceledProvider.class})
     abstract UpdateActivity bindUpdateActivity();
+@ContributesAndroidInjector(modules = {InternetErrorModule.class})
+    abstract InternetErrorFragment bindInternetActivity();
 
 
 }

@@ -8,6 +8,7 @@ import android.databinding.ObservableList;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,6 +22,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
+import com.tovo.eat.ui.kitchendetails.TodaysMenuAdapter;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -418,6 +420,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
             cartRequestPojo.setUserid(getDataManager().getCurrentUserId());
 
+            cartRequestPojo.setLat(getDataManager().getCurrentLat());
+            cartRequestPojo.setLon(getDataManager().getCurrentLng());
+
 
             if (getDataManager().getRefundId() != 0) {
                 cartRequestPojo.setRcid(getDataManager().getRefundId());
@@ -440,6 +445,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
                         //    if (cartPageResponse.getStatus()) {
+
+                        if (!cartPageResponse.getStatus()){
+
+                            Toast.makeText(MvvmApp.getInstance(), cartPageResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+
 
                         if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
 
@@ -472,6 +485,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
                             //  makeit_category.set(response.getResult().get(0).getCategory());
+
+
+                            if (cartPageResponse.getResult().get(0).getIsFav().equals("1")){
+                                isFavourite.set(true);
+                            }else {
+                                isFavourite.set(false);
+                            }
+
 
 
                             totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
@@ -512,6 +533,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             } else {
                                 couponSelected.set(false);
+                                getDataManager().saveCouponId(0);
+                                getDataManager().saveCouponCode(null);
                             }
 
 
@@ -540,6 +563,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         setAddressTitle();
 
 
+
+
+                        if (!cartPageResponse.getResult().get(0).isAvaliablekitchen()){
+                            getNavigator().notServicable();
+                        }
+
+
+
+
                        /* } else {
 
                             getNavigator().showToast(cartPageResponse.getMessage());
@@ -564,9 +596,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
-                        headers.put("accept-version",AppConstants.API_VERSION_ONE);
-                        //  headers.put("Authorization","Bearer");
-                        headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                        headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                         return headers;
                     }
                 };
@@ -580,7 +611,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             } catch (Exception ee) {
                 emptyCart.set(true);
                 ee.printStackTrace();
-
             }
 
         } else {
@@ -600,9 +630,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 if (totalAmount == 0) {
                     if (getDataManager().getRefundId() != 0) {
 
-                        if (refundBalance.get()>0){
+                        if (refundBalance.get() > 0) {
                             getNavigator().refundAlert();
-                        }else {
+                        } else {
                             getNavigator().paymentGateway(grand_total.get());
                         }
 
@@ -611,7 +641,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     }
                 } else {
                     if (getDataManager().getRefundId() != 0) {
-                        getNavigator().refundAlert();
+
+                        if (refundBalance.get() > 0) {
+                            getNavigator().refundAlert();
+                        } else {
+                            getNavigator().paymentGateway(grand_total.get());
+                        }
                     } else {
                         getNavigator().paymentGateway(grand_total.get());
                     }
@@ -622,13 +657,23 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 if (getDataManager().getEmailStatus()) {
                     if (totalAmount == 0) {
                         if (getDataManager().getRefundId() != 0) {
-                            getNavigator().refundAlert();
+
+                            if (refundBalance.get() > 0) {
+                                getNavigator().refundAlert();
+                            } else {
+                                getNavigator().paymentGateway(grand_total.get());
+                            }
                         } else {
                             cashMode();
                         }
                     } else {
                         if (getDataManager().getRefundId() != 0) {
-                            getNavigator().refundAlert();
+
+                            if (refundBalance.get() > 0) {
+                                getNavigator().refundAlert();
+                            } else {
+                                getNavigator().paymentGateway(grand_total.get());
+                            }
                         } else {
                             getNavigator().paymentGateway(grand_total.get());
                         }
@@ -751,8 +796,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("accept-version",AppConstants.API_VERSION_ONE);
-                                headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                                 return headers;
                             }
                         };

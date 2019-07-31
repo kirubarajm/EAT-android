@@ -10,12 +10,12 @@ import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
+import com.tovo.eat.databinding.FragmentFavKitchenBinding;
 import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenNavigator;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
@@ -24,17 +24,17 @@ import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 
 import javax.inject.Inject;
 
-public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, StartFilter {
+public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, FavKitchenViewModel> implements KitchenNavigator, FavKitchenAdapter.LiveProductsAdapterListener, StartFilter {
 
 
     @Inject
-    KitchenViewModel mKitchenViewModel;
+    FavKitchenViewModel mKitchenViewModel;
    /* @Inject
     LinearLayoutManager mLayoutManager;*/
     @Inject
-    KitchenAdapter adapter;
+    FavKitchenAdapter adapter;
 
-    FragmentKitchenBinding mFragmentKitchenBinding;
+    FragmentFavKitchenBinding mFragmentKitchenBinding;
 
     public static FavKitchenFragment newInstance() {
         Bundle args = new Bundle();
@@ -86,11 +86,11 @@ public class FavKitchenFragment extends BaseFragment<FragmentKitchenBinding, Kit
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_kitchen;
+        return R.layout.fragment_fav_kitchen;
     }
 
     @Override
-    public KitchenViewModel getViewModel() {
+    public FavKitchenViewModel getViewModel() {
         return mKitchenViewModel;
     }
 

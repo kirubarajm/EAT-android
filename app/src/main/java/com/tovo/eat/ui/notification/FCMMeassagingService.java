@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -31,6 +32,8 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
@@ -56,45 +59,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         }
 
 
-
-
-       /* SharedPreferences sharedpreferences = getSharedPreferences("AAA", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("cust_name", data.get("cust_name"));
-        editor.commit();*/
-
-
-
-/*
-        Intent intent = new Intent(this, TaskAlertActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);*/
-
-
-
-      /*  Intent intent = new Intent(this,FirebaseDataReceiver.class);
-        intent.putExtra("data",notification.getTitle());
-        sendBroadcast(intent);*/
-
-
-
-       /* Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        ComponentName cn = new ComponentName(this, TaskAlertActivity.class);
-        intent.setComponent(cn);
-        startActivity(intent);*/
-
-
-      /*  AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-        builder.setTitle("Hai..");
-        builder.show();*/
-
-
-       /* Intent intent = new Intent(AppConstants.FCM_RECEIVER);
-        intent.putExtra("cust_name", data.get("cust_name"));
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
 
     }
 
@@ -169,30 +133,36 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
                 .setContentTitle(title)
                 .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
+
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-                /*   .setContentInfo("Hello")*/
+                   .setContentInfo("Hello")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages)
+              //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setSmallIcon(R.mipmap.ic_launcher);
 
-       /* try {
-            String picture = data.get(FCM_PARAM);
+
+
+        try {
+            String picture = data.get("image");
             if (picture != null && !"".equals(picture)) {
                 URL url = new URL(picture);
                 Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 notificationBuilder.setStyle(
-                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture).setSummaryText(notification.getBody())
+                        new NotificationCompat.BigPictureStyle().bigPicture(bigPicture).setSummaryText(message)
                 );
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -276,8 +246,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     }
 
     public void saveToken(String token) {
-
-
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         int userIdMain = appPreferencesHelper.getCurrentUserId();
 

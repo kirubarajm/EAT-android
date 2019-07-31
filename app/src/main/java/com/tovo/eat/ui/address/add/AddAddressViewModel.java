@@ -214,9 +214,8 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 request.setAddressTitle(title);
                 request.setAddressType(3);
             } else {
-
-                request.setAddressTitle("UnNamed");
-                request.setAddressType(3);
+                Toast.makeText(MvvmApp.getInstance(), "Please pin your address type", Toast.LENGTH_SHORT).show();
+                return;
             }
 
 
