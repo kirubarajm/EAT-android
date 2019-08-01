@@ -204,8 +204,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         initCountryText();
 
 
-       /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
+        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
 
 
     }
@@ -381,10 +381,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
         mStackLayoutManager = new StackLayoutManager();
-        /*mStackLayoutManager.setItemOffset(50);*/
+        mStackLayoutManager.setItemOffset(70);
         // mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
 
-      /*  mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
+       /* mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
         mStackLayoutManager.requestLayout();*/
         // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
 

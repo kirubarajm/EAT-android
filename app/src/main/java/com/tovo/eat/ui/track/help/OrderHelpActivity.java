@@ -83,7 +83,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
-        Toast.makeText(this, "Order canceled", Toast.LENGTH_SHORT).show();
 
     }
 

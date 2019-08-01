@@ -37,6 +37,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.di.component.DaggerAppComponent;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -137,6 +138,10 @@ public class MvvmApp extends Application implements HasActivityInjector {
         FirebaseAnalytics.getInstance(this);
 
 
+        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
+        appPreferencesHelper.setRatingAppStatus(true);
+
+
 
         //AppLogger.init();
 
@@ -213,6 +218,11 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
+        appPreferencesHelper.setRatingAppStatus(false);
 
-
+    }
 }

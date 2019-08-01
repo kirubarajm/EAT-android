@@ -1,4 +1,5 @@
 package com.tovo.eat.ui.account.orderhistory.ordersview;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -16,6 +19,7 @@ import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 
 import javax.inject.Inject;
 
@@ -30,6 +34,8 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Inject
     LinearLayoutManager mLayoutManager;
 
+    Dialog dialog;
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, OrderHistoryActivityView.class);
@@ -43,6 +49,16 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
     @Override
     public void clearCart() {
+
+
+
+
+
+
+
+
+
+
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHistoryActivityView.this);
         builder1.setMessage("Already you have added items in cart. Do you want to clear?");
@@ -76,7 +92,31 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
 
     }
+    public void showDialog() {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_change_kitchen);
 
+        ButtonTextView text = dialog.findViewById(R.id.changeAddress);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+        ButtonTextView dialogButton = dialog.findViewById(R.id.home);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
     @Override
     public void orderRepeat() {
         Intent intent= MainActivity.newIntent(OrderHistoryActivityView.this);
@@ -110,6 +150,8 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
         mActivityOrdersHostiryViewBinding = getViewDataBinding();
         mOrderHistoryActivityViewModelView.setNavigator(this);
         mOrdersHistoryActivityItemAdapter.setListener(this);
+
+        dialog=new Dialog(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){

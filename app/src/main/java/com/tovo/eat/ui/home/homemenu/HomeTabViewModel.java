@@ -548,7 +548,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
                                     if (kitchenResponse.getResult().size() > 0) {
-
+                                        emptyKitchen.set(false);
 
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -560,10 +560,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
                                         Log.e("Kitchen----response:", response.toString());
+                                    } else {
+                                        emptyKitchen.set(true);
                                     }
 
                                     //    getNavigator().kitchenListLoaded();
 
+                                }else {
+                                    emptyKitchen.set(true);
                                 }
 
 
@@ -573,6 +577,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
                                 //     getNavigator().kitchenListLoaded();
+                                emptyKitchen.set(true);
                             }
                         }) {
 

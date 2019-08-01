@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:visibility="@{todaysMenuItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}">
+                android:visibility="gone">
 
                 <com.tovo.eat.utilities.RoundCornerImageView
                     cusrsiveImageUrl="@{todaysMenuItemViewModel.image}"
@@ -68,6 +68,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 

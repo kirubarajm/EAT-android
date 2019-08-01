@@ -160,12 +160,13 @@ BaseFragment.Callback{
     @Override
     protected void onResume() {
         super.onResume();
+        ActiveActivitiesTracker.activityStopped();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ActiveActivitiesTracker.activityStopped();
+
         try{
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -176,6 +177,9 @@ BaseFragment.Callback{
     @Override
     protected void onPause() {
         super.onPause();
+        ActiveActivitiesTracker.activityStarted();
+
+
         try{
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -186,8 +190,6 @@ BaseFragment.Callback{
     @Override
     protected void onStart() {
         super.onStart();
-
-        ActiveActivitiesTracker.activityStarted();
 
 
 

@@ -195,6 +195,16 @@ public interface PreferencesHelper {
 
     void setRatingDate(String date);
 
+
+
+
+    boolean getRatingAppStatus();
+
+    void setRatingAppStatus(boolean status);
+
+
+
+
     String getApiToken();
 
     void setApiToken(String token);

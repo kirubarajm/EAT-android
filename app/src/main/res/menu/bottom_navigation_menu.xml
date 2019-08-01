@@ -33,7 +33,7 @@
 
     <item
         android:id="@+id/action_delete"
-        android:icon="@drawable/ic_perm_identity_black_24dp"
+        android:icon="@drawable/bottom_eat_account"
         android:title="@string/account" />
 
 

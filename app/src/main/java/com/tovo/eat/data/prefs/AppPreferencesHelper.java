@@ -49,6 +49,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_COUPON_CODE = "COUPON_CODE";
   private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
   private static final String PREF_KEY_RATING_DATE = "PREF_KEY_RATING_DATE";
+  private static final String PREF_KEY_RATING_APP_STATUS = "RATING_APP_STATUS";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
     private static final String PREF_KEY_RATING_ORDER_ID = "RATING_ORDER_ID";
@@ -460,6 +461,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setRatingDate(String date) {
         mPrefs.edit().putString(PREF_KEY_RATING_DATE, date).apply();
+    }
+
+    @Override
+    public boolean getRatingAppStatus() {
+        return mPrefs.getBoolean(PREF_KEY_RATING_APP_STATUS, false);
+    }
+
+    @Override
+    public void setRatingAppStatus(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_RATING_APP_STATUS, status).apply();
     }
 
     @Override

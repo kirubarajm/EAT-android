@@ -206,6 +206,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveRatingSkipDate(int skips) {
+        setRatingSkips(skips);
+    }
+
+    @Override
+    public void saveRatingAppStatus(boolean live) {
+        setRatingAppStatus(live);
+    }
+
+    @Override
     public void saveApiToken(String token) {
         setApiToken(token);
     }
@@ -588,7 +598,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setRatingOrderid(Integer orderid) {
-mPreferencesHelper.setRatingOrderid(orderid);
+        mPreferencesHelper.setRatingOrderid(orderid);
     }
 
     @Override
@@ -599,6 +609,16 @@ mPreferencesHelper.setRatingOrderid(orderid);
     @Override
     public void setRatingDate(String date) {
         mPreferencesHelper.setRatingDate(date);
+    }
+
+    @Override
+    public boolean getRatingAppStatus() {
+        return mPreferencesHelper.getRatingAppStatus();
+    }
+
+    @Override
+    public void setRatingAppStatus(boolean status) {
+mPreferencesHelper.setRatingAppStatus(status);
     }
 
     @Override
@@ -618,7 +638,7 @@ mPreferencesHelper.setRatingOrderid(orderid);
 
     @Override
     public void setCouponCode(String coupon) {
-mPreferencesHelper.setCouponCode(coupon);
+        mPreferencesHelper.setCouponCode(coupon);
     }
 
 

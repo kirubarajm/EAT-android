@@ -53,8 +53,6 @@ public class LiveOrderResponsePojo {
     }
 
 
-
-
     public class Result {
 
         @SerializedName("orderid")
@@ -204,7 +202,6 @@ public class LiveOrderResponsePojo {
     }
 
 
-
     public class Item {
 
         @SerializedName("price")
@@ -253,7 +250,6 @@ public class LiveOrderResponsePojo {
         }
 
     }
-
 
 
     public class Orderdetail {
@@ -357,7 +353,17 @@ public class LiveOrderResponsePojo {
         @SerializedName("rating")
         @Expose
         private Boolean rating;
+        @SerializedName("showrating")
+        @Expose
+        private Boolean showRating;
 
+        public Boolean getShowRating() {
+            return showRating;
+        }
+
+        public void setShowRating(Boolean showRating) {
+            this.showRating = showRating;
+        }
 
         public String getBrandname() {
             return brandname;

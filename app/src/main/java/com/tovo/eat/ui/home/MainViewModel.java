@@ -18,7 +18,6 @@ package com.tovo.eat.ui.home;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.icu.util.Calendar;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -242,27 +241,30 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             isLiveOrder.set(false);
                         }
 
-                        String date = "";
                         if (response.getOrderdetails().size() > 0) {
 
-
-
-                            boolean st=response.getOrderdetails().get(0).getRating();
+                            boolean st = response.getOrderdetails().get(0).getRating();
 
                             if (!st) {
 
-                                date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                                if (getDataManager().getRatingAppStatus()) {
 
-                                if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
-                                    if (!date.equals(getDataManager().getRatingDate())) {
-                                        if (getDataManager().getRatingSkips() < 3) {
-                                            getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(),response.getOrderdetails().get(0).getBrandname() );
+                                    if (response.getOrderdetails().get(0).getShowRating()) {
+
+                                        if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
+                                            if (getDataManager().getRatingSkips() < 3) {
+                                                getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
+                                            }
+
+                                        } else {
+                                            getDataManager().saveRatingSkipDate(0);
+                                            getDataManager().saveRatingOrderId(response.getOrderdetails().get(0).getOrderid());
+                                            getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
 
                                         }
+
                                     }
-                                } else {
-                                    getDataManager().saveRatingOrderId(response.getOrderdetails().get(0).getOrderid());
-                                    getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname() );
+
 
                                 }
                             }
@@ -279,7 +281,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     setIsLoading(false);
                     isLiveOrder.set(false);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
@@ -311,7 +313,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -488,7 +490,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     //  Log.e("", error.getMessage());
                     setIsLoading(false);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {

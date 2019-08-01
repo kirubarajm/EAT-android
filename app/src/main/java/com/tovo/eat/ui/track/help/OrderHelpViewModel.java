@@ -2,6 +2,7 @@ package com.tovo.eat.ui.track.help;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -121,6 +122,7 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
+                        Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         if (response.isStatus()) {
                             getNavigator().orderCanceled();
                         } else {

@@ -68,9 +68,10 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {
                         getNavigator().ratingSuccess();
+                        getDataManager().saveRatingSkipDate(0);
                     }
-                    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                    getDataManager().saveRatingSkipDate("",0);
+
+
 
                 }
             }, errorListener = new Response.ErrorListener() {
@@ -89,10 +90,8 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
     }
 
     public void maybeLater(){
-
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
-        getDataManager().saveRatingSkipDate(date,getDataManager().getRatingSkips()+1);
+        getDataManager().saveRatingAppStatus(false);
+        getDataManager().saveRatingSkipDate(getDataManager().getRatingSkips()+1);
         getNavigator().maybeLater();
     }
 

@@ -582,7 +582,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     public void statusUpdate() {
         mMainViewModel.totalCart();
-        mMainViewModel.liveOrders();
         mMainViewModel.saveRequestData();
         mMainViewModel.getDataManager().setIsFav(false);
 
@@ -590,21 +589,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
 
         } else {
-
-          /*  Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(DialogSelectAddress.class.getSimpleName());
-            if (oldFragment == null) {
-                DialogSelectAddress.newInstance().show(getSupportFragmentManager(), TestActivity.this);
-            }*/
-
-            //   startLocationTracking();
             mMainViewModel.addressTitle.set("Current location");
-
-           /* Intent intent = RegionDetailsActivity.newIntent(TestActivity.this);
-            intent.putExtra("for", "new");
-            startActivity(intent);*/
-
-
+            startLocationTracking();
         }
+        mMainViewModel.liveOrders();
 
     }
 

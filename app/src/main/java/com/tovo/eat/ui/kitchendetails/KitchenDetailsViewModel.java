@@ -95,6 +95,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         optionmenu.set(true);
         imageOrVideo.set(true);
 
+
+
         //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
                 (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -120,12 +122,17 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void vegType(){
-       if (isVegOnly.get()){
-           isVegOnly.set(false);
-           vegid=0;
-       }else {
+       if (!isVegOnly.get()){
            isVegOnly.set(true);
+           getDataManager().saveVegType(1);
            vegid=1;
+           fetchVegProducts();
+       }else {
+
+           isVegOnly.set(false);
+           getDataManager().saveVegType(0);
+           vegid=0;
+           fetchVegProducts();
        }
     }
 
@@ -283,12 +290,14 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void fetchRepos(Integer kitchenId) {
+
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
                     new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
-                            kitchenId, getDataManager().getCurrentUserId(),vegid), new Response.Listener<KitchenDishResponse>() {
+                            kitchenId, getDataManager().getCurrentUserId(),getDataManager().getVegType()), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
                     if (response != null) {
@@ -392,6 +401,62 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 }else {
                                     memberTypeDesc.set("null");
                                 }
+                            }
+
+                        getNavigator().dishListLoaded(response);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().dishListLoaded(null);
+                }
+            },AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
+
+    public void fetchVegProducts() {
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
+                    new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
+                            makeitId, getDataManager().getCurrentUserId(),getDataManager().getVegType()), new Response.Listener<KitchenDishResponse>() {
+                @Override
+                public void onResponse(KitchenDishResponse response) {
+                    if (response != null) {
+                        setIsLoading(false);
+                        totalCart();
+                        if (response.getResult() != null)
+                            if (response.getResult().size() != 0) {
+                                favoriteProductlists.clear();
+                                todaysMenuProductlists.clear();
+
+                                for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
+                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+
+                                        favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    } else {
+                                        todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    }
+                                }
+                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+
+                                if (favoriteProductlists.size()>0){
+                                    favorites.set(true);
+                                }
+                                if (todaysMenuProductlists.size()>0){
+                                    todaysMenu.set(true);
+                                }
+
+
                             }
 
                         getNavigator().dishListLoaded(response);

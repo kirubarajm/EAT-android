@@ -68,31 +68,18 @@ public class ActiveActivitiesTracker {
     static BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
-
-
-
-
-
-
             } else {
-
-
                 Intent inIntent=InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MvvmApp.getInstance().startActivity(inIntent);
-
-
-
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
                 transaction.commit();
                 internetCheck = true;*/
             }
-
         }
     };
     private static void unregisterWifiReceiver() {
