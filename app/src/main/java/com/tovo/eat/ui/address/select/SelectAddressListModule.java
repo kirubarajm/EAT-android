@@ -27,7 +27,7 @@ DataManager dataManager;
 
 
     @Provides
-    LinearLayoutManager provideLinearLayoutManager(SelectSelectAddressListActivity activity) {
+    LinearLayoutManager provideLinearLayoutManager(SelectAddressListActivity activity) {
         return new LinearLayoutManager(activity);
     }
 }

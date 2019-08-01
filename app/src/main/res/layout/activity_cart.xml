@@ -58,57 +58,67 @@
             android:gravity="center"
             android:visibility="@{cartViewModel.emptyCart?View.VISIBLE:View.GONE}">
 
-
-            <ImageView
-                android:id="@+id/img1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/empty_cart" />
-
-
-            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:id="@+id/tt1"
+            <LinearLayout
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img1"
-                android:layout_marginTop="10dp"
-                android:text="@string/cart_empty_title"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:orientation="vertical">
 
 
-            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tt1"
-                android:layout_marginTop="10dp"
-                android:text="@string/cart_empty_sub_title"
-                android:textAlignment="center"
-                android:textColor="@color/dark_gray"
-                android:textSize="12sp" />
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/img1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/empty_cart" />
 
 
-            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/curve_stroke"
-                android:onClick="@{()->cartViewModel.redirectKitchen()}"
-                android:paddingStart="20dp"
-                android:paddingTop="7dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="7dp"
-                android:text="@string/explore_kitchens"
-                android:textAlignment="center"
-                android:textColor="@color/dark_gray"
-                android:textSize="12sp" />
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/tt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img1"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cart_empty_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt1"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/cart_empty_sub_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/curve_stroke"
+                    android:onClick="@{()->cartViewModel.redirectKitchen()}"
+                    android:paddingStart="20dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="7dp"
+                    android:text="@string/explore_kitchens"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </RelativeLayout>
 
 
@@ -264,7 +274,6 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                        android:visibility="@{cartViewModel.couponSelected?View.GONE:View.VISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -278,20 +287,21 @@
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:visibility="@{cartViewModel.couponSelected?View.GONE:View.VISIBLE}" />
 
 
                     <RelativeLayout
-                        android:visibility="@{cartViewModel.couponSelected?View.VISIBLE:View.GONE}"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="@{cartViewModel.couponSelected?View.VISIBLE:View.GONE}">
 
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/code"
-                            android:layout_alignParentStart="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
                             android:layout_gravity="center_horizontal"
                             android:text="@{cartViewModel.promocode}"
                             android:textAllCaps="true"
@@ -300,10 +310,10 @@
 
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                            android:layout_below="@+id/code"
-                            android:layout_alignParentStart="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/code"
+                            android:layout_alignParentStart="true"
                             android:layout_gravity="center_horizontal"
                             android:text="@string/promo_code_applied"
                             android:textAllCaps="true"
@@ -311,22 +321,22 @@
                             android:textSize="10sp" />
 
                         <ImageView
-                            android:onClick="@{()->cartViewModel.promoCouponClose()}"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:tint="@color/red"
-                            android:src="@drawable/ic_close_black_24dp"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:onClick="@{()->cartViewModel.promoCouponClose()}"
+                            android:src="@drawable/ic_close_black_24dp"
+                            android:tint="@color/red" />
 
                     </RelativeLayout>
 
                     <View
-                        android:visibility="@{cartViewModel.couponSelected?View.VISIBLE:View.GONE}"
-                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/medium_gray"/>
+                        android:layout_marginTop="5dp"
+                        android:background="@color/medium_gray"
+                        android:visibility="@{cartViewModel.couponSelected?View.VISIBLE:View.GONE}" />
 
 
                     <LinearLayout
@@ -393,13 +403,10 @@
                         android:textStyle="bold" />
 
 
-
-
-
                     <LinearLayout
-                        android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recyclerview_bill"
@@ -412,10 +419,6 @@
                             tools:listitem="@layout/list_item_cart_bill" />
 
                     </LinearLayout>
-
-
-
-
 
 
                     <!--<LinearLayout
@@ -694,11 +697,11 @@
 
 
                     <LinearLayout
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
@@ -725,8 +728,8 @@
                                 <com.tovo.eat.utilities.fonts.TovoTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/icon_inr"
                                     android:layout_gravity="top"
+                                    android:text="@string/icon_inr"
                                     android:textAlignment="center"
                                     android:textColor="@color/black"
                                     android:textSize="10sp" />

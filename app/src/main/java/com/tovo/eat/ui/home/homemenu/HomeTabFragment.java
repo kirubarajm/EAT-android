@@ -37,6 +37,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
+import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
@@ -52,6 +53,7 @@ import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.card.DecodeBitmapTask;
@@ -61,6 +63,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
+import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener,
         StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener {
@@ -153,8 +158,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void selectAddress() {
-        Intent intent = AddressListActivity.newIntent(getContext());
-        startActivity(intent);
+        Intent intent = SelectAddressListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.SELECT_ADDRESS_LIST_CODE);
+
     }
 
     @Override
@@ -443,7 +449,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onResume() {
         super.onResume();
-        mHomeTabViewModel.updateAddressTitle();
+       /* mHomeTabViewModel.updateAddressTitle();*/
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
 
@@ -940,4 +946,26 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
+
+
+            if (resultCode == RESULT_OK) {
+                mHomeTabViewModel.updateAddressTitle();
+                mHomeTabViewModel.fetchRepos(0);
+                mHomeTabViewModel.fetchKitchen();
+
+
+            }
+
+
+        }
+
+
+    }
+
 }

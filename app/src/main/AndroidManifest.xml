@@ -50,7 +50,7 @@
             android:name=".ui.address.list.AddressListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.address.select.SelectSelectAddressListActivity"
+            android:name=".ui.address.select.SelectAddressListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.account.feedbackandsupport.FeedbackAndSupportActivity"

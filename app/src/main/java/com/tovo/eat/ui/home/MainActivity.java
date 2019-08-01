@@ -43,10 +43,9 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
-import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
+import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
-import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
@@ -56,7 +55,6 @@ import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.GpsUtils;
-import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import java.util.ArrayList;
@@ -305,7 +303,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void selectAddress() {
-        Intent intent = SelectSelectAddressListActivity.newIntent(MainActivity.this);
+        Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
     }
 

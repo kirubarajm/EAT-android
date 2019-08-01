@@ -49,8 +49,7 @@ import com.tovo.eat.ui.address.edit.EditAddressModule;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.list.AddressListModule;
 import com.tovo.eat.ui.address.select.SelectAddressListModule;
-import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
-import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
+import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledProvider;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
@@ -68,7 +67,6 @@ import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
-import com.tovo.eat.ui.home.homemenu.story.library.StatusStoriesProvider;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
 import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivityModule;
 import com.tovo.eat.ui.home.homemenu.story.sample.fragment.SampleViewPagerProvider;
@@ -89,8 +87,6 @@ import com.tovo.eat.ui.onboarding.OnBoardingActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivityModule;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
-import com.tovo.eat.ui.orderrating.OrderRatingActivity;
-import com.tovo.eat.ui.orderrating.OrderRatingActivityModule;
 import com.tovo.eat.ui.orderrating.OrderRatingProvider;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.payment.PaymentModule;
@@ -125,7 +121,6 @@ import com.tovo.eat.ui.update.UpdateActivity;
 import com.tovo.eat.ui.update.UpdateModule;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetErrorModule;
-import com.tovo.eat.utilities.nointernet.InternetErrorProvider;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -230,7 +225,7 @@ public abstract class ActivityBuilder {
 
 
     @ContributesAndroidInjector(modules ={ SelectAddressListModule.class,OrderCanceledProvider.class})
-    abstract SelectSelectAddressListActivity bindSelectSelectAddressListActivity();
+    abstract SelectAddressListActivity bindSelectSelectAddressListActivity();
 
     @ContributesAndroidInjector(modules = {FeedbackAndSupportActivityModule.class,OrderCanceledProvider.class})
     abstract FeedbackAndSupportActivity bindFeedbackSupportActivity();

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
-import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
+import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
@@ -189,8 +189,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void selectAddress() {
 
-        Intent intent = SelectSelectAddressListActivity.newIntent(getContext());
-        startActivity(intent);
+        Intent intent = SelectAddressListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.SELECT_ADDRESS_LIST_CODE);
+
     }
 
     @Override
@@ -424,6 +425,17 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
         } else if (requestCode == AppConstants.COUPON_LIST_CODE) {
+
+
+            if (resultCode == RESULT_OK) {
+
+                mCartViewModel.fetchRepos();
+
+
+            }
+
+
+        }else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
 
 
             if (resultCode == RESULT_OK) {

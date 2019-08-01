@@ -1,25 +1,23 @@
 package com.tovo.eat.ui.address.select;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressSelectBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
-import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 
 import javax.inject.Inject;
 
-public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddressSelectBinding, SelectAddressListViewModel> implements SelectAddressListNavigator, SelectAddressListAdapter.LiveProductsAdapterListener {
+public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelectBinding, SelectAddressListViewModel> implements SelectAddressListNavigator, SelectAddressListAdapter.LiveProductsAdapterListener {
 
     @Inject
     SelectAddressListViewModel mSelectAddressListViewModel;
@@ -32,7 +30,7 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, SelectSelectAddressListActivity.class);
+        return new Intent(context, SelectAddressListActivity.class);
     }
 
     @Override
@@ -84,14 +82,14 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Override
     public void addNewAddress() {
 
-        Intent intent = AddAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+        Intent intent = AddAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void editAddress() {
-        Intent intent = EditAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+        Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
         finish();
     }
@@ -103,10 +101,9 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
 
     @Override
     public void goBack() {
-        Intent intent = MainActivity.newIntent(SelectSelectAddressListActivity.this);
-        intent.putExtra("cart", true);
-        startActivity(intent);
-        finish();
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
+        finish();//finishing activity
     }
 
 
@@ -125,20 +122,25 @@ public class SelectSelectAddressListActivity extends BaseActivity<ActivityAddres
     @Override
     public void onItemClickData(SelectAddressListResponse.Result address) {
         mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality(),address.getAid());
-        Intent intent = MainActivity.newIntent(SelectSelectAddressListActivity.this);
-        intent.putExtra("cart", true);
-        startActivity(intent);
-        finish();
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        finish();//finishing activity
     }
 
     @Override
     public void editAddressClick(SelectAddressListResponse.Result address) {
-        Intent intent = EditAddressActivity.newIntent(SelectSelectAddressListActivity.this);
+        Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
         intent.putExtra("aid",address.getAid());
         startActivity(intent);
         finish();
 
     }
 
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
+        super.onDestroy();
+    }
 }
 

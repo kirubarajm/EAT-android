@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
+        android:background="@color/lgray"
         android:orientation="vertical">
 
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView

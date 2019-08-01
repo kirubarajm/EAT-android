@@ -28,6 +28,7 @@ public class AppConstants {
 
     public static final int REFUND_LIST_CODE  = 1110;
     public static final int COUPON_LIST_CODE  = 1111;
+    public static final int SELECT_ADDRESS_LIST_CODE  = 1122;
 
 
     public static final String FCM_RECEIVER = "ALERT";

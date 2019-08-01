@@ -21,6 +21,7 @@ import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -215,10 +216,17 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             } else if (typeOther.get()) {
 
                 request.setAddressTitle(title);
+
+                if (title.isEmpty()){
+
+                    Toast.makeText(MvvmApp.getInstance(), "Please select address pin", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
                 request.setAddressType(3);
             } else {
-                request.setAddressTitle("UnNamed");
-                request.setAddressType(3);
+               return;
             }
 
             request.setUserid(getDataManager().getCurrentUserId());

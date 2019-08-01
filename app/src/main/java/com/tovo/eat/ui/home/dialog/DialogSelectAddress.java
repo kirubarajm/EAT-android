@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.DialogSelectAddressBinding;
 import com.tovo.eat.ui.address.list.AddressListActivity;
-import com.tovo.eat.ui.address.select.SelectSelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseDialog;
 
 import javax.inject.Inject;

@@ -86,11 +86,11 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/kitchen_empty_title"
+                android:text="@string/fav_kitchen_empty_title"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 
-            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+           <!-- <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -98,7 +98,7 @@
                 android:textColor="@color/dark_gray"
                 android:text="@string/kitchen_empty_sub_title"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="12sp" />-->
 
 
 
