@@ -31,6 +31,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.OtpEditText;
 
 import javax.inject.Inject;
 
@@ -49,7 +50,18 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase("otp")) {
                 final String message = intent.getStringExtra("message");
-                mActivityOtpBinding.edt1.setText(message.substring(0, 1));
+
+
+
+                String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
+
+
+
+                mActivityOtpBinding.otpText.setText(otp);
+
+
+
+             /*   mActivityOtpBinding.edt1.setText(message.substring(0, 1));
                 mActivityOtpBinding.edt2.setText(message.substring(1, 2));
                 mActivityOtpBinding.edt3.setText(message.substring(2, 3));
                 mActivityOtpBinding.edt4.setText(message.substring(3, 4));
@@ -59,9 +71,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 mActivityOtpBinding.edt2.setEnabled(false);
                 mActivityOtpBinding.edt3.setEnabled(false);
                 mActivityOtpBinding.edt4.setEnabled(false);
-                mActivityOtpBinding.edt5.setEnabled(false);
+                mActivityOtpBinding.edt5.setEnabled(false);*/
 
-                mLoginViewModelMain.continueClick();
+              //  mLoginViewModelMain.continueClick();
             }
         }
     };
@@ -79,7 +91,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     public void continueClick() {
         //hideKeyboard();
         //strPhoneNumber=mActivityOtpBinding.edtPassword.getText().toString();
-        String st1 = mActivityOtpBinding.edt1.getText().toString();
+       /* String st1 = mActivityOtpBinding.edt1.getText().toString();
         String st2 = mActivityOtpBinding.edt2.getText().toString();
         String st3 = mActivityOtpBinding.edt3.getText().toString();
         String st4 = mActivityOtpBinding.edt4.getText().toString();
@@ -87,7 +99,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         String otp = st1 + st2 + st3 + st4 + st5;
         if (validForOtp())
-            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));
+            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));*/
     }
 
     @Override
@@ -259,7 +271,33 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         }
 
 
-        otpFocusOnTextChange();
+      //  otpFocusOnTextChange();
+
+        mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText.OnPinEnteredListener() {
+            @Override
+            public void onPinEntered(CharSequence str) {
+
+                mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
+              //  mLoginViewModelMain.continueClick();
+
+            }
+        });
+
+
+           /* mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText() {
+                @Override
+                public void onPinEntered(CharSequence str) {
+                    if (str.toString().equals("1234")) {
+                        Toast.makeText(AnimatedEditTextWidgetsActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AnimatedEditTextWidgetsActivity.this, "FAIL", Toast.LENGTH_SHORT).show();
+                        pinEntry.setText(null);
+                    }
+                }
+            });*/
+        //}
+
+
 
 
 
@@ -285,7 +323,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     }
 
-    private void otpFocusOnTextChange() {
+    /*private void otpFocusOnTextChange() {
         editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4, mActivityOtpBinding.edt5};
         mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
         mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
@@ -298,7 +336,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         mActivityOtpBinding.edt3.setOnKeyListener(new PinOnKeyListener(2));
         mActivityOtpBinding.edt4.setOnKeyListener(new PinOnKeyListener(3));
         mActivityOtpBinding.edt5.setOnKeyListener(new PinOnKeyListener(4));
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

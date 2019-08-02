@@ -14,6 +14,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -93,7 +94,7 @@ BaseFragment.Callback{
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     public T getViewDataBinding() {
@@ -178,8 +179,7 @@ BaseFragment.Callback{
     protected void onPause() {
         super.onPause();
         ActiveActivitiesTracker.activityStarted();
-
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         try{
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {

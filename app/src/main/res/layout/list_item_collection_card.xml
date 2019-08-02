@@ -34,15 +34,15 @@
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:background="@color/gray"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     imageUrl="@{collectionCardItemViewModel.imageUrl}"
-                    android:scaleType="center" />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

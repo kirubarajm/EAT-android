@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import dagger.android.support.AndroidSupportInjection;
 
@@ -84,6 +85,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         mRootView = mViewDataBinding.getRoot();
+       getBaseActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return mRootView;
     }
 
@@ -133,5 +135,11 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         void onFragmentAttached();
 
         void onFragmentDetached(String tag);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getBaseActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 }

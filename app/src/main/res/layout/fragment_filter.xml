@@ -170,8 +170,8 @@
                         android:id="@+id/recyclerview_filters"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:minHeight="250dp"
                         app:filteradapter="@{filterViewModel.filterItems}"
-                        android:layoutAnimation="@anim/lay_fall_down"
                         android:background="@android:color/white"
                         tools:listitem="@layout/list_item_filters">
                     </android.support.v7.widget.RecyclerView>
@@ -194,7 +194,7 @@
             android:background="@drawable/curve_stroke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:textSize="12sp"
             android:text="@string/apply"
             android:textAllCaps="true"

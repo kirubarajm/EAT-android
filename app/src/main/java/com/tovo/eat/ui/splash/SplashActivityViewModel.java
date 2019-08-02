@@ -21,7 +21,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
     }
 
     public void checkIsUserLoggedInOrNot() {
-        if (getDataManager().getCurrentUserId() != null) {
+        if (getDataManager().getCurrentUserId() != 0) {
             int userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
             boolean genderStatus = getDataManager().getisGenderStatus();
@@ -52,7 +52,6 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
                     getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
                 }else {
                     getNavigator().update(false, false);
-
                 }
 
             }

@@ -122,7 +122,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:background="@android:color/white"
-                android:layoutAnimation="@anim/lay_fall_down"
                 app:adapter="@{selectAddressListViewModel.selectAddrressListItemViewModels}"
                 tools:listitem="@layout/list_item_address" />
 

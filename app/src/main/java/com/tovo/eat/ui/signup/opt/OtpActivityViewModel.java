@@ -1,7 +1,10 @@
 package com.tovo.eat.ui.signup.opt;
 
+import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,6 +45,28 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public void forgotPasswordClick() {
         getNavigator().forgotPassword();
     }
+
+
+
+
+/*
+    @BindingAdapter("touchListener")
+    public void setTouchListener(View self, boolean value){
+        self.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                // Check if the button is PRESSED
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    //do some thing
+                }// Check if the button is RELEASED
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //do some thing
+                }
+                return false;
+            }
+        });
+    }*/
+
 
     public void login(String strPhoneNumber, String strPassword) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

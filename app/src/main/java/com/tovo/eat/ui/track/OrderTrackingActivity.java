@@ -56,6 +56,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderTrackingBinding;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.ui.track.help.OrderHelpViewModel;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
@@ -97,7 +98,26 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     private DatabaseReference mFirebaseTransportRef;
     private LinkedList<Map<String, Object>> mTransportStatuses = new LinkedList<>();
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            super.onReceive(context, intent);
+            try {
+                Bundle bundle = intent.getExtras();
+                if (bundle == null) return;
+                String pageid = bundle.getString("pageid");
+
+                if (pageid != null)
+                    if (pageid.equals("8")||pageid.equals("7")) {
+                     //   mMainViewModel.liveOrders();
+                    }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
     public static Intent newIntent(Context context) {
         return new Intent(context, OrderTrackingActivity.class);
     }
@@ -551,11 +571,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
 
-
-
-        DatabaseReference ref = FirebaseDatabase.getInstance("https://tovologies-1550475998119.firebaseio.com").getReference("");
+        DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
-
 
         geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {
             @Override
@@ -564,13 +581,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
 
-
                     LatLng latLng = new LatLng(location.latitude, location.longitude);
 
                     if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
-
-
-                        mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+                      //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
                             moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(latLng));
@@ -579,10 +593,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                         showMarker1(latLng);
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                     }
-
-
-
-
 
 
                 } else {

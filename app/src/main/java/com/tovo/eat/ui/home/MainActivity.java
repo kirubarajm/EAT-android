@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             String pageid = bundle.getString("pageid");
 
                 if (pageid != null)
-                    if (pageid.equals("8")) {
+                    if (pageid.equals("8")||pageid.equals("7")) {
                         mMainViewModel.liveOrders();
                     }
 
