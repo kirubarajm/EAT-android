@@ -32,12 +32,9 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
 
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
+    public ObservableBoolean favFragment = new ObservableBoolean();
+    public ObservableBoolean emptyKitchen = new ObservableBoolean();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
-
-    public ObservableBoolean favFragment=new ObservableBoolean();
-    public ObservableBoolean emptyKitchen=new ObservableBoolean();
-
-
 
 
     public KitchenViewModel(DataManager dataManager) {
@@ -46,7 +43,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         if (getDataManager().getIsFav()) {
             favFragment.set(false);
-        }else {
+        } else {
             favFragment.set(true);
         }
 
@@ -84,12 +81,10 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-
-    public void filter(){
+    public void filter() {
         getNavigator().filter();
 
     }
-
 
 
     public void removeFavourite(Integer favId) {
@@ -117,16 +112,16 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
 
     }
 
@@ -155,16 +150,16 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
 
 
     }
@@ -177,8 +172,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
         if (getDataManager().getCurrentLat() == null) {
 
-         //   getNavigator().kitchenListLoading();
-
+            //   getNavigator().kitchenListLoading();
 
 
         } else {
@@ -228,7 +222,6 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                                 filterRequestPojo.setRegionlist(null);
                         }
 
-
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
                         getDataManager().setFilterSort(json);
@@ -258,11 +251,11 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
 
-                                    if (kitchenResponse.getResult().size()>0){
+                                    if (kitchenResponse.getResult().size() > 0) {
                                         emptyKitchen.set(false);
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                    }else {
+                                    } else {
 
                                         emptyKitchen.set(true);
                                     }
@@ -302,15 +295,13 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         e.printStackTrace();
                     } catch (JSONException j) {
                         j.printStackTrace();
-                    } catch (Exception ee){
+                    } catch (Exception ee) {
 
-                    ee.printStackTrace();
+                        ee.printStackTrace();
+
+                    }
 
                 }
-
-
-                }
-
 
             } else {
 
@@ -332,17 +323,16 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             Log.e("", error.getMessage());
                             getNavigator().kitchenListLoaded();
                         }
-                    },AppConstants.API_VERSION_ONE);
+                    }, AppConstants.API_VERSION_ONE);
 
 
                     MvvmApp.getInstance().addToRequestQueue(gsonRequest);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
-                } catch (Exception ee){
+                } catch (Exception ee) {
+                    ee.printStackTrace();
 
-                ee.printStackTrace();
-
-            }
+                }
             }
         }
     }

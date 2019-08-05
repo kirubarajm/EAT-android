@@ -2,6 +2,23 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.util.Log;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
+import com.tovo.eat.utilities.MvvmApp;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class KitchenItemViewModel {
@@ -31,6 +48,9 @@ public class KitchenItemViewModel {
     public final KitchenResponse.Result mKitchenList;
 
 
+    int favID = 0;
+
+
     public KitchenItemViewModel(KitchenItemViewModelListener mListener, KitchenResponse.Result mKitchenList) {
         this.mListener = mListener;
         this.mKitchenList = mKitchenList;
@@ -42,15 +62,16 @@ public class KitchenItemViewModel {
         this.kitchen_image.set(mKitchenList.getMakeitimg());
 
 
-        if (mKitchenList.getEta()==null){
+        if (mKitchenList.getEta() == null) {
             isEta.set(false);
-        }else {
+        } else {
             this.eta.set(mKitchenList.getEta());
             isEta.set(true);
 
         }
 
-
+        if (mKitchenList.getFavid() != null)
+            favID = mKitchenList.getFavid();
 
         //  this.favourite.set(mKitchenList.getFavourite());
         //  this.offer.set(mKitchenList.getOffer());
@@ -86,12 +107,7 @@ public class KitchenItemViewModel {
         cuisines.set(items);*/
 
 
-
-
-        cuisines.set("by "+mKitchenList.getMakeitusername()+", from "+mKitchenList.getRegionname());
-
-
-
+        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from " + mKitchenList.getRegionname());
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));
@@ -117,8 +133,17 @@ public class KitchenItemViewModel {
 
     public void fav() {
 
+        if (isFavourite.get()) {
+            // isFavourite.set(false);
+            if (mKitchenList.getFavid() != null)
+                removeFavourite();
+        } else {
+            //isFavourite.set(true);
+            addFavourite(mKitchenList.getMakeituserid());
+        }
 
-        if (mKitchenList.getIsfav().equals("0")) {
+
+        /*if (mKitchenList.getIsfav().equals("0")) {
             isFavourite.set(true);
             mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
         } else if (mKitchenList.getIsfav().equals("1")) {
@@ -128,19 +153,93 @@ public class KitchenItemViewModel {
                 mListener.removeFavourites(mKitchenList.getFavid());
             }
 
-        } else {
-            isFavourite.set(false);
-        }
+        }*/
+    }
+
+    public void removeFavourite() {
+
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+        int userId = appPreferencesHelper.getCurrentUserId();
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        if (favID != 0)
+            try {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        isFavourite.set(false);
+                        favID = 0;
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+
+
+                    /**
+                     * Passing some request headers
+                     */
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                        headers.put("Authorization", "Bearer " + appPreferencesHelper.getApiToken());
+                        return headers;
+                    }
+                };
+                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
 
 
     }
 
 
+    public void addFavourite(Integer kitchenId) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
+
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+        int userId = appPreferencesHelper.getCurrentUserId();
+
+
+        try {
+
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(userId), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.getFavid() != null) {
+                            favID = response.getFavid();
+                            isFavourite.set(true);
+                        }
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public void onItemClick() {
         mListener.onItemClick(mKitchenList.getMakeituserid());
-
         //  mListener.onItemClick(isJobCompleted,Integer.parseInt(sales_emp_id.toString()) , Integer.parseInt(makeit_userid.toString()), date.toString(), name.toString(), email.toString(), phoneno.toString(), brandname.toString(),address.toString(),lat.toString(),lng.toString(),localityid.toString());
-
     }
 
     public interface KitchenItemViewModelListener {

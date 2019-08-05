@@ -473,7 +473,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:textAlignment="center"
-                                android:textSize="22sp"
+                                android:textSize="27sp"
                                 android:textStyle="bold" />
 
                             <com.tovo.eat.utilities.fonts.RegionNameTextView
@@ -483,7 +483,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:gravity="center"
-                                android:textSize="22sp"
+                                android:textSize="27sp"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>

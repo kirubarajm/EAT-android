@@ -414,8 +414,10 @@
     <string name="alert_bell_icon">&#xe906;</string>
     <string name="kitchen_home_icon">&#xe907;</string>
     <string name="document_icon">&#xe908;</string>
+    <string name="work_icon">&#xe91f;</string>
     <string name="video_document_icon">&#xe909;</string>
     <string name="home_icon">&#xe922;</string>
+    <string name="address_home_icon">&#xe91e;</string>
     <string name="female">&#xe91a;</string>
     <string name="male">&#xe91b;</string>
 
@@ -458,11 +460,6 @@
     <string name="icon_cart">&#xe90f;</string>
     <string name="icon_delete">&#xe920;</string>
     <string name="icon_address_not_servicable">&#xe90c;</string>
-
-
-
-
-
 
 
     <string name="minus">-</string>
@@ -606,46 +603,46 @@
     <string name="not_now">Not now</string>
 
 
-
     <!--Empty list content-->
 
 
-<!--kitchen empty-->
+    <!--kitchen empty-->
     <string name="kitchen_empty_title">Our mothers will cater your cravings soon! </string>
     <string name="kitchen_empty_sub_title"> None of our homes are cooking in your interest. Kindly modify your filters</string>
-<!--Region empty-->
+    <!--Region empty-->
     <string name="region_empty_title">We\'ll get there soon !  </string>
     <string name="region_empty_sub_title"> Our homemakers are pushing boundaries. Kindly bear with us!</string>
-<!--fav Dish empty-->
+    <!--fav Dish empty-->
     <string name="dish_empty_title"> You haven\'t favorites a dish yet ! </string>
     <string name="dish_empty_sub_title"> </string>
-<!--Fav kitchen empty-->
+    <!--Fav kitchen empty-->
     <string name="fav_kitchen_empty_title">You haven\'t favoried any kitchen yet !  </string>
     <string name="fav_kitchen_empty_sub_title"> empty</string>
-<!--Address empty-->
+    <!--Address empty-->
     <string name="address_empty_title">No addresses added yet. </string>
     <string name="address_empty_sub_title"> Where do you want us to serve you ? </string>
-<!--Order history empty-->
+    <!--Order history empty-->
     <string name="history_empty_title">You haven\'t placed any orders.</string>
     <string name="history_empty_sub_title"> Order right from our mothers\' homes!   </string>
-<!--Offer coupon empty-->
+    <!--Offer coupon empty-->
     <string name="offer_empty_title">Your coupons are exhausted!  </string>
     <string name="offer_empty_sub_title"> Refer a friend to earn exciting offers.</string>
-<!--search before empty-->
+    <!--search before empty-->
     <string name="before_empty_title">Tell us your cravings!  </string>
     <string name="before_empty_sub_title"> Search for your favorite kitchen, region or dish. </string>
-<!--search after empty-->
+    <!--search after empty-->
     <string name="after_empty_title">We\'re mistaken. </string>
     <string name="after_empty_sub_title">Our homes are working on your favorites. Kindly give us some time! </string>
-<!--cart empty-->
+    <!--cart empty-->
     <string name="cart_empty_title">Your plate seems empty!  </string>
     <string name="cart_empty_sub_title"> Add food made directly from our mothers\' kitchens.</string>
 
     <!--queries empty-->
-  <string name="queries_empty_title">Any questions to ask us ?</string>
+    <string name="queries_empty_title">Any questions to ask us ?</string>
     <string name="queries_empty_sub_title"> Kindly let us know. We are always here for you!</string>
 
-
+    <string name="veg_dish_empty_title">No veg products available.</string>
+    <string name="veg_dish_empty_sub_title"> Kindly visit another kitchen!</string>
 
 
     <string name="we_ll_serve_you_soon">WE’LL SERVE YOU SOON!</string>

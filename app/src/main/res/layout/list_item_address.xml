@@ -37,19 +37,21 @@
                     android:layout_height="30dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <com.tovo.eat.utilities.fonts.TovoTextView
                         android:tint="@color/black"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_home_black_24dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="@string/address_home_icon"
                         android:visibility="@{addressListItemViewModel.isHome?View.VISIBLE:View.GONE}" />
 
-
-                    <ImageView
-                        android:tint="@color/black"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_business_black_24dp"
+                    <com.tovo.eat.utilities.fonts.TovoTextView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="@string/work_icon"
                         android:visibility="@{addressListItemViewModel.isWork?View.VISIBLE:View.GONE}" />
                 </LinearLayout>
 

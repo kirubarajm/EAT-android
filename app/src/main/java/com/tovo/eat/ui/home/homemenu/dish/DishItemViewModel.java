@@ -4,6 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -11,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -19,7 +21,9 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class DishItemViewModel {
@@ -447,6 +451,7 @@ public class DishItemViewModel {
 
 
     public void removeFavourite() {
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -461,39 +466,27 @@ public class DishItemViewModel {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            });
+            }){
+
+
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    headers.put("Authorization", "Bearer " + appPreferencesHelper.getApiToken());
+                    return headers;
+                }
+            };
             MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
 
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-        /*try {
-
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, new Response.Listener<CommonResponse>() {
-                @Override
-                public void onResponse(CommonResponse response) {
-                    if (response != null) {
-
-                        mListener.favChanged();
-
-                        mListener.showToast(response.getMessage());
-
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }*/
 
     }
 

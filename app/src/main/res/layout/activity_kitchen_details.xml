@@ -10,9 +10,7 @@
 
         <variable
             name="kitchenDetailsViewModel"
-            type="com.tovo.eat.ui.kitchendetails.KitchenDetailsViewModel">
-
-        </variable>
+            type="com.tovo.eat.ui.kitchendetails.KitchenDetailsViewModel"></variable>
     </data>
 
     <RelativeLayout
@@ -96,13 +94,13 @@
                         android:layout_height="430dp"
                         android:fitsSystemWindows="true"
                         app:contentScrim="@color/white"
-                        app:scrimAnimationDuration="200"
-                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                        app:scrimAnimationDuration="200">
 
                         <RelativeLayout
-                            android:layout_marginTop="60dp"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp">
+                            android:layout_height="300dp"
+                            android:layout_marginTop="60dp">
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/recycler_kitchen_common_slider"
@@ -134,12 +132,12 @@
                              app:layout_collapseMode="parallax" />-->
 
                         <android.support.v7.widget.Toolbar
-                            app:contentInsetStart="0dp"
-                            app:contentInsetLeft="0dp"
                             android:id="@+id/toolbar"
                             android:layout_width="match_parent"
                             android:layout_height="180dp"
                             android:layout_alignParentTop="true"
+                            app:contentInsetLeft="0dp"
+                            app:contentInsetStart="0dp"
                             app:layout_collapseMode="pin"
                             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                             app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -185,14 +183,12 @@
                                             android:textStyle="bold" />
 
 
-
-
                                         <LinearLayout
-                                            android:layout_centerVertical="true"
-                                            android:layout_marginEnd="15dp"
-                                            android:layout_alignParentEnd="true"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginEnd="15dp"
                                             android:gravity="center"
                                             android:onClick="@{()->kitchenDetailsViewModel.vegType()}"
                                             android:orientation="vertical">
@@ -249,30 +245,30 @@
                                 app:layout_collapseMode="none">
 
                                 <ImageView
-                                    android:paddingStart="10dp"
-                                    android:paddingEnd="10dp"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"
+                                    imageUrl="@{kitchenDetailsViewModel.signatureImageUrl}"
                                     android:layout_width="200dp"
                                     android:layout_height="50dp"
                                     android:layout_centerInParent="true"
                                     android:gravity="center"
+                                    android:paddingStart="10dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingEnd="10dp"
+                                    android:paddingBottom="5dp"
                                     android:scaleType="centerInside"
-                                    imageUrl="@{kitchenDetailsViewModel.signatureImageUrl}"
                                     android:textColor="@color/eat_color"
                                     android:textSize="30sp"
                                     android:textStyle="italic" />
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:layout_below="@+id/signature"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:background="@color/white"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 app:layout_collapseMode="none">
 
                                 <android.support.v7.widget.CardView
@@ -367,10 +363,10 @@
 
 
                     <android.support.v4.widget.NestedScrollView
-                        android:layout_alignParentTop="true"
                         android:id="@+id/nested_scroll_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
                         android:layout_marginTop="20dp"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -567,7 +563,6 @@
                                     android:textSize="14sp" />
 
 
-
                                 <LinearLayout
                                     android:id="@+id/specialities"
                                     android:layout_width="match_parent"
@@ -633,6 +628,7 @@
                                         android:textColor="@color/black"
                                         android:textSize="18sp"
                                         android:visibility="@{kitchenDetailsViewModel.foodBadges?View.VISIBLE:View.GONE}" />
+
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="0.7dp"
@@ -665,89 +661,142 @@
                                 android:layout_below="@+id/about"
                                 android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
 
-                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                                    android:id="@+id/txt_favorites"
+                                <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:text="@string/favorites"
-                                    android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}"/>
+                                    android:layout_height="match_parent"
+                                    android:visibility="@{kitchenDetailsViewModel.isProductAvailable?View.VISIBLE:View.GONE}">
 
 
-                                <View
-                                    android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}"
-                                    android:id="@+id/separator1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.7dp"
-                                    android:layout_below="@+id/txt_favorites"
-                                    android:layout_marginStart="20dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="20dp"
-                                    android:background="@drawable/gradient_view_kitchen" />
-
-
-
-                                <LinearLayout
-                                    android:id="@+id/menu"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/separator1"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="vertical"
-                                    android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
-
-                                    <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
-                                        android:id="@+id/recycler_fav"
+                                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                        android:id="@+id/txt_favorites"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginTop="1dp"
-                                        android:layout_marginBottom="30dp"
-                                        android:background="@android:color/white"
-                                        app:favoriteadapter="@{kitchenDetailsViewModel.favoriteArrayViewModels}"
-                                        tools:listitem="@layout/list_item_fav_" />
-                                </LinearLayout>
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/favorites"
+                                        android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}" />
 
-                                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                                    android:id="@+id/txt_todays_menu"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/menu"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:text="@string/today_s_menu"
-                                    android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"/>
-                                <View
-                                    android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}"
-                                    android:id="@+id/separator2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0.7dp"
-                                    android:layout_below="@+id/txt_todays_menu"
-                                    android:layout_marginStart="20dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="20dp"
-                                    android:background="@drawable/gradient_view_kitchen" />
 
-                                <LinearLayout
-                                    android:id="@+id/todays"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/separator2"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="vertical"
-                                    android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
-
-                                    <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
-                                        android:id="@+id/recycler_todays_menu"
+                                    <View
+                                        android:id="@+id/separator1"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginTop="1dp"
-                                        android:layout_marginBottom="30dp"
-                                        android:background="@android:color/white"
-                                        app:todaysMenuadapter="@{kitchenDetailsViewModel.todaysMenuArrayViewModels}"
-                                        tools:listitem="@layout/list_item_fav_" />
+                                        android:layout_height="0.7dp"
+                                        android:layout_below="@+id/txt_favorites"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginEnd="20dp"
+                                        android:background="@drawable/gradient_view_kitchen"
+                                        android:visibility="@{kitchenDetailsViewModel.favorites?View.VISIBLE:View.GONE}" />
 
-                                </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/menu"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/separator1"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="vertical"
+                                        android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
+
+                                        <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                                            android:id="@+id/recycler_fav"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginTop="1dp"
+                                            android:layout_marginBottom="30dp"
+                                            android:background="@android:color/white"
+                                            app:favoriteadapter="@{kitchenDetailsViewModel.favoriteArrayViewModels}"
+                                            tools:listitem="@layout/list_item_fav_" />
+                                    </LinearLayout>
+
+                                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                        android:id="@+id/txt_todays_menu"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/menu"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/today_s_menu"
+                                        android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}" />
+
+                                    <View
+                                        android:id="@+id/separator2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.7dp"
+                                        android:layout_below="@+id/txt_todays_menu"
+                                        android:layout_marginStart="20dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginEnd="20dp"
+                                        android:background="@drawable/gradient_view_kitchen"
+                                        android:visibility="@{kitchenDetailsViewModel.todaysMenu?View.VISIBLE:View.GONE}" />
+
+                                    <LinearLayout
+                                        android:id="@+id/todays"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/separator2"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="vertical"
+                                        android:visibility="@{kitchenDetailsViewModel.optionmenu?View.VISIBLE:View.GONE}">
+
+                                        <com.tovo.eat.utilities.slidemenu.SlidingItemMenuRecyclerView
+                                            android:id="@+id/recycler_todays_menu"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginTop="1dp"
+                                            android:layout_marginBottom="30dp"
+                                            android:background="@android:color/white"
+                                            app:todaysMenuadapter="@{kitchenDetailsViewModel.todaysMenuArrayViewModels}"
+                                            tools:listitem="@layout/list_item_fav_" />
+
+                                    </LinearLayout>
+
+                                </RelativeLayout>
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:visibility="@{kitchenDetailsViewModel.isProductAvailable?View.GONE:View.VISIBLE}">
+
+
+                                    <LinearLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_margin="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_width="100dp"
+                                            android:layout_height="100dp"
+                                            android:src="@drawable/empty_cart" />
+
+
+                                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:textAlignment="center"
+                                            android:text="@string/veg_dish_empty_title"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp" />
+
+                                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                            android:textAlignment="center"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+                                            android:text="@string/veg_dish_empty_sub_title"
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="12sp" />
+
+                                    </LinearLayout>
+
+
+                                </RelativeLayout>
+
 
                             </RelativeLayout>
 

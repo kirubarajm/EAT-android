@@ -5,17 +5,15 @@
     <data>
 
         <import type="android.view.View" />
-
         <variable
             name="offerListItemViewModel"
             type="com.tovo.eat.ui.home.homemenu.OfferListItemViewModel" />
-
     </data>
 
     <RelativeLayout
         android:background="@color/white"
         android:onClick="@{()->offerListItemViewModel.onItemClick()}"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <com.tovo.eat.utilities.RoundCornerImageView

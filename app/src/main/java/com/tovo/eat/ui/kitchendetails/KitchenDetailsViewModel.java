@@ -55,6 +55,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableBoolean specialities = new ObservableBoolean();
     public ObservableBoolean foodBadges = new ObservableBoolean();
     public ObservableBoolean imageOrVideo = new ObservableBoolean();
+    public ObservableBoolean isProductAvailable = new ObservableBoolean();
     public ObservableList<KitchenDishResponse.Specialitem> specialItemsListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Specialitem>> specialitemsMutableLiveData;
     public ObservableField<String> region = new ObservableField<>();
@@ -65,8 +66,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> about = new ObservableField<>();
     public ObservableField<String> signatureImageUrl = new ObservableField<>();
     public ObservableField<String> ratingCount = new ObservableField<>();
-
-
 
 
     List<KitchenDishResponse.Productlist> favoriteProductlists = new ArrayList<>();
@@ -95,8 +94,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         optionmenu.set(true);
         imageOrVideo.set(true);
 
-
-
         //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
                 (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -104,6 +101,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();*/
+
 
     }
 
@@ -117,23 +115,23 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
     }
 
-    public void vegType(){
-       if (!isVegOnly.get()){
-           isVegOnly.set(true);
-           getDataManager().saveVegType(1);
-           vegid=1;
-           fetchVegProducts();
-       }else {
+    public void vegType() {
+        if (!isVegOnly.get()) {
+            isVegOnly.set(true);
+            getDataManager().saveVegType(1);
+            vegid = 1;
+            fetchVegProducts();
+        } else {
 
-           isVegOnly.set(false);
-           getDataManager().saveVegType(0);
-           vegid=0;
-           fetchVegProducts();
-       }
+            isVegOnly.set(false);
+            getDataManager().saveVegType(0);
+            vegid = 0;
+            fetchVegProducts();
+        }
     }
 
 
@@ -205,7 +203,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -241,7 +239,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                 @Override
                 public void onErrorResponse(VolleyError error) {
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -297,114 +295,117 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
                     new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
-                            kitchenId, getDataManager().getCurrentUserId(),getDataManager().getVegType()), new Response.Listener<KitchenDishResponse>() {
+                            kitchenId, getDataManager().getCurrentUserId(), vegid), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
                     if (response != null) {
                         setIsLoading(false);
                         totalCart();
-                        if (response.getResult() != null)
-                            if (response.getResult().size() != 0) {
 
-                                for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
-                                        favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                    } else {
-                                        todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                    }
-                                }
-                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
-                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                        if (response.getResult() != null && response.getResult().size() != 0) {
 
-                                if (favoriteProductlists.size()>0){
-                                    favorites.set(true);
-                                }
-                                if (todaysMenuProductlists.size()>0){
-                                    todaysMenu.set(true);
-                                }
+                            isProductAvailable.set(true);
 
-
-                                ratingCount.set(String.valueOf(response.getResult().get(0).getRatingCount()));
-
-
-
-
-                                signatureImageUrl.set(response.getResult().get(0).getKitchensignature());
-
-
-                                favAndTodayMenuArrayListLiveData.setValue(response.getResult());
-                                foodBadgesMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
-                                specialitemsMutableLiveData.setValue(response.getResult().get(0).getSpecialitems());
-
-                                if (response.getResult().get(0).getFoodbadge().size()>0){
-                                    foodBadges.set(true);
-                                }
-                                if (response.getResult().get(0).getSpecialitems().size()>0){
-                                    specialities.set(true);
-                                }
-
-                                kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
-                                kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
-
-                                int count = kitchenmenuimageArrayList.size();
-                                getNavigator().update(count);
-                                /////menu slider details
-                                commonKitchenImagesList = kitchenmenuimageArrayList;
-                                if (commonKitchenImagesList != null) {
-                                    kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
-                                }
-
-                                ////info slider details
-                                kitchenInfoTempArray = new ArrayList<>();
-                                for (int i = 0; i < kitchenInfoimageArrayList.size(); i++) {
-                                    kitchenmenuimage = new KitchenDishResponse.Kitchenmenuimage();
-                                    kitchenmenuimage.setType(kitchenInfoimageArrayList.get(i).getType());
-                                    kitchenmenuimage.setImgUrl(kitchenInfoimageArrayList.get(i).getImgUrl());
-
-                                    kitchenInfoTempArray.add(kitchenmenuimage);
-                                }
-
-                                makeitId = response.getResult().get(0).getMakeituserid();
-                                kitchenImage.set(response.getResult().get(0).getMakeitimg());
-                                isFav = response.getResult().get(0).getIsfav();
-                                kitchenCategory.set(response.getResult().get(0).getLocalityname());
-
-                                if (response.getResult().get(0).getFavid() != null) {
-                                    favId = response.getResult().get(0).getFavid();
-                                }
-                                if (response.getResult().get(0).getIsfav().equals("0")) {
-                                    isFavourite.set(false);
+                            for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
+                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+                                    favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                 } else {
-                                    isFavourite.set(true);
-                                }
-                                if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
-
-                                    kitchenName.set(response.getResult().get(0).getMakeitusername());
-
-                                } else {
-                                    kitchenName.set(response.getResult().get(0).getMakeitbrandname());
-                                }
-
-                                rating.set(String.valueOf(response.getResult().get(0).getRating()));
-                                region.set("from "+ response.getResult().get(0).getRegionname());
-                                localityName.set("Lives in "+ response.getResult().get(0).getLocality());
-                                memberType.set(String.valueOf(response.getResult().get(0).getMemberType()));
-
-                                about.set(response.getResult().get(0).getAbout());
-
-                                if (memberType.equals("1")) {
-                                    memberTypeDesc.set("Gold member");
-                                } else if (memberType.equals("2")) {
-                                    memberTypeDesc.set("Silver member");
-                                } else if (memberType.equals("3")) {
-                                    memberTypeDesc.set("Bronze member");
-                                }else {
-                                    memberTypeDesc.set("null");
+                                    todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                 }
                             }
+                            favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                            todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
-                        getNavigator().dishListLoaded(response);
+                            if (favoriteProductlists.size() > 0) {
+                                favorites.set(true);
+                            }
+                            if (todaysMenuProductlists.size() > 0) {
+                                todaysMenu.set(true);
+                            }
+
+
+                            ratingCount.set(String.valueOf(response.getResult().get(0).getRatingCount()));
+
+
+                            signatureImageUrl.set(response.getResult().get(0).getKitchensignature());
+
+
+                            favAndTodayMenuArrayListLiveData.setValue(response.getResult());
+                            foodBadgesMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
+                            specialitemsMutableLiveData.setValue(response.getResult().get(0).getSpecialitems());
+
+                            if (response.getResult().get(0).getFoodbadge().size() > 0) {
+                                foodBadges.set(true);
+                            }
+                            if (response.getResult().get(0).getSpecialitems().size() > 0) {
+                                specialities.set(true);
+                            }
+
+                            kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
+                            kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
+
+                            int count = kitchenmenuimageArrayList.size();
+                            getNavigator().update(count);
+                            /////menu slider details
+                            commonKitchenImagesList = kitchenmenuimageArrayList;
+                            if (commonKitchenImagesList != null) {
+                                kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
+                            }
+
+                            ////info slider details
+                            kitchenInfoTempArray = new ArrayList<>();
+                            for (int i = 0; i < kitchenInfoimageArrayList.size(); i++) {
+                                kitchenmenuimage = new KitchenDishResponse.Kitchenmenuimage();
+                                kitchenmenuimage.setType(kitchenInfoimageArrayList.get(i).getType());
+                                kitchenmenuimage.setImgUrl(kitchenInfoimageArrayList.get(i).getImgUrl());
+
+                                kitchenInfoTempArray.add(kitchenmenuimage);
+                            }
+
+                            makeitId = response.getResult().get(0).getMakeituserid();
+                            kitchenImage.set(response.getResult().get(0).getMakeitimg());
+                            isFav = response.getResult().get(0).getIsfav();
+                            kitchenCategory.set(response.getResult().get(0).getLocalityname());
+
+                            if (response.getResult().get(0).getFavid() != null) {
+                                favId = response.getResult().get(0).getFavid();
+                            }
+                            if (response.getResult().get(0).getIsfav().equals("0")) {
+                                isFavourite.set(false);
+                            } else {
+                                isFavourite.set(true);
+                            }
+                            if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                                kitchenName.set(response.getResult().get(0).getMakeitusername());
+
+                            } else {
+                                kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                            }
+
+                            rating.set(String.valueOf(response.getResult().get(0).getRating()));
+                            region.set("from " + response.getResult().get(0).getRegionname());
+                            localityName.set("Lives in " + response.getResult().get(0).getLocalityname());
+                            memberType.set(String.valueOf(response.getResult().get(0).getMemberType()));
+
+                            about.set(response.getResult().get(0).getAbout());
+
+                            if (memberType.equals("1")) {
+                                memberTypeDesc.set("Gold member");
+                            } else if (memberType.equals("2")) {
+                                memberTypeDesc.set("Silver member");
+                            } else if (memberType.equals("3")) {
+                                memberTypeDesc.set("Bronze member");
+                            } else {
+                                memberTypeDesc.set("null");
+                            }
+                        } else {
+
+
+                            isProductAvailable.set(false);
+                        }
                     }
+                    getNavigator().dishListLoaded(response);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -412,7 +413,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     setIsLoading(false);
                     getNavigator().dishListLoaded(null);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
@@ -427,39 +428,48 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
                     new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
-                            makeitId, getDataManager().getCurrentUserId(),getDataManager().getVegType()), new Response.Listener<KitchenDishResponse>() {
+                            makeitId, getDataManager().getCurrentUserId(), vegid), new Response.Listener<KitchenDishResponse>() {
                 @Override
                 public void onResponse(KitchenDishResponse response) {
                     if (response != null) {
                         setIsLoading(false);
                         totalCart();
-                        if (response.getResult() != null)
-                            if (response.getResult().size() != 0) {
-                                favoriteProductlists.clear();
-                                todaysMenuProductlists.clear();
 
-                                for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+                        if (response.getResult() != null && response.getResult().size() != 0) {
+                            favoriteProductlists.clear();
+                            todaysMenuProductlists.clear();
 
-                                        favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                    } else {
-                                        todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                    }
+
+                            isProductAvailable.set(true);
+
+                            for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
+                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+
+                                    favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                } else {
+                                    todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                 }
-                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
-                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
-
-                                if (favoriteProductlists.size()>0){
-                                    favorites.set(true);
-                                }
-                                if (todaysMenuProductlists.size()>0){
-                                    todaysMenu.set(true);
-                                }
-
-
                             }
+                            favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                            todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
-                        getNavigator().dishListLoaded(response);
+                            if (favoriteProductlists.size() > 0) {
+                                favorites.set(true);
+                            }
+                            if (todaysMenuProductlists.size() > 0) {
+                                todaysMenu.set(true);
+                            }
+                            getNavigator().dishListLoaded(response);
+                        } else {
+                            favoriteProductlists.clear();
+                            todaysMenuProductlists.clear();
+                            favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                            todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                            favorites.set(false);
+                            todaysMenu.set(false);
+                            isProductAvailable.set(false);
+
+                        }
                     }
                 }
             }, new Response.ErrorListener() {
@@ -468,7 +478,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     setIsLoading(false);
                     getNavigator().dishListLoaded(null);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {

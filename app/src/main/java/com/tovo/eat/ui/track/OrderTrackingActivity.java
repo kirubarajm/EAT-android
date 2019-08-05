@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -33,14 +32,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.maps.DirectionsApi;
@@ -54,11 +48,9 @@ import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderTrackingBinding;
-import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.track.help.OrderHelpActivity;
-import com.tovo.eat.ui.track.help.OrderHelpViewModel;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.utilities.LatLngInterpolator;
 import com.tovo.eat.utilities.MarkerAnimation;
@@ -83,21 +75,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Inject
     OrderTrackingViewModel mOrderTrackingViewModel;
     ActivityOrderTrackingBinding mActivityDirectionBinding;
-    Bitmap origin_marker, destination_marker,moveit_marker;
+    Bitmap origin_marker, destination_marker, moveit_marker;
     double deliveryBoyLat;
     double deliveryBoyLng;
     LatLng moveitLatLng;
     LatLng makeitLatLng;
     LatLng cusLatLng;
     boolean liveTracking = true;
-    private Marker moveitLocationMarker;
-    private Marker makeitLocationMarker;
-    private Marker customerLocationMarker;
-    private GoogleMap mMap;
-    private boolean firstTimeFlag = true;
-    private DatabaseReference mFirebaseTransportRef;
-    private LinkedList<Map<String, Object>> mTransportStatuses = new LinkedList<>();
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
         @Override
@@ -108,16 +92,29 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 if (bundle == null) return;
                 String pageid = bundle.getString("pageid");
 
-                if (pageid != null)
-                    if (pageid.equals("8")||pageid.equals("7")) {
+                if (pageid != null) {
+                    mOrderTrackingViewModel.getOrderDetails();
+                }
+
+                   /* if (pageid.equals("8")||pageid.equals("7")) {
                      //   mMainViewModel.liveOrders();
-                    }
+                    }*/
+
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     };
+    private Marker moveitLocationMarker;
+    private Marker makeitLocationMarker;
+    private Marker customerLocationMarker;
+    private GoogleMap mMap;
+    private boolean firstTimeFlag = true;
+    private DatabaseReference mFirebaseTransportRef;
+    private LinkedList<Map<String, Object>> mTransportStatuses = new LinkedList<>();
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+
     public static Intent newIntent(Context context) {
         return new Intent(context, OrderTrackingActivity.class);
     }
@@ -199,7 +196,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 matrix, false);*/
 
 
-
     }
 
     @Override
@@ -211,7 +207,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         setSupportActionBar(mActivityDirectionBinding.header);
 
-        ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
@@ -259,7 +255,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -286,10 +281,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             try {
 
 
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-            mMap.moveCamera(cu);
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                mMap.moveCamera(cu);
 
-            }catch (Exception ee){
+            } catch (Exception ee) {
                 ee.printStackTrace();
                 mOrderTrackingViewModel.getOrderDetails();
             }
@@ -333,6 +328,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -348,21 +344,20 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id ==android. R.id.home) {
-           finish();
-        }else if(id==R.id.refresh){
-          mOrderTrackingViewModel.getOrderDetails();
-        }
-        else if(id==R.id.order_cancel){
+        if (id == android.R.id.home) {
+            finish();
+        } else if (id == R.id.refresh) {
+            mOrderTrackingViewModel.getOrderDetails();
+        } else if (id == R.id.order_cancel) {
             Intent intent = OrderHelpActivity.newIntent(this);
-            intent.putExtra("name",mOrderTrackingViewModel.getDataManager().getOrderId() );
-            intent.putExtra("number",String.valueOf(mOrderTrackingViewModel.deliveryManNumber) );
-            intent.putExtra("status",mOrderTrackingViewModel.track.get());
+            intent.putExtra("name", mOrderTrackingViewModel.getDataManager().getOrderId());
+            intent.putExtra("number", String.valueOf(mOrderTrackingViewModel.deliveryManNumber));
+            intent.putExtra("status", mOrderTrackingViewModel.track.get());
             startActivity(intent);
         }
-       // return true;
-    return super.onOptionsItemSelected(item);
-}
+        // return true;
+        return super.onOptionsItemSelected(item);
+    }
 
     private void showMarker1(LatLng currentLocation) {
 
@@ -507,12 +502,12 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 try {
 
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                builder.include(makeitLatLng);
-                builder.include(cusLatLng);
-                bounds = builder.build();
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    builder.include(makeitLatLng);
+                    builder.include(cusLatLng);
+                    bounds = builder.build();
 
-                }catch (Exception rr){
+                } catch (Exception rr) {
                     rr.printStackTrace();
                 }
                 //  int padding = 0; // offset from edges of the map in pixels
@@ -527,14 +522,14 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
                     mMap.moveCamera(cu);
 
-                }catch (Exception ee){
+                } catch (Exception ee) {
                     ee.printStackTrace();
                     mOrderTrackingViewModel.getOrderDetails();
 
                 }
 
             }
-        }catch (Exception rr){
+        } catch (Exception rr) {
             rr.printStackTrace();
         }
 
@@ -555,7 +550,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         Intent intent = OrderDetailsActivity.newIntent(this);
         intent.putExtra("orderId",
-                String.valueOf(orderId) );
+                String.valueOf(orderId));
         startActivity(intent);
     }
 
@@ -566,9 +561,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
 
-
     private void loadPreviousStatuses(Integer moveitId) {
-
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
@@ -584,7 +577,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     LatLng latLng = new LatLng(location.latitude, location.longitude);
 
                     if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
-                      //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+                        //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
                             moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(latLng));
