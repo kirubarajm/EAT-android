@@ -33,25 +33,32 @@
                 android:background="@color/white"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
+
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
                     android:onClick="@{()->editAccountViewModel.goBack()}"
-                    android:src="@drawable/ic_arrow_back_black_24dp" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                </RelativeLayout>
 
                 <com.tovo.eat.utilities.fonts.poppins.TitleTextView
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textAllCaps="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/edit_info"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -68,7 +75,6 @@
 
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:textStyle="bold"
                 android:id="@+id/txt_choose_avator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +85,8 @@
                 android:text="@string/choose_avator"
                 android:textAlignment="center"
                 android:textColor="@color/dark_gray"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -103,12 +110,12 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
                         android:textColor="@color/dark_gray"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"
+                        app:font_name="poppinsSemiBold" />
 
 
                 </LinearLayout>
@@ -125,12 +132,12 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="M"
                         android:textColor="@color/eat_color"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"
+                        app:font_name="poppinsSemiBold" />
 
 
                 </LinearLayout>
@@ -146,12 +153,12 @@
                     android:visibility="@{editAccountViewModel.male?View.GONE:View.VISIBLE}">
 
                     <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="M"
                         android:textColor="@color/dark_gray"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"
+                        app:font_name="poppinsSemiBold" />
 
 
                 </LinearLayout>
@@ -169,12 +176,12 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.EatTextView
-                        app:font_name="poppinsSemiBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
                         android:textColor="@color/eat_color"
-                        android:textSize="28sp" />
+                        android:textSize="28sp"
+                        app:font_name="poppinsSemiBold" />
 
 
                 </LinearLayout>
@@ -193,6 +200,7 @@
                 android:layout_marginRight="20dp">
 
                 <android.support.design.widget.TextInputEditText
+                    android:imeOptions="actionNext"
                     android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -216,9 +224,10 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edt_email"
+                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ENTER YOUR EMAIL"
+                    android:hint="@string/enter_your_email"
                     android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLength="30"
@@ -238,11 +247,13 @@
 
 
                 <AutoCompleteTextView
+                    enter="true"
+                    android:imeOptions="actionDone"
                     android:id="@+id/region"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="ENTER YOUR HOMETOWN"
+                    android:hint="@string/enter_your_hometown"
                     android:textSize="14sp"
                     android:theme="@style/EditTextHint" />
             </android.support.design.widget.TextInputLayout>
@@ -259,8 +270,6 @@
             android:padding="10dp">
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                android:textStyle="bold"
-                app:font_name="poppinsSemiBold"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
@@ -270,7 +279,9 @@
                 android:text="@string/apply_changes"
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:font_name="poppinsSemiBold" />
 
         </RelativeLayout>
 

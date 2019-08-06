@@ -25,10 +25,14 @@ import android.media.MediaDataSource;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -92,6 +96,7 @@ import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
 
 import java.util.List;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 /**
@@ -425,6 +430,32 @@ public final class BindingUtils {
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
      //   Glide.with(context).load(url).into(imageView);
+
+    }
+ @BindingAdapter("enter")
+    public static void closeKeyboaard(EditText editText, boolean status) {
+        Context context = editText.getContext();
+
+     editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+         @Override
+         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+             if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+
+                 InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
+                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
+
+             }
+             return false;
+         }
+     });
+    }
+@BindingAdapter("closekey")
+    public static void closeSoftKeyboaard(ImageView view, boolean status) {
+        Context context = view.getContext();
+
+    InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
     }
 

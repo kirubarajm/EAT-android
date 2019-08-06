@@ -19,7 +19,8 @@
 
         <com.tovo.eat.utilities.RoundCornerImageView
             android:layout_width="60dp"
-            android:layout_margin="5dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
             app:imageUrl="@{storiesItemViewModel.stories_url}"
             android:scaleType="centerCrop"
             android:layout_height="60dp"/>

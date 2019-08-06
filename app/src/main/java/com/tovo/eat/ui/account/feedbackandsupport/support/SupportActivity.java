@@ -171,17 +171,21 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         }
         return true;
     }
-
         @Override
         public void onRequestPermissionsResult(int requestCode,
                                                String permissions[], int[] grantResults) {
             switch (requestCode) {
                 case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
                     if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                       callAdmin();
-                    } else{
+                      // callAdmin();
                         String number = "9597352662";
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(callIntent);
+                    } else{
+                        String number = "9597352662";
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
                         callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);

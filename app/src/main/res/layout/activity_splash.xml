@@ -21,9 +21,9 @@
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/img_logo"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/eat_login_logo" />
+                android:src="@drawable/ic_eatlogo_01" />
 
     </RelativeLayout>
 

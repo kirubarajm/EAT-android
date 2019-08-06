@@ -35,6 +35,7 @@
 
         </activity>
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="portrait">
 

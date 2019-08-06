@@ -8,6 +8,8 @@ import com.tovo.eat.ui.home.region.RegionsResponse;
 public class RegionCardItemViewModel {
 
     public final ObservableField<String> regionName = new ObservableField<>();
+
+    public final ObservableField<String> slogan = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> content = new ObservableField<>();
     public final ObservableField<String> tagline = new ObservableField<>();
@@ -27,6 +29,7 @@ public class RegionCardItemViewModel {
         this.position = position;
 
         regionName.set(mRegionList.getRegionname());
+        slogan.set(mRegionList.getTagline());
         tagline.set(mRegionList.getTagline());
         title.set(mRegionList.getSliderTitle());
         content.set(mRegionList.getSliderContent());

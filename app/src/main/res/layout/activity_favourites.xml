@@ -16,9 +16,9 @@
 
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
@@ -78,7 +78,6 @@
             android:layout_below="@+id/shimmer_view_container">
 
 
-
             <android.support.v7.widget.CardView
                 android:id="@+id/topBar"
                 android:layout_width="match_parent"
@@ -92,29 +91,35 @@
                     android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
                         android:onClick="@{()->favouritesViewModel.goBack()}"
-                        android:src="@drawable/ic_arrow_back_black_24dp" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
-
+                    </RelativeLayout>
 
                     <com.tovo.eat.utilities.fonts.poppins.TitleTextView
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:layout_centerInParent="true"
-                        android:textAlignment="center"
                         android:layout_width="match_parent"
-                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:text="@string/favourites"
-                        android:textSize="18sp" />
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -122,13 +127,11 @@
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
-                android:layout_below="@+id/topBar"
                 android:id="@+id/tab"
                 android:layout_width="220dp"
                 android:layout_height="40dp"
+                android:layout_below="@+id/topBar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/light_gray"
@@ -158,14 +161,14 @@
                             android:layout_height="match_parent">
 
                             <com.tovo.eat.utilities.fonts.poppins.TitleTextView
-                                app:font_name="poppinsMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="@string/kitchen"
                                 android:textAllCaps="true"
                                 android:textColor="@{favouritesViewModel.optionmenu?@color/white:@color/dark_gray}"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                app:font_name="poppinsMedium" />
                         </RelativeLayout>
 
                     </android.support.v7.widget.CardView>
@@ -204,12 +207,12 @@
 
 
             <FrameLayout
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/tab"
-                android:layout_above="@+id/cart"
                 android:id="@+id/favourite_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_above="@+id/cart"
+                android:layout_below="@+id/tab"
+                android:layout_marginTop="25dp" />
 
 
             <RelativeLayout

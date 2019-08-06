@@ -59,7 +59,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
         getSupportActionBar().setHomeAsUpIndicator(backArrow);
 
-
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
 
@@ -88,6 +87,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
                     mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
 
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+
 
                     // Toast.makeText(FavouritesActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
                     // setTitle("Kitchen");
@@ -118,7 +118,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
                 mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             }
         });*/
-
 
     }
 

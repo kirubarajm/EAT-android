@@ -227,8 +227,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
         appPreferencesHelper.setRatingAppStatus(false);
 
     }
-/*
-    public void hideSoftKeyboard() {
+    /*public void hideSoftKeyboard() {
         if(getCurrentFocus()!=null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
