@@ -649,6 +649,8 @@
     <string name="change_address">Change Address</string>
     <string name="enter_your_hometown">ENTER YOUR HOMETOWN</string>
     <string name="enter_your_email">ENTER YOUR EMAIL</string>
+    <string name="menu">MENU</string>
+    <string name="your_order_has_been_delivered">Your order has been delivered</string>
 
 
 </resources>

@@ -158,6 +158,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                                 CartRequestPojo.Cartitem cartitem = new CartRequestPojo.Cartitem();
                                 cartitem.setProductid(response.getResult().get(0).getItems().get(i).getProductid());
                                 cartitem.setQuantity(response.getResult().get(0).getItems().get(i).getQuantity());
+                                cartitem.setPrice(response.getResult().get(0).getItems().get(i).getPrice());
                                 orderitems.add(cartitem);
                             }
 

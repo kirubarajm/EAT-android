@@ -93,6 +93,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
         optionmenu.set(true);
         imageOrVideo.set(true);
+        isProductAvailable.set(true);
 
         //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
@@ -324,7 +325,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             }
 
 
-                            ratingCount.set(String.valueOf(response.getResult().get(0).getRatingCount()));
+                            ratingCount.set("("+ (response.getResult().get(0).getRatingCount())+")");
 
 
                             signatureImageUrl.set(response.getResult().get(0).getKitchensignature());

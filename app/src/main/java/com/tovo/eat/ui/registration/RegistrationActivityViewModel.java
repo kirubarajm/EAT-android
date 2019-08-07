@@ -51,7 +51,6 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         setIsLoading(true);
         try {
 
-
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId, strEmail), new Response.Listener<RegistrationResponse>() {
                 @Override
                 public void onResponse(RegistrationResponse response) {

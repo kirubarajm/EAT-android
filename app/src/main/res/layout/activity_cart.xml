@@ -205,7 +205,7 @@
                                     android:layout_marginBottom="10dp"
                                     android:onClick="@{()->cartViewModel.fav()}"
                                     android:text="@string/icon_fav_heart_selected"
-                                    android:textColor="@{cartViewModel.isFavourite?@color/eat_color:@color/dark_gray}" />
+                                    android:textColor="@{cartViewModel.isFavourite?@color/red :@color/dark_gray}" />
 
 
                             </RelativeLayout>

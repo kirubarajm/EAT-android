@@ -189,7 +189,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                                 if (response.getBoolean("status")) {
 
                                     getDataManager().currentOrderId(response.getInt("orderid"));
-                                    getDataManager().setCartDetails("");
+                                    getDataManager().setCartDetails(null);
                                     getNavigator().orderCompleted();
 
 
@@ -418,7 +418,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                         if (response.getBoolean("status")) {
                             getNavigator().paymentSuccessed(true);
-                            getDataManager().setCartDetails("");
+                            getDataManager().setCartDetails(null);
                             getDataManager().saveRefundId(0);
                             getDataManager().saveCouponId(0);
                         } else {

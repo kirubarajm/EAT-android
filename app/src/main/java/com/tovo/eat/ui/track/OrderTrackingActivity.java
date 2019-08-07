@@ -2,6 +2,7 @@ package com.tovo.eat.ui.track;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,9 +67,13 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 
 public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBinding, OrderTrackingViewModel> implements
-        OrderTrackingNavigator, OnMapReadyCallback {
+        OrderTrackingNavigator, OnMapReadyCallback, HasSupportFragmentInjector {
 
 
     private static final String TAG = OrderTrackingActivity.class.getSimpleName();
@@ -82,6 +88,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     LatLng makeitLatLng;
     LatLng cusLatLng;
     boolean liveTracking = true;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
         @Override
@@ -93,7 +101,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 String pageid = bundle.getString("pageid");
 
                 if (pageid != null) {
-                    mOrderTrackingViewModel.getOrderDetails();
+                    mOrderTrackingViewModel.changeTrackingStatus();
                 }
 
                    /* if (pageid.equals("8")||pageid.equals("7")) {
@@ -382,6 +390,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void onStop() {
         super.onStop();
 
+        try{
+            unregisterReceiver(dataReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -393,6 +406,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void onStart() {
         super.onStart();
+        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver, intentFilter);
     }
 
     @Override
@@ -675,5 +690,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
 }
 

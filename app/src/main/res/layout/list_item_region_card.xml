@@ -103,6 +103,8 @@
 
             </android.support.v7.widget.CardView>-->
 
+    <!--android:layout_width="1.5in"
+    android:layout_height="2in"-->
 
     <android.support.v7.widget.CardView
         android:onClick="@{()->regionItemViewModel.onItemClick()}"

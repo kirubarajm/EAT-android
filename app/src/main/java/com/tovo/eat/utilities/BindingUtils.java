@@ -410,17 +410,7 @@ public final class BindingUtils {
 
         Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
-                .fitCenter()
                 .into(imageView);
-      //  Glide.with(context).load(url).into(imageView);
-
-
-
-               /* with(context).load(url).placeholder(R.drawable. images_loading)
-                .error(R.drawable.imagenotavailable)
-                .into(imageView);*/
-
-      //  Glide.with(context).load(url).into(imageView);
     }
 
     @BindingAdapter("imageUrl")

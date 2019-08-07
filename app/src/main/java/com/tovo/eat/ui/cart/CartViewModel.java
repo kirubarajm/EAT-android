@@ -767,7 +767,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     if (response.getBoolean("status")) {
 
                                         getDataManager().currentOrderId(response.getInt("orderid"));
-                                        getDataManager().setCartDetails("");
+                                        getDataManager().setCartDetails(null);
                                         getNavigator().orderCompleted();
                                         getDataManager().saveRefundId(0);
 
