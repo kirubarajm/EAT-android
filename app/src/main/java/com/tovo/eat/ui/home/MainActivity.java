@@ -55,6 +55,8 @@ import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import java.util.ArrayList;
@@ -98,27 +100,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
     };
-    /*BroadcastReceiver orderReciever=new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-
-        }
-    };
-
-    class OrderReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // do your stuff here
-        }
-    }*/
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
-                if (internetCheck) {
+               /* if (internetCheck) {
 
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     HomeTabFragment fragment = new HomeTabFragment();
@@ -129,13 +117,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mMainViewModel.isExplore.set(false);
                     mMainViewModel.isCart.set(false);
                     mMainViewModel.isMyAccount.set(false);
-                }
+                }*/
             } else {
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
+                Intent inIntent=InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
             }
 
         }
@@ -602,6 +588,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
+        registerWifiReceiver();
 
     }
 
@@ -611,6 +598,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onPause();
         try{
             unregisterReceiver(dataReceiver);
+            unregisterWifiReceiver();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
@@ -752,7 +740,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterWifiReceiver();
+
         try{
         unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -862,6 +850,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
     }
+
+
+
+
 
 
 }

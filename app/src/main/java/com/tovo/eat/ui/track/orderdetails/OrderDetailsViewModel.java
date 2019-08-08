@@ -102,9 +102,9 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
 
     public void fetchRepos(String orderId) {
 
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-            setIsLoading(true);
 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_VIEW + orderId, OrdersHistoryActivityResponse.class, new Response.Listener<OrdersHistoryActivityResponse>() {
                 @Override
@@ -125,7 +125,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
-                            if (paymentType.equals("0")) {
+                            if (String.valueOf(response.getResult().get(0).getPaymentType()).equals("0")) {
                                 strPaymentType.set("Amount to be paid through COD");
                             } else {
                                 strPaymentType.set("Amount to be paid through Online");

@@ -94,15 +94,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         refundListItemsLiveData = new MutableLiveData<>();
         cartBillLiveData = new MutableLiveData<>();
 
+        getDataManager().saveRefundId(0);
+        getDataManager().saveCouponId(0);
+
+
+
+
+
 
         if (getCartPojoDetails() != null)
             fetchRepos();
 
-
         fetchRefunds();
 
-        getDataManager().saveRefundId(0);
-        getDataManager().saveCouponId(0);
+
 
         //  getDataManager().setisPasswordStatus(false);
 

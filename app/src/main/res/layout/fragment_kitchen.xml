@@ -167,9 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:animateLayoutChanges="false"
                     android:background="@android:color/white"
-                    android:nestedScrollingEnabled="false"
                     app:adapter="@{kitchenViewModel.kitchenItemViewModels}"
                     tools:listitem="@layout/list_item_kitchens" />
 

@@ -1,11 +1,16 @@
 package com.tovo.eat.ui.kitchendetails;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -38,7 +43,9 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
+import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
+import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
 import javax.inject.Inject;
@@ -623,6 +630,15 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
         //mKitchenDetailsViewModel.fetchRepos(kitchenID);
+
+        registerWifiReceiver();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterWifiReceiver();
     }
 
     @Override
@@ -736,5 +752,61 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         });
         nagDialog.show();
     }
+
+
+
+
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        MvvmApp.getInstance().registerReceiver(mWifiReceiver, filter);
+    }
+
+
+    private  boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+
+        ConnectivityManager cm =
+                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+        if (networkInfo != null
+                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && networkInfo.isConnected()) {
+            return true;
+        } else return networkInfo != null
+                && networkInfo.isConnected();
+    }
+
+     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MvvmApp.getInstance().startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
+    private  void unregisterWifiReceiver() {
+        MvvmApp.getInstance().  unregisterReceiver(mWifiReceiver);
+    }
+
+
 }
 

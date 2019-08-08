@@ -247,11 +247,10 @@
             android:layout_marginEnd="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/curve_stroke"
             android:onClick="@{()->orderRatingViewModel. maybeLater()}"
-            android:text="May be later"
+            android:text="@string/not_now"
             android:textAllCaps="true"
-            android:textColor="@color/eat_color"
+            android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 

@@ -104,6 +104,7 @@
             android:layout_marginLeft="50dp"
             android:onClick="@{()->selectAddressListItemViewModel.editAddress()}"
             android:text="@string/edit"
+            android:textAllCaps="true"
             android:textColor="@color/eat_color"
             android:textSize="14sp"
             android:textStyle="bold" />

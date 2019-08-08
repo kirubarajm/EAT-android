@@ -22,8 +22,8 @@
             android:id="@+id/toolbar_history_view"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="10dp"
-            app:cardMaxElevation="10dp">
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -143,7 +143,6 @@
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -154,13 +153,11 @@
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
+                            android:layout_gravity="center_vertical"
                             android:text="@string/icon_inr"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="8sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
@@ -177,49 +174,49 @@
 
 
                 <RelativeLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp">
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="Delivery charges"
+                        android:text="@string/delivery_charge"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
-
-                    <LinearLayout
+                    <RelativeLayout
+                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/inr_de"
                             android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
                             android:text="@string/icon_inr"
-                            android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="9sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_toEndOf="@+id/inr_de"
+                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderDetailsViewModel.delivery}"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
-
-
-                    </LinearLayout>
+                        <!--@{orderDetailsViewModel.delivery}-->
+                    </RelativeLayout>
 
 
                 </RelativeLayout>

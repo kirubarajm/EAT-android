@@ -181,14 +181,14 @@
 
         </android.support.v4.widget.DrawerLayout>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <!--<android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/address_looking_up"
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
 
 
         <LinearLayout
@@ -214,12 +214,11 @@
                     android:rotation="180" />
                 <!--android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}"-->
 
-
                 <RelativeLayout
                     android:onClick="@{()->viewModel.trackLiveOrder()}"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="@color/light_gray"
+                    android:background="@color/tracking_back"
                     android:orientation="horizontal">
 
 

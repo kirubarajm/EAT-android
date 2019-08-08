@@ -241,7 +241,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                         Log.e("response", response.getMessage());
                         getNavigator().addressSaved();
 
-                        getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), 1);
+                        getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
 
 
 
@@ -249,7 +249,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
 
-                        FilterRequestPojo filterRequestPojo;
+                        /*FilterRequestPojo filterRequestPojo;
 
                         Gson sGson = new GsonBuilder().create();
                         filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
@@ -260,7 +260,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                        getDataManager().setFilterSort(json);*/
 
 
                     }
@@ -350,8 +350,6 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
-
-
 
                 }
             }, new Response.ErrorListener() {

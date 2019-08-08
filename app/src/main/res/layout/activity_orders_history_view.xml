@@ -24,8 +24,8 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp">
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -226,6 +226,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="1dp"
+                                tools:itemCount="5"
                                 android:background="@android:color/white"
                                 app:adapter="@{OrdersHistryViewModel.ordersItemViewModels}"
                                 tools:listitem="@layout/list_item_orders_history_item" />

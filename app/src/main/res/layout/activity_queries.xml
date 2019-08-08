@@ -95,19 +95,23 @@
                             android:id="@+id/txt_contact_support"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:text="@string/contact_support"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/txt_contact_support"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:background="@drawable/curve_stroke"
                             android:gravity="center"
-                            android:onClick="@{()->queriesViewModel.callAdmin()}"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="@{()->queriesViewModel.callAdmin()}">
 
                             <com.tovo.eat.utilities.fonts.TovoTextView
                                 android:layout_width="wrap_content"
@@ -117,12 +121,16 @@
                                 android:textColor="@color/eat_color" />
 
                             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                                android:layout_marginStart="10dp"
                                 android:id="@+id/txt_call"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center"
-                                android:text="Call" />
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:textColor="@color/eat_color"
+                                android:text="@string/call" />
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -133,7 +141,7 @@
                         android:layout_marginTop="20dp"
                         android:gravity="center"
                         android:text="@string/any_doubts_write_to_us"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edt_queries"
@@ -152,19 +160,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp">
 
-                        <com.tovo.eat.utilities.fonts.CircularStdMedium
+                        <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="100dp"
                             android:layout_height="40dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:layout_marginEnd="40dp"
-                            android:layout_marginRight="40dp"
-                            android:background="@drawable/stoke"
+                            android:background="@drawable/curve_stroke"
                             android:gravity="center"
                             android:onClick="@{()->queriesViewModel.submitClick()}"
                             android:text="@string/submit"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="@color/eat_color"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -173,7 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="25dp"
-                        android:background="#eeeeee"
+                        android:background="@color/white"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -193,14 +199,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/replies"
-                                    android:textSize="18sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:layout_alignParentRight="true"
                                     android:background="@drawable/count_bck"
                                     android:gravity="center"
                                     android:text="@{queriesViewModel.count}"
@@ -214,7 +219,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:layout_marginTop="10dp"
-                                android:background="@android:color/black" />
+                                android:background="@color/dark_gray" />
 
                             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:id="@+id/txt_address"
@@ -227,7 +232,7 @@
                                 android:paddingRight="10dp"
                                 android:text="@string/view_details"
                                 android:textColor="@color/eat_color"
-                                android:textSize="16sp" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
                     </LinearLayout>

@@ -26,8 +26,8 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp">
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

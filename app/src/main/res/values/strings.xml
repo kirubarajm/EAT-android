@@ -651,6 +651,7 @@
     <string name="enter_your_email">ENTER YOUR EMAIL</string>
     <string name="menu">MENU</string>
     <string name="your_order_has_been_delivered">Your order has been delivered</string>
+    <string name="call">Call</string>
 
 
 </resources>

@@ -13,18 +13,16 @@
     <RelativeLayout
         android:background="@color/white"
         android:onClick="@{()->offerListItemViewModel.onItemClick()}"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.tovo.eat.utilities.RoundCornerImageView
             android:layout_centerHorizontal="true"
-            android:layout_width="250dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+            android:layout_width="match_parent"
+     android:layout_margin="10dp"
             app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}"
-            android:scaleType="centerInside"
-            android:layout_height="150dp"/>
+            android:scaleType="fitCenter"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

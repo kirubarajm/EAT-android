@@ -52,8 +52,6 @@ BaseFragment.Callback{
                         bottomSheetFragment.setArguments(bundle);
                         bottomSheetFragment.setCancelable(false);
                         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-
-
                     }
 
             } catch (Exception e) {
