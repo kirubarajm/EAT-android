@@ -201,7 +201,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
 
 
-       /* startActivity(new Intent(OnBoardingActivity.this, SamplePagerFragment.class));
+       /* startActivity(new Intent(OnBoardingActivity.this, StoriesPagerFragment.class));
         finish();*/
 
 

@@ -67,9 +67,9 @@ import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenProvider;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenProvider;
-import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
-import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivityModule;
-import com.tovo.eat.ui.home.homemenu.story.sample.fragment.SampleViewPagerProvider;
+import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
+import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivityModule;
+import com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesViewPagerProvider;
 
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishModule;
@@ -285,8 +285,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {EditAccountModule.class,OrderCanceledProvider.class})
     abstract EditAccountActivity bindEditAccountActivity();
 
-    @ContributesAndroidInjector(modules = {SampleTabActivityModule.class, SampleViewPagerProvider.class})
-    abstract SampleTabActivity bindSampleActivity();
+    @ContributesAndroidInjector(modules = {StoriesTabActivityModule.class, StoriesViewPagerProvider.class})
+    abstract StoriesTabActivity bindSampleActivity();
 
 
   @ContributesAndroidInjector(modules = {CouponListModule.class,OrderCanceledProvider.class})

@@ -10,7 +10,7 @@
 
         <variable
             name="sampleViewModel"
-            type="com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivityViewModel" />
+            type="com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivityViewModel" />
 
     </data>
 
