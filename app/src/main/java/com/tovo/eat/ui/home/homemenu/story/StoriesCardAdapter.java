@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.home.homemenu.story;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -131,6 +133,18 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mStoriesItemViewModel = new StoriesItemViewModel(this, blog);
             mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+
+            if ((blog.getStories().get(blog.getStories().size()-1).isSeen())) {
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                mListItemLiveProductsBinding.storyCard.setColorFilter(filter);
+
+            }
         }
 
         @Override

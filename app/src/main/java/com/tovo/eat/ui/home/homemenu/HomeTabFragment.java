@@ -533,7 +533,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
 
-
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(getBaseActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION);
