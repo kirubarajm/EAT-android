@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.address.add;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,10 +32,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -59,14 +65,32 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     Location mLocation;
     boolean isGPS;
 
+    ProgressDialog dialog;
 
-  //  private ProgressDialog dialog;
+
+    //  private ProgressDialog dialog;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MvvmApp.getInstance().startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
         return new Intent(context, AddAddressActivity.class);
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -98,6 +122,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         finish();
         //    Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
 
+        hideKeyboard();
 
     }
 
@@ -128,7 +153,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         finish();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,20 +160,14 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         mAddAddressViewModel.setNavigator(this);
         //  startLocationTracking();
 
-       /* dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
         dialog.setMessage("Getting your location..");
         dialog.setTitle("Please Wait!");
-        dialog.show();*/
+       // dialog.show();
 
         isFirstTime = true;
-
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
-            @Override
-            public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
-                isGPS = isGPSEnable;
-            }
-        });
+        //  getUserLocation();
 
         /*buildGoogleAPIClient();*/
 
@@ -163,24 +181,117 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map.getUiSettings().setZoomControlsEnabled(true);
 
 
-                Location location = getLocation();
+                turnOnGps();
+
+               /* Location location = getLocation();
                 if (location != null) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                     initCameraIdle();
                 }
-                initCameraIdle();
+                initCameraIdle();*/
             }
         });
 
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+    }
+
+    public void turnOnGps() {
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(AddAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                    } else {
+                        //getLocation();
+                        if (!dialog.isShowing())
+                            dialog.show();
+
+                        if (map != null) {
+                            Location location = getLocation();
+
+
+                          //  getUserLocation();
+
+                           /* if (location != null) {
+
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+
+                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                initCameraIdle();
+                            }*/
+                          //  initCameraIdle();
+                        }
+
+                    }
+                } else {
+
+                    turnOnGps();
+                }
+            }
+        });
+
+    }
+
+
+    private void getUserLocation() {
+        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+
+                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                initCameraIdle();
+
+
+                              /*  latitude = location.getLatitude();
+                                longitude = location.getLongitude();*/
+                            }
+                        }
+                    });
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+    }
+
+    @SuppressLint("MissingPermission")
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case AppConstants.GPS_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    /*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
+
+//                    getLocation();
 
 
+                    turnOnGps();
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void initCameraIdle() {
@@ -237,7 +348,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         }
     }
 
-
     public Location getLocation() {
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
@@ -249,8 +359,15 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
                 return null;
+
             }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
             Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (lastKnownLocationGPS != null) {
                 return lastKnownLocationGPS;
@@ -289,7 +406,25 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
             }
         }
+        if (requestCode == AppConstants.GPS_REQUEST) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+
+                if (!dialog.isShowing())
+                    dialog.show();
+
+                turnOnGps();
+
+
+            } else {
+                turnOnGps();
+            }
+
+
+        }
     }
+
 
     private void printToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -306,8 +441,10 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 dialog.dismiss();*/
 
             if (isFirstTime) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 initCameraIdle();
                 isFirstTime = false;
             }
@@ -330,7 +467,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -342,6 +478,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     protected void onPause() {
         super.onPause();
         unregisterWifiReceiver();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     private void registerWifiReceiver() {
@@ -349,17 +491,16 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        MvvmApp.getInstance().registerReceiver(mWifiReceiver, filter);
+        registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -374,25 +515,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                MvvmApp.getInstance().startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
-        MvvmApp.getInstance().  unregisterReceiver(mWifiReceiver);
+    private void unregisterWifiReceiver() {
+        unregisterReceiver(mWifiReceiver);
     }
 
 }

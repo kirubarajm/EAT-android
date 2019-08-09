@@ -246,7 +246,6 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                                     Gson sGson = new GsonBuilder().create();
                                     dishResponse = sGson.fromJson(response.toString(), DishResponse.class);
 
-
                                     if (dishResponse.getResult().size()>0){
                                         dishItemsLiveData.setValue(dishResponse.getResult());
                                         emptyDish.set(false);

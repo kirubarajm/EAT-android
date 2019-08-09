@@ -1,19 +1,29 @@
 package com.tovo.eat.ui.address.list;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -21,6 +31,8 @@ import com.tovo.eat.databinding.ActivityAddressListBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -100,8 +112,10 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void addNewAddress() {
 
-        Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
-        startActivity(intent);
+        /*Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
+        startActivity(intent);*/
+
+        turnOnGps();
     }
 
     @Override
@@ -228,8 +242,40 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     public void onBackPressed() {
         super.onBackPressed();
     }
+    public void turnOnGps() {
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    if (ActivityCompat.checkSelfPermission(AddressListActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddressListActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(AddressListActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                    } else {
+                        Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
+                        startActivity(intent);
+                    }
+                } else {
+                    turnOnGps();
+                }
 
 
+            }
+        });
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == AppConstants.GPS_REQUEST) {
+
+            if (resultCode == Activity.RESULT_OK) {
+                turnOnGps();
+            }
+
+        }
+    }
 
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();

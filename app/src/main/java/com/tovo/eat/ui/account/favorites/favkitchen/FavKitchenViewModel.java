@@ -322,17 +322,37 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
                     GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_KITCHEN_LIST_URL + getDataManager().getCurrentUserId(), KitchenResponse.class, new Response.Listener<KitchenResponse>() {
                         @Override
                         public void onResponse(KitchenResponse response) {
-                            if (response != null) {
-                                kitchenItemsLiveData.setValue(response.getResult());
-                                Log.e("----response:---------", response.toString());
-                                getNavigator().kitchenListLoaded();
 
-                            }
+
+                                if (response != null) {
+
+                                    if (response.getResult().size()>0){
+                                        emptyKitchen.set(false);
+                                        kitchenItemsLiveData.setValue(response.getResult());
+
+                                    }else {
+
+                                        emptyKitchen.set(true);
+                                    }
+
+
+                                    Log.e("Kitchen----response:", response.toString());
+
+
+                                    getNavigator().kitchenListLoaded();
+
+                                }else {
+
+                                    emptyKitchen.set(true);
+                                }
+
+
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("", error.getMessage());
+                            emptyKitchen.set(true);
                             getNavigator().kitchenListLoaded();
                         }
                     },AppConstants.API_VERSION_ONE);

@@ -200,35 +200,28 @@
 
 
             <LinearLayout
+                android:background="@color/tracking_back"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:id="@+id/live_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="@{viewModel.isLiveOrder?View.VISIBLE:View.GONE}">
 
-                <View
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@drawable/gradient_view"
-                    android:rotation="180" />
-                <!--android:visibility="@{viewModel.titleVisible?View.VISIBLE:View.GONE}"-->
 
                 <RelativeLayout
                     android:onClick="@{()->viewModel.trackLiveOrder()}"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@color/tracking_back"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
 
                     <ImageView
-                        android:layout_marginLeft="10dp"
                         android:id="@+id/image"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/food_preparation"
                         android:layout_marginStart="10dp" />
@@ -341,24 +334,6 @@
             </LinearLayout>
 
 
-            <!--<View
-                android:visibility="gone"
-                android:id="@+id/bo_view"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/gradient_view"
-                android:rotation="180" />-->
-
-            <!--  <android.support.design.widget.BottomNavigationView
-                  android:id="@+id/bottom_navigation"
-                  android:layout_width="match_parent"
-                  android:layout_height="45dp"
-                  android:layout_gravity="bottom"
-                  android:background="@color/colorPrimary"
-                  app:itemIconTint="@color/dark_gray"
-                  app:itemTextColor="@color/dark_gray"
-                  app:labelVisibilityMode="labeled"
-                  app:menu="@menu/bottom_navigation_menu" />-->
             <View
                 android:id="@+id/bo_view"
                 android:layout_width="match_parent"

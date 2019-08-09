@@ -3,6 +3,7 @@ package com.tovo.eat.utilities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
@@ -17,9 +18,15 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 public class GpsUtils {
@@ -63,11 +70,17 @@ public class GpsUtils {
                                 onGpsListener.gpsStatus(true);
                             }
                         }
+
                     })
                     .addOnFailureListener((Activity) context, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             int statusCode = ((ApiException) e).getStatusCode();
+
+                          /*  if (onGpsListener != null) {
+                                onGpsListener.gpsStatus(false);
+                            }*/
+
                             switch (statusCode) {
                                 case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                                     try {
@@ -86,9 +99,17 @@ public class GpsUtils {
                                     Toast.makeText((Activity) context, errorMessage, Toast.LENGTH_LONG).show();
                             }
                         }
-                    });
+                    }).addOnCanceledListener(new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+                    if (onGpsListener != null) {
+                        onGpsListener.gpsStatus(false);
+                    }
+                }
+            });
         }
     }
+
 
     public interface onGpsListener {
         void gpsStatus(boolean isGPSEnable);

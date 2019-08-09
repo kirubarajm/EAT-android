@@ -3,6 +3,7 @@ package com.tovo.eat.ui.home.homemenu;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -31,6 +32,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
@@ -107,8 +112,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         @Override
         public void onConnected(Bundle bundle) {
             LocationRequest request = new LocationRequest();
-            request.setInterval(1000);
-            request.setFastestInterval(1000);
+            request.setInterval(1);
+            request.setFastestInterval(1);
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
             try {
@@ -502,7 +507,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (checkPermissions()) {
 
-            new GpsUtils(getBaseActivity()).turnGPSOn(new GpsUtils.onGpsListener() {
+            new GpsUtils(getContext()).turnGPSOn(new GpsUtils.onGpsListener() {
                 @Override
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS
@@ -524,6 +529,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             requestPermissions();
         }
     }
+
+
+
+
+
+
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(getBaseActivity(),
@@ -611,9 +622,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void onLocationChanged(Location location) {
-        mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-        mHomeTabViewModel.favIcon.set(true);
 
+        if (location!=null) {
+
+            mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+            mHomeTabViewModel.favIcon.set(true);
+        }
 
     }
 
@@ -960,6 +974,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 mHomeTabViewModel.fetchKitchen();
 
 
+            }
+
+
+        } else if (requestCode == AppConstants.GPS_REQUEST) {
+
+            if (resultCode == Activity.RESULT_OK) {
+                startLocationTracking();
+
+
+            } else {
+                startLocationTracking();
             }
 
 

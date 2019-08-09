@@ -83,7 +83,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerInside"
-                android:src="@drawable/empty_cart" />
+                android:src="@drawable/empty_address" />
 
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView

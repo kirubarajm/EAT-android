@@ -10,8 +10,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.tovo.eat.BR;
@@ -19,6 +17,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryListBinding;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -34,6 +33,23 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     OrdersHistoryActivityAdapter mOrdersHistoryActivityAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
         return new Intent(context, OrderHistoryActivity.class);
@@ -65,6 +81,16 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     }
 
     @Override
+    public void goHome() {
+
+        Intent intent = MainActivity.newIntent(OrderHistoryActivity.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.ordersHistoryViewModel;
     }
@@ -93,8 +119,6 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         subscribeToLiveData();
     }
 
-
-
     private void subscribeToLiveData() {
         mOrderHistoryActivityViewModel.getOrders().observe(this,
                 ordersItemViewModel -> mOrderHistoryActivityViewModel.addOrdersListItemsToList(ordersItemViewModel));
@@ -105,7 +129,7 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
 
         Intent intent = OrderHistoryActivityView.newIntent(this);
         intent.putExtra("orderId",
-               String.valueOf(mOrderList.getOrderid()) );
+                String.valueOf(mOrderList.getOrderid()));
         startActivity(intent);
     }
 
@@ -119,19 +143,16 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         return true;
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
     }
-
 
     @Override
     protected void onPause() {
@@ -147,14 +168,13 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -169,24 +189,7 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

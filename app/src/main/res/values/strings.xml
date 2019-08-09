@@ -652,6 +652,7 @@
     <string name="menu">MENU</string>
     <string name="your_order_has_been_delivered">Your order has been delivered</string>
     <string name="call">Call</string>
+    <string name="place_first_order">PLACE YOUR FIRST ORDER</string>
 
 
 </resources>

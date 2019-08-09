@@ -96,7 +96,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void orderCancelFailed() {
         finish();
-        Toast.makeText(this, "Sorry! Cannot cancel this order", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -152,19 +151,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
                 //set color back to default
 
                 showAlert(id);
-                /*
-                switch (id) {
-                    case R.id.cancel_reason1:
-                        //    mOrderHelpViewModel.cancelOrder1();
-                        break;
-                    case R.id.cancel_reason2:
-                        //  mOrderHelpViewModel.cancelOrder2();
-                        break;
-                    case R.id.cancel_reason3:
-                        //  mOrderHelpViewModel.cancelOrder3();
-                        break;
 
-                }*/
                 break;
         }
         return true;

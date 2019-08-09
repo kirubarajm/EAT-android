@@ -92,8 +92,6 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
 
     public void cancelOrder1() {
         cancelOrder(AppConstants.CANCEL_ORDER_MEAASAGE_1);
-
-
     }
 
     public void cancelOrder2() {
@@ -125,8 +123,6 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                         Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         if (response.isStatus()) {
                             getNavigator().orderCanceled();
-                        } else {
-                            getNavigator().orderCancelFailed();
                         }
 
 

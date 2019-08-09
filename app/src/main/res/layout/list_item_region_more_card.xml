@@ -28,13 +28,26 @@
         app:cardElevation="5dp">
 
 
+
+
+
+
+
+
         <LinearLayout
-            android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/empty_region" />
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"
@@ -51,12 +64,14 @@
 
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="10dp"
                 android:paddingStart="20dp"
                 android:paddingTop="5dp"
+                android:textAlignment="center"
                 android:paddingEnd="20dp"
                 android:paddingBottom="5dp"
                 android:text="@string/explore_our_wide_range_regional_food"

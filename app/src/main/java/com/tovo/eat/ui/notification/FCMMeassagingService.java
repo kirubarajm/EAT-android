@@ -59,7 +59,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         }
 
 
-
     }
 
     @Override
@@ -135,20 +134,19 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(message))
-
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
-                   .setContentInfo("Hello")
+                .setContentInfo("Hello")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages)
-              //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setSmallIcon(R.mipmap.ic_launcher);
-
 
 
         try {
@@ -203,6 +201,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
                 /*  .setContentInfo("Hello")*/
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setLights(Color.RED, 1000, 300)

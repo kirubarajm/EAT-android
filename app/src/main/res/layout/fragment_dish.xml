@@ -86,7 +86,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/fav_kitchen_empty_title"
+                android:text="@string/dish_empty_title"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 

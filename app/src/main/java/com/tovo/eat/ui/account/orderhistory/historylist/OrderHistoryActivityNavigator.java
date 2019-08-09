@@ -12,4 +12,5 @@ public interface OrderHistoryActivityNavigator {
 
 
     void goBack();
+    void goHome();
 }

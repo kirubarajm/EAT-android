@@ -28,16 +28,14 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
-
-            <com.tovo.eat.utilities.fonts.TovoTextView
-                android:layout_marginTop="30dp"
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/ico1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/icon_cancel_error"
-                android:textColor="@color/black"
-                android:textSize="40sp" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/order_cancel" />
 
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView

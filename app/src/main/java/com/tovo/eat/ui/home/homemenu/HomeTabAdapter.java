@@ -21,7 +21,7 @@ public class HomeTabAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return KitchenFragment.newInstance();
             case 1:
-               // return RegionFragment.newInstance();
+                // return RegionFragment.newInstance();
             default:
                 return null;
         }

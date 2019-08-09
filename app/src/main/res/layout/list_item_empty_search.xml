@@ -29,11 +29,9 @@
             <ImageView
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/img1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/before_search"
-                android:tint="@color/eat_color" />
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/empty_after_search" />
 
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView

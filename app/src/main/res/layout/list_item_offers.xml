@@ -1,29 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="offerListItemViewModel"
+            type="com.tovo.eat.ui.home.homemenu.OfferListItemViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{()->offerListItemViewModel.onItemClick()}">
+
+        <com.tovo.eat.utilities.RoundCornerImageView
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:scaleType="centerInside"
+            app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}" />
+
+    </RelativeLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="offerListItemViewModel"
             type="com.tovo.eat.ui.home.homemenu.OfferListItemViewModel" />
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
-        android:onClick="@{()->offerListItemViewModel.onItemClick()}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{()->offerListItemViewModel.onItemClick()}">
 
         <com.tovo.eat.utilities.RoundCornerImageView
-            android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
-     android:layout_margin="10dp"
-            app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
             android:scaleType="fitCenter"
-            android:layout_height="wrap_content"/>
+            app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}" />
 
     </RelativeLayout>
+
+</layout>-->
 
 </layout>
