@@ -129,22 +129,7 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:clickable="false"
-            android:visibility="@{ordersHistoryViewModel.isLoading ? View.VISIBLE : View.GONE}">
 
-            <android.support.v4.widget.ContentLoadingProgressBar
-                android:id="@+id/address_looking_up"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

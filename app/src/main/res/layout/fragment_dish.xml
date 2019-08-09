@@ -111,8 +111,6 @@
 
 
 
-
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:visibility="@{dishViewModel.emptyDish?View.GONE:View.VISIBLE}"
             android:id="@+id/refreshList"
@@ -124,8 +122,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
-                android:animateLayoutChanges="false"
-                android:nestedScrollingEnabled="false"
                 android:background="@android:color/white"
                 app:adapter="@{dishViewModel.dishItemViewModels}"
                 tools:listitem="@layout/list_item_dishes"/>

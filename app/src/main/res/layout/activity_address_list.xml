@@ -86,8 +86,6 @@
                 android:src="@drawable/empty_cart" />
 
 
-
-
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,17 +93,21 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/kitchen_empty_title"
+                android:text="@string/address_empty_title"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:textColor="@color/dark_gray"
-                android:text="@string/kitchen_empty_sub_title"
+                android:text="@string/address_empty_sub_title"
                 android:textAlignment="center"
                 android:textSize="12sp" />
 
