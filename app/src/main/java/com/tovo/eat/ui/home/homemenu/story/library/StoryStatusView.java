@@ -24,10 +24,8 @@ public class StoryStatusView extends LinearLayout {
 
     private static final int MAX_PROGRESS = 100;
     private static final int SPACE_BETWEEN_PROGRESS_BARS = 5;
-
     private final List<ProgressBar> progressBars = new ArrayList<>();
     private final List<ObjectAnimator> animators = new ArrayList<>();
-
     private int storiesCount = -1;
     private int current = 0;
     private UserInteractionListener userInteractionListener;
@@ -186,7 +184,9 @@ public class StoryStatusView extends LinearLayout {
                 }
                 int next = current + 1;
                 if (next <= (animators.size() - 1)) {
-                    if (userInteractionListener != null) userInteractionListener.onNext();
+                    if (userInteractionListener != null) {
+                        userInteractionListener.onNext();
+                    }
                     animators.get(next).start();
                 } else {
                     isComplete = true;

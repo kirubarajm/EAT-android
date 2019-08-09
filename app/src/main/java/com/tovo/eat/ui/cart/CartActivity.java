@@ -216,7 +216,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void orderCompleted() {
 
        /* FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
-        SamplePagerFragment fragment = new SamplePagerFragment();
+        StoriesPagerFragment fragment = new StoriesPagerFragment();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();*/
 
@@ -325,9 +325,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
        /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SamplePagerFragment fragment = new SamplePagerFragment();
+        StoriesPagerFragment fragment = new StoriesPagerFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(SamplePagerFragment.class.getSimpleName());
+        //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
         transaction.commit();*/
 
     }

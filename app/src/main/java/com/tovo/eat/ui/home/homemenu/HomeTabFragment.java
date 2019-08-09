@@ -41,7 +41,6 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
-import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
@@ -52,7 +51,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
-import com.tovo.eat.ui.home.homemenu.story.sample.SampleTabActivity;
+import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
@@ -70,7 +69,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
-import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener,
         StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener {
@@ -878,7 +876,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
         if (result.getStories().size() > 0) {
-            Intent intent = SampleTabActivity.newIntent(getContext());
+            Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);
             startActivity(intent);

@@ -8,7 +8,7 @@
 
         <variable
             name="sampleFragmentViewModel"
-            type="com.tovo.eat.ui.home.homemenu.story.sample.fragment.SamplePagerFragmentViewModel">
+            type="com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesPagerFragmentViewModel">
 
         </variable>
 
@@ -68,25 +68,25 @@
                 android:progressDrawable="@drawable/github_232_circular" />
 
             <LinearLayout
-                android:id="@+id/actions"
+                android:id="@+id/linear_actions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <View
-                    android:id="@+id/reverse"
+                    android:id="@+id/view_reverse"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
                 <View
-                    android:id="@+id/center"
+                    android:id="@+id/view_center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="8" />
 
                 <View
-                    android:id="@+id/skip"
+                    android:id="@+id/view_skip"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
