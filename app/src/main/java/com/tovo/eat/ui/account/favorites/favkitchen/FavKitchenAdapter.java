@@ -244,7 +244,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         @Override
         public void removeFavourites(Integer favId) {
 
-            mLiveProductsAdapterListener.removeDishFavourite(favId);
+           // mLiveProductsAdapterListener.removeDishFavourite(favId);
             removeAt(getAdapterPosition());
         }
     }

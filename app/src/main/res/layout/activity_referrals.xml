@@ -66,67 +66,90 @@
         </android.support.v7.widget.CardView>
 
 
-        <ImageView
-            android:id="@+id/img_referrals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ScrollView
             android:layout_below="@+id/topBar"
-            android:scaleType="center"
-            app:srcCompat="@drawable/refferal_1" />
-
-        <RelativeLayout
-            android:id="@+id/rel_referr"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="200dp">
+            android:layout_height="match_parent">
 
-            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:id="@+id/txt_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/referrals"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_1"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:lines="2"
-                android:text="@string/refer_a_friend_amp_we_ll_give_you_and_your_buddy_inr_100_off_on_your_next_order_above_inr_200"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rel_send_referrals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:padding="10dp">
-
-            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20sp"
-                android:background="@drawable/curve_stroke"
-                android:gravity="center"
-                android:onClick="@{()->referralsViewModel.sendReferrals()}"
-                android:padding="7dp"
-                android:text="@string/send_referrals"
-                android:textAllCaps="true"
-                android:textColor="@color/eat_color"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_referrals"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/refferal_1" />
 
+                <RelativeLayout
+                    android:id="@+id/rel_referr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/img_referrals"
+                    android:layout_marginTop="20dp">
 
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:id="@+id/txt_1"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/referrals"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:textColor="@color/dark_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_1"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
+                        android:text="@{referralsViewModel.referalMessage}"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="25dp"
+                    android:layout_below="@+id/rel_referr"
+                    android:id="@+id/rel_send_referrals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20sp"
+                        android:background="@drawable/curve_stroke"
+                        android:gravity="center"
+                        android:onClick="@{()->referralsViewModel.sendReferrals()}"
+                        android:padding="7dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/send_referrals"
+                        android:textAllCaps="true"
+                        android:textColor="@color/eat_color"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
     </RelativeLayout>
 
 </layout>

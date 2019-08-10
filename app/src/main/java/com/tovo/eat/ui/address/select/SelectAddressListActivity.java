@@ -153,8 +153,8 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     protected void onDestroy() {
-        Intent intent = new Intent();
-        setResult(Activity.RESULT_CANCELED, intent);
+       /* Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);*/
         super.onDestroy();
     }
 

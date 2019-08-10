@@ -168,6 +168,7 @@ public class KitchenItemViewModel {
                     @Override
                     public void onResponse(JSONObject response) {
                         isFavourite.set(false);
+                        mListener.removeFavourites(0);
                         favID = 0;
                     }
                 }, new Response.ErrorListener() {

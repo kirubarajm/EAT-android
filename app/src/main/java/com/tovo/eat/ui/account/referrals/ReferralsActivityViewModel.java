@@ -15,6 +15,7 @@ import com.tovo.eat.utilities.MvvmApp;
 public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityNavigator> {
 
     public final ObservableField<String> referalcode = new ObservableField<>();
+    public final ObservableField<String> referalMessage = new ObservableField<>();
     public String referallink="" ;
 
 
@@ -46,6 +47,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                             setIsLoading(false);
                             referalcode.set(response.getResult().get(0).getReferalcode());
                             referallink=response.getResult().get(0).getApplink();
+                            referalMessage.set(response.getResult().get(0).getApplink());
 
                             getNavigator().success(String.valueOf(referallink));
                         }

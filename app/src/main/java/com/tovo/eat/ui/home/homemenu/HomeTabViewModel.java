@@ -106,15 +106,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
 
-        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-        kitchenResponse1.setCollection(collectionItemViewModels);
-        ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
+    //    if (collectionItemViewModels.size()>0) {
 
-
-        KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-        kitchenResponse2.setCoupons(couponListItemViewModels);
-        ordersItems.add(2, kitchenResponse2);
-
+            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+            kitchenResponse1.setCollection(collectionItemViewModels);
+            ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
+     //   }
+     //   if (couponListItemViewModels.size()>0) {
+            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+            kitchenResponse2.setCoupons(couponListItemViewModels);
+            ordersItems.add(2, kitchenResponse2);
+     //   }
 
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
@@ -448,7 +450,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public boolean isAddressAdded() {
 
-        if (getDataManager().getAddressId() == 0) {
+        if (getDataManager().getCurrentLat() == null) {
 
             return false;
         } else {
@@ -712,8 +714,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 storiesItemsLiveData.setValue(completeStories.getResult());
                                 getNavigator().getFullStories(completeStories);
                             } else {
-
-
                                 Gson gson = new Gson();
                                 String json = gson.toJson(response);
                                 getDataManager().setStoriesList(null);
@@ -722,7 +722,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 storiesItemsLiveData.setValue(response.getResult());
                                 getNavigator().getFullStories(response);
                             }
-
 
                         } else {
 

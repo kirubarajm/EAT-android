@@ -447,7 +447,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <!--<RelativeLayout
                                 android:id="@+id/area"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -513,7 +513,7 @@
                                     android:textColor="@color/medium_gray"
                                     android:textSize="14sp" />
 
-                            </RelativeLayout>
+                            </RelativeLayout>-->
 
                             <!-- <android.support.v7.widget.RecyclerView
                                  android:id="@+id/recycler_view_region"
@@ -525,6 +525,14 @@
                                  app:layoutManager="com.tovo.eat.utilities.card.CardSliderLayoutManager"
                                  tools:listitem="@layout/list_item_region_card" />-->
 
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_view_region_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_horizontal"
+                                android:visibility="visible"
+                                app:cardtitleadapter="@{homeTabViewModel.regionItemViewModels}"
+                                tools:listitem="@layout/list_item_region_card_title" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/recycler_view_region"

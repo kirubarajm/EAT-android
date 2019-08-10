@@ -9,6 +9,7 @@ import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
+import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,11 @@ public class HomeTabModule {
     @Provides
     RegionsCardAdapter provideRegionnAdapter() {
         return new RegionsCardAdapter(new ArrayList<>());
+    }
+
+    @Provides
+    RegionsCardTitleAdapter provideRegionnTitleAdapter() {
+        return new RegionsCardTitleAdapter(new ArrayList<>());
     }
 
     @Provides

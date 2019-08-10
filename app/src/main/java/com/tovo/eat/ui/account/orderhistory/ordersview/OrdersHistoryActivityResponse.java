@@ -554,7 +554,7 @@ public class OrdersHistoryActivityResponse {
             public String phoneno;
             @SerializedName("brandName")
             @Expose
-            public Object brandName;
+            public String brandName;
             @SerializedName("localityid")
             @Expose
             public Integer localityid;
@@ -615,11 +615,11 @@ public class OrdersHistoryActivityResponse {
                 this.phoneno = phoneno;
             }
 
-            public Object getBrandName() {
+            public String getBrandName() {
                 return brandName;
             }
 
-            public void setBrandName(Object brandName) {
+            public void setBrandName(String brandName) {
                 this.brandName = brandName;
             }
 

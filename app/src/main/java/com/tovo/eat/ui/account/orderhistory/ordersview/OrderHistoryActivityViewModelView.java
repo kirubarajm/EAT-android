@@ -110,7 +110,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                         if (response != null && response.getResult() != null && response.getResult().size()>0) {
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
 
-                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
+                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getBrandName());
                             gst.set(String.valueOf(response.getResult().get(0).getGst()));
                             delivery.set(response.getResult().get(0).getDeliveryCharge());
                             home.set(response.getResult().get(0).getLocality());

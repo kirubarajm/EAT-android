@@ -218,7 +218,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setCurrentLat(double lat) {
-        mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lat)).apply();
+        if (lat==0.0) {
+            mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, null).apply();
+        }else {
+            mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lat)).apply();
+        }
     }
 
     @Override
@@ -228,7 +232,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setCurrentLng(double lng) {
-        mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, String.valueOf(lng)).apply();
+
+        if (lng==0.0){
+            mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, null).apply();
+        }else {
+            mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, String.valueOf(lng)).apply();
+        }
+
+
+
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.tovo.eat.ui.home.homemenu;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,7 +17,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,10 +32,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
@@ -54,6 +50,7 @@ import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
+import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
@@ -82,6 +79,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     KitchenAdapter adapter;
     @Inject
     RegionsCardAdapter regionListAdapter;
+    @Inject
+    RegionsCardTitleAdapter regionsCardTitleAdapter;
     @Inject
     StoriesCardAdapter storiesCardAdapter;
 
@@ -313,6 +312,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
 
+        LinearLayoutManager mLayoutManagerTitle
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentHomeBinding.recyclerViewRegionTitle.setLayoutManager(mLayoutManagerTitle);
+        mFragmentHomeBinding.recyclerViewRegionTitle.setAdapter(regionsCardTitleAdapter);
+        mFragmentHomeBinding.recyclerViewRegionTitle.setNestedScrollingEnabled(false);
+
+
+        SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
+        snapHelper.attachToRecyclerView(    mFragmentHomeBinding.recyclerViewRegionTitle);
 
         LinearLayoutManager mLayoutManager3
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -351,6 +360,21 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
+/* mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+
+                LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
+
+                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
+
+
+            }
+        });*/
 
         // subscribeToLiveData();
 
@@ -407,6 +431,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                 onActiveCardChange(position);
 
+                mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
+
+
             }
         });
 
@@ -452,9 +479,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onResume() {
         super.onResume();
-       /* mHomeTabViewModel.updateAddressTitle();*/
+        /* mHomeTabViewModel.updateAddressTitle();*/
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
+       mHomeTabViewModel.fetchStories();
 
     }
 
@@ -527,10 +555,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             requestPermissions();
         }
     }
-
-
-
-
 
 
     private boolean checkPermissions() {
@@ -620,7 +644,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onLocationChanged(Location location) {
 
-        if (location!=null) {
+        if (location != null) {
 
             mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             mHomeTabViewModel.favIcon.set(true);
@@ -673,7 +697,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         //  mFragmentHomeBinding.area1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
         // mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getRegionname());
-        if (mHomeTabViewModel.regionResult != null) {
+       /* if (mHomeTabViewModel.regionResult != null) {
             countryAnimDuration = 350;
             countryOffset1 = getResources().getDimensionPixelSize(R.dimen.left_offset);
             countryOffset2 = getResources().getDimensionPixelSize(R.dimen.card_width);
@@ -686,11 +710,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             //  mFragmentHomeBinding.slogan2.setX(countryOffset2);
             mFragmentHomeBinding.slogan1.setText(mHomeTabViewModel.regionResult.getResult().get(0).getTagline());
             mFragmentHomeBinding.slogan2.setAlpha(0f);
-        }
+        }*/
 
     }
 
-    private void setCountryText(String text, boolean left2right) {
+    /*private void setCountryText(String text, boolean left2right) {
         final TextView invisibleText;
         final TextView visibleText;
         if (mFragmentHomeBinding.area1.getAlpha() > mFragmentHomeBinding.area2.getAlpha()) {
@@ -721,9 +745,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         animSet.playTogether(iAlpha, vAlpha, iX, vX);
         animSet.setDuration(countryAnimDuration);
         animSet.start();
-    }
+    }*/
 
-    private void setCountryTextSlogan(String text, boolean left2right) {
+  /*  private void setCountryTextSlogan(String text, boolean left2right) {
         final TextView invisibleText;
         final TextView visibleText;
         if (mFragmentHomeBinding.slogan1.getAlpha() > mFragmentHomeBinding.slogan2.getAlpha()) {
@@ -753,7 +777,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         animSet.playTogether(iAlpha, vAlpha, iX, vX);
         animSet.setDuration(countryAnimDuration);
         animSet.start();
-    }
+    }*/
 
     private void onActiveCardChange() {
         final int pos = cardSliderLayoutManager.getActiveCardPosition();
@@ -917,7 +941,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
-        intent.putExtra("title", collection.getHeading());
+        intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
         startActivity(intent);
 
 
@@ -930,6 +954,34 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+                mHomeTabViewModel.updateAddressTitle();
+                mHomeTabViewModel.fetchRepos(0);
+                mHomeTabViewModel.fetchKitchen();
+            }
+
+        } else if (requestCode == AppConstants.GPS_REQUEST) {
+
+            if (resultCode == Activity.RESULT_OK) {
+                startLocationTracking();
+
+
+            } else {
+                startLocationTracking();
+            }
+
+
+        }
 
 
     }
@@ -956,38 +1008,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 onActiveCardChange(clickedPosition);
             }
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
-
-
-            if (resultCode == RESULT_OK) {
-                mHomeTabViewModel.updateAddressTitle();
-                mHomeTabViewModel.fetchRepos(0);
-                mHomeTabViewModel.fetchKitchen();
-
-
-            }
-
-
-        } else if (requestCode == AppConstants.GPS_REQUEST) {
-
-            if (resultCode == Activity.RESULT_OK) {
-                startLocationTracking();
-
-
-            } else {
-                startLocationTracking();
-            }
-
-
-        }
-
-
     }
 
 }

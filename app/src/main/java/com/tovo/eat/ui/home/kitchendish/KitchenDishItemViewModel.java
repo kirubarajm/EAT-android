@@ -3,6 +3,7 @@ package com.tovo.eat.ui.home.kitchendish;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -166,6 +167,9 @@ public class KitchenDishItemViewModel {
 
         } else {
             mListener.productNotAvailable();
+
+            Toast.makeText(MvvmApp.getInstance(), dishList.getQuantity() +"only quantity available", Toast.LENGTH_SHORT).show();
+
             return;
         }
 

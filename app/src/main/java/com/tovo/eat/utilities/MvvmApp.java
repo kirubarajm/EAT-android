@@ -226,6 +226,11 @@ public class MvvmApp extends Application implements HasActivityInjector {
         AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(false);
 
+        if (appPreferencesHelper.getAddressId()==0) {
+            appPreferencesHelper.setCurrentLat(0.0);
+            appPreferencesHelper.setCurrentLng(0.0);
+        }
+
     }
     /*public void hideSoftKeyboard() {
         if(getCurrentFocus()!=null) {

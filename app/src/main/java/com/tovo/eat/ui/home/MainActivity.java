@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -10,6 +12,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -34,6 +38,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -43,6 +51,7 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
+import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
@@ -54,6 +63,7 @@ import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -79,27 +89,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String DialogTag = DialogSelectAddress.newInstance().getTag();
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
-    private MainViewModel mMainViewModel;
-    FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            super.onReceive(context, intent);
-            try {
-            Bundle bundle = intent.getExtras();
-            if (bundle == null) return;
-            String pageid = bundle.getString("pageid");
-
-                if (pageid != null)
-                    if (pageid.equals("8")||pageid.equals("7")) {
-                        mMainViewModel.liveOrders();
-                    }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -119,14 +108,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mMainViewModel.isMyAccount.set(false);
                 }*/
             } else {
-                Intent inIntent=InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
             }
 
         }
     };
+    private MainViewModel mMainViewModel;
+    FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            super.onReceive(context, intent);
+            try {
+                Bundle bundle = intent.getExtras();
+                if (bundle == null) return;
+                String pageid = bundle.getString("pageid");
+
+                if (pageid != null)
+                    if (pageid.equals("8") || pageid.equals("7")) {
+                        mMainViewModel.liveOrders();
+                    }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
@@ -202,7 +211,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
         //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
         mMainViewModel.toolbarTitle.set("Home");
         mMainViewModel.titleVisible.set(false);
@@ -307,17 +316,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void showOrderRating(Integer orderId,String brandname) {
+    public void showOrderRating(Integer orderId, String brandname) {
 
      /*   Intent intent = OrderCanceledBottomFragment.newIntent(MainActivity.this);
         intent.putExtra("orderid", orderId);
         startActivity(intent);*/
 
 
-
         Bundle bundle = new Bundle();
-        bundle.putInt("orderid",orderId);
-        bundle.putString("brandname",brandname);
+        bundle.putInt("orderid", orderId);
+        bundle.putString("brandname", brandname);
         OrderRatingActivity bottomSheetFragment = new OrderRatingActivity();
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.setCancelable(false);
@@ -420,6 +428,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
+    public void turnOnGps() {
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                    } else {
+
+                        openHome();
+
+                    }
+                } else {
+
+                    turnOnGps();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        HomeTabFragment homeTabFragment=new HomeTabFragment();
+
+
+        Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentByTag(homeTabFragment.getTag());
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+        openHome();
+        if (requestCode == AppConstants.GPS_REQUEST) {
+
+            turnOnGps();
+
+
+        }else {
+            openHome();
+        }
+    }
 
     @Override
     protected void onStart() {
@@ -435,7 +486,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onStop() {
         super.onStop();
 
-        try{
+        try {
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -557,7 +608,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         } else {
-            openHome();
+          turnOnGps();
 
         }
 
@@ -596,7 +647,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onPause() {
         super.onPause();
-        try{
+        try {
             unregisterReceiver(dataReceiver);
             unregisterWifiReceiver();
         } catch (IllegalArgumentException e) {
@@ -741,8 +792,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onDestroy() {
         super.onDestroy();
 
-        try{
-        unregisterReceiver(dataReceiver);
+        try {
+            unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
@@ -821,7 +872,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 /*  Log.i(TAG, "Permission granted.");*/
 
-                startLocationTracking();
+              //  startLocationTracking();
+
+                turnOnGps();
 
             } else {
                 Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
@@ -850,10 +903,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
     }
-
-
-
-
 
 
 }

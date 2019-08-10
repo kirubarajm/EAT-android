@@ -18,7 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FCFCFC">
+        android:background="@color/white">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
@@ -71,13 +71,13 @@
             android:visibility="@{dishViewModel.emptyDish?View.VISIBLE:View.GONE}">
 
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:scaleType="centerInside"
-                android:src="@drawable/empty_cart" />
-
+                android:textColor="@color/black"
+                android:textSize="50dp"
+                android:text="@string/icon_error"/>
 
             <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                 android:layout_width="wrap_content"

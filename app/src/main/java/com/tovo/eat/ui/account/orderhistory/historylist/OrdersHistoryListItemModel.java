@@ -104,7 +104,7 @@ public class OrdersHistoryListItemModel {
 
         this.moveitName.set(mOrderList.getMoveitdetail().getName());
 
-        this.makeitName.set(mOrderList.getMakeitdetail().getName()==null?"":mOrderList.getMakeitdetail().getName());
+        this.makeitName.set(mOrderList.getMakeitdetail().getBrandName());
         String strPrice = String.valueOf(orders.getPrice()==null?"":orders.getPrice());
         this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()==null?"":mOrderList.getMakeitdetail().getAddress()+" | "+"Rs."+strPrice);
         this.price.set("Rs."+strPrice);

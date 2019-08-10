@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="regionCardTitleItemViewModel"
+            type="com.tovo.eat.ui.home.region.title.RegionCardTitleItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.tovo.eat.utilities.fonts.RegionNameTextView
+                android:id="@+id/area2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="@{regionCardTitleItemViewModel.regionName}"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:scaleType="fitCenter"
+                android:src="@drawable/divider" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:textAlignment="center"
+                android:id="@+id/slogan1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{regionCardTitleItemViewModel.slogan}"
+                android:textColor="@color/medium_gray"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
