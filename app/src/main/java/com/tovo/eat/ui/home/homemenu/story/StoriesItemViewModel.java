@@ -8,23 +8,25 @@ public class StoriesItemViewModel {
 
 
     public final ObservableField<String> stories_url = new ObservableField<>();
+    public final ObservableBoolean isSeen = new ObservableBoolean();
     public StoriesItemViewModelListener mListener;
     public StoriesResponse.Result blog;
-    public final ObservableBoolean isSeen = new ObservableBoolean();
+
     public StoriesItemViewModel(StoriesItemViewModelListener mListener, StoriesResponse.Result blog) {
         this.mListener = mListener;
         this.blog = blog;
 
         this.stories_url.set(blog.getThumb());
 
-       isSeen.set(blog.getStories().get(blog.getStories().size()-1).isSeen());
 
+        if (blog.getStories().size() > 0)
+            isSeen.set(blog.getStories().get(blog.getStories().size() - 1).isSeen());
 
 
     }
 
     public void onItemClick() {
-        if (blog.getStories().size()>0) {
+        if (blog.getStories().size() > 0) {
             mListener.onItemClick(blog);
         }
     }

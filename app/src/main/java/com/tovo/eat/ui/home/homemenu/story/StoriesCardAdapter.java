@@ -128,23 +128,25 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            pos = position  % item_list.size();
+            pos = position % item_list.size();
             final StoriesResponse.Result blog = item_list.get(pos);
             mStoriesItemViewModel = new StoriesItemViewModel(this, blog);
             mListItemLiveProductsBinding.setStoriesItemViewModel(mStoriesItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
 
 
+            if (blog.getStories().size() > 0)
+            {
+                if ((blog.getStories().get(blog.getStories().size() - 1).isSeen())) {
 
-            if ((blog.getStories().get(blog.getStories().size()-1).isSeen())) {
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.setSaturation(0);
 
-                ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(0);
+                    ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                    mListItemLiveProductsBinding.storyCard.setColorFilter(filter);
 
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-                mListItemLiveProductsBinding.storyCard.setColorFilter(filter);
-
-            }
+                }
+        }
         }
 
         @Override
