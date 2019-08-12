@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -314,14 +315,24 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         LinearLayoutManager mLayoutManagerTitle
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManagerTitle.setOrientation(LinearLayoutManager.HORIZONTAL);
+       /* mLayoutManagerTitle = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };*/
         mFragmentHomeBinding.recyclerViewRegionTitle.setLayoutManager(mLayoutManagerTitle);
         mFragmentHomeBinding.recyclerViewRegionTitle.setAdapter(regionsCardTitleAdapter);
-        mFragmentHomeBinding.recyclerViewRegionTitle.setNestedScrollingEnabled(false);
 
 
         SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
-        snapHelper.attachToRecyclerView(    mFragmentHomeBinding.recyclerViewRegionTitle);
+        snapHelper.attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegionTitle);
 
         LinearLayoutManager mLayoutManager3
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -360,25 +371,32 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-/* mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
 
-                LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
-
-                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
-
 
             }
-        });*/
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+                LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisiblePosition = ll.findFirstVisibleItemPosition();
+
+                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
+            }
+        });
 
         // subscribeToLiveData();
 
-       /* mFragmentHomeBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*mFragmentHomeBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
@@ -425,17 +443,42 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
 
 
-        mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
+       /* mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
             @Override
             public void onItemChanged(int position) {
 
-                onActiveCardChange(position);
+               // onActiveCardChange(position);
 
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
 
 
             }
+        });*/
+
+
+
+        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+
+
+            }
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                StackLayoutManager ll = (StackLayoutManager) recyclerView.getLayoutManager();
+
+                int firstVisiblePosition = ll.getFirstVisibleItemPosition();
+
+                //     mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
+                mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(firstVisiblePosition);
+            }
         });
+
 
 
         //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
@@ -482,7 +525,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         /* mHomeTabViewModel.updateAddressTitle();*/
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
-       mHomeTabViewModel.fetchStories();
+        mHomeTabViewModel.fetchStories();
 
     }
 

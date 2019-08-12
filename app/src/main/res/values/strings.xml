@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eat All time</string>
+    <string name="app_name">EAT.</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Tovo Group</string>
@@ -8,7 +8,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="invalidEmail">Invalid Email</string>
-
 
     <!--Toolbar menus-->
     <string name="clear">Clear</string>
