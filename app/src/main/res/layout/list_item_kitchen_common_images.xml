@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/img_1"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:imageUrl="@{kitchenCommonImagesViewModel.image_url}"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="520dp" />
 
 
 </layout>

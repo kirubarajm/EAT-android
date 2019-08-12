@@ -353,7 +353,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-
                 LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
 
                 int firstVisiblePosition = ll.findFirstCompletelyVisibleItemPosition();
@@ -372,12 +371,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-      /*  mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
+           //     mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
 
 
             }
@@ -386,14 +385,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-*//*
-                LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+               /* LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
 
                 int firstVisiblePosition = ll.findFirstVisibleItemPosition();
 
-                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);*//*
+                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);*/
             }
-        });*/
+        });
 
 
 
@@ -480,14 +479,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onItemChanged(int position) {
 
                // onActiveCardChange(position);
-
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
-
 
             }
         });
-
-
 
        /* mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

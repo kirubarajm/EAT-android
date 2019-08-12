@@ -426,10 +426,10 @@ public final class BindingUtils {
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-        Glide.with(context).load(url).placeholder(R.drawable.images_loading)
+        /*Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
-                .into(imageView);
-     //   Glide.with(context).load(url).into(imageView);
+                .into(imageView);*/
+        Glide.with(context).load(url).into(imageView);
 
     }
  @BindingAdapter("enter")

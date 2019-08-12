@@ -91,7 +91,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="370dp"
+                    android:layout_height="640dp"
                     android:fitsSystemWindows="true"
                     app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -99,15 +99,14 @@ xmlns:tools="http://schemas.android.com/tools">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="570dp"
                         android:layout_marginTop="60dp">
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_kitchen_common_slider"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#eeeeee"
-                            android:orientation="horizontal"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
                             app:kitchenCommonadapter="@{kitchenDetailsViewModel.kitchenInfoImagesListViewModels}"
                             tools:listitem="@layout/list_item_kitchen_common_images" />
 
