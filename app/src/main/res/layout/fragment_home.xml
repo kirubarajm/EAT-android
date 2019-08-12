@@ -531,6 +531,7 @@
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_horizontal"
                                 android:visibility="visible"
+                                android:clickable="false"
                                 app:cardtitleadapter="@{homeTabViewModel.regionItemViewModels}"
                                 tools:listitem="@layout/list_item_region_card_title" />
 

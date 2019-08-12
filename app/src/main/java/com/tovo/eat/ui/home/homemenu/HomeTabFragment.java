@@ -344,9 +344,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
      /*   SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
         snapHelper.attachToRecyclerView(    mFragmentHomeBinding.recyclerViewStory);*/
-
-
         //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
+
+
 
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -372,11 +372,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-        mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      /*  mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
+                mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
 
 
             }
@@ -385,14 +386,45 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-
+*//*
                 LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
 
                 int firstVisiblePosition = ll.findFirstVisibleItemPosition();
 
-                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
+                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);*//*
             }
-        });
+        });*/
+
+
+
+
+
+       /* final RecyclerView.OnScrollListener[] scrollListeners = new RecyclerView.OnScrollListener[2];
+        scrollListeners[0] = new RecyclerView.OnScrollListener( )
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                super.onScrolled(recyclerView, dx, dy);
+                mFragmentHomeBinding.recyclerViewRegionTitle.removeOnScrollListener(scrollListeners[1]);
+                mFragmentHomeBinding.recyclerViewRegionTitle.scrollBy(dx, dy);
+                mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(scrollListeners[1]);
+            }
+        };
+        scrollListeners[1] = new RecyclerView.OnScrollListener( )
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                super.onScrolled(recyclerView, dx, dy);
+                mFragmentHomeBinding.recyclerViewRegion.removeOnScrollListener(scrollListeners[0]);
+                mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
+                mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(scrollListeners[0]);
+            }
+        };
+        mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(scrollListeners[0]);
+        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(scrollListeners[1]);*/
+
 
         // subscribeToLiveData();
 
@@ -443,7 +475,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
 
 
-       /* mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
+        mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
             @Override
             public void onItemChanged(int position) {
 
@@ -453,11 +485,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
             }
-        });*/
+        });
 
 
 
-        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
+       /* mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -474,10 +506,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                 int firstVisiblePosition = ll.getFirstVisibleItemPosition();
 
-                //     mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
+                // mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(firstVisiblePosition);
             }
-        });
+        });*/
 
 
 

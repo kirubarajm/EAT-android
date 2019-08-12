@@ -12,8 +12,13 @@
             type="com.tovo.eat.ui.signup.SignUpActivityViewModel" />
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
     <ScrollView
+        android:layout_above="@+id/faq"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -93,11 +98,12 @@
 
                         <CheckBox
                             android:id="@+id/acceptTandC"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="25dp"
+                            android:layout_height="20dp" />
 
 
                         <LinearLayout
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -115,7 +121,6 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:layout_marginTop="1dp"
                                 android:background="@color/dark_gray" />
 
 
@@ -147,72 +152,73 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_below="@+id/nm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:onClick="@{()->signup.faqs()}"
-                    android:orientation="vertical">
-
-
-                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/faqsupport"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@color/dark_gray" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_below="@+id/nm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:onClick="@{()->signup.privacy()}"
-                    android:orientation="vertical">
-
-
-                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/privacy_and_policy"
-                        android:textAllCaps="true"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@color/dark_gray" />
-
-
-                </LinearLayout>
 
 
             </RelativeLayout>
 
         </RelativeLayout>
     </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/faq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="@{()->signup.faqs()}"
+            android:orientation="vertical">
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/faqsupport"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dark_gray" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="@{()->signup.privacy()}"
+            android:orientation="vertical">
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/privacy_and_policy"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                android:background="@color/dark_gray" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

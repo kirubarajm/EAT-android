@@ -21,6 +21,7 @@
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>
 
+
     <!--Drawer Menus-->
     <string name="about">About</string>
     <string name="logout">Logout</string>
