@@ -25,57 +25,72 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:onClick="@{()->collectionCardItemViewModel.onItemClick()}"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:layout_marginStart="3dp"
+            android:onClick="@{()->collectionCardItemViewModel.onItemClick()}"
             app:cardCornerRadius="7dp"
             app:cardElevation="0dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:background="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     imageUrl="@{collectionCardItemViewModel.imageUrl}"
-                    android:scaleType="centerCrop" />
-
-                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
+                    android:background="@color/gray"
+                    android:scaleType="fitCenter" />
+
+                <android.support.v7.widget.CardView
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    app:cardBackgroundColor="#7CFFFFFF"
+                    app:cardCornerRadius="3dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@{collectionCardItemViewModel.title}"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                    <View
-                        android:id="@+id/separator"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.7dp"
-                        android:background="@color/dark_gray" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical">
 
-                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@{collectionCardItemViewModel.subTitle}"
-                        android:textAllCaps="true"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@{collectionCardItemViewModel.title}"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
 
+                        <View
+                            android:id="@+id/separator"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.7dp"
+                            android:background="@color/dark_gray" />
+
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@{collectionCardItemViewModel.subTitle}"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

@@ -70,6 +70,9 @@ public class KitchenResponse {
         @SerializedName("favid")
         @Expose
         private Integer favid;
+        @SerializedName("serviceablestatus")
+        @Expose
+        private boolean serviceableStatus;
         @SerializedName("isfav")
         @Expose
         private String isfav;
@@ -88,6 +91,14 @@ public class KitchenResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+
+        public boolean isServiceableStatus() {
+            return serviceableStatus;
+        }
+
+        public void setServiceableStatus(boolean serviceableStatus) {
+            this.serviceableStatus = serviceableStatus;
+        }
 
         public List<CouponListResponse.Result> getCoupons() {
             return coupons;

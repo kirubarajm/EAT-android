@@ -358,8 +358,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onResume();
         mCartViewModel.setAddressTitle();
 
-        /*if (mCartViewModel.getCartPojoDetails() != null)
-            mCartViewModel.fetchRepos();*/
+        if (mCartViewModel.getCartPojoDetails() != null)
+            mCartViewModel.fetchRepos();
     }
 
     @Override
@@ -488,4 +488,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         dialog.show();
 
     }
+
+
 }

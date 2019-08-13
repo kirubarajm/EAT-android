@@ -80,7 +80,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<KitchenDishResponse.Productlist> productlists) {
-
         item_list.addAll(productlists);
         //response.addAll(blogList);
 

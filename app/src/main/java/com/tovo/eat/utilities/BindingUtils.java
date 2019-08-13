@@ -421,6 +421,8 @@ public final class BindingUtils {
         Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
+
+
     }
 
     @BindingAdapter("imageUrl")

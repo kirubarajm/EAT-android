@@ -99,11 +99,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
 
-
-
-
-        if (getCartPojoDetails() != null)
-            fetchRepos();
+      /*  if (getCartPojoDetails() != null)
+            fetchRepos();*/
 
         fetchRefunds();
 

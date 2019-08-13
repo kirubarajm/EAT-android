@@ -1,6 +1,9 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemHomeOffersBinding;
@@ -17,6 +21,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -25,7 +30,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_COLLECTION = 2;
-    private static final int VIEW_TYPE_COUPON= 3;
+    private static final int VIEW_TYPE_COUPON = 3;
     Context context;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
@@ -83,14 +88,14 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         if (item_list != null && !item_list.isEmpty()) {
 
-            if (item_list.get(position).getCollection()!=null && item_list.get(position).getCollection().size()>0) {
+            if (item_list.get(position).getCollection() != null && item_list.get(position).getCollection().size() > 0) {
 
                 return VIEW_TYPE_COLLECTION;
-            } else if (item_list.get(position).getCoupons()!=null && item_list.get(position).getCoupons().size()>0) {
+            } else if (item_list.get(position).getCoupons() != null && item_list.get(position).getCoupons().size() > 0) {
 
                 return VIEW_TYPE_COUPON;
 
-            }else {
+            } else {
                 return VIEW_TYPE_NORMAL;
             }
 
@@ -222,6 +227,25 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+            if (!blog.isServiceableStatus()) {
+
+                mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
+                mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                mListItemLiveProductsBinding.image.setColorFilter(filter);
+                mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
+               // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
+
+            }
+
         }
 
 
@@ -242,7 +266,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         public void removeFavourites(Integer favId) {
 
             mLiveProductsAdapterListener.removeDishFavourite(favId);
-           // removeAt(getAdapterPosition());
+            // removeAt(getAdapterPosition());
         }
     }
 

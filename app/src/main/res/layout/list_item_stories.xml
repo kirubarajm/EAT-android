@@ -12,21 +12,28 @@
 
     </data>
 
+
     <RelativeLayout
-        android:onClick="@{()->storiesItemViewModel.onItemClick()}"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="63dp"
+        android:layout_height="63dp">
 
-        <com.tovo.eat.utilities.RoundCornerImageView
-            android:id="@+id/story_card"
+        <android.support.v7.widget.CardView
+            android:layout_centerInParent="true"
             android:layout_width="60dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginBottom="2dp"
-            app:imageUrl="@{storiesItemViewModel.stories_url}"
-            android:scaleType="centerCrop"
-            android:layout_height="60dp"/>
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:onClick="@{()->storiesItemViewModel.onItemClick()}"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="3dp">
+
+            <ImageView
+                android:id="@+id/story_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{storiesItemViewModel.stories_url}" />
 
 
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
-
 </layout>

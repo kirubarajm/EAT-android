@@ -20,7 +20,7 @@
             android:scaleType="fitCenter"
             app:imageUrl="@{kitchenCommonImagesViewModel.image_url}"
             android:layout_width="match_parent"
-            android:layout_height="520dp" />
+            android:layout_height="400dp" />
 
 
 </layout>

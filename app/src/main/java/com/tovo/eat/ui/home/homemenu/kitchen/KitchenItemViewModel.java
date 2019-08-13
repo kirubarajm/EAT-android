@@ -107,7 +107,7 @@ public class KitchenItemViewModel {
         cuisines.set(items);*/
 
 
-        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from " + mKitchenList.getRegionname());
+        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from ");
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));

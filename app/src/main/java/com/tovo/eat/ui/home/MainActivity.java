@@ -456,18 +456,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         HomeTabFragment homeTabFragment=new HomeTabFragment();
 
-
+/*
         Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentByTag(homeTabFragment.getTag());
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
-        openHome();
+        openHome();*/
+
+
+
         if (requestCode == AppConstants.GPS_REQUEST) {
-
             turnOnGps();
-
-
-        }else {
+        }else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
         }
     }

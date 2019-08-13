@@ -162,7 +162,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void selectAddress() {
         Intent intent = SelectAddressListActivity.newIntent(getContext());
-        startActivityForResult(intent, AppConstants.SELECT_ADDRESS_LIST_CODE);
+        startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
 
     }
 
@@ -481,6 +481,41 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                // onActiveCardChange(position);
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
 
+
+
+                if (mHomeTabViewModel.regionResult.getResult()!=null&&mHomeTabViewModel.regionResult.getResult().size()>0&&mHomeTabViewModel.regionResult.getResult().size()!=position) {
+
+                    mFragmentHomeBinding.rTitle.setVisibility(View.VISIBLE);
+                    Animation aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+                    mFragmentHomeBinding.rTitle.startAnimation(aniFadeOut);
+
+                    aniFadeOut.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mHomeTabViewModel.region1.set(mHomeTabViewModel.regionResult.getResult().get(position).getRegionname());
+                            mHomeTabViewModel.slogan1.set(mHomeTabViewModel.regionResult.getResult().get(position).getTagline());
+
+                            Animation aniFade = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+                            mFragmentHomeBinding.rTitle.startAnimation(aniFade);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+                }else {
+
+                    mFragmentHomeBinding.rTitle.setVisibility(View.INVISIBLE);
+                }
+
+
             }
         });
 
@@ -726,7 +761,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void applyFilter() {
 
         mHomeTabViewModel.fetchKitchen();
-
+        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
 
     }
 

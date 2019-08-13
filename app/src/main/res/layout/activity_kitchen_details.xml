@@ -87,11 +87,10 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:fitsSystemWindows="true"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
-
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="640dp"
+                    android:layout_height="400dp"
                     android:fitsSystemWindows="true"
                     app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -99,10 +98,11 @@ xmlns:tools="http://schemas.android.com/tools">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="570dp"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="60dp">
 
                         <android.support.v7.widget.RecyclerView
+                            android:layout_alignParentTop="true"
                             android:id="@+id/recycler_kitchen_common_slider"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -230,7 +230,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal|bottom"
@@ -240,7 +240,7 @@ xmlns:tools="http://schemas.android.com/tools">
                         <RelativeLayout
                             android:id="@+id/signature"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center_horizontal|bottom"
@@ -249,7 +249,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
                             <ImageView
                                 imageUrl="@{kitchenDetailsViewModel.signatureImageUrl}"
-                                android:layout_width="200dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="50dp"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"

@@ -7,7 +7,6 @@
     <data>
 
         <import type="android.view.View" />
-
         <variable
             name="offerListItemViewModel"
             type="com.tovo.eat.ui.home.homemenu.OfferListItemViewModel" />
@@ -21,7 +20,15 @@
         android:background="@color/white"
         android:onClick="@{()->offerListItemViewModel.onItemClick()}">
 
-        <com.tovo.eat.utilities.RoundCornerImageView
+        <!--<com.tovo.eat.utilities.RoundCornerImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:scaleType="centerInside"
+            app:cusrsiveImageUrl="@{offerListItemViewModel.offerImage}" />-->
+ <com.tovo.eat.utilities.RoundCornerImageView
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:layout_marginStart="5dp"

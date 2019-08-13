@@ -181,7 +181,7 @@
     <string name="scan_finger">Scan Finger</string>
     <string name="any_doubt">Any doubts? Write to us</string>
     <string name="replies">Replies</string>
-    <string name="view_details">View Details</string>
+    <string name="view_details">View Kitchens</string>
     <string name="identity">Identity Proof</string>
     <string name="upload">Upload</string>
     <string name="add_proof">Address Proof</string>
@@ -634,7 +634,7 @@
     <string name="after_empty_sub_title">Our homes are working on your favorites. Kindly give us some time! </string>
     <!--cart empty-->
     <string name="cart_empty_title">Your plate seems empty!  </string>
-    <string name="cart_empty_sub_title"> Add food made directly from our mothers\' kitchens.</string>
+    <string name="cart_empty_sub_title"> Add food made directly from our mother\'s kitchens.</string>
 
     <!--queries empty-->
     <string name="queries_empty_title">Any questions to ask us ?</string>
@@ -652,6 +652,8 @@
     <string name="your_order_has_been_delivered">Your order has been delivered</string>
     <string name="call">Call</string>
     <string name="place_first_order">PLACE YOUR FIRST ORDER</string>
+    <string name="not_serviceable_in_your_area">Not serviceable in your area.</string>
+    <string name="unserviceable">Unserviceable</string>
 
 
 </resources>
