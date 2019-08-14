@@ -2,6 +2,7 @@ package com.tovo.eat.ui.track.orderdetails;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
@@ -40,6 +41,11 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public final ObservableField<String> title = new ObservableField<>();
 
     public final ObservableField<String> locality = new ObservableField<>();
+
+    public final ObservableBoolean zeroBalance=new ObservableBoolean();
+
+
+
 
     public ObservableList<OrdersHistoryActivityResponse.Result.Item> ordersItemViewModels = new ObservableArrayList<>();
     CartRequestPojo cartRequestPojo;
@@ -111,6 +117,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                 public void onResponse(OrdersHistoryActivityResponse response) {
                     try {
                         if (response != null && response.getResult() != null && response.getResult().size()>0) {
+
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
                             kitchenName.set(response.getResult().get(0).getMakeitdetail().getBrandName());
                             address.set(response.getResult().get(0).getLocality());
@@ -119,6 +126,15 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             locality.set(String.valueOf(response.getResult().get(0).getCusAddress()));
                             gst.set(String.valueOf(response.getResult().get(0).getGst()));
                             delivery.set(String.valueOf(response.getResult().get(0).getDeliveryCharge()));
+
+
+                            if (response.getResult().get(0).getPrice()>0){
+                                zeroBalance.set(false);
+                            }else {
+                                zeroBalance.set(true);
+                            }
+
+
 
 
 

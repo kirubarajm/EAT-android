@@ -341,7 +341,7 @@ public class KitchenDishResponse {
     }
     public static class Foodbadge {
 
-        @SerializedName("badges")
+        @SerializedName("url")
         @Expose
         public String badges;
         @SerializedName("id")

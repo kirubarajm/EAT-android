@@ -9,9 +9,21 @@ public class OrdersHistoryListResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
+
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Boolean getSuccess() {
         return success;

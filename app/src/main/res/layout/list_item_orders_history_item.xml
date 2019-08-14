@@ -22,7 +22,7 @@
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/name"
-                android:layout_alignParentTop="true"
+              android:layout_centerVertical="true"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"

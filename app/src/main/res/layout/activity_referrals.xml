@@ -112,8 +112,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:gravity="center"
-                        android:text="@{referralsViewModel.referalMessage}"
+                        android:text="@string/referral_content"
                         android:textSize="14sp" />
 
                 </RelativeLayout>

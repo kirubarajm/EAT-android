@@ -265,6 +265,7 @@
                     </LinearLayout>
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:visibility="@{orderDetailsViewModel.zeroBalance?View.GONE:View.VISIBLE}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/linear_amt"

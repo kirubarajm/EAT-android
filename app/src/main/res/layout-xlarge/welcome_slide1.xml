@@ -16,16 +16,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/white"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitEnd"
-            android:src="@drawable/onboarding_2" />
+            android:layout_height="900dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/onboarding_1" />
 
         <LinearLayout
             android:paddingLeft="10dp"
@@ -38,42 +37,25 @@
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/linear_2"
+                android:layout_above="@+id/txt_1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Select your"
-                android:textSize="22sp" />
+                android:text="Your favorite"
+                android:textSize="30sp"
+                />
 
-            <LinearLayout
-                android:id="@+id/linear_2"
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/txt_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:id="@+id/txt_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/rel_1"
-                    android:layout_marginLeft="10dp"
-                    android:text="Native"
-                    android:textColor="@color/eat_color"
-                    android:textSize="22sp" />
-
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:id="@+id/txt_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/rel_1"
-                    android:layout_marginLeft="5dp"
-                    android:text="Cravings"
-                    android:textSize="22sp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rel_1"
+                android:layout_marginLeft="10dp"
+                android:text="home food made"
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:id="@+id/rel_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
@@ -81,8 +63,25 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="10dp"
-                    android:text="over anything else..."
-                    android:textSize="22sp" />
+                    android:text="by"
+                    android:textSize="30sp" />
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="5dp"
+                    android:text="EAT"
+                    android:textColor="@color/eat_color"
+                    android:textSize="30sp" />
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="5dp"
+                    android:text="MOMs..."
+                    android:textSize="30sp" />
 
             </LinearLayout>
 

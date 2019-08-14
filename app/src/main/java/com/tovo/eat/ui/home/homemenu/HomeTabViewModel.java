@@ -106,17 +106,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
 
-    //    if (collectionItemViewModels.size()>0) {
+        if (collectionItemViewModels.size()>0) {
 
             KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
             kitchenResponse1.setCollection(collectionItemViewModels);
             ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
-     //   }
-     //   if (couponListItemViewModels.size()>0) {
+        }
+        if (couponListItemViewModels.size()>0) {
             KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
             kitchenResponse2.setCoupons(couponListItemViewModels);
             ordersItems.add(2, kitchenResponse2);
-     //   }
+        }
 
         kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);

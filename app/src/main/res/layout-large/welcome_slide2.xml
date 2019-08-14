@@ -23,7 +23,7 @@
         <ImageView
             android:id="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="600dp"
             android:scaleType="fitEnd"
             android:src="@drawable/onboarding_2" />
 
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="Select your"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/linear_2"
@@ -57,7 +57,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="Native"
                     android:textColor="@color/eat_color"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:id="@+id/txt_2"
@@ -66,7 +66,7 @@
                     android:layout_above="@+id/rel_1"
                     android:layout_marginLeft="5dp"
                     android:text="Cravings"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +82,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="10dp"
                     android:text="over anything else..."
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

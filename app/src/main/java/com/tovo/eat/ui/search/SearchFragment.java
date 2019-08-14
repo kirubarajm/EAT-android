@@ -271,7 +271,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.VISIBLE);
                 mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
-
+                mFragmentSearchBinding.sear.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchh.clearFocus();
 
               /*  mFragmentSearchBinding.searchh.clearFocus();
@@ -294,10 +294,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 mSearchViewModel.fetchRegionKitchens(result.getName(), result.getId());
 
-
-
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
                 mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
+                mFragmentSearchBinding.sear.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchRegion.setVisibility(View.VISIBLE);
                 mFragmentSearchBinding.searchh.clearFocus();
 

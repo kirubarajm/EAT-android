@@ -565,15 +565,16 @@ xmlns:tools="http://schemas.android.com/tools">
                                 android:background="@drawable/gradient_view_kitchen" />
 
 
-                            <com.tovo.eat.utilities.fonts.CircularTextView
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="5dp"
                                 android:text="@{kitchenDetailsViewModel.about}"
                                 android:textColor="@color/dark_gray"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
 
                             <LinearLayout
@@ -618,11 +619,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@color/dark_gray" />
+
 
                             <LinearLayout
                                 android:id="@+id/foodBadges"

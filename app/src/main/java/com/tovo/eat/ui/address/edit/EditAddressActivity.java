@@ -142,9 +142,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
         /*buildGoogleAPIClient();*/
 
-
-
-
+        initCameraIdle();
 
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override

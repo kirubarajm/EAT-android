@@ -135,18 +135,23 @@
 
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:id="@+id/sear"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="10dp"
                     android:background="@android:color/white"
                     android:visibility="gone"
                     app:adapter="@{searchViewModel.searchItemViewModels}"
                     tools:listitem="@layout/list_item_search" />
 
+                </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview_dish"

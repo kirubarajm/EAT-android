@@ -180,10 +180,8 @@
                     android:layout_below="@+id/support2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99999999999"
+                    android:text="@string/support_number"
                     android:textSize="12sp" />
-
-
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
@@ -197,14 +195,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-
-
-
             </RelativeLayout>
-
-
-
-
 
 
             </RelativeLayout>

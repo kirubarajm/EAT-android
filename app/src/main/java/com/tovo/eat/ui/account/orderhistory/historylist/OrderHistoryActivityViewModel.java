@@ -63,6 +63,11 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                 @Override
                 public void onResponse(OrdersHistoryListResponse response) {
                     try {
+
+                        if (!response.getStatus()){
+                            emptyHistory.set(true);
+                        }
+
                         if ( response.getResult().size() >0) {
                             emptyHistory.set(false);
                             ordersItemsLiveData.setValue(response.getResult());

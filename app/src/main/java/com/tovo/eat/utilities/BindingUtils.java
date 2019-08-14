@@ -441,8 +441,8 @@ public final class BindingUtils {
 
         Glide.with(context).load(url)
                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                .placeholder(R.drawable.loader)
-                .error(R.drawable.imagenotavailable)
+               // .placeholder(R.drawable.loader)
+             //   .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
         /* Glide.with(context).load(url)
@@ -475,8 +475,8 @@ public final class BindingUtils {
 
         Glide.with(context).load(url)
               //  .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                .placeholder(R.drawable.loader)
-                .error(R.drawable.imagenotavailable)
+              //  .placeholder(R.drawable.loader)
+              //  .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
 
@@ -541,8 +541,8 @@ public final class BindingUtils {
 
         Glide.with(context).load(url)
             //    .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                .placeholder(R.drawable.loader)
-                .error(R.drawable.imagenotavailable)
+               // .placeholder(R.drawable.loader)
+               // .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
        /*
