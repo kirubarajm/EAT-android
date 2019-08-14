@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
@@ -102,6 +103,7 @@ public class StoryStatusView extends LinearLayout {
 
     public void pause() {
         if (isComplete) return;
+        Log.i("stview", "pause");
         ProgressBar p = progressBars.get(current);
         p.setProgress(p.getProgress());
         animators.get(current).pause();
@@ -109,6 +111,7 @@ public class StoryStatusView extends LinearLayout {
 
     public void resume() {
         if (isComplete) return;
+        Log.i("stview", "resume");
         ProgressBar p = progressBars.get(current);
         p.setProgress(p.getProgress());
         animators.get(current).resume();
@@ -160,6 +163,7 @@ public class StoryStatusView extends LinearLayout {
     }
 
     public void clear(){
+        isComplete = false;
         storiesCount=-1;
         animators.clear();
         progressBars.clear();
