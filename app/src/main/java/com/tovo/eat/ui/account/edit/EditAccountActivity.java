@@ -222,7 +222,6 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(false);
                     mActivityNameGenderBinding.chkOthers.setChecked(true);
-
                 } else {
                     regionId = "";
                     mActivityNameGenderBinding.region.setText("");
@@ -245,8 +244,10 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (mActivityNameGenderBinding.region.getText().toString().length()==0){
-                    regionId="";
+                if (!mActivityNameGenderBinding.chkOthers.isChecked()) {
+                    if (mActivityNameGenderBinding.region.getText().toString().length() == 0) {
+                        regionId = "";
+                    }
                 }
             }
         });
