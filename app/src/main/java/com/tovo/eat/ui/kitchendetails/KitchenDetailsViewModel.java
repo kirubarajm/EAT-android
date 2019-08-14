@@ -56,6 +56,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableBoolean foodBadges = new ObservableBoolean();
     public ObservableBoolean imageOrVideo = new ObservableBoolean();
     public ObservableBoolean isProductAvailable = new ObservableBoolean();
+    public ObservableBoolean serviceablestatus = new ObservableBoolean();
     public ObservableList<KitchenDishResponse.Specialitem> specialItemsListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Specialitem>> specialitemsMutableLiveData;
     public ObservableField<String> region = new ObservableField<>();
@@ -94,6 +95,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         optionmenu.set(true);
         imageOrVideo.set(true);
         isProductAvailable.set(true);
+        serviceablestatus.set(true);
 
         //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
        /* ConnectivityManager cm =
@@ -307,6 +309,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             isProductAvailable.set(true);
 
+
+                            serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
+
+
                             for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
                                 if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
                                     favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
@@ -439,7 +445,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         if (response.getResult() != null && response.getResult().size() != 0) {
                             favoriteProductlists.clear();
                             todaysMenuProductlists.clear();
-
+                            serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
 
                             isProductAvailable.set(true);
 

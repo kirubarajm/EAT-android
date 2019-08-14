@@ -39,11 +39,11 @@ public class TodaysMenuItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
+    public final ObservableBoolean serviceablekitchen = new ObservableBoolean();
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final KitchenDishResponse.Productlist dishList;
-
 
 
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
@@ -51,35 +51,32 @@ public class TodaysMenuItemViewModel {
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
 
 
-
     Integer favID;
 
 
-    public TodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList) {
+    public TodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, boolean serviceablekitchen) {
 
         this.mListener = mListener;
         this.dishList = dishList;
-
+        this.serviceablekitchen.set(serviceablekitchen);
         //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
-        if(dishList.getVegtype().equals("1")){
+        if (dishList.getVegtype().equals("1")) {
             this.producttype.set(dishList.getCuisinename());
             this.isVeg.set(false);
 
 
-        }else {
+        } else {
             this.producttype.set(dishList.getCuisinename());
             this.isVeg.set(true);
         }
 
 
-
-        if (dishList.getProductimage()!=null){
+        if (dishList.getProductimage() != null) {
             isFavouriteMenu.set(true);
         }
-
 
 
         if (cartRequestPojo == null) {
@@ -146,7 +143,7 @@ public class TodaysMenuItemViewModel {
                 isAddClicked.set(false);
             }
 
-        if (dishList.getIsfav()==1) {
+        if (dishList.getIsfav() == 1) {
             this.isFavourite.set(true);
         } else {
             this.isFavourite.set(false);
@@ -340,18 +337,18 @@ public class TodaysMenuItemViewModel {
             if (cartRequestPojo.getCartitems() != null) {
 
 
-                    if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
+                if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
 
-                        cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                        cartRequestPojoCartitem.setQuantity(quantity.get());
-                        cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                        results.add(cartRequestPojoCartitem);
-                    } else {
+                    cartRequestPojoCartitem.setProductid(dishList.getProductid());
+                    cartRequestPojoCartitem.setQuantity(quantity.get());
+                    cartRequestPojoCartitem.setPrice(dishList.getPrice());
+                    results.add(cartRequestPojoCartitem);
+                } else {
 
-                        mListener.otherKitchenDish(dishList.getMakeitUserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
+                    mListener.otherKitchenDish(dishList.getMakeitUserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
 
 
-                    }
+                }
 
 
             } else {
@@ -425,7 +422,7 @@ public class TodaysMenuItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -457,7 +454,7 @@ public class TodaysMenuItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

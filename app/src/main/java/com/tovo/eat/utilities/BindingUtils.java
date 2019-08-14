@@ -18,11 +18,13 @@ package com.tovo.eat.utilities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.MediaDataSource;
 import android.net.Uri;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
 import android.view.KeyEvent;
@@ -418,7 +420,23 @@ public final class BindingUtils {
     public static void setImageUrl(RoundCornerImageView imageView, String url) {
         Context context = imageView.getContext();
 
-        Glide.with(context).load(url).placeholder(R.drawable.images_loading)
+       /* Glide.with(context).load(url).placeholder(R.drawable.images_loading)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
+
+
+
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(5f);
+        circularProgressDrawable.start();
+
+
+
+        Glide.with(context).load(url)
+           //     .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
@@ -428,12 +446,39 @@ public final class BindingUtils {
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
-        /*Glide.with(context).load(url).placeholder(R.drawable.images_loading)
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(5f);
+        circularProgressDrawable.start();
+
+
+
+
+        Glide.with(context).load(url)
+              //  .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
-                .into(imageView);*/
-        Glide.with(context).load(url).into(imageView);
+                .into(imageView);
+
+
+
+
+    //    Glide.with(context).load(url).into(imageView);
 
     }
+
+   public static Drawable getProgressBarIndeterminate() {
+        final int[] attrs = {android.R.attr.indeterminateDrawable};
+        final int attrs_indeterminateDrawable_index = 0;
+        TypedArray a =MvvmApp.getInstance().obtainStyledAttributes(android.R.style.Widget_Material_ProgressBar_Small, attrs);
+        try {
+            return a.getDrawable(attrs_indeterminateDrawable_index);
+        } finally {
+            a.recycle();
+        }
+    }
+
  @BindingAdapter("enter")
     public static void closeKeyboaard(EditText editText, boolean status) {
         Context context = editText.getContext();
@@ -445,7 +490,6 @@ public final class BindingUtils {
 
                  InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
                  inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-
 
              }
              return false;
@@ -464,6 +508,22 @@ public final class BindingUtils {
     @BindingAdapter("cusrsiveImageUrl")
     public static void setCursiveImageUrl(RoundCornerImageView imageView, String url) {
         Context context = imageView.getContext();
+
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(5f);
+        circularProgressDrawable.start();
+
+
+        Glide.with(context).load(url)
+              //  .placeholder(getProgressBarIndeterminate())
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
+
+
+       /*
         Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -482,7 +542,7 @@ public final class BindingUtils {
                         return true;
                     }
                 })
-                .into(imageView);
+                .into(imageView);*/
        // Glide.with(context).load(url).into(imageView);
     }
 

@@ -6,7 +6,7 @@
 
 
 
-    <color name="eat_color">#f7b000</color>
+    <color name="eat_color">#fff9a900</color>
     <color name="light_eat_color">#FDF0CF</color>
 
     <color name="light_gray">#ECEBEB</color>
@@ -16,8 +16,6 @@
 
     <color name="filter_selected">#CACACA</color>
     <color name="filter_unselected">#ECEBEB</color>
-
-
 
 
     <color name="dark_gray">#5C5B5B</color>

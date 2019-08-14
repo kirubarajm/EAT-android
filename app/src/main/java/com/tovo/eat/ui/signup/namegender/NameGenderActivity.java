@@ -136,6 +136,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
                 regionId = result.getRegionid();
 
+
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
             }

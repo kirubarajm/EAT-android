@@ -134,33 +134,53 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.account.favorites.tab.FavoritesTabActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.payment.PaymentActivity" />
-        <activity android:name=".ui.home.region.list.RegionDetailsActivity" />
-        <activity android:name=".ui.search.dish.SearchDishActivity" />
-        <activity android:name=".ui.account.edit.EditAccountActivity" />
-        <activity android:name=".ui.track.orderdetails.OrderDetailsActivity" />
-        <activity android:name=".ui.track.help.OrderHelpActivity" />
-        <activity android:name=".ui.kitchendetails.KitchenDetailsActivity" />
-        <activity android:name=".ui.cart.refund.RefundListActivity" />
-        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity" />
-        <activity android:name=".ui.signup.privacy.PrivacyActivity" />
-        <activity android:name=".ui.signup.faqs.FaqActivity" />
-        <activity android:name=".ui.home.region.viewmore.RegionListActivity" />
-        <activity android:name=".ui.account.favorites.FavouritesActivity" />
+        <activity android:name=".ui.payment.PaymentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.home.region.list.RegionDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.search.dish.SearchDishActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.account.edit.EditAccountActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.track.orderdetails.OrderDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.track.help.OrderHelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.kitchendetails.KitchenDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.cart.refund.RefundListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.signup.privacy.PrivacyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.signup.faqs.FaqActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.home.region.viewmore.RegionListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.account.favorites.FavouritesActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity" />
-        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivityOP" />
-        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivity" />
+        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivityOP"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.cart.coupon.CouponListActivity" />
+        <activity android:name=".ui.cart.coupon.CouponListActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity" >
+        <activity android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity"
+            android:screenOrientation="portrait">
 
 
         </activity>
 
-        <activity android:name=".ui.update.UpdateActivity" />
-        <activity android:name=".utilities.nointernet.InternetErrorFragment" />
+        <activity android:name=".ui.update.UpdateActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".utilities.nointernet.InternetErrorFragment"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

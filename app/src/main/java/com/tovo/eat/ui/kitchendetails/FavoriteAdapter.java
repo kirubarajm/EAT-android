@@ -1,17 +1,21 @@
 package com.tovo.eat.ui.kitchendetails;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemFavBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +24,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    public boolean serviceablekitchen = true;
     private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
-
 
     public FavoriteAdapter(List<KitchenDishResponse.Productlist> item_list) {
         this.item_list = item_list;
@@ -86,6 +90,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
+
+    public void serviceable(boolean status) {
+        this.serviceablekitchen = status;
+
+    }
+
+
     public void setListener(LiveProductsAdapterListener listener) {
         this.mLiveProductsAdapterListener = listener;
     }
@@ -145,7 +156,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new FavTodaysMenuItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new FavTodaysMenuItemViewModel(this, blog,serviceablekitchen);
             mListItemLiveProductsBinding.setFavTodaysMenuItemViewModel(mLiveProductsItemViewModel);
 
             mLiveProductsAdapterListener.onItemClickData(null, mListItemLiveProductsBinding.fav);
@@ -162,6 +173,31 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+
+
+
+
+            if (!serviceablekitchen) {
+
+                mListItemLiveProductsBinding.content.setAlpha(1);
+                mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.amount.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                mListItemLiveProductsBinding.image.setColorFilter(filter);
+                // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
+
+            }
+
+
         }
 
         @Override

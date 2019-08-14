@@ -48,6 +48,9 @@ public class KitchenDishResponse {
         @SerializedName("localityname")
         @Expose
         public String localityname;
+        @SerializedName("serviceablestatus")
+        @Expose
+        public boolean serviceableStatus;
         @SerializedName("regionname")
         @Expose
         public String regionname;
@@ -101,6 +104,19 @@ public class KitchenDishResponse {
         @SerializedName("foodbadge")
         @Expose
         public List<Foodbadge> foodbadge = null;
+
+
+        public void setMakeituserid(Integer makeituserid) {
+            this.makeituserid = makeituserid;
+        }
+
+        public boolean isServiceableStatus() {
+            return serviceableStatus;
+        }
+
+        public void setServiceableStatus(boolean serviceableStatus) {
+            this.serviceableStatus = serviceableStatus;
+        }
 
         public Integer getRatingCount() {
             return ratingCount;

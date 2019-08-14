@@ -39,6 +39,7 @@ public class FavTodaysMenuItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
+    public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
@@ -54,10 +55,12 @@ public class FavTodaysMenuItemViewModel {
     Integer favID;
 
 
-    public FavTodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList) {
+    public FavTodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList,boolean sericeable) {
 
         this.mListener = mListener;
         this.dishList = dishList;
+
+        this.serviceableKitchen.set(sericeable);
 
         //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();

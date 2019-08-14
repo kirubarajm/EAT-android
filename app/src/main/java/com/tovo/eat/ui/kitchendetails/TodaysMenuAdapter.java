@@ -1,18 +1,22 @@
 package com.tovo.eat.ui.kitchendetails;
 
 import android.animation.ObjectAnimator;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemTodaysMenuBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<KitchenDishResponse.Productlist> item_list;
     private FavoriteAdapter.LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
+    private boolean serviceablekitchen=true;
 
 
     public TodaysMenuAdapter(List<KitchenDishResponse.Productlist> item_list) {
@@ -85,6 +90,10 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         notifyDataSetChanged();
     }
+    public void serviceable(boolean status) {
+        this.serviceablekitchen = status;
+
+    }
 
     public void setListener(FavoriteAdapter.LiveProductsAdapterListener listener) {
         this.mLiveProductsAdapterListener = listener;
@@ -142,16 +151,19 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new TodaysMenuItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new TodaysMenuItemViewModel(this, blog,serviceablekitchen);
             mListItemLiveProductsBinding.setTodaysMenuItemViewModel(mLiveProductsItemViewModel);
 
             mLiveProductsAdapterListener.onItemClickData(null, mListItemLiveProductsBinding.fav);
 
-            ObjectAnimator rotate = ObjectAnimator.ofFloat(mListItemLiveProductsBinding.fav, "rotation", 0f, 20f, 0f, -20f, 0f); // rotate o degree then 20 degree and so on for one loop of rotation.
+           /* ObjectAnimator rotate = ObjectAnimator.ofFloat(mListItemLiveProductsBinding.fav, "rotation", 0f, 20f, 0f, -20f, 0f); // rotate o degree then 20 degree and so on for one loop of rotation.
             // animateView (View object)
             rotate.setRepeatCount(20); // repeat the loop 20 times
             rotate.setDuration(100); // animation play time 100 ms
-            rotate.start();
+            rotate.start();*/
+
+
+
 
 
             // Immediate Binding
@@ -159,6 +171,22 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+
+
+            if (!serviceablekitchen) {
+
+                mListItemLiveProductsBinding.content.setAlpha(1);
+                mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.amount.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+
+            }
+
+
         }
 
 

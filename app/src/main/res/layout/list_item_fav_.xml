@@ -42,6 +42,7 @@
 
 
     <LinearLayout
+
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,9 +61,10 @@
                 android:layout_margin="10dp">
 
                 <com.tovo.eat.utilities.RoundCornerImageView
+                    android:id="@+id/image"
                     android:visibility="@{favTodaysMenuItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
                     cusrsiveImageUrl="@{favTodaysMenuItemViewModel.image}"
-                    android:layout_width="80dp"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY" />
 
@@ -87,6 +89,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:visibility="@{favTodaysMenuItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
                     android:id="@+id/addDish"
                     android:layout_marginEnd="15dp"
                     android:layout_centerVertical="true"
@@ -192,7 +195,10 @@
                     android:layout_toStartOf="@+id/addDish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="3dp"
                     android:orientation="vertical">
 
 
@@ -208,7 +214,7 @@
                             android:layout_centerVertical="true"
                             android:text="@{favTodaysMenuItemViewModel.product_name}"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
@@ -245,6 +251,7 @@
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/inr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr"
@@ -252,6 +259,7 @@
                             android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{favTodaysMenuItemViewModel.sprice}"

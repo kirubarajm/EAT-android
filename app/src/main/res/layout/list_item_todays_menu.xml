@@ -73,6 +73,7 @@
                 android:layout_height="100dp">
 
                 <RelativeLayout
+                    android:visibility="@{todaysMenuItemViewModel.serviceablekitchen?View.VISIBLE:View.GONE}"
                     android:id="@+id/addDish"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
@@ -232,6 +233,7 @@
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/inr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr"
@@ -239,6 +241,7 @@
                             android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{todaysMenuItemViewModel.sprice}"

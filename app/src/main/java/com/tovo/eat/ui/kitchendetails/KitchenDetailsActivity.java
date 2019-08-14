@@ -384,6 +384,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerFav.setLayoutManager(new LinearLayoutManager(this));
         mFragmentDishBinding.recyclerFav.setAdapter(mFavTodaysMenuAdapter);
+
+
       //  mFragmentDishBinding.recyclerFav.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -527,6 +529,14 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     public void dishListLoaded(KitchenDishResponse response) {
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
+
+        if (response!=null&&response.getResult().size()>0){
+            mFavTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
+            mTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
+
+        }
+
+
     }
 
     @Override
