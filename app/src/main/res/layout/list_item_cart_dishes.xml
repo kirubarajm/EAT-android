@@ -84,35 +84,33 @@
                         android:textColor="@color/dark_gray"
                         android:textSize="12sp" />
 
+
                     <LinearLayout
-                        android:layout_marginTop="3dp"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
+                            android:id="@+id/inr"
                             android:layout_width="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:textSize="12sp"
                             android:layout_height="wrap_content"
-                            android:text="@string/icon_inr" />
+                            android:text="@string/icon_inr"
+                            android:textColor="@color/black"
+                            android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                            android:layout_marginLeft="2dp"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{cartDishItemViewModel.sprice}"
-                            android:layout_marginStart="2dp" />
-
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
                     </LinearLayout>
-
 
                 </LinearLayout>
 

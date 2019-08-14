@@ -464,7 +464,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     public void showDialog() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_location_not_servicable);
 
         ButtonTextView text = dialog.findViewById(R.id.changeAddress);

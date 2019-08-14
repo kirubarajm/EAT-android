@@ -26,7 +26,7 @@
             <ImageView
                 android:layout_marginTop="50dp"
                 android:id="@+id/img_2"
-                android:src="@drawable/onboarding2"
+                android:src="@drawable/onboard2"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />

@@ -380,6 +380,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 </LinearLayout>
 
                 <android.support.v4.widget.NestedScrollView
+                    android:background="@color/white"
                     android:layout_below="@+id/optionmenu"
                     android:id="@+id/nested_scroll_1"
                     android:layout_width="match_parent"
@@ -471,12 +472,11 @@ xmlns:tools="http://schemas.android.com/tools">
                                     android:layout_weight="1"
                                     android:orientation="horizontal">
 
-                                    <com.tovo.eat.utilities.fonts.TovoTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
                                         android:layout_gravity="center_vertical"
-                                        android:text="@string/icon_member"
-                                        android:textSize="18sp" />
+                                        imageUrl="@{kitchenDetailsViewModel.memberTypeIcon}"/>
 
                                     <com.tovo.eat.utilities.fonts.CircularTextView
                                         android:layout_width="wrap_content"
@@ -778,11 +778,12 @@ xmlns:tools="http://schemas.android.com/tools">
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
-                                    <ImageView
+                                    <com.tovo.eat.utilities.fonts.TovoTextView
                                         android:layout_gravity="center_horizontal"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
-                                        android:src="@drawable/empty_cart" />
+                                        android:textSize="50sp"
+                                        android:text="@string/icon_error"/>
 
 
                                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView

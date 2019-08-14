@@ -58,9 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp">
 
-                <com.tovo.eat.utilities.RoundCornerImageView
-                    cusrsiveImageUrl="@{kitchenDishItemViewModel.image}"
-                    android:layout_width="80dp"
+                <ImageView
+                    imageUrl="@{kitchenDishItemViewModel.image}"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY" />
 
@@ -189,7 +189,8 @@
                     android:layout_toStartOf="@+id/addDish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                   android:layout_marginTop="10dp"
+                    android:layout_marginEnd="3dp"
                     android:orientation="vertical">
 
 
@@ -204,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:text="@{kitchenDishItemViewModel.product_name}"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
 
@@ -232,17 +233,19 @@
                         android:textSize="10sp" />
 
 
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/inr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr"
@@ -250,6 +253,7 @@
                             android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{kitchenDishItemViewModel.sprice}"

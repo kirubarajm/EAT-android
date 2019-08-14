@@ -11,19 +11,19 @@ public class RegionNameTextView extends android.support.v7.widget.AppCompatTextV
 
     public RegionNameTextView(Context context) {
         super(context);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Yellowtail-Regular.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "artely.ttf");
         this.setTypeface(face);
     }
 
     public RegionNameTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Yellowtail-Regular.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "artely.ttf");
         this.setTypeface(face);
     }
 
     public RegionNameTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface face=Typeface.createFromAsset(context.getAssets(), "Yellowtail-Regular.otf");
+        Typeface face=Typeface.createFromAsset(context.getAssets(), "artely.ttf");
         this.setTypeface(face);
     }
 

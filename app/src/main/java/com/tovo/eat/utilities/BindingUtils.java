@@ -47,6 +47,8 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.DrawableCrossFadeFactory;
 import com.bumptech.glide.request.target.Target;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.tovo.eat.R;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavKitchenAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter;
@@ -428,15 +430,17 @@ public final class BindingUtils {
 
 
 
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+       /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
-        circularProgressDrawable.start();
+        circularProgressDrawable.start();*/
 
+
+        //Picasso.with(context).load(image_url).networkPolicy(NetworkPolicy.NO_CACHE).into(imageView);
 
 
         Glide.with(context).load(url)
-           //     .placeholder(getProgressBarIndeterminate())
+               .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
@@ -448,16 +452,16 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
 
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+       /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
-        circularProgressDrawable.start();
+        circularProgressDrawable.start();*/
 
 
 
 
         Glide.with(context).load(url)
-              //  .placeholder(getProgressBarIndeterminate())
+                .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
@@ -511,14 +515,14 @@ public final class BindingUtils {
 
 
 
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+       /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
-        circularProgressDrawable.start();
+        circularProgressDrawable.start();*/
 
 
         Glide.with(context).load(url)
-              //  .placeholder(getProgressBarIndeterminate())
+                .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 

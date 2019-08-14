@@ -399,6 +399,7 @@
                           app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
                     <LinearLayout
+                        android:visibility="gone"
                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
@@ -443,6 +444,7 @@
 
 
                         <LinearLayout
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -466,7 +468,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="@{homeTabViewModel.region1}"
                                         android:textAlignment="center"
-                                        android:textSize="50sp"
+                                        android:textSize="40sp"
                                         android:textStyle="bold" />
 
                                     <com.tovo.eat.utilities.fonts.RegionNameTextView

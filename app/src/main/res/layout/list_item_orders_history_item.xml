@@ -54,29 +54,31 @@
 
 
             <LinearLayout
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
 
                 <com.tovo.eat.utilities.fonts.TovoTextView
-                    android:layout_marginEnd="1dp"
-                    android:textColor="@color/black"
+                    android:id="@+id/inr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/icon_inr"
-                    android:textSize="10sp"/>
-
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
+                    android:id="@+id/amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{ordersProductListItemViewModel.price}" />
-
-
+                    android:text="@{ordersProductListItemViewModel.price}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </LinearLayout>
 
 

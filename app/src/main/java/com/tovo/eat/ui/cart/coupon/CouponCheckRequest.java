@@ -17,6 +17,9 @@ public class CouponCheckRequest {
         this.couponName = couponName;
         this.userid = userid;
     }
+ public CouponCheckRequest(Integer userid) {
+        this.userid = userid;
+    }
 
     public String getCouponName() {
         return couponName;

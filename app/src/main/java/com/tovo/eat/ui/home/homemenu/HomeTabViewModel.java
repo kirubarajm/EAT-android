@@ -618,7 +618,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void fetchStories() {
-        try {
+       /* try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_STORIES_LIST, StoriesResponse.class, new Response.Listener<StoriesResponse>() {
                 @Override
@@ -744,7 +744,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void fetchCollections() {

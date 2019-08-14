@@ -22,7 +22,6 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
-import com.tovo.eat.ui.kitchendetails.TodaysMenuAdapter;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -65,6 +64,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean payment = new ObservableBoolean();
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean emptyCart = new ObservableBoolean();
+    public final ObservableBoolean serviceable = new ObservableBoolean();
 
     public final ObservableBoolean refunds = new ObservableBoolean();
     public final ObservableBoolean refundSelected = new ObservableBoolean();
@@ -93,6 +93,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         dishItemsLiveData = new MutableLiveData<>();
         refundListItemsLiveData = new MutableLiveData<>();
         cartBillLiveData = new MutableLiveData<>();
+        serviceable.set(true);
 
         getDataManager().saveRefundId(0);
         getDataManager().saveCouponId(0);
@@ -103,7 +104,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             fetchRepos();*/
 
         fetchRefunds();
-
 
 
         //  getDataManager().setisPasswordStatus(false);
@@ -448,12 +448,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         //    if (cartPageResponse.getStatus()) {
 
-                        if (!cartPageResponse.getStatus()){
+                        if (!cartPageResponse.getStatus()) {
 
                             Toast.makeText(MvvmApp.getInstance(), cartPageResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
-
 
 
                         if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
@@ -489,12 +488,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             //  makeit_category.set(response.getResult().get(0).getCategory());
 
 
-                            if (cartPageResponse.getResult().get(0).getIsFav().equals("1")){
+                            if (cartPageResponse.getResult().get(0).getIsFav().equals("1")) {
                                 isFavourite.set(true);
-                            }else {
+                            } else {
                                 isFavourite.set(false);
                             }
-
 
 
                             totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
@@ -564,13 +562,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         setAddressTitle();
 
+                        serviceable.set(cartPageResponse.getResult().get(0).isAvaliablekitchen());
 
-
-
-                        if (!cartPageResponse.getResult().get(0).isAvaliablekitchen()){
-                            getNavigator().notServicable();
-                        }
-
+//                        if (!cartPageResponse.getResult().get(0).isAvaliablekitchen()) {
+//                            getNavigator().notServicable();
+//                        }
 
 
 
@@ -622,41 +618,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void paymentModeCheck() {
 
-        if (getDataManager().getAddressId() == 0) {
 
-            getNavigator().showToast("Please complete the address");
+        if (serviceable.get()) {
 
-        } else {
-            if (getDataManager().getTotalOrders() == 0) {
 
-                if (totalAmount == 0) {
-                    if (getDataManager().getRefundId() != 0) {
+            if (getDataManager().getAddressId() == 0) {
 
-                        if (refundBalance.get() > 0) {
-                            getNavigator().refundAlert();
-                        } else {
-                            getNavigator().paymentGateway(grand_total.get());
-                        }
+                getNavigator().showToast("Please complete the address");
 
-                    } else {
-                        cashMode();
-                    }
-                } else {
-                    if (getDataManager().getRefundId() != 0) {
-
-                        if (refundBalance.get() > 0) {
-                            getNavigator().refundAlert();
-                        } else {
-                            getNavigator().paymentGateway(grand_total.get());
-                        }
-                    } else {
-                        getNavigator().paymentGateway(grand_total.get());
-                    }
-
-                }
             } else {
+                if (getDataManager().getTotalOrders() == 0) {
 
-                if (getDataManager().getEmailStatus()) {
                     if (totalAmount == 0) {
                         if (getDataManager().getRefundId() != 0) {
 
@@ -665,6 +637,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             } else {
                                 getNavigator().paymentGateway(grand_total.get());
                             }
+
                         } else {
                             cashMode();
                         }
@@ -679,16 +652,45 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         } else {
                             getNavigator().paymentGateway(grand_total.get());
                         }
+
                     }
                 } else {
-                    getNavigator().postRegistration("cart", grand_total.get());
+
+                    if (getDataManager().getEmailStatus()) {
+                        if (totalAmount == 0) {
+                            if (getDataManager().getRefundId() != 0) {
+
+                                if (refundBalance.get() > 0) {
+                                    getNavigator().refundAlert();
+                                } else {
+                                    getNavigator().paymentGateway(grand_total.get());
+                                }
+                            } else {
+                                cashMode();
+                            }
+                        } else {
+                            if (getDataManager().getRefundId() != 0) {
+
+                                if (refundBalance.get() > 0) {
+                                    getNavigator().refundAlert();
+                                } else {
+                                    getNavigator().paymentGateway(grand_total.get());
+                                }
+                            } else {
+                                getNavigator().paymentGateway(grand_total.get());
+                            }
+                        }
+                    } else {
+                        getNavigator().postRegistration("cart", grand_total.get());
+
+                    }
 
                 }
-
             }
+
+        }else {
+            getNavigator().notServicable();
         }
-
-
     }
 
 

@@ -132,7 +132,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
                 //  Log.e("", selectedItem.getMenuitem_name());
 
                 regionId = result.getRegionid();
-                
+
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
                 if (regionId == 0){

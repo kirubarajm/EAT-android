@@ -44,6 +44,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
@@ -161,8 +162,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void selectAddress() {
-        Intent intent = SelectAddressListActivity.newIntent(getContext());
-        startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
+      /*  Intent intent = SelectAddressListActivity.newIntent(getContext());
+        startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);*/
+
+
+        ((MainActivity) getActivity()).selectHomeAddress();
+
 
     }
 

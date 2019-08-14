@@ -63,6 +63,12 @@ public class KitchenDishResponse {
         @SerializedName("makeitimg")
         @Expose
         public String makeitimg;
+        @SerializedName("member_type_icon")
+        @Expose
+        public String memberTypeIcon;
+        @SerializedName("member_type_name")
+        @Expose
+        public String memberTypeName;
         @SerializedName("about")
         @Expose
         public String about;
@@ -105,6 +111,22 @@ public class KitchenDishResponse {
         @Expose
         public List<Foodbadge> foodbadge = null;
 
+
+        public String getMemberTypeIcon() {
+            return memberTypeIcon;
+        }
+
+        public void setMemberTypeIcon(String memberTypeIcon) {
+            this.memberTypeIcon = memberTypeIcon;
+        }
+
+        public String getMemberTypeName() {
+            return memberTypeName;
+        }
+
+        public void setMemberTypeName(String memberTypeName) {
+            this.memberTypeName = memberTypeName;
+        }
 
         public void setMakeituserid(Integer makeituserid) {
             this.makeituserid = makeituserid;

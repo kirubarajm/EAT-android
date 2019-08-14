@@ -34,6 +34,7 @@ public class DishItemViewModel {
     public final ObservableField<String> locality = new ObservableField<>();
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
+    public final ObservableBoolean noImage = new ObservableBoolean();
 
     public final ObservableField<String> producttype = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
@@ -63,6 +64,18 @@ public class DishItemViewModel {
 
         if (dishList.getFavid() != null)
             favID = dishList.getFavid();
+
+
+
+          if (dishList.getImage() == null||dishList.getImage().equals("")){
+              noImage.set(true);
+          }
+
+
+
+
+
+
 
 
         if (dishList.getBrandname().isEmpty()) {

@@ -482,6 +482,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
+
+    public void selectHomeAddress(){
+
+        Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
+        startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();

@@ -38,14 +38,18 @@
 
 
                 <RelativeLayout
-                    android:layout_width="80dp"
+                    android:layout_width="120dp"
                     android:layout_height="80dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="3dp"
                     android:background="@color/white">
 
 
-                    <com.tovo.eat.utilities.RoundCornerImageView
-                        cusrsiveImageUrl="@{dishItemViewModel.image}"
+                    <ImageView
+                        android:visibility="@{dishItemViewModel.noImage?View.GONE:View.VISIBLE}"
+                        imageUrl="@{dishItemViewModel.image}"
                         android:layout_width="120dp"
                         android:layout_height="80dp"
                         android:layout_alignParentStart="true"
@@ -53,40 +57,22 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerInParent="true"
                         android:scaleType="fitXY" />
-
-
-                    <com.tovo.eat.utilities.RoundCornerImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:onClick="@{()->dishItemViewModel.fav()}"
-                        android:scaleType="fitXY"
-                        android:src="@{dishItemViewModel.isFavourite?@drawable/fav_selected :@drawable/fav_unselect}"
-                        android:visibility="gone" />
-
                 </RelativeLayout>
-
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_toStartOf="@+id/end"
                         android:layout_toLeftOf="@+id/end"
                         android:orientation="vertical">
-
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -98,7 +84,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{dishItemViewModel.product_name}"
                                 android:textColor="@color/black"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <com.tovo.eat.utilities.fonts.TovoTextView
@@ -149,32 +135,26 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="10dp"
                             android:orientation="horizontal">
 
                             <com.tovo.eat.utilities.fonts.TovoTextView
+                                android:id="@+id/inr"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp"
                                 android:text="@string/icon_inr"
-                                android:textAlignment="center"
                                 android:textColor="@color/black"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                android:layout_gravity="center_vertical"
+                                android:id="@+id/amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginLeft="2dp"
                                 android:text="@{dishItemViewModel.sprice}"
                                 android:textColor="@color/black"
-                                android:textSize="16sp" />
-
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -265,7 +245,7 @@
                                     android:text="@{dishItemViewModel.sQuantity}"
                                     android:textAlignment="center"
                                     android:textColor="@color/dark_gray"
-                                    android:textSize="18sp" />
+                                    android:textSize="16sp" />
 
                                 <View
                                     android:layout_width="1dp"

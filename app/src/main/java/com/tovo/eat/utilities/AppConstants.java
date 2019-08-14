@@ -78,6 +78,8 @@ public class AppConstants {
     public static final int COD_REQUESTCODE = 222;
     public static final int ONLINE_REQUESTCODE = 333;
 
+    public static final String SUPPORT_NUMBER = "9790876528";
+
     public static final int CALL_PHONE_PERMISSION_REQUEST_CODE= 501;
 
     public static final String API_VERSION_ONE = "1.0.0";
@@ -89,13 +91,13 @@ public class AppConstants {
 
 
 
-   // public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in:5000";////live ip port new
+    public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
 
 
 
   //    public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
-     public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
+   //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
 
    //   public static final String URL_SERVER_IP_PORT = "http://13.232.246.20:3000";////live ip port
      //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
@@ -104,7 +106,7 @@ public class AppConstants {
 
      // public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
 
-   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+  //  public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
@@ -129,6 +131,7 @@ public class AppConstants {
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
     public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method
+    public static final String URL_LOG_OUT = URL_SERVER_IP_PORT + "/eat/logout";/////POST method
     public static final String URL_CANCEL_ORDER= URL_SERVER_IP_PORT + "/eat/order/cancel/";/////POST method
     public static final String EAT_KITCHEN_LIST_URL = URL_SERVER_IP_PORT + "/eat/kitchenlist";
     public static final String EAT_DISH_LIST_URL = URL_SERVER_IP_PORT + "/eat/dishlist";

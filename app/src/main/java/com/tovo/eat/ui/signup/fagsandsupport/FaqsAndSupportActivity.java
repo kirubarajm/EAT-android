@@ -70,7 +70,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
         }
         else
         {
-            String number = "9597352662";
+            String number = AppConstants.SUPPORT_NUMBER;
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -109,14 +109,14 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
             case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // callAdmin();
-                    String number = "9597352662";
+                    String number = AppConstants.SUPPORT_NUMBER;
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
                     callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(callIntent);
 
                 } else{
-                    String number = "9597352662";
+                    String number = AppConstants.SUPPORT_NUMBER;
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
                     callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

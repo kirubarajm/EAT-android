@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.cart.coupon.CouponCheckRequest;
 import com.tovo.eat.ui.signup.namegender.GetUserDetailsResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
@@ -60,9 +61,48 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void logOut() {
-        getNavigator().logout();
-        logOutSession();
+
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            int userId = getDataManager().getCurrentUserId();
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOG_OUT, GetUserDetailsResponse.class,new CouponCheckRequest(getDataManager().getCurrentUserId()   ),new Response.Listener<GetUserDetailsResponse>() {
+                @Override
+                public void onResponse(GetUserDetailsResponse response) {
+
+                    getNavigator().logout();
+                    logOutSession();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        setIsLoading(false);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
     }
+
+
+
+
+
+
 
     public void feedbackAndSupport() {
         getNavigator().feedbackAndSupport();

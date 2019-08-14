@@ -194,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:text="@{todaysMenuItemViewModel.product_name}"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
 
@@ -227,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal">

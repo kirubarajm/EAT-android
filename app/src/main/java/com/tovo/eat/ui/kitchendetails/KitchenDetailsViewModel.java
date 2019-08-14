@@ -64,6 +64,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> memberType = new ObservableField<>();
     public ObservableField<String> rating = new ObservableField<>();
     public ObservableField<String> memberTypeDesc = new ObservableField<>();
+    public ObservableField<String> memberTypeIcon = new ObservableField<>();
     public ObservableField<String> about = new ObservableField<>();
     public ObservableField<String> signatureImageUrl = new ObservableField<>();
     public ObservableField<String> ratingCount = new ObservableField<>();
@@ -397,7 +398,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             about.set(response.getResult().get(0).getAbout());
 
-                            if (memberType.equals("1")) {
+                            memberTypeDesc.set(response.getResult().get(0).getMemberTypeName());
+                            memberTypeIcon.set(response.getResult().get(0).getMemberTypeIcon());
+
+
+                          /*  if (memberType.equals("1")) {
                                 memberTypeDesc.set("Gold member");
                             } else if (memberType.equals("2")) {
                                 memberTypeDesc.set("Silver member");
@@ -405,7 +410,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 memberTypeDesc.set("Bronze member");
                             } else {
                                 memberTypeDesc.set("null");
-                            }
+                            }*/
                         } else {
 
 

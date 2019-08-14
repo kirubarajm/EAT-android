@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_marginTop="50dp"
                 android:id="@+id/img_getStarted"
-                android:src="@drawable/onboarding3"
+                android:src="@drawable/onboard3"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
