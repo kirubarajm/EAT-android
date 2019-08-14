@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -127,13 +128,6 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         imageProgressBar = view.findViewById(R.id.imageProgressBar);
         videoView = view.findViewById(R.id.video_view);
 
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                storyStatusView.skip();
-            }
-        });
-
         reverseClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,6 +193,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             storyStatusView.playStories();
             videoView.start();
         } else if (isoNcREATRE) {
+            isVisibleToUser = true;
             //mSplashActivityViewModel.getData();
             storyStatusView.playStories();
             videoView.start();
@@ -281,6 +276,14 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         }
     }
 
+    public void pauseView() {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                storyStatusView.pause();
+            }
+        });
+    }
     @Override
     public void onNext() {
         ++counter;
@@ -504,7 +507,8 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
         @Override
         protected void onConnecting() {
-            storyStatusView.pause();
+            //storyStatusView.pause();
+            pauseView();
             progress.setIndeterminate(true);
             progress.setVisibility(View.VISIBLE);
 

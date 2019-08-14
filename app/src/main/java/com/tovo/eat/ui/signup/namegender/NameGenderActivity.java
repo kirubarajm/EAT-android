@@ -123,10 +123,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
 
-
-
         mLoginViewModelMain.regionList();
-
 
         mActivityNameGenderBinding.region.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,10 +132,17 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
                 //  Log.e("", selectedItem.getMenuitem_name());
 
                 regionId = result.getRegionid();
+                
+                mActivityNameGenderBinding.regionList.setErrorEnabled(false);
+
+                if (regionId == 0){
+                    mLoginViewModelMain.flagRegion.set(true);
+                }else {
+                    mLoginViewModelMain.flagRegion.set(false);
+                }
 
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
-
             }
         });
 

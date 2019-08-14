@@ -18,6 +18,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     public ObservableBoolean male = new ObservableBoolean();
     public ObservableBoolean haveReferral = new ObservableBoolean();
     public ObservableBoolean referral = new ObservableBoolean();
+    public ObservableBoolean flagRegion = new ObservableBoolean();
     Response.ErrorListener errorListener;
     int gender = 0;
 
