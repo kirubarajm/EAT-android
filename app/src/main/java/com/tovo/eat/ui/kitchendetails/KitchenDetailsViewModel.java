@@ -315,7 +315,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
 
                             for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")&& !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
                                     favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                 } else {
                                     todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
@@ -455,7 +455,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             isProductAvailable.set(true);
 
                             for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")) {
+                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")&& !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
 
                                     favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                 } else {

@@ -94,6 +94,7 @@
             android:name=".ui.signup.namegender.NameGenderActivity"
             android:screenOrientation="portrait">
 
+
         </activity>
 
 
@@ -121,6 +122,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity
@@ -151,9 +153,16 @@
         <activity android:name=".ui.cart.refund.RefundListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.signup.tandc.TermsAndConditionActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+
+        </activity>
         <activity android:name=".ui.signup.privacy.PrivacyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+
+        </activity>
+
         <activity android:name=".ui.signup.faqs.FaqActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.home.region.viewmore.RegionListActivity"

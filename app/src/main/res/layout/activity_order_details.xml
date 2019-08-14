@@ -149,17 +149,16 @@
                         android:layout_alignParentEnd="true"
                         android:gravity="center"
                         android:orientation="horizontal">
-
-                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        <com.tovo.eat.utilities.fonts.TovoTextView
                             android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:text="@string/icon_inr"
-                            android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="8sp" />
+                            android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderDetailsViewModel.gst}"
@@ -205,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/icon_inr"
                             android:textColor="@color/black"
-                            android:textSize="9sp" />
+                            android:textSize="10sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_toEndOf="@+id/inr_de"
@@ -253,9 +252,10 @@
                             android:text="@string/icon_inr"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{orderDetailsViewModel.price}"

@@ -74,6 +74,8 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
         mActivityPrivacyBinding = getViewDataBinding();
         mPrivacyViewModel.setNavigator(this);
 
+        mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
+        mActivityPrivacyBinding.webview.loadUrl("http://www.eatalltime.co.in/pp.html");
 
     }
 

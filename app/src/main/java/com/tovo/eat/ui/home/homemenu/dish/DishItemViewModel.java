@@ -67,13 +67,9 @@ public class DishItemViewModel {
 
 
 
-          if (dishList.getImage() == null||dishList.getImage().equals("")){
+          if (dishList.getImage() == null){
               noImage.set(true);
           }
-
-
-
-
 
 
 

@@ -69,6 +69,12 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
         mTermsAndConditionModel.setNavigator(this);
 
 
+
+
+        mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
+        mActivityTermsAndConditionBinding.webview.loadUrl("file:///android_asset/terms.html");
+
+
     }
 
     @Override

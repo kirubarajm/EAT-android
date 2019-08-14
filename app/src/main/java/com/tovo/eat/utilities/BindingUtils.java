@@ -440,9 +440,17 @@ public final class BindingUtils {
 
 
         Glide.with(context).load(url)
+               // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(R.drawable.loader)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
+
+        /* Glide.with(context).load(url)
                .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
+
+        */
 
 
     }
@@ -459,15 +467,20 @@ public final class BindingUtils {
 
 
 
-
+/*
         Glide.with(context).load(url)
                 .placeholder(getProgressBarIndeterminate())
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
+
+        Glide.with(context).load(url)
+              //  .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(R.drawable.loader)
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
 
 
-
-
+       /* R.raw.loader*/
     //    Glide.with(context).load(url).into(imageView);
 
     }
@@ -521,11 +534,16 @@ public final class BindingUtils {
         circularProgressDrawable.start();*/
 
 
-        Glide.with(context).load(url)
+      /*  Glide.with(context).load(url)
                 .placeholder(getProgressBarIndeterminate())
                 .error(R.drawable.imagenotavailable)
-                .into(imageView);
+                .into(imageView);*/
 
+        Glide.with(context).load(url)
+            //    .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(R.drawable.loader)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
 
        /*
         Glide.with(context).load(url).placeholder(R.drawable.images_loading)

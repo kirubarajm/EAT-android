@@ -112,7 +112,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                     try {
                         if (response != null && response.getResult() != null && response.getResult().size()>0) {
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
-                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
+                            kitchenName.set(response.getResult().get(0).getMakeitdetail().getBrandName());
                             address.set(response.getResult().get(0).getLocality());
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));

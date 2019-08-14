@@ -144,18 +144,19 @@
                         android:orientation="horizontal">
 
 
-                        <com.tovo.eat.utilities.RoundCornerImageView
-                            cusrsiveImageUrl="@{cartViewModel.makeit_image}"
+                        <ImageView
+                            imageUrl="@{cartViewModel.makeit_image}"
                             android:layout_width="120dp"
                             android:layout_height="80dp"
                             android:layout_margin="10dp"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="fitXY" />
 
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
                             android:orientation="vertical">
 
 

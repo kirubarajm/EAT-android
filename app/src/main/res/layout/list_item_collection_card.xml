@@ -59,7 +59,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:text="@{collectionCardItemViewModel.title}"
-                        android:textColor="@color/eat_color"
+                        android:textColor="#000000"
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
