@@ -109,9 +109,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void editProfile() {
-        getNavigator().editProfile(getUserDetailsResponse);
+        if (getUserDetailsResponse!=null) {
+            getNavigator().editProfile(getUserDetailsResponse);
+        }
     }
-
 
     public void logOutSession() {
         getDataManager().setLogout();
@@ -133,7 +134,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                 @Override
                 public void onResponse(GetUserDetailsResponse response) {
                     try {
-                        if (response != null && response.getResult() != null) {
+                        if (response != null && response.getResult() != null && response.getResult().size()>0) {
 
                             getUserDetailsResponse=response;
 

@@ -654,7 +654,10 @@
     <string name="place_first_order">PLACE YOUR FIRST ORDER</string>
     <string name="not_serviceable_in_your_area">Not serviceable in your area.</string>
     <string name="unserviceable">Unserviceable</string>
+
     <string name="view_details_h">View details</string>
+
+    <string name="others">Others</string>
 
 
 </resources>

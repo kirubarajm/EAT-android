@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
+import com.tovo.eat.databinding.ActivityCartBindingImpl;
 import com.tovo.eat.databinding.ActivityNameGenderBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
@@ -43,7 +45,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     @Inject
     NameGenderActivityViewModel mLoginViewModelMain;
     int gender;
-    int regionId = 0;
+    String regionId = "";
     private ActivityNameGenderBinding mActivityNameGenderBinding;
 
 
@@ -68,7 +70,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         String referral = mActivityNameGenderBinding.referral.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name,regionId,referral);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, Integer.parseInt(regionId),referral);
     }
 
     @Override
@@ -129,23 +131,31 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
-                //  Log.e("", selectedItem.getMenuitem_name());
-
-                regionId = result.getRegionid();
-
-                mActivityNameGenderBinding.regionList.setErrorEnabled(false);
-
-                if (regionId == 0){
-                    mLoginViewModelMain.flagRegion.set(true);
-                }else {
-                    mLoginViewModelMain.flagRegion.set(false);
-                }
-
-
+          
+                regionId = String.valueOf(result.getRegionid());
+                
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
             }
         });
 
+        mActivityNameGenderBinding.region.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityNameGenderBinding.region.getText().toString().length()==0){
+                    regionId="";
+                }
+            }
+        });
 
         mActivityNameGenderBinding.edtName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -155,9 +165,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 mActivityNameGenderBinding.inputName.setErrorEnabled(false);
-
             }
 
             @Override
@@ -166,7 +174,19 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
             }
         });
 
-
+        mActivityNameGenderBinding.chkOthers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    regionId = "0";
+                    mActivityNameGenderBinding.region.setText("");
+                    mActivityNameGenderBinding.region.setEnabled(false);
+                }else {
+                    regionId = "";
+                    mActivityNameGenderBinding.region.setEnabled(true);
+                }
+            }
+        });
     }
 
     @Override
@@ -183,7 +203,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     }
 
     private boolean validForProceed() {
-        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || regionId == 0) {
+        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || regionId.equals("")) {
 
 
             if ((mActivityNameGenderBinding.edtName.getText().toString().equals(""))) {
@@ -191,7 +211,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
             }
 
-            if (regionId == 0) {
+            if (regionId.equals("")) {
                 mActivityNameGenderBinding.regionList.setError("Enter your region");
             }
 
