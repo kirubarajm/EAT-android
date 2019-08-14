@@ -198,11 +198,11 @@
                 android:layout_marginRight="20dp">
 
                 <android.support.design.widget.TextInputEditText
-                    android:imeOptions="actionNext"
                     android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_name"
+                    android:imeOptions="actionNext"
                     android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLength="30"
@@ -222,10 +222,10 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/edt_email"
-                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_your_email"
+                    android:imeOptions="actionNext"
                     android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLength="30"
@@ -245,17 +245,41 @@
 
 
                 <AutoCompleteTextView
-                    enter="true"
-                    android:imeOptions="actionDone"
                     android:id="@+id/region"
+                    enter="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/enter_your_hometown"
+                    android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:theme="@style/EditTextHint" />
             </android.support.design.widget.TextInputLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/region_list"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/chk_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others" />
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/txt_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/chk_others"
+                    android:text="@string/others"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

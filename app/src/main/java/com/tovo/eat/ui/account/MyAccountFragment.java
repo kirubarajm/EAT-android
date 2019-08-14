@@ -159,14 +159,15 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void editProfile(GetUserDetailsResponse getUserDetailsResponse) {
-        Intent intent = EditAccountActivity.newIntent(getContext());
-        intent.putExtra("name",getUserDetailsResponse.getResult().get(0).getName());
-        intent.putExtra("email",getUserDetailsResponse.getResult().get(0).getEmail());
-        intent.putExtra("gender",getUserDetailsResponse.getResult().get(0).getGender());
-        intent.putExtra("region",getUserDetailsResponse.getResult().get(0).getRegionname());
-        intent.putExtra("regionid",getUserDetailsResponse.getResult().get(0).getRegionid());
-        startActivity(intent);
-
+        if (getUserDetailsResponse.getResult()!=null && getUserDetailsResponse.getResult().size()>0) {
+            Intent intent = EditAccountActivity.newIntent(getContext());
+            intent.putExtra("name", getUserDetailsResponse.getResult().get(0).getName());
+            intent.putExtra("email", getUserDetailsResponse.getResult().get(0).getEmail());
+            intent.putExtra("gender", getUserDetailsResponse.getResult().get(0).getGender());
+            intent.putExtra("region", getUserDetailsResponse.getResult().get(0).getRegionname());
+            intent.putExtra("regionid", getUserDetailsResponse.getResult().get(0).getRegionid());
+            startActivity(intent);
+        }
     }
 
 

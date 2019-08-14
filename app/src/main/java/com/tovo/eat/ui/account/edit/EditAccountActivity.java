@@ -14,18 +14,16 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAccEditBinding;
-import com.tovo.eat.databinding.ActivityNameGenderBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
-import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -39,15 +37,27 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     @Inject
     EditAccountViewModel mLoginViewModelMain;
     int gender;
-    int regionId = 0;
-    private ActivityAccEditBinding mActivityNameGenderBinding;
-
-
+    String regionId = "";
     RegionListAdapter regionListAdapter;
-
-
     RegionSearchModel.Result result;
-
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
+    private ActivityAccEditBinding mActivityNameGenderBinding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, EditAccountActivity.class);
@@ -64,7 +74,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
 
         if (validForProceed())
-            mLoginViewModelMain.insertNameGenderServiceCall(name, email, regionId);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, email, Integer.parseInt(regionId));
     }
 
     @Override
@@ -80,8 +90,6 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     public void genderFailure(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
-
-
 
     @Override
     public void regionListLoaded(List<RegionSearchModel.Result> regionList) {
@@ -131,9 +139,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             String email = intent.getExtras().getString("email");
             String regionName = intent.getExtras().getString("region");
             gender = intent.getExtras().getInt("gender");
-            regionId = intent.getExtras().getInt("regionid");
-
-
+            regionId = String.valueOf(intent.getExtras().getInt("regionid"));
 
 
             if (gender == 1) {
@@ -142,9 +148,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
                 mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));*/
 
-              mLoginViewModelMain.male.set(true);
-
-
+                mLoginViewModelMain.male.set(true);
 
 
             } else {
@@ -161,8 +165,15 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             if (email != null)
                 mActivityNameGenderBinding.edtEmail.setText(email);
 
-            mActivityNameGenderBinding.region.setText(regionName);
-
+            if (regionId.equals("0")) {
+                mActivityNameGenderBinding.region.setText("");
+                mActivityNameGenderBinding.region.setEnabled(false);
+                mActivityNameGenderBinding.chkOthers.setChecked(true);
+            } else {
+                mActivityNameGenderBinding.region.setText(regionName);
+                mActivityNameGenderBinding.region.setEnabled(true);
+                mActivityNameGenderBinding.chkOthers.setChecked(false);
+            }
 
         }
 
@@ -176,7 +187,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
                 //  Log.e("", selectedItem.getMenuitem_name());
 
-                regionId = result.getRegionid();
+                regionId = String.valueOf(result.getRegionid());
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
@@ -203,6 +214,42 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             }
         });
 
+        mActivityNameGenderBinding.chkOthers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    regionId = "0";
+                    mActivityNameGenderBinding.region.setText("");
+                    mActivityNameGenderBinding.region.setEnabled(false);
+                    mActivityNameGenderBinding.chkOthers.setChecked(true);
+
+                } else {
+                    regionId = "";
+                    mActivityNameGenderBinding.region.setText("");
+                    mActivityNameGenderBinding.region.setEnabled(true);
+                    mActivityNameGenderBinding.chkOthers.setChecked(false);
+                }
+            }
+        });
+
+        mActivityNameGenderBinding.region.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mActivityNameGenderBinding.region.getText().toString().length()==0){
+                    regionId="";
+                }
+            }
+        });
 
     }
 
@@ -220,7 +267,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     }
 
     private boolean validForProceed() {
-        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || regionId == 0) {
+        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || regionId.equals("")) {
 
 
             if ((mActivityNameGenderBinding.edtName.getText().toString().equals(""))) {
@@ -228,7 +275,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
             }
 
-            if (regionId == 0) {
+            if (regionId.equals("")) {
                 mActivityNameGenderBinding.regionList.setError("Enter your region");
             }
 
@@ -259,14 +306,13 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -281,24 +327,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 
