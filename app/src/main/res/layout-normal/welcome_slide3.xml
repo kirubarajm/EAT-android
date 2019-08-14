@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.onboarding.OnBoardingActivity">
 
@@ -21,27 +20,44 @@
 
         <ImageView
             android:id="@+id/img1"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="480dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/onboarding_1" />
+            android:layout_height="400dp"
+            android:src="@drawable/onboarding_3" />
 
         <LinearLayout
             android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/img1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/img1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
-            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/txt_1"
-                android:layout_marginLeft="10dp"
-                android:text="Your favorite"
-                android:textSize="18sp"
-                />
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/txt_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Home"
+                    android:textColor="@color/eat_color"
+                    android:textSize="16sp" />
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/txt_6"
+                    android:text="MADE"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:id="@+id/txt_1"
@@ -49,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rel_1"
                 android:layout_marginLeft="10dp"
-                android:text="home food made"
-                android:textSize="18sp" />
+                android:text="food right at"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/rel_1"
@@ -63,25 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="10dp"
-                    android:text="by"
-                    android:textSize="18sp" />
-
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="5dp"
-                    android:text="EAT"
-                    android:textColor="@color/eat_color"
-                    android:textSize="18sp" />
-
-                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="5dp"
-                    android:text="MOMs..."
-                    android:textSize="18sp" />
+                    android:text="your doorstep!"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

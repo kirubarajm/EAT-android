@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.onboarding.OnBoardingActivity">
 
     <data>
@@ -14,47 +13,76 @@
     </data>
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/img1"
-            android:src="@drawable/onboard3"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/onboarding_3" />
 
-
-        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-            android:layout_width="300dp"
-            android:textSize="22sp"
+        <LinearLayout
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img1"
-            android:layout_marginStart="20dp"
-            android:text="@string/str_get_started" />
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:visibility="gone"
-            android:layout_marginBottom="80dp"
-            android:id="@+id/rel_get_started"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/txt_1"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_get_started"
-                android:textColor="@color/eat_color"
-                android:text="@string/get_started"
-                android:background="@drawable/curve_stroke"
-                android:layout_width="125dp"
-                android:layout_height="45dp" />
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/txt_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Home"
+                    android:textColor="@color/eat_color"
+                    android:textSize="18sp" />
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/txt_6"
+                    android:text="MADE"
+                    android:textSize="18sp" />
+            </RelativeLayout>
 
 
-        </RelativeLayout>
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:id="@+id/txt_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rel_1"
+                android:layout_marginLeft="10dp"
+                android:text="food right at"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/rel_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="your doorstep!"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 </layout>

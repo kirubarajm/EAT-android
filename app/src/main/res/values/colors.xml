@@ -84,15 +84,15 @@
         <color name="dot_light_screen4">#e4b5fc</color>
 
         <array name="array_dot_active">
-            <item>@color/eat_color</item>
-            <item>@color/eat_color</item>
-            <item>@color/eat_color</item>
+            <item>@color/dark_gray</item>
+            <item>@color/dark_gray</item>
+            <item>@color/dark_gray</item>
         </array>
 
         <array name="array_dot_inactive">
-            <item>@color/dark_gray</item>
-            <item>@color/dark_gray</item>
-            <item>@color/dark_gray</item>
+            <item>@color/light_gray</item>
+            <item>@color/light_gray</item>
+            <item>@color/light_gray</item>
         </array>
 
 

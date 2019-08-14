@@ -46,14 +46,16 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             addBottomDots(position);
 
             if (position == layouts.length - 1) {
-                mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
-                mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
+                //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
+                //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.VISIBLE);
+                mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
                 mActivityOnboardingBinding.btnGetStarted.setVisibility(View.VISIBLE);
             } else {
-                mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
-                mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
+                //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
+                //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.GONE);
+                mActivityOnboardingBinding.layoutDots.setVisibility(View.VISIBLE);
                 mActivityOnboardingBinding.btnGetStarted.setVisibility(View.GONE);
             }
         }
@@ -143,24 +145,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mActivityOnboardingBinding.viewPager.setAdapter(myViewPagerAdapter);
         mActivityOnboardingBinding.viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        mActivityOnboardingBinding.btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchHomeScreen();
-            }
-        });
 
-        mActivityOnboardingBinding.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    mActivityOnboardingBinding.viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
-            }
-        });
 
         mActivityOnboardingBinding.btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
