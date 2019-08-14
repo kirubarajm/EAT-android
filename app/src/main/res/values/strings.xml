@@ -480,9 +480,9 @@
     <string name="hometown">Hometown</string>
     <string name="enter_otp">Enter OTP</string>e
     <string name="start">GOT IT</string>
-    <string name="str_get_started">Search and order home cooked food away from home</string>
-    <string name="slide_1">Tell us what you would like to have made for you</string>
-    <string name="slide_2">Track your order and fulfil you food cravings</string>
+    <string name="str_get_started">HOME MADE food right at your doorstep!</string>
+    <string name="slide_1">Your favorite home food made by EAT MOMs...</string>
+    <string name="slide_2">Select your native cravings over anything else...</string>
     <string name="txtmale">MALE</string>
     <string name="txtfemale">FEMALE</string>
     <string name="support_replies">Support replies</string>

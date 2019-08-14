@@ -131,7 +131,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
-          
+
                 regionId = String.valueOf(result.getRegionid());
                 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);

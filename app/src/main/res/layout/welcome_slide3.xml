@@ -18,31 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:padding="50dp"
-            android:id="@+id/rel_1"
+
+
+
+        <ImageView
+            android:id="@+id/img1"
+            android:src="@drawable/onboard3"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-            <ImageView
-                android:layout_marginTop="50dp"
-                android:id="@+id/img_getStarted"
-                android:src="@drawable/onboard3"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-
-        </RelativeLayout>
 
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-            android:layout_below="@+id/rel_1"
-            android:id="@+id/txt_get_started"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
+            android:textSize="22sp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:maxLines="2"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:layout_below="@+id/img1"
+            android:layout_marginStart="20dp"
             android:text="@string/str_get_started" />
 
         <RelativeLayout

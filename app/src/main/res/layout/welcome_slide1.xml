@@ -28,12 +28,12 @@
 
 
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
+            android:textSize="22sp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img1"
-            android:gravity="center"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:layout_marginStart="20dp"
             android:text="@string/slide_1" />
+
     </RelativeLayout>
 </layout>
