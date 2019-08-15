@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -38,7 +37,6 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
-import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
@@ -246,8 +244,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void kitchenLoaded() {
 
-            mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
-                    kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
+
+       /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
+
+        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));*/
 
     }
 
@@ -265,7 +266,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         adapter.setListener(this);
         regionListAdapter.setListener(this);
         storiesCardAdapter.setListener(this);
-
+        subscribeToLiveData();
     }
 
     @Override
@@ -314,10 +315,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     private void setUp() {
 
-
-        subscribeToLiveData();
-
-
+        //  subscribeToLiveData();
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
@@ -360,7 +358,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
 
 
-
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -389,7 +386,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-           //     mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
+                //     mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
 
 
             }
@@ -491,12 +488,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             @Override
             public void onItemChanged(int position) {
 
-               // onActiveCardChange(position);
+                // onActiveCardChange(position);
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
 
 
-
-                if (mHomeTabViewModel.regionResult.getResult()!=null&&mHomeTabViewModel.regionResult.getResult().size()>0&&mHomeTabViewModel.regionResult.getResult().size()!=position) {
+                if (mHomeTabViewModel.regionResult.getResult() != null && mHomeTabViewModel.regionResult.getResult().size() > 0 && mHomeTabViewModel.regionResult.getResult().size() != position) {
 
                     mFragmentHomeBinding.rTitle.setVisibility(View.VISIBLE);
                     Animation aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
@@ -523,7 +519,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         }
                     });
 
-                }else {
+                } else {
 
                     mFragmentHomeBinding.rTitle.setVisibility(View.INVISIBLE);
                 }
@@ -553,7 +549,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(firstVisiblePosition);
             }
         });*/
-
 
 
         //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
@@ -638,12 +633,20 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     private void subscribeToLiveData() {
-        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
-                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
         mHomeTabViewModel.getregionItemsLiveData().observe(this,
                 regionItemViewModel -> mHomeTabViewModel.addRegionItemsToList(regionItemViewModel));
         mHomeTabViewModel.getStoriesItemsImages().observe(this,
                 regionItemViewModel -> mHomeTabViewModel.addStoriesImagesList(regionItemViewModel));
+        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
+
+        mHomeTabViewModel.getCollectionItemLiveData().observe(this,
+                collectionItemViewModel -> mHomeTabViewModel.addCollectionItemsToList(collectionItemViewModel));
+
+        mHomeTabViewModel.getCouponListItemsLiveData().observe(this,
+                couponItemViewModel -> mHomeTabViewModel.addCouponItemsToList(couponItemViewModel));
+
+
     }
 
     private void startLocationTracking() {
@@ -774,8 +777,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void applyFilter() {
 
         mHomeTabViewModel.fetchKitchen();
-        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
-                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
+        // subscribeToLiveData();
 
     }
 
@@ -1057,12 +1059,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
 
-
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
         startActivity(intent);
-
 
     }
 

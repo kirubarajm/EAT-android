@@ -43,6 +43,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
     public ObservableField<String> cartPrice = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cart = new ObservableBoolean();
+    public ObservableBoolean noData = new ObservableBoolean();
     public ObservableField<String> searched = new ObservableField<>();
     private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
 
@@ -224,61 +225,6 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
     public void fetchKitchens(Integer cid) {
 
-//        FilterRequestPojo kitchenRequest = new FilterRequestPojo();
-//        kitchenRequest.setEatuserid(getDataManager().getCurrentUserId());
-//        kitchenRequest.setLat(getDataManager().getCurrentLat());
-//        kitchenRequest.setLon(getDataManager().getCurrentLng());
-//        kitchenRequest.setCid(cid);
-      /*  Gson gson = new Gson();
-        String json = gson.toJson(kitchenRequest);
-
-
-        Gson sGson = new GsonBuilder().create();
-        FilterRequestPojo filterRequestPojo = sGson.fromJson(json, FilterRequestPojo.class);*/
-
-
-
-
-/*
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
-        try {
-            setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_DETAILS_URL, KitchenDishResponse.class,kitchenRequest, new Response.Listener<KitchenDishResponse>() {
-                @Override
-                public void onResponse(KitchenDishResponse response) {
-                    if (response != null) {
-
-                        dishItemsLiveData.setValue(response.getResult());
-
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-
-                    Log.e("sdfs","wetet");
-
-                }
-            }, AppConstants.API_VERSION_ONE);
-
-            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception ee) {
-
-            ee.printStackTrace();
-
-        }*/
-
-
-
-
-
-
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -302,11 +248,23 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
 
-                        dishItemsLiveData.setValue(KitchenDishResponse.getResult());
-                        Log.e("----response:---------", response.toString());
-                        getNavigator().listLoaded();
 
 
+
+                        if (KitchenDishResponse.getResult().size()>0){
+                            dishItemsLiveData.setValue(KitchenDishResponse.getResult());
+                            Log.e("----response:---------", response.toString());
+                            getNavigator().listLoaded();
+                            noData.set(false);
+                        }else {
+
+                            noData.set(true);
+                        }
+
+
+
+                    }else {
+                        noData.set(true);
                     }
 
 
@@ -316,6 +274,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
                     //  SearchDishViewModel.this.getNavigator().dishListLoaded();
+                    noData.set(true);
                 }
             }) {
                 /**
@@ -341,7 +300,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
         } catch (Exception ee) {
 
             ee.printStackTrace();
-
+            noData.set(true);
         }
 
 
@@ -388,12 +347,16 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                         KitchenDishResponse KitchenDishResponse;
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
+                        if (KitchenDishResponse.getResult().size()>0) {
+                            dishItemsLiveData.setValue(KitchenDishResponse.getResult());
+                            Log.e("----response:---------", response.toString());
+                            getNavigator().listLoaded();
+                            noData.set(false);
 
-                        dishItemsLiveData.setValue(KitchenDishResponse.getResult());
-                        Log.e("----response:---------", response.toString());
-                        getNavigator().listLoaded();
+                        }else {
 
-
+                            noData.set(true);
+                        }
                     }
 
 
@@ -403,6 +366,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
                     //  SearchDishViewModel.this.getNavigator().dishListLoaded();
+                    noData.set(true);
                 }
             });
 

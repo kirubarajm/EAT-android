@@ -232,7 +232,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
-
+            
+            if (blog.getMakeituserid()==null)   mListItemLiveProductsBinding.kitchenTile.setVisibility(View.GONE);
 
             if (!blog.isServiceableStatus()) {
 

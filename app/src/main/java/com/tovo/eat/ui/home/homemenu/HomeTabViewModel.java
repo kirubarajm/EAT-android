@@ -51,6 +51,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
+    public ObservableList<KitchenResponse.Result> kitchenItemViewModelstemp = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Collection> collectionItemViewModels = new ObservableArrayList<>();
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
     public RegionsResponse regionResult;
@@ -63,6 +64,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
+
+    private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
 
 
@@ -71,6 +74,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         kitchenItemsLiveData = new MutableLiveData<>();
         regionItemsLiveData = new MutableLiveData<>();
         storiesItemsLiveData = new MutableLiveData<>();
+        collectionItemLiveData = new MutableLiveData<>();
+        couponListItemsLiveData = new MutableLiveData<>();
 
        /* if (getDataManager().getVegType() == 1) {
             isVeg.set(true);
@@ -106,19 +111,35 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
         kitchenItemViewModels.clear();
 
-        if (collectionItemViewModels.size() > 0) {
-            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-            kitchenResponse1.setCollection(collectionItemViewModels);
-            ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
-        }
-        if (couponListItemViewModels.size() > 0) {
-            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-            kitchenResponse2.setCoupons(couponListItemViewModels);
-            ordersItems.add(2, kitchenResponse2);
-        }
+        //  if (collectionItemViewModels.size() > 0) {
+        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+        kitchenResponse1.setCollection(collectionItemViewModels);
+        ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
+        //   }
+        //  if (couponListItemViewModels.size() > 0) {
+        KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+        kitchenResponse2.setCoupons(couponListItemViewModels);
+        ordersItems.add(2, kitchenResponse2);
+        //  }
 
         kitchenItemViewModels.addAll(ordersItems);
 
+    }
+
+    public MutableLiveData<List<KitchenResponse.Collection>> getCollectionItemLiveData() {
+        return collectionItemLiveData;
+    }
+
+    public void setCollectionItemLiveData(MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData) {
+        this.collectionItemLiveData = collectionItemLiveData;
+    }
+
+    public MutableLiveData<List<CouponListResponse.Result>> getCouponListItemsLiveData() {
+        return couponListItemsLiveData;
+    }
+
+    public void setCouponListItemsLiveData(MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData) {
+        this.couponListItemsLiveData = couponListItemsLiveData;
     }
 
     public ObservableList<RegionsResponse.Result> getregionItemViewModels() {
@@ -141,6 +162,18 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         regionItemViewModels.clear();
         regionItemViewModels.addAll(ordersItems);
     }
+
+
+    public void addCouponItemsToList(List<CouponListResponse.Result> ordersItems) {
+        couponListItemViewModels.clear();
+        couponListItemViewModels.addAll(ordersItems);
+    }
+
+    public void addCollectionItemsToList(List<KitchenResponse.Collection> ordersItems) {
+        collectionItemViewModels.clear();
+        collectionItemViewModels.addAll(ordersItems);
+    }
+
 
     public void vegType() {
        /* if (isVeg.get()) {
@@ -242,8 +275,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
                         if (response.getResult().size() > 0) {
-                            couponListItemViewModels.addAll(response.getResult());
-                            // couponListItemsLiveData.setValue(response.getResult());
+                            //  couponListItemViewModels.addAll(response.getResult());
+                            couponListItemsLiveData.setValue(response.getResult());
                         }
                     }
                 }
@@ -551,7 +584,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         emptyKitchen.set(false);
 
 
-
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
@@ -560,6 +592,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         kitchenResponse.setResult(kitchenItemViewModels);
 */
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+                                        //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
+                                        //   addKitchenItemsToList(kitchenItemViewModelstemp);
+
                                         getNavigator().kitchenLoaded();
                                         Log.e("Kitchen----response:", response.toString());
                                     } else {
@@ -756,11 +792,20 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     if (response != null) {
 
 
-                        if (collectionItemViewModels != null) {
-                            collectionItemViewModels.clear();
-                            collectionItemViewModels.addAll(response.getCollection());
+                        if (response.getCollection().size() > 0) {
+
+                            collectionItemLiveData.setValue(response.getCollection());
                             getNavigator().collectionLoaded();
                         }
+
+
+
+                      /*  if (collectionItemViewModels != null) {
+
+                            collectionItemViewModels.clear();
+                            collectionItemViewModels.addAll(response.getCollection());
+
+                        }*/
                     }
                 }
             }, new Response.ErrorListener() {

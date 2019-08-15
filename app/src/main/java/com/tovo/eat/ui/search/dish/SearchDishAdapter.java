@@ -1,6 +1,8 @@
 package com.tovo.eat.ui.search.dish;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemEmptySearchBinding;
@@ -17,6 +20,7 @@ import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.search.EmptySearchItemViewModel;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -202,6 +206,29 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
             mListItemLiveProductsBinding.executePendingBindings();
 
 
+
+            if (!blog.isServiceableStatus()) {
+
+                mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
+                mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                mListItemLiveProductsBinding.image.setColorFilter(filter);
+                mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
+               //  mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
+
+            }
+
+
+
+
+
+
             if (blog.getProductlist() != null && blog.getProductlist().size() > 0) {
 
 
@@ -215,6 +242,8 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
                 SearchKitchenDishAdapter regionKitchenAdapter = new SearchKitchenDishAdapter(item_list.get(position).getProductlist(), item_list.get(position), dataManager);
                 mListItemLiveProductsBinding.recyclerviewKitchens.setLayoutManager(mLayoutManager);
                 mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
+                regionKitchenAdapter.serviceable(blog.isServiceableStatus());
+
                 regionKitchenAdapter.setListener(SearchDishAdapter.this);
             }else {
                 mListItemLiveProductsBinding.recyclerviewKitchens.setVisibility(View.GONE);

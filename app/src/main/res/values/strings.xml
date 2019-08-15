@@ -643,7 +643,9 @@
 
     <string name="veg_dish_empty_title">No veg products available.</string>
     <string name="veg_dish_empty_sub_title"> Kindly visit another kitchen!</string>
-
+    <!--Address empty-->
+    <string name="collection_empty_title">Sorry! </string>
+    <string name="collection_empty_sub_title"> This collection has no kitchen or dishes. </string>
 
     <string name="we_ll_serve_you_soon">WE’LL SERVE YOU SOON!</string>
     <string name="change_address">Change Address</string>
@@ -661,6 +663,7 @@
     <string name="others">Others</string>
     <string name="terms_and_conditions">fgdfg</string>
     <string name="support_number">9790876528</string>
+    <string name="view_replies">View Replies</string>
 
 
 </resources>

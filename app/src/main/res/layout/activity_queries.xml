@@ -230,7 +230,7 @@
                                 android:gravity="end|center"
                                 android:onClick="@{()->queriesViewModel.onRepliesClick()}"
                                 android:paddingRight="10dp"
-                                android:text="@string/view_details"
+                                android:text="@string/view_replies"
                                 android:textColor="@color/eat_color"
                                 android:textSize="14sp" />
 

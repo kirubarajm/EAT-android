@@ -65,7 +65,6 @@
 
             </RelativeLayout>
 
-
         </android.support.v7.widget.CardView>
 
 
@@ -96,6 +95,7 @@
 
 
         <android.support.v7.widget.RecyclerView
+            android:visibility="@{searchDishViewModel.noData?View.GONE:View.VISIBLE}"
             android:id="@+id/recyclerview_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -105,6 +105,60 @@
             android:background="@android:color/white"
             app:dishadapter="@{searchDishViewModel.dishItemViewModels}"
             tools:listitem="@layout/list_item_cart_dishes" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            android:visibility="@{searchDishViewModel.noData?View.VISIBLE:View.GONE}">
+
+
+            <com.tovo.eat.utilities.fonts.TovoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="50dp"
+                android:text="@string/icon_error"/>
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="@string/address_empty_title"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@color/dark_gray"
+                android:text="@string/address_empty_sub_title"
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
 
 
         <RelativeLayout

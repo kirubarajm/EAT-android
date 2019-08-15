@@ -1,10 +1,14 @@
 package com.tovo.eat.ui.search.dish;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemCollectionDishesBinding;
 import com.tovo.eat.databinding.ListItemCollectionsBinding;
@@ -14,6 +18,7 @@ import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -25,7 +30,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
-
+    public boolean serviceablekitchen = true;
 
     public SearchKitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, KitchenDishResponse.Result response,DataManager dataManager) {
         this.item_list = item_list;
@@ -39,7 +44,10 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
         this.dataManager = dataManager;
     }
 
+    public void serviceable(boolean status) {
+        this.serviceablekitchen = status;
 
+    }
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
@@ -149,6 +157,37 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+
+            if (!serviceablekitchen){
+
+                mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
+
+
+
+                mListItemLiveProductsBinding.content.setAlpha(1);
+                mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.amount.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+              //  mListItemLiveProductsBinding.image.setColorFilter(filter);
+
+
+            }else {
+                mListItemLiveProductsBinding.addDish.setVisibility(View.VISIBLE);
+            }
+
+
+
+
+
         }
 
 

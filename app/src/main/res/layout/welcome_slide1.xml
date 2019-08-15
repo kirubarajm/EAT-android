@@ -13,32 +13,34 @@
             type="com.tovo.eat.ui.onboarding.OnBoardingActivityViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:layout_marginTop="20dp"
             android:id="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="480dp"
-            android:scaleType="fitStart"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:scaleType="fitCenter"
             android:src="@drawable/onboarding_1" />
 
         <LinearLayout
-            android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:layout_below="@+id/img1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/txt_1"
-                android:layout_marginLeft="10dp"
                 android:text="Your favorite"
                 android:textSize="18sp"
                 />
@@ -48,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rel_1"
-                android:layout_marginLeft="10dp"
                 android:text="home food made"
                 android:textSize="18sp" />
 
@@ -62,7 +63,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
                     android:text="by"
                     android:textSize="18sp" />
 
@@ -87,5 +87,5 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 </layout>
