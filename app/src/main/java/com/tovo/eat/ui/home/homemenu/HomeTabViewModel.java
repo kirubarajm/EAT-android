@@ -104,21 +104,19 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
+        kitchenItemViewModels.clear();
 
-
-        if (collectionItemViewModels.size()>0) {
-
+        if (collectionItemViewModels.size() > 0) {
             KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
             kitchenResponse1.setCollection(collectionItemViewModels);
             ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
         }
-        if (couponListItemViewModels.size()>0) {
+        if (couponListItemViewModels.size() > 0) {
             KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
             kitchenResponse2.setCoupons(couponListItemViewModels);
             ordersItems.add(2, kitchenResponse2);
         }
 
-        kitchenItemViewModels.clear();
         kitchenItemViewModels.addAll(ordersItems);
 
     }
@@ -552,6 +550,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     if (kitchenResponse.getResult().size() > 0) {
                                         emptyKitchen.set(false);
 
+
+
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
@@ -559,8 +559,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         kitchenItemViewModels.add(3, kitchenResponse1);
                                         kitchenResponse.setResult(kitchenItemViewModels);
 */
-
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                        getNavigator().kitchenLoaded();
                                         Log.e("Kitchen----response:", response.toString());
                                     } else {
                                         emptyKitchen.set(true);
@@ -568,7 +568,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                     //    getNavigator().kitchenListLoaded();
 
-                                }else {
+                                } else {
                                     emptyKitchen.set(true);
                                 }
 

@@ -44,6 +44,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     public final ObservableField<String> totalKitchens = new ObservableField<>();
 
 
+public KitchenResponse kitchenResponse;
 
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
     boolean haveAddress = false;
@@ -418,9 +419,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                     if (response != null) {
 
 
-
                         if (response.getResult().size()!=0) {
-
 
                             kitchenListItemsLiveData.setValue(response.getResult());
 
@@ -428,13 +427,12 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
+                            kitchenResponse=response;
 
                             getNavigator().listLoaded();
+
                         }else {
-
-
                             getNavigator().noResults();
-
                         }
 
                     }

@@ -142,7 +142,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
         /*buildGoogleAPIClient();*/
 
-        initCameraIdle();
 
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
@@ -171,6 +170,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
+                initCameraIdle();
                 if (lastPosition != null)
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastPosition, 12));
             }

@@ -206,6 +206,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.before.setVisibility(View.GONE);
 
         //   mFragmentSearchBinding.refreshList.setRefreshing(false);
+
+
+      //  kitchenAdapter.serviceable(mSearchViewModel.kitchenResponse.getResult());
+
+
     }
 
     @Override

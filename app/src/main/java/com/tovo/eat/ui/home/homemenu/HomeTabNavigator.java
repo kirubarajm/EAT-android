@@ -21,6 +21,7 @@ public interface HomeTabNavigator {
 
     void goBack();
     void collectionLoaded();
+    void kitchenLoaded();
 
     void getFullStories(StoriesResponse storiesResponse);
 

@@ -31,6 +31,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_COLLECTION = 2;
     private static final int VIEW_TYPE_COUPON = 3;
+    public boolean serviceablekitchen = true;
     Context context;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
@@ -80,6 +81,10 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         } else {
             return 1;
         }
+    }
+    public void serviceable(boolean status) {
+        this.serviceablekitchen = status;
+
     }
 
     @Override

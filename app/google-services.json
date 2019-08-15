@@ -30,6 +30,49 @@
             {
               "client_id": "991891941150-gv5gg651n16l43a3enqrlspp76d8n7pn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "991891941150-lo44cohv3sefel2avrk5sfpumptg3ker.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tovo.eat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991891941150:android:1fdd36ac77ac92c3",
+        "android_client_info": {
+          "package_name": "com.tovo.eat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991891941150-gv5gg651n16l43a3enqrlspp76d8n7pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdALJDHcjJA7KIPJc9HpBFVatq5MWT7MY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991891941150-gv5gg651n16l43a3enqrlspp76d8n7pn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991891941150-lo44cohv3sefel2avrk5sfpumptg3ker.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tovo.eat"
+              }
             }
           ]
         }
