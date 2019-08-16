@@ -31,6 +31,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityEditAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -59,13 +60,28 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     Location mLocation;
     Integer aid;
     boolean isGPS;
-
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
         return new Intent(context, EditAddressActivity.class);
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -106,10 +122,14 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     @Override
     public void myLocationn() {
+
+
         if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
             initCameraIdle();
+        } else {
+            turnOnGps();
         }
     }
 
@@ -130,7 +150,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         onBackPressed();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +169,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 isGPS = isGPSEnable;
             }
         });
-
 
 
         Intent intent = getIntent();
@@ -194,6 +212,77 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 getAddressFromLocation(center.latitude, center.longitude);
             }
         });
+    }
+
+    public void turnOnGps() {
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    if (ActivityCompat.checkSelfPermission(EditAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(EditAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(EditAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                    } else {
+                        initCameraIdle();
+                        getLocation();
+
+
+                        //  getUserLocation();
+
+                           /* if (location != null) {
+
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+
+                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                initCameraIdle();
+                            }*/
+                        //  initCameraIdle();
+                    }
+
+                } else {
+
+                    turnOnGps();
+                }
+            }
+        });
+
+    }
+
+    public Location getLocation() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                return null;
+
+            }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocationGPS != null) {
+                return lastKnownLocationGPS;
+            } else {
+                Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                return loc;
+            }
+        } else {
+            return null;
+        }
     }
 
     private void getAddressFromLocation(double latitude, double longitude) {
@@ -293,7 +382,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -315,14 +403,13 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -337,24 +424,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

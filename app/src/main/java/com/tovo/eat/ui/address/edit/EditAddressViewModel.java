@@ -26,15 +26,12 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.address.add.AddressRequestPojo;
 import com.tovo.eat.ui.address.add.AddressResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -62,17 +59,6 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
     public Integer mAid;
-
-
-    public void goBack(){
-
-
-        getNavigator().goBack();
-
-    }
-
-
-
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,10 +77,15 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         }
     };
     AddressRequestPojo request = new AddressRequestPojo();
-
-
     public EditAddressViewModel(DataManager dataManager) {
         super(dataManager);
+    }
+
+    public void goBack() {
+
+
+        getNavigator().goBack();
+
     }
 
     public void locateMe() {
@@ -161,9 +152,9 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         request.setLat(lat);
         request.setLon(lng);
         request.setPincode(pincode);
-        mAid=aid;
+        mAid = aid;
 
-        if (aid!=null&&aid!=0){
+        if (aid != null && aid != 0) {
             request.setAid(aid);
 
         }
@@ -217,7 +208,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
                 request.setAddressTitle(title);
 
-                if (title.isEmpty()){
+                if (title.isEmpty()) {
 
                     Toast.makeText(MvvmApp.getInstance(), "Please select address pin", Toast.LENGTH_SHORT).show();
                     return;
@@ -226,7 +217,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
                 request.setAddressType(3);
             } else {
-               return;
+                return;
             }
 
             request.setUserid(getDataManager().getCurrentUserId());
@@ -239,13 +230,20 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
                         Log.e("response", response.getMessage());
                         Log.e("response", response.getMessage());
-                        getNavigator().addressSaved();
-
-                        getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
 
 
 
-                        defaultAddress(response.getAid());
+                        try {
+                            getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
+                            defaultAddress(request.getAid());
+                            getNavigator().addressSaved();
+                        } catch (Exception dd) {
+                            dd.printStackTrace();
+                        }
+
+
+
+
 
 
 
@@ -268,17 +266,17 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                     }
-                },AppConstants.API_VERSION_ONE);
+                }, AppConstants.API_VERSION_ONE);
 
 
                 MvvmApp.getInstance().addToRequestQueue(gsonRequest);
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            } catch (Exception ee){
+            } catch (Exception ee) {
 
-            ee.printStackTrace();
+                ee.printStackTrace();
 
-        }
+            }
 
 
         } else {
@@ -304,31 +302,27 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 landmark.set(response.getResult().get(0).getLandmark());
 
 
-
-
-
-
                 title.set(response.getResult().get(0).getAddressTitle());
 
                 if (response.getResult().get(0).getAddressType() == 1) {
 
                     typeHome.set(true);
 
-                }else if (response.getResult().get(0).getAddressType() == 2) {
+                } else if (response.getResult().get(0).getAddressType() == 2) {
 
                     typeOffice.set(true);
-                }else {
+                } else {
 
                     typeOther.set(true);
 
                 }
 
-                getNavigator().setLatLng(response.getResult().get(0).getLat(),response.getResult().get(0).getLon());
+                getNavigator().setLatLng(response.getResult().get(0).getLat(), response.getResult().get(0).getLon());
 
                 request.setLat(String.valueOf(response.getResult().get(0).getLat()));
                 request.setLon(String.valueOf(response.getResult().get(0).getLon()));
                 request.setPincode(response.getResult().get(0).getPincode());
-                request.setAid( response.getResult().get(0).getAid());
+                request.setAid(response.getResult().get(0).getAid());
 
 
             }
@@ -338,16 +332,17 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
             }
-        },AppConstants.API_VERSION_ONE);
+        }, AppConstants.API_VERSION_ONE);
 
 
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
-    public void defaultAddress(Integer aid ){
+
+    public void defaultAddress(Integer aid) {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class,new DefaultAddressRequest(getDataManager().getCurrentUserId(),aid), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class, new DefaultAddressRequest(getDataManager().getCurrentUserId(), aid), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
 
@@ -358,7 +353,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -367,9 +362,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         }
 
 
-
     }
-
 
 
 }

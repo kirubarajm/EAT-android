@@ -305,7 +305,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
             mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
-            startLocationTracking();
+       //     startLocationTracking();
 
 
         }

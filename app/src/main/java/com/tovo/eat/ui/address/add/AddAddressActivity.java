@@ -129,17 +129,19 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     public void emptyFields() {
 
-
         Toast.makeText(this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void myLocationn() {
+
         if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
             initCameraIdle();
+        }else {
+            turnOnGps();
         }
     }
 
@@ -171,6 +173,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         /*buildGoogleAPIClient();*/
 
+        String ll=mAddAddressViewModel.getDataManager().getCurrentLat();
+        String lol=mAddAddressViewModel.getDataManager().getCurrentLng();
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -181,7 +185,15 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map.getUiSettings().setZoomControlsEnabled(true);
 
 
-                turnOnGps();
+                if (mAddAddressViewModel.getDataManager().getCurrentLat()!=null){
+
+                    LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                    initCameraIdle();
+
+                }else {
+                    turnOnGps();
+                }
 
                /* Location location = getLocation();
                 if (location != null) {

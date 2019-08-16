@@ -133,7 +133,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="@string/address_empty_title"
+                android:text="@string/collection_empty_title"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 
@@ -147,16 +147,12 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:textColor="@color/dark_gray"
-                android:text="@string/address_empty_sub_title"
+                android:text="@string/collection_empty_sub_title"
                 android:textAlignment="center"
                 android:textSize="12sp" />
 
 
         </LinearLayout>
-
-
-
-
 
 
 
