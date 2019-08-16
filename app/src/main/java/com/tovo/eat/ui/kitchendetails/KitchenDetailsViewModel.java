@@ -313,26 +313,37 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
 
+                            if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
 
-                            for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")&& !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
-                                    favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                } else {
-                                    todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
+
+                                for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
+                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("") && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
+                                        favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    } else {
+                                        todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    }
                                 }
-                            }
-                            favoriteArrayViewLiveData.setValue(favoriteProductlists);
-                            todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
-                            if (favoriteProductlists.size() > 0) {
-                                favorites.set(true);
-                            }
-                            if (todaysMenuProductlists.size() > 0) {
-                                todaysMenu.set(true);
-                            }
+                                if (favoriteProductlists.size() > 0) {
+                                    favorites.set(true);
+                                }
+                                if (todaysMenuProductlists.size() > 0) {
+                                    todaysMenu.set(true);
+                                }
 
+                            } else {
+                                favoriteProductlists.clear();
+                                todaysMenuProductlists.clear();
+                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                                favorites.set(false);
+                                todaysMenu.set(false);
+                                isProductAvailable.set(false);
 
-                            ratingCount.set("("+ (response.getResult().get(0).getRatingCount())+")");
+                            }
+                            ratingCount.set("(" + (response.getResult().get(0).getRatingCount()) + ")");
 
 
                             signatureImageUrl.set(response.getResult().get(0).getKitchensignature());
@@ -454,24 +465,35 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             isProductAvailable.set(true);
 
-                            for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
-                                if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("")&& !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
+                            if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
+                                for (int i = 0; i < response.getResult().get(0).getProductlist().size(); i++) {
+                                    if (response.getResult().get(0).getProductlist().get(i).getProductimage() != null && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("") && !response.getResult().get(0).getProductlist().get(i).getProductimage().equals("null")) {
 
-                                    favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
-                                } else {
-                                    todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                        favoriteProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    } else {
+                                        todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
+                                    }
                                 }
-                            }
-                            favoriteArrayViewLiveData.setValue(favoriteProductlists);
-                            todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
-                            if (favoriteProductlists.size() > 0) {
-                                favorites.set(true);
+                                if (favoriteProductlists.size() > 0) {
+                                    favorites.set(true);
+                                }
+                                if (todaysMenuProductlists.size() > 0) {
+                                    todaysMenu.set(true);
+                                }
+                                getNavigator().dishListLoaded(response);
+
+                            }else {
+                                favoriteProductlists.clear();
+                                todaysMenuProductlists.clear();
+                                favoriteArrayViewLiveData.setValue(favoriteProductlists);
+                                todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
+                                favorites.set(false);
+                                todaysMenu.set(false);
+                                isProductAvailable.set(false);
                             }
-                            if (todaysMenuProductlists.size() > 0) {
-                                todaysMenu.set(true);
-                            }
-                            getNavigator().dishListLoaded(response);
                         } else {
                             favoriteProductlists.clear();
                             todaysMenuProductlists.clear();

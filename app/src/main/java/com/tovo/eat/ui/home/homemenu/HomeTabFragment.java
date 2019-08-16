@@ -305,7 +305,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
             mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
-       //     startLocationTracking();
+            startLocationTracking();
 
 
         }
@@ -595,7 +595,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         /* mHomeTabViewModel.updateAddressTitle();*/
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
-        mHomeTabViewModel.fetchStories();
+       //mHomeTabViewModel.fetchStories();
+        mHomeTabViewModel.fetchKitchen();
 
     }
 

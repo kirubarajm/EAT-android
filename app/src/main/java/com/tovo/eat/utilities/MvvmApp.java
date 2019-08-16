@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
@@ -143,6 +144,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
         AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(true);
 
+
+        Crashlytics.getInstance();
 
 
         //AppLogger.init();

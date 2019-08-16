@@ -49,14 +49,14 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
                 //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.VISIBLE);
-                mActivityOnboardingBinding.layoutDots.setVisibility(View.GONE);
+                mActivityOnboardingBinding.layoutDots.setVisibility(View.INVISIBLE);
                 mActivityOnboardingBinding.btnGetStarted.setVisibility(View.VISIBLE);
             } else {
                 //mActivityOnboardingBinding.btnNext.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.btnSkip.setVisibility(View.GONE);
                 //mActivityOnboardingBinding.txtGetStarted.setVisibility(View.GONE);
                 mActivityOnboardingBinding.layoutDots.setVisibility(View.VISIBLE);
-                mActivityOnboardingBinding.btnGetStarted.setVisibility(View.GONE);
+                mActivityOnboardingBinding.btnGetStarted.setVisibility(View.INVISIBLE);
             }
         }
 

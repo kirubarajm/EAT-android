@@ -141,6 +141,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                     mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
                     mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
                     mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+
                 }
 
                 return true;

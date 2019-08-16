@@ -67,22 +67,14 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     ProgressDialog dialog;
 
-
-    //  private ProgressDialog dialog;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
+            if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MvvmApp.getInstance().startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
+
             }
         }
     };
@@ -115,15 +107,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void addressSaved() {
-
-      /*  Intent intent= TestActivity.newIntent(AddAddressActivity.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);*/
         finish();
-        //    Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
-
         hideKeyboard();
-
     }
 
     @Override
@@ -140,8 +125,16 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
             initCameraIdle();
-        }else {
-            turnOnGps();
+        } else {
+            if (mAddAddressViewModel.getDataManager().getAddressId() != 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
+
+                LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                initCameraIdle();
+
+            } else {
+                turnOnGps();
+            }
         }
     }
 
@@ -166,15 +159,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         dialog.setCancelable(false);
         dialog.setMessage("Getting your location..");
         dialog.setTitle("Please Wait!");
-       // dialog.show();
+        // dialog.show();
 
         isFirstTime = true;
-        //  getUserLocation();
-
-        /*buildGoogleAPIClient();*/
-
-        String ll=mAddAddressViewModel.getDataManager().getCurrentLat();
-        String lol=mAddAddressViewModel.getDataManager().getCurrentLng();
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -185,23 +172,15 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map.getUiSettings().setZoomControlsEnabled(true);
 
 
-                if (mAddAddressViewModel.getDataManager().getCurrentLat()!=null){
+                if (mAddAddressViewModel.getDataManager().getAddressId() != 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                     LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                     initCameraIdle();
 
-                }else {
+                } else {
                     turnOnGps();
                 }
-
-               /* Location location = getLocation();
-                if (location != null) {
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-                    initCameraIdle();
-                }
-                initCameraIdle();*/
             }
         });
 
@@ -227,7 +206,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                             Location location = getLocation();
 
 
-                          //  getUserLocation();
+                            //  getUserLocation();
 
                            /* if (location != null) {
 
@@ -238,7 +217,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                                 initCameraIdle();
                             }*/
-                          //  initCameraIdle();
+                            //  initCameraIdle();
                         }
 
                     }
@@ -507,12 +486,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     private boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
