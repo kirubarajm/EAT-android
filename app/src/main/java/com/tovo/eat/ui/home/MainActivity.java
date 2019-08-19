@@ -38,6 +38,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -78,7 +82,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     public FilterListener filterListener;
@@ -619,7 +623,41 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
 
+       // startLocationTracking();
 
+
+
+    }
+
+
+    private void startLocationTracking() {
+
+
+        if (checkPermissions()) {
+
+            new GpsUtils(MainActivity.this).turnGPSOn(new GpsUtils.onGpsListener() {
+                @Override
+                public void gpsStatus(boolean isGPSEnable) {
+                    // turn on GPS
+                    if (isGPSEnable) {
+                        mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                                .addConnectionCallbacks(mLocationRequestCallback)
+                                .addApi(LocationServices.API)
+                                .build();
+                        mGoogleApiClient.connect();
+                    } else {
+                     //  turnOnGps();
+                       startLocationTracking();
+
+                    }
+                }
+
+            });
+
+
+        } else {
+            requestPermissions();
+        }
     }
 
     public void statusUpdate() {
@@ -806,24 +844,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
-    private void startLocationTracking() {
 
-
-        if (checkPermissions()) {
-
-            new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
-                @Override
-                public void gpsStatus(boolean isGPSEnable) {
-                    // turn on GPS
-                }
-
-            });
-
-
-        } else {
-            requestPermissions();
-        }
-    }
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this,
@@ -911,5 +932,44 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
+    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
+            .ConnectionCallbacks() {
 
+        @Override
+        public void onConnected(Bundle bundle) {
+            LocationRequest request = new LocationRequest();
+            request.setInterval(1);
+            request.setFastestInterval(1);
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            try {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                        request, MainActivity.this::onLocationChanged);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onConnectionSuspended(int reason) {
+            // TODO: Handle gracefully
+        }
+
+    };
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+
+        if (location != null) {
+            mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+            openHome();
+        }
+
+
+    }
 }

@@ -171,15 +171,16 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
 
-
-                if (mAddAddressViewModel.getDataManager().getAddressId() != 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
+                initCameraIdle();
+                if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                     LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-                    initCameraIdle();
+
 
                 } else {
                     turnOnGps();
+
                 }
             }
         });
@@ -331,7 +332,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         } catch (IOException e) {
             e.printStackTrace();
-            printToast("Could not get address..!");
+            printToast("We could not get address. Please enter your address..");
         } catch (Exception ee) {
 
             ee.printStackTrace();
@@ -475,6 +476,13 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (dialog.isShowing()) dialog.dismiss();
+        super.onBackPressed();
+
     }
 
     private void registerWifiReceiver() {

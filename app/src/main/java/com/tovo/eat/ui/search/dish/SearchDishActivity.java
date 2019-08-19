@@ -231,11 +231,16 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
 
-
     }
 
     @Override
-    public void showMore(Integer regionId) {
+    public void showMore(Integer kitchenId) {
+
+
+        Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());
+        intent.putExtra("kitchenId", kitchenId);
+        startActivity(intent);
+
 
     }
 

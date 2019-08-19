@@ -178,7 +178,7 @@
                     android:layout_toStartOf="@+id/addDish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="3dp"
                     android:orientation="vertical">
 
 
@@ -188,6 +188,7 @@
 
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_alignParentStart="true"
                             android:id="@+id/name"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -199,12 +200,12 @@
 
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:id="@+id/v"
+                            android:layout_toEndOf="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="3dp"
-                            android:layout_marginEnd="1dp"
-                            android:layout_toEndOf="@+id/name"
                             android:text="@string/icon_veg"
                             android:textColor="@{todaysMenuItemViewModel.isVeg?@color/green:@color/red}"
                             android:textSize="6sp" />

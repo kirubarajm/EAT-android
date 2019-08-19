@@ -118,6 +118,9 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("address_title")
         @Expose
         public String address_title;
+        @SerializedName("payment_type_name")
+        @Expose
+        public String paymentTypeName;
 
         @SerializedName("order_assigned_time")
         @Expose
@@ -135,6 +138,13 @@ public class OrdersHistoryActivityResponse {
         @Expose
         public List<Item> items = null;
 
+        public String getPaymentTypeName() {
+            return paymentTypeName;
+        }
+
+        public void setPaymentTypeName(String paymentTypeName) {
+            this.paymentTypeName = paymentTypeName;
+        }
 
         public String getAddress_title() {
             return address_title;
@@ -555,9 +565,20 @@ public class OrdersHistoryActivityResponse {
             @SerializedName("brandName")
             @Expose
             public String brandName;
+            @SerializedName("makeitimg")
+            @Expose
+            public String makeitimg;
             @SerializedName("localityid")
             @Expose
             public Integer localityid;
+
+            public String getMakeitimg() {
+                return makeitimg;
+            }
+
+            public void setMakeitimg(String makeitimg) {
+                this.makeitimg = makeitimg;
+            }
 
             public Float getLat() {
                 return lat;

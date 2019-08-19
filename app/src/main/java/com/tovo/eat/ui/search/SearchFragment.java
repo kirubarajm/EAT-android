@@ -174,6 +174,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
+
+
     }
 
     @Override

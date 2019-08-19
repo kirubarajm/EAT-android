@@ -55,7 +55,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
                 String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
 
-
+                strOtpId=otp;
 
                 mActivityOtpBinding.otpText.setText(otp);
 
@@ -100,6 +100,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         String otp = st1 + st2 + st3 + st4 + st5;
         if (validForOtp())
             mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));*/
+        mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtpId));
     }
 
     @Override
@@ -276,6 +277,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText.OnPinEnteredListener() {
             @Override
             public void onPinEntered(CharSequence str) {
+
+                strOtpId=str.toString();
 
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
               //  mLoginViewModelMain.continueClick();

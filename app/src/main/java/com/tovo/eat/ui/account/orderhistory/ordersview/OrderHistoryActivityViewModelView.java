@@ -116,6 +116,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             home.set(response.getResult().get(0).getLocality());
                           //  image.set(response.getResult().get(0).getMakeitdetail().ge);
                             address.set(response.getResult().get(0).getLocality());
+                            image.set(response.getResult().get(0).getMakeitdetail().getMakeitimg());
 
                             ordertitle.set("#"+response.getResult().get(0).getOrderid()+" Order");
                             addressTitle.set(response.getResult().get(0).getAddress_title());
@@ -125,11 +126,10 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                            // actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
-                            if (paymentType.equals("0")) {
-                                strPaymentType.set("Paid through Cash On Delivery");
-                            } else {
-                                strPaymentType.set("Paid through Online");
-                            }
+
+
+                                strPaymentType.set("Paid through "+response.getResult().get(0).getPaymentTypeName());
+
 
                             try {
                                 if (response.getResult().get(0).getMoveitActualDeliveredTime() != null) {

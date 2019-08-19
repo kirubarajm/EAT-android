@@ -331,7 +331,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
 
             LinearLayoutManager offerLayputManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
             offerLayputManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             OffersAdapter offersAdapter = new OffersAdapter(item_list.get(position).getCoupons());
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(offerLayputManager);

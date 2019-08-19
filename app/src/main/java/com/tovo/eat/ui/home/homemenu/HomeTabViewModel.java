@@ -501,6 +501,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             addressTitle.set("Current location");
         }
 
+
     }
 
     public void fetchKitchen() {

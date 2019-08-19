@@ -306,7 +306,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         setIsLoading(false);
                         totalCart();
 
-                        if (response.getResult() != null && response.getResult().size() != 0) {
+                        if (response.getResult() != null && response.getResult().size() > 0) {
 
                             isProductAvailable.set(true);
 

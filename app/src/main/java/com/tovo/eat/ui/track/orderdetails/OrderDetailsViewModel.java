@@ -141,12 +141,8 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
-                            if (String.valueOf(response.getResult().get(0).getPaymentType()).equals("0")) {
-                                strPaymentType.set("Amount to be paid through COD");
-                            } else {
-                                strPaymentType.set("Amount to be paid through Online");
-                            }
 
+                                strPaymentType.set("Amount to be paid through "+response.getResult().get(0).getPaymentTypeName());
 
                             // Repeat Order
 

@@ -67,7 +67,7 @@ import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator, LocationListener,
+public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator,
         StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener {
 
 
@@ -102,34 +102,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private int currentPosition;
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
-    private GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
-            .ConnectionCallbacks() {
-
-        @Override
-        public void onConnected(Bundle bundle) {
-            LocationRequest request = new LocationRequest();
-            request.setInterval(1);
-            request.setFastestInterval(1);
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-            try {
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                        request, HomeTabFragment.this::onLocationChanged);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onConnectionSuspended(int reason) {
-            // TODO: Handle gracefully
-        }
-
-    };
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -197,7 +169,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void disconnectGps() {
-        mGoogleApiClient.disconnect();
+       // mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -305,7 +277,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
             mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
 
-            startLocationTracking();
+        //    startLocationTracking();
 
 
         }
@@ -650,33 +622,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
-    private void startLocationTracking() {
-
-
-        if (checkPermissions()) {
-
-            new GpsUtils(getContext()).turnGPSOn(new GpsUtils.onGpsListener() {
-                @Override
-                public void gpsStatus(boolean isGPSEnable) {
-                    // turn on GPS
-                    if (isGPSEnable) {
-                        mGoogleApiClient = new GoogleApiClient.Builder(getBaseActivity())
-                                .addConnectionCallbacks(mLocationRequestCallback)
-                                .addApi(LocationServices.API)
-                                .build();
-                        mGoogleApiClient.connect();
-                    } else {
-                        startLocationTracking();
-                    }
-                }
-
-            });
-
-
-        } else {
-            requestPermissions();
-        }
-    }
 
 
     private boolean checkPermissions() {
@@ -733,7 +678,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 /*  Log.i(TAG, "Permission granted.");*/
 
-                startLocationTracking();
+
 
             } else {
                 Snackbar snackbar = Snackbar.make(mFragmentHomeBinding.homemain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
@@ -763,16 +708,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
 
-        if (location != null) {
-
-            mHomeTabViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-            mHomeTabViewModel.favIcon.set(true);
-        }
-
-    }
 
     @Override
     public void applyFilter() {
@@ -1092,13 +1028,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         } else if (requestCode == AppConstants.GPS_REQUEST) {
 
-            if (resultCode == Activity.RESULT_OK) {
+          /*  if (resultCode == Activity.RESULT_OK) {
                 startLocationTracking();
 
 
             } else {
                 startLocationTracking();
-            }
+            }*/
 
 
         }

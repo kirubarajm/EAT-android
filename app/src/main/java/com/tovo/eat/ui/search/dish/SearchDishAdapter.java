@@ -142,7 +142,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void onItemClickData(Integer kitchenId);
 
-        void showMore(Integer regionId);
+        void showMore(Integer kitchenId);
 
         void onItemClickData(DishResponse.Result blogUrl);
 
@@ -207,7 +207,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
 
 
-            if (!blog.isServiceableStatus()) {
+            /*if (!blog.isServiceableStatus()) {
 
                 mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
                 mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
@@ -222,7 +222,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
                 mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
                //  mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
 
-            }
+            }*/
 
 
 
@@ -242,7 +242,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
                 SearchKitchenDishAdapter regionKitchenAdapter = new SearchKitchenDishAdapter(item_list.get(position).getProductlist(), item_list.get(position), dataManager);
                 mListItemLiveProductsBinding.recyclerviewKitchens.setLayoutManager(mLayoutManager);
                 mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
-                regionKitchenAdapter.serviceable(blog.isServiceableStatus());
+                regionKitchenAdapter.serviceable(true);
 
                 regionKitchenAdapter.setListener(SearchDishAdapter.this);
             }else {

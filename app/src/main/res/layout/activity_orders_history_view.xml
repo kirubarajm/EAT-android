@@ -85,8 +85,7 @@
                     <RelativeLayout
                         android:id="@+id/rel_1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="30dp">
+                        android:layout_height="wrap_content">
 
 
                         <LinearLayout
@@ -98,11 +97,12 @@
 
                           <!--  cusrsiveImageUrl="@{dishItemViewModel.image}"-->
 
-                            <com.tovo.eat.utilities.RoundCornerImageView
-                              android:src="@drawable/imagenotavailable"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:scaleType="centerInside" />
+                            <ImageView
+                                android:layout_marginStart="10dp"
+                                imageUrl="@{OrdersHistryViewModel.image}"
+                                android:layout_width="120dp"
+                                android:layout_height="80dp"
+                                android:scaleType="fitCenter" />
 
 
                             <LinearLayout

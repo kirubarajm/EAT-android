@@ -218,6 +218,7 @@
                             android:text="@{favTodaysMenuItemViewModel.product_name}"
                             android:textColor="@color/black"
                             android:textSize="14sp"
+                            android:layout_alignParentStart="true"
                             android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
@@ -225,7 +226,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="3dp"
-                            android:layout_marginEnd="1dp"
                             android:layout_toEndOf="@+id/name"
                             android:text="@string/icon_veg"
                             android:textColor="@{favTodaysMenuItemViewModel.isVeg?@color/green:@color/red}"

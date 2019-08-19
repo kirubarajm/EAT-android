@@ -21,7 +21,6 @@ import com.tovo.eat.databinding.ActivitySignupBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.fagsandsupport.FaqsAndSupportActivity;
-import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.ui.signup.privacy.PrivacyActivity;
@@ -35,8 +34,26 @@ import javax.inject.Inject;
 public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpActivityViewModel>
         implements SignUpActivityNavigator {
 
+    public boolean continueClicked = false;
     @Inject
     SignUpActivityViewModel mLoginViewModelMain;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
     private ActivitySignupBinding mActivitySignupBinding;
 
     public static Intent newIntent(Context context) {
@@ -50,23 +67,20 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void verifyUser() {
-        /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
-        intent.putExtra("key","value");
-        startActivity(intent);
-        finish();*/
 
-        if (validForMobileNo()) {
+        if (!continueClicked) {
+            continueClicked = true;
+            if (validForMobileNo()) {
 
-            if (mActivitySignupBinding.acceptTandC.isChecked()) {
-                String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
-                mLoginViewModelMain.users(strPhoneNumber);
-            }else {
+                if (mActivitySignupBinding.acceptTandC.isChecked()) {
+                    String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
+                    mLoginViewModelMain.users(strPhoneNumber);
+                } else {
 
-                Toast.makeText(this, "Accept terms and conditions and continue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Accept terms and conditions and continue", Toast.LENGTH_SHORT).show();
+                }
+
             }
-            /*Intent intent = OtpActivity.newIntent(SignUpActivity.this);
-            startActivity(intent);
-            finish();*/
         }
     }
 
@@ -87,7 +101,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     public void termsandconditions() {
         Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
-        startActivityForResult(intent,AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
+        startActivityForResult(intent, AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
     }
 
     @Override
@@ -184,9 +198,9 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     @Override
     protected void onResume() {
         super.onResume();
+        continueClicked = false;
         registerWifiReceiver();
     }
-
 
     @Override
     protected void onPause() {
@@ -203,14 +217,13 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -225,24 +238,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 
