@@ -109,6 +109,7 @@
     <android.support.v7.widget.CardView
         android:onClick="@{()->regionItemViewModel.onItemClick()}"
         android:layout_width="230dp"
+        app:cardUseCompatPadding="true"
         android:layout_height="340dp"
         android:layout_gravity="center_horizontal"
         app:cardBackgroundColor="@color/white"

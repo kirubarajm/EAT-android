@@ -90,7 +90,8 @@ public class AppConstants {
     ///////Server Ip Ports
 
 //   public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
-   public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+ //  public static final String URL_SERVER_IP_PORT = "http://api.eatalltime.co.in";////live ip port new
+  public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
@@ -108,7 +109,7 @@ public class AppConstants {
 
  //   public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
- //  public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+// public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
 
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)

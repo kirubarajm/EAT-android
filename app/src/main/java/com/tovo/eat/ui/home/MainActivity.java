@@ -1,8 +1,6 @@
 package com.tovo.eat.ui.home;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -13,12 +11,10 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -29,7 +25,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -42,10 +37,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -55,7 +46,6 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
@@ -72,9 +62,6 @@ import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -133,6 +120,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 if (pageid != null)
                     if (pageid.equals("8") || pageid.equals("7")) {
                         mMainViewModel.liveOrders();
+                        openHome();
                     }
 
             } catch (Exception e) {
@@ -150,13 +138,40 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private int _xDelta;
     private int _yDelta;
     private BroadcastReceiver mNetworkReceiver;
+    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
+            .ConnectionCallbacks() {
+
+        @Override
+        public void onConnected(Bundle bundle) {
+            LocationRequest request = new LocationRequest();
+            request.setInterval(1);
+            request.setFastestInterval(1);
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            try {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                        request, MainActivity.this::onLocationChanged);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onConnectionSuspended(int reason) {
+            // TODO: Handle gracefully
+        }
+
+    };
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
         return intent;*/
         return new Intent(context, MainActivity.class);
     }
-
 
     public void setFilterListener(FilterListener filterListener) {
         this.filterListener = filterListener;
@@ -185,7 +200,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart() {
-
+        stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CartActivity fragment = new CartActivity();
         transaction.replace(R.id.content_main, fragment);
@@ -229,8 +244,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openExplore() {
-
-
+        stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
@@ -250,34 +264,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+    public void startLoader() {
+        mActivityMainBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mActivityMainBinding.shimmerViewContainer.startShimmerAnimation();
+    }
+
+    public void stopLoader() {
+        mActivityMainBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mActivityMainBinding.shimmerViewContainer.stopShimmerAnimation();
+    }
+
     @Override
     public void openAccount() {
+        stopLoader();
 
-       /* Intent intent = RegionDetailsActivity.newIntent(FilterActivity.this);
-        startActivity(intent);*/
 
-        if (mMainViewModel.checkInternet()) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            MyAccountFragment fragment = new MyAccountFragment();
-            transaction.replace(R.id.content_main, fragment);
-            //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
-            transaction.commit();
-
-            mMainViewModel.toolbarTitle.set("My Account");
-            mMainViewModel.titleVisible.set(true);
-
-        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        MyAccountFragment fragment = new MyAccountFragment();
+        transaction.replace(R.id.content_main, fragment);
+        //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
+        transaction.commit();
+        mMainViewModel.toolbarTitle.set("My Account");
+        mMainViewModel.titleVisible.set(true);
 
 
     }
-
 
     Fragment getCurrentFragment() {
         Fragment currentFragment = getSupportFragmentManager()
                 .findFragmentById(R.id.content_main);
         return currentFragment;
     }
-
 
     @Override
     public void toastMsg(String msg) {
@@ -432,33 +449,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
-    public void turnOnGps() {
-
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
-            @Override
-            public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
-                if (isGPSEnable) {
-                    if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
-
-                    } else {
-
-                        openHome();
-
-                    }
-                } else {
-
-                    turnOnGps();
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        HomeTabFragment homeTabFragment=new HomeTabFragment();
+        HomeTabFragment homeTabFragment = new HomeTabFragment();
 
 /*
         Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentByTag(homeTabFragment.getTag());
@@ -468,10 +462,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         openHome();*/
 
 
-
         if (requestCode == AppConstants.GPS_REQUEST) {
-            turnOnGps();
-        }else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
+            startLocationTracking();
+        } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
         }
     }
@@ -485,9 +478,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-
-
-    public void selectHomeAddress(){
+    public void selectHomeAddress() {
 
         Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
@@ -527,7 +518,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     }
-
 
     private void showExitDialog() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -590,6 +580,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerReceiver(dataReceiver, intentFilter);
 
 
+            if (mMainViewModel.getDataManager().getAddressId() == 0) {
+                mMainViewModel.getDataManager().setCurrentLat(0.0);
+                mMainViewModel.getDataManager().setCurrentLng(0.0);
+            }
+
+
 
 
        /* IntentFilter intentFilter= new IntentFilter(AppConstants.FCM_RECEIVER_ORDER);
@@ -619,19 +615,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         } else {
-          turnOnGps();
+            startLoader();
+            startLocationTracking();
 
         }
 
-       // startLocationTracking();
-
+        // startLocationTracking();
 
 
     }
 
-
     private void startLocationTracking() {
-
 
         if (checkPermissions()) {
 
@@ -646,9 +640,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                                 .build();
                         mGoogleApiClient.connect();
                     } else {
-                     //  turnOnGps();
-                       startLocationTracking();
-
+                        //  turnOnGps();
+                        startLocationTracking();
                     }
                 }
 
@@ -665,13 +658,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.saveRequestData();
         mMainViewModel.getDataManager().setIsFav(false);
 
-        if (mMainViewModel.isAddressAdded()) {
+        /*if (mMainViewModel.isAddressAdded()) {
             mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
 
         } else {
             mMainViewModel.addressTitle.set("Current location");
             startLocationTracking();
-        }
+        }*/
         mMainViewModel.liveOrders();
 
     }
@@ -688,7 +681,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -700,40 +692,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
     }
-
-    private boolean checkAndRequestPermissions() {
-
-        int writepermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        int callpermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE);
-
-        int locationpermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
-
-        List<String> listPermissionsNeeded = new ArrayList<>();
-
-        if (locationpermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-
-        if (writepermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-
-        if (callpermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.CALL_PHONE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 10001);
-            } else {
-
-
-            }
-            return false;
-        }
-        return true;
-    }
-
 
     @Override
     public void checkCart() {
@@ -815,27 +773,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 && networkInfo.isConnected();
     }
 
-
-    private void registerNetworkBroadcastForNougat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
-    }
-
-    protected void unregisterNetworkChanges() {
-        try {
-            unregisterReceiver(mNetworkReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
+
 
         try {
             unregisterReceiver(dataReceiver);
@@ -843,8 +784,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             e.printStackTrace();
         }
     }
-
-
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this,
@@ -900,9 +839,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 /*  Log.i(TAG, "Permission granted.");*/
 
-              //  startLocationTracking();
+                startLocationTracking();
 
-                turnOnGps();
 
             } else {
                 Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
@@ -932,44 +870,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
-    private GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
-            .ConnectionCallbacks() {
-
-        @Override
-        public void onConnected(Bundle bundle) {
-            LocationRequest request = new LocationRequest();
-            request.setInterval(1);
-            request.setFastestInterval(1);
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-            try {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                        request, MainActivity.this::onLocationChanged);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onConnectionSuspended(int reason) {
-            // TODO: Handle gracefully
-        }
-
-    };
-
     @Override
     public void onLocationChanged(Location location) {
 
 
         if (location != null) {
+
+            mGoogleApiClient.disconnect();
+
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             openHome();
+
         }
 
 
     }
+
+
 }

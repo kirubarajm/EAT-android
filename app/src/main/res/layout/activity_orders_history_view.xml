@@ -67,7 +67,6 @@
 
 
         <ScrollView
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/topBar">
@@ -77,6 +76,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:layout_marginTop="10dp"
                     android:id="@+id/rel_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

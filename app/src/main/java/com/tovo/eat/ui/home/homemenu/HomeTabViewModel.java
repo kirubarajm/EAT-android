@@ -20,6 +20,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
@@ -87,7 +88,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchStories();
         fetchCoupons();
         fetchCollections();
-        fetchKitchen();
+     //   fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
 
@@ -263,13 +264,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-    public void fetchCoupons() {
-
+    public void fetchCoupons() throws NullPointerException {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_COUPON_LIST_URL + getDataManager().getCurrentUserId(), CouponListResponse.class, new Response.Listener<CouponListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL , CouponListResponse.class,new CollectionRequest(getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {
@@ -286,8 +285,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     //   Log.e("", error.getMessage());
                 }
             }, AppConstants.API_VERSION_ONE);
-
-
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -299,7 +296,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-    public void fetchRepos(Integer regionId) {
+    public void fetchRepos(Integer regionId)  throws NullPointerException{
 
 
         //   if (getDataManager().getCurrentLat() == null) {
@@ -504,7 +501,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     }
 
-    public void fetchKitchen() {
+    public void fetchKitchen() throws NullPointerException {
 
         // getNavigator().kitchenListLoading();
 
@@ -515,7 +512,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         } else {
-
 
             if (!getDataManager().getIsFav()) {
 
@@ -596,9 +592,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
+                                        try {
 
-                                        getNavigator().kitchenLoaded();
-                                        Log.e("Kitchen----response:", response.toString());
+                                            getNavigator().kitchenLoaded();
+                                        } catch (Exception ee) {
+                                            ee.printStackTrace();
+                                        }
                                     } else {
                                         emptyKitchen.set(true);
                                     }
@@ -654,7 +653,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
     }
 
-    public void fetchStories() {
+    public void fetchStories() throws NullPointerException {
         /*try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_STORIES_LIST, StoriesResponse.class, new Response.Listener<StoriesResponse>() {
@@ -784,29 +783,18 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }*/
     }
 
-    public void fetchCollections() {
+    public void fetchCollections() throws NullPointerException {
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class, new Response.Listener<KitchenResponse.Result>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class,new CollectionRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {
-
-
                         if (response.getCollection().size() > 0) {
-
                             collectionItemLiveData.setValue(response.getCollection());
                             getNavigator().collectionLoaded();
                         }
 
-
-
-                      /*  if (collectionItemViewModels != null) {
-
-                            collectionItemViewModels.clear();
-                            collectionItemViewModels.addAll(response.getCollection());
-
-                        }*/
                     }
                 }
             }, new Response.ErrorListener() {

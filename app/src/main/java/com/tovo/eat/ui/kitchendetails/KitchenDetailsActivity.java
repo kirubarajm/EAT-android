@@ -698,9 +698,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void confirmClick(boolean status) {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
-        mKitchenDetailsViewModel.fetchRepos(kitchenID);
+
+
+        if (true) {
+            mKitchenDetailsViewModel.fetchVegProducts();
+        }
 
     }
 

@@ -113,23 +113,17 @@
 
         </LinearLayout>
 
-
-
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:visibility="@{regionListViewModel.emptyRegion?View.GONE:View.VISIBLE}"
             android:id="@+id/refreshList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topBar"
-            android:layout_marginTop="10dp">
-
+            android:layout_below="@+id/topBar">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
                 android:background="@android:color/white"
                 app:regionListAdapter="@{regionListViewModel.regionResults}"
                 tools:listitem="@layout/list_item_region_list" />

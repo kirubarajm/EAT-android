@@ -18,11 +18,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
@@ -32,7 +35,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
@@ -77,6 +82,40 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
             }
         }
+    };
+    private GoogleApiClient mGoogleApiClient;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
+
+    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
+            .ConnectionCallbacks() {
+
+        @Override
+        public void onConnected(Bundle bundle) {
+            LocationRequest request = new LocationRequest();
+            request.setInterval(1);
+            request.setFastestInterval(1);
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            try {
+                if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                        request, AddAddressActivity.this::onLocationChanged);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onConnectionSuspended(int reason) {
+            // TODO: Handle gracefully
+        }
+
     };
 
     public static Intent newIntent(Context context) {
@@ -126,10 +165,10 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
             initCameraIdle();
         } else {
-            if (mAddAddressViewModel.getDataManager().getAddressId() != 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
+            if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                 LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 initCameraIdle();
 
             } else {
@@ -156,12 +195,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         //  startLocationTracking();
 
         dialog = new ProgressDialog(this);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setMessage("Getting your location..");
         dialog.setTitle("Please Wait!");
         // dialog.show();
 
-        isFirstTime = true;
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -175,11 +213,39 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                     LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
 
                 } else {
-                    turnOnGps();
+                    if (mLocation != null) {
+                        if (dialog.isShowing()) dialog.dismiss();
+                        LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                        initCameraIdle();
+                    } else {
+
+                        turnOnGps();
+
+                       /* if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+
+
+                            mFusedLocationClient = new FusedLocationProviderClient(AddAddressActivity.this);
+                            mFusedLocationClient.getLastLocation()
+                                    .addOnCompleteListener(AddAddressActivity.this, new OnCompleteListener<Location>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Location> task) {
+                                            if (task.isSuccessful() && task.getResult() != null) {
+                                                if (dialog.isShowing()) dialog.dismiss();
+                                                mLocation = task.getResult();
+                                                LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                                initCameraIdle();
+                                            }
+                                        }
+                                    });*/
+                        }
+                      //  turnOnGps();
 
                 }
             }
@@ -202,24 +268,59 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                         //getLocation();
                         if (!dialog.isShowing())
                             dialog.show();
+/*
+                        mFusedLocationClient=new FusedLocationProviderClient(AddAddressActivity.this);
+                        mFusedLocationClient.getLastLocation()
+                                .addOnCompleteListener(AddAddressActivity.this, new OnCompleteListener<Location>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Location> task) {
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            if (dialog.isShowing()) dialog.dismiss();
+                                            mLocation = task.getResult();
+                                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                            initCameraIdle();
+                                        }
+                                    }
+                                });*/
 
-                        if (map != null) {
-                            Location location = getLocation();
 
 
-                            //  getUserLocation();
+getLocation();
 
-                           /* if (location != null) {
-
-                                if (dialog.isShowing())
-                                    dialog.dismiss();
-
-                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                                initCameraIdle();
-                            }*/
-                            //  initCameraIdle();
+                       /*
+                        if (mGoogleApiClient != null) {
+                            mGoogleApiClient = new GoogleApiClient.Builder(AddAddressActivity.this)
+                                    .addConnectionCallbacks(mLocationRequestCallback)
+                                    .addApi(LocationServices.API)
+                                    .build();
+                            mGoogleApiClient.connect();
                         }
+                        if (mLocation != null) {
+                            if (dialog.isShowing()) dialog.dismiss();
+
+                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                            initCameraIdle();
+                        }
+
+
+                        FusedLocationProviderClient client =
+                                LocationServices.getFusedLocationProviderClient(AddAddressActivity.this);
+
+                        client.getLastLocation()
+                                .addOnCompleteListener(AddAddressActivity.this, new OnCompleteListener<Location>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Location> task) {
+                                        // ...
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            mLocation = task.getResult();
+                                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                            initCameraIdle();
+                                        }
+                                    }
+                                });*/
 
                     }
                 } else {
@@ -230,7 +331,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         });
 
     }
-
 
     private void getUserLocation() {
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -362,10 +462,21 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
             Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (lastKnownLocationGPS != null) {
+                if (dialog.isShowing()) dialog.dismiss();
+                LatLng latLng = new LatLng(lastKnownLocationGPS.getLatitude(), lastKnownLocationGPS.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                initCameraIdle();
                 return lastKnownLocationGPS;
             } else {
                 Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
+                if (loc != null) {
+
+                    if (dialog.isShowing()) dialog.dismiss();
+                    LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                    initCameraIdle();
+                }
                 return loc;
             }
         } else {
@@ -417,7 +528,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         }
     }
 
-
     private void printToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -426,22 +536,20 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     public void onLocationChanged(Location location) {
 
         mLocation = location;
+        if (map != null) {
+            if (location != null) {
 
-        if (location != null) {
+              //  mGoogleApiClient.disconnect();
 
-            /*if (dialog.isShowing())
-                dialog.dismiss();*/
-
-            if (isFirstTime) {
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 initCameraIdle();
-                isFirstTime = false;
+
+
             }
         }
-
     }
 
     @Override
@@ -458,6 +566,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     public void onProviderDisabled(String provider) {
 
     }
+
 
     @Override
     protected void onResume() {
@@ -517,5 +626,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
 
 }

@@ -23,8 +23,8 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp">
+            app:cardElevation="1dp"
+            app:cardMaxElevation="1dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="@string/any_doubts_write_to_us"
                         android:textSize="14sp" />
@@ -158,7 +158,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp">
+                        android:layout_marginTop="10dp">
 
                         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:layout_width="100dp"
@@ -178,7 +178,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="10dp"
                         android:background="@color/white"
                         android:orientation="vertical"
                         android:padding="15dp">

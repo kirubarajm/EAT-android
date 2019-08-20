@@ -62,6 +62,7 @@ import com.tovo.eat.utilities.stack.StackLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -72,7 +73,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
+
     @Inject
     HomeTabViewModel mHomeTabViewModel;
     @Inject
@@ -84,24 +85,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Inject
     StoriesCardAdapter storiesCardAdapter;
 
-    DecodeBitmapTask decodeBitmapTask;
+
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
     StoriesResponse storiesFullResponse;
     StackLayoutManager mStackLayoutManager;
     private FragmentHomeBinding mFragmentHomeBinding;
-    private ImageSwitcher mapSwitcher;
-    private TextSwitcher temperatureSwitcher;
-    private TextSwitcher placeSwitcher;
-    private TextSwitcher clockSwitcher;
-    private TextSwitcher descriptionsSwitcher;
-    private View greenDot;
-    private int countryOffset1;
-    private int countryOffset2;
-    private long countryAnimDuration;
+
     private int currentPosition;
-    private DecodeBitmapTask decodeMapBitmapTask;
-    private DecodeBitmapTask.Listener mapLoadListener;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -132,13 +123,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void selectAddress() {
-      /*  Intent intent = SelectAddressListActivity.newIntent(getContext());
-        startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);*/
-
-
         ((MainActivity) getActivity()).selectHomeAddress();
-
-
     }
 
     @Override
@@ -149,16 +134,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void favourites() {
-
-     /*   FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        CartActivity fragment = new CartActivity();
-
-        Bundle args = new Bundle();
-        args.putString("text", "text created");
-        fragment.setArguments(args);
-
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commitNow();*/
 
 
         Intent intent = FavouritesActivity.newIntent(getContext());
@@ -178,26 +153,20 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
     }
 
     @Override
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
         initCountryText();
-
-
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
-
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
 
     }
 
     @Override
     public void dataLoaded() {
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();
+        ((MainActivity) getActivity()).stopLoader();
     }
 
     @Override
@@ -215,7 +184,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void kitchenLoaded() {
-
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
 
        /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
 
@@ -257,8 +226,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding = getViewDataBinding();
 
 
-        mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
+        ((MainActivity) Objects.requireNonNull(getActivity())).startLoader();
 
         /*mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
@@ -268,22 +236,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
-
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
 
-        } else {
-
-            mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-            mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
-
-        //    startLocationTracking();
-
-
         }
 
-
     }
+
+
+
+
 
     private void setUp() {
 
@@ -572,38 +534,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
-    private boolean checkAndRequestPermissions() {
-
-        int writepermission = ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        int callpermission = ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.CALL_PHONE);
-
-        int locationpermission = ContextCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-
-        List<String> listPermissionsNeeded = new ArrayList<>();
-
-        if (locationpermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-
-        if (writepermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-
-        if (callpermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.CALL_PHONE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 10001);
-            } else {
-
-
-            }
-            return false;
-        }
-        return true;
-    }
 
     private void subscribeToLiveData() {
         mHomeTabViewModel.getregionItemsLiveData().observe(this,
@@ -624,89 +554,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
 
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(getBaseActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermissions() {
-        boolean shouldProvideRationale =
-                ActivityCompat.shouldShowRequestPermissionRationale(getBaseActivity(),
-                        Manifest.permission.ACCESS_FINE_LOCATION);
-        if (shouldProvideRationale) {
-            //   Log.i(TAG, "Displaying permission rationale to provide additional context.");
-
-            Snackbar snackbar = Snackbar.make(mFragmentHomeBinding.homemain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
-            snackbar.setActionTextColor(getResources().getColor(R.color.white));
-            View snackbarView = snackbar.getView();
-            int snackbarTextId = android.support.design.R.id.snackbar_text;
-            TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
-            textView.setTextColor(getResources().getColor(R.color.white));
-            snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
-
-            snackbar.setAction("Ok", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ActivityCompat.requestPermissions(getBaseActivity(),
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            REQUEST_PERMISSIONS_REQUEST_CODE);
-                }
-            });
-            snackbar.show();
-
-        } else {
-
-
-            ActivityCompat.requestPermissions(getBaseActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        /*  Log.i(TAG, "onRequestPermissionResult");*/
-        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-            if (grantResults.length <= 0) {
-                // If user interaction was interrupted, the permission request is cancelled and you
-                // receive empty arrays.
-                /*   Log.i(TAG, "User interaction was cancelled.");*/
-            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                /*  Log.i(TAG, "Permission granted.");*/
-
-
-
-            } else {
-                Snackbar snackbar = Snackbar.make(mFragmentHomeBinding.homemain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
-                snackbar.setActionTextColor(getResources().getColor(R.color.white));
-                View snackbarView = snackbar.getView();
-                int snackbarTextId = android.support.design.R.id.snackbar_text;
-                TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
-                textView.setTextColor(getResources().getColor(R.color.white));
-                snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
-
-                snackbar.setAction(R.string.settings, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setAction(
-                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package",
-                                BuildConfig.APPLICATION_ID, null);
-                        intent.setData(uri);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                });
-                snackbar.show();
-
-            }
-        }
-    }
 
 
 
@@ -1006,11 +853,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void offersItemClick(CouponListResponse.Result offers) {
 
-
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);
-
 
     }
 
@@ -1040,30 +885,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
 
-    }
-
-    private class OnCardClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
-
-            if (lm.isSmoothScrolling()) {
-                return;
-            }
-
-            final int activeCardPosition = lm.getActiveCardPosition();
-            if (activeCardPosition == RecyclerView.NO_POSITION) {
-                return;
-            }
-
-            final int clickedPosition = mFragmentHomeBinding.recyclerViewRegion.getChildAdapterPosition(view);
-            if (clickedPosition == activeCardPosition) {
-
-            } else if (clickedPosition > activeCardPosition) {
-                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(clickedPosition);
-                onActiveCardChange(clickedPosition);
-            }
-        }
     }
 
 }

@@ -65,6 +65,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     public int refundBalance = 0;
+    public int price = 0;
+    public String razorpayCustomerId = null;
 
 
     public PaymentViewModel(DataManager dataManager) {
@@ -219,9 +221,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         public Map<String, String> getHeaders() throws AuthFailureError {
                             HashMap<String, String> headers = new HashMap<String, String>();
                             headers.put("Content-Type", "application/json");
-                            headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                            headers.put("accept-version", AppConstants.API_VERSION_ONE);
                             //  headers.put("Authorization","Bearer");
-                            headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                            headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                             return headers;
                         }
                     };
@@ -335,12 +337,15 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                                 Integer orderId = response.getInt("orderid");
                                 getDataManager().setOrderId(orderId);
 
-                                if (getDataManager().getRefundId() != 0)
+                                if (getDataManager().getRefundId() != 0) {
                                     refundBalance = response.getInt("refund_balance");
-
+                                }
+                                razorpayCustomerId = response.getString("razer_customerid");
+                                refundBalance = response.getInt("price");
                                 getNavigator().orderGenerated(response.getInt("orderid"), response.getString("razer_customerid"), response.getInt("price"));
 
                             } else {
+
 
                                 getNavigator().showToast(response.getString("message"));
 
@@ -366,9 +371,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
-                        headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
                         //  headers.put("Authorization","Bearer");
-                        headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                        headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                         return headers;
                     }
                 };
@@ -445,9 +450,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
                     //  headers.put("Authorization","Bearer");
-                    headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                     return headers;
                 }
             };
