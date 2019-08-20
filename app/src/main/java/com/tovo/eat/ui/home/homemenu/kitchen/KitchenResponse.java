@@ -283,7 +283,10 @@ public class KitchenResponse {
         private String name;
         @SerializedName("active_status")
         @Expose
-        private String activeStatus;
+        private boolean activeStatus;
+        @SerializedName("collectionstatus")
+        @Expose
+        private boolean collectionStatus;
         @SerializedName("query")
         @Expose
         private String query;
@@ -306,6 +309,14 @@ public class KitchenResponse {
         @Expose
         private String updatedAt;
 
+        public boolean isCollectionStatus() {
+            return collectionStatus;
+        }
+
+        public void setCollectionStatus(boolean collectionStatus) {
+            this.collectionStatus = collectionStatus;
+        }
+
         public Integer getCid() {
             return cid;
         }
@@ -322,11 +333,11 @@ public class KitchenResponse {
             this.name = name;
         }
 
-        public String getActiveStatus() {
+        public boolean isActiveStatus() {
             return activeStatus;
         }
 
-        public void setActiveStatus(String activeStatus) {
+        public void setActiveStatus(boolean activeStatus) {
             this.activeStatus = activeStatus;
         }
 

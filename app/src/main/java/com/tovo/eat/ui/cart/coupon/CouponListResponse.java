@@ -52,7 +52,7 @@ public class CouponListResponse {
         this.result = result;
     }
 
-    public class Result {
+    public class    Result {
 
         @SerializedName("cid")
         @Expose
@@ -84,12 +84,23 @@ public class CouponListResponse {
         @SerializedName("expiry_date")
         @Expose
         private String expiryDate;
+        @SerializedName("couponstatus")
+        @Expose
+        private boolean couponStatus;
         @SerializedName("created_at")
         @Expose
         private String createdAt;
         @SerializedName("updated_at")
         @Expose
         private Object updatedAt;
+
+        public boolean isCouponStatus() {
+            return couponStatus;
+        }
+
+        public void setCouponStatus(boolean couponStatus) {
+            this.couponStatus = couponStatus;
+        }
 
         public Integer getCid() {
             return cid;

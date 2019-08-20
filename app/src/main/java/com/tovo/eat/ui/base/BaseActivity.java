@@ -159,13 +159,13 @@ BaseFragment.Callback{
     @Override
     protected void onResume() {
         super.onResume();
-        ActiveActivitiesTracker.activityStopped();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
+        ActiveActivitiesTracker.activityStopped();
         try{
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -176,7 +176,7 @@ BaseFragment.Callback{
     @Override
     protected void onPause() {
         super.onPause();
-        ActiveActivitiesTracker.activityStarted();
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         try{
             unregisterReceiver(dataReceiver);
@@ -189,7 +189,7 @@ BaseFragment.Callback{
     protected void onStart() {
         super.onStart();
 
-
+        ActiveActivitiesTracker.activityStarted();
 
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);

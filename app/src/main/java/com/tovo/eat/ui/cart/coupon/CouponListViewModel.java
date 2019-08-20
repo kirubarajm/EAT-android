@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -72,7 +73,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_COUPON_LIST_URL + getDataManager().getCurrentUserId(), CouponListResponse.class, new Response.Listener<CouponListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class,new CollectionRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {

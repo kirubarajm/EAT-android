@@ -26,6 +26,16 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static int sSelected = -1;
 
     public CouponListAdapter(List<CouponListResponse.Result> item_list, DataManager dataManager) {
+
+
+        for (int i=0;i<item_list.size();i++){
+
+            if ( !item_list.get(i).isCouponStatus()){
+                item_list.remove(i);
+            }
+
+        }
+
         this.item_list = item_list;
         this.dataManager=dataManager;
     }

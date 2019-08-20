@@ -135,7 +135,7 @@ public class KitchenItemViewModel {
 
         if (isFavourite.get()) {
             // isFavourite.set(false);
-            if (mKitchenList.getFavid() != null)
+            if (favID != 0)
                 removeFavourite();
         } else {
             //isFavourite.set(true);

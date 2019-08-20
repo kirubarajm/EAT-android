@@ -57,7 +57,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="@string/select_address"
+                    android:text="@string/manage_address"
                     android:textAllCaps="true"
                     android:textSize="18sp"
                     android:textStyle="bold"

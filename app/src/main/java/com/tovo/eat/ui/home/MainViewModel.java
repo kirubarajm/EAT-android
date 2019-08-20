@@ -540,15 +540,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     public void currentLatLng(double lat, double lng) {
-
-        if (getDataManager().getCurrentLat() == null) {
             getDataManager().setCurrentAddressTitle("Current location");
             getDataManager().setCurrentLat(lat);
             getDataManager().setCurrentLng(lng);
             getNavigator().disConnectGPS();
             getNavigator().openHome();
-        }
-
     }
 
 

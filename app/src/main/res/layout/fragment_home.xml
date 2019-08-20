@@ -21,7 +21,7 @@
         android:orientation="vertical">
 
 
-        <com.facebook.shimmer.ShimmerFrameLayout
+        <!--<com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,7 +31,7 @@
             android:visibility="gone"
             shimmer:duration="800">
 
-            <!-- Adding 7 rows of placeholders -->
+            &lt;!&ndash; Adding 7 rows of placeholders &ndash;&gt;
 
 
             <LinearLayout
@@ -160,7 +160,7 @@
                 <include layout="@layout/list_item_loader" />
             </LinearLayout>
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>-->
 
 
         <android.support.v7.widget.CardView

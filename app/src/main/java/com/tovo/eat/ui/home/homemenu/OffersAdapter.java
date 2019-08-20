@@ -25,8 +25,14 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public OffersAdapter(List<CouponListResponse.Result> item_list) {
-        this.item_list = item_list;
+        for (int i=0;i<item_list.size();i++){
 
+            if ( !item_list.get(i).isCouponStatus()){
+                item_list.remove(i);
+            }
+
+        }
+        this.item_list = item_list;
     }
 
 
