@@ -65,17 +65,11 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     public void callCusstomerCare() {
 
 
-        if (ContextCompat.checkSelfPermission(FaqsAndSupportActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(FaqsAndSupportActivity.this, new String[]{Manifest.permission.CALL_PHONE},AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE);
-        }
-        else
-        {
             String number = AppConstants.SUPPORT_NUMBER;
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(callIntent);
-        }
 
     }
 
@@ -101,30 +95,6 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
         mActivityFaqsSupportBinding = getViewDataBinding();
 
 
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // callAdmin();
-                    String number = AppConstants.SUPPORT_NUMBER;
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(callIntent);
-
-                } else{
-                    String number = AppConstants.SUPPORT_NUMBER;
-                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(callIntent);
-                }
-                return;
-            }
-        }
     }
 
 

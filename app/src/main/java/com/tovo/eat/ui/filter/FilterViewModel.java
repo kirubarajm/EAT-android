@@ -134,6 +134,8 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
         if (selectedOptions.get() == 1) {
 
+            filterRequestPojo.setSortid(0);
+
             for (int i = 0; i < filterSorts.size(); i++) {
 
                 if (id.equals(filterSorts.get(i).getSort())) {
@@ -209,9 +211,9 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
         }
 
-        if (getDataManager().getCurrentFragment() == 1) {
+       /* if (getDataManager().getCurrentFragment() == 1) {
             filterItemList.remove(1);
-        }
+        }*/
         filterItems.clear();
         filterItems.addAll(filterItemList);
 

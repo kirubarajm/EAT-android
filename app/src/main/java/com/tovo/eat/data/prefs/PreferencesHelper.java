@@ -59,6 +59,14 @@ public interface PreferencesHelper {
     String getCurrentAddressTitle();
 
     void setCurrentAddressTitle(String title);
+   int getRefundBalance();
+
+    void setRefundBalance(int refundBalance);
+
+
+    String getRazorpayCustomerId();
+
+    void setRazorpayCustomerId(String title);
 
 
     String getCurrentAddressArea();
@@ -196,13 +204,9 @@ public interface PreferencesHelper {
     void setRatingDate(String date);
 
 
-
-
     boolean getRatingAppStatus();
 
     void setRatingAppStatus(boolean status);
-
-
 
 
     String getApiToken();

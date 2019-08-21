@@ -185,6 +185,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveRazorpayCustomerId(String razorpayCustomerId) {
+        setRazorpayCustomerId(razorpayCustomerId);
+    }
+
+    @Override
+    public void saveRefundBalance(int refundBalance) {
+        setRefundBalance(refundBalance);
+    }
+
+    @Override
     public void saveRegionId(int regionid) {
         setRegionId(regionid);
     }
@@ -335,6 +345,26 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentAddressTitle(String title) {
         mPreferencesHelper.setCurrentAddressTitle(title);
+    }
+
+    @Override
+    public int getRefundBalance() {
+        return mPreferencesHelper.getRefundBalance();
+    }
+
+    @Override
+    public void setRefundBalance(int refundBalance) {
+        mPreferencesHelper.setRefundBalance(refundBalance);
+    }
+
+    @Override
+    public String getRazorpayCustomerId() {
+        return mPreferencesHelper.getRazorpayCustomerId();
+    }
+
+    @Override
+    public void setRazorpayCustomerId(String razorpayCustomerId) {
+        mPreferencesHelper.setRazorpayCustomerId(razorpayCustomerId);
     }
 
     @Override
@@ -618,7 +648,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setRatingAppStatus(boolean status) {
-mPreferencesHelper.setRatingAppStatus(status);
+        mPreferencesHelper.setRatingAppStatus(status);
     }
 
     @Override

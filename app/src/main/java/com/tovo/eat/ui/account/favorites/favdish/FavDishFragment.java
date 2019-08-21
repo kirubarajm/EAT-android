@@ -238,6 +238,11 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     }
 
     @Override
+    public void empty() {
+        mDishViewModel.emptyDish.set(true);
+    }
+
+    @Override
     public void applyFilter() {
         mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();

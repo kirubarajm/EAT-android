@@ -19,10 +19,13 @@ package com.tovo.eat.ui.home;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
@@ -36,11 +39,15 @@ import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MasterPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -72,9 +79,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
+    public LiveOrderResponsePojo liveOrderResponsePojo;
     private int orderId;
-
-
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager) {
@@ -159,8 +165,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         try {
-
-
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + getDataManager().getCurrentUserId(), LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
                 @Override
@@ -168,35 +172,44 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     if (response != null) {
                         setIsLoading(false);
 
+                        liveOrderResponsePojo = response;
+
                         if (response.getStatus()) {
 
-                            if (response.getResult().size() != 0) {
+                            if (response.getResult()!=null&& response.getResult().size() > 0) {
 
-                                isLiveOrder.set(true);
 
-                                kitchenImage.set(response.getResult().get(0).getMakeitimage());
+                                if (!response.getResult().get(0).isOnlinePaymentStatus()) {
+                                    isLiveOrder.set(false);
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname());
 
-                                if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
-                                    kitchenName.set(response.getResult().get(0).getMakeitusername());
                                 } else {
 
-                                    kitchenName.set(response.getResult().get(0).getMakeitbrandname());
-                                }
-                                // 2019-05-09T13:21:54.000Z
-                                try {
-                                    String strDate = response.getResult().get(0).getDeliverytime();
-                                    DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                    DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                    String outputDateStr = "";
-                                    //Date  date1 = new Date(strDate);
-                                    Date date = currentFormat.parse(strDate);
-                                    outputDateStr = dateFormat.format(date);
-                                    eta.set(outputDateStr);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                    isLiveOrder.set(true);
+
+                                    kitchenImage.set(response.getResult().get(0).getMakeitimage());
+
+                                    if (response.getResult().get(0).getMakeitbrandname().isEmpty()) {
+                                        kitchenName.set(response.getResult().get(0).getMakeitusername());
+                                    } else {
+
+                                        kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                                    }
+                                    // 2019-05-09T13:21:54.000Z
+                                    try {
+                                        String strDate = response.getResult().get(0).getDeliverytime();
+                                        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                        DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                        String outputDateStr = "";
+                                        //Date  date1 = new Date(strDate);
+                                        Date date = currentFormat.parse(strDate);
+                                        outputDateStr = dateFormat.format(date);
+                                        eta.set(outputDateStr);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                             /*String startTime = response.getResult().get(0).getDeliverytime();
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -213,33 +226,48 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             }*/
 
 
-                                // eta.set(response.getResult().get(0).getDeliverytime());
+                                    // eta.set(response.getResult().get(0).getDeliverytime());
 
-                                orderId = response.getResult().get(0).getOrderid();
+                                    orderId = response.getResult().get(0).getOrderid();
 
-                                getDataManager().setOrderId(orderId);
+                                    getDataManager().setOrderId(orderId);
 
-                                StringBuilder itemsBuilder = new StringBuilder();
+                                    StringBuilder itemsBuilder = new StringBuilder();
 
-                                for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
-                                    itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
+                                    for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                        itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
 
-                                    if (response.getResult().get(0).getItems().size() - 1 != i) {
-                                        itemsBuilder.append(" , ");
+                                        if (response.getResult().get(0).getItems().size() - 1 != i) {
+                                            itemsBuilder.append(" , ");
+                                        }
                                     }
+
+                                    String item = itemsBuilder.toString();
+                                    products.set(item);
+
+
                                 }
 
-                                String item = itemsBuilder.toString();
-                                products.set(item);
-
-
+                                ////////////
                             } else {
                                 isLiveOrder.set(false);
                             }
 
+
                         } else {
                             isLiveOrder.set(false);
+
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+
+                                if (!response.getResult().get(0).isOnlinePaymentStatus()) {
+
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname());
+
+                                }
+
+                            }
                         }
+
 
                         if (response.getOrderdetails().size() > 0) {
 
@@ -540,12 +568,83 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     public void currentLatLng(double lat, double lng) {
-            getDataManager().setCurrentAddressTitle("Current location");
-            getDataManager().setCurrentLat(lat);
-            getDataManager().setCurrentLng(lng);
-            getNavigator().disConnectGPS();
-            getNavigator().openHome();
+        getDataManager().setCurrentAddressTitle("Current location");
+        getDataManager().setCurrentLat(lat);
+        getDataManager().setCurrentLng(lng);
+        getNavigator().disConnectGPS();
+        getNavigator().openHome();
     }
 
 
+    public void paymentSuccess(String paymentId, Integer status) {
+
+        JsonObjectRequest jsonObjectRequest = null;
+        try {
+
+            JSONObject json = new JSONObject();
+            json.put("transactionid", paymentId);
+            json.put("payment_status", status);
+            json.put("orderid", getDataManager().getOrderId());
+
+
+            if (getDataManager().getCouponId() != 0) {
+                json.put("cid", getDataManager().getCouponId());
+            }
+
+            if (getDataManager().getRefundId() != 0) {
+                json.put("rcid", getDataManager().getCouponId());
+                json.put("refund_balance", getDataManager().getRefundBalance());
+            }
+
+
+            Log.e("asdaf", json.toString());
+
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_ORDER_SUCCESS, json, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+
+                        if (response.getBoolean("status")) {
+                            getDataManager().setCartDetails(null);
+                            getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
+                        }
+                        getNavigator().paymentStausChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("", error.getMessage());
+                    //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
+                }
+            }) {
+
+                /**
+                 * Passing some request headers
+                 */
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    //  headers.put("Authorization","Bearer");
+                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                    return headers;
+                }
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+    }
 }

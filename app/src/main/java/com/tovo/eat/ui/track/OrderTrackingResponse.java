@@ -351,6 +351,9 @@ public class OrderTrackingResponse {
         @SerializedName("makeit_status")
         @Expose
         private String makeitStatus;
+        @SerializedName("cancellationmessage")
+        @Expose
+        private String cancellationMessage;
         @SerializedName("moveit_reached_time")
         @Expose
         private String moveitReachedTime;
@@ -375,6 +378,9 @@ public class OrderTrackingResponse {
         @SerializedName("price")
         @Expose
         private Integer price;
+        @SerializedName("servicecharge")
+        @Expose
+        private Integer serviceCharge;
         @SerializedName("payment_status")
         @Expose
         private Integer paymentStatus;
@@ -408,6 +414,24 @@ public class OrderTrackingResponse {
         @SerializedName("trackingstatus")
         @Expose
         private Trackingstatus trackingstatus;
+
+
+        public Integer getServiceCharge() {
+            return serviceCharge;
+        }
+
+
+        public String getCancellationMessage() {
+            return cancellationMessage;
+        }
+
+        public void setCancellationMessage(String cancellationMessage) {
+            this.cancellationMessage = cancellationMessage;
+        }
+
+        public void setServiceCharge(Integer serviceCharge) {
+            this.serviceCharge = serviceCharge;
+        }
 
         public Trackingstatus getTrackingstatus() {
             return trackingstatus;

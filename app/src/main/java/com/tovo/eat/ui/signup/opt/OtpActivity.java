@@ -18,7 +18,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -32,10 +36,11 @@ import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.OtpEditText;
+import com.tovo.eat.utilities.SMSReceiver;
 
 import javax.inject.Inject;
 
-public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel> implements OtpActivityNavigator {
+public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel> implements OtpActivityNavigator , SMSReceiver.OTPReceiveListener {
 
     @Inject
     OtpActivityViewModel mLoginViewModelMain;
@@ -44,40 +49,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     String UserId = "";
     private ActivityOtpBinding mActivityOtpBinding;
     private EditText[] editTexts;
-
-    private BroadcastReceiver otpReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase("otp")) {
-                final String message = intent.getStringExtra("message");
-
-
-
-                String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
-
-                strOtpId=otp;
-
-                mActivityOtpBinding.otpText.setText(otp);
-
-
-
-             /*   mActivityOtpBinding.edt1.setText(message.substring(0, 1));
-                mActivityOtpBinding.edt2.setText(message.substring(1, 2));
-                mActivityOtpBinding.edt3.setText(message.substring(2, 3));
-                mActivityOtpBinding.edt4.setText(message.substring(3, 4));
-                mActivityOtpBinding.edt5.setText(message.substring(4, 5));
-
-                mActivityOtpBinding.edt1.setEnabled(false);
-                mActivityOtpBinding.edt2.setEnabled(false);
-                mActivityOtpBinding.edt3.setEnabled(false);
-                mActivityOtpBinding.edt4.setEnabled(false);
-                mActivityOtpBinding.edt5.setEnabled(false);*/
-
-              //  mLoginViewModelMain.continueClick();
-            }
-        }
-    };
-
+    private SMSReceiver smsReceiver;
     public static Intent newIntent(Context context) {
         return new Intent(context, OtpActivity.class);
     }
@@ -85,6 +57,35 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     public void handleError(Throwable throwable) {
 
+    }
+    private void startSMSListener() {
+        try {
+            smsReceiver = new SMSReceiver();
+            smsReceiver.setOTPListener(this);
+
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
+            this.registerReceiver(smsReceiver, intentFilter);
+
+            SmsRetrieverClient client = SmsRetriever.getClient(this);
+
+            Task<Void> task = client.startSmsRetriever();
+            task.addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // API successfully started
+                }
+            });
+
+            task.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Fail to start API
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -138,9 +139,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void nameGenderScreen() {
-
-
-
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -373,14 +371,33 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     protected void onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(otpReceiver, new IntentFilter("otp"));
         super.onResume();
+        startSMSListener();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(otpReceiver);
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver);
+        }    }
+
+    @Override
+    public void onOTPReceived(String message) {
+        String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
+        strOtpId=otp;
+        mActivityOtpBinding.otpText.setText(otp);
+
+    }
+
+    @Override
+    public void onOTPTimeOut() {
+
+    }
+
+    @Override
+    public void onOTPReceivedError(String error) {
+
     }
 
     public class PinOnKeyListener implements View.OnKeyListener {

@@ -128,8 +128,6 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void addfilter(Integer id) {
-
-
             mFiltersAdapterListener.addToFilter(id);
 
         }

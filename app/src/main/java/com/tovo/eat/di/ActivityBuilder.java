@@ -90,6 +90,7 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
 import com.tovo.eat.ui.orderrating.OrderRatingProvider;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.payment.PaymentModule;
+import com.tovo.eat.ui.pendingpayment.PendingPaymentProvider;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.registration.RegistrationActivityModule;
 import com.tovo.eat.ui.search.SearchProvider;
@@ -144,6 +145,7 @@ public abstract class ActivityBuilder {
             DialogSelectAddressProvider.class,
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
+            PendingPaymentProvider.class,
             SearchProvider.class
 
     })

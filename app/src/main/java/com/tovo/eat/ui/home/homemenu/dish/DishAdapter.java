@@ -113,6 +113,8 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void favChanged();
 
         void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+
+        void empty();
     }
 
     public class EmptyViewHolder extends BaseViewHolder {
@@ -246,6 +248,13 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             //notifyItemRemoved(getAdapterPosition());
 
             removeAt(getAdapterPosition());
+
+            if (item_list.size()==0){
+
+                mLiveProductsAdapterListener.empty();
+
+
+            }
 
 
        //     mLiveProductsAdapterListener.favChanged();

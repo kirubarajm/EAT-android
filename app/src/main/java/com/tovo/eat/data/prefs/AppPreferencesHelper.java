@@ -37,6 +37,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
 
+    private static final String PREF_KEY_RAZORPAY_CUSTOMER_ID = "RAZORPAY_CUSTOMER_ID";
+
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
 
     private static final String PREF_KEY_CURRENT_USER_PROFILE_PIC_URL = "PREF_KEY_CURRENT_USER_PROFILE_PIC_URL";
@@ -45,6 +47,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
+    private static final String PREF_KEY_REFUND_BALANCE = "PREF_KEY_REFUND_BALANCE";
     private static final String PREF_KEY_COUPON_ID = "PREF_KEY_COUPON_ID";
     private static final String PREF_KEY_COUPON_CODE = "COUPON_CODE";
   private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
@@ -189,6 +192,26 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentAddressTitle(String title) {
         mPrefs.edit().putString(PREF_KEY_ADDRESS_TITLE, title).apply();
+    }
+
+    @Override
+    public int getRefundBalance() {
+        return mPrefs.getInt(PREF_KEY_REFUND_BALANCE, 0);
+    }
+
+    @Override
+    public void setRefundBalance(int refundBalance) {
+        mPrefs.edit().putInt(PREF_KEY_REFUND_BALANCE, refundBalance).apply();
+    }
+
+    @Override
+    public String getRazorpayCustomerId() {
+        return mPrefs.getString(PREF_KEY_RAZORPAY_CUSTOMER_ID, null);
+    }
+
+    @Override
+    public void setRazorpayCustomerId(String razorpayCustomerId) {
+        mPrefs.edit().putString(PREF_KEY_RAZORPAY_CUSTOMER_ID, razorpayCustomerId).apply();
     }
 
     @Override

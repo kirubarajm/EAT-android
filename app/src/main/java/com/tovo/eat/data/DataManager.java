@@ -68,6 +68,8 @@ public interface DataManager extends PreferencesHelper {
 
 
     void saveRefundId(int rcid);
+  void saveRazorpayCustomerId(String razorpayCustomerId);
+  void saveRefundBalance(int refundBalance);
 
 
     void saveRegionId(int regionid);

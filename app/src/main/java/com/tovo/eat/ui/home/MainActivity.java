@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.home;
 
 import android.Manifest;
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -41,11 +42,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityMainBinding;
 import com.tovo.eat.ui.account.MyAccountFragment;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
@@ -55,6 +59,8 @@ import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
+import com.tovo.eat.ui.pendingpayment.PaymentListener;
+import com.tovo.eat.ui.pendingpayment.PendingPaymentAlert;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -63,13 +69,15 @@ import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     public FilterListener filterListener;
@@ -261,6 +269,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
 
+
+    }
+
+    @Override
+    public void paymentStausChanged() {
+        mMainViewModel.liveOrders();
+    }
+
+    @Override
+    public void paymentPending(int orderid, String brandname) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("orderid", orderid);
+        bundle.putString("brandname", brandname);
+        PendingPaymentAlert bottomSheetFragment = new PendingPaymentAlert();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.setCancelable(false);
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
 
     }
 
@@ -580,10 +606,50 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerReceiver(dataReceiver, intentFilter);
 
 
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (intent.getExtras().getBoolean("cart")) {
+
+                if (mMainViewModel.isAddressAdded()) {
+                    mMainViewModel.gotoCart();
+                }
+            } else if (null!= intent.getExtras().getString("pageid")&&intent.getExtras().getString("pageid").equals("9")) {
+
+                Intent repliesIntent= RepliesActivity.newIntent(MainActivity.this);
+                startActivity(repliesIntent);
+
+
+            } else {
+
+                if (mMainViewModel.getDataManager().getAddressId() == 0) {
+                    mMainViewModel.getDataManager().setCurrentLat(0.0);
+                    mMainViewModel.getDataManager().setCurrentLng(0.0);
+                }
+
+                if (mMainViewModel.getDataManager().getAddressId() == 0) {
+                    startLoader();
+                    startLocationTracking();
+                } else {
+                    openHome();
+                }
+
+            }
+        } else {
+
             if (mMainViewModel.getDataManager().getAddressId() == 0) {
                 mMainViewModel.getDataManager().setCurrentLat(0.0);
                 mMainViewModel.getDataManager().setCurrentLng(0.0);
             }
+
+            if (mMainViewModel.getDataManager().getAddressId() == 0) {
+                startLoader();
+                startLocationTracking();
+            } else {
+                openHome();
+            }
+        }
+
+
 
 
 
@@ -591,18 +657,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
        /* IntentFilter intentFilter= new IntentFilter(AppConstants.FCM_RECEIVER_ORDER);
         registerReceiver(orderReciever,intentFilter);*/
 
-
         //  checkAndRequestPermissions();
 
 
-        if (mMainViewModel.isAddressAdded()) {
+       /* if (mMainViewModel.isAddressAdded()) {
 
             Intent intent = getIntent();
             if (intent.getExtras() != null) {
                 if (intent.getExtras().getBoolean("cart")) {
                     mMainViewModel.gotoCart();
                 } else {
-
 
                     openHome();
 
@@ -615,10 +679,26 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
 
         } else {
-            startLoader();
-            startLocationTracking();
 
-        }
+
+            Intent intent = getIntent();
+            if (intent.getExtras() != null) {
+                if (intent.getExtras().getBoolean("cart")) {
+                    mMainViewModel.gotoCart();
+                } else {
+
+                    startLoader();
+                    startLocationTracking();
+
+                }
+            } else {
+
+                startLoader();
+                startLocationTracking();
+
+            }
+
+        }*/
 
         // startLocationTracking();
 
@@ -884,6 +964,61 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
+    }
+
+
+    @Override
+    public void paymentRetry() {
+        int price = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getPrice();
+        int orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
+
+
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+        // co.setImage(R.mipmap.ic_launcher);
+
+        co.setFullScreenDisable(true);
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", getString(R.string.app_name));
+            options.put("description", getString(R.string.orderid) + orderId);
+            options.put("currency", "INR");
+            options.put("amount", price * 100);
+            options.put("customer_id", mMainViewModel.getDataManager().getRazorpayCustomerId());
+            JSONObject ReadOnly = new JSONObject();
+            ReadOnly.put("email", "true");
+            ReadOnly.put("contact", "true");
+            options.put("readonly", ReadOnly);
+
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+    }
+
+    @Override
+    public void paymentCancel() {
+        mMainViewModel.paymentSuccess("Canceled", 2);
+
+    }
+
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        mMainViewModel.paymentSuccess(s, 1);
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        mMainViewModel.paymentSuccess("Canceled", 2);
     }
 
 

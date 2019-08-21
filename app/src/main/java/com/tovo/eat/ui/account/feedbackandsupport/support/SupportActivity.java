@@ -118,42 +118,11 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     @Override
     public void callAdmin() {
 
-
-
-        if (ContextCompat.checkSelfPermission(SupportActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SupportActivity.this, new String[]{Manifest.permission.CALL_PHONE},AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE);
-        }
-        else
-        {
             String number = AppConstants.SUPPORT_NUMBER;
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(callIntent);
-        }
-
-
-
-
-
-      /*
-        try {
-
-        if (hasPermission(Manifest.permission.CALL_PHONE)) {
-            String number = "9597352662";
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(callIntent);
-        } else {
-            requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE}, 0);
-        }
-        }catch (Exception ee){
-
-            ee.printStackTrace();
-
-        }*/
-
 
     }
 
@@ -179,30 +148,6 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         }
         return true;
     }
-        @Override
-        public void onRequestPermissionsResult(int requestCode,
-                                               String permissions[], int[] grantResults) {
-            switch (requestCode) {
-                case AppConstants.CALL_PHONE_PERMISSION_REQUEST_CODE: {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                      // callAdmin();
-                        String number = AppConstants.SUPPORT_NUMBER;
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(callIntent);
-                    } else{
-                        String number = AppConstants.SUPPORT_NUMBER;
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(callIntent);
-                    }
-                    return;
-                }
-            }
-        }
-
 
     @Override
     protected void onResume() {

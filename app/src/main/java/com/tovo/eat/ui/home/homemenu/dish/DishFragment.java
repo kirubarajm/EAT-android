@@ -274,6 +274,11 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
         fragment.setCancelable(false);*/
     }
 
+    @Override
+    public void empty() {
+
+    }
+
     /*@Override
     public void filterList() {
 

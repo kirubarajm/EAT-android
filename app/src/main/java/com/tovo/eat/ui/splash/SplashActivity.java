@@ -9,6 +9,7 @@ import android.os.Handler;
 import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySplashBinding;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.onboarding.OnBoardingActivity;
@@ -56,7 +57,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
 
         if (updateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
-            intent.putExtra("forceUpdate",forceUpdateStatus);
+            intent.putExtra("forceUpdate", forceUpdateStatus);
             startActivity(intent);
             finish();
         } else {
@@ -98,21 +99,50 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         prefManager = new PrefManager(this);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!prefManager.isFirstTimeLaunch()) {
-                    Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
-                    startActivity(intent);
-                    finish();
-                } else {
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
 
-                    mSplashActivityViewModel.checkUpdate();
+                Intent repliesIntent = RepliesActivity.newIntent(SplashActivity.this);
+                startActivity(repliesIntent);
+                finish();
 
-                }
+            } else {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!prefManager.isFirstTimeLaunch()) {
+                            Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                            startActivity(intent);
+                            finish();
+                        } else {
+
+                            mSplashActivityViewModel.checkUpdate();
+
+                        }
+                    }
+                }, 1000);
             }
-        }, 1000);
+        }else {
 
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!prefManager.isFirstTimeLaunch()) {
+                        Intent intent = OnBoardingActivity.newIntent(SplashActivity.this);
+                        startActivity(intent);
+                        finish();
+                    } else {
+
+                        mSplashActivityViewModel.checkUpdate();
+
+                    }
+                }
+            }, 1000);
+
+
+        }
     }
 
     @Override

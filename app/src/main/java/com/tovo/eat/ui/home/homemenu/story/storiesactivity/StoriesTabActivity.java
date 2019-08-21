@@ -94,6 +94,8 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
         mFavoritesActivityViewModel.setNavigator(this);
         mActivitySampleBinding = getViewDataBinding();
         setUp();
+
+
     }
 
     private void setUp() {

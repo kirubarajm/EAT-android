@@ -7,6 +7,7 @@ public interface OrderHelpNavigator {
     void callDelivery();
     void gotoSupport();
     void orderCanceled();
+    void orderCancelClicked();
     void orderCancelFailed();
     void showToast(String msg);
 

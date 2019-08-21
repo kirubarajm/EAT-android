@@ -1,11 +1,13 @@
-package com.tovo.eat.ui.home;
+package com.tovo.eat.ui.payment;
+
+import android.content.Intent;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class LiveOrderResponsePojo {
+public class CartPaymentResponse {
 
     @SerializedName("success")
     @Expose
@@ -13,12 +15,57 @@ public class LiveOrderResponsePojo {
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("orderdetails")
+    @SerializedName("orderid")
     @Expose
-    private List<Orderdetail> orderdetails = null;
+    private Integer orderid;
+    @SerializedName("refund_balance")
+    @Expose
+    private Integer refundBalance;
+    @SerializedName("price")
+    @Expose
+    private Integer price;
+    @SerializedName("razer_customerid")
+    @Expose
+    private String razerCustomerid;
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
+    public Integer getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
+    }
+
+    public Integer getRefundBalance() {
+        return refundBalance;
+    }
+
+    public void setRefundBalance(Integer refundBalance) {
+        this.refundBalance = refundBalance;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getRazerCustomerid() {
+        return razerCustomerid;
+    }
+
+    public void setRazerCustomerid(String razerCustomerid) {
+        this.razerCustomerid = razerCustomerid;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -36,12 +83,12 @@ public class LiveOrderResponsePojo {
         this.status = status;
     }
 
-    public List<Orderdetail> getOrderdetails() {
-        return orderdetails;
+    public String getMessage() {
+        return message;
     }
 
-    public void setOrderdetails(List<Orderdetail> orderdetails) {
-        this.orderdetails = orderdetails;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public List<Result> getResult() {
@@ -52,219 +99,7 @@ public class LiveOrderResponsePojo {
         this.result = result;
     }
 
-
     public class Result {
-
-        @SerializedName("orderid")
-        @Expose
-        private Integer orderid;
-        @SerializedName("ordertime")
-        @Expose
-        private String ordertime;
-        @SerializedName("orderstatus")
-        @Expose
-        private Integer orderstatus;
-        @SerializedName("onlinepaymentstatus")
-        @Expose
-        private boolean onlinePaymentStatus;
-        @SerializedName("price")
-        @Expose
-        private Integer price;
-        @SerializedName("userid")
-        @Expose
-        private Integer userid;
-        @SerializedName("makeituserid")
-        @Expose
-        private Integer makeituserid;
-        @SerializedName("makeitusername")
-        @Expose
-        private String makeitusername;
-        @SerializedName("makeitbrandname")
-        @Expose
-        private String makeitbrandname;
-        @SerializedName("makeitimage")
-        @Expose
-        private String makeitimage;
-        @SerializedName("distance")
-        @Expose
-        private String distance;
-        @SerializedName("items")
-        @Expose
-        private List<Item> items = null;
-        @SerializedName("deliverytime")
-        @Expose
-        private String deliverytime;
-        @SerializedName("eta")
-        @Expose
-        private String eta;
-
-
-        public boolean isOnlinePaymentStatus() {
-            return onlinePaymentStatus;
-        }
-
-        public void setOnlinePaymentStatus(boolean onlinePaymentStatus) {
-            this.onlinePaymentStatus = onlinePaymentStatus;
-        }
-
-        public Integer getOrderid() {
-            return orderid;
-        }
-
-        public void setOrderid(Integer orderid) {
-            this.orderid = orderid;
-        }
-
-        public String getOrdertime() {
-            return ordertime;
-        }
-
-        public void setOrdertime(String ordertime) {
-            this.ordertime = ordertime;
-        }
-
-        public Integer getOrderstatus() {
-            return orderstatus;
-        }
-
-        public void setOrderstatus(Integer orderstatus) {
-            this.orderstatus = orderstatus;
-        }
-
-        public Integer getPrice() {
-            return price;
-        }
-
-        public void setPrice(Integer price) {
-            this.price = price;
-        }
-
-        public Integer getUserid() {
-            return userid;
-        }
-
-        public void setUserid(Integer userid) {
-            this.userid = userid;
-        }
-
-        public Integer getMakeituserid() {
-            return makeituserid;
-        }
-
-        public void setMakeituserid(Integer makeituserid) {
-            this.makeituserid = makeituserid;
-        }
-
-        public String getMakeitusername() {
-            return makeitusername;
-        }
-
-        public void setMakeitusername(String makeitusername) {
-            this.makeitusername = makeitusername;
-        }
-
-        public String getMakeitbrandname() {
-            return makeitbrandname;
-        }
-
-        public void setMakeitbrandname(String makeitbrandname) {
-            this.makeitbrandname = makeitbrandname;
-        }
-
-        public String getMakeitimage() {
-            return makeitimage;
-        }
-
-        public void setMakeitimage(String makeitimage) {
-            this.makeitimage = makeitimage;
-        }
-
-        public String getDistance() {
-            return distance;
-        }
-
-        public void setDistance(String distance) {
-            this.distance = distance;
-        }
-
-        public List<Item> getItems() {
-            return items;
-        }
-
-        public void setItems(List<Item> items) {
-            this.items = items;
-        }
-
-        public String getDeliverytime() {
-            return deliverytime;
-        }
-
-        public void setDeliverytime(String deliverytime) {
-            this.deliverytime = deliverytime;
-        }
-
-        public String getEta() {
-            return eta;
-        }
-
-        public void setEta(String eta) {
-            this.eta = eta;
-        }
-
-    }
-
-
-    public class Item {
-
-        @SerializedName("price")
-        @Expose
-        private Integer price;
-        @SerializedName("quantity")
-        @Expose
-        private Integer quantity;
-        @SerializedName("productid")
-        @Expose
-        private Integer productid;
-        @SerializedName("product_name")
-        @Expose
-        private String productName;
-
-        public Integer getPrice() {
-            return price;
-        }
-
-        public void setPrice(Integer price) {
-            this.price = price;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
-        }
-
-        public Integer getProductid() {
-            return productid;
-        }
-
-        public void setProductid(Integer productid) {
-            this.productid = productid;
-        }
-
-        public String getProductName() {
-            return productName;
-        }
-
-        public void setProductName(String productName) {
-            this.productName = productName;
-        }
-
-    }
-
-
-    public class Orderdetail {
 
         @SerializedName("orderid")
         @Expose
@@ -326,6 +161,12 @@ public class LiveOrderResponsePojo {
         @SerializedName("moveit_remarks_order")
         @Expose
         private Object moveitRemarksOrder;
+        @SerializedName("moveit_accept_time")
+        @Expose
+        private Object moveitAcceptTime;
+        @SerializedName("moveit_status")
+        @Expose
+        private Object moveitStatus;
         @SerializedName("makeit_expected_preparing_time")
         @Expose
         private Object makeitExpectedPreparingTime;
@@ -335,6 +176,9 @@ public class LiveOrderResponsePojo {
         @SerializedName("price")
         @Expose
         private Integer price;
+        @SerializedName("makeit_earnings")
+        @Expose
+        private Integer makeitEarnings;
         @SerializedName("payment_status")
         @Expose
         private Integer paymentStatus;
@@ -353,37 +197,39 @@ public class LiveOrderResponsePojo {
         @SerializedName("transaction_time")
         @Expose
         private Object transactionTime;
+        @SerializedName("item_missing")
+        @Expose
+        private Integer itemMissing;
+        @SerializedName("cancel_by")
+        @Expose
+        private Integer cancelBy;
+        @SerializedName("cancel_reason")
+        @Expose
+        private Object cancelReason;
+        @SerializedName("item_missing_reason")
+        @Expose
+        private Object itemMissingReason;
+        @SerializedName("original_price")
+        @Expose
+        private Integer originalPrice;
+        @SerializedName("refund_amount")
+        @Expose
+        private Integer refundAmount;
+        @SerializedName("discount_amount")
+        @Expose
+        private Integer discountAmount;
+        @SerializedName("address_title")
+        @Expose
+        private String addressTitle;
+        @SerializedName("locality_name")
+        @Expose
+        private String localityName;
+        @SerializedName("updated_at")
+        @Expose
+        private Object updatedAt;
         @SerializedName("created_at")
         @Expose
         private String createdAt;
-        @SerializedName("brandname")
-        @Expose
-        private String brandname;
-        @SerializedName("updated_at")
-        @Expose
-        private String updatedAt;
-        @SerializedName("rating")
-        @Expose
-        private Boolean rating;
-        @SerializedName("showrating")
-        @Expose
-        private Boolean showRating;
-
-        public Boolean getShowRating() {
-            return showRating;
-        }
-
-        public void setShowRating(Boolean showRating) {
-            this.showRating = showRating;
-        }
-
-        public String getBrandname() {
-            return brandname;
-        }
-
-        public void setBrandname(String brandname) {
-            this.brandname = brandname;
-        }
 
         public Integer getOrderid() {
             return orderid;
@@ -545,6 +391,22 @@ public class LiveOrderResponsePojo {
             this.moveitRemarksOrder = moveitRemarksOrder;
         }
 
+        public Object getMoveitAcceptTime() {
+            return moveitAcceptTime;
+        }
+
+        public void setMoveitAcceptTime(Object moveitAcceptTime) {
+            this.moveitAcceptTime = moveitAcceptTime;
+        }
+
+        public Object getMoveitStatus() {
+            return moveitStatus;
+        }
+
+        public void setMoveitStatus(Object moveitStatus) {
+            this.moveitStatus = moveitStatus;
+        }
+
         public Object getMakeitExpectedPreparingTime() {
             return makeitExpectedPreparingTime;
         }
@@ -567,6 +429,14 @@ public class LiveOrderResponsePojo {
 
         public void setPrice(Integer price) {
             this.price = price;
+        }
+
+        public Integer getMakeitEarnings() {
+            return makeitEarnings;
+        }
+
+        public void setMakeitEarnings(Integer makeitEarnings) {
+            this.makeitEarnings = makeitEarnings;
         }
 
         public Integer getPaymentStatus() {
@@ -617,6 +487,86 @@ public class LiveOrderResponsePojo {
             this.transactionTime = transactionTime;
         }
 
+        public Integer getItemMissing() {
+            return itemMissing;
+        }
+
+        public void setItemMissing(Integer itemMissing) {
+            this.itemMissing = itemMissing;
+        }
+
+        public Integer getCancelBy() {
+            return cancelBy;
+        }
+
+        public void setCancelBy(Integer cancelBy) {
+            this.cancelBy = cancelBy;
+        }
+
+        public Object getCancelReason() {
+            return cancelReason;
+        }
+
+        public void setCancelReason(Object cancelReason) {
+            this.cancelReason = cancelReason;
+        }
+
+        public Object getItemMissingReason() {
+            return itemMissingReason;
+        }
+
+        public void setItemMissingReason(Object itemMissingReason) {
+            this.itemMissingReason = itemMissingReason;
+        }
+
+        public Integer getOriginalPrice() {
+            return originalPrice;
+        }
+
+        public void setOriginalPrice(Integer originalPrice) {
+            this.originalPrice = originalPrice;
+        }
+
+        public Integer getRefundAmount() {
+            return refundAmount;
+        }
+
+        public void setRefundAmount(Integer refundAmount) {
+            this.refundAmount = refundAmount;
+        }
+
+        public Integer getDiscountAmount() {
+            return discountAmount;
+        }
+
+        public void setDiscountAmount(Integer discountAmount) {
+            this.discountAmount = discountAmount;
+        }
+
+        public String getAddressTitle() {
+            return addressTitle;
+        }
+
+        public void setAddressTitle(String addressTitle) {
+            this.addressTitle = addressTitle;
+        }
+
+        public String getLocalityName() {
+            return localityName;
+        }
+
+        public void setLocalityName(String localityName) {
+            this.localityName = localityName;
+        }
+
+        public Object getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(Object updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
         public String getCreatedAt() {
             return createdAt;
         }
@@ -625,22 +575,5 @@ public class LiveOrderResponsePojo {
             this.createdAt = createdAt;
         }
 
-        public String getUpdatedAt() {
-            return updatedAt;
-        }
-
-        public void setUpdatedAt(String updatedAt) {
-            this.updatedAt = updatedAt;
-        }
-
-        public Boolean getRating() {
-            return rating;
-        }
-
-        public void setRating(Boolean rating) {
-            this.rating = rating;
-        }
-
     }
-
 }

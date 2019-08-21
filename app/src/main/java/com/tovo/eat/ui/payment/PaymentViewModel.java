@@ -185,10 +185,43 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
 
 
-                                if (response.getBoolean("status")) {
+
+
+                            Gson gson = new Gson();
+                            CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
+
+
+                            if (cartPaymentResponse.getStatus()) {
+
+                                Integer sorderId = cartPaymentResponse.getOrderid();
+                                getDataManager().setOrderId(sorderId);
+
+                                getDataManager().currentOrderId(sorderId);
+                                getDataManager().setCartDetails(null);
+                                getNavigator().orderCompleted();
+
+
+                            } else {
+
+                                if (cartPaymentResponse.getResult().size() > 0) {
+                                    Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                    getDataManager().setOrderId(orderId);
+                                    price = cartPaymentResponse.getResult().get(0).getPrice();
+
+
+                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+
+
+
+                                }else {
+                                    getNavigator().showToast(cartPaymentResponse.getMessage());
+                                }
+
+                            }
+
+                               /* if (response.getBoolean("status")) {
 
                                     getDataManager().currentOrderId(response.getInt("orderid"));
                                     getDataManager().setCartDetails(null);
@@ -199,11 +232,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                                     getNavigator().showToast(response.getString("message"));
 
-                                }
+                                }*/
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -330,10 +361,47 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
+
+                            Gson gson = new Gson();
+                            CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
 
 
-                            if (response.getBoolean("status")) {
+                            if (cartPaymentResponse.getStatus()) {
+                                Integer sorderId = cartPaymentResponse.getOrderid();
+                                getDataManager().setOrderId(sorderId);
+
+                                if (getDataManager().getRefundId() != 0) {
+                                    refundBalance = cartPaymentResponse.getRefundBalance();
+
+                                    getDataManager().saveRefundBalance(refundBalance);
+
+
+                                }
+                                razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
+
+                                getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
+
+                                price = cartPaymentResponse.getPrice();
+                                getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
+
+                            } else {
+
+                                if (cartPaymentResponse.getResult().size() > 0) {
+                                    Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                    getDataManager().setOrderId(orderId);
+                                    price = cartPaymentResponse.getResult().get(0).getPrice();
+
+
+                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+
+
+
+                                }else {
+                                    getNavigator().showToast(cartPaymentResponse.getMessage());
+                                }
+
+                            }
+                           /* if (response.getBoolean("status")) {
                                 Integer orderId = response.getInt("orderid");
                                 getDataManager().setOrderId(orderId);
 
@@ -346,14 +414,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                             } else {
 
-
                                 getNavigator().showToast(response.getString("message"));
 
-                            }
+                            }*/
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override

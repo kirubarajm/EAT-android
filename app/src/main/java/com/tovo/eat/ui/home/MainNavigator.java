@@ -34,6 +34,9 @@ public interface MainNavigator {
     void openHome();
 
     void openExplore();
+    void paymentStausChanged();
+
+    void paymentPending(int orderid,String brandname);
 
     void openAccount();
 

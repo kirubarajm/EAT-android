@@ -177,6 +177,8 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void animateView(View view);
 
+        void empty();
+
         void removeDishFavourite(Integer favId);
 
         void addFav(Integer id, String fav);
@@ -246,6 +248,16 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
            // mLiveProductsAdapterListener.removeDishFavourite(favId);
             removeAt(getAdapterPosition());
+
+
+
+            if (item_list.size()==0){
+
+                mLiveProductsAdapterListener.empty();
+
+            }
+
+
         }
     }
 

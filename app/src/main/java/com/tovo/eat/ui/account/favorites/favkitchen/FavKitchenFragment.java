@@ -188,6 +188,12 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
 
     }
 
+    @Override
+    public void empty() {
+
+        mKitchenViewModel.emptyKitchen.set(true);
+    }
+
 
     @Override
     public void addFav(Integer id, String fav) {

@@ -18,6 +18,8 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
 
     public final ObservableField<String> deliveryName = new ObservableField<>();
     public final ObservableField<String> deliveryNumber = new ObservableField<>();
+    public final ObservableField<String> serviceCharges = new ObservableField<>();
+    public final ObservableField<String> cancelationMessage = new ObservableField<>();
     public final ObservableField<String> orderId = new ObservableField<>();
 
 
@@ -89,6 +91,15 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
 
         getNavigator().callDelivery();
     }
+
+
+    public void cancelOrderButton() {
+
+        getNavigator().orderCancelClicked();
+    }
+
+
+
 
     public void cancelOrder1() {
         cancelOrder(AppConstants.CANCEL_ORDER_MEAASAGE_1);

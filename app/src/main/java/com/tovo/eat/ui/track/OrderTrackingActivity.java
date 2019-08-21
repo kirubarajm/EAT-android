@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -273,6 +276,30 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+       // mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+
+
+        /*try {
+
+        *//*    https://mapstyle.withgoogle.com/*//*
+
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.map));
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }*/
+
+
+
+
         if (!liveTracking) {
             liveTracking = true;
             makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
@@ -364,9 +391,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             mOrderTrackingViewModel.getOrderDetails();
         } else if (id == R.id.order_cancel) {
             Intent intent = OrderHelpActivity.newIntent(this);
-            intent.putExtra("name", mOrderTrackingViewModel.getDataManager().getOrderId());
-            intent.putExtra("number", String.valueOf(mOrderTrackingViewModel.deliveryManNumber));
+            intent.putExtra("name", mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getName());
+            intent.putExtra("number", String.valueOf( mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getPhoneno()));
+            intent.putExtra("charge", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getPrice()- mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getServiceCharge()));
             intent.putExtra("status", mOrderTrackingViewModel.track.get());
+            intent.putExtra("message",  mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getCancellationMessage());
             startActivity(intent);
         }
         // return true;
@@ -494,7 +523,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void callDeliveryMan(String number) {
 
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(callIntent);
