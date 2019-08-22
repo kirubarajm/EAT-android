@@ -142,7 +142,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void menu() {
         if (!optionmenu.get()) {
             optionmenu.set(true);
-            getNavigator().animChanges(true);
+          //  getNavigator().animChanges(true);
         }
 
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
@@ -153,13 +153,13 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
 
-        getNavigator().update(kitchenmenuimageArrayList.size());
+        getNavigator().update(kitchenmenuimageArrayList);
     }
 
     public void info() {
         if (optionmenu.get()) {
             optionmenu.set(false);
-            getNavigator().animChanges(false);
+          //  getNavigator().animChanges(false);
         }
 
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
@@ -168,7 +168,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
 
-        getNavigator().update(kitchenInfoTempArray.size());
+        getNavigator().update(kitchenInfoTempArray);
     }
 
     public void fav() {
@@ -364,11 +364,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
 
                             int count = kitchenmenuimageArrayList.size();
-                            getNavigator().update(count);
+                            getNavigator().update(kitchenmenuimageArrayList);
                             /////menu slider details
                             commonKitchenImagesList = kitchenmenuimageArrayList;
                             if (commonKitchenImagesList != null) {
-                                kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
+                                kitchenInfoImagesListLiveData.setValue(kitchenmenuimageArrayList);
                             }
 
                             ////info slider details
@@ -428,6 +428,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             isProductAvailable.set(false);
                         }
                     }
+                   // info();
+                    menu();
                     getNavigator().dishListLoaded(response);
                 }
             }, new Response.ErrorListener() {
@@ -485,7 +487,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 }
                                 getNavigator().dishListLoaded(response);
 
-                            }else {
+                            } else {
                                 favoriteProductlists.clear();
                                 todaysMenuProductlists.clear();
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);

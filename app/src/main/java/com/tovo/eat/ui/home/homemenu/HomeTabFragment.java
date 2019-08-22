@@ -166,7 +166,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void dataLoaded() {
-        ((MainActivity) getActivity()).stopLoader();
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
     }
 
     @Override

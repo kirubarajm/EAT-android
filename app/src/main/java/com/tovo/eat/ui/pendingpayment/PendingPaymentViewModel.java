@@ -63,7 +63,7 @@ public class PendingPaymentViewModel extends BaseViewModel<PendingPaymentNavigat
             }
 
             if (getDataManager().getRefundId() != 0) {
-                json.put("rcid", getDataManager().getCouponId());
+                json.put("rcid", getDataManager().getRefundId());
                 json.put("refund_balance", getDataManager().getRefundBalance());
             }
 

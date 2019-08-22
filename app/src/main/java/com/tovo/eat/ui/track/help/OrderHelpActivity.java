@@ -108,18 +108,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     public void orderCancelClicked() {
 
 
-        mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb = (RadioButton) group.findViewById(checkedId);
-               // mOrderHelpViewModel.cancelOrder(rb.getText().toString());
-
-                message = rb.getText().toString();
-
-
-                //   Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         if (message != null && !message.isEmpty()) {
             showAlert();
@@ -162,6 +150,18 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         mOrderHelpViewModel.setNavigator(this);
 
 
+        mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                // mOrderHelpViewModel.cancelOrder(rb.getText().toString());
+
+                message = rb.getText().toString();
+
+
+                //   Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mOrderHelpViewModel.deliveryName.set(getIntent().getExtras().getString("name"));

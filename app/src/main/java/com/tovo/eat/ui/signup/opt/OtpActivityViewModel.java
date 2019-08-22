@@ -26,6 +26,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableField<String> oId = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> number = new ObservableField<>();
+    public final ObservableField<String> timer = new ObservableField<>();
 
     public Integer OtpId=0;
 
@@ -206,6 +207,14 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
             ee.printStackTrace();
 
         }
+    }
+
+    public void resendClick(){
+
+        getNavigator().resend();
+
+
+
     }
 
     public void resendOtp() {

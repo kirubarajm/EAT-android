@@ -99,6 +99,25 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         prefManager = new PrefManager(this);
 
 
+
+      /*  mSplashActivityViewModel.getDataManager().saveApiToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjkwOTQ5MzkzNDciLCJpYXQiOjE1NjYyMTEyNDZ9.jOg5m2fkw6U6dGyhKpNWn594N34deElh5kqKemXe_x8");
+
+
+        mSplashActivityViewModel. getDataManager().updateEmailStatus(true);
+
+
+
+            mSplashActivityViewModel.getDataManager().saveRegionId(0);
+
+
+
+        mSplashActivityViewModel.getDataManager().updateUserInformation(127, null, null, null, null);
+
+        Intent intent = MainActivity.newIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();*/
+
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {

@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.kitchendetails;
 
 import android.support.annotation.NonNull;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenCommonImagesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -106,6 +109,22 @@ public class MenuKitchenInfoCommonImageAdapter extends RecyclerView.Adapter<Base
             menuProductsItemViewModel = new KitchenCommonItemViewModel(this,blog);
             mBinding.setKitchenCommonImagesViewModel(menuProductsItemViewModel);
             mBinding.executePendingBindings();
+
+
+
+            /*CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+            circularProgressDrawable.setStrokeWidth(3f);
+            circularProgressDrawable.setCenterRadius(100f);
+            circularProgressDrawable.start();
+
+            Glide.with(MvvmApp.getInstance()).load(blog.imgUrl)
+                    // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                    .placeholder(circularProgressDrawable)
+                    .error(R.drawable.imagenotavailable)
+                    .into(mBinding.img1);*/
+
+
+
         }
 
 /*
@@ -130,11 +149,9 @@ public class MenuKitchenInfoCommonImageAdapter extends RecyclerView.Adapter<Base
         item_list.clear();
     }
 
-
     public void addItems(List<KitchenDishResponse.Kitchenmenuimage> blogList) {
+        item_list.clear();
         item_list.addAll(blogList);
-
-
         notifyDataSetChanged();
     }
 

@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.signup;
 
 import android.databinding.ObservableField;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -9,6 +10,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.AppSignatureHashHelper;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigator> {
@@ -53,12 +55,19 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
 
 
     public void users(String phoneNumber) {
+
+
+        AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(MvvmApp.getInstance());
+
+        // This code requires one time to get Hash keys do comment and share key
+        Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
+
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber), new Response.Listener<SignUpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber,appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
                 @Override
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {

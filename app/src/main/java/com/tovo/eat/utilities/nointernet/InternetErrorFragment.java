@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -27,7 +29,7 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
 
     FragmentNoInternetBinding mFragmentNoInternetBinding;
 
-
+    boolean doubleBackToExitPressedOnce = false;
     InternetListener internetListener;
 
 
@@ -90,8 +92,9 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
     public void retry() {
         // internetListener.isInternet(mInternetErrorViewModel.checkInternet());
 
-        if (mInternetErrorViewModel.checkInternet()) finish();
-
+        if (mInternetErrorViewModel.checkInternet()) {
+            finish();
+        }
 
     }
 
@@ -139,5 +142,36 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
     protected void onStop() {
         super.onStop();
         unregisterWifiReceiver();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        if (doubleBackToExitPressedOnce) {
+            if (mInternetErrorViewModel.checkInternet()) {
+               finish();
+            }else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                System.exit(0);
+            }
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to close app", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+
     }
 }

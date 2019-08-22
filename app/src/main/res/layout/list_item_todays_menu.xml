@@ -42,6 +42,8 @@
 
 
     <LinearLayout
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -127,7 +129,7 @@
                             android:onClick="@{()->todaysMenuItemViewModel.subClicked()}"
                             android:text="@string/minus"
                             android:textAlignment="center"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/black"
                             android:textSize="18sp" />
 
 
@@ -145,7 +147,7 @@
                             android:layout_centerInParent="true"
                             android:text="@{todaysMenuItemViewModel.sQuantity}"
                             android:textAlignment="center"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/black"
                             android:textSize="18sp" />
 
                         <View
@@ -164,7 +166,7 @@
                             android:onClick="@{()->todaysMenuItemViewModel.addClicked()}"
                             android:text="@string/plus"
                             android:textAlignment="center"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/black"
                             android:textSize="18sp" />
 
                     </RelativeLayout>
@@ -188,16 +190,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:layout_gravity="top"
-                            android:id="@+id/n"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/name"
-                            android:text="@string/icon_veg"
-                            android:textColor="@{todaysMenuItemViewModel.isVeg?@color/green:@color/red}"
-                            android:textSize="8sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_gravity="top"
@@ -215,6 +207,18 @@
                             android:textStyle="bold" />
 
 
+
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_marginStart="3dp"
+                            android:layout_gravity="top"
+                            android:id="@+id/n"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/name"
+                            android:text="@string/icon_veg"
+                            android:textColor="@{todaysMenuItemViewModel.isVeg?@color/green:@color/red}"
+                            android:textSize="8sp" />
 
                     </LinearLayout>
 

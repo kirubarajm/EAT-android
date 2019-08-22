@@ -473,7 +473,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
             }
 
             if (getDataManager().getRefundId() != 0) {
-                json.put("rcid", getDataManager().getCouponId());
+                json.put("rcid", getDataManager().getRefundId());
                 json.put("refund_balance", refundBalance);
             }
 

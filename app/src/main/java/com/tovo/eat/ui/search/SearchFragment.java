@@ -105,12 +105,29 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
         mFragmentSearchBinding.searchh.requestFocusFromTouch();
 
+
+
+        mFragmentSearchBinding.searchh.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
+                mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
+                mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
+                mFragmentSearchBinding.before.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+
+
+
         mFragmentSearchBinding.searchh.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 mFragmentSearchBinding.regionEmpty.setVisibility(View.GONE);
                 if (s.length() > 1) {
                     mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.VISIBLE);
+                    mFragmentSearchBinding.sear.setVisibility(View.VISIBLE);
                     mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
                     mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
                     searchText = s;
@@ -132,6 +149,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 if (s.length() > 1) {
                     mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.VISIBLE);
+                    mFragmentSearchBinding.sear.setVisibility(View.VISIBLE);
                     mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
                     mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
                     searchText = s;

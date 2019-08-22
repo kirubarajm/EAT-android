@@ -48,6 +48,8 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -379,7 +381,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             }
         });
 */
-        subscribeToLiveDataKitchenImages();
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerFav.setLayoutManager(new LinearLayoutManager(this));
@@ -406,11 +407,15 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         GridLayoutManager gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
         mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(foodBadgesImageAdapter);
+
+        subscribeToLiveDataKitchenImages();
+
+
     }
 
     @Override
-    public void update(int count) {
-        totalCount = count;
+    public void update( List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
+        totalCount = kitchenmenuimageArrayList.size();
         dots = new TextView[totalCount];
         mFragmentDishBinding.layoutDots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
@@ -433,6 +438,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 addBottomDots(currentFirstVisible);
             }
         });
+
+
+
+        kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
+
     }
 
     private void addBottomDots(int currentPage) {
@@ -546,6 +556,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         intent.putExtra("cart", true);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void changeImageArray(KitchenDishResponse.Kitchenmenuimage kitchenmenuimages) {
+
     }
 
     @Override

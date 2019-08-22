@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -30,8 +31,12 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistoryViewBinding,OrderHistoryActivityViewModelView> implements OrderHistoryActivityViewNavigator,
-        OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener{
+        OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener, HasSupportFragmentInjector {
 
     @Inject
     OrderHistoryActivityViewModelView mOrderHistoryActivityViewModelView;
@@ -40,7 +45,8 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     OrdersHistoryActivityItemAdapter mOrdersHistoryActivityItemAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
-
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     Dialog dialog;
 
     public static Intent newIntent(Context context) {
@@ -60,13 +66,13 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
 
 
+showDialog();
 
 
 
 
 
-
-
+/*
         AlertDialog.Builder builder1 = new AlertDialog.Builder(OrderHistoryActivityView.this);
         builder1.setMessage("Already you have added items in cart. Do you want to clear?");
         builder1.setCancelable(true);
@@ -76,9 +82,9 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                       /* Intent intent= TestActivity.newIntent(OrderHelpActivity.this);
+                       *//* Intent intent= TestActivity.newIntent(OrderHelpActivity.this);
                         intent.putExtra("cart",true);
-                        startActivity(intent);*/
+                        startActivity(intent);*//*
 
                        mOrderHistoryActivityViewModelView.orderAvailable();
 
@@ -94,26 +100,26 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
                 });
 
         AlertDialog alert11 = builder1.create();
-        alert11.show();
+        alert11.show();*/
 
 
 
     }
     public void showDialog() {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_change_kitchen);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_repeat_order);
 
-        ButtonTextView text = dialog.findViewById(R.id.changeAddress);
+        ButtonTextView text = dialog.findViewById(R.id.add);
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                mOrderHistoryActivityViewModelView.orderAvailable();
 
             }
         });
 
-        ButtonTextView dialogButton = dialog.findViewById(R.id.home);
+        ButtonTextView dialogButton = dialog.findViewById(R.id.cancel);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,4 +258,8 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
 }

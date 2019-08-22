@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.MediaDataSource;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
@@ -101,6 +102,8 @@ import com.tovo.eat.ui.signup.faqs.FaqResponse;
 import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
 
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -301,8 +304,8 @@ public final class BindingUtils {
     public static void addKitchenCommonItems(RecyclerView recyclerView, List<KitchenDishResponse.Kitchenmenuimage> blogs) {
         MenuKitchenInfoCommonImageAdapter adapter = (MenuKitchenInfoCommonImageAdapter) recyclerView.getAdapter();
         if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(blogs);
+          /*  adapter.clearItems();
+            adapter.addItems(blogs);*/
         }
     }
 
@@ -431,10 +434,54 @@ public final class BindingUtils {
 
 
 
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        Glide.with(context).load(url)
+                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                                .placeholder(circularProgressDrawable)
+                                .error(R.drawable.imagenotavailable)
+                                .into(imageView);
+
+
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                }) .into(imageView);
+
+
+/*
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(60f);
+        circularProgressDrawable.start();
+
+        Glide.with(context).load(url)
+              //  .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
+
+
        /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
-        circularProgressDrawable.start();*/
+        circularProgressDrawable.start();
 
 
         //Picasso.with(context).load(image_url).networkPolicy(NetworkPolicy.NO_CACHE).into(imageView);
@@ -442,9 +489,9 @@ public final class BindingUtils {
 
         Glide.with(context).load(url)
                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-               // .placeholder(R.drawable.loader)
+                .placeholder(circularProgressDrawable)
              //   .error(R.drawable.imagenotavailable)
-                .into(imageView);
+                .into(imageView);*/
 
         /* Glide.with(context).load(url)
                .placeholder(getProgressBarIndeterminate())
@@ -460,13 +507,67 @@ public final class BindingUtils {
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
 
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        Glide.with(context).load(url)
+                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                                .placeholder(circularProgressDrawable)
+                                .error(R.drawable.imagenotavailable)
+                                .into(imageView);
+
+
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                }) .into(imageView);
+
+
+
+
+
+
+
+
 
        /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
         circularProgressDrawable.start();*/
+/*
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.start();*/
 
+      /*  Glide.with(context).load(url)
+                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
 
+        //Picasso.with(context).load(image_url).networkPolicy(NetworkPolicy.NO_CACHE).into(imageView);
+
+/*
+        Glide.with(context).load(url)
+                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(circularProgressDrawable)
+                //   .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
 
 /*
         Glide.with(context).load(url)
@@ -474,11 +575,11 @@ public final class BindingUtils {
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);*/
 
-        Glide.with(context).load(url)
+      /*  Glide.with(context).load(url)
               //  .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
               //  .placeholder(R.drawable.loader)
               //  .error(R.drawable.imagenotavailable)
-                .into(imageView);
+                .into(imageView);*/
 
 
        /* R.raw.loader*/
@@ -529,6 +630,58 @@ public final class BindingUtils {
 
 
 
+
+
+
+
+
+
+
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        Glide.with(context).load(url)
+                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                                .placeholder(circularProgressDrawable)
+                                .error(R.drawable.imagenotavailable)
+                                .into(imageView);
+
+
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                }) .into(imageView);
+
+
+
+/*
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.start();
+
+        Glide.with(context).load(url)
+               // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
+                .placeholder(circularProgressDrawable)
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
+
        /* CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(5f);
@@ -540,11 +693,11 @@ public final class BindingUtils {
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);*/
 
-        Glide.with(context).load(url)
+    /*    Glide.with(context).load(url)
             //    .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
                // .placeholder(R.drawable.loader)
                // .error(R.drawable.imagenotavailable)
-                .into(imageView);
+                .into(imageView);*/
 
        /*
         Glide.with(context).load(url).placeholder(R.drawable.images_loading)

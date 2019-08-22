@@ -19,6 +19,7 @@ public interface OtpActivityNavigator {
     void loginFailure();
 
     void goBack();
+    void resend();
 
 
 

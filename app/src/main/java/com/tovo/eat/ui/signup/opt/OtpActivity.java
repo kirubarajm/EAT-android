@@ -1,15 +1,16 @@
 package com.tovo.eat.ui.signup.opt;
 
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,12 +36,13 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.AppSignatureHashHelper;
 import com.tovo.eat.utilities.OtpEditText;
 import com.tovo.eat.utilities.SMSReceiver;
 
 import javax.inject.Inject;
 
-public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel> implements OtpActivityNavigator , SMSReceiver.OTPReceiveListener {
+public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityViewModel> implements OtpActivityNavigator, SMSReceiver.OTPReceiveListener {
 
     @Inject
     OtpActivityViewModel mLoginViewModelMain;
@@ -50,6 +52,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     private ActivityOtpBinding mActivityOtpBinding;
     private EditText[] editTexts;
     private SMSReceiver smsReceiver;
+
     public static Intent newIntent(Context context) {
         return new Intent(context, OtpActivity.class);
     }
@@ -58,6 +61,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     public void handleError(Throwable throwable) {
 
     }
+
     private void startSMSListener() {
         try {
             smsReceiver = new SMSReceiver();
@@ -106,7 +110,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void openHomeActivity(boolean trueOrFalse) {
-
 
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -219,6 +222,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     }
 
     @Override
+    public void resend() {
+
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.otpViewModel;
     }
@@ -238,17 +246,49 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     }
 
+
+    public void startTimer() {
+
+
+        mActivityOtpBinding.resend.setVisibility(View.GONE);
+        mActivityOtpBinding.timer.setVisibility(View.VISIBLE);
+
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                mLoginViewModelMain.timer.set(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                mActivityOtpBinding.timer.setVisibility(View.GONE);
+                mActivityOtpBinding.resend.setVisibility(View.VISIBLE);
+
+            }
+
+        }.start();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityOtpBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+        startSMSListener();
+
+        startTimer();
+
+        AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
+
+        // This code requires one time to get Hash keys do comment and share key
+        Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             String booleanOtp = bundle.getString("booleanOpt");
             strOtpId = bundle.getString("optId");
-            mLoginViewModelMain.OtpId=Integer.parseInt(strOtpId);
+            mLoginViewModelMain.OtpId = Integer.parseInt(strOtpId);
 
             strPhoneNumber = bundle.getString("strPhoneNumber");
 
@@ -270,16 +310,16 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         }
 
 
-      //  otpFocusOnTextChange();
+        //  otpFocusOnTextChange();
 
         mActivityOtpBinding.otpText.setOnPinEnteredListener(new OtpEditText.OnPinEnteredListener() {
             @Override
             public void onPinEntered(CharSequence str) {
 
-                strOtpId=str.toString();
+                strOtpId = str.toString();
 
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
-              //  mLoginViewModelMain.continueClick();
+                //  mLoginViewModelMain.continueClick();
 
             }
         });
@@ -299,9 +339,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         //}
 
 
-
-
-
         mActivityOtpBinding.resend.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -314,6 +351,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                     case MotionEvent.ACTION_UP:
                         v.setBackgroundColor(getResources().getColor(R.color.white));
                         //set color back to default
+                        startSMSListener();
+                        startTimer();
+                        Toast.makeText(OtpActivity.this , "OTP has been sent again.", Toast.LENGTH_SHORT).show();
                         mLoginViewModelMain.resendOtp();
                         break;
                 }
@@ -372,7 +412,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     protected void onResume() {
         super.onResume();
-        startSMSListener();
+
     }
 
     @Override
@@ -380,14 +420,18 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         super.onPause();
         if (smsReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver);
-        }    }
+        }
+    }
 
     @Override
     public void onOTPReceived(String message) {
-        String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
-        strOtpId=otp;
-        mActivityOtpBinding.otpText.setText(otp);
+        // String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
 
+        strOtpId = message;
+        mActivityOtpBinding.otpText.setText(message);
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver);
+        }
     }
 
     @Override

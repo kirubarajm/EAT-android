@@ -113,63 +113,15 @@
                 android:layout_height="wrap_content"
                 android:visibility="@{otpViewModel.otp?View.GONE:View.VISIBLE}">
 
-                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:id="@+id/txt_enter_otp"
-                    android:textSize="16sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/enter_otp" />
-
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:id="@+id/txt_message_sent"
-                    android:layout_width="match_parent"
-                    android:textSize="14sp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_enter_otp"
-                    android:layout_marginTop="10dp" />
-
-
-
-
-                <com.tovo.eat.utilities.OtpEditText
-                    android:layout_below="@+id/txt_message_sent"
-                    android:layout_marginTop="30dp"
-                    android:id="@+id/otp_text"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:cursorVisible="false"
-                    android:digits="1234567890"
-                    android:inputType="number"
-                    android:layoutDirection="ltr"
-                    android:maxLength="5"
-                    android:textIsSelectable="false"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:pinAnimationType="fromBottom"
-                    app:pinBackgroundIsSquare="false"
-                    app:pinLineColors="@color/colorAccent"
-                    app:pinLineStroke="0.3dp"
-                    app:pinLineStrokeSelected="1dp"
-                    app:pinTextBottomPadding="5dp" />
-
-
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/otp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_message_sent"
                     android:layout_marginTop="30dp"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="gone">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_1"
@@ -257,22 +209,81 @@
 
                 </LinearLayout>
 
+                <com.tovo.eat.utilities.OtpEditText
+                    android:id="@+id/otp_text"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_message_sent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:cursorVisible="false"
+                    android:digits="1234567890"
+                    android:inputType="number"
+                    android:layoutDirection="ltr"
+                    android:maxLength="5"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pinAnimationType="fromBottom"
+                    app:pinBackgroundIsSquare="false"
+                    app:pinLineColors="@color/colorAccent"
+                    app:pinLineStroke="0.3dp"
+                    app:pinLineStrokeSelected="1dp"
+                    app:pinTextBottomPadding="5dp" />
 
 
-                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:id="@+id/resend"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/otp_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:layout_below="@+id/otp_text"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/resend_otp"
+                    android:textAllCaps="true"
                     android:textColor="@color/eat_color"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
 
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/txt_message_sent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_enter_otp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/otp_text"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{otpViewModel.timer}"
+                    android:textColor="@color/eat_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:id="@+id/txt_enter_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/enter_otp"
+                    android:textSize="16sp" />
 
 
             </RelativeLayout>
@@ -285,7 +296,7 @@
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:gravity="center"
-                    android:visibility="@{otpViewModel.otp?View.GONE:View.VISIBLE}"
+                    android:visibility="visible"
                     android:id="@+id/btn_sign_in"
                     android:layout_width="160dp"
                     android:layout_height="40dp"
@@ -299,7 +310,7 @@
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:gravity="center"
-                    android:visibility="@{otpViewModel.otp?View.VISIBLE:View.GONE}"
+                    android:visibility="gone"
                     android:id="@+id/btn_proceed"
                     android:layout_width="160dp"
                     android:layout_height="40dp"

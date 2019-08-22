@@ -18,9 +18,9 @@
     <ImageView
         android:id="@+id/img_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:scaleType="fitStart"
-        app:imageUrl="@{kitchenCommonImagesViewModel.image_url}"
+        imageUrl="@{kitchenCommonImagesViewModel.image_url}"
         app:layout_collapseMode="parallax" />
 
 </layout>

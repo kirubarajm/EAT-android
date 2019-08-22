@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsMessage;
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -12,7 +13,7 @@ import com.google.android.gms.common.api.Status;
 public class SMSReceiver extends BroadcastReceiver {
 
     private OTPReceiveListener otpListener;
-
+    String otp;
     /**
      * @param otpListener
      */
@@ -41,8 +42,28 @@ public class SMSReceiver extends BroadcastReceiver {
 
                     //Extract the OTP code and send to the listener
 
+
+                   String otp=message.replaceAll("[^0-9]","");
+
+
+
+
+
+                    /*Object[] pdus = (Object[]) extras.get("pdus");
+                    for(int i=0;i<pdus.length;i++) {
+                        SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                        String sender = smsMessage.getDisplayOriginatingAddress();
+                        // b=sender.endsWith("WNRCRP");  //Just to fetch otp sent from WNRCRP
+                        String messageBody = smsMessage.getMessageBody();
+                         otp  = messageBody.replaceAll("[^0-9]", "");   // here abcd contains otp
+
+
+                    }*/
+
+
+
                     if (otpListener != null) {
-                        otpListener.onOTPReceived(message);
+                        otpListener.onOTPReceived(otp);
                     }
                     break;
                 case CommonStatusCodes.TIMEOUT:

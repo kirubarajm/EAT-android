@@ -597,6 +597,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
+
+
+
         saveFcmToken();
 
         registerWifiReceiver();

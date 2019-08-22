@@ -88,7 +88,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchStories();
         fetchCoupons();
         fetchCollections();
-     //   fetchKitchen();
+        fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
 
@@ -111,7 +111,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
         kitchenItemViewModels.clear();
-
+/*
         //  if (collectionItemViewModels.size() > 0) {
         KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
         kitchenResponse1.setCollection(collectionItemViewModels);
@@ -121,7 +121,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
         kitchenResponse2.setCoupons(couponListItemViewModels);
         ordersItems.add(2, kitchenResponse2);
-        //  }
+        //  }*/
 
         kitchenItemViewModels.addAll(ordersItems);
 
@@ -268,7 +268,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL , CouponListResponse.class,new CollectionRequest(getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class, new CollectionRequest(getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {
@@ -296,7 +296,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-    public void fetchRepos(Integer regionId)  throws NullPointerException{
+    public void fetchRepos(Integer regionId) throws NullPointerException {
 
 
         //   if (getDataManager().getCurrentLat() == null) {
@@ -314,7 +314,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         try {
                             if (response.getResult().size() > 0) {
                                 emptyRegion.set(false);
-                                getNavigator().regionsLoaded(response);
+                                //getNavigator().regionsLoaded(response);
                                 regionItemsLiveData.setValue(response.getResult());
 
 
@@ -341,13 +341,15 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         }
                     }
+                    getNavigator().regionsLoaded(response);
+
                 }
 
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
-
+                    getNavigator().regionsLoaded(null);
 
                 }
             }, AppConstants.API_VERSION_TWO);
@@ -581,6 +583,18 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         emptyKitchen.set(false);
 
 
+                                        if (collectionItemViewModels.size() > 0) {
+                                            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                            kitchenResponse1.setCollection(collectionItemViewModels);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
+                                        }
+                                        if (couponListItemViewModels.size() > 0) {
+                                            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                            kitchenResponse2.setCoupons(couponListItemViewModels);
+                                            kitchenResponse.getResult().add(2, kitchenResponse2);
+                                        }
+
+
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
@@ -786,7 +800,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void fetchCollections() throws NullPointerException {
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class,new CollectionRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class, new CollectionRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {
