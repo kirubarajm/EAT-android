@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.orderhistory.ordersview;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tovo.eat.ui.cart.CartPageResponse;
 
 import java.util.List;
 
@@ -60,6 +61,9 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("coupon")
         @Expose
         public String coupon;
+        @SerializedName("cartdetails")
+        @Expose
+        private List<CartPageResponse.Cartdetail> cartDetails = null;
         @SerializedName("payment_type")
         @Expose
         public String paymentType;
@@ -137,6 +141,14 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("items")
         @Expose
         public List<Item> items = null;
+
+        public List<CartPageResponse.Cartdetail> getCartDetails() {
+            return cartDetails;
+        }
+
+        public void setCartDetails(List<CartPageResponse.Cartdetail> cartDetails) {
+            this.cartDetails = cartDetails;
+        }
 
         public String getPaymentTypeName() {
             return paymentTypeName;

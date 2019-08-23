@@ -74,6 +74,17 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
         if (getArguments() != null) {
             mLoginViewModelMain.message.set(getArguments().getString("message"));
 
+
+            if (null!= getArguments().getString("paymenttype")&& getArguments().getString("paymenttype").equals("1")){
+
+                mLoginViewModelMain.codPayment.set(false);
+
+            }else {
+                mLoginViewModelMain.codPayment.set(true);
+            }
+
+
+
         }
 
     }

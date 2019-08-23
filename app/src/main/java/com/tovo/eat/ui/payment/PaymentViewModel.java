@@ -186,13 +186,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         @Override
                         public void onResponse(JSONObject response) {
 
-
-
-
                             Gson gson = new Gson();
                             CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
-
-
                             if (cartPaymentResponse.getStatus()) {
 
                                 Integer sorderId = cartPaymentResponse.getOrderid();

@@ -45,11 +45,13 @@
                     android:orientation="vertical">
 
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_gravity="center_vertical"
                             android:id="@+id/pName"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -61,6 +63,7 @@
 
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/pName"
                             android:textSize="10sp"
@@ -72,7 +75,7 @@
 
 
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
 
 
@@ -169,7 +172,8 @@
                             android:orientation="horizontal"
                             android:visibility="@{cartDishItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
-                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:paddingTop="3dp"
                                 android:id="@+id/minus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"
@@ -178,7 +182,7 @@
                                 android:onClick="@{()->cartDishItemViewModel.subClicked()}"
                                 android:text="@string/minus"
                                 android:textAlignment="center"
-                                android:textColor="@color/dark_gray"
+                                android:textColor="@color/eat_color"
                                 android:textSize="16sp" />
 
 
@@ -190,7 +194,8 @@
                                 android:background="@color/dark_gray" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:paddingTop="3dp"
                                 android:id="@+id/quan"
                                 android:layout_centerVertical="true"
                                 android:layout_width="wrap_content"
@@ -198,7 +203,7 @@
                                 android:layout_centerInParent="true"
                                 android:text="@{cartDishItemViewModel.sQuantity}"
                                 android:textAlignment="center"
-                                android:textColor="@color/dark_gray"
+                                android:textColor="@color/black"
                                 android:textSize="16sp" />
 
                             <View
@@ -208,7 +213,8 @@
                                 android:background="@color/dark_gray" />
 
 
-                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:paddingTop="3dp"
                                 android:id="@+id/plus"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"
@@ -217,7 +223,7 @@
                                 android:onClick="@{()->cartDishItemViewModel.addClicked()}"
                                 android:text="@string/plus"
                                 android:textAlignment="center"
-                                android:textColor="@color/dark_gray"
+                                android:textColor="@color/eat_color"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>

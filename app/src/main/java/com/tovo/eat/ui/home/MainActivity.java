@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -66,6 +67,7 @@ import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
@@ -114,6 +116,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
     };
+    Dialog locationDialog;
     private MainViewModel mMainViewModel;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
@@ -139,7 +142,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
-
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
     private ViewGroup mRrootLayout;
@@ -183,6 +185,36 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     public void setFilterListener(FilterListener filterListener) {
         this.filterListener = filterListener;
+    }
+
+    public void showLocationDialog() {
+        locationDialog = new Dialog(this);
+        locationDialog.setCancelable(false);
+        locationDialog.setContentView(R.layout.dialog_get_location);
+
+        ButtonTextView text = locationDialog.findViewById(R.id.allowgps);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                startLocationTracking();
+
+            }
+        });
+
+        ButtonTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
+        dialogButton.setVisibility(View.GONE);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* locationDialog.dismiss();
+                finish();
+*/
+            }
+        });
+
+        locationDialog.show();
+
     }
 
     @Override
@@ -489,7 +521,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         if (requestCode == AppConstants.GPS_REQUEST) {
-            startLocationTracking();
+
+
+            if (resultCode == RESULT_OK) {
+                startLocationTracking();
+            } else {
+                showLocationDialog();
+            }
+
+
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
         }
@@ -598,8 +638,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
-
-
         saveFcmToken();
 
         registerWifiReceiver();
@@ -616,9 +654,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 if (mMainViewModel.isAddressAdded()) {
                     mMainViewModel.gotoCart();
                 }
-            } else if (null!= intent.getExtras().getString("pageid")&&intent.getExtras().getString("pageid").equals("9")) {
+            } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
 
-                Intent repliesIntent= RepliesActivity.newIntent(MainActivity.this);
+                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
                 startActivity(repliesIntent);
 
 
@@ -724,7 +762,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         mGoogleApiClient.connect();
                     } else {
                         //  turnOnGps();
-                        startLocationTracking();
+                        showLocationDialog();
                     }
                 }
 
@@ -761,6 +799,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
         registerWifiReceiver();
+
+
+        if (mMainViewModel.getDataManager().getAddressId()==0){
+            startLocationTracking();
+        }
+
+
 
     }
 
@@ -958,14 +1003,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         if (location != null) {
-
-            mGoogleApiClient.disconnect();
+            if (mGoogleApiClient != null)
+                mGoogleApiClient.disconnect();
 
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             openHome();
 
         }
-
 
     }
 

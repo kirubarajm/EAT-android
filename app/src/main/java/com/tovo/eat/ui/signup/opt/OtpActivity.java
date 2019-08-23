@@ -48,6 +48,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     OtpActivityViewModel mLoginViewModelMain;
     String strPhoneNumber = "";
     String strOtpId = "";
+    String strOtp= "";
     String UserId = "";
     private ActivityOtpBinding mActivityOtpBinding;
     private EditText[] editTexts;
@@ -105,7 +106,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         String otp = st1 + st2 + st3 + st4 + st5;
         if (validForOtp())
             mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));*/
-        mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtpId));
+
+
+       if (mActivityOtpBinding.otpText.getText() != null && mActivityOtpBinding.otpText.getText().length() == 5) {
+           mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtp));
+       }
     }
 
     @Override
@@ -278,10 +283,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         startTimer();
 
-        AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
+        /*AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
 
         // This code requires one time to get Hash keys do comment and share key
-        Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
+        Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));*/
 
 
         Bundle bundle = getIntent().getExtras();
@@ -316,7 +321,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             @Override
             public void onPinEntered(CharSequence str) {
 
-                strOtpId = str.toString();
+                strOtp= str.toString();
 
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
                 //  mLoginViewModelMain.continueClick();
@@ -360,8 +365,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 return true;
             }
         });
-
-
     }
 
     /*private void otpFocusOnTextChange() {
@@ -426,8 +429,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     public void onOTPReceived(String message) {
         // String otp=message.substring(0, 1)+message.substring(1, 2)+message.substring(2, 3)+message.substring(3, 4)+message.substring(4, 5);
-
-        strOtpId = message;
         mActivityOtpBinding.otpText.setText(message);
         if (smsReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver);

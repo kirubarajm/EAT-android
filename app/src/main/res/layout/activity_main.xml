@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:shimmer="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context=".ui.main.MainActivity">
 
     <data>
-
         <import type="android.view.View" />
 
         <variable
@@ -15,159 +17,495 @@
     </data>
 
     <RelativeLayout
+        android:background="@color/white"
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-
-        <FrameLayout
-            android:id="@+id/content_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottom" />
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
+        <android.support.v4.widget.DrawerLayout
+            android:layout_above="@+id/bottom"
+            android:id="@+id/drawerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="gone"
-            shimmer:duration="800">
+            android:fitsSystemWindows="true">
 
-            <!-- Adding 7 rows of placeholders -->
-
-
-            <LinearLayout
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/clRootView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
+                android:layout_height="match_parent"
+                android:clipChildren="false">
 
                 <LinearLayout
+                    android:id="@+id/activityMain"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/extra_light_gray"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <!-- android:stateListAnimator="@animator/always_elevate"
+                     android:theme="@style/AppTheme.Overlay"-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:id="@+id/main_tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:orientation="vertical"
+                                    android:visibility="@{viewModel.titleVisible?View.GONE:View.VISIBLE}">
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:text="@string/deliver_now"
+                                        android:textSize="16sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif-medium"
+                                            android:onClick="@{()->viewModel.selectAddress()}"
+                                            android:text="@{viewModel.addressTitle}"
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp" />
+
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="10dp"
+                                            android:fontFamily="sans-serif-medium"
+                                            android:onClick="@{()->viewModel.selectAddress()}"
+                                            android:rotation="90"
+                                            android:text=">"
+                                            android:textColor="@color/eat_color"
+                                            android:textSize="22sp" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginEnd="15dp"
+                                        android:layout_marginRight="15dp"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginRight="10dp"
+                                            android:gravity="center"
+                                            android:src="@drawable/ic_star_black_24dp"
+                                            android:tint="@color/dark_gray" />
+
+
+                                        <ImageView
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:gravity="center"
+                                            android:src="@drawable/ic_sort_black_24dp"
+                                            android:tint="@color/dark_gray" />
+
+
+                                    </LinearLayout>
+
+
+                                </RelativeLayout>
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:background="@drawable/gradient_view" />
+                        </LinearLayout>
+                        <!-- Main content -->
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:id="@+id/content_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
 
                 </LinearLayout>
 
 
-                <LinearLayout
+            </android.support.design.widget.CoordinatorLayout>
+
+
+        </android.support.v4.widget.DrawerLayout>
+
+        <!--<android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/address_looking_up"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />-->
+
+
+       <!-- <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:background="@color/tracking_back"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/live_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.isLiveOrder?View.VISIBLE:View.GONE}">
+
+
+                <RelativeLayout
+                    android:onClick="@{()->viewModel.trackLiveOrder()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/food_preparation"
+                        android:layout_marginStart="10dp" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                    <LinearLayout
+                        android:id="@+id/details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toStartOf="@+id/track_details"
+                        android:layout_toLeftOf="@+id/track_details"
+                        android:layout_toEndOf="@+id/image"
+                        android:layout_toRightOf="@+id/image"
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="@{viewModel.kitchenName}"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@{viewModel.products}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                    <LinearLayout
+                        android:id="@+id/track_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
+                            android:minLines="2"
+                            android:text="@string/eta"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp"/>
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
 
-                </LinearLayout>
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:minLines="2"
+                            android:text="@{viewModel.eta}"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="12sp" />
+
+                        <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                            app:font_name="poppinsRegular"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="#000000"
+                            android:gravity="center|end"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:text="@string/track"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/bo_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
 
 
                 <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="@color/extra_light_gray">
+                    android:background="@drawable/ripple"
+                    android:id="@+id/home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoHome()}"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:background="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:src="@drawable/bottom_eat_home"
+                        android:tint="@{viewModel.isHome?@color/eat_color:@color/dark_gray}" />
 
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/home"
+                        android:textColor="@{viewModel.isHome?@color/eat_color:@color/dark_gray}"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/explore"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoExplore()}"
+                    android:orientation="vertical">
 
-                <include layout="@layout/list_item_loader" />
+                    &lt;!&ndash; android:tint="@{viewModel.isExplore?@color/eat_color:@color/dark_gray"&ndash;&gt;
 
-                <include layout="@layout/list_item_loader" />
 
-                <include layout="@layout/list_item_loader" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:tint="@{viewModel.isExplore?@color/eat_color:@color/dark_gray}"
+                        android:src="@drawable/bottom_eat_search"/>
 
-                <include layout="@layout/list_item_loader" />
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/explore"
+                        android:textColor="@{viewModel.isExplore?@color/eat_color:@color/dark_gray}"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <include layout="@layout/list_item_loader" />
+                <LinearLayout
 
-                <include layout="@layout/list_item_loader" />
+                    android:id="@+id/cart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoCart()}"
+                    android:orientation="vertical">
 
-                <include layout="@layout/list_item_loader" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
 
-                <include layout="@layout/list_item_loader" />
+                        <LinearLayout
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <include layout="@layout/list_item_loader" />
+                            <ImageView
+                                android:tint="@{viewModel.isCart?@color/eat_color:@color/dark_gray}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:gravity="center"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/bottom_eat_cart" />
+
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:text="@string/cart"
+                                android:textColor="@{viewModel.isCart?@color/eat_color:@color/dark_gray}"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="30dp"
+                            android:background="@drawable/badge_circle"
+                            android:elevation="7dp"
+                            android:gravity="center"
+                            android:text="@{viewModel.numOfCarts}"
+                            android:textColor="@color/white"
+                            android:textSize="9sp"
+                            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="@{()->viewModel.gotoAccount()}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:tint="@{viewModel.isMyAccount?@color/eat_color:@color/dark_gray}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bottom_eat_account" />
+
+                    <com.tovo.eat.utilities.fonts.CircularTextView
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/account"
+                        android:textColor="@{viewModel.isMyAccount?@color/eat_color:@color/dark_gray}"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </LinearLayout>-->
 
 
         <LinearLayout
@@ -176,7 +514,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:id="@+id/live_cart"
@@ -220,7 +557,6 @@
                         android:layout_toRightOf="@+id/image"
                         android:orientation="vertical">
 
-
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -228,8 +564,6 @@
                             android:textColor="#000000"
                             android:textSize="14sp"
                             android:textStyle="bold" />
-
-
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -238,6 +572,9 @@
                             android:text="@{viewModel.products}"
                             android:textColor="@color/dark_gray"
                             android:textSize="12sp" />
+
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -308,12 +645,12 @@
 
 
             <View
-                android:id="@+id/bo_view"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/gray" />
-
             <LinearLayout
+                android:id="@+id/bottom_menu"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/white"
@@ -477,48 +814,156 @@
 
             </LinearLayout>
 
+            <View
+                android:visibility="gone"
+                android:id="@+id/bo_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray" />
+
         </LinearLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone"
+            shimmer:duration="800">
 
-        <!--<RelativeLayout
-            android:id="@+id/cart_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="60dp"
-            android:onClick="@{()->viewModel.gotoCart()}"
-            android:visibility="@{viewModel.cart?View.VISIBLE:View.GONE}">
+            <!-- Adding 7 rows of placeholders -->
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_cart"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:background="@drawable/badge_circle"
-                android:clickable="false"
-                android:src="@drawable/ic_shopping_cart_black_24dp"
-                app:backgroundTint="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/text_count"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:background="@drawable/badge_circle"
-                android:elevation="7dp"
-                android:gravity="center"
-                android:text="@{viewModel.numOfCarts}"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </RelativeLayout>-->
+                android:orientation="vertical">
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/extra_light_gray"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="3dp"
+                        android:background="@color/extra_light_gray" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    android:background="@color/extra_light_gray">
+
+
+                </LinearLayout>
+
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+
+                <include layout="@layout/list_item_loader" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
 
 

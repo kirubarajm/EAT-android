@@ -20,9 +20,9 @@
         <ImageView
             android:layout_centerInParent="true"
             imageUrl="@{specialitiesItemViewModel.image_url}"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
             android:layout_margin="10dp"
-            android:scaleType="fitXY" />
+            android:scaleType="fitCenter" />
     </RelativeLayout>
 </layout>

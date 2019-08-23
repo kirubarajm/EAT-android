@@ -23,6 +23,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.utilities.MvvmApp;
@@ -47,6 +48,8 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     LinearLayoutManager mLayoutManager;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    @Inject
+    BillListAdapter billListAdapter;
     Dialog dialog;
 
     public static Intent newIntent(Context context) {
@@ -181,12 +184,24 @@ showDialog();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setLayoutManager(new LinearLayoutManager(this));
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setAdapter(mOrdersHistoryActivityItemAdapter);
+
+
+        LinearLayoutManager billLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mActivityOrdersHostiryViewBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
+        mActivityOrdersHostiryViewBinding.recyclerviewBill.setAdapter(billListAdapter);
+
+
         subscribeToLiveData();
     }
 
     private void subscribeToLiveData() {
         mOrderHistoryActivityViewModelView.getOrders().observe(this,
                 ordersItemViewModel -> mOrderHistoryActivityViewModelView.addOrdersListItemsToList(ordersItemViewModel));
+
+        mOrderHistoryActivityViewModelView.getCartBillLiveData().observe(this,
+                cartdetails -> mOrderHistoryActivityViewModelView.addBillItemsToList(cartdetails));
+
     }
 
     @Override

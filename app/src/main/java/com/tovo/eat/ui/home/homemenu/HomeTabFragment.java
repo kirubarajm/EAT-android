@@ -160,13 +160,23 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
         initCountryText();
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+        try {
 
+
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+        }catch (NullPointerException    n){
+            n.printStackTrace();
+        }
     }
 
     @Override
     public void dataLoaded() {
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+        try {
+
+            ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+        }catch (NullPointerException    n){
+            n.printStackTrace();
+        }
     }
 
     @Override

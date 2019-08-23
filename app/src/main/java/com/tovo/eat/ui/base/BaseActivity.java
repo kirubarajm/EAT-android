@@ -48,6 +48,7 @@ BaseFragment.Callback{
                     if (pageid.equals("8")) {
                         Bundle bundle1 = new Bundle();
                         bundle1.putString("message",bundle.getString("message"));
+                        bundle1.putString("paymenttype",bundle.getString("paymenttype"));
                         OrderCanceledBottomFragment bottomSheetFragment = new OrderCanceledBottomFragment();
                         bottomSheetFragment.setArguments(bundle);
                         bottomSheetFragment.setCancelable(false);

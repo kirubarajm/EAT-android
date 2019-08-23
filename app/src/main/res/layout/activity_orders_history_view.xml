@@ -139,7 +139,9 @@
 
                         </LinearLayout>
 
+
                         <LinearLayout
+                            android:visibility="@{OrdersHistryViewModel.isOrderCanced?View.GONE:View.VISIBLE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/kitchen_details"
@@ -245,110 +247,26 @@
                     android:padding="10dp">
 
 
-                    <RelativeLayout
+
+                    <android.support.v7.widget.RecyclerView
                         android:layout_alignParentTop="true"
-                        android:id="@+id/r1"
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/recyclerview_bill"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp">
+                        android:layout_marginTop="1dp"
+                        android:background="@android:color/white"
+                        android:visibility="visible"
+                        app:adapter="@{OrdersHistryViewModel.billdetails}"
+                        tools:listitem="@layout/list_item_cart_bill" />
 
 
 
-                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/gst"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <com.tovo.eat.utilities.fonts.TovoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal|center_vertical"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp"
-                                android:text="@string/icon_inr"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="10sp" />
-
-                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{OrdersHistryViewModel.gst}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/r2"
-                        android:layout_below="@+id/r1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp">
-
-
-                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/delivery_charge"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <com.tovo.eat.utilities.fonts.TovoTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal|center_vertical"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp"
-                                android:text="@string/icon_inr"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="10sp" />
-
-                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{OrdersHistryViewModel.delivery}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
 
 
                     <RelativeLayout
                         android:layout_marginEnd="10dp"
                         android:id="@+id/r3"
-                        android:layout_below="@+id/r2"
+                        android:layout_below="@+id/recyclerview_bill"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -389,11 +307,10 @@
                                 android:textSize="16sp" />
 
                         </LinearLayout>
-
-
                     </RelativeLayout>
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:id="@+id/payment"
                         android:layout_below="@+id/r3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -401,6 +318,26 @@
                         android:text="@{OrdersHistryViewModel.strPaymentType}"
                         android:textColor="@color/dark_gray"
                         android:textSize="14sp" />
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_marginBottom="10dp"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:textColor="@{OrdersHistryViewModel.isOrderCanced?@color/light_red:@color/green}"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/payment"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="@{OrdersHistryViewModel.orderStatus}"
+                        android:textAllCaps="true"
+                        android:layout_marginEnd="5dp" />
+
+
+
+
+
 
                 </RelativeLayout>
 

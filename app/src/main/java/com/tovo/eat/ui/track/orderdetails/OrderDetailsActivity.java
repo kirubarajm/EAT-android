@@ -22,6 +22,7 @@ import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListRespons
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -38,6 +39,8 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
     OrdersHistoryActivityItemAdapter mOrderDetailsAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
+    @Inject
+    BillListAdapter billListAdapter;
 
     public static Intent newIntent(Context context) {
 
@@ -135,12 +138,22 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setLayoutManager(new LinearLayoutManager(this));
         mActivityOrdersHostiryViewBinding.recyclerviewOrdersItems.setAdapter(mOrderDetailsAdapter);
+
+
+        LinearLayoutManager billLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mActivityOrdersHostiryViewBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
+        mActivityOrdersHostiryViewBinding.recyclerviewBill.setAdapter(billListAdapter);
+
         subscribeToLiveData();
     }
 
     private void subscribeToLiveData() {
         mOrderDetailsViewModel.getOrders().observe(this,
                 ordersItemViewModel -> mOrderDetailsViewModel.addOrdersListItemsToList(ordersItemViewModel));
+
+        mOrderDetailsViewModel.getCartBillLiveData().observe(this,
+                cartdetails -> mOrderDetailsViewModel.addBillItemsToList(cartdetails));
     }
 
 

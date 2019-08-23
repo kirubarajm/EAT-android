@@ -60,7 +60,7 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         if (item_list != null && item_list.size() > 0) {
             return item_list.size() + 1;
         } else {
-            return 1;
+            return 0;
         }
     }
 

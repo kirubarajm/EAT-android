@@ -187,9 +187,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.recyclerviewRegion.setAdapter(kitchenAdapter);
 
 
-        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
+       /* ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
                 toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                        InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        InputMethodManager.HIDE_NOT_ALWAYS);*/
 
 
 
@@ -431,7 +431,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         fragment.setCancelable(false);
 
         DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
-
 
         mFragmentSearchBinding.searchh.clearFocus();
 

@@ -3,6 +3,7 @@ package com.tovo.eat.ui.address.add;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,9 +19,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,9 +36,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
@@ -45,6 +44,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.io.IOException;
@@ -69,7 +69,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     boolean isFirstTime;
     Location mLocation;
     boolean isGPS;
-
+    Dialog locationDialog;
     ProgressDialog dialog;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -182,6 +182,36 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public void showLocationDialog() {
+        locationDialog = new Dialog(this);
+        locationDialog.setCancelable(false);
+        locationDialog.setContentView(R.layout.dialog_get_location);
+
+        ButtonTextView text = locationDialog.findViewById(R.id.allowgps);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                turnOnGps();
+
+            }
+        });
+
+        ButtonTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                finish();
+
+            }
+        });
+
+        locationDialog.show();
+
+    }
+
+
     @Override
     public void goBack() {
         finish();
@@ -244,8 +274,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                             }
                                         }
                                     });*/
-                        }
-                      //  turnOnGps();
+                    }
+                    //  turnOnGps();
 
                 }
             }
@@ -285,8 +315,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                 });*/
 
 
-
-getLocation();
+                        getLocation();
 
                        /*
                         if (mGoogleApiClient != null) {
@@ -324,8 +353,8 @@ getLocation();
 
                     }
                 } else {
+                    showLocationDialog();
 
-                    turnOnGps();
                 }
             }
         });
@@ -368,8 +397,6 @@ getLocation();
                     /*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
 
 //                    getLocation();
-
-
                     turnOnGps();
 
                 } else {
@@ -441,7 +468,7 @@ getLocation();
     }
 
     public Location getLocation() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -521,7 +548,9 @@ getLocation();
 
 
             } else {
-                turnOnGps();
+
+                showLocationDialog();
+
             }
 
 
@@ -538,9 +567,8 @@ getLocation();
         mLocation = location;
         if (map != null) {
             if (location != null) {
-
-              //  mGoogleApiClient.disconnect();
-
+                locationManager.removeUpdates(this);
+                //  mGoogleApiClient.disconnect();
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());

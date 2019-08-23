@@ -2,6 +2,7 @@ package com.tovo.eat.ui.account.orderhistory.ordersview;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.cart.CartPageResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MvvmApp;
@@ -38,8 +40,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> delivery = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> ordertitle = new ObservableField<>();
-
     public final ObservableField<String> locality = new ObservableField<>();
+    public final ObservableField<String> orderStatus = new ObservableField<>();
+    public final ObservableBoolean isOrderCanced = new ObservableBoolean();
+    public ObservableList<CartPageResponse.Cartdetail> billdetails = new ObservableArrayList<>();
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
 
     public ObservableList<OrdersHistoryActivityResponse.Result.Item> ordersItemViewModels = new ObservableArrayList<>();
     CartRequestPojo cartRequestPojo;
@@ -50,13 +55,21 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public OrderHistoryActivityViewModelView(DataManager dataManager) {
         super(dataManager);
         ordersItemsLiveData = new MutableLiveData<>();
+        cartBillLiveData = new MutableLiveData<>();
         cartRequestPojo = new CartRequestPojo();
         orderitems = new ArrayList<>();
-       // fetchRepos();
+        // fetchRepos();
     }
 
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
+        return cartBillLiveData;
+    }
 
-    public void goBack(){
+    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
+        this.cartBillLiveData = cartBillLiveData;
+    }
+
+    public void goBack() {
         getNavigator().goBack();
     }
 
@@ -73,6 +86,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         return ordersItemsLiveData;
     }
 
+        public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+            billdetails.clear();
+            billdetails.addAll(results);
+
+        }
 
     public void orderRepeat() {
 
@@ -107,28 +125,38 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                 @Override
                 public void onResponse(OrdersHistoryActivityResponse response) {
                     try {
-                        if (response != null && response.getResult() != null && response.getResult().size()>0) {
+                        if (response != null && response.getResult() != null && response.getResult().size() > 0) {
                             ordersItemsLiveData.setValue(response.getResult().get(0).getItems());
 
                             kitchenName.set(response.getResult().get(0).getMakeitdetail().getBrandName());
                             gst.set(String.valueOf(response.getResult().get(0).getGst()));
                             delivery.set(response.getResult().get(0).getDeliveryCharge());
                             home.set(response.getResult().get(0).getLocality());
-                          //  image.set(response.getResult().get(0).getMakeitdetail().ge);
+                            //  image.set(response.getResult().get(0).getMakeitdetail().ge);
                             address.set(response.getResult().get(0).getLocality());
                             image.set(response.getResult().get(0).getMakeitdetail().getMakeitimg());
 
-                            ordertitle.set("#"+response.getResult().get(0).getOrderid()+" Order");
+                            ordertitle.set("#" + response.getResult().get(0).getOrderid() + " Order");
                             addressTitle.set(response.getResult().get(0).getAddress_title());
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
-                            locality.set("Delivered | "+String.valueOf(response.getResult().get(0).getLocality()));
-                           // actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
+                            locality.set("Delivered | " + String.valueOf(response.getResult().get(0).getLocality()));
+                            // actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
 
+                            cartBillLiveData.setValue(response.getResult().get(0).getCartDetails());
 
-                                strPaymentType.set("Paid through "+response.getResult().get(0).getPaymentTypeName());
+                            strPaymentType.set("Payment type " + response.getResult().get(0).getPaymentTypeName());
+
+
+                            if (response.getResult().get(0).getOrderstatus().equals(7) || response.getResult().get(0).getOrderstatus().equals(8)) {
+                                isOrderCanced.set(true);
+                                orderStatus.set("Order canceled!");
+                            }else {
+                                isOrderCanced.set(false);
+                                orderStatus.set("Order completed!");
+                            }
 
 
                             try {
@@ -180,11 +208,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                         e.printStackTrace();
                     }
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }catch (Exception ee){
+        } catch (Exception ee) {
             ee.printStackTrace();
         }
     }

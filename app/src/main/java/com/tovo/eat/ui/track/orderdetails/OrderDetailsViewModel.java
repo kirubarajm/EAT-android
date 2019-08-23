@@ -16,6 +16,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.cart.CartPageResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MvvmApp;
@@ -43,7 +44,8 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public final ObservableField<String> locality = new ObservableField<>();
 
     public final ObservableBoolean zeroBalance=new ObservableBoolean();
-
+    public ObservableList<CartPageResponse.Cartdetail> billdetails = new ObservableArrayList<>();
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
 
 
 
@@ -56,6 +58,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public OrderDetailsViewModel(DataManager dataManager) {
         super(dataManager);
         ordersItemsLiveData = new MutableLiveData<>();
+        cartBillLiveData = new MutableLiveData<>();
         cartRequestPojo = new CartRequestPojo();
         orderitems = new ArrayList<>();
 
@@ -64,7 +67,19 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
        // fetchRepos();
     }
 
+    public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
+        return cartBillLiveData;
+    }
 
+    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
+        this.cartBillLiveData = cartBillLiveData;
+    }
+
+    public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+        billdetails.clear();
+        billdetails.addAll(results);
+
+    }
     public void goBack(){
         getNavigator().goBack();
     }
@@ -135,7 +150,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             }
 
 
-
+                            cartBillLiveData.setValue(response.getResult().get(0).getCartDetails());
 
 
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));

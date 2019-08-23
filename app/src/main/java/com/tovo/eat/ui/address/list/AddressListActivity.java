@@ -112,10 +112,10 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void addNewAddress() {
 
-        /*Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
-        startActivity(intent);*/
+        Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
+        startActivity(intent);
 
-        turnOnGps();
+    //    turnOnGps();
     }
 
     @Override
@@ -182,8 +182,8 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void onItemClickData(AddressListResponse.Result blogUrl) {
 
-        mAddressListViewModel.setCurrentAddress(blogUrl);
-        finish();
+      /*  mAddressListViewModel.setCurrentAddress(blogUrl);
+        finish();*/
     }
 
     @Override

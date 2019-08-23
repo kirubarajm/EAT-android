@@ -69,12 +69,13 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public void verifyUser() {
 
         if (!continueClicked) {
-            continueClicked = true;
+
             if (validForMobileNo()) {
 
                 if (mActivitySignupBinding.acceptTandC.isChecked()) {
                     String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
                     mLoginViewModelMain.users(strPhoneNumber);
+                    continueClicked = true;
                 } else {
 
                     Toast.makeText(this, "Accept terms and conditions and continue", Toast.LENGTH_SHORT).show();

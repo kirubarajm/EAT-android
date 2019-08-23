@@ -443,26 +443,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
-                .error(R.drawable.imagenotavailable)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        Glide.with(context).load(url)
-                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                                .placeholder(circularProgressDrawable)
-                                .error(R.drawable.imagenotavailable)
-                                .into(imageView);
-
-
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                }) .into(imageView);
+                .error(R.drawable.imagenotavailable) .into(imageView);
 
 
 /*
@@ -515,26 +496,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
-                .error(R.drawable.imagenotavailable)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        Glide.with(context).load(url)
-                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                                .placeholder(circularProgressDrawable)
-                                .error(R.drawable.imagenotavailable)
-                                .into(imageView);
-
-
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                }) .into(imageView);
+                .error(R.drawable.imagenotavailable) .into(imageView);
 
 
 
@@ -647,26 +609,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
-                .error(R.drawable.imagenotavailable)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        Glide.with(context).load(url)
-                                // .thumbnail(Glide.with(context).fromResource().load(R.raw.loader))
-                                .placeholder(circularProgressDrawable)
-                                .error(R.drawable.imagenotavailable)
-                                .into(imageView);
-
-
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                }) .into(imageView);
+                .error(R.drawable.imagenotavailable).into(imageView);
 
 
 

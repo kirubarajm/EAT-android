@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.track.help;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +37,9 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     ActivityOrderHelpBinding mActivityOrderHelpBinding;
     String strOrderId;
     String message = null;
+    ProgressDialog dialog;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -97,6 +101,9 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void orderCanceled() {
 
+        if (dialog.isShowing()) dialog.show();
+
+
         Intent intent = MainActivity.newIntent(OrderHelpActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -106,7 +113,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void orderCancelClicked() {
-
 
 
         if (message != null && !message.isEmpty()) {
@@ -148,6 +154,9 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         super.onCreate(savedInstanceState);
         mActivityOrderHelpBinding = getViewDataBinding();
         mOrderHelpViewModel.setNavigator(this);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Please wait...");
 
 
         mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -209,16 +218,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                RadioButton rb = (RadioButton) group.findViewById(checkedId);
-                                mOrderHelpViewModel.cancelOrder(rb.getText().toString());
-
-                                //   Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
+                        startProgresDialog();
+                        mOrderHelpViewModel.cancelOrder(message);
                         dialog.dismiss();
                     }
                 });
@@ -230,6 +231,11 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         super.onResume();
         registerWifiReceiver();
     }
+
+    public void startProgresDialog() {
+        dialog.show();
+    }
+
 
     @Override
     protected void onPause() {

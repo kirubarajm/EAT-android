@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.account.orderhistory.historylist;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import java.text.DateFormat;
@@ -42,7 +43,8 @@ public class OrdersHistoryListItemModel {
     public final ObservableField<String> makeitName = new ObservableField<>();
     public final ObservableField<String> productsItems = new ObservableField<>();
     public final ObservableField<String> makeitLocality = new ObservableField<>();
-
+    public final ObservableField<String> orderStatus = new ObservableField<>();
+    public final ObservableBoolean isOrderCanced = new ObservableBoolean();
     public OrdersHistoryListItemModel.OrdersItemViewModelListener mListener;
     String strProItems = "";
     private OrdersHistoryListResponse.Result mOrderList;
@@ -73,7 +75,19 @@ public class OrdersHistoryListItemModel {
         actualDeliveryTime = String.valueOf(orders.getMoveitActualDeliveredTime());
         //this.moveit_actual_delivered_time.set(actualDeliveryTime.equals("null")?"":actualDeliveryTime);
 
-        if (!actualDeliveryTime.equals("null") && !actualDeliveryTime.equals("")) {
+
+
+        if (orders.getOrderstatus().equals(7) || orders.getOrderstatus().equals(8)) {
+            isOrderCanced.set(true);
+            orderStatus.set("Order canceled!");
+        }else {
+            isOrderCanced.set(false);
+            orderStatus.set("Order completed!");
+        }
+
+
+
+        if (null!=actualDeliveryTime&& !actualDeliveryTime.equals("null") && !actualDeliveryTime.equals("")) {
             try {
                 String strDate = actualDeliveryTime;
                 DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm a");
