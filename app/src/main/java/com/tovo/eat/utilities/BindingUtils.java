@@ -437,12 +437,14 @@ public final class BindingUtils {
 
         CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(3f);
-        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();
 
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
+                .dontAnimate()
+                .dontTransform()
                 .error(R.drawable.imagenotavailable) .into(imageView);
 
 
@@ -490,12 +492,14 @@ public final class BindingUtils {
 
         CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(3f);
-        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();
 
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
+                .dontAnimate()
+                .dontTransform()
                 .error(R.drawable.imagenotavailable) .into(imageView);
 
 
@@ -603,12 +607,14 @@ public final class BindingUtils {
 
         CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(3f);
-        circularProgressDrawable.setCenterRadius(100f);
+        circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();
 
         Glide.with(context)
                 .load(url)
                 .placeholder(circularProgressDrawable)
+                .dontTransform()
+                .dontAnimate()
                 .error(R.drawable.imagenotavailable).into(imageView);
 
 

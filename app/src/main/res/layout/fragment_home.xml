@@ -399,7 +399,7 @@
                           app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
                     <LinearLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"

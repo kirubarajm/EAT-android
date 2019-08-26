@@ -48,7 +48,6 @@
                     android:id="@+id/txt_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:text="Home"
                     android:textAllCaps="true"
                     android:textColor="@color/eat_color"
@@ -57,9 +56,8 @@
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/txt_6"
-                    android:text="MADE"
+                    android:text=" MADE"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -69,7 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rel_1"
-                android:layout_marginLeft="10dp"
                 android:text="food right at"
                 android:textSize="18sp" />
 
@@ -83,7 +80,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="10dp"
                     android:text="your doorstep!"
                     android:textSize="18sp" />
 

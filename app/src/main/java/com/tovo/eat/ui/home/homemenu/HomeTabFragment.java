@@ -91,6 +91,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     StoriesResponse storiesFullResponse;
     StackLayoutManager mStackLayoutManager;
     private FragmentHomeBinding mFragmentHomeBinding;
+    boolean regionCardClicked=false;
 
     private int currentPosition;
 
@@ -541,6 +542,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
        //mHomeTabViewModel.fetchStories();
         mHomeTabViewModel.fetchKitchen();
+        regionCardClicked=false;
 
     }
 
@@ -758,13 +760,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (position == activeCardPosition) {
 
-            Intent intent = RegionDetailsActivity.newIntent(getContext());
-            intent.putExtra("image", mRegionList.getRegionDetailImage());
-            intent.putExtra("id", mRegionList.getRegionid());
-            intent.putExtra("tagline", mRegionList.getTagline());
-            startActivity(intent);
-            //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
 
+            if (!regionCardClicked) {
+                regionCardClicked=true;
+                Intent intent = RegionDetailsActivity.newIntent(getContext());
+                intent.putExtra("image", mRegionList.getRegionDetailImage());
+                intent.putExtra("id", mRegionList.getRegionid());
+                intent.putExtra("tagline", mRegionList.getTagline());
+                startActivity(intent);
+                //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
+            }
 
         } else if (position > activeCardPosition) {
             //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
