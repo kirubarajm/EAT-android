@@ -154,7 +154,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+       stopLoader();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         try {
 
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+       stopLoader();
         }catch (NullPointerException    n){
             n.printStackTrace();
         }
@@ -174,7 +174,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void dataLoaded() {
         try {
 
-            ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+           stopLoader();
         }catch (NullPointerException    n){
             n.printStackTrace();
         }
@@ -195,7 +195,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void kitchenLoaded() {
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopLoader();
+       stopLoader();
 
        /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
 
@@ -237,7 +237,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding = getViewDataBinding();
 
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).startLoader();
+        startLoader();
 
         /*mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
@@ -759,8 +759,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
         if (position == activeCardPosition) {
-
-
             if (!regionCardClicked) {
                 regionCardClicked=true;
                 Intent intent = RegionDetailsActivity.newIntent(getContext());
@@ -775,7 +773,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
             // onActiveCardChange();
         }
-
 
     }
 
@@ -899,6 +896,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         }
 
+
+    }
+    public void startLoader() {
+
+
+
+    }
+
+    public void stopLoader() {
 
     }
 

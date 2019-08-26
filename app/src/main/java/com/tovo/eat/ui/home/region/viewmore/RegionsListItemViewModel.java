@@ -39,7 +39,7 @@ public class RegionsListItemViewModel {
 
         totalKitchens.set(mRegionList.getKitchencount()+" Kitchens");
         stateName.set(mRegionList.getStatename());
-        famousfood.set(mRegionList.getSpecialitiesFoodContent());
+        famousfood.set(mRegionList.getSliderContent());
         identityImage.set(mRegionList.getIdentityImg());
         spclFoodImage.set(mRegionList.getSpecialDishImg());
 

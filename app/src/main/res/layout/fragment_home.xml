@@ -22,7 +22,7 @@
 
 
         <!--<com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
+            android:id="@+id/shimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -399,7 +399,7 @@
                           app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
                     <LinearLayout
-                        android:visibility="visible"
+                        android:visibility="gone"
                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"

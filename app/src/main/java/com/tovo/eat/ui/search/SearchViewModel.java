@@ -422,11 +422,8 @@ public KitchenResponse kitchenResponse;
                         if (response.getResult().size()!=0) {
 
                             kitchenListItemsLiveData.setValue(response.getResult());
-
                             regionName.set(response.getResult().get(0).getRegionname());
-
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
-
                             kitchenResponse=response;
 
                             getNavigator().listLoaded();

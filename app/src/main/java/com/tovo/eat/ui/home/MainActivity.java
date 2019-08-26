@@ -3,6 +3,7 @@ package com.tovo.eat.ui.home;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
@@ -13,6 +14,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -32,13 +35,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -90,6 +95,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String DialogTag = DialogSelectAddress.newInstance().getTag();
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
+    protected LocationManager locationManager;
+
+    ProgressDialog progressDialog;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -148,7 +158,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private int _xDelta;
     private int _yDelta;
     private BroadcastReceiver mNetworkReceiver;
-    private GoogleApiClient mGoogleApiClient;
+   /* private GoogleApiClient mGoogleApiClient;
     private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
             .ConnectionCallbacks() {
 
@@ -158,7 +168,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             request.setInterval(1);
             request.setFastestInterval(1);
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
             try {
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -175,7 +184,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             // TODO: Handle gracefully
         }
 
-    };
+    };*/
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
@@ -265,7 +274,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
-
+        stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
@@ -325,11 +334,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void startLoader() {
         mActivityMainBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mActivityMainBinding.shimmerViewContainer.startShimmerAnimation();
+
+      //  if (!progressDialog.isShowing()) progressDialog.show();
+
+
+       // mActivityMainBinding.loading.setVisibility(View.VISIBLE);
+
     }
 
     public void stopLoader() {
         mActivityMainBinding.shimmerViewContainer.setVisibility(View.GONE);
         mActivityMainBinding.shimmerViewContainer.stopShimmerAnimation();
+       // if (progressDialog.isShowing()) progressDialog.dismiss();
+       // mActivityMainBinding.loading.setVisibility(View.GONE);
     }
 
     @Override
@@ -643,6 +660,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerWifiReceiver();
 
 
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(true);
+
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
 
@@ -653,6 +674,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 if (mMainViewModel.isAddressAdded()) {
                     mMainViewModel.gotoCart();
+                }else {
+                    openHome();
                 }
             } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
 
@@ -661,33 +684,28 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
             } else {
-
                 if (mMainViewModel.getDataManager().getAddressId() == 0) {
                     mMainViewModel.getDataManager().setCurrentLat(0.0);
                     mMainViewModel.getDataManager().setCurrentLng(0.0);
-                }
-
-                if (mMainViewModel.getDataManager().getAddressId() == 0) {
                     startLoader();
                     startLocationTracking();
-                } else {
+                }else {
+
                     openHome();
                 }
 
             }
         } else {
-
             if (mMainViewModel.getDataManager().getAddressId() == 0) {
                 mMainViewModel.getDataManager().setCurrentLat(0.0);
                 mMainViewModel.getDataManager().setCurrentLng(0.0);
-            }
-
-            if (mMainViewModel.getDataManager().getAddressId() == 0) {
                 startLoader();
                 startLocationTracking();
-            } else {
+            }else {
+
                 openHome();
             }
+
         }
 
 
@@ -755,11 +773,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS
                     if (isGPSEnable) {
-                        mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                        /*mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
                                 .addConnectionCallbacks(mLocationRequestCallback)
                                 .addApi(LocationServices.API)
                                 .build();
-                        mGoogleApiClient.connect();
+                        mGoogleApiClient.connect();*/
+
+                        getLocation();
                     } else {
                         //  turnOnGps();
                         showLocationDialog();
@@ -801,9 +821,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerWifiReceiver();
 
 
-        if (mMainViewModel.getDataManager().getAddressId()==0){
+        /*if (mMainViewModel.getDataManager().getAddressId()==0){
             startLocationTracking();
-        }
+        }*/
 
 
 
@@ -926,13 +946,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (shouldProvideRationale) {
             //   Log.i(TAG, "Displaying permission rationale to provide additional context.");
 
-            Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            Snackbar snackbar = Snackbar.make(mActivityMainBinding.shimmerViewContainer, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
             snackbar.setActionTextColor(getResources().getColor(R.color.white));
             View snackbarView = snackbar.getView();
             int snackbarTextId = android.support.design.R.id.snackbar_text;
             TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
             textView.setTextColor(getResources().getColor(R.color.white));
-            snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
+            snackbarView.setBackgroundColor((getResources().getColor(R.color.black)));
 
             snackbar.setAction("Ok", new View.OnClickListener() {
                 @Override
@@ -1003,13 +1023,30 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         if (location != null) {
-            if (mGoogleApiClient != null)
-                mGoogleApiClient.disconnect();
+          /*  if (mGoogleApiClient != null)
+                mGoogleApiClient.disconnect();*/
+
+          locationManager.removeUpdates(this);
 
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             openHome();
 
         }
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 
@@ -1067,6 +1104,47 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onPaymentError(int i, String s) {
         mMainViewModel.paymentSuccess("Canceled", 2);
     }
+
+
+
+
+
+
+
+    public Location getLocation() {
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+                return null;
+
+            }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocationGPS != null) {
+
+                return lastKnownLocationGPS;
+            } else {
+                Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                return loc;
+            }
+        } else {
+            return null;
+        }
+    }
+
 
 
 }

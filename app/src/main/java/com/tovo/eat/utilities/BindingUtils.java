@@ -595,17 +595,7 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
 
-
-
-
-
-
-
-
-
-
-
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(3f);
         circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();

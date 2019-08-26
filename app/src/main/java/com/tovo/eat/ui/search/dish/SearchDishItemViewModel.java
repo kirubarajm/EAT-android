@@ -4,8 +4,13 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.view.View;
 
+import com.tovo.eat.R;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 
 public class SearchDishItemViewModel {
@@ -43,6 +48,8 @@ public class SearchDishItemViewModel {
         if (mKitchenList.getProductlist() != null)
 
             KitchenDishItemViewModels.addAll(mKitchenList.getProductlist());
+
+
 
 
         this.kitchen_image.set(mKitchenList.getMakeitimg());

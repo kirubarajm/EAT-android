@@ -12,8 +12,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.3"
+        versionCode 4
+        versionName "0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -34,7 +34,7 @@ android {
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
+        // but continue the build even when errors are found:0
       //  abortOnError false
     }
 }

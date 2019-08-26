@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +21,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.ImageSpan;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -44,11 +50,14 @@ import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.TextJustification;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
+import com.tovo.eat.utilities.fonts.poppins.ContentTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
@@ -122,7 +131,65 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         photoView.setImageMatrix(imageMatrix);
     }
+    public static void justify(final ContentTextView textView) {
 
+        final AtomicBoolean isJustify = new AtomicBoolean(false);
+
+        final String textString = textView.getText().toString();
+
+        final TextPaint textPaint = textView.getPaint();
+
+        final SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+
+                if (!isJustify.get()) {
+
+                    final int lineCount = textView.getLineCount();
+                    final int textViewWidth = textView.getWidth();
+
+                    for (int i = 0; i < lineCount; i++) {
+
+                        int lineStart = textView.getLayout().getLineStart(i);
+                        int lineEnd = textView.getLayout().getLineEnd(i);
+
+                        String lineString = textString.substring(lineStart, lineEnd);
+
+                        if (i == lineCount - 1) {
+                            builder.append(new SpannableString(lineString));
+                            break;
+                        }
+
+                        String trimSpaceText = lineString.trim();
+                        String removeSpaceText = lineString.replaceAll(" ", "");
+
+                        float removeSpaceWidth = textPaint.measureText(removeSpaceText);
+                        float spaceCount = trimSpaceText.length() - removeSpaceText.length();
+
+                        float eachSpaceWidth = (textViewWidth - removeSpaceWidth) / spaceCount;
+
+                        SpannableString spannableString = new SpannableString(lineString);
+                        for (int j = 0; j < trimSpaceText.length(); j++) {
+                            char c = trimSpaceText.charAt(j);
+                            if (c == ' ') {
+                                Drawable drawable = new ColorDrawable(0x00ffffff);
+                                drawable.setBounds(0, 0, (int) eachSpaceWidth, 0);
+                                ImageSpan span = new ImageSpan(drawable);
+                                spannableString.setSpan(span, j, j + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            }
+                        }
+
+                        builder.append(spannableString);
+                    }
+
+                    textView.setText(builder);
+                    isJustify.set(true);
+                }
+            }
+        });
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +203,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         specialitiesAdapter.setListener(this);
         kitchenCommonAdapter.setListener(this);
         mFragmentDishBinding = getViewDataBinding();
+
+
+        TextJustification.justify(mFragmentDishBinding.aboutContent);
+
+     //   justify(mFragmentDishBinding.aboutContent);
+
 /*
         setSupportActionBar(mFragmentDishBinding.toolbar);
 

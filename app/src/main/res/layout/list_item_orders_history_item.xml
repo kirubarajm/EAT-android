@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="ordersProductListItemViewModel"
-            type="com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityListItemViewModel" />
-    </data>
-
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="6">
 
 
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:layout_weight="3.5"
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/name"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
@@ -36,18 +37,16 @@
                     android:textSize="14sp" />
 
                 <com.tovo.eat.utilities.fonts.TovoTextView
-                    android:layout_weight="0.5"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="3dp"
                     android:layout_marginEnd="1dp"
                     android:layout_toEndOf="@+id/name"
                     android:text="@string/icon_veg"
                     android:textColor="@{ordersProductListItemViewModel.isVeg?@color/green:@color/red}"
                     android:textSize="5sp" />
-
-
+            </LinearLayout>
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                 android:layout_width="0dp"
@@ -60,12 +59,12 @@
 
 
             <RelativeLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <LinearLayout
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -79,23 +78,33 @@
                         android:id="@+id/inr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/icon_inr"
                         android:layout_gravity="center_vertical"
+                        android:text="@string/icon_inr"
                         android:textColor="@color/black"
                         android:textSize="10sp" />
-
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                        android:layout_gravity="center_vertical"
                         android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:text="@{ordersProductListItemViewModel.price}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
+
                 </LinearLayout>
             </RelativeLayout>
 
+
         </LinearLayout>
     </RelativeLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ordersProductListItemViewModel"
+            type="com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityListItemViewModel" />
+    </data>
 
 </layout>

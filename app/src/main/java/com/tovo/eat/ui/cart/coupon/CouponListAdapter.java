@@ -114,6 +114,14 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void addItems(List<CouponListResponse.Result> blogList) {
         item_list.addAll(blogList);
+
+        for (int i=0;i<item_list.size();i++){
+
+            if ( !item_list.get(i).isCouponStatus()){
+                item_list.remove(i);
+            }
+
+        }
         notifyDataSetChanged();
     }
 
