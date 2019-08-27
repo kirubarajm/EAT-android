@@ -35,7 +35,7 @@ android {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:0
-      //  abortOnError false
+        //  abortOnError false
     }
 }
 
@@ -61,7 +61,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomDatabase"
 
     // image
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.github.bumptech.glide:glide:3.7.1"
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -77,7 +77,7 @@ dependencies {
     // reactive
 
     // swipe view
-  //  implementation "com.mindorks:placeholderview:$rootProject.placeholderviewVersion"
+    //  implementation "com.mindorks:placeholderview:$rootProject.placeholderviewVersion"
 
     // logger
 
@@ -161,9 +161,6 @@ dependencies {
 
 
     implementation 'com.firebase:geofire-java:3.0.0'
-
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     // Glide v3 (stable)
     implementation 'com.github.bumptech.glide:glide:3.9.0-SNAPSHOT'
     // OkHttp3
@@ -175,7 +172,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

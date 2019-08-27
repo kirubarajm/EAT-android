@@ -18,6 +18,7 @@ import com.tovo.eat.databinding.ActivityTabFavoritesBinding;
 import com.tovo.eat.ui.account.favorites.favdish.CartFavListener;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -28,7 +29,7 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 
-public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector , CartFavListener {
+public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBinding, FavoritesTabActivityViewModel> implements FavoritesTabActivityNavigator, HasSupportFragmentInjector, CartFavListener {
 
     ActivityTabFavoritesBinding mActivityTabFavoritesBinding;
     @Inject
@@ -37,16 +38,23 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
     FavoritesTabAdapter mFavoritesTabAdapter;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
-
-
-
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(FavoritesTabActivity.this);
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
         return new Intent(context, FavoritesTabActivity.class);
     }
-
 
     @Override
     public void handleError(Throwable throwable) {
@@ -68,7 +76,6 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
         finish();
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -130,7 +137,6 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
         return fragmentDispatchingAndroidInjector;
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -164,14 +170,13 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -186,27 +191,16 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+            setUp();
+        }
+    }
 
 }

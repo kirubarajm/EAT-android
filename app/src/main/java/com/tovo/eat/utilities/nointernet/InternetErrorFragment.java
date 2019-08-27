@@ -1,5 +1,6 @@
 package com.tovo.eat.utilities.nointernet;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,10 +45,7 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
 
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
-
-
-                finish();
-
+                setActivityResult();
 
             }
 
@@ -56,6 +54,13 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
 
     public static Intent newIntent(Context context) {
         return new Intent(context, InternetErrorFragment.class);
+    }
+
+    public void setActivityResult() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+
     }
 
     @Override
@@ -93,6 +98,8 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
         // internetListener.isInternet(mInternetErrorViewModel.checkInternet());
 
         if (mInternetErrorViewModel.checkInternet()) {
+            Intent returnIntent = new Intent();
+            setResult(Activity.RESULT_OK, returnIntent);
             finish();
         }
 
@@ -150,8 +157,10 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
 
         if (doubleBackToExitPressedOnce) {
             if (mInternetErrorViewModel.checkInternet()) {
-               finish();
-            }else {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            } else {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

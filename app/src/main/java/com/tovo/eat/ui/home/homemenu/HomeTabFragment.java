@@ -1,20 +1,10 @@
 package com.tovo.eat.ui.home.homemenu;
 
-import android.Manifest;
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.location.Location;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -24,16 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageSwitcher;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.tovo.eat.BR;
-import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
@@ -55,14 +37,8 @@ import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
-import com.tovo.eat.utilities.card.DecodeBitmapTask;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -85,16 +61,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Inject
     StoriesCardAdapter storiesCardAdapter;
 
-
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
     StoriesResponse storiesFullResponse;
     StackLayoutManager mStackLayoutManager;
+    boolean regionCardClicked = false;
     private FragmentHomeBinding mFragmentHomeBinding;
-    boolean regionCardClicked=false;
-
     private int currentPosition;
-
+    ProgressDialog progressDialog;
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -145,7 +119,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void disconnectGps() {
-       // mGoogleApiClient.disconnect();
+        // mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -154,30 +128,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
-       stopLoader();
+      //  stopLoader();
     }
 
     @Override
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
         initCountryText();
-        try {
-
-
-       stopLoader();
-        }catch (NullPointerException    n){
-            n.printStackTrace();
-        }
+        stopLoader();
     }
 
     @Override
     public void dataLoaded() {
-        try {
-
-           stopLoader();
-        }catch (NullPointerException    n){
-            n.printStackTrace();
-        }
+            //stopLoader();
     }
 
     @Override
@@ -195,7 +158,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void kitchenLoaded() {
-       stopLoader();
+        //stopLoader();
 
        /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
 
@@ -224,7 +187,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onPause() {
         super.onPause();
-
 /*
         if (isFinishing() && decodeBitmapTask != null) {
              decodeBitmapTask.cancel(true);
@@ -236,14 +198,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
 
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(true);
+
 
         startLoader();
-
-        /*mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentHomeBinding.shimmerViewContainer.stopShimmerAnimation();*/
-
         regionsResponse = new RegionsResponse();
-
 
         if (mHomeTabViewModel.isAddressAdded()) {
             setUp();
@@ -252,10 +213,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         }
 
+
     }
-
-
-
 
 
     private void setUp() {
@@ -277,7 +236,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             public boolean canScrollVertically() {
                 return false;
             }
-
             @Override
             public boolean canScrollHorizontally() {
                 return false;
@@ -540,9 +498,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         /* mHomeTabViewModel.updateAddressTitle();*/
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
-       //mHomeTabViewModel.fetchStories();
+        //mHomeTabViewModel.fetchStories();
         mHomeTabViewModel.fetchKitchen();
-        regionCardClicked=false;
+        regionCardClicked = false;
 
     }
 
@@ -563,10 +521,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     }
-
-
-
-
 
 
     @Override
@@ -760,7 +714,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (position == activeCardPosition) {
             if (!regionCardClicked) {
-                regionCardClicked=true;
+                regionCardClicked = true;
                 Intent intent = RegionDetailsActivity.newIntent(getContext());
                 intent.putExtra("image", mRegionList.getRegionDetailImage());
                 intent.putExtra("id", mRegionList.getRegionid());
@@ -893,19 +847,25 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 startLocationTracking();
             }*/
 
-
         }
-
-
     }
+
     public void startLoader() {
 
 
+          if (!progressDialog.isShowing()) progressDialog.show();
 
+
+       /* mFragmentHomeBinding.shimmer.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.shimmer.startShimmerAnimation();*/
     }
 
     public void stopLoader() {
 
+          if (progressDialog.isShowing()) progressDialog.dismiss();
+
+       /* mFragmentHomeBinding.shimmer.setVisibility(View.GONE);
+        mFragmentHomeBinding.shimmer.stopShimmerAnimation();*/
     }
 
 }

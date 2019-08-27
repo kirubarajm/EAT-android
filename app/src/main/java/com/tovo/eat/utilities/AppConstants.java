@@ -77,6 +77,7 @@ public class AppConstants {
     public static final int CART_REQUESTCODE = 111;
     public static final int COD_REQUESTCODE = 222;
     public static final int ONLINE_REQUESTCODE = 333;
+    public static final int INTERNET_ERROR_REQUEST_CODE = 4404;
 
     public static final String SUPPORT_NUMBER = "9790876528";
 
@@ -90,8 +91,8 @@ public class AppConstants {
     ///////Server Ip Ports
 
   // public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
-   public static final String URL_SERVER_IP_PORT = "http://api.eatalltime.co.in";////live ip port new
- //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+ //  public static final String URL_SERVER_IP_PORT = "http://api.eatalltime.co.in";////live ip port new
+ public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 

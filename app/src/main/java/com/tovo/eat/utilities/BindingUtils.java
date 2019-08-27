@@ -22,12 +22,8 @@ import android.content.res.TypedArray;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.MediaDataSource;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Transition;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,19 +34,18 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.DrawableCrossFadeFactory;
 import com.bumptech.glide.request.target.Target;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tovo.eat.R;
 import com.tovo.eat.ui.account.favorites.favkitchen.FavKitchenAdapter;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesAdapter;
@@ -76,13 +71,14 @@ import com.tovo.eat.ui.filter.FilterAdapter;
 import com.tovo.eat.ui.filter.FilterItems;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.RegionsCardAdapter;
-import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
+import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
+import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
@@ -426,27 +422,60 @@ public final class BindingUtils {
     public static void setImageUrl(RoundCornerImageView imageView, String url) {
         Context context = imageView.getContext();
 
+
+
+
+
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .crossFade()
+                .transform(new DelayBitmapTransformation(0))
+                .listener(new LoggingListener<String, Bitmap>())
+                .into(imageView);
+
+
+
        /* Glide.with(context).load(url).placeholder(R.drawable.images_loading)
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);*/
 
 
 
+       /* Glide.with(context)
+                .load(url).into(imageView);*/
 
 
 
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        /*CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
         circularProgressDrawable.setStrokeWidth(3f);
         circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.setColorSchemeColors(R.color.eat_color);
         circularProgressDrawable.start();
 
         Glide.with(context)
                 .load(url)
-                .placeholder(circularProgressDrawable)
                 .dontAnimate()
+                .placeholder(R.drawable.ic_eatlogo_01)
                 .dontTransform()
-                .error(R.drawable.imagenotavailable) .into(imageView);
+                .fallback(R.drawable.eat_login_logo)
+                .error(R.drawable.imagenotavailable) .into(imageView);*/
 
+/*
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.eat_login_logo).centerInside();
+        requestOptions.error(R.drawable.imagenotavailable);
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.start();*/
+
+      /*  Glide.with(context)
+                .load(url)
+               // .apply(requestOptions)
+                .into(imageView);*/
 
 /*
         CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
@@ -486,26 +515,145 @@ public final class BindingUtils {
 
     }
 
-    @BindingAdapter("imageUrl")
+
+
+
+    @BindingAdapter({"imageUrl","loader"})
+    public static void setImageUrl(ImageView imageView, String url, ImageView loader) {
+        Context context = imageView.getContext();
+
+        loader.setVisibility(View.VISIBLE);
+
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+
+                        return false;
+
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+                        return false;
+                    }
+
+
+
+                })
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
+
+
+    }
+
+@BindingAdapter({"imageUrl","shimmer"})
+    public static void setImageUrl(ImageView imageView, String url, ShimmerFrameLayout loader) {
+        Context context = imageView.getContext();
+
+        loader.setVisibility(View.VISIBLE);
+        loader.startShimmerAnimation();
+
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+                        loader.stopShimmerAnimation();
+                        return false;
+
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+                        loader.stopShimmerAnimation();
+                        return false;
+                    }
+
+
+
+                })
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);
+
+
+    }
+
+
+
+
+        @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
 
-        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .crossFade() .into(imageView);
+
+
+
+
+
+
+       /* Glide.with(context)
+                .load(url)
+                .into(imageView);*/
+
+        /*CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(MvvmApp.getInstance());
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.setColorSchemeColors(R.color.eat_color);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
+                .dontAnimate()
+                .fallback(R.drawable.eat_login_logo)
+                .dontTransform()
+                .placeholder(R.drawable.ic_eatlogo_01)
+                .error(R.drawable.imagenotavailable) .into(imageView);*/
+
+
+
+
+       /* RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.eat_login_logo).centerInside();
+        requestOptions.error(R.drawable.imagenotavailable);
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(3f);
         circularProgressDrawable.setCenterRadius(50f);
         circularProgressDrawable.start();
 
         Glide.with(context)
                 .load(url)
-                .placeholder(circularProgressDrawable)
-                .dontAnimate()
-                .dontTransform()
-                .error(R.drawable.imagenotavailable) .into(imageView);
+                .apply(requestOptions)
+                .into(imageView);*/
 
 
+       /* RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.eat_login_logo);
+        requestOptions.error(R.drawable.imagenotavailable);
 
 
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.start();
 
+        Glide.with(context)
+                .load(url)
+                .apply(requestOptions)
+                .into(imageView);*/
 
 
 
@@ -595,6 +743,37 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
 
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .crossFade().into(imageView);
+
+
+
+
+      /*  Glide.with(context)
+                .load(url)
+             *//*   .transform( //2
+                        CenterCrop(),
+                        BlurTransformation(blurValue), //3
+                        ContrastFilterTransformation(contrastValue), //4
+                        VignetteFilterTransformation(
+                                PointF(0.5f, 0.5f),
+                                floatArrayOf(0f, 0f, 0f),
+                                0f,
+                                vignetteValue)) //5*//*
+                .into(imageView);*/
+
+        /*CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.start();*/
+
+      /*  RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.eat_login_logo).centerInside();
+        requestOptions.error(R.drawable.imagenotavailable);
+
+
         CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(3f);
         circularProgressDrawable.setCenterRadius(50f);
@@ -602,10 +781,39 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .placeholder(circularProgressDrawable)
+                .apply(requestOptions)
+                .into(imageView);*/
+        /*CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
                 .dontTransform()
                 .dontAnimate()
-                .error(R.drawable.imagenotavailable).into(imageView);
+                .fallback(R.drawable.eat_login_logo)
+                .placeholder(R.drawable.ic_eatlogo_01)
+                .error(R.drawable.imagenotavailable).into(imageView);*/
+
+
+
+        /*RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.eat_login_logo);
+        requestOptions.error(R.drawable.imagenotavailable);
+
+
+        CircularProgressDrawable circularProgressDrawable =new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(3f);
+        circularProgressDrawable.setCenterRadius(50f);
+        circularProgressDrawable.start();
+
+        Glide.with(context)
+                .load(url)
+                .apply(requestOptions)
+                .into(imageView);*/
+
+
 
 
 

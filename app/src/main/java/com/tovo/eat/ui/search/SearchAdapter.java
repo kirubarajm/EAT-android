@@ -138,6 +138,8 @@ public class SearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
         }
 
         @Override

@@ -195,6 +195,12 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 // To force execution, use the executePendingBindings() method.
                 mListItemLiveProductsBinding.executePendingBindings();
 
+
+
+
+
+
+
             }
           /*  if (position ==getAdapterPosition()) {
 

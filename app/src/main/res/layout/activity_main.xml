@@ -179,6 +179,7 @@
 
 
                             <com.facebook.shimmer.ShimmerFrameLayout
+                                android:visibility="gone"
                                         android:id="@+id/loading"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -199,7 +200,7 @@
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="50dp"
-                                                android:background="@color/extra_light_gray"
+                                                android:background="@color/gray"
                                                 android:orientation="horizontal">
 
                                             </LinearLayout>
@@ -215,73 +216,73 @@
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/extra_light_gray" />
+                                                    android:background="@color/gray" />
 
                                             </LinearLayout>
 
@@ -291,7 +292,7 @@
                                                 android:layout_height="300dp"
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_margin="20dp"
-                                                android:background="@color/extra_light_gray">
+                                                android:background="@color/gray">
 
 
                                             </LinearLayout>
@@ -1001,7 +1002,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@color/extra_light_gray"
+                    android:background="@color/gray"
                     android:orientation="horizontal">
 
                 </LinearLayout>
@@ -1017,73 +1018,73 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                     <View
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="3dp"
-                        android:background="@color/extra_light_gray" />
+                        android:background="@color/gray" />
 
                 </LinearLayout>
 
@@ -1093,7 +1094,7 @@
                     android:layout_height="300dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="20dp"
-                    android:background="@color/extra_light_gray">
+                    android:background="@color/gray">
 
 
                 </LinearLayout>

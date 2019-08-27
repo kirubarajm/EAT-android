@@ -2,77 +2,31 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
 
         <RelativeLayout
-            android:background="@color/extra_light_gray"
             android:layout_width="120dp"
             android:layout_height="80dp"
-            android:layout_margin="10dp">
+            android:background="@color/extra_light_gray">
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:orientation="vertical">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:minWidth="70dp"
-                    android:background="@color/extra_light_gray"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:minWidth="70dp"
-                    android:background="@color/extra_light_gray"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="12sp" />
-
-
-
-            </LinearLayout>
-
-
-            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
-                android:minWidth="100dp"
-                android:background="@color/extra_light_gray"
-                android:textColor="@color/dark_gray"
-                android:textSize="12sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,7 +55,40 @@
             </RelativeLayout>
 
 
-        </LinearLayout>
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="10dp"
+                android:background="@color/extra_light_gray"
+                android:minWidth="150dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:background="@color/extra_light_gray"
+                android:minWidth="150dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/extra_light_gray"
+                android:minWidth="150dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 

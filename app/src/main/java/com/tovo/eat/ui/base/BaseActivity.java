@@ -90,9 +90,6 @@ BaseFragment.Callback{
         super.onCreate(savedInstanceState);
         performDataBinding();
 
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -160,18 +157,15 @@ BaseFragment.Callback{
     @Override
     protected void onResume() {
         super.onResume();
-
+        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver, intentFilter);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         ActiveActivitiesTracker.activityStopped();
-        try{
-            unregisterReceiver(dataReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -191,18 +185,11 @@ BaseFragment.Callback{
         super.onStart();
 
         ActiveActivitiesTracker.activityStarted();
-
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try{
-            unregisterReceiver(dataReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+
     }
 }

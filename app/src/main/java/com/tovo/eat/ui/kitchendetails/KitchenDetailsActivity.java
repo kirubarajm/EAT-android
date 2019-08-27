@@ -45,10 +45,12 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.TextJustification;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
@@ -892,9 +894,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
             } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent= InternetErrorFragment.newIntent(KitchenDetailsActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                MvvmApp.getInstance().startActivity(inIntent);
+                startActivityForResult(inIntent,AppConstants.INTERNET_ERROR_REQUEST_CODE);
                /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 InternetErrorFragment fragment = new InternetErrorFragment();
                 transaction.replace(R.id.content_main, fragment);
@@ -905,6 +907,14 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     };
     private  void unregisterWifiReceiver() {
         MvvmApp.getInstance().  unregisterReceiver(mWifiReceiver);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  if (requestCode ==AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+          mKitchenDetailsViewModel.fetchRepos(kitchenID);
+        }
     }
 
 

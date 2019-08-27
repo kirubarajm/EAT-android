@@ -105,23 +105,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         public void onReceive(Context context, Intent intent) {
 
             //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-               /* if (internetCheck) {
-
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    HomeTabFragment fragment = new HomeTabFragment();
-                    transaction.replace(R.id.content_main, fragment);
-                    //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
-                    transaction.commit();
-                    mMainViewModel.isHome.set(true);
-                    mMainViewModel.isExplore.set(false);
-                    mMainViewModel.isCart.set(false);
-                    mMainViewModel.isMyAccount.set(false);
-                }*/
-            } else {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MainActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
+                startActivityForResult(inIntent,AppConstants.INTERNET_ERROR_REQUEST_CODE);
             }
 
         }
@@ -549,17 +536,30 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
+        }else if (requestCode ==AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+           /* openCurrentFragment();*/
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
+    public void openCurrentFragment() {
+        if (mMainViewModel.isHome.get()){
+            openHome();
+        }else if (mMainViewModel.isExplore.get()){
+            openExplore();
+        }else if (mMainViewModel.isCart.get()){
+            openCart();
+        }else if (mMainViewModel.isMyAccount.get()){
+            openAccount();
+        }else {
+            openHome();
+        }
+
+
 
     }
+
+
 
     public void selectHomeAddress() {
 
@@ -567,17 +567,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        try {
-            unregisterReceiver(dataReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void saveFcmToken() {
 
@@ -657,16 +646,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         saveFcmToken();
 
-        registerWifiReceiver();
-
-
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(true);
-
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
-
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -810,36 +792,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        statusUpdate();
-
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
-        registerWifiReceiver();
-
-
-        /*if (mMainViewModel.getDataManager().getAddressId()==0){
-            startLocationTracking();
-        }*/
 
 
 
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        try {
-            unregisterReceiver(dataReceiver);
-            unregisterWifiReceiver();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @Override
     public void checkCart() {
@@ -1146,5 +1101,40 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        statusUpdate();
+
+        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver, intentFilter);
+        registerWifiReceiver();
+
+
+        /*if (mMainViewModel.getDataManager().getAddressId()==0){
+            startLocationTracking();
+        }*/
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            unregisterReceiver(dataReceiver);
+            unregisterWifiReceiver();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

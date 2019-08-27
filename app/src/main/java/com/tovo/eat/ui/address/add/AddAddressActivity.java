@@ -43,7 +43,6 @@ import com.tovo.eat.databinding.ActivityAddAddressBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
-import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -76,10 +75,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (!checkWifiConnect()) {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                Intent inIntent = InternetErrorFragment.newIntent(AddAddressActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                MvvmApp.getInstance().startActivity(inIntent);
-
+                startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
             }
         }
     };
@@ -468,7 +466,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     public Location getLocation() {
-         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -535,8 +533,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 printToast("Error in retrieving place info");
 
             }
-        }
-        if (requestCode == AppConstants.GPS_REQUEST) {
+        }else if (requestCode == AppConstants.GPS_REQUEST) {
 
             if (resultCode == Activity.RESULT_OK) {
 
@@ -552,6 +549,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 showLocationDialog();
 
             }
+
+
+        }else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
 
 
         }

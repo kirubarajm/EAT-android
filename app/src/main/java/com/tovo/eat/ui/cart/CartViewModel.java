@@ -58,6 +58,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<Integer> refundBalance = new ObservableField<>();
 
     public final ObservableField<String> cuisines = new ObservableField<>();
+    public final ObservableField<String> region = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
 
 
@@ -554,8 +555,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             }
                             String items = itemsBuilder.toString();*/
                             //cuisines.set(items);
-                            cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from " + cartPageResponse.getResult().get(0).getRegionname());
-
+                            cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from ");
+                            region.set(cartPageResponse.getResult().get(0).getRegionname());
 
                         }
 
