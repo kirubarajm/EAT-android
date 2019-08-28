@@ -157,7 +157,17 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
 
-                                strPaymentType.set("Amount to be paid through "+response.getResult().get(0).getPaymentTypeName());
+
+
+                             if (response.getResult().get(0).getPaymentType().equals("1")){
+
+                                 strPaymentType.set("Amount paid through "+response.getResult().get(0).getPaymentTypeName());
+                             }else {
+                                 strPaymentType.set("Amount to be paid through "+response.getResult().get(0).getPaymentTypeName());
+                             }
+
+
+
 
                             // Repeat Order
 

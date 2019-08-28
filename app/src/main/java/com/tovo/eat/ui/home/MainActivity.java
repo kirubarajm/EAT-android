@@ -306,11 +306,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void paymentPending(int orderid, String brandname) {
+    public void paymentPending(int orderid, String brandname,int price,String products) {
 
         Bundle bundle = new Bundle();
         bundle.putInt("orderid", orderid);
         bundle.putString("brandname", brandname);
+        bundle.putString("products", products);
+        bundle.putInt("price", price);
         PendingPaymentAlert bottomSheetFragment = new PendingPaymentAlert();
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.setCancelable(false);
@@ -319,8 +321,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void startLoader() {
-        mActivityMainBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mActivityMainBinding.shimmerViewContainer.startShimmerAnimation();
+        mActivityMainBinding.loading.setVisibility(View.VISIBLE);
+        mActivityMainBinding.loading.startShimmerAnimation();
 
       //  if (!progressDialog.isShowing()) progressDialog.show();
 
@@ -330,8 +332,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     public void stopLoader() {
-        mActivityMainBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mActivityMainBinding.shimmerViewContainer.stopShimmerAnimation();
+        mActivityMainBinding.loading.setVisibility(View.GONE);
+        mActivityMainBinding.loading.stopShimmerAnimation();
        // if (progressDialog.isShowing()) progressDialog.dismiss();
        // mActivityMainBinding.loading.setVisibility(View.GONE);
     }
@@ -901,7 +903,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (shouldProvideRationale) {
             //   Log.i(TAG, "Displaying permission rationale to provide additional context.");
 
-            Snackbar snackbar = Snackbar.make(mActivityMainBinding.shimmerViewContainer, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            Snackbar snackbar = Snackbar.make(mActivityMainBinding.root, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
             snackbar.setActionTextColor(getResources().getColor(R.color.white));
             View snackbarView = snackbar.getView();
             int snackbarTextId = android.support.design.R.id.snackbar_text;

@@ -15,7 +15,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -29,7 +28,6 @@ import android.text.style.ImageSpan;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -45,11 +43,9 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
-import com.tovo.eat.ui.kitchendetails.viewimage.ViewImageActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.TextJustification;
@@ -96,6 +92,23 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     int totalCount;
     TextView rowTextView;
     TextView[] myTextViews;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(KitchenDetailsActivity.this);
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
     private float collapsedScale;
     private float expandedScale;
     private TextView[] dots;
@@ -133,6 +146,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         photoView.setImageMatrix(imageMatrix);
     }
+
     public static void justify(final ContentTextView textView) {
 
         final AtomicBoolean isJustify = new AtomicBoolean(false);
@@ -192,6 +206,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             }
         });
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,9 +222,13 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding = getViewDataBinding();
 
 
+        startKitchenLoader();
+
+
+
         TextJustification.justify(mFragmentDishBinding.aboutContent);
 
-     //   justify(mFragmentDishBinding.aboutContent);
+        //   justify(mFragmentDishBinding.aboutContent);
 
 /*
         setSupportActionBar(mFragmentDishBinding.toolbar);
@@ -217,8 +236,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
-       /* Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
-        *//*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*//*
+        /* Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+         *//*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*//*
         getSupportActionBar().setHomeAsUpIndicator(backArrow);*/
 
         mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
@@ -233,7 +252,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             kitchenID = intent.getExtras().getInt("kitchenId");
             mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
-            if (intent.getExtras().getInt("type")==2){
+            if (intent.getExtras().getInt("type") == 2) {
                 mKitchenDetailsViewModel.info();
             }
 
@@ -462,12 +481,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.recyclerFav.setAdapter(mFavTodaysMenuAdapter);
 
 
-      //  mFragmentDishBinding.recyclerFav.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        //  mFragmentDishBinding.recyclerFav.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerTodaysMenu.setLayoutManager(new LinearLayoutManager(this));
         mFragmentDishBinding.recyclerTodaysMenu.setAdapter(mTodaysMenuAdapter);
-      //  mFragmentDishBinding.recyclerTodaysMenu.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        //  mFragmentDishBinding.recyclerTodaysMenu.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
         mFragmentDishBinding.recyclerSpecialities.setLayoutManager(gridLayoutManager);
@@ -489,7 +508,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void update( List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
+    public void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
         totalCount = kitchenmenuimageArrayList.size();
         dots = new TextView[totalCount];
         mFragmentDishBinding.layoutDots.removeAllViews();
@@ -513,7 +532,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 addBottomDots(currentFirstVisible);
             }
         });
-
 
 
         kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
@@ -612,10 +630,10 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void dishListLoaded(KitchenDishResponse response) {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
 
-        if (response!=null&&response.getResult().size()>0){
+        stopKitchenLoader();
+
+        if (response != null && response.getResult().size() > 0) {
             mFavTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
             mTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
 
@@ -642,8 +660,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     public void goBack() {
         finish();
     }
-
-
 
     @Override
     public void animChanges(boolean status) {
@@ -749,10 +765,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     public void animateView(View view) {
-        Animation shake = AnimationUtils.loadAnimation(KitchenDetailsActivity.this, R.anim.shake);
-        view.startAnimation(shake);
+       /* Animation shake = AnimationUtils.loadAnimation(KitchenDetailsActivity.this, R.anim.shake);
+        view.startAnimation(shake);*/
     }
-
 
     @Override
     public void sendCart() {
@@ -829,18 +844,16 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         /*Intent intent= ViewImageActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("image",url);
         startActivity(intent);*/
-       viewImage(url);
+        viewImage(url);
 
     }
 
-
-
-    public void viewImage(String url){
+    public void viewImage(String url) {
         final Dialog nagDialog = new Dialog(KitchenDetailsActivity.this, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         nagDialog.setCancelable(true);
         nagDialog.setContentView(R.layout.preview_image);
-        ButtonTextView btnClose =nagDialog.findViewById(R.id.btnIvClose);
+        ButtonTextView btnClose = nagDialog.findViewById(R.id.btnIvClose);
         ImageView ivPreview = (ImageView) nagDialog.findViewById(R.id.iv_preview_image);
         if (url != null) {
             Glide.with(getApplicationContext()).load(url).placeholder(null)
@@ -855,9 +868,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         nagDialog.show();
     }
 
-
-
-
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -866,14 +876,13 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         MvvmApp.getInstance().registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -888,35 +897,28 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 && networkInfo.isConnected();
     }
 
-     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(KitchenDetailsActivity.this);
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(inIntent,AppConstants.INTERNET_ERROR_REQUEST_CODE);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
-        MvvmApp.getInstance().  unregisterReceiver(mWifiReceiver);
+    private void unregisterWifiReceiver() {
+        MvvmApp.getInstance().unregisterReceiver(mWifiReceiver);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-  if (requestCode ==AppConstants.INTERNET_ERROR_REQUEST_CODE) {
-          mKitchenDetailsViewModel.fetchRepos(kitchenID);
+        if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+            mKitchenDetailsViewModel.fetchRepos(kitchenID);
         }
     }
 
+    public void startKitchenLoader() {
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
+        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+    }
+
+    public void stopKitchenLoader() {
+
+        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
+        mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
+    }
 
 }
 

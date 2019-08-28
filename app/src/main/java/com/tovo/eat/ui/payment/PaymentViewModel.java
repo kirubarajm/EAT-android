@@ -200,7 +200,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                             } else {
 
-                                if (cartPaymentResponse.getResult().size() > 0) {
+                                if (null!=cartPaymentResponse.getResult()&&cartPaymentResponse.getResult().size() > 0) {
                                     Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
                                     getDataManager().setOrderId(orderId);
                                     price = cartPaymentResponse.getResult().get(0).getPrice();
@@ -381,7 +381,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                             } else {
 
-                                if (cartPaymentResponse.getResult().size() > 0) {
+                                if (null!=cartPaymentResponse.getResult()&& cartPaymentResponse.getResult().size() > 0) {
                                     Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
                                     getDataManager().setOrderId(orderId);
                                     price = cartPaymentResponse.getResult().get(0).getPrice();

@@ -181,7 +181,24 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
                                     isLiveOrder.set(false);
-                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname());
+
+
+                                    StringBuilder itemsBuilder = new StringBuilder();
+
+                                    for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                        itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName()).append("[").append(response.getResult().get(0).getItems().get(i).getQuantity()).append("]");
+
+                                        if (response.getResult().get(0).getItems().size() - 1 != i) {
+                                            itemsBuilder.append(" , ");
+                                        }
+                                    }
+
+                                    String item = itemsBuilder.toString();
+
+
+
+
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(),response.getResult().get(0).getPrice(),item);
 
                                 } else {
 
@@ -261,7 +278,20 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
 
-                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname());
+                                    StringBuilder itemsBuilder = new StringBuilder();
+
+                                    for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                        itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName()).append("[").append(response.getResult().get(0).getItems().get(i).getQuantity()).append("]");
+
+                                        if (response.getResult().get(0).getItems().size() - 1 != i) {
+                                            itemsBuilder.append(" , ");
+                                        }
+                                    }
+
+                                    String item = itemsBuilder.toString();
+
+
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(),response.getResult().get(0).getPrice(),item);
 
                                 }
 
@@ -279,7 +309,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                     if (response.getOrderdetails().get(0).getShowRating()) {
 
-                                        if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
+                                        getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
+
+
+
+                                       /* if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
                                             if (getDataManager().getRatingSkips() < 3) {
                                                 getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
                                             }
@@ -289,7 +323,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                             getDataManager().saveRatingOrderId(response.getOrderdetails().get(0).getOrderid());
                                             getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
 
-                                        }
+                                        }*/
 
                                     }
 

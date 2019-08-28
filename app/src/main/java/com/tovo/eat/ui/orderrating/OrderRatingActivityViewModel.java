@@ -23,7 +23,7 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
     public final ObservableField<String> order = new ObservableField<>();
     public final ObservableField<String> kitchen = new ObservableField<>();
 
-
+public  int orderID=0;
 
 
     public OrderRatingActivityViewModel(DataManager dataManager) {
@@ -63,7 +63,7 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, getDataManager().getRatingOrderid()), new Response.Listener<OrderRatingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING, OrderRatingResponse.class, new OrderRatingRequest(foodRating, deliveryRating, strFood, strDelivery, orderID), new Response.Listener<OrderRatingResponse>() {
                 @Override
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {
@@ -93,6 +93,35 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
         getDataManager().saveRatingAppStatus(false);
         getDataManager().saveRatingSkipDate(getDataManager().getRatingSkips()+1);
         getNavigator().maybeLater();
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_ORDER_RATING_SKIP, OrderRatingResponse.class, new OrderRatingRequest(orderID), new Response.Listener<OrderRatingResponse>() {
+                @Override
+                public void onResponse(OrderRatingResponse response) {
+                    if (response != null) {
+                        getNavigator().ratingSuccess();
+                        getDataManager().saveRatingSkipDate(0);
+                    }
+
+                }
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().ratingFailure();
+                }
+            },AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+
+
     }
 
 

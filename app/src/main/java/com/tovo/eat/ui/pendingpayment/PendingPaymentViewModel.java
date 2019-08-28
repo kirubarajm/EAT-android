@@ -27,6 +27,8 @@ public class PendingPaymentViewModel extends BaseViewModel<PendingPaymentNavigat
 
     public final ObservableField<String> order = new ObservableField<>();
     public final ObservableField<String> kitchen = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
+    public final ObservableField<String> amount = new ObservableField<>();
 
 
 

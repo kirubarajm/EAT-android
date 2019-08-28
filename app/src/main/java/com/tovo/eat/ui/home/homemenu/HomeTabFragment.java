@@ -66,9 +66,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     StoriesResponse storiesFullResponse;
     StackLayoutManager mStackLayoutManager;
     boolean regionCardClicked = false;
+    ProgressDialog progressDialog;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
-    ProgressDialog progressDialog;
+
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -128,19 +129,25 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
-      //  stopLoader();
+        //  stopLoader();
     }
 
     @Override
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
+         stopRegioneLoader();
         initCountryText();
-        stopLoader();
+
+        //  stopLoader();
+
+        //stopRegioneLoader();
+
+
     }
 
     @Override
     public void dataLoaded() {
-            //stopLoader();
+        //stopLoader();
     }
 
     @Override
@@ -160,6 +167,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void kitchenLoaded() {
         //stopLoader();
 
+        stopKitchenLoader();
+
        /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
 
         mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
@@ -170,7 +179,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void getFullStories(StoriesResponse storiesResponse) {
         this.storiesFullResponse = storiesResponse;
-
+        stopStorieLoader();
     }
 
     @Override
@@ -198,12 +207,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
 
-        progressDialog=new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(true);
 
 
-        startLoader();
+        // startLoader();
+        startStoriesLoader();
+            startRegionLoader();
+            startKitchenLoader();
+//stopRegioneLoader();
+
         regionsResponse = new RegionsResponse();
 
         if (mHomeTabViewModel.isAddressAdded()) {
@@ -474,7 +488,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();*/
+        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.geFtLayoutManager();*/
 
 
         //      new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
@@ -533,8 +547,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void animateView(View view) {
-        Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
-        view.startAnimation(shake);
+      /*  Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        view.startAnimation(shake);*/
     }
 
     @Override
@@ -853,7 +867,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void startLoader() {
 
 
-          if (!progressDialog.isShowing()) progressDialog.show();
+        if (!progressDialog.isShowing()) progressDialog.show();
 
 
        /* mFragmentHomeBinding.shimmer.setVisibility(View.VISIBLE);
@@ -862,10 +876,45 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     public void stopLoader() {
 
-          if (progressDialog.isShowing()) progressDialog.dismiss();
+        if (progressDialog.isShowing()) progressDialog.dismiss();
 
        /* mFragmentHomeBinding.shimmer.setVisibility(View.GONE);
         mFragmentHomeBinding.shimmer.stopShimmerAnimation();*/
+    }
+
+
+    public void startStoriesLoader() {
+        mFragmentHomeBinding.storiesLoader.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.storiesLoader.startShimmerAnimation();
+    }
+
+    public void stopStorieLoader() {
+        mFragmentHomeBinding.storiesLoader.setVisibility(View.GONE);
+        mFragmentHomeBinding.storiesLoader.stopShimmerAnimation();
+    }
+
+    public void startRegionLoader() {
+
+        mFragmentHomeBinding.regionLayout.setVisibility(View.GONE);
+
+        mFragmentHomeBinding.regionLoader.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.regionLoader.startShimmerAnimation();
+    }
+
+    public void stopRegioneLoader() {
+        mFragmentHomeBinding.regionLayout.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.regionLoader.setVisibility(View.GONE);
+        mFragmentHomeBinding.regionLoader.stopShimmerAnimation();
+    }
+ public void startKitchenLoader() {
+        mFragmentHomeBinding.kitchenLoader.setVisibility(View.VISIBLE);
+        mFragmentHomeBinding.kitchenLoader.startShimmerAnimation();
+    }
+
+    public void stopKitchenLoader() {
+
+        mFragmentHomeBinding.kitchenLoader.setVisibility(View.GONE);
+        mFragmentHomeBinding.kitchenLoader.stopShimmerAnimation();
     }
 
 }

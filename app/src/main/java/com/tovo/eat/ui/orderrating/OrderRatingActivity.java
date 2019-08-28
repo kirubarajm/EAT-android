@@ -54,7 +54,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     @Override
     public void ratingSuccess() {
         dismiss();
-        Toast.makeText(getContext(), "Rating Success", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "Rating Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -138,7 +138,6 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
         mLoginViewModelMain.setNavigator(this);
 
 
-
     }
 
 
@@ -152,6 +151,9 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
         if (getArguments() != null) {
             mLoginViewModelMain.order.set("Order #"+ String.valueOf(getArguments().getInt("orderid")));
             mLoginViewModelMain.kitchen.set(getArguments().getString("brandname"));
+
+            mLoginViewModelMain.orderID=getArguments().getInt("orderid");
+
 
         }
 

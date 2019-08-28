@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.cart.refund.alert;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -113,7 +114,7 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                                     } else {
 
 
-
+                                        Toast.makeText(MvvmApp.getInstance(), response.getString("message"), Toast.LENGTH_SHORT).show();
                                     }
 
                                 } catch (JSONException e) {

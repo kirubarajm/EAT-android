@@ -91,8 +91,8 @@ public class AppConstants {
     ///////Server Ip Ports
 
   // public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
- //  public static final String URL_SERVER_IP_PORT = "http://api.eatalltime.co.in";////live ip port new
- public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+  public static final String URL_SERVER_IP_PORT = "http://api.eatalltime.co.in";////live ip port new
+ //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
@@ -108,8 +108,8 @@ public class AppConstants {
 
       //public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
 
-  //  public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+
 
 
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
@@ -134,6 +134,7 @@ public class AppConstants {
     public static final String URL_FORGOT_PASSWORD = URL_SERVER_IP_PORT + "/eat/forgot";/////GET method
     public static final String URL_SET_CONFIRM_PASSWORD = URL_SERVER_IP_PORT + "/eat/password";/////GET method
     public static final String URL_ORDER_RATING = URL_SERVER_IP_PORT + "/eat/rating";/////POST method
+    public static final String URL_ORDER_RATING_SKIP = URL_SERVER_IP_PORT + "/eat/orderskip";/////POST method
     public static final String URL_GET_USER_DETAILS = URL_SERVER_IP_PORT + "/eatusers/";/////POST method0
     public static final String URL_LOG_OUT = URL_SERVER_IP_PORT + "/eat/logout";/////POST method
     public static final String URL_CANCEL_ORDER= URL_SERVER_IP_PORT + "/eat/order/cancel/";/////POST method

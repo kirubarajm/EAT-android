@@ -19,6 +19,7 @@ import com.tovo.eat.databinding.ActivityFeedbackSupportBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -50,6 +51,12 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     @Override
     public void supportClick() {
         Intent intent = SupportActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    @Override
+    public void faqs() {
+        Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
     }
 

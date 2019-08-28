@@ -22,5 +22,9 @@ public class FeedbackAndSupportActivityViewModel extends BaseViewModel<FeedbackA
         getNavigator().goBack();
 
     }
+public void faqs(){
+        getNavigator().faqs();
+
+    }
 
 }

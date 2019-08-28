@@ -29,6 +29,11 @@ public class OrderRatingRequest {
         this.orderid = orderid;
     }
 
+
+    public OrderRatingRequest(Integer orderid) {
+        this.orderid = orderid;
+    }
+
     public Integer getRatingFood() {
         return ratingFood;
     }

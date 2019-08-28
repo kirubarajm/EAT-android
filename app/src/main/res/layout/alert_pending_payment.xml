@@ -4,26 +4,27 @@
     tools:context=".ui.signin.SignActivityMain">
 
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="pendingPaymentViewModel"
-            type="com.tovo.eat.ui.pendingpayment.PendingPaymentViewModel" />
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
 
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:tint="@color/dark_gray"
+            android:src="@drawable/order_cancel" />
+
         <LinearLayout
             android:id="@+id/order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_below="@+id/image"
             android:orientation="vertical">
 
 
@@ -48,8 +49,66 @@
                 android:textStyle="bold" />
 
 
-        </LinearLayout>
+            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@{pendingPaymentViewModel.products}"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
+
+
+            <LinearLayout
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topBar"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/total_amount"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <com.tovo.eat.utilities.fonts.TovoTextView
+                        android:id="@+id/inr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_inr"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{pendingPaymentViewModel.amount}"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
             android:id="@+id/submit"
@@ -57,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/order"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/curve_stroke"
             android:gravity="center"
@@ -65,6 +124,7 @@
             android:padding="5dp"
             android:text="@string/retry"
             android:textAllCaps="true"
+
             android:textColor="@color/eat_color"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -88,5 +148,14 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="pendingPaymentViewModel"
+            type="com.tovo.eat.ui.pendingpayment.PendingPaymentViewModel" />
+    </data>
 
 </layout>

@@ -200,7 +200,7 @@
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="50dp"
-                                                android:background="@color/gray"
+                                                android:background="@color/extra_light_gray"
                                                 android:orientation="horizontal">
 
                                             </LinearLayout>
@@ -216,73 +216,73 @@
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                                 <View
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_margin="3dp"
-                                                    android:background="@color/gray" />
+                                                    android:background="@color/extra_light_gray" />
 
                                             </LinearLayout>
 
@@ -292,7 +292,7 @@
                                                 android:layout_height="300dp"
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_margin="20dp"
-                                                android:background="@color/gray">
+                                                android:background="@color/extra_light_gray">
 
 
                                             </LinearLayout>
@@ -979,147 +979,6 @@
 
         </LinearLayout>
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="gone"
-            shimmer:duration="800">
-
-            <!-- Adding 7 rows of placeholders -->
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/gray"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="3dp"
-                        android:background="@color/gray" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="@color/gray">
-
-
-                </LinearLayout>
-
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-
-                <include layout="@layout/list_item_loader" />
-            </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
 
 

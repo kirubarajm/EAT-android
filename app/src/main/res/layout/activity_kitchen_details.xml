@@ -23,9 +23,8 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         shimmer:duration="800">
 
         <!-- Adding 7 rows of placeholders -->
@@ -37,13 +36,14 @@ xmlns:tools="http://schemas.android.com/tools">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/gray" />
+                android:background="@color/extra_light_gray" />
 
             <View
-                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/gray" />
+                android:layout_marginTop="5dp"
+                android:background="@color/extra_light_gray" />
 
             <include layout="@layout/list_item_loader" />
 

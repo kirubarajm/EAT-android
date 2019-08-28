@@ -104,6 +104,7 @@
                     android:background="@color/translucent_black">
 
                     <com.tovo.eat.utilities.fonts.RegionNameTextView
+                        android:visibility="gone"
                         android:id="@+id/txt_title_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,6 +115,7 @@
                         android:textSize="60sp" />
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:visibility="gone"
                         android:id="@+id/txt_subtitle_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,6 +127,7 @@
                         android:textSize="14sp" />
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txt_subtitle_main"
@@ -140,21 +143,21 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:background="@drawable/curve_back_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:padding="60dp"
                 android:visibility="@{sampleFragmentViewModel.aBooleanImg?View.GONE:View.VISIBLE}">
 
                 <RelativeLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="25dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/curve_back_status"
-                    android:padding="20dp">
+                    android:layout_marginRight="20dp">
 
                     <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                         android:id="@+id/txt_title"
