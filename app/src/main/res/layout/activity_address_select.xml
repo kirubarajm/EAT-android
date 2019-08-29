@@ -51,7 +51,7 @@
                         android:src="@drawable/ic_arrow_back_black_24dp" />
                 </RelativeLayout>
 
-                <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                <com.tovo.eat.utilities.fonts.poppins.TitleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -60,8 +60,7 @@
                     android:text="@string/manage_address"
                     android:textAllCaps="true"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:font_name="poppinsMedium" />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -156,7 +155,7 @@
                 android:paddingBottom="10dp">
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

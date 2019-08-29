@@ -178,7 +178,6 @@
                     </RelativeLayout>
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                        app:font_name="poppinsMedium"
                         android:id="@+id/txt_order_delivered_date_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

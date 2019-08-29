@@ -755,8 +755,7 @@
                             android:minLines="2"
                             android:text="@string/eta"
                             android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            app:font_name="poppinsRegular" />
+                            android:textSize="12sp" />
 
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
@@ -771,8 +770,7 @@
                             android:minLines="2"
                             android:text="@{viewModel.eta}"
                             android:textColor="@color/dark_gray"
-                            android:textSize="12sp"
-                            app:font_name="poppinsRegular" />
+                            android:textSize="12sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="match_parent"
@@ -789,8 +787,7 @@
                             android:text="@string/track"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:textStyle="bold"
-                            app:font_name="poppinsRegular" />
+                            android:textStyle="bold" />
 
 
                     </LinearLayout>
@@ -835,7 +832,7 @@
                         android:src="@drawable/bottom_eat_home"
                         android:tint="@{viewModel.isHome?@color/eat_color:@color/dark_gray}" />
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -868,7 +865,7 @@
                         android:src="@drawable/bottom_eat_search"
                         android:tint="@{viewModel.isExplore?@color/eat_color:@color/dark_gray}" />
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -956,7 +953,7 @@
                         android:src="@drawable/bottom_eat_account"
                         android:tint="@{viewModel.isMyAccount?@color/eat_color:@color/dark_gray}" />
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

@@ -107,13 +107,12 @@
                     android:visibility="@{editAccountViewModel.male?View.VISIBLE:View.GONE}">
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
                         android:textColor="@color/dark_gray"
-                        android:textSize="28sp"
-                        app:font_name="poppinsSemiBold" />
+                        android:textSize="28sp" />
 
 
                 </LinearLayout>
@@ -129,13 +128,12 @@
                     android:visibility="@{editAccountViewModel.male?View.VISIBLE:View.GONE}">
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="M"
                         android:textColor="@color/eat_color"
-                        android:textSize="28sp"
-                        app:font_name="poppinsSemiBold" />
+                        android:textSize="28sp"/>
 
 
                 </LinearLayout>
@@ -150,13 +148,12 @@
                     android:onClick="@{()->editAccountViewModel.maleClicked()}"
                     android:visibility="@{editAccountViewModel.male?View.GONE:View.VISIBLE}">
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="M"
                         android:textColor="@color/dark_gray"
-                        android:textSize="28sp"
-                        app:font_name="poppinsSemiBold" />
+                        android:textSize="28sp"/>
 
 
                 </LinearLayout>
@@ -173,13 +170,12 @@
                     android:visibility="@{editAccountViewModel.male?View.GONE:View.VISIBLE}">
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.EatTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
                         android:textColor="@color/eat_color"
-                        android:textSize="28sp"
-                        app:font_name="poppinsSemiBold" />
+                        android:textSize="28sp"/>
 
 
                 </LinearLayout>
@@ -302,8 +298,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/eat_color"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                app:font_name="poppinsSemiBold" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

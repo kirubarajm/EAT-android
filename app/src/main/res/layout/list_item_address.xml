@@ -99,9 +99,7 @@
 
         </RelativeLayout>
 
-
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-            app:font_name="poppinsRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"

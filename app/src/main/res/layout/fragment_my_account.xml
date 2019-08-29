@@ -79,7 +79,7 @@
                 android:visibility="gone">
 
 
-                <com.tovo.eat.utilities.fonts.CircularTextView
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{myAccountViewModel.gender}"

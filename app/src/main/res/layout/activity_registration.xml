@@ -114,7 +114,7 @@
                     android:layout_marginTop="20dp"
                     android:visibility="gone">
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                         android:id="@+id/txt_hometown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                 android:gravity="center"
                 android:padding="10dp">
 
-                <com.tovo.eat.utilities.fonts.CircularStdMedium
+                <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                     android:id="@+id/btn_sign_in"
                     android:layout_width="160dp"
                     android:layout_height="40dp"

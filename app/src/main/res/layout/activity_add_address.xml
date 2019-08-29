@@ -115,7 +115,7 @@
                     android:layout_margin="5dp"
                     android:orientation="vertical">
 
-                    <com.tovo.eat.utilities.fonts.CircularTextView
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/set_delivery_address"
@@ -346,7 +346,6 @@
 
                         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:textAllCaps="true"
-                            app:font_name="poppinsSemiBold"
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -170,8 +170,7 @@
                                 android:onClick="@{()->orderHelpViewModel.cancelOrderButton()}"
                                 android:text="@string/cancel_order"
                                 android:textAllCaps="true"
-                                android:textColor="@color/eat_color"
-                                app:font_name="poppinsSemiBold" />
+                                android:textColor="@color/eat_color" />
 
 
 
@@ -336,8 +335,7 @@
                                 android:layout_marginEnd="20dp"
                                 android:onClick="@{()->orderHelpViewModel.calldelivery()}"
                                 android:text="@string/call_now"
-                                android:textColor="@color/eat_color"
-                                app:font_name="poppinsSemiBold" />
+                                android:textColor="@color/eat_color" />
 
 
                             <LinearLayout
@@ -352,16 +350,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@{orderHelpViewModel.deliveryName}"
-                                    android:textColor="@color/black"
-                                    app:font_name="poppinsSemiBold" />
+                                    android:textColor="@color/black" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                     android:textSize="14sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@{orderHelpViewModel.deliveryNumber}"
-                                    android:textColor="@color/black"
-                                    app:font_name="poppinsRegular" />
+                                    android:textColor="@color/black" />
 
                             </LinearLayout>
 
@@ -408,7 +404,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp">
-
 
                         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
                             android:id="@+id/ccare"
