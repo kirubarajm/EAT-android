@@ -122,7 +122,7 @@
             android:orientation="vertical">
 
             <!--cusrsiveImageUrl="@{regionItemViewModel.imageUrl}"-->
-            <com.tovo.eat.utilities.RoundCornerImageView
+          <!--  <com.tovo.eat.utilities.RoundCornerImageView
                 android:id="@+id/rcardimage"
                 android:layout_above="@+id/content"
                 android:layout_width="match_parent"
@@ -133,6 +133,39 @@
                 android:layout_marginEnd="3dp"
                 android:layout_marginTop="3dp"
                 android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/rcardimage_loader"
+                android:layout_above="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginTop="3dp" />-->
+
+            <com.tovo.eat.utilities.RoundCornerImageView
+                imageUrl="@{regionItemViewModel.imageUrl}"
+                loader="@{rcardloader}"
+                android:id="@+id/rcardimage"
+                android:layout_above="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginTop="3dp"
+                android:scaleType="fitXY" />
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/rcardloader"
+                android:layout_above="@+id/content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginTop="3dp"/>
 
             <LinearLayout
                 android:id="@+id/content"

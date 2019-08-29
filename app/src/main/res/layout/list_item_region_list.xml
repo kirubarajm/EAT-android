@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true">
@@ -42,12 +42,23 @@
 
                 <ImageView
                     imageUrl="@{regionItemViewModel.identityImage}"
+                    loader="@{loader}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY" />
 
+                <ImageView
+                    android:foregroundGravity="center"
+                    android:id="@+id/loader"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical" />
 
-            </LinearLayout>
+
+
+
+            </RelativeLayout>
 
 
             <android.support.v7.widget.CardView
@@ -69,9 +80,18 @@
                     <ImageView
                         android:layout_alignParentTop="true"
                         imageUrl="@{regionItemViewModel.spclFoodImage}"
+                        loader="@{loader1}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitCenter" />
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:foregroundGravity="center"
+                        android:id="@+id/loader1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal|center_vertical" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

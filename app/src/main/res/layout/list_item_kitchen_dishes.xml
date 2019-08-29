@@ -9,36 +9,6 @@
         android:orientation="horizontal">
 
 
-        <FrameLayout
-
-            android:layout_width="100dp"
-            android:layout_height="match_parent">
-
-            <!-- Put your menu items here. The first one will be shown at the horizontal start. -->
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@{kitchenDishItemViewModel.isFavourite?@color/red:@color/light_gray}"
-                android:onClick="@{()->kitchenDishItemViewModel.fav()}">
-
-
-                <com.tovo.eat.utilities.fonts.TovoTextView
-                    android:id="@+id/fav"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/icon_fav"
-                    android:textColor="@{kitchenDishItemViewModel.isFavourite?@color/white:@color/red}"
-                    android:textSize="25dp" />
-
-
-            </FrameLayout>
-
-
-        </FrameLayout>
-
 
         <LinearLayout
             android:id="@+id/content"
@@ -53,24 +23,19 @@
 
                 <ImageView
                     imageUrl="@{kitchenDishItemViewModel.image}"
+                    loader="@{loader}"
                     android:layout_width="120dp"
                     android:layout_height="80dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerInside" />
 
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@{kitchenDishItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
-                    android:visibility="gone" />
-
-
+                    android:foregroundGravity="center"
+                    android:id="@+id/loader"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -249,6 +214,36 @@
 
             </RelativeLayout>
         </LinearLayout>
+
+        <FrameLayout
+
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+
+            <!-- Put your menu items here. The first one will be shown at the horizontal start. -->
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@{kitchenDishItemViewModel.isFavourite?@color/red:@color/light_gray}"
+                android:onClick="@{()->kitchenDishItemViewModel.fav()}">
+
+
+                <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:id="@+id/fav"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/icon_fav"
+                    android:textColor="@{kitchenDishItemViewModel.isFavourite?@color/white:@color/red}"
+                    android:textSize="25dp" />
+
+
+            </FrameLayout>
+
+
+        </FrameLayout>
 
     </LinearLayout>
 

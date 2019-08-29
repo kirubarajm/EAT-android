@@ -132,11 +132,16 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                     if (response != null) {
 
                         Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
                         if (response.isStatus()) {
                             getNavigator().orderCanceled();
+                        }else {
+                            getNavigator().orderCancelFailed();
                         }
 
 
+                    }else {
+                        getNavigator().orderCancelFailed();
                     }
                 }
             }, new Response.ErrorListener() {

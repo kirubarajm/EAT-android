@@ -67,7 +67,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     public OrderTrackingViewModel(DataManager dataManager) {
         super(dataManager);
-        getOrderDetails();
+       // getOrderDetails();
         orderId.set("order #" + String.valueOf(getDataManager().getOrderId()));
     }
 

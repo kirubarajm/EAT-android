@@ -523,7 +523,7 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
-
+        Glide.with(context).load(R.raw.plate_empty_loader).into(loader);
         Glide.with(context)
                 .load(url)
                 .asBitmap()
@@ -547,6 +547,43 @@ public final class BindingUtils {
                 })
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
+
+
+    }
+
+    @BindingAdapter({"roundimageUrl","roundloader"})
+    public static void setRoundImageUrl(RoundCornerImageView imageView, String url, ImageView loader) {
+        Context context = imageView.getContext();
+
+        loader.setVisibility(View.VISIBLE);
+
+
+       // Glide.with(context).load(R.raw.plate_empty_loader).into(loader);
+
+
+        /*Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+
+                        return false;
+
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+                        return false;
+                    }
+
+
+
+                })
+                .error(R.drawable.imagenotavailable)
+                .into(imageView);*/
 
 
     }

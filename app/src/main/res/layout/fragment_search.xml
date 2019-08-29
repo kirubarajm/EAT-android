@@ -76,7 +76,6 @@
                 android:textColor="@color/eat_color"
                 android:textSize="14sp" />
 
-
         </LinearLayout>
 
 

@@ -126,7 +126,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void orderCancelFailed() {
-        finish();
+        if (dialog.isShowing())dialog.dismiss();
     }
 
     @Override

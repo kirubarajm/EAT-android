@@ -396,22 +396,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                                 }
 
                             }
-                           /* if (response.getBoolean("status")) {
-                                Integer orderId = response.getInt("orderid");
-                                getDataManager().setOrderId(orderId);
-
-                                if (getDataManager().getRefundId() != 0) {
-                                    refundBalance = response.getInt("refund_balance");
-                                }
-                                razorpayCustomerId = response.getString("razer_customerid");
-                                refundBalance = response.getInt("price");
-                                getNavigator().orderGenerated(response.getInt("orderid"), response.getString("razer_customerid"), response.getInt("price"));
-
-                            } else {
-
-                                getNavigator().showToast(response.getString("message"));
-
-                            }*/
 
                     }
                 }, new Response.ErrorListener() {

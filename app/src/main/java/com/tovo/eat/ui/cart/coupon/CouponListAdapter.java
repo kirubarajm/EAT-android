@@ -8,66 +8,38 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemCouponBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemCouponBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<CouponListResponse.Result> item_list;
-    private LiveProductsAdapterListener mLiveProductsAdapterListener;
-
-    private DataManager dataManager;
-
     private static int sSelected = -1;
+    private List<CouponListResponse.Result> item_list = new ArrayList<>();
+    private List<CouponListResponse.Result> temp_item_list = new ArrayList<>();
+    private LiveProductsAdapterListener mLiveProductsAdapterListener;
+    private DataManager dataManager;
 
     public CouponListAdapter(List<CouponListResponse.Result> item_list, DataManager dataManager) {
 
-
-        for (int i=0;i<item_list.size();i++){
-
-            if ( !item_list.get(i).isCouponStatus()){
-                item_list.remove(i);
+        for (int i = 0; i < item_list.size(); i++) {
+            if (item_list.get(i).isCouponStatus()) {
+                // item_list.remove(i);
+                temp_item_list.add(item_list.get(i));
             }
 
+            this.item_list = temp_item_list;
         }
-
-        this.item_list = item_list;
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
     }
-
-
-
-
-    public class EmptyViewHolder extends BaseViewHolder  {
-
-        private final ListItemEmptyBinding mBinding;
-
-
-        EmptyItemViewModel emptyItemViewModel;
-
-        public EmptyViewHolder(ListItemEmptyBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
-
-        @Override
-        public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
-            mBinding.setEmptyItemViewModel(emptyItemViewModel);
-        }
-
-    }
-
 
     public void selectedItem() {
         notifyDataSetChanged();
     }
-
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -95,7 +67,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         if (item_list != null && item_list.size() > 0) {
             return item_list.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 
@@ -113,15 +85,16 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<CouponListResponse.Result> blogList) {
-        item_list.addAll(blogList);
-
-        for (int i=0;i<item_list.size();i++){
-
-            if ( !item_list.get(i).isCouponStatus()){
-                item_list.remove(i);
+        // item_list.addAll(blogList);
+        for (int i = 0; i < blogList.size(); i++) {
+            if (blogList.get(i).isCouponStatus()) {
+                // item_list.remove(i);
+                temp_item_list.add(blogList.get(i));
             }
 
+            this.item_list = temp_item_list;
         }
+
         notifyDataSetChanged();
     }
 
@@ -132,6 +105,26 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface LiveProductsAdapterListener {
 
         void onItemClickData(CouponListResponse.Result result, int selected);
+
+    }
+
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
+        }
 
     }
 
@@ -163,7 +156,6 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }*/
 
 
-
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
@@ -172,14 +164,14 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onItemClick(CouponListResponse.Result result) {
 
 
-            if (sSelected==getAdapterPosition()){
-                sSelected=-1;
-            }else {
+            if (sSelected == getAdapterPosition()) {
+                sSelected = -1;
+            } else {
                 sSelected = getAdapterPosition();
 
             }
 
-            mLiveProductsAdapterListener.onItemClickData(result,sSelected);
+            mLiveProductsAdapterListener.onItemClickData(result, sSelected);
             notifyDataSetChanged();
         }
 

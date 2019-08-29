@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryDataEventListener;
 import com.firebase.geofire.LocationCallback;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,6 +43,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -451,6 +454,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         //startLocationTracking();
         super.onResume();
         registerWifiReceiver();
+        mOrderTrackingViewModel.getOrderDetails();
     }
 
 
@@ -622,6 +626,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 if (location != null) {
                     System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
+                    Log.e("loc",String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
 
                     LatLng latLng = new LatLng(location.latitude, location.longitude);
 
@@ -646,6 +652,56 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             public void onCancelled(DatabaseError databaseError) {
                 System.err.println("There was an error getting the GeoFire location: " + databaseError);
             }
+
+        });
+
+
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(cusLatLng.latitude, cusLatLng.longitude), 2);
+
+        geoQuery.addGeoQueryDataEventListener(new GeoQueryDataEventListener() {
+
+            @Override
+            public void onDataEntered(DataSnapshot dataSnapshot, GeoLocation location) {
+                // ...
+            }
+
+            @Override
+            public void onDataExited(DataSnapshot dataSnapshot) {
+                // ...
+            }
+
+            @Override
+            public void onDataMoved(DataSnapshot dataSnapshot, GeoLocation location) {
+                // ...
+            }
+
+            @Override
+            public void onDataChanged(DataSnapshot dataSnapshot, GeoLocation location) {
+                // ...
+
+
+                LatLng mLatLng=new LatLng(location.latitude,location.longitude);
+
+
+                if (moveitLocationMarker == null) {
+                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(mLatLng));
+                }
+
+                showMarker1(mLatLng);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15));
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+                // ...
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+                // ...
+            }
+
         });
 
 

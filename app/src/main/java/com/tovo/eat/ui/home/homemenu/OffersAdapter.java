@@ -14,6 +14,7 @@ import com.tovo.eat.ui.home.homemenu.collection.CollectionCardItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
@@ -21,18 +22,29 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     private List<CouponListResponse.Result> item_list;
+    private List<CouponListResponse.Result> temp_item_list=new ArrayList<>();
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
     public OffersAdapter(List<CouponListResponse.Result> item_list) {
+
+
         for (int i=0;i<item_list.size();i++){
 
-            if ( !item_list.get(i).isCouponStatus()){
+           /* if ( !item_list.get(i).isCouponStatus()){
                 item_list.remove(i);
+            }
+            */
+
+
+            if ( item_list.get(i).isCouponStatus()){
+               // item_list.remove(i);
+                temp_item_list.add(item_list.get(i));
             }
 
         }
-        this.item_list = item_list;
+
+        this.item_list = temp_item_list;
     }
 
 
@@ -62,7 +74,7 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         if (item_list != null && item_list.size() > 0) {
             return item_list.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 
