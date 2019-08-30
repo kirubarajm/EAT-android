@@ -187,7 +187,11 @@ public class KitchenItemViewModel {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
                         headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                        headers.put("Authorization", "Bearer " + appPreferencesHelper.getApiToken());
+                        AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+
+                        headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
+                            headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                         return headers;
                     }
                 };

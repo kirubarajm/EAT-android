@@ -154,6 +154,11 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
     @Override
+    public void pendingPayment(Integer orderId, String customerId, Integer amount) {
+
+    }
+
+    @Override
     public void paymentSuccessed(boolean status) {
 
         if (status) {

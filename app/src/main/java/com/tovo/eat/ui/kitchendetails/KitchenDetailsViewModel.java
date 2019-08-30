@@ -39,6 +39,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> kitchenCategory = new ObservableField<>();
     public ObservableField<String> cartItems = new ObservableField<>();
     public ObservableField<String> cartPrice = new ObservableField<>();
+    public ObservableField<String> noProductsString = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cart = new ObservableBoolean();
     public ObservableBoolean optionmenu = new ObservableBoolean();
@@ -341,6 +342,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 favorites.set(false);
                                 todaysMenu.set(false);
                                 isProductAvailable.set(false);
+                                noProductsString.set("Currently not serviceable.");
 
                             }
                             ratingCount.set("(" + (response.getResult().get(0).getRatingCount()) + ")");
@@ -495,6 +497,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                 favorites.set(false);
                                 todaysMenu.set(false);
                                 isProductAvailable.set(false);
+                                noProductsString.set("No veg products available.");
                             }
                         } else {
                             favoriteProductlists.clear();

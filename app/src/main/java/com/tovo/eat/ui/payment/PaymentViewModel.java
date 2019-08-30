@@ -250,6 +250,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                             headers.put("accept-version", AppConstants.API_VERSION_ONE);
                             //  headers.put("Authorization","Bearer");
                             headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                             return headers;
                         }
                     };
@@ -391,6 +393,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
 
+
+
+
                                 }else {
                                     getNavigator().showToast(cartPaymentResponse.getMessage());
                                 }
@@ -417,6 +422,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         headers.put("accept-version", AppConstants.API_VERSION_ONE);
                         //  headers.put("Authorization","Bearer");
                         headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                            headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                         return headers;
                     }
                 };
@@ -496,6 +503,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     headers.put("accept-version", AppConstants.API_VERSION_ONE);
                     //  headers.put("Authorization","Bearer");
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+
+                        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                     return headers;
                 }
             };

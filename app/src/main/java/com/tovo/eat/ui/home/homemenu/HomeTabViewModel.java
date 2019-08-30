@@ -585,7 +585,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
-                        filterRequestPojo.setVegtype(getDataManager().getVegType());
 
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
@@ -642,12 +641,24 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         }
                                     } else {
                                         emptyKitchen.set(true);
+                                        try {
+
+                                            getNavigator().kitchenLoaded();
+                                        } catch (Exception ee) {
+                                            ee.printStackTrace();
+                                        }
                                     }
 
                                     //    getNavigator().kitchenListLoaded();
 
                                 } else {
                                     emptyKitchen.set(true);
+                                    try {
+
+                                        getNavigator().kitchenLoaded();
+                                    } catch (Exception ee) {
+                                        ee.printStackTrace();
+                                    }
                                 }
 
 
@@ -676,6 +687,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 headers.put("accept-version", AppConstants.API_VERSION_ONE);
                                 //  headers.put("Authorization","Bearer");
                                 headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
                                 return headers;
                             }
                         };

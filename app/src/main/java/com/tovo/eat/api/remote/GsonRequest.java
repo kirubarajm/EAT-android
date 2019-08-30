@@ -92,6 +92,7 @@ public class GsonRequest extends Request {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.put("accept-version",version);
+        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
       //  headers.put("Authorization","Bearer");
 
         AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);

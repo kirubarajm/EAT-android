@@ -667,6 +667,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     headers.put("accept-version", AppConstants.API_VERSION_ONE);
                     //  headers.put("Authorization","Bearer");
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+
+                        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                     return headers;
                 }
             };

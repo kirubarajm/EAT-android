@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -17,6 +16,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -39,7 +39,6 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -100,6 +99,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     LatLng makeitLatLng;
     LatLng cusLatLng;
     boolean liveTracking = true;
+    CountDownTimer countDownTimer;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
@@ -123,6 +123,23 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    };
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
             }
         }
     };
@@ -249,7 +266,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     }
 
-
     @Override
     public int getBindingVariable() {
         return BR.orderTrackingViewModel;
@@ -265,7 +281,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         return mOrderTrackingViewModel;
     }
 
-
     private void moveToCurrentLocation(LatLng currentLocation) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
         // Zoom in, animating the camera.
@@ -274,18 +289,17 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-       // mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
 
 
         /*try {
 
-        *//*    https://mapstyle.withgoogle.com/*//*
+         *//*    https://mapstyle.withgoogle.com/*//*
 
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -299,8 +313,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }*/
-
-
 
 
         if (!liveTracking) {
@@ -395,10 +407,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         } else if (id == R.id.order_cancel) {
             Intent intent = OrderHelpActivity.newIntent(this);
             intent.putExtra("name", mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getName());
-            intent.putExtra("number", String.valueOf( mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getPhoneno()));
-            intent.putExtra("charge", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getPrice()- mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getServiceCharge()));
+            intent.putExtra("number", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getPhoneno()));
+            intent.putExtra("charge", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getPrice() - mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getServiceCharge()));
             intent.putExtra("status", mOrderTrackingViewModel.track.get());
-            intent.putExtra("message",  mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getCancellationMessage());
+            intent.putExtra("message", mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getCancellationMessage());
             startActivity(intent);
         }
         // return true;
@@ -414,7 +426,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     }
 
-
     private void showMarker(Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         // googleMap.clear();
@@ -428,7 +439,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void onStop() {
         super.onStop();
 
-        try{
+        try {
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -456,7 +467,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         registerWifiReceiver();
         mOrderTrackingViewModel.getOrderDetails();
     }
-
 
     private DirectionsResult getDirectionsDetails(String origin, String destination, TravelMode mode) throws ApiException {
         DateTime now = new DateTime();
@@ -613,6 +623,34 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         finish();
     }
 
+    @Override
+    public void startTrackingTimer(long minuts) {
+
+
+        if (countDownTimer != null) countDownTimer.cancel();
+
+
+
+        if (minuts*60000>0) {
+
+            CountDownTimer countDownTimer = new CountDownTimer(minuts * 60000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    //  mLoginViewModelMain.timer.set(String.valueOf(millisUntilFinished / 1000));
+
+
+                }
+
+                public void onFinish() {
+
+                    if (moveitLatLng != null)
+
+                        mOrderTrackingViewModel.getOrderETA(String.valueOf(moveitLatLng.latitude), String.valueOf(moveitLatLng.longitude));
+                }
+
+            }.start();
+        }
+    }
 
     private void loadPreviousStatuses(Integer moveitId) {
 
@@ -626,20 +664,20 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 if (location != null) {
                     System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
-                    Log.e("loc",String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+                    Log.e("loc", String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
 
-                    LatLng latLng = new LatLng(location.latitude, location.longitude);
+                    moveitLatLng = new LatLng(location.latitude, location.longitude);
 
                     if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
                         //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
-                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(latLng));
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
                         }
 
-                        showMarker1(latLng);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                        showMarker1(moveitLatLng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 15));
                     }
 
 
@@ -680,15 +718,15 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 // ...
 
 
-                LatLng mLatLng=new LatLng(location.latitude,location.longitude);
+                moveitLatLng = new LatLng(location.latitude, location.longitude);
 
 
                 if (moveitLocationMarker == null) {
-                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(mLatLng));
+                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
                 }
 
-                showMarker1(mLatLng);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15));
+                showMarker1(moveitLatLng);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 15));
 
             }
 
@@ -779,7 +817,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         });*/
     }
 
-
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
@@ -799,14 +836,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -821,27 +857,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
 
 
 }

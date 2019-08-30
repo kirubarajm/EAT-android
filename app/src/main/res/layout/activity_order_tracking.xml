@@ -24,9 +24,18 @@
                 android:layout_above="@+id/bottom_sheet"
                 android:layout_below="@+id/header">
 
+
+               <!-- @{orderTrackingViewModel.orderAccepted?View.VISIBLE:View.GONE}-->
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
@@ -35,14 +44,6 @@
                     android:padding="10dp"
                     android:visibility="@{orderTrackingViewModel.orderAccepted?View.VISIBLE:View.GONE}">
 
-                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{orderTrackingViewModel.eta}"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="normal" />
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:layout_width="match_parent"
@@ -52,14 +53,16 @@
                         android:textColor="@color/dark_gray"
                         android:textSize="9sp"
                         android:textStyle="normal" />
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{orderTrackingViewModel.eta}"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
-
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 

@@ -12,5 +12,5 @@ public interface OrderTrackingNavigator {
     void clickBack();
     void orderDetails(Integer orderId);
     void showToast(String msg);
-
+void startTrackingTimer(long minuts);
 }

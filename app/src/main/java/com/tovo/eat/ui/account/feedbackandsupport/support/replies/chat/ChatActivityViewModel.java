@@ -164,6 +164,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
                     headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                     return headers;
                 }

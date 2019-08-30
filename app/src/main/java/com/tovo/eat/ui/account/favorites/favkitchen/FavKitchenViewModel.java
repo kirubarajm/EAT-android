@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
@@ -295,6 +296,11 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
+                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                                headers.put("accept-version",AppConstants.API_VERSION_ONE);
+                                AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+
+                                headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
                                 return headers;
                             }
                         };

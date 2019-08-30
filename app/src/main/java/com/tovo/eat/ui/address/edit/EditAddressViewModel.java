@@ -201,7 +201,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 request.setAddressType(1);
 
             } else if (typeOffice.get()) {
-                request.setAddressTitle("Office");
+                request.setAddressTitle("Work");
                 request.setAddressType(2);
 
             } else if (typeOther.get()) {

@@ -138,6 +138,9 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                                 headers.put("Content-Type", "application/json");
                                 headers.put("accept-version",AppConstants.API_VERSION_ONE);
                                 headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+
+                                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+
                                 return headers;
                             }
                         };

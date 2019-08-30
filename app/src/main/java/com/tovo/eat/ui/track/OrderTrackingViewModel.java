@@ -18,6 +18,7 @@ import com.tovo.eat.utilities.MvvmApp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator> {
@@ -107,6 +108,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                         if (response.getStatus()) {
 
+
                             addressTitle.set(response.getResult().get(0).getLocality());
 
                             if (response.getResult().get(0).getMakeitdetail().getBrandName() != null) {
@@ -116,24 +118,64 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
                             }
 
+                            DateFormat dateFormat=null;
 
+                            Date deliverydate=null;
+                            String outputDateStr = "";
                             try {
                                 String strDate = response.getResult().get(0).getDeliverytime();
-                                DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                 dateFormat = new SimpleDateFormat("hh:mm a");
 
                                 // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                                String outputDateStr = "";
+
                                 //Date  date1 = new Date(strDate);
-                                Date date = currentFormat.parse(strDate);
-                                outputDateStr = dateFormat.format(date);
+                                deliverydate = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(deliverydate);
                                 eta.set(outputDateStr);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+
+
+
+
+                            Date dDate= null;
+
+                            Calendar currentCal= Calendar.getInstance();
+
+                            Date currentDate=currentCal.getTime();
+
+                           String currentDae=dateFormat.format(currentDate);
+
+                            try {
+                                currentDate  = dateFormat.parse(currentDae);
+                                dDate= dateFormat.parse(outputDateStr);
+
+
+                                long diff = dDate.getTime()-currentDate.getTime();
+                                long seconds = diff / 1000;
+                                long minutes = seconds / 60;
+                                long hours = minutes / 60;
+                                long days = hours / 24;
+
+                                Log.e("MINUTS", String.valueOf(minutes));
+
+                                getNavigator().startTrackingTimer(minutes);
+
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+
+
+
+
 
 
                             if (response.getResult().get(0).getMoveitdetail().getName() != null) {
@@ -275,6 +317,104 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
+
+                        } else {
+
+                            getNavigator().showToast(response.getMessage());
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+
+    public void getOrderETA(String lat,String lng) {
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_DETAILS_URL , OrderTrackingResponse.class,new DeliveryTimeRequest(lat,lng,getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
+                @Override
+                public void onResponse(OrderTrackingResponse response) {
+
+                    if (response != null) {
+
+                        if (response.getStatus()) {
+
+
+                            DateFormat dateFormat=null;
+
+                            Date deliverydate=null;
+                            String outputDateStr = "";
+                            try {
+                                String strDate = response.getResult().get(0).getDeliverytime();
+                                 dateFormat = new SimpleDateFormat("hh:mm a");
+
+                                // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+                                //Date  date1 = new Date(strDate);
+                                deliverydate = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(deliverydate);
+                                eta.set(outputDateStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+
+                            Date dDate= null;
+
+                            Calendar currentCal= Calendar.getInstance();
+
+                            Date currentDate=currentCal.getTime();
+
+                           String currentDae=dateFormat.format(currentDate);
+
+                            try {
+                                currentDate  = dateFormat.parse(currentDae);
+                                dDate= dateFormat.parse(outputDateStr);
+
+
+                                long diff = dDate.getTime()-currentDate.getTime();
+                                long seconds = diff / 1000;
+                                long minutes = seconds / 60;
+                                long hours = minutes / 60;
+                                long days = hours / 24;
+
+                                Log.e("MINUTS", String.valueOf(minutes));
+
+                                getNavigator().startTrackingTimer(minutes);
+
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
 
                         } else {
 
