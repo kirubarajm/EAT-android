@@ -90,6 +90,7 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedModule;
 import com.tovo.eat.ui.orderrating.OrderRatingProvider;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.payment.PaymentModule;
+import com.tovo.eat.ui.payment.pendingpaymentpage.PendingPaymentPageProvider;
 import com.tovo.eat.ui.pendingpayment.PendingPaymentProvider;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.ui.registration.RegistrationActivityModule;
@@ -195,7 +196,7 @@ public abstract class ActivityBuilder {
     abstract OrderHelpActivity bindOrderHelpActivity();
 
 
-    @ContributesAndroidInjector(modules = {PaymentModule.class,OrderCanceledProvider.class})
+    @ContributesAndroidInjector(modules = {PaymentModule.class,OrderCanceledProvider.class, PendingPaymentPageProvider.class,PendingPaymentProvider.class})
     abstract PaymentActivity bindPaymentActivity();
 
 

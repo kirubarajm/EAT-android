@@ -63,6 +63,13 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableBoolean codClicked = new ObservableBoolean();
     public final ObservableBoolean walletClicked = new ObservableBoolean();
 
+    public final ObservableField<String> brandname = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
+
+
+    public final  Integer orderid=0;
+
+
 
     public int refundBalance = 0;
     public int price = 0;

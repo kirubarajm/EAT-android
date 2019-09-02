@@ -70,7 +70,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     boolean isGPS;
     Dialog locationDialog;
     ProgressDialog dialog;
-
+    FusedLocationProviderClient fusedLocationClient;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -157,6 +157,18 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void myLocationn() {
+
+
+
+        /*if (mLocation != null) {
+            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+            initCameraIdle();
+        } else {
+            turnOnGps();
+        }*/
+
+
 
         if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
@@ -296,58 +308,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                         //getLocation();
                         if (!dialog.isShowing())
                             dialog.show();
-/*
-                        mFusedLocationClient=new FusedLocationProviderClient(AddAddressActivity.this);
-                        mFusedLocationClient.getLastLocation()
-                                .addOnCompleteListener(AddAddressActivity.this, new OnCompleteListener<Location>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Location> task) {
-                                        if (task.isSuccessful() && task.getResult() != null) {
-                                            if (dialog.isShowing()) dialog.dismiss();
-                                            mLocation = task.getResult();
-                                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-                                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                                            initCameraIdle();
-                                        }
-                                    }
-                                });*/
 
 
-                        getLocation();
+                        // getLocation();
 
-                       /*
-                        if (mGoogleApiClient != null) {
-                            mGoogleApiClient = new GoogleApiClient.Builder(AddAddressActivity.this)
-                                    .addConnectionCallbacks(mLocationRequestCallback)
-                                    .addApi(LocationServices.API)
-                                    .build();
-                            mGoogleApiClient.connect();
-                        }
-                        if (mLocation != null) {
-                            if (dialog.isShowing()) dialog.dismiss();
+                        getUserLocation();
 
-                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                            initCameraIdle();
-                        }
-
-
-                        FusedLocationProviderClient client =
-                                LocationServices.getFusedLocationProviderClient(AddAddressActivity.this);
-
-                        client.getLastLocation()
-                                .addOnCompleteListener(AddAddressActivity.this, new OnCompleteListener<Location>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Location> task) {
-                                        // ...
-                                        if (task.isSuccessful() && task.getResult() != null) {
-                                            mLocation = task.getResult();
-                                            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-                                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                                            initCameraIdle();
-                                        }
-                                    }
-                                });*/
 
                     }
                 } else {
@@ -372,7 +338,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                     dialog.dismiss();
 
                                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                                 initCameraIdle();
 
 
@@ -381,6 +347,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                             }
                         }
                     });
+        }else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
         }
     }
 
@@ -465,8 +433,35 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         }
     }
 
-    public Location getLocation() {
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    public void getLocation() {
+
+
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                           /* mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+                            openHome();*/
+                            if (dialog.isShowing()) dialog.dismiss();
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                            initCameraIdle();
+
+                        }
+                    }
+                });
+
+
+
+
+
+       /* locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -506,7 +501,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             }
         } else {
             return null;
-        }
+        }*/
     }
 
     @Override

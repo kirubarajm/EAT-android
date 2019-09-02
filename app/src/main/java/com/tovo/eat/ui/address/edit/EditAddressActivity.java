@@ -19,6 +19,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityEditAddressBinding;
@@ -60,6 +63,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     Location mLocation;
     Integer aid;
     boolean isGPS;
+    FusedLocationProviderClient fusedLocationClient;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -126,7 +130,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
         if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
             initCameraIdle();
         } else {
             turnOnGps();
@@ -252,8 +256,29 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     }
 
-    public Location getLocation() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    public void getLocation() {
+
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                            initCameraIdle();
+
+                        }
+                    }
+                });
+
+
+
+       /* LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -282,7 +307,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
             }
         } else {
             return null;
-        }
+        }*/
     }
 
     private void getAddressFromLocation(double latitude, double longitude) {

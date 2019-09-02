@@ -9,7 +9,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.razorpay.Checkout;
@@ -19,6 +21,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityPaymentBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.payment.pendingpaymentpage.PendingPaymentPageAlert;
+import com.tovo.eat.ui.pendingpayment.PaymentListener;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -27,15 +31,24 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 import static com.tovo.eat.utilities.AppConstants.COD_REQUESTCODE;
 import static com.tovo.eat.utilities.AppConstants.ONLINE_REQUESTCODE;
 
-public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, PaymentViewModel> implements PaymentNavigator, PaymentResultListener {
-
+public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, PaymentViewModel> implements PaymentNavigator, PaymentResultListener, HasSupportFragmentInjector, PaymentListener {
 
     public ActivityPaymentBinding mActivityPaymentBinding;
     @Inject
     public PaymentViewModel mPaymentViewModel;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    JSONObject options;
+boolean paymentRetry=false;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -131,7 +144,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
         co.setFullScreenDisable(true);
         try {
-            JSONObject options = new JSONObject();
+            options = new JSONObject();
             options.put("name", getString(R.string.app_name));
             options.put("description", getString(R.string.orderid) + orderId);
             //You can omit the image option to fetch the image from dashboard
@@ -230,6 +243,11 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+
+
+        if (paymentRetry) showRetry();
+
+
     }
 
     @Override
@@ -247,8 +265,57 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void onPaymentError(int i, String s) {
-        mPaymentViewModel.paymentSuccess("Canceled", 2);
+
+/*
+        AlertDialog.Builder builder=new AlertDialog.Builder(PaymentActivity.this);
+        builder.setTitle("Payment failed");
+        builder.show();*/
+
+
+        // mPaymentViewModel.paymentSuccess("Canceled", 2);
+
+
+paymentRetry=true;
+
+
+               // showRetry();
+
+
+       /* Bundle bundle = new Bundle();
+        bundle.putInt("orderid", 880);
+        bundle.putString("brandname", "dddddff");
+        bundle.putString("products", "dfdfff");
+        bundle.putInt("price", 500);
+        PendingPaymentAlert bottomSheetFragment = new PendingPaymentAlert();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.setCancelable(false);
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());*/
+
+
     }
+
+
+    public void showRetry() {
+
+        try {
+            Bundle bundle = new Bundle();
+            PendingPaymentPageAlert bottomSheetFragment = new PendingPaymentPageAlert();
+            bottomSheetFragment.setArguments(bundle);
+            bottomSheetFragment.setCancelable(false);
+            bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+            paymentRetry=false;
+        } catch (Exception ee) {
+            ee.printStackTrace();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showRetry();
+                }
+            },1000);
+        }
+    }
+
 
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
@@ -281,6 +348,35 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
+    }
+
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void paymentRetry() {
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+        co.setFullScreenDisable(true);
+        try {
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+    }
+
+    @Override
+    public void paymentCancel() {
+        mPaymentViewModel.paymentSuccess("Canceled", 2);
     }
 
 

@@ -35,16 +35,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -71,7 +68,6 @@ import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
-import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
@@ -88,6 +84,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     public FilterListener filterListener;
+    protected LocationManager locationManager;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
@@ -95,10 +92,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String DialogTag = DialogSelectAddress.newInstance().getTag();
     boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
-    protected LocationManager locationManager;
-
     ProgressDialog progressDialog;
 
+    FusedLocationProviderClient fusedLocationClient;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -108,13 +104,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MainActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(inIntent,AppConstants.INTERNET_ERROR_REQUEST_CODE);
+                startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
             }
 
         }
     };
     Dialog locationDialog;
     private MainViewModel mMainViewModel;
+    private ActivityMainBinding mActivityMainBinding;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
         @Override
@@ -136,7 +133,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
     };
-    private ActivityMainBinding mActivityMainBinding;
     //private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
@@ -306,7 +302,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void paymentPending(int orderid, String brandname,int price,String products) {
+    public void paymentPending(int orderid, String brandname, int price, String products) {
 
         Bundle bundle = new Bundle();
         bundle.putInt("orderid", orderid);
@@ -324,18 +320,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding.loading.setVisibility(View.VISIBLE);
         mActivityMainBinding.loading.startShimmerAnimation();
 
-      //  if (!progressDialog.isShowing()) progressDialog.show();
+        //  if (!progressDialog.isShowing()) progressDialog.show();
 
 
-       // mActivityMainBinding.loading.setVisibility(View.VISIBLE);
+        // mActivityMainBinding.loading.setVisibility(View.VISIBLE);
 
     }
 
     public void stopLoader() {
         mActivityMainBinding.loading.setVisibility(View.GONE);
         mActivityMainBinding.loading.stopShimmerAnimation();
-       // if (progressDialog.isShowing()) progressDialog.dismiss();
-       // mActivityMainBinding.loading.setVisibility(View.GONE);
+        // if (progressDialog.isShowing()) progressDialog.dismiss();
+        // mActivityMainBinding.loading.setVisibility(View.GONE);
     }
 
     @Override
@@ -530,7 +526,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
             if (resultCode == RESULT_OK) {
-                startLocationTracking();
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getLocation();
+                    }
+                }, 5000);
+
+
             } else {
                 showLocationDialog();
             }
@@ -538,29 +543,27 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
-        }else if (requestCode ==AppConstants.INTERNET_ERROR_REQUEST_CODE) {
-           /* openCurrentFragment();*/
+        } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+            /* openCurrentFragment();*/
         }
     }
 
 
     public void openCurrentFragment() {
-        if (mMainViewModel.isHome.get()){
+        if (mMainViewModel.isHome.get()) {
             openHome();
-        }else if (mMainViewModel.isExplore.get()){
+        } else if (mMainViewModel.isExplore.get()) {
             openExplore();
-        }else if (mMainViewModel.isCart.get()){
+        } else if (mMainViewModel.isCart.get()) {
             openCart();
-        }else if (mMainViewModel.isMyAccount.get()){
+        } else if (mMainViewModel.isMyAccount.get()) {
             openAccount();
-        }else {
+        } else {
             openHome();
         }
 
 
-
     }
-
 
 
     public void selectHomeAddress() {
@@ -648,9 +651,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         saveFcmToken();
 
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(true);
+
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -658,7 +662,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 if (mMainViewModel.isAddressAdded()) {
                     mMainViewModel.gotoCart();
-                }else {
+                } else {
                     openHome();
                 }
             } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
@@ -673,7 +677,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     mMainViewModel.getDataManager().setCurrentLng(0.0);
                     startLoader();
                     startLocationTracking();
-                }else {
+                } else {
 
                     openHome();
                 }
@@ -685,7 +689,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 mMainViewModel.getDataManager().setCurrentLng(0.0);
                 startLoader();
                 startLocationTracking();
-            }else {
+            } else {
 
                 openHome();
             }
@@ -764,6 +768,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         mGoogleApiClient.connect();*/
 
                         getLocation();
+
+
                     } else {
                         //  turnOnGps();
                         showLocationDialog();
@@ -793,9 +799,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.liveOrders();
 
     }
-
-
-
 
 
     @Override
@@ -983,7 +986,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
           /*  if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();*/
 
-          locationManager.removeUpdates(this);
+            locationManager.removeUpdates(this);
 
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             openHome();
@@ -1063,13 +1066,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-
-
-
-
-
-    public Location getLocation() {
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    public void getLocation() {
+        /*locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -1086,7 +1084,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             }
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+         //   locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3, 1, this);
+
+            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,this,null);
+
 
             Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (lastKnownLocationGPS != null) {
@@ -1099,7 +1100,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         } else {
             return null;
-        }
+        }*/
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+                            openHome();
+
+
+                        }
+                    }
+                });
+
     }
 
 
@@ -1108,11 +1126,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onStart();
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -1128,6 +1148,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startLocationTracking();
         }*/
     }
+
     @Override
     protected void onPause() {
         super.onPause();

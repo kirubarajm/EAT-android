@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.signin.SignActivityMain">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/order_cancel"
+            android:tint="@color/dark_gray" />
+
+
+
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/title"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Payment failed"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:layout_below="@+id/title"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1"
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order"
+                android:background="@drawable/curve_stroke"
+                android:gravity="center"
+                android:onClick="@{()->pendingPaymentPageViewModel.retryPayment()}"
+                android:padding="5dp"
+                android:text="@string/retry"
+                android:textAllCaps="true"
+                android:textColor="@color/eat_color"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+            <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/curve_stroke_gray"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/submit"
+                android:gravity="center"
+                android:onClick="@{()->pendingPaymentPageViewModel. cancel()}"
+                android:padding="5dp"
+                android:text="@string/cancel"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="pendingPaymentPageViewModel"
+            type="com.tovo.eat.ui.payment.pendingpaymentpage.PendingPaymentPageViewModel" />
+    </data>
+
+</layout>
