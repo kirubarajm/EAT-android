@@ -20,6 +20,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.home.LiveOrderResponsePojo;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -34,7 +35,11 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +77,20 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
 
 
+
+    public final ObservableBoolean cart = new ObservableBoolean();
+
+    public final ObservableField<String> kitchenName = new ObservableField<>();
+    public final ObservableField<String> eta = new ObservableField<>();
+    public final ObservableField<String> kitchenImage = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
+    public final ObservableBoolean isLiveOrder = new ObservableBoolean();
+    private int orderId;
+
+
+
+
+
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
@@ -90,7 +109,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchStories();
         fetchCoupons();
         fetchCollections();
-        fetchKitchen();
+       // fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
 
@@ -112,7 +131,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
-        kitchenItemViewModels.clear();
+
+
+
+        if (ordersItems!=null) {
+            kitchenItemViewModels.clear();
+            kitchenItemViewModels.addAll(ordersItems);
+        }
 /*
         //  if (collectionItemViewModels.size() > 0) {
         KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
@@ -124,9 +149,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         kitchenResponse2.setCoupons(couponListItemViewModels);
         ordersItems.add(2, kitchenResponse2);
         //  }*/
-
-        kitchenItemViewModels.addAll(ordersItems);
-
     }
 
     public MutableLiveData<List<KitchenResponse.Collection>> getCollectionItemLiveData() {
@@ -265,6 +287,103 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     }
 
+    public void trackLiveOrder() {
+
+        getNavigator().trackLiveOrder(orderId);
+
+
+    }
+
+
+    public void liveOrders() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_LIVE_ORDER_URL + getDataManager().getCurrentUserId(), LiveOrderResponsePojo.class, new Response.Listener<LiveOrderResponsePojo>() {
+                @Override
+                public void onResponse(LiveOrderResponsePojo response) {
+                    if (response != null) {
+                        setIsLoading(false);
+
+
+                        if (response.getStatus()) {
+
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+
+
+                                if (response.getResult().get(0).isOnlinePaymentStatus()) {
+
+                                    isLiveOrder.set(true);
+
+                                    kitchenImage.set(response.getResult().get(0).getMakeitimage());
+
+                                    kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+                                    orderId = response.getResult().get(0).getOrderid();
+
+                                    getDataManager().setOrderId(orderId);
+
+                                    StringBuilder itemsBuilder = new StringBuilder();
+
+                                    for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
+                                        itemsBuilder.append(response.getResult().get(0).getItems().get(i).getProductName());
+
+                                        if (response.getResult().get(0).getItems().size() - 1 != i) {
+                                            itemsBuilder.append(" , ");
+                                        }
+                                    }
+
+                                    String item = itemsBuilder.toString();
+                                    products.set(item);
+                                    // 2019-05-09T13:21:54.000Z
+                                    try {
+                                        String strDate = response.getResult().get(0).getDeliverytime();
+                                        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                        DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                        String outputDateStr = "";
+                                        //Date  date1 = new Date(strDate);
+                                        Date date = currentFormat.parse(strDate);
+                                        outputDateStr = dateFormat.format(date);
+                                        eta.set(outputDateStr);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+
+                                    }
+
+                                    ////////////
+                                } else {
+                                    isLiveOrder.set(false);
+                                }
+
+
+                            } else {
+                                isLiveOrder.set(false);
+
+                            }
+                        }else {
+                            isLiveOrder.set(false);
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Log.e("", error.getMessage());
+                    setIsLoading(false);
+                    isLiveOrder.set(false);
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+    }
 
     public void fetchCoupons() throws NullPointerException {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -629,6 +748,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         kitchenItemViewModels.add(3, kitchenResponse1);
                                         kitchenResponse.setResult(kitchenItemViewModels);
 */
+                                      //  kitchenItemsLiveData.setValue(null);
+
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());

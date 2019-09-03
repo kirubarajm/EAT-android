@@ -111,7 +111,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void addDishFavourite(Integer dishId, String fav);
 
-        void productNotAvailable();
+        void productNotAvailable(int quantity,String productname);
 
         void removeDishFavourite(Integer favId);
 
@@ -246,8 +246,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void productNotAvailable() {
-            mLiveProductsAdapterListener.productNotAvailable();
+        public void productNotAvailable(int quantity,String productname) {
+            mLiveProductsAdapterListener.productNotAvailable(quantity,productname);
         }
 
         @Override

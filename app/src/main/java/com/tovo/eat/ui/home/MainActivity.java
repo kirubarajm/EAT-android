@@ -657,7 +657,29 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         Intent intent = getIntent();
-        if (intent.getExtras() != null) {
+        if (mMainViewModel.isAddressAdded()) {
+            if (intent.getExtras() != null) {
+                if (intent.getExtras().getBoolean("cart")) {
+                    mMainViewModel.gotoCart();
+                } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
+
+                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+                    startActivity(repliesIntent);
+                } else {
+                    openHome();
+                }
+            }else {
+                openHome();
+            }
+        }else {
+            startLoader();
+            startLocationTracking();
+
+        }
+
+
+
+        /*if (intent.getExtras() != null) {
             if (intent.getExtras().getBoolean("cart")) {
 
                 if (mMainViewModel.isAddressAdded()) {
@@ -694,7 +716,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 openHome();
             }
 
-        }
+        }*/
 
 
 
@@ -1143,6 +1165,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         registerReceiver(dataReceiver, intentFilter);
         registerWifiReceiver();
 
+        if (!mMainViewModel.isAddressAdded()) {
+            startLoader();
+            startLocationTracking();
+        }
 
         /*if (mMainViewModel.getDataManager().getAddressId()==0){
             startLocationTracking();

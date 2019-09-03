@@ -72,7 +72,7 @@ public class KitchenResponse {
         private Integer favid;
         @SerializedName("serviceablestatus")
         @Expose
-        private boolean serviceableStatus;
+        private boolean serviceableStatus=true;
         @SerializedName("isfav")
         @Expose
         private String isfav;

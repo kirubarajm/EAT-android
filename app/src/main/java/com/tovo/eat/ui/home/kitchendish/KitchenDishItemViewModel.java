@@ -166,9 +166,9 @@ public class KitchenDishItemViewModel {
             quantity.set(quantity.get() + 1);
 
         } else {
-            mListener.productNotAvailable();
+           // mListener.productNotAvailable();
 
-            Toast.makeText(MvvmApp.getInstance(), "Only " +dishList.getQuantity() +" quantity available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MvvmApp.getInstance(), "Only "+dishList.getQuantity()+" Quantity of "+dishList.getProductName()+" Available", Toast.LENGTH_SHORT).show();
 
             return;
         }

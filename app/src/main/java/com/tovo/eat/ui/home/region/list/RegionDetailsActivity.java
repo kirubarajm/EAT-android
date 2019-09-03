@@ -66,14 +66,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
         getSupportActionBar().setHomeAsUpIndicator(backArrow);
 
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-
-            mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
-            mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
-            mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
-            subscribeToLiveData();
-        }
 
 
         setTitle(mRegionDetailsViewModel.regionName.get());
@@ -175,13 +167,10 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-
-
     private void subscribeToLiveData() {
         mRegionDetailsViewModel.getkitchenListItemsLiveData().observe(this,
                kitchensListItemViewModel -> mRegionDetailsViewModel.addDishItemsToList(kitchensListItemViewModel));
     }
-
 
     @Override
     public void onResume() {
@@ -189,7 +178,14 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
 registerWifiReceiver();
 
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
 
+            mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
+            mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
+            mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
+            subscribeToLiveData();
+        }
     }
 
 

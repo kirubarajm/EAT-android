@@ -552,7 +552,7 @@
     <string name="today_s_menu">Today\'s Menu</string>
 
     <string name="payment_refund_and_bill_related_queries">Payment, Refund and Bill related queries</string>
-    <string name="devivery_executive">Want to pass on instructions to the delivery executive</string>
+    <string name="devivery_executive">Want to pass an instructions to the delivery executive</string>
     <string name="order_delivered_at">Order delivered at</string>
     <string name="placed_at">Order placed at</string>
 
@@ -592,7 +592,7 @@
     <string name="see_more">SEE MORE</string>
     <string name="swipe_to_left">Swipe to left</string>
 
-    <string name="spoke_to_our_service_consistent_regarding_your_query">Spoke to our service consistent regarding your query</string>
+    <string name="spoke_to_our_service_consistent_regarding_your_query">Speak to our service consistent regarding your query</string>
     <string name="promo_code_applied">Promo code applied!</string>
     <string name="explore_all">Explore all</string>
     <string name="explore_our_wide_range_regional_food">Explore our wide range regional food</string>

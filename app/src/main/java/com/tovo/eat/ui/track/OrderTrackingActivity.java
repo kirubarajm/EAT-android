@@ -209,11 +209,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         Bitmap oBitmap = ((BitmapDrawable) oDrawable).getBitmap();
         moveit_marker = scaleBitmap(oBitmap, 80, 117);
 
-        Drawable dDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
+        Drawable dDrawable = getResources().getDrawable(R.drawable.eat_marker);
         Bitmap dBitmap = ((BitmapDrawable) dDrawable).getBitmap();
         destination_marker = scaleBitmap(dBitmap, 80, 117);
 
-        Drawable eDrawable = getResources().getDrawable(R.drawable.eat_marker);
+        Drawable eDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
         Bitmap eBitmap = ((BitmapDrawable) eDrawable).getBitmap();
         origin_marker = scaleBitmap(eBitmap, 80, 117);
 

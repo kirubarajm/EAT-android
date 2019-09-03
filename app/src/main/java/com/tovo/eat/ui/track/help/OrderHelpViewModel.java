@@ -71,7 +71,7 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
 
         } else {
 
-            getNavigator().showToast("Delivery not yet assigned");
+            getNavigator().showToast("Delivery executive yet to be assigned");
         }
 
     }

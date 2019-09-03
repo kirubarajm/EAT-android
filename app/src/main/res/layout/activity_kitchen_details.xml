@@ -85,6 +85,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:fitsSystemWindows="true"
+                android:elevation="0dp"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
                 <android.support.design.widget.CollapsingToolbarLayout
@@ -139,6 +140,7 @@ xmlns:tools="http://schemas.android.com/tools">
                         app:contentInsetLeft="0dp"
                         app:contentInsetStart="0dp"
                         app:layout_collapseMode="pin"
+                        android:elevation="0dp"
                         app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                         app:popupTheme="@style/AppTheme.PopupOverlay"
                         app:titleTextColor="@color/eat_color">

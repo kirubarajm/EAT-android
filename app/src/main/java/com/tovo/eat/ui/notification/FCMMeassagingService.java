@@ -142,9 +142,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setContentInfo("Hello")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setNumber(++numMessages)
+                .setNumber(++numMessages);
                 //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setSmallIcon(R.drawable.bottom_eat_home);
 
 
         try {
@@ -199,11 +198,10 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
                 /*  .setContentInfo("Hello")*/
-                .setSmallIcon(R.drawable.ic_eat)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages)
-                .setSmallIcon(R.drawable.bottom_eat_home);
+                .setSmallIcon(R.drawable.ic_eat);
 
        /* try {
             String picture = data.get(FCM_PARAM);

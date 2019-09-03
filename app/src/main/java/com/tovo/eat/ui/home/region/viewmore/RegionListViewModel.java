@@ -36,7 +36,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
     public RegionListViewModel(DataManager dataManager) {
         super(dataManager);
         regionListItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+       // fetchRepos();
     }
 
 

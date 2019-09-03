@@ -22,7 +22,7 @@
         android:id="@+id/kitchen_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@{kitchenItemViewModel.seriviceable? @color/white: @color/gray}"
         android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
         android:orientation="horizontal">
 
@@ -74,6 +74,17 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_vertical">-->
 
+
+
+
+                <RelativeLayout
+                    android:background="#C4E9E8E8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}">
+
+
+
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:id="@+id/service1"
                         android:background="@color/dark_gray"
@@ -85,9 +96,8 @@
                         android:singleLine="true"
                         android:text="@string/unserviceable"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:visibility="invisible" />
-
+                        android:textSize="12sp" />
+                </RelativeLayout>
                <!-- </RelativeLayout>-->
 
                 </RelativeLayout>
@@ -118,7 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
                                 android:text="@{kitchenItemViewModel.kitchen_name}"
-                                android:textColor="@color/black"
+                                android:textColor="@{kitchenItemViewModel.seriviceable?@color/black: @color/medium_gray}"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -145,7 +155,7 @@
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
                                 android:text="@{kitchenItemViewModel.region}"
-                                android:textColor="@color/black"
+                                android:textColor="@{kitchenItemViewModel.seriviceable?@color/black: @color/medium_gray}"
                                 android:textSize="12sp" />
 
                         </LinearLayout>

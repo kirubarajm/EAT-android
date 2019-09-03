@@ -791,9 +791,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mKitchenDetailsViewModel.addFavourite(favId);
     }
 
+
     @Override
-    public void productNotAvailable() {
-        Toast.makeText(KitchenDetailsActivity.this, "Entered quantity not available now", Toast.LENGTH_SHORT).show();
+    public void productNotAvailable(int quantity,String productname) {
+        Toast.makeText(KitchenDetailsActivity.this, "Only "+quantity+" Quantity of "+productname+" Available", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

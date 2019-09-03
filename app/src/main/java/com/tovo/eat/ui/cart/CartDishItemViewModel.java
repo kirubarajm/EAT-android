@@ -3,10 +3,13 @@ package com.tovo.eat.ui.cart;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +91,12 @@ public class CartDishItemViewModel {
             quantity.set(quantity.get() + 1);
 
         } else {
-            mListener.productNotAvailable();
+           // mListener.productNotAvailable();
+
+            Toast.makeText(MvvmApp.getInstance(), "Only "+dishList.getQuantity()+" Quantity of "+dishList.getProductName()+" Available", Toast.LENGTH_SHORT).show();
+
+
+
             return;
         }
 

@@ -161,7 +161,7 @@ public class TodaysMenuItemViewModel {
             quantity.set(quantity.get() + 1);
 
         } else {
-            mListener.productNotAvailable();
+            mListener.productNotAvailable(dishList.getQuantity(),dishList.getProductName());
             return;
         }
 
@@ -494,7 +494,7 @@ public class TodaysMenuItemViewModel {
         void removeFavourites(Integer favId);
 
 
-        void productNotAvailable();
+        void productNotAvailable(int quantity,String productname);
 
         void refresh();
 

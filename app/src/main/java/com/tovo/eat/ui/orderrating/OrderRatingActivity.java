@@ -16,6 +16,7 @@ import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
+import com.tovo.eat.utilities.MvvmApp;
 
 import javax.inject.Inject;
 
@@ -54,12 +55,12 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     @Override
     public void ratingSuccess() {
         dismiss();
-       // Toast.makeText(getContext(), "Rating Success", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), "Thanks for your feedback", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void ratingFailure() {
-        Toast.makeText(getContext(), "Rating Failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MvvmApp.getInstance(), "Rating Failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

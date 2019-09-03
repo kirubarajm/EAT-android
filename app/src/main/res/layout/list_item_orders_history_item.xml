@@ -37,6 +37,7 @@
                     android:textSize="14sp" />
 
                 <com.tovo.eat.utilities.fonts.TovoTextView
+                    android:layout_marginStart="3dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
                     android:layout_toEndOf="@+id/name"
                     android:text="@string/icon_veg"
                     android:textColor="@{ordersProductListItemViewModel.isVeg?@color/green:@color/red}"
-                    android:textSize="5sp" />
+                    android:textSize="7sp" />
             </LinearLayout>
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView

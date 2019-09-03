@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -36,6 +37,7 @@ import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
+import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
@@ -180,6 +182,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void getFullStories(StoriesResponse storiesResponse) {
         this.storiesFullResponse = storiesResponse;
         stopStorieLoader();
+    }
+
+    @Override
+    public void trackLiveOrder(Integer orderId) {
+
+
+            Intent intent = OrderTrackingActivity.newIntent(getContext());
+            startActivity(intent);
+
     }
 
     @Override
@@ -514,6 +525,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
         //mHomeTabViewModel.fetchStories();
         mHomeTabViewModel.fetchKitchen();
+        mHomeTabViewModel.liveOrders();
         regionCardClicked = false;
 
     }

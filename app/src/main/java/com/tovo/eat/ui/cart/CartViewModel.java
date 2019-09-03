@@ -706,6 +706,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }else {
             Toast.makeText(MvvmApp.getInstance(), statusMessage.get(), Toast.LENGTH_SHORT).show();
 
+
+            if (!serviceable.get()) {
+                getNavigator().notServicable();
+            }
+
+
         }
     }
 

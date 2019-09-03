@@ -225,19 +225,16 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             mLiveProductsItemViewModel = new KitchenItemViewModel(this, blog);
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
 
-            mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
+           // mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
 
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
-            mListItemLiveProductsBinding.executePendingBindings();
-            
+
+
+
             if (blog.getMakeituserid()==null)   mListItemLiveProductsBinding.kitchenTile.setVisibility(View.GONE);
 
-            if (!blog.isServiceableStatus()) {
+            /*if (!blog.isServiceableStatus()) {
 
-                mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
+               // mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
                 mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
                 mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
                 mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
@@ -248,9 +245,19 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
                 mListItemLiveProductsBinding.image.setColorFilter(filter);
                 mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
-               // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
+                // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
 
-            }
+            }*/
+
+
+
+            // Immediate Binding
+            // When a variable or observable changes, the binding will be scheduled to change before
+            // the next frame. There are times, however, when binding must be executed immediately.
+            // To force execution, use the executePendingBindings() method.
+            mListItemLiveProductsBinding.executePendingBindings();
+            
+
 
         }
 

@@ -2,13 +2,17 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.utilities.AppConstants;
@@ -42,6 +46,7 @@ public class KitchenItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isRated = new ObservableBoolean();
     public final ObservableBoolean isEta = new ObservableBoolean();
+    public final ObservableBoolean seriviceable = new ObservableBoolean();
 
 
     public final KitchenItemViewModelListener mListener;
@@ -60,6 +65,33 @@ public class KitchenItemViewModel {
 
         //  this.kitchen_type.set(mKitchenList.getKitchenType());
         this.kitchen_image.set(mKitchenList.getMakeitimg());
+
+
+
+        seriviceable.set(mKitchenList.isServiceableStatus());
+
+
+       /* if (!mKitchenList.isServiceableStatus()) {
+
+            // mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
+            mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+            mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+            mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            mListItemLiveProductsBinding.image.setColorFilter(filter);
+            mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
+            // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
+
+        }*/
+
+
+
+
+
 
 
         if (mKitchenList.getEta() == null) {
