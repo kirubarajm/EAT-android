@@ -149,7 +149,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public boolean isAddressAdded() {
 
-        if (getDataManager().getCurrentLat() == null&&getDataManager().getCurrentLat().equals("0.0")) {
+        if (getDataManager().getCurrentLat() == null||getDataManager().getCurrentLat().equals("0.0")) {
 
             return false;
         } else {

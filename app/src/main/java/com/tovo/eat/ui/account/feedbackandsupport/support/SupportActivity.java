@@ -105,13 +105,13 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void onRefreshSuccess() {
-        mActivityQueriesBinding.swipeQueries.setRefreshing(false);
+     //   mActivityQueriesBinding.swipeQueries.setRefreshing(false);
         //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRefreshFailure() {
-        mActivityQueriesBinding.swipeQueries.setRefreshing(false);
+     //   mActivityQueriesBinding.swipeQueries.setRefreshing(false);
         //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
     }
 

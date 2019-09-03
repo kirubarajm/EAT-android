@@ -209,11 +209,11 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         Bitmap oBitmap = ((BitmapDrawable) oDrawable).getBitmap();
         moveit_marker = scaleBitmap(oBitmap, 80, 117);
 
-        Drawable dDrawable = getResources().getDrawable(R.drawable.eat_marker);
+        Drawable dDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
         Bitmap dBitmap = ((BitmapDrawable) dDrawable).getBitmap();
         destination_marker = scaleBitmap(dBitmap, 80, 117);
 
-        Drawable eDrawable = getResources().getDrawable(R.drawable.kitchen_map_marker);
+        Drawable eDrawable = getResources().getDrawable(R.drawable.eat_marker);
         Bitmap eBitmap = ((BitmapDrawable) eDrawable).getBitmap();
         origin_marker = scaleBitmap(eBitmap, 80, 117);
 
@@ -630,8 +630,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         if (countDownTimer != null) countDownTimer.cancel();
 
 
-
-        if (minuts*60000>0) {
+        if (minuts * 60000 > 0) {
 
             CountDownTimer countDownTimer = new CountDownTimer(minuts * 60000, 1000) {
 
@@ -677,7 +676,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                         }
 
                         showMarker1(moveitLatLng);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 15));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
                     }
 
 
@@ -720,14 +719,46 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 moveitLatLng = new LatLng(location.latitude, location.longitude);
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                if (moveitLocationMarker == null) {
-                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
-                }
+                        if (moveitLocationMarker == null) {
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                        } else {
+                            MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());
+                        }
+                      //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                    }
+                });
 
-                showMarker1(moveitLatLng);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 15));
 
+
+
+
+
+                /*try {
+                    LatLng latLng = new LatLng(location.latitude, location.longitude);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title("Current Position");
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    moveitLocationMarker = mMap.addMarker(markerOptions);
+
+                    //move map camera
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+
+
+                    if (moveitLocationMarker == null) {
+                        moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                    } else {
+                        MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());
+                    }
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
             }
 
             @Override

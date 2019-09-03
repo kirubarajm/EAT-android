@@ -208,7 +208,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     public void showAlert() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(OrderHelpActivity.this).create();
-        alertDialog.setTitle(mOrderHelpViewModel.cancelationMessage.get());
+        alertDialog.setMessage(mOrderHelpViewModel.cancelationMessage.get());
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

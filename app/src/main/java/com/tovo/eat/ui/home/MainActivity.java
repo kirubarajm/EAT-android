@@ -906,7 +906,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        if (mMainViewModel.getDataManager().getAddressId() == 0) {
+            mMainViewModel.getDataManager().setCurrentLat(0.0);
+            mMainViewModel.getDataManager().setCurrentLng(0.0);
+        }
 
         try {
             unregisterReceiver(dataReceiver);
@@ -1151,6 +1154,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected void onStop() {
+       /* if (mMainViewModel.getDataManager().getAddressId() == 0) {
+            mMainViewModel.getDataManager().setCurrentLat(0.0);
+            mMainViewModel.getDataManager().setCurrentLng(0.0);
+        }*/
+
         super.onStop();
 
     }
@@ -1164,11 +1172,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
         registerWifiReceiver();
-
+/*
         if (!mMainViewModel.isAddressAdded()) {
             startLoader();
             startLocationTracking();
-        }
+        }*/
 
         /*if (mMainViewModel.getDataManager().getAddressId()==0){
             startLocationTracking();
