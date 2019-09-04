@@ -670,6 +670,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         if (mMainViewModel.getDataManager().getAddressId() == 0) {
+
+            mMainViewModel.getDataManager().setCurrentLat(0.0);
+            mMainViewModel.getDataManager().setCurrentLng(0.0);
+
             startLoader();
             startLocationTracking();
         }
@@ -1108,7 +1112,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     public void getLocation() {
-        /*locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -1121,7 +1125,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
 
-                return null;
 
             }
 
@@ -1129,20 +1132,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,this,null);
 
-
-            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastKnownLocationGPS != null) {
-
-                return lastKnownLocationGPS;
-            } else {
-                Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-                return loc;
-            }
-        } else {
-            return null;
-        }*/
-
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -1152,12 +1142,38 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         if (location != null) {
                             // Logic to handle location object
                             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-                            openHome();
+                            if (mMainViewModel.isAddressAdded()) {
+                                if (cart) {
+                                    mMainViewModel.gotoCart();
+                                } else if (pageid.equals("") && pageid.equals("9")) {
 
+                                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+                                    startActivity(repliesIntent);
+                                }else {
+
+                                    if (mMainViewModel.isHome.get()){
+
+
+                                    }else  if (mMainViewModel.isMyAccount.get()){
+
+
+                                    }else  if (mMainViewModel.isExplore.get()){
+
+
+                                    }else  if (mMainViewModel.isCart.get()){
+
+
+                                    }else {
+                                        openHome();
+                                    }
+
+
+                                }
+
+                            }
 
                         }
                     }
-
 
                 });
 
@@ -1198,6 +1214,29 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
                 startActivity(repliesIntent);
+            }else {
+
+                if (mMainViewModel.isHome.get()){
+
+
+                }else  if (mMainViewModel.isMyAccount.get()){
+
+
+                }else  if (mMainViewModel.isExplore.get()){
+
+
+                }else  if (mMainViewModel.isCart.get()){
+
+
+                }else {
+
+
+
+
+                    openHome();
+                }
+
+
             }
 
         }
@@ -1216,6 +1255,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onPause() {
         super.onPause();
+
+        cart=false;
+        pageid="";
+
+
         try {
             unregisterReceiver(dataReceiver);
             unregisterWifiReceiver();

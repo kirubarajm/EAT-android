@@ -432,22 +432,27 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             super.onPostExecute(fetchedAddress);
 
 
-            mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
 
-            mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
-            mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
+            if (fetchedAddress!=null) {
+
+                mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
+
+                mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
+                mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
 
 
-            mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
+                mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
 
 
-            StringBuilder strAddress = new StringBuilder();
-            for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
-                strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+                StringBuilder strAddress = new StringBuilder();
+                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
 
+                }
+
+            }else {
+                printToast("Unable to find your address please mark your location on map..");
             }
-
-
 
         }
     }
