@@ -123,14 +123,6 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
         mOrderDetailsViewModel.setNavigator(this);
         mOrderDetailsAdapter.setListener(this);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
-           // String strOrderId=bundle.getString("orderId");
-            String strOrderId=getIntent().getExtras().getString("orderId");
-
-            mOrderDetailsViewModel.fetchRepos(strOrderId);
-
-        }
 
 
 
@@ -167,6 +159,16 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            // String strOrderId=bundle.getString("orderId");
+            String strOrderId=getIntent().getExtras().getString("orderId");
+
+            mOrderDetailsViewModel.fetchRepos(strOrderId);
+
+        }
     }
 
     @Override

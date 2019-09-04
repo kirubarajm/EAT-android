@@ -79,30 +79,6 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
 
 
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            strQId = bundle.getString("qId");
-            strQuestion = bundle.getString("question");
-            strDate = bundle.getString("date");
-            mActivityChatBinding.txtQuestion.setText(strQuestion+"?");
-
-            mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" +" | "+"hh:mm a");
-                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String outputDateStr = "";
-                //Date  date1 = new Date(strDate);
-                Date date = currentFormat.parse(strDate);
-                outputDateStr = dateFormat.format(date);
-                mActivityChatBinding.txtDate.setText(outputDateStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
-        }
     }
 
     private void subscribeToLiveData() {
@@ -165,6 +141,31 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            strQId = bundle.getString("qId");
+            strQuestion = bundle.getString("question");
+            strDate = bundle.getString("date");
+            mActivityChatBinding.txtQuestion.setText(strQuestion+"?");
+
+            mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" +" | "+"hh:mm a");
+                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String outputDateStr = "";
+                //Date  date1 = new Date(strDate);
+                Date date = currentFormat.parse(strDate);
+                outputDateStr = dateFormat.format(date);
+                mActivityChatBinding.txtDate.setText(outputDateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 

@@ -169,15 +169,6 @@ showDialog();
 
         dialog=new Dialog(this);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle!=null){
-           // String strOrderId=bundle.getString("orderId");
-            String strOrderId=getIntent().getExtras().getString("orderId");
-
-            mOrderHistoryActivityViewModelView.fetchRepos(strOrderId);
-
-        }
-
 
 
         mOrdersHistoryActivityItemAdapter.setListener(this);
@@ -214,6 +205,16 @@ showDialog();
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            // String strOrderId=bundle.getString("orderId");
+            String strOrderId=getIntent().getExtras().getString("orderId");
+
+            mOrderHistoryActivityViewModelView.fetchRepos(strOrderId);
+
+        }
+
     }
 
     @Override

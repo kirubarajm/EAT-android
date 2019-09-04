@@ -24,7 +24,7 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
     public FaqFragmentViewModel(DataManager dataManager) {
         super(dataManager);
         faqsItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+       // fetchRepos();
     }
 
     public void addFaqsItemsToList(List<FaqResponse.ProductList> menuProductsItems) {
@@ -48,7 +48,7 @@ public class FaqFragmentViewModel extends BaseViewModel<FaqFragmentNavigator> {
 
 
 
-    private void fetchRepos() {
+    public void fetchRepos() {
         if(!MvvmApp.getInstance().onCheckNetWork()) return;
 
         //if(!MvvmApp.getInstance().onCheckNetWork()) return;

@@ -94,6 +94,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     boolean doubleBackToExitPressedOnce = false;
     ProgressDialog progressDialog;
 
+    boolean cart = false;
+    String pageid = "";
+
+
     FusedLocationProviderClient fusedLocationClient;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -657,25 +661,39 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         Intent intent = getIntent();
-        if (mMainViewModel.isAddressAdded()) {
-            if (intent.getExtras() != null) {
-                if (intent.getExtras().getBoolean("cart")) {
-                    mMainViewModel.gotoCart();
-                } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
-
-                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-                    startActivity(repliesIntent);
-                } else {
-                    openHome();
-                }
-            }else {
-                openHome();
+        if (intent.getExtras() != null) {
+            cart = intent.getExtras().getBoolean("cart");
+            if (null != intent.getExtras().getString("pageid")) {
+                pageid = intent.getExtras().getString("pageid");
             }
-        }else {
+        }
+
+
+        if (mMainViewModel.getDataManager().getAddressId() == 0) {
             startLoader();
             startLocationTracking();
-
         }
+
+//        Intent intent = getIntent();
+//        if (mMainViewModel.isAddressAdded()) {
+//            if (intent.getExtras() != null) {
+//                if (intent.getExtras().getBoolean("cart")) {
+//                    mMainViewModel.gotoCart();
+//                } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
+//
+//                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+//                    startActivity(repliesIntent);
+//                } else {
+//                    openHome();
+//                }
+//            }else {
+//                openHome();
+//            }
+//        }else {
+//            startLoader();
+//            startLocationTracking();
+//
+//        }
 
 
 
@@ -906,10 +924,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mMainViewModel.getDataManager().getAddressId() == 0) {
-            mMainViewModel.getDataManager().setCurrentLat(0.0);
-            mMainViewModel.getDataManager().setCurrentLng(0.0);
-        }
+
 
         try {
             unregisterReceiver(dataReceiver);
@@ -917,6 +932,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             e.printStackTrace();
         }
     }
+
 
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this,
@@ -1141,6 +1157,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                         }
                     }
+
+
                 });
 
     }
@@ -1172,6 +1190,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
         registerReceiver(dataReceiver, intentFilter);
         registerWifiReceiver();
+
+        if (mMainViewModel.isAddressAdded()) {
+            if (cart) {
+                mMainViewModel.gotoCart();
+            } else if (pageid.equals("") && pageid.equals("9")) {
+
+                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+                startActivity(repliesIntent);
+            }
+
+        }
+
 /*
         if (!mMainViewModel.isAddressAdded()) {
             startLoader();

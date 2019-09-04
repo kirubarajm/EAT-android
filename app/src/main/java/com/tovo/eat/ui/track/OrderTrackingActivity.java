@@ -248,12 +248,12 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+       /* mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
-        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);*/
 
 
         // startService(new Intent(this, TrackerService.class));
@@ -317,9 +317,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         if (!liveTracking) {
             liveTracking = true;
-            makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
+            makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(makeitLatLng));
             //  moveToCurrentLocation(moveitLatLng);
-            customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
+            customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(cusLatLng));
 
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -558,9 +558,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
             if (mMap != null) {
                 liveTracking = true;
-                makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(makeitLatLng));
+                makeitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(makeitLatLng));
                 //  moveToCurrentLocation(moveitLatLng);
-                customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(destination_marker)).position(cusLatLng));
+                customerLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(cusLatLng));
+
 
 
                 try {

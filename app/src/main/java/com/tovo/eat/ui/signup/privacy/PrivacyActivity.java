@@ -75,7 +75,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
         mPrivacyViewModel.setNavigator(this);
 
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
-        mActivityPrivacyBinding.webview.loadUrl("http://www.eatalltime.co.in/pp.html");
+
 
     }
 
@@ -89,6 +89,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+        mActivityPrivacyBinding.webview.loadUrl("http://www.eatalltime.co.in/pp.html");
     }
 
 
@@ -148,9 +149,5 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     private  void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
-
-
-
 
 }
