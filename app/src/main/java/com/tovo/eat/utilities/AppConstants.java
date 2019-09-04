@@ -1,5 +1,7 @@
 package com.tovo.eat.utilities;
 
+import com.tovo.eat.BuildConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -90,9 +92,13 @@ public class AppConstants {
     public static final String APP_TYPE_ANDROID= "1";// 1 means android
 
     ///////Server Ip Ports
+
+
+    public static final String URL_SERVER_IP_PORT = BuildConfig.BASE_URL;////live ip port new
+
   // public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
   //public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";////live ip port new
-    public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+    //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 

@@ -18,10 +18,19 @@ android {
         multiDexEnabled true
     }
     buildTypes {
-        release {
+
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL', '"http://www.eatalltime.co.in:3000"'
         }
+        release {
+            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+
     }
 
     dataBinding {
