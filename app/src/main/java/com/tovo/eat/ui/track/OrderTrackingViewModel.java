@@ -47,6 +47,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableBoolean orderAccepted = new ObservableBoolean();
     public final ObservableBoolean delivered = new ObservableBoolean();
 
+    public final ObservableBoolean dataLoaded = new ObservableBoolean();
+
     public final ObservableBoolean iconReeceived = new ObservableBoolean();
     public final ObservableBoolean iconPrepared = new ObservableBoolean();
     public final ObservableBoolean iconDeliverd = new ObservableBoolean();
@@ -68,7 +70,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     public OrderTrackingViewModel(DataManager dataManager) {
         super(dataManager);
-       // getOrderDetails();
+        // getOrderDetails();
         orderId.set("order #" + String.valueOf(getDataManager().getOrderId()));
     }
 
@@ -100,6 +102,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                 @Override
                 public void onResponse(OrderTrackingResponse response) {
 
+                    dataLoaded.set(true);
 
                     orderTrackingResponse = response;
 
@@ -118,13 +121,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 kitchenName.set(response.getResult().get(0).getMakeitdetail().getName());
                             }
 
-                            DateFormat dateFormat=null;
+                            DateFormat dateFormat = null;
 
-                            Date deliverydate=null;
+                            Date deliverydate = null;
                             String outputDateStr = "";
                             try {
                                 String strDate = response.getResult().get(0).getDeliverytime();
-                                 dateFormat = new SimpleDateFormat("hh:mm a");
+                                dateFormat = new SimpleDateFormat("hh:mm a");
 
                                 // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -143,7 +146,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
 
 
-                            Date dDate= null;
+                          /*  Date dDate= null;
 
                             Calendar currentCal= Calendar.getInstance();
 
@@ -169,13 +172,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                            }
-
-
-
-
-
-
+                            }*/
 
 
                             if (response.getResult().get(0).getMoveitdetail().getName() != null) {
@@ -346,14 +343,14 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     }
 
 
-    public void getOrderETA(String lat,String lng) {
+    public void getOrderETA(String lat, String lng) {
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_DETAILS_URL , OrderTrackingResponse.class,new DeliveryTimeRequest(lat,lng,getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_DETAILS_URL, OrderTrackingResponse.class, new DeliveryTimeRequest(lat, lng, getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
                 @Override
                 public void onResponse(OrderTrackingResponse response) {
 
@@ -362,13 +359,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                         if (response.getStatus()) {
 
 
-                            DateFormat dateFormat=null;
+                            DateFormat dateFormat = null;
 
-                            Date deliverydate=null;
+                            Date deliverydate = null;
                             String outputDateStr = "";
                             try {
                                 String strDate = response.getResult().get(0).getDeliverytime();
-                                 dateFormat = new SimpleDateFormat("hh:mm a");
+                                dateFormat = new SimpleDateFormat("hh:mm a");
 
                                 // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -385,21 +382,20 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             }
 
 
+                            Date dDate = null;
 
-                            Date dDate= null;
+                            Calendar currentCal = Calendar.getInstance();
 
-                            Calendar currentCal= Calendar.getInstance();
+                            Date currentDate = currentCal.getTime();
 
-                            Date currentDate=currentCal.getTime();
-
-                           String currentDae=dateFormat.format(currentDate);
+                            String currentDae = dateFormat.format(currentDate);
 
                             try {
-                                currentDate  = dateFormat.parse(currentDae);
-                                dDate= dateFormat.parse(outputDateStr);
+                                currentDate = dateFormat.parse(currentDae);
+                                dDate = dateFormat.parse(outputDateStr);
 
 
-                                long diff = dDate.getTime()-currentDate.getTime();
+                                long diff = dDate.getTime() - currentDate.getTime();
                                 long seconds = diff / 1000;
                                 long minutes = seconds / 60;
                                 long hours = minutes / 60;
@@ -413,7 +409,6 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
 
 
                         } else {
@@ -452,6 +447,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_DETAILS_URL + getDataManager().getOrderId(), OrderTrackingResponse.class, new Response.Listener<OrderTrackingResponse>() {
                 @Override
                 public void onResponse(OrderTrackingResponse response) {
+
+                    dataLoaded.set(true);
+
                     if (response != null) {
 
 

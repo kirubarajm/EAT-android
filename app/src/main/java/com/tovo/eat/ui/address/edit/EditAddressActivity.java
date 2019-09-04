@@ -14,9 +14,11 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityEditAddressBinding;
+import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
@@ -310,9 +313,79 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         }*/
     }
 
+    private class AsyncTaskAddress extends AsyncTask<Double,Address,Address> {
+
+
+
+        @Override
+        protected Address doInBackground(Double... doubles) {
+            Geocoder geocoder = new Geocoder(EditAddressActivity.this, Locale.ENGLISH);
+
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(doubles[0],doubles[1], 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (addresses!=null)
+                if (addresses.size() > 0) {
+                    Address fetchedAddress = addresses.get(0);
+
+                    return fetchedAddress;
+
+                }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Address fetchedAddress) {
+            super.onPostExecute(fetchedAddress);
+
+
+            mEditAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
+
+            mEditAddressViewModel.area.set(fetchedAddress.getSubLocality());
+            mEditAddressViewModel.house.set(fetchedAddress.getFeatureName());
+
+
+            mEditAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode(), aid);
+
+
+            StringBuilder strAddress = new StringBuilder();
+            for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+
+            }
+
+
+        }
+    }
+
+
+
     private void getAddressFromLocation(double latitude, double longitude) {
 
-        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+
+
+
+
+        new AsyncTaskAddress().execute(latitude,longitude);
+
+
+
+
+
+
+
+        /*Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 
 
         try {
@@ -347,7 +420,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         } catch (IOException e) {
             e.printStackTrace();
             printToast("Could not get address..!");
-        }
+        }*/
     }
 
     @Override

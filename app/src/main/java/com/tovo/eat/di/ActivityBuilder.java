@@ -300,5 +300,4 @@ public abstract class ActivityBuilder {
 @ContributesAndroidInjector(modules = {InternetErrorModule.class})
     abstract InternetErrorFragment bindInternetActivity();
 
-
 }

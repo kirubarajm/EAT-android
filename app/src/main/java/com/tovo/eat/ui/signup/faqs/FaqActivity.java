@@ -95,6 +95,8 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+        mFaqViewModel.fetchRepos();
+
     }
 
     @Override

@@ -72,7 +72,7 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
 
         mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
-        mActivityTermsAndConditionBinding.webview.loadUrl("file:///android_asset/terms.html");
+
 
 
     }
@@ -93,5 +93,11 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mActivityTermsAndConditionBinding.webview.loadUrl("file:///android_asset/terms.html");
     }
 }

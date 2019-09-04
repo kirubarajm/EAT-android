@@ -135,9 +135,10 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     @Override
     public void onResume() {
         super.onResume();
+        registerWifiReceiver();
         mCouponListViewModel.fetchRepos();
         subscribeToLiveData();
-        registerWifiReceiver();
+
     }
 
     @Override

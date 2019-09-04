@@ -18,6 +18,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
@@ -389,10 +390,90 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         });
     }
 
+
+
+
+
+
+    private class AsyncTaskAddress extends AsyncTask<Double,Address,Address> {
+
+
+
+        @Override
+        protected Address doInBackground(Double... doubles) {
+            Geocoder geocoder = new Geocoder(AddAddressActivity.this, Locale.ENGLISH);
+
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(doubles[0],doubles[1], 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (addresses!=null)
+            if (addresses.size() > 0) {
+                Address fetchedAddress = addresses.get(0);
+
+                return fetchedAddress;
+
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Address fetchedAddress) {
+            super.onPostExecute(fetchedAddress);
+
+
+            mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
+
+            mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
+            mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
+
+
+            mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
+
+
+            StringBuilder strAddress = new StringBuilder();
+            for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+
+            }
+
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     private void getAddressFromLocation(double latitude, double longitude) {
 
-        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 
+
+
+        new AsyncTaskAddress().execute(latitude,longitude);
+
+
+
+
+
+
+     /*   Geocoder geocoder = new Geocoder(AddAddressActivity.this, Locale.ENGLISH);
 
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -438,7 +519,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
             ee.printStackTrace();
 
-        }
+        }*/
     }
 
     public void getLocation() {
