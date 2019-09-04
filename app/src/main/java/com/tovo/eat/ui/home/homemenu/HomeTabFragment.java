@@ -229,6 +229,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             startKitchenLoader();
 //stopRegioneLoader();
 
+
+
+
         regionsResponse = new RegionsResponse();
 
         if (mHomeTabViewModel.isAddressAdded()) {
@@ -236,6 +239,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
 
+        }else {
+            ((MainActivity) getActivity()).startLocationTracking();
         }
 
 

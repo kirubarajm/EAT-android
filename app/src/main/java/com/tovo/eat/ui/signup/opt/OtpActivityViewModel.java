@@ -151,6 +151,8 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
                                     getDataManager().saveApiToken(response.getToken());
 
+                                    getDataManager().setRazorpayCustomerId(response.getRazerCustomerid());
+
 
                                     getDataManager().updateEmailStatus(response.getEmailstatus());
 

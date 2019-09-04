@@ -129,12 +129,12 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
+        mRepliesActivityViewModel.fetchQueryListServiceCall(0);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         unregisterWifiReceiver();
     }
 

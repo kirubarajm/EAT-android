@@ -33,7 +33,7 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         userId = getDataManager().getCurrentUserId();
 
         ordersItemsLiveData = new MutableLiveData<>();
-        fetchQueryListServiceCall(0);
+
     }
 
     public MutableLiveData<List<RepliesResponse.Result>> getReplies() {

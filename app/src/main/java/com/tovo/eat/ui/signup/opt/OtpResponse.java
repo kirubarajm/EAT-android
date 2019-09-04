@@ -35,9 +35,21 @@ public class OtpResponse {
     @SerializedName("token")
     @Expose
     private String token;
+    @SerializedName("razer_customerid")
+    @Expose
+    private String razerCustomerid;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
+    public String getRazerCustomerid() {
+        return razerCustomerid;
+    }
+
+    public void setRazerCustomerid(String razerCustomerid) {
+        this.razerCustomerid = razerCustomerid;
+    }
 
     public String getToken() {
         return token;

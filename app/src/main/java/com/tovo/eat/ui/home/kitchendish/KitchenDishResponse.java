@@ -261,6 +261,9 @@ public class KitchenDishResponse {
         @SerializedName("cuisinename")
         @Expose
         public String cuisinename;
+        @SerializedName("prod_desc")
+        @Expose
+        public String prodDesc;
         @SerializedName("product_name")
         @Expose
         public String productName;
@@ -271,6 +274,19 @@ public class KitchenDishResponse {
         @SerializedName("makeit_userid")
         @Expose
         public Integer makeitUserid;
+
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
+        }
+
+        public String getProdDesc() {
+            return prodDesc;
+        }
+
+        public void setProdDesc(String prodDesc) {
+            this.prodDesc = prodDesc;
+        }
 
         public Integer getMakeitUserid() {
             return makeitUserid;

@@ -34,10 +34,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityEditAddressBinding;
+import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.io.IOException;
@@ -260,7 +262,25 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     public void getLocation() {
 
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        SingleShotLocationProvider.requestSingleUpdate(EditAddressActivity.this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+
+
+                        LatLng latLng = new LatLng(location.latitude, location.longitude);
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                        initCameraIdle();
+
+                    }
+                });
+
+
+
+
+
+
+       /* fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -274,7 +294,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
                         }
                     }
-                });
+                });*/
 
 
 

@@ -68,6 +68,7 @@ import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
@@ -531,13 +532,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             if (resultCode == RESULT_OK) {
 
-
-                new Handler().postDelayed(new Runnable() {
+                getLocation();
+               /* new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         getLocation();
                     }
-                }, 5000);
+                }, 5000);*/
 
 
             } else {
@@ -670,10 +671,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         if (mMainViewModel.getDataManager().getAddressId() == 0) {
-
             mMainViewModel.getDataManager().setCurrentLat(0.0);
             mMainViewModel.getDataManager().setCurrentLng(0.0);
-
             startLoader();
             startLocationTracking();
         }
@@ -796,7 +795,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
-    private void startLocationTracking() {
+    public void startLocationTracking() {
 
         if (checkPermissions()) {
 
@@ -995,8 +994,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 startLocationTracking();
 
 
-            } else {
-                Snackbar snackbar = Snackbar.make(mActivityMainBinding.contentMain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                /*  Log.i(TAG, "Permission granted.");*/
+
+                Snackbar snackbar = Snackbar.make(mActivityMainBinding.root, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setActionTextColor(getResources().getColor(R.color.white));
                 View snackbarView = snackbar.getView();
                 int snackbarTextId = android.support.design.R.id.snackbar_text;
@@ -1019,6 +1020,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 });
                 snackbar.show();
 
+
             }
         }
     }
@@ -1030,12 +1032,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         if (location != null) {
           /*  if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();*/
-
-            locationManager.removeUpdates(this);
-
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
             openHome();
-
+            locationManager.removeUpdates(this);
         }
 
     }
@@ -1112,28 +1111,50 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     public void getLocation() {
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
 
 
-            }
+        SingleShotLocationProvider.requestSingleUpdate(MainActivity.this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
-         //   locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3, 1, this);
+                        mMainViewModel.currentLatLng(location.latitude, location.longitude);
+                        if (mMainViewModel.isAddressAdded()) {
+                            if (cart) {
+                                mMainViewModel.gotoCart();
+                            } else if (pageid.equals("") && pageid.equals("9")) {
 
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,this,null);
+                                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
+                                startActivity(repliesIntent);
+                            } else {
 
-        }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+                                if (mMainViewModel.isHome.get()) {
+
+
+                                } else if (mMainViewModel.isMyAccount.get()) {
+
+
+                                } else if (mMainViewModel.isExplore.get()) {
+
+
+                                } else if (mMainViewModel.isCart.get()) {
+
+
+                                } else {
+                                    openHome();
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+                });
+
+
+
+
+       /* fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -1149,21 +1170,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                                     Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
                                     startActivity(repliesIntent);
-                                }else {
+                                } else {
 
-                                    if (mMainViewModel.isHome.get()){
-
-
-                                    }else  if (mMainViewModel.isMyAccount.get()){
+                                    if (mMainViewModel.isHome.get()) {
 
 
-                                    }else  if (mMainViewModel.isExplore.get()){
+                                    } else if (mMainViewModel.isMyAccount.get()) {
 
 
-                                    }else  if (mMainViewModel.isCart.get()){
+                                    } else if (mMainViewModel.isExplore.get()) {
 
 
-                                    }else {
+                                    } else if (mMainViewModel.isCart.get()) {
+
+
+                                    } else {
                                         openHome();
                                     }
 
@@ -1172,12 +1193,59 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                             }
 
+                        } else {
+
+                            getLocation();
+
+                          //  getlocationUsingDefault();
                         }
                     }
 
                 });
+*/
+    }
+
+
+
+    public void getlocationUsingDefault(){
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
+
+
+            }
+
+               locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3, 1, this);
+
+            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+
+          if( locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)!=null){
+              Location ll=  locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+              mMainViewModel.currentLatLng(ll.getLatitude(), ll.getLongitude());
+              openHome();
+             /* locationManager.removeUpdates(this);*/
+
+          }
+
+
+
+        }
 
     }
+
+
+
+
 
 
     @Override
@@ -1214,28 +1282,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
                 Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
                 startActivity(repliesIntent);
-            }else {
+            } else {
 
-                if (mMainViewModel.isHome.get()){
-
-
-                }else  if (mMainViewModel.isMyAccount.get()){
+                if (mMainViewModel.isHome.get()) {
 
 
-                }else  if (mMainViewModel.isExplore.get()){
+                } else if (mMainViewModel.isMyAccount.get()) {
 
 
-                }else  if (mMainViewModel.isCart.get()){
+                } else if (mMainViewModel.isExplore.get()) {
 
 
-                }else {
+                } else if (mMainViewModel.isCart.get()) {
 
 
-
+                } else {
 
                     openHome();
                 }
-
 
             }
 
@@ -1256,8 +1320,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onPause() {
         super.onPause();
 
-        cart=false;
-        pageid="";
+        cart = false;
+        pageid = "";
 
 
         try {

@@ -50,10 +50,20 @@ public class RepliesResponse {
         @SerializedName("created_at")
         @Expose
         public String createdAt;
+        @SerializedName("un_read_count")
+        @Expose
+        public Integer unReadCount;
         @SerializedName("updated_at")
         @Expose
         public Object updatedAt;
 
+        public Integer getUnReadCount() {
+            return unReadCount;
+        }
+
+        public void setUnReadCount(Integer unReadCount) {
+            this.unReadCount = unReadCount;
+        }
 
         public Integer getQid() {
             return qid;

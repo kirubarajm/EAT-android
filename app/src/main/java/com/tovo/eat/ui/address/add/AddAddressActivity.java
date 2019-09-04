@@ -41,9 +41,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -327,7 +330,26 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     private void getUserLocation() {
-        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+        SingleShotLocationProvider.requestSingleUpdate(AddAddressActivity.this,
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+
+                        if (dialog.isShowing())
+                            dialog.dismiss();
+
+                        LatLng latLng = new LatLng(location.latitude, location.longitude);
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                        initCameraIdle();
+
+                    }
+                });
+
+
+
+
+       /* FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -343,14 +365,14 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                 initCameraIdle();
 
 
-                              /*  latitude = location.getLatitude();
-                                longitude = location.getLongitude();*/
+                              *//*  latitude = location.getLatitude();
+                                longitude = location.getLongitude();*//*
                             }
                         }
                     });
         }else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
-        }
+        }*/
     }
 
     @SuppressLint("MissingPermission")

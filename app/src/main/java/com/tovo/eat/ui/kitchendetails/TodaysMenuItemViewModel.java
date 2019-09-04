@@ -28,6 +28,7 @@ public class TodaysMenuItemViewModel {
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> sprice = new ObservableField<>();
+    public final ObservableField<String> productDes = new ObservableField<>();
     public final ObservableField<Integer> price = new ObservableField<>();
 
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -78,6 +79,7 @@ public class TodaysMenuItemViewModel {
             isFavouriteMenu.set(true);
         }
 
+        productDes.set(dishList.getProdDesc());
 
         if (cartRequestPojo == null) {
 

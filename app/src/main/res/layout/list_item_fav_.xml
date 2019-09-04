@@ -236,6 +236,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{favTodaysMenuItemViewModel.producttype}"
@@ -247,11 +248,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="3dp"
-                        android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
@@ -271,7 +269,12 @@
                             android:textSize="14sp" />
                     </LinearLayout>
 
-
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{favTodaysMenuItemViewModel.productDes}"
+                        android:textColor="@color/medium_gray"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
 

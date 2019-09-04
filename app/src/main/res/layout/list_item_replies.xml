@@ -10,14 +10,17 @@
             type="com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesItemViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> RepliesListItemViewModel.onItemClick()}"
         android:orientation="vertical"
         android:padding="10dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:layout_toStartOf="@+id/count"
+            android:id="@+id/content"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -39,13 +42,30 @@
                 android:text="@{RepliesListItemViewModel.createdAtFinal}"
                 android:textSize="12sp" />
 
-        </RelativeLayout>
+        </LinearLayout>
+
+
+
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:layout_margin="5dp"
+            android:id="@+id/count"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/count_bck"
+            android:gravity="center"
+            android:text="@{RepliesListItemViewModel.flagCount}"
+            android:textColor="@color/white"
+            android:visibility="@{RepliesListItemViewModel.unreadCount?View.VISIBLE:View.GONE}" />
+
 
         <View
+            android:layout_below="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.3dp"
             android:layout_marginTop="5dp"
             android:background="@color/gray" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
