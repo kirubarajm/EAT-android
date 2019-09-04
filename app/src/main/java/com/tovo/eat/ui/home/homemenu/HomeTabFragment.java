@@ -526,7 +526,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         //mHomeTabViewModel.fetchStories();
         mHomeTabViewModel.fetchKitchen();
         mHomeTabViewModel.liveOrders();
+        mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
+
 
     }
 

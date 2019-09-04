@@ -880,14 +880,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         if (sid == localStoriesResponse.getResult().get(j).getStoryid()) {
 
-                                            for (int l = 0; l < response.getResult().get(j).getStories().size(); l++) {
+                                            for (int l = 0; l < response.getResult().get(i).getStories().size(); l++) {
 
-                                                int id = response.getResult().get(j).getStories().get(l).getId();
+                                                int id = response.getResult().get(i).getStories().get(l).getId();
 
                                                 for (int k = 0; k < localStoriesResponse.getResult().get(j).getStories().size(); k++) {
-
+                                                    Log.i("Seen_Sid_"+sid,""+localStoriesResponse.getResult().get(j).getStories().get(k).getId());
                                                     if (id == (localStoriesResponse.getResult().get(j).getStories().get(k).getId())) {
-
+                                                        Log.i("Seen_Sid_"+sid+"_id_"+id,""+localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
                                                         response.getResult().get(i).getStories().get(k).setSeen(localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
 
                                                     }
@@ -920,10 +920,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                                 }
-
                                 StoriesResponse completeStories = new StoriesResponse();
-                                newStories.addAll(oldStories);
-                                completeStories.setResult(newStories);
+                                if(newStories.size()==0){
+                                    completeStories.setResult(response.getResult());
+                                }else {
+                                    newStories.addAll(oldStories);
+                                    completeStories.setResult(newStories);
+                                }
 
 
                                 Gson gson = new Gson();
@@ -993,6 +996,36 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             e.printStackTrace();
         }
     }
+
+
+    public void storiesRefresh(){
+        StoriesResponse localStoriesResponse;
+        if(getDataManager().getStoriesList()!=null) {
+            Gson sGson = new GsonBuilder().create();
+            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
+            List<StoriesResponse.Result> newStories = new ArrayList<>();
+            List<StoriesResponse.Result> oldStories = new ArrayList<>();
+            for (int i = 0; i < localStoriesResponse.getResult().size(); i++) {
+                if (localStoriesResponse.getResult().get(i).getStories().size() > 0)
+                    if (!localStoriesResponse.getResult().get(i).getStories().get(localStoriesResponse.getResult().get(i).getStories().size() - 1).isSeen()) {
+                        newStories.add(localStoriesResponse.getResult().get(i));
+                    } else {
+                        oldStories.add(localStoriesResponse.getResult().get(i));
+                    }
+            }
+            StoriesResponse completeStories = new StoriesResponse();
+            newStories.addAll(oldStories);
+            completeStories.setResult(newStories);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(completeStories);
+            getDataManager().setStoriesList(null);
+            getDataManager().setStoriesList(json);
+
+            storiesItemsLiveData.setValue(completeStories.getResult());
+        }
+    }
+
 
     public void fetchCollections() throws NullPointerException {
         try {
