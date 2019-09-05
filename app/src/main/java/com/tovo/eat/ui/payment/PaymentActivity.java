@@ -218,9 +218,8 @@ boolean paymentRetry=false;
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        boolean status = data.getBooleanExtra("status", false);
-        if (status) {
-
+       // boolean status = data.getBooleanExtra("status", false);
+        if (resultCode == RESULT_OK){
             switch (requestCode) {
 
                 case COD_REQUESTCODE:
@@ -231,12 +230,13 @@ boolean paymentRetry=false;
 
                 case ONLINE_REQUESTCODE:
 
+
                     mPaymentViewModel.payOnline();
 
                     break;
 
             }
-        }
+    }
     }
 
     @Override

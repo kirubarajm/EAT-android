@@ -187,6 +187,10 @@ dependencies {
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
+//page progress
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    
+
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

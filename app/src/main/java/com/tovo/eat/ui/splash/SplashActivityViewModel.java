@@ -1,6 +1,10 @@
 package com.tovo.eat.ui.splash;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.database.Observable;
+import android.databinding.ObservableField;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -16,8 +20,21 @@ import com.tovo.eat.utilities.MvvmApp;
 
 public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigator> {
 
+
+
+
+    public final ObservableField<String> version=new ObservableField<>();
+
+
+
+
+
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
+
+
+
+
     }
 
     public void checkIsUserLoggedInOrNot() {

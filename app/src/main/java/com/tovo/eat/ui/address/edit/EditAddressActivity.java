@@ -18,10 +18,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -30,11 +30,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityEditAddressBinding;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
@@ -113,7 +111,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     @Override
     public void addressSaved() {
-
+        hideKeyboard();
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
         finish();
 
@@ -127,17 +125,25 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     }
 
+
+    public void hideSoftKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
     @Override
     public void myLocationn() {
+        turnOnGps();
 
-
-        if (mLocation != null) {
+       /* if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
             initCameraIdle();
         } else {
             turnOnGps();
-        }
+        }*/
     }
 
     @Override
@@ -146,7 +152,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         if (map != null) {
             LatLng latLng = new LatLng(lat, lng);
             lastPosition = latLng;
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
         }
 
 
@@ -197,7 +203,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 map.getUiSettings().setZoomControlsEnabled(true);
                 initCameraIdle();
                 if (lastPosition != null)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastPosition, 12));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastPosition, 18));
             }
         });
 
@@ -262,21 +268,18 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     public void getLocation() {
 
 
-
         SingleShotLocationProvider.requestSingleUpdate(EditAddressActivity.this,
                 new SingleShotLocationProvider.LocationCallback() {
-                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
 
                         LatLng latLng = new LatLng(location.latitude, location.longitude);
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                         initCameraIdle();
 
                     }
                 });
-
-
-
 
 
 
@@ -295,8 +298,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                         }
                     }
                 });*/
-
-
 
        /* LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
@@ -521,7 +522,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 mEditAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
 
                 mEditAddressViewModel.area.set(fetchedAddress.getSubLocality());
-                mEditAddressViewModel.house.set(fetchedAddress.getFeatureName());
+                // mEditAddressViewModel.house.set(fetchedAddress.getFeatureName());
 
 
                 mEditAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode(), aid);

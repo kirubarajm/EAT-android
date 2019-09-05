@@ -25,6 +25,7 @@ public class KitchenDishItemViewModel {
 
     public final ObservableField<String> makeit_username = new ObservableField<>();
     public final ObservableField<String> producttype = new ObservableField<>();
+    public final ObservableField<String> productDes = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> sprice = new ObservableField<>();
@@ -78,7 +79,7 @@ public class KitchenDishItemViewModel {
             isVeg.set(false);
         }
 
-
+        productDes.set(dishList.getProdDesc());
 
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());

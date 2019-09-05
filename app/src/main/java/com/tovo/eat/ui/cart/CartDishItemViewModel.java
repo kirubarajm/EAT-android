@@ -23,6 +23,9 @@ public class CartDishItemViewModel {
     public final ObservableField<String> image = new ObservableField<>();
 
     public final ObservableField<String> sprice = new ObservableField<>();
+    public final ObservableField<String> productDes = new ObservableField<>();
+
+
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<String> availability = new ObservableField<>();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
@@ -60,6 +63,8 @@ public class CartDishItemViewModel {
             }
 
         }
+
+        productDes.set(dishList.getProdDesc());
 
 
         image.set(dishList.getImage());

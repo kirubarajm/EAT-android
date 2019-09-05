@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -72,6 +73,9 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mChatAdapter.setListener(this);
 
 
+        mActivityChatBinding.loader.setVisibility(View.VISIBLE);
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityChatBinding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));
         mActivityChatBinding.recyclerChat.setAdapter(mChatAdapter);
@@ -107,6 +111,13 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     }
 
     @Override
+    public void apiLoaded() {
+
+        mActivityChatBinding.loader.setVisibility(View.GONE);
+
+    }
+
+    @Override
     public void onRefreshSuccess(List<ChatRepliesReadRequest.Aidlist> aidlist) {
         mActivityChatBinding.swipeChat.setRefreshing(false);
         mActivityChatBinding.edtMessage.setText("");
@@ -117,6 +128,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     @Override
     public void onRefreshFailure(String strFailure) {
         mActivityChatBinding.swipeChat.setRefreshing(false);
+        mActivityChatBinding.loader.setVisibility(View.GONE);
     }
 
     @Override

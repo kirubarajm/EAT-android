@@ -51,12 +51,45 @@
                     android:orientation="vertical">
 
 
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:layout_toStartOf="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_toEndOf="@+id/name"
+                            android:text="@string/icon_veg"
+                            android:textColor="@{kitchenDishItemViewModel.isVeg?@color/green:@color/red}"
+                            android:textSize="6sp" />
+
+
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:layout_alignParentStart="true"
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{kitchenDishItemViewModel.product_name}"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal">
@@ -77,44 +110,22 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
                     </LinearLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginEnd="1dp"
-                            android:layout_toEndOf="@+id/name"
-                            android:text="@string/icon_veg"
-                            android:textColor="@{kitchenDishItemViewModel.isVeg?@color/green:@color/red}"
-                            android:textSize="6sp" />
-
-
-                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{kitchenDishItemViewModel.product_name}"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-
-                    </RelativeLayout>
-
-
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{kitchenDishItemViewModel.producttype}"
                         android:textColor="@color/medium_gray"
                         android:textSize="10sp" />
+
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{kitchenDishItemViewModel.productDes}"
+                        android:textColor="@color/medium_gray"
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>

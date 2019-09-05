@@ -113,6 +113,11 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         AndroidSupportInjection.inject(this);
         binding.setDialogChangeKitchenViewModel(mDialogChangeKitchenViewModel);
         mDialogChangeKitchenViewModel.setNavigator(this);
+
+
+
+
+
         return view;
     }
 }

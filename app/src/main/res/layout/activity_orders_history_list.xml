@@ -166,6 +166,15 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
+        <RelativeLayout
+            android:layout_below="@+id/topBar"
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                layout="@layout/page_loader"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

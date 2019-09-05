@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -78,11 +79,13 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     @Override
     public void onRefreshSuccess() {
         mActivityRepliesBinding.swipeQueries.setRefreshing(false);
+        mActivityRepliesBinding.loader.setVisibility(View.GONE);
     }
 
     @Override
     public void onRefreshFailure() {
         mActivityRepliesBinding.swipeQueries.setRefreshing(false);
+        mActivityRepliesBinding.loader.setVisibility(View.GONE);
     }
 
     @Override
@@ -97,6 +100,9 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mRepliesActivityViewModel.setNavigator(this);
         mRepliesAdapter.setListener(this);
 
+
+
+        mActivityRepliesBinding.loader.setVisibility(View.VISIBLE);
 
 
 

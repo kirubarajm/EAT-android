@@ -76,6 +76,9 @@ public class LiveOrderResponsePojo {
         @SerializedName("makeituserid")
         @Expose
         private Integer makeituserid;
+        @SerializedName("moveit_user_id")
+        @Expose
+        private Integer moveitUserId;
         @SerializedName("makeitusername")
         @Expose
         private String makeitusername;
@@ -98,6 +101,14 @@ public class LiveOrderResponsePojo {
         @Expose
         private String eta;
 
+
+        public Integer getMoveitUserId() {
+            return moveitUserId;
+        }
+
+        public void setMoveitUserId(Integer moveitUserId) {
+            this.moveitUserId = moveitUserId;
+        }
 
         public boolean isOnlinePaymentStatus() {
             return onlinePaymentStatus;

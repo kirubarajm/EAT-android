@@ -350,7 +350,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_DETAILS_URL, OrderTrackingResponse.class, new DeliveryTimeRequest(lat, lng, getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_ETA, OrderTrackingResponse.class, new DeliveryTimeRequest(lat, lng, getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
                 @Override
                 public void onResponse(OrderTrackingResponse response) {
 
@@ -364,7 +364,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             Date deliverydate = null;
                             String outputDateStr = "";
                             try {
-                                String strDate = response.getResult().get(0).getDeliverytime();
+                                String strDate = response.getDeliverytime();
                                 dateFormat = new SimpleDateFormat("hh:mm a");
 
                                 // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -381,39 +381,6 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 e.printStackTrace();
                             }
 
-
-                            Date dDate = null;
-
-                            Calendar currentCal = Calendar.getInstance();
-
-                            Date currentDate = currentCal.getTime();
-
-                            String currentDae = dateFormat.format(currentDate);
-
-                            try {
-                                currentDate = dateFormat.parse(currentDae);
-                                dDate = dateFormat.parse(outputDateStr);
-
-
-                                long diff = dDate.getTime() - currentDate.getTime();
-                                long seconds = diff / 1000;
-                                long minutes = seconds / 60;
-                                long hours = minutes / 60;
-                                long days = hours / 24;
-
-                                Log.e("MINUTS", String.valueOf(minutes));
-
-                                getNavigator().startTrackingTimer(minutes);
-
-
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        } else {
-
-                            getNavigator().showToast(response.getMessage());
 
                         }
                     }
@@ -439,6 +406,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     }
 
     public void changeTrackingStatus() {
+
+
+        dataLoaded.set(false);
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

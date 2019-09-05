@@ -297,11 +297,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void paymentModeCheck() {
 
-
-        if (getDataManager().getTotalOrders() == 0) {
-            payOnline();
-
-        } else {
             if (getDataManager().getEmailStatus()) {
 
                 payOnline();
@@ -309,7 +304,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
             } else {
                 getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
             }
-        }
+
     }
 
 

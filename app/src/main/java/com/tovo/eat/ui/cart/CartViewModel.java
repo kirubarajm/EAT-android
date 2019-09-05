@@ -583,13 +583,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         }*/
 
-
+getNavigator().cartLoaded();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         emptyCart.set(true);
-
+                        getNavigator().cartLoaded();
                     }
                 }) {
 
@@ -611,12 +611,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 };
                 MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
             } catch (JSONException j) {
+                getNavigator().cartLoaded();
                 emptyCart.set(true);
                 j.printStackTrace();
             } catch (NullPointerException n) {
+                getNavigator().cartLoaded();
                 emptyCart.set(true);
                 n.printStackTrace();
             } catch (Exception ee) {
+                getNavigator().cartLoaded();
                 emptyCart.set(true);
                 ee.printStackTrace();
             }

@@ -172,23 +172,23 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             turnOnGps();
         }*/
 
+        turnOnGps();
 
-
-        if (mLocation != null) {
+        /*if (mLocation != null) {
             LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
             initCameraIdle();
         } else {
             if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                 LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                 initCameraIdle();
 
             } else {
                 turnOnGps();
             }
-        }
+        }*/
     }
 
     @Override
@@ -252,24 +252,24 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
                 map.getUiSettings().setZoomControlsEnabled(true);
-
+                turnOnGps();
                 initCameraIdle();
-                if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
+                /*if (mAddAddressViewModel.getDataManager().getAddressId() == 0 && mAddAddressViewModel.getDataManager().getCurrentLat() != null) {
 
                     LatLng latLng = new LatLng(Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mAddAddressViewModel.getDataManager().getCurrentLng()));
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
 
                 } else {
                     if (mLocation != null) {
                         if (dialog.isShowing()) dialog.dismiss();
                         LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                         initCameraIdle();
                     } else {
 
                         turnOnGps();
 
-                       /* if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                       *//* if (ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(AddAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             return;
                         }
 
@@ -287,11 +287,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                                 initCameraIdle();
                                             }
                                         }
-                                    });*/
+                                    });*//*
                     }
                     //  turnOnGps();
 
-                }
+                }*/
             }
         });
 
@@ -340,7 +340,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                             dialog.dismiss();
 
                         LatLng latLng = new LatLng(location.latitude, location.longitude);
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                         initCameraIdle();
 
                     }
@@ -460,7 +460,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
 
                 mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
-                mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
+            //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
 
 
                 mAddAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode());
@@ -566,7 +566,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                             openHome();*/
                             if (dialog.isShowing()) dialog.dismiss();
                             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                             initCameraIdle();
 
                         }
@@ -683,7 +683,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                 initCameraIdle();
 
 

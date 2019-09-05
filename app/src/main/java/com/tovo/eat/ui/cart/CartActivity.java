@@ -120,6 +120,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         }*/
 
 
+
+
+
         mCartViewModel.toolbarTitle.set(getString(R.string.cart));
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -162,6 +165,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void gotoInJobCompleted() {
 
+    }
+
+    @Override
+    public void cartLoaded() {
+        stopCartLoader();
     }
 
     @Override
@@ -358,8 +366,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onResume();
         mCartViewModel.setAddressTitle();
 
-        if (mCartViewModel.getCartPojoDetails() != null)
+        if (mCartViewModel.getCartPojoDetails() != null){
+            startCartLoader();
             mCartViewModel.fetchRepos();
+        }
+
     }
 
     @Override
@@ -488,5 +499,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
+    public void startCartLoader() {
+            mActivityCartBinding.cartLoader.setVisibility(View.VISIBLE);
+        //mActivityCartBinding.cartLoader.startShimmerAnimation();
+    }
 
+    public void stopCartLoader() {
+
+        mActivityCartBinding.cartLoader.setVisibility(View.GONE);
+      //  mActivityCartBinding.cartLoader.stopShimmerAnimation();
+    }
 }

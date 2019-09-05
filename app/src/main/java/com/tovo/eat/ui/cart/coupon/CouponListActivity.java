@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -48,6 +49,10 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         mActivityCouponListBinding = getViewDataBinding();
         mCouponListViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+
+        mActivityCouponListBinding.loader.setVisibility(View.VISIBLE);
 
 
         Intent intent = getIntent();
@@ -97,6 +102,9 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     @Override
     public void listLoaded() {
         mActivityCouponListBinding.refreshList.setRefreshing(false);
+
+
+        mActivityCouponListBinding.loader.setVisibility(View.GONE);
 
     }
 

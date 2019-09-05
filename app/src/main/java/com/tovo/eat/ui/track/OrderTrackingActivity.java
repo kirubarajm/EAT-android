@@ -628,7 +628,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     public void startTrackingTimer(long minuts) {
 
 
-        if (countDownTimer != null) countDownTimer.cancel();
+      /*  if (countDownTimer != null) countDownTimer.cancel();
 
 
         if (minuts * 60000 > 0) {
@@ -649,11 +649,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 }
 
             }.start();
-        }
+        }*/
     }
 
     private void loadPreviousStatuses(Integer moveitId) {
-
 
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
@@ -667,12 +666,16 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     Log.e("loc", String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
 
+                    mOrderTrackingViewModel.getOrderETA(String.valueOf( location.latitude), String.valueOf(location.longitude));
+
+
                     moveitLatLng = new LatLng(location.latitude, location.longitude);
 
                     if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
                         //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
+                            if (mMap!=null)
                             moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
                         }
 
@@ -725,6 +728,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     public void run() {
 
                         if (moveitLocationMarker == null) {
+                            if (mMap!=null)
                             moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
                         } else {
                             MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());

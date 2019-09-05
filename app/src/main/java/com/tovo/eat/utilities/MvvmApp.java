@@ -27,7 +27,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -39,10 +38,8 @@ import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
-import com.tovo.eat.R;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.di.component.DaggerAppComponent;
-import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -59,33 +56,17 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
     public static final String TAG = MvvmApp.class
             .getSimpleName();
-    @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
-
     /*@Inject
     CalligraphyConfig mCalligraphyConfig;*/
     private static MvvmApp mInstance;
-
-    private RequestQueue mRequestQueue;
-
-    @Override
-    public DispatchingAndroidInjector<Activity> activityInjector() {
-        return activityDispatchingAndroidInjector;
-    }
-
-
-
-
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
             //   if (mMainViewModel.isAddressAdded()) {
             if (checkWifiConnect()) {
-
-
-
-
 
 
             } else {
@@ -104,6 +85,17 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
         }
     };
+    private RequestQueue mRequestQueue;
+
+    public static synchronized MvvmApp getInstance() {
+        return mInstance;
+    }
+
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
+    }
+
     private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
@@ -141,7 +133,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
         FirebaseAnalytics.getInstance(this);
 
 
-        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(true);
 
 
@@ -158,10 +150,6 @@ public class MvvmApp extends Application implements HasActivityInjector {
         //CalligraphyConfig.initDefault(mCalligraphyConfig);
     }
 
-    public static synchronized MvvmApp getInstance() {
-        return mInstance;
-    }
-
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -171,7 +159,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
     }
 
 
-    public int getVersionCode(){
+    public int getVersionCode() {
         return BuildConfig.VERSION_CODE;
 
        /*
@@ -188,6 +176,21 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
     }
 
+    public String getVersionName() {
+        // return BuildConfig.VERSION_CODE;
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+
+            return version;
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     private void registerWifiReceiver() {
@@ -197,7 +200,6 @@ public class MvvmApp extends Application implements HasActivityInjector {
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mWifiReceiver, filter);
     }
-
 
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
@@ -215,9 +217,10 @@ public class MvvmApp extends Application implements HasActivityInjector {
             mRequestQueue.cancelAll(tag);
         }
     }
+
     public boolean onCheckNetWork() {
-        boolean isOnline= NetworkUtils.isNetworkConnected(this);
-        if(!isOnline)
+        boolean isOnline = NetworkUtils.isNetworkConnected(this);
+        if (!isOnline)
             Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
         return isOnline;
 
@@ -226,10 +229,10 @@ public class MvvmApp extends Application implements HasActivityInjector {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        AppPreferencesHelper appPreferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(),AppConstants.PREF_NAME);
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(false);
 
-        if (appPreferencesHelper.getAddressId()==0) {
+        if (appPreferencesHelper.getAddressId() == 0) {
             appPreferencesHelper.setCurrentLat(0.0);
             appPreferencesHelper.setCurrentLng(0.0);
         }

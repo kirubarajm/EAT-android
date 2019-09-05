@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -47,6 +48,9 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         mSelectAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+
+        mActivityAddressSelectBinding.loader.setVisibility(View.VISIBLE);
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -104,6 +108,8 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     @Override
     public void listLoaded() {
         mActivityAddressSelectBinding.refreshList.setRefreshing(false);
+
+        mActivityAddressSelectBinding.loader.setVisibility(View.GONE);
     }
 
     @Override

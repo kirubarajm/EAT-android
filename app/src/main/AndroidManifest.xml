@@ -34,11 +34,10 @@
             android:windowSoftInputMode="adjustPan"
             android:name=".ui.home.MainActivity"
             android:screenOrientation="portrait">
-
-
         </activity>
+
+
         <activity
-            android:windowSoftInputMode="adjustResize"
             android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="portrait">
 

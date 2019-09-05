@@ -24,7 +24,6 @@ import java.util.List;
 
 public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListNavigator> {
 
-
     public ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels = new ObservableArrayList<>();
     public ObservableBoolean emptyAddress = new ObservableBoolean();
     private MutableLiveData<List<SelectAddressListResponse.Result>> selectAddrressListItemsLiveData;
@@ -112,9 +111,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         getDataManager().updateCurrentAddress(title, address, lat, lng, area, aid);
 
-
         getDataManager().setCurrentAddress(address);
-
 
         defaultAddress(aid);
 
@@ -158,15 +155,16 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                             selectAddrressListItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", response.toString());
 
-                            getNavigator().listLoaded();
+
                         }
 
                     }
+                    getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+                    getNavigator().listLoaded();
                 }
             },AppConstants.API_VERSION_ONE);
 
@@ -174,6 +172,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+            getNavigator().listLoaded();
         }
     }
 

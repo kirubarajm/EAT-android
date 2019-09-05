@@ -243,6 +243,9 @@ public class CartPageResponse {
         @SerializedName("image")
         @Expose
         private String image;
+        @SerializedName("prod_desc")
+        @Expose
+        private String prodDesc;
         @SerializedName("preparetime")
         @Expose
         private Object preparetime;
@@ -327,6 +330,14 @@ public class CartPageResponse {
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
+
+        public String getProdDesc() {
+            return prodDesc;
+        }
+
+        public void setProdDesc(String prodDesc) {
+            this.prodDesc = prodDesc;
+        }
 
         public Integer getMakeitUserid() {
             return makeitUserid;

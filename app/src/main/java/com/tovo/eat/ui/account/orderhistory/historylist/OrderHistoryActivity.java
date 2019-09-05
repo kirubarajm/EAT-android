@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -68,10 +69,12 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     @Override
     public void onRefreshSuccess() {
         mActivityOrdersHistoryListBinding.swipeOrdersHistory.setRefreshing(false);
+        mActivityOrdersHistoryListBinding.loader.setVisibility(View.GONE);
     }
 
     @Override
     public void onRefreshFailure() {
+        mActivityOrdersHistoryListBinding.loader.setVisibility(View.GONE);
         mActivityOrdersHistoryListBinding.swipeOrdersHistory.setRefreshing(false);
     }
 
@@ -110,6 +113,11 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         super.onCreate(savedInstanceState);
         mActivityOrdersHistoryListBinding = getViewDataBinding();
         mOrderHistoryActivityViewModel.setNavigator(this);
+
+
+        mActivityOrdersHistoryListBinding.loader.setVisibility(View.VISIBLE);
+
+
 
         mOrdersHistoryActivityAdapter.setListener(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

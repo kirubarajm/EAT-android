@@ -75,13 +75,16 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                             if (val == 0) {
                                 setIsLoading(false);
                             }
-                            getNavigator().onRefreshSuccess();
+
                         }else {
                             emptyHistory.set(true);
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
+
+
+                    getNavigator().onRefreshSuccess();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -91,10 +94,11 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                         if (val == 0) {
                             setIsLoading(false);
                         }
-                        getNavigator().onRefreshFailure();
+
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
+                    getNavigator().onRefreshFailure();
                 }
             },AppConstants.API_VERSION_ONE);
 

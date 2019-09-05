@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
@@ -73,6 +74,10 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
             }
         }*/
 
+
+      mActivityAddressListBinding.loader.setVisibility(View.VISIBLE);
+
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityAddressListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));
         mActivityAddressListBinding.recyclerviewList.setAdapter(adapter);
@@ -128,7 +133,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void listLoaded() {
         mActivityAddressListBinding.refreshList.setRefreshing(false);
-
+        mActivityAddressListBinding.loader.setVisibility(View.GONE);
     }
 
     @Override

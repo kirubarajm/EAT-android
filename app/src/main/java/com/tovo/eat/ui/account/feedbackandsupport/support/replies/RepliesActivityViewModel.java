@@ -76,27 +76,28 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
             public void onResponse(RepliesResponse response) {
                 if (response.getResult().size()>0) {
                     ordersItemsLiveData.setValue(response.getResult());
-                    if (val == 1) {
-                        getNavigator().onRefreshSuccess();
-                    }
+
                     emptyReplies.set(false);
 
                 }else {
                     emptyReplies.set(true);
                 }
+
+                getNavigator().onRefreshSuccess();
+
             }
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
-                if (val == 1) {
+
                     getNavigator().onRefreshFailure();
-                }
+
             }
         },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
-
+            getNavigator().onRefreshFailure();
             ee.printStackTrace();
 
         }

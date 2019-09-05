@@ -114,10 +114,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/set_delivery_address"
-                        android:textSize="20sp"
-                        android:visibility="gone" />
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+
+
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@{editAddressViewModel.locationAddress}"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
 
                     <android.support.design.widget.TextInputLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp">

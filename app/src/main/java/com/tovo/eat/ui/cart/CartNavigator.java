@@ -9,6 +9,9 @@ public interface CartNavigator {
     void gotoInJobCompleted();
 
 
+    void cartLoaded();
+
+
     void dishListLoaded();
 
     void paymentMode(String mode);

@@ -102,6 +102,7 @@ public class AppConstants {
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 
+
    //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
 
      //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
@@ -115,7 +116,7 @@ public class AppConstants {
 
       //public static final String URL_SERVER_IP_PORT = "http://192.168.1.101:3000";////basheer 3000
 
-   // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
+    //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
 
    // public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:4000";////ip port(suresh)
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.200:3000";////DEV ip port(param)
@@ -167,6 +168,9 @@ public class AppConstants {
     public static final String EAT_CREATE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/proceedtopay";
 
     public static final String EAT_ORDER_DETAILS_URL = URL_SERVER_IP_PORT + "/eat/order/";
+
+    public static final String EAT_ORDER_ETA = URL_SERVER_IP_PORT + "/eat/order/deliverytime";
+
 
     public static final String EAT_LIVE_ORDER_URL = URL_SERVER_IP_PORT + "/eat/liveorders/";
 

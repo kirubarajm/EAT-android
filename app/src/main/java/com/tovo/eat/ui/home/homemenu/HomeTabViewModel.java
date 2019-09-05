@@ -471,16 +471,20 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                         } catch (Exception ee) {
-
+                            emptyRegion.set(true);
                             ee.printStackTrace();
 
                         }
+                    }else {
+
+                        emptyRegion.set(true);
                     }
                     try{
                     getNavigator().regionsLoaded(response);
 
                 }catch (NullPointerException e){
                     e.printStackTrace();
+                        emptyRegion.set(true);
                 }
 
                 }
@@ -489,11 +493,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
+                    emptyRegion.set(true);
                     try {
                     getNavigator().regionsLoaded(null);
 
                 }catch (NullPointerException e){
                     e.printStackTrace();
+                        emptyRegion.set(true);
                 }
 
                 }

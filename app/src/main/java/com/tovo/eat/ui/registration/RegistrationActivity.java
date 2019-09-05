@@ -255,7 +255,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     public void onBackPressed() {
         Intent intent=new Intent();
         intent.putExtra("status",false);
-        setResult(Activity.RESULT_OK,intent);
+        setResult(Activity.RESULT_CANCELED,intent);
         finish();//finishing activity
     }
 

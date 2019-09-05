@@ -91,9 +91,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
             public void onRefresh() {
 
 
-                mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-                mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
-
+                mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
 
                 mDishViewModel.fetchRepos();
             }
@@ -138,9 +136,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     @Override
     public void dishListLoaded() {
 
-
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
+        mFragmentDishBinding.loader.setVisibility(View.GONE);
 
         mFragmentDishBinding.refreshList.setRefreshing(false);
     }
@@ -163,8 +159,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void dishLoading() {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+        mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
     }
 
 
@@ -196,9 +191,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
       //  ((TestActivity) getActivity()).statusUpdate();
 
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
-
+        mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
         mDishViewModel.fetchRepos();
 
         subscribeToLiveData();
@@ -288,16 +281,14 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Override
     public void applyFilter() {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+        mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
         mDishViewModel.fetchRepos();
 
     }
 
     @Override
     public void confirmClick(boolean status) {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+        mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
         mDishViewModel.fetchRepos();
     }
 

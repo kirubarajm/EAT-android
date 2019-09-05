@@ -201,6 +201,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    getNavigator().loginFailure();
                 }
             },AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

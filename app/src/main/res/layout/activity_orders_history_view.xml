@@ -119,7 +119,6 @@
                                     android:textColor="@color/medium_gray"
                                     android:textSize="14sp" />
 
-
                                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -128,6 +127,7 @@
                                     android:textSize="16sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                    android:visibility="@{OrdersHistryViewModel.isOrderCanced?View.GONE:View.VISIBLE}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@{OrdersHistryViewModel.locality}"

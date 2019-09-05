@@ -86,14 +86,16 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
 
                             couponListItemsLiveData.setValue(response.getResult());
 
-                            getNavigator().listLoaded();
+
                         }
                     }
+                    getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", error.getMessage());
+                    getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
 
@@ -102,7 +104,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
         } catch (NullPointerException e) {
             e.printStackTrace();
         } catch (Exception ee) {
-
+            getNavigator().listLoaded();
             ee.printStackTrace();
 
         }

@@ -52,6 +52,9 @@ public class DishResponse {
         @SerializedName("product_name")
         @Expose
         private String productName;
+        @SerializedName("prod_desc")
+        @Expose
+        private String prodDesc;
         @SerializedName("image")
         @Expose
         private String image;
@@ -91,6 +94,15 @@ public class DishResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+
+
+        public String getProdDesc() {
+            return prodDesc;
+        }
+
+        public void setProdDesc(String prodDesc) {
+            this.prodDesc = prodDesc;
+        }
 
         public String getVegtype() {
             return vegtype;

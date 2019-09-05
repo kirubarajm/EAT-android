@@ -21,11 +21,18 @@ public class OrderTrackingResponse {
     @SerializedName("status")
     @Expose
     private Boolean status;
+    @SerializedName("deliverytime")
+    @Expose
+    private String deliverytime;
 
 
+    public String getDeliverytime() {
+        return deliverytime;
+    }
 
-
-
+    public void setDeliverytime(String deliverytime) {
+        this.deliverytime = deliverytime;
+    }
 
     public String getMessage() {
         return message;

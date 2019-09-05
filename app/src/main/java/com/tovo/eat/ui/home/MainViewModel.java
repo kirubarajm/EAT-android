@@ -26,6 +26,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.LocationCallback;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
@@ -33,6 +39,8 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
+import com.tovo.eat.ui.track.DeliveryTimeRequest;
+import com.tovo.eat.ui.track.OrderTrackingResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -45,6 +53,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,8 +99,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
         masterRequest();
 
-
-        /*getDataManager().setisPasswordStatus(false);*/
     }
 
 
@@ -149,7 +156,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public boolean isAddressAdded() {
 
-        if (getDataManager().getCurrentLat() == null||getDataManager().getCurrentLat().equals("0.0")) {
+        if (getDataManager().getCurrentLat() == null || getDataManager().getCurrentLat().equals("0.0")) {
 
             return false;
         } else {
@@ -159,6 +166,99 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     }
 
+
+    public void getMoveitLatLng(int moveitId) {
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
+        GeoFire geoFire = new GeoFire(ref);
+
+        geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {
+            @Override
+            public void onLocationResult(String key, GeoLocation location) {
+                if (location != null) {
+                    System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
+                    Log.e("loc", String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
+
+                    getOrderETA(String.valueOf(location.latitude), String.valueOf(location.longitude));
+
+
+                } else {
+                    System.out.println(String.format("There is no location for key %s in GeoFire", key));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.err.println("There was an error getting the GeoFire location: " + databaseError);
+            }
+
+        });
+    }
+
+
+    public void getOrderETA(String lat, String lng) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_ETA, OrderTrackingResponse.class, new DeliveryTimeRequest(lat, lng, getDataManager().getOrderId()), new Response.Listener<OrderTrackingResponse>() {
+                @Override
+                public void onResponse(OrderTrackingResponse response) {
+
+                    if (response != null) {
+
+                        if (response.getStatus()) {
+
+
+                            DateFormat dateFormat = null;
+
+                            Date deliverydate = null;
+                            String outputDateStr = "";
+                            try {
+                                String strDate = response.getDeliverytime();
+                                dateFormat = new SimpleDateFormat("hh:mm a");
+
+                                // DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+                                //Date  date1 = new Date(strDate);
+                                deliverydate = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(deliverydate);
+                                eta.set(outputDateStr);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
 
     public void liveOrders() {
 
@@ -176,7 +276,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         if (response.getStatus()) {
 
-                            if (response.getResult()!=null&& response.getResult().size() > 0) {
+                            if (response.getResult() != null && response.getResult().size() > 0) {
 
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
@@ -196,9 +296,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                     String item = itemsBuilder.toString();
 
 
-
-
-                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(),response.getResult().get(0).getPrice(),item);
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(), response.getResult().get(0).getPrice(), item);
 
                                 } else {
 
@@ -213,6 +311,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                         kitchenName.set(response.getResult().get(0).getMakeitbrandname());
                                     }
                                     // 2019-05-09T13:21:54.000Z
+
+
+                                    if (response.getResult().get(0).getOrderstatus() > 4) {
+                                        if (response.getResult().get(0).getMoveitUserId() != null) {
+                                            getMoveitLatLng(response.getResult().get(0).getMoveitUserId());
+                                        }
+                                    }
+
                                     try {
                                         String strDate = response.getResult().get(0).getDeliverytime();
                                         DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
@@ -227,6 +333,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+
+
+
+
+
                             /*String startTime = response.getResult().get(0).getDeliverytime();
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -236,7 +347,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 dt = sdf.parse(startTime);
 
                                 String s=sdfs.format(dt);
-
                                 eta.set(s);
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -291,7 +401,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                     String item = itemsBuilder.toString();
 
 
-                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(),response.getResult().get(0).getPrice(),item);
+                                    getNavigator().paymentPending(response.getResult().get(0).getOrderid(), response.getResult().get(0).getMakeitbrandname(), response.getResult().get(0).getPrice(), item);
 
                                 }
 
@@ -668,7 +778,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     //  headers.put("Authorization","Bearer");
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
 
-                        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
                     return headers;
                 }

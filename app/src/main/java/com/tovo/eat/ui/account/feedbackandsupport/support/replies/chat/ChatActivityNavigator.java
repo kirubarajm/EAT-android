@@ -9,6 +9,7 @@ public interface ChatActivityNavigator {
     void send();
 
     void onRefreshLayout();
+    void apiLoaded();
 
     void onRefreshSuccess(List<ChatRepliesReadRequest.Aidlist> aidlist);
 

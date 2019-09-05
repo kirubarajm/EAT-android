@@ -429,7 +429,7 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
-                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(new DelayBitmapTransformation(0))
                 .listener(new LoggingListener<String, Bitmap>())
                 .into(imageView);
@@ -527,6 +527,8 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
@@ -598,6 +600,8 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
@@ -632,7 +636,8 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade() .into(imageView);
 
 
@@ -783,6 +788,8 @@ public final class BindingUtils {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .crossFade().into(imageView);
 
 

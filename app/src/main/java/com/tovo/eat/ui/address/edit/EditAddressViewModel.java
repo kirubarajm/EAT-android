@@ -182,7 +182,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
         }
 
-        if (!locationAddress.equals("") && !house.equals("") && !area.equals("") && !landmark.equals("")) {
+        if (!locationAddress.equals("") && !area.equals("") ) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;

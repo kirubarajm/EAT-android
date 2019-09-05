@@ -196,14 +196,16 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
 
 
-                            getNavigator().listLoaded();
+
                         }
                     }
+                    getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                  //   Log.e("", error.getMessage());
+                    getNavigator().listLoaded();
                 }
             },AppConstants.API_VERSION_ONE);
 
@@ -211,6 +213,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+            getNavigator().listLoaded();
         } catch (Exception ee){
 
         ee.printStackTrace();

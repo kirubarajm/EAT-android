@@ -68,6 +68,9 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                     }
                     getNavigator().onRefreshSuccess(chatListUserReadFinal);
                 }
+
+
+                getNavigator().apiLoaded();
             }
         }, new Response.ErrorListener() {
             @Override

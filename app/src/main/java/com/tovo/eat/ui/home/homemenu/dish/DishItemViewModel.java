@@ -41,6 +41,7 @@ public class DishItemViewModel {
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> sprice = new ObservableField<>();
+    public final ObservableField<String> productDes = new ObservableField<>();
     public final ObservableField<Integer> price = new ObservableField<>();
 
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -67,13 +68,11 @@ public class DishItemViewModel {
             favID = dishList.getFavid();
 
 
+        if (dishList.getImage() == null) {
+            noImage.set(true);
+        }
 
-          if (dishList.getImage() == null){
-              noImage.set(true);
-          }
-
-
-
+        productDes.set(dishList.getProdDesc());
 
         if (dishList.getBrandname().isEmpty()) {
             this.makeitBrandName.set(dishList.getMakeitUsername());
@@ -227,7 +226,7 @@ public class DishItemViewModel {
             quantity.set(quantity.get() + 1);
 
         } else {
-            Toast.makeText(MvvmApp.getInstance(), "Only "+dishList.getQuantity()+" Quantity of "+dishList.getProductName()+" Available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MvvmApp.getInstance(), "Only " + dishList.getQuantity() + " Quantity of " + dishList.getProductName() + " Available", Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -286,7 +285,7 @@ public class DishItemViewModel {
         mListener.saveCart(json);
 
         Log.e("cart", json);
-        mListener.refresh();
+      //  mListener.refresh();
 
     }
 
@@ -343,10 +342,7 @@ public class DishItemViewModel {
 
                 }
             }
-
-
         }
-
 
         if (results.size() == 0) {
 
@@ -365,7 +361,7 @@ public class DishItemViewModel {
             isAddClicked.set(false);
 
         }
-        mListener.refresh();
+     //   mListener.refresh();
     }
 
     public void enableAdd() {
@@ -432,7 +428,7 @@ public class DishItemViewModel {
         String json = gson.toJson(cartRequestPojo);
         mListener.saveCart(json);
 
-        mListener.refresh();
+       // mListener.refresh();
 
     }
 
@@ -477,7 +473,7 @@ public class DishItemViewModel {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
 
 
                 /**
@@ -496,7 +492,6 @@ public class DishItemViewModel {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -529,7 +524,7 @@ public class DishItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

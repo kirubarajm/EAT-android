@@ -150,6 +150,18 @@
                 android:textColor="@color/eat_color" />
         </RelativeLayout>
 
+
+
+        <RelativeLayout
+            android:layout_below="@+id/header"
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                layout="@layout/page_loader"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </layout>

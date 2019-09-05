@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -40,7 +39,6 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.AppSignatureHashHelper;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.OtpEditText;
 import com.tovo.eat.utilities.SMSReceiver;
@@ -54,8 +52,25 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     OtpActivityViewModel mLoginViewModelMain;
     String strPhoneNumber = "";
     String strOtpId = "";
-    String strOtp= "";
+    String strOtp = "";
     String UserId = "";
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
     private ActivityOtpBinding mActivityOtpBinding;
     private EditText[] editTexts;
     private SMSReceiver smsReceiver;
@@ -114,9 +129,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(otp));*/
 
 
-       if (mActivityOtpBinding.otpText.getText() != null && mActivityOtpBinding.otpText.getText().length() == 5) {
-           mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtp));
-       }
+        if (mActivityOtpBinding.otpText.getText() != null && mActivityOtpBinding.otpText.getText().length() == 5) {
+            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtp));
+        }
     }
 
     @Override
@@ -142,6 +157,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 });
 
         if (trueOrFalse) {
+
+            unregisterReceiver(smsReceiver);
+
             Toast.makeText(getApplicationContext(), AppConstants.TOAST_LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
             Intent intent = MainActivity.newIntent(OtpActivity.this);
             startActivity(intent);
@@ -171,7 +189,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                     }
                 });
 
-
+        unregisterReceiver(smsReceiver);
         Intent intent = NameGenderActivity.newIntent(OtpActivity.this);
         startActivity(intent);
         finish();
@@ -257,7 +275,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     }
 
-
     public void startTimer() {
 
 
@@ -279,6 +296,20 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         }.start();
     }
 
+    /*private void otpFocusOnTextChange() {
+        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4, mActivityOtpBinding.edt5};
+        mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
+        mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
+        mActivityOtpBinding.edt3.addTextChangedListener(new PinTextWatcher(2));
+        mActivityOtpBinding.edt4.addTextChangedListener(new PinTextWatcher(3));
+        mActivityOtpBinding.edt5.addTextChangedListener(new PinTextWatcher(4));
+
+        mActivityOtpBinding.edt1.setOnKeyListener(new PinOnKeyListener(0));
+        mActivityOtpBinding.edt2.setOnKeyListener(new PinOnKeyListener(1));
+        mActivityOtpBinding.edt3.setOnKeyListener(new PinOnKeyListener(2));
+        mActivityOtpBinding.edt4.setOnKeyListener(new PinOnKeyListener(3));
+        mActivityOtpBinding.edt5.setOnKeyListener(new PinOnKeyListener(4));
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,14 +358,14 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             @Override
             public void onPinEntered(CharSequence str) {
 
-                strOtp= str.toString();
+                strOtp = str.toString();
 
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
                 //  mLoginViewModelMain.continueClick();
 
 
-                unregisterReceiver(smsReceiver);
-
+               /* if (smsReceiver != null)
+                    unregisterReceiver(smsReceiver);*/
 
 
             }
@@ -369,7 +400,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                         //set color back to default
                         startSMSListener();
                         startTimer();
-                        Toast.makeText(OtpActivity.this , "OTP has been sent again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OtpActivity.this, "OTP has been sent again.", Toast.LENGTH_SHORT).show();
                         mLoginViewModelMain.resendOtp();
                         break;
                 }
@@ -377,21 +408,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             }
         });
     }
-
-    /*private void otpFocusOnTextChange() {
-        editTexts = new EditText[]{mActivityOtpBinding.edt1, mActivityOtpBinding.edt2, mActivityOtpBinding.edt3, mActivityOtpBinding.edt4, mActivityOtpBinding.edt5};
-        mActivityOtpBinding.edt1.addTextChangedListener(new PinTextWatcher(0));
-        mActivityOtpBinding.edt2.addTextChangedListener(new PinTextWatcher(1));
-        mActivityOtpBinding.edt3.addTextChangedListener(new PinTextWatcher(2));
-        mActivityOtpBinding.edt4.addTextChangedListener(new PinTextWatcher(3));
-        mActivityOtpBinding.edt5.addTextChangedListener(new PinTextWatcher(4));
-
-        mActivityOtpBinding.edt1.setOnKeyListener(new PinOnKeyListener(0));
-        mActivityOtpBinding.edt2.setOnKeyListener(new PinOnKeyListener(1));
-        mActivityOtpBinding.edt3.setOnKeyListener(new PinOnKeyListener(2));
-        mActivityOtpBinding.edt4.setOnKeyListener(new PinOnKeyListener(3));
-        mActivityOtpBinding.edt5.setOnKeyListener(new PinOnKeyListener(4));
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -426,7 +442,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     protected void onResume() {
         super.onResume();
-registerWifiReceiver();
+        registerWifiReceiver();
     }
 
     @Override
@@ -455,6 +471,39 @@ registerWifiReceiver();
     @Override
     public void onOTPReceivedError(String error) {
 
+    }
+
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mWifiReceiver, filter);
+    }
+
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+
+        ConnectivityManager cm =
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+        if (networkInfo != null
+                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && networkInfo.isConnected()) {
+            return true;
+        } else return networkInfo != null
+                && networkInfo.isConnected();
+    }
+
+    private void unregisterWifiReceiver() {
+        unregisterReceiver(mWifiReceiver);
     }
 
     public class PinOnKeyListener implements View.OnKeyListener {
@@ -550,57 +599,6 @@ registerWifiReceiver();
         }
 
     }
-
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private void registerWifiReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mWifiReceiver, filter);
-    }
-
-    private boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-
-        ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-
-        if (networkInfo != null
-                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
-                && networkInfo.isConnected()) {
-            return true;
-        } else return networkInfo != null
-                && networkInfo.isConnected();
-    }
-
-    private void unregisterWifiReceiver() {
-        unregisterReceiver(mWifiReceiver);
-    }
-
 
 
 }
