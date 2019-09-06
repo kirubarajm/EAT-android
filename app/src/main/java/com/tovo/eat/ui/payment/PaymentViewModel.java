@@ -374,7 +374,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                                     getDataManager().saveRefundBalance(refundBalance);
 
-
                                 }
                                 razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
 
@@ -392,9 +391,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
                                     getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
-
-
-
 
 
 

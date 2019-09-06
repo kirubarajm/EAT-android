@@ -3,6 +3,7 @@ package com.tovo.eat.ui.registration;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -60,6 +61,9 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                             getDataManager().updateEmailStatus(true);
                             getNavigator().regSuccess(response.getMessage());
                         } else {
+                            Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
+
                             getDataManager().updateUserPasswordStatus(false);
                             getNavigator().regFailure();
                         }

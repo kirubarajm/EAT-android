@@ -64,8 +64,6 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-
-
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber,appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
                 @Override
@@ -102,6 +100,8 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().loginError(false);
                     setIsLoading(false);
+
+                    Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
                 }
             },AppConstants.API_VERSION_ONE);
 
@@ -121,10 +121,12 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
 
             }
         });*/
+            Log.e("ERROR", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0)+"number"+phoneNumber);
+
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
         } catch (Exception ee) {
-
+            Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
             ee.printStackTrace();
 
         }

@@ -141,9 +141,9 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         layouts = new int[]{
-                R.layout.welcome_slide1,
+                R.layout.welcome_slide3,
                 R.layout.welcome_slide2,
-                R.layout.welcome_slide3};
+                R.layout.welcome_slide1};
 
         addBottomDots(0);
         changeStatusBarColor();

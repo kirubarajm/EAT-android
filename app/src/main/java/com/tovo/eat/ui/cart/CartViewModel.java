@@ -534,7 +534,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             } else {
                                 refundSelected.set(false);
                             }
-                            if (cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
+                            if (null!=cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()&& cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
                                 couponSelected.set(true);
                                 couponFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getCouponDiscountAmount()));
 
@@ -542,6 +542,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 couponSelected.set(false);
                                 getDataManager().saveCouponId(0);
                                 getDataManager().saveCouponCode(null);
+                                fetchRepos();
                             }
 
 

@@ -91,12 +91,12 @@ public class GsonRequest extends Request {
     public Map<String, String> addHeaders(String version){
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+      //  headers.put("Content-Type", "application/json; charset=utf-8");
         headers.put("accept-version",version);
         headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
       //  headers.put("Authorization","Bearer");
 
         AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-
         headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
 
        // headers.put("token",preferencesHelper.getApiToken());

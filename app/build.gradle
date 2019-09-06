@@ -13,11 +13,14 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 5
-        versionName "0.5"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
+
+
+
+  /*  buildTypes {
 
         debug {
             minifyEnabled false
@@ -29,9 +32,53 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
-
+    }*/
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
+
+
+
+
+
+
+
+
+
+   /* buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
+    }*/
+
+
+  /*  minifyEnabled false
+    shrinkResources true*/
+
+    /*buildTypes {
+
+
+
+
+
+       *//* debug {
+            minifyEnabled false
+           // buildConfigField "String", 'BASE_URL', '"http://www.eatalltime.co.in:3000"'
+        }
+        release {
+          //  buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            shrinkResources true
+            minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }*//*
+
+    }*/
 
 
     dexOptions {
@@ -41,10 +88,7 @@ android {
     dataBinding {
         enabled = true
     }
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
+
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,

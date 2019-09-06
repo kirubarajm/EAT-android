@@ -138,7 +138,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void regFailure() {
-        Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
