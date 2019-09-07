@@ -66,6 +66,7 @@ import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
 import com.tovo.eat.utilities.LatLngInterpolator;
 import com.tovo.eat.utilities.MarkerAnimation;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import org.joda.time.DateTime;
@@ -100,6 +101,12 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     LatLng cusLatLng;
     boolean liveTracking = true;
     CountDownTimer countDownTimer;
+
+
+    Analytics analytics;
+    String  pageName="Live order tracking";
+
+
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
@@ -247,6 +254,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
+        analytics=new Analytics(this,pageName);
 
        /* mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()

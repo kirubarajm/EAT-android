@@ -17,6 +17,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFaqsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -31,6 +32,9 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     @Inject
     FaqsAdapter mFaqsAdapter;
     private ActivityFaqsBinding mActivityFaqsBinding;
+
+    Analytics analytics;
+    String  pageName="FAQs";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, FaqActivity.class);
@@ -68,6 +72,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
         mActivityFaqsBinding = getViewDataBinding();
 
 
+              analytics=new Analytics(this, pageName);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityFaqsBinding.recyclerFaqs.setLayoutManager(mLayoutManager);

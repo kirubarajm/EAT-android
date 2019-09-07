@@ -16,6 +16,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class FavTodaysMenuItemViewModel {
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
 
-
+    Analytics analytics;
 
 
     Integer favID;
@@ -166,6 +167,7 @@ public class FavTodaysMenuItemViewModel {
 
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
+            new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
 
         } else {
             mListener.productNotAvailable(dishList.getQuantity(),dishList.getProductName());
@@ -238,6 +240,9 @@ public class FavTodaysMenuItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
 
         results.clear();
+
+        new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
+
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
@@ -314,6 +319,8 @@ public class FavTodaysMenuItemViewModel {
         isAddClicked.set(true);
         quantity.set(1);
         sQuantity.set(String.valueOf(quantity.get()));
+
+        new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
 
 
         Gson sGson = new GsonBuilder().create();

@@ -22,6 +22,7 @@ import com.tovo.eat.databinding.ActivityChatBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.text.DateFormat;
@@ -44,6 +45,10 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     String strQId = "";
     String strQuestion = "";
     String strDate = "";
+
+    Analytics analytics;
+    String  pageName="Queries chat";
+
     List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest = new ArrayList<>();
 
     public static Intent newIntent(Context context) {
@@ -72,6 +77,8 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mChatActivityViewModel.setNavigator(this);
         mChatAdapter.setListener(this);
 
+
+        analytics=new Analytics(this,pageName);
 
         mActivityChatBinding.loader.setVisibility(View.VISIBLE);
 

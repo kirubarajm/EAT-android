@@ -17,6 +17,7 @@ import com.tovo.eat.databinding.DialogRefundAlertBinding;
 import com.tovo.eat.ui.base.BaseDialog;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,8 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     String totalAmount;
 
     Context context;
+    Analytics analytics;
+    String  pageName="Refund amount excess popup ";
 
 
     public DialogRefundAlert() {
@@ -103,6 +106,9 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        analytics=new Analytics(getActivity(), pageName);
+
     }
 
     @Override

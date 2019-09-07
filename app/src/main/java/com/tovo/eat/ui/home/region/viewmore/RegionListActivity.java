@@ -19,6 +19,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -31,6 +32,9 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     LinearLayoutManager mLayoutManager;
     @Inject
     RegionsListAdapter adapter;
+    Analytics analytics;
+    String  pageName="Explore all regions";
+
 
     ActivityRegionListBinding mActivityRegionListBinding;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -63,6 +67,8 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         mRegionListViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+        analytics=new Analytics(this,pageName);
 
         subscribeToLiveData();
 

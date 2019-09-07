@@ -27,6 +27,7 @@ import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -50,6 +51,8 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
+    Analytics analytics;
+    String  pageName="Collection explore";
 
     int collectionId;
     String collectionTitle;
@@ -122,7 +125,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         subscribeToLiveData();
 
 
-
+        analytics=new Analytics(this,pageName);
        // mSearchDishViewModel.fetchRepos("grill");
 
 

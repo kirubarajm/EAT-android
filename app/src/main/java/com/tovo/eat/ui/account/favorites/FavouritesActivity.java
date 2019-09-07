@@ -37,6 +37,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.swipe.ItemTouchHelperExtension;
 
@@ -53,6 +54,8 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     FavouritesViewModel mFavouritesViewModel;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    Analytics analytics;
+    String  pageName="Favourites";
 
 
     ActivityFavouritesBinding mActivityFavouritesBinding;
@@ -72,6 +75,8 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
         mFavouritesViewModel.setNavigator(this);
         mActivityFavouritesBinding = getViewDataBinding();
         kitchen();
+
+        analytics=new Analytics(this,pageName);
     }
 
 

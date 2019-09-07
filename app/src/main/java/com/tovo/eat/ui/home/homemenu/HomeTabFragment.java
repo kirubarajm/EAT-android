@@ -39,6 +39,7 @@ import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
 
@@ -71,6 +72,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     ProgressDialog progressDialog;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
+
+    Analytics analytics;
+    String  pageName="Home page";
+
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -202,6 +207,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         regionListAdapter.setListener(this);
         storiesCardAdapter.setListener(this);
         subscribeToLiveData();
+
+
+        analytics=new Analytics(getActivity(),pageName);
     }
 
     @Override

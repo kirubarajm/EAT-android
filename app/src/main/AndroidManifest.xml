@@ -192,6 +192,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".utilities.nointernet.InternetErrorFragment"
             android:screenOrientation="portrait"/>
+        <activity android:name=".utilities.analytics.AnalyticsIntent" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

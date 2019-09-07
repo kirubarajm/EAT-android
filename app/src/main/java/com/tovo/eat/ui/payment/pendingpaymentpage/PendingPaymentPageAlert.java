@@ -13,6 +13,7 @@ import com.tovo.eat.databinding.AlertPaymentRetryBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.pendingpayment.PaymentListener;
 import com.tovo.eat.ui.pendingpayment.PendingPaymentNavigator;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,10 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
     int price = 0;
 
     PaymentListener paymentListener;
+
+    Analytics analytics;
+    String  pageName="Payment retry";
+
 
     @Inject
     PendingPaymentPageViewModel mLoginViewModelMain;
@@ -121,6 +126,7 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
         mLoginViewModelMain.setNavigator(this);
 
 
+        analytics=new Analytics(getActivity(),pageName);
     }
 
 

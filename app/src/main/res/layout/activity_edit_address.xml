@@ -220,6 +220,7 @@
 
 
                             <LinearLayout
+                                android:visibility="@{editAddressViewModel.home?View.VISIBLE:View.GONE}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -254,6 +255,7 @@
 
 
                             <LinearLayout
+                                android:visibility="@{editAddressViewModel.office?View.VISIBLE:View.GONE}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -287,6 +289,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:visibility="@{editAddressViewModel.other?View.VISIBLE:View.GONE}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"

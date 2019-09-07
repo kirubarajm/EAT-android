@@ -35,6 +35,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -49,6 +50,8 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     AddressListAdapter adapter;
 
     ActivityAddressListBinding mActivityAddressListBinding;
+    Analytics analytics;
+    String  pageName="Manage address";
 
     public static Intent newIntent(Context context) {
 
@@ -62,6 +65,8 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+        analytics=new Analytics(this,pageName);
 
       /*  Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -195,6 +200,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     public void editAddressClick(AddressListResponse.Result address) {
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         intent.putExtra("aid", address.getAid());
+        intent.putExtra("type", address.getAddressType());
         startActivity(intent);
 
     }

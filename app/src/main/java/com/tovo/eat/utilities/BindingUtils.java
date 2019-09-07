@@ -523,7 +523,8 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
-        Glide.with(context).load(R.raw.plate_empty_loader).into(loader);
+        Glide.with(context).load(R.raw.img_loader).into(loader);
+
         Glide.with(context)
                 .load(url)
                 .asBitmap()

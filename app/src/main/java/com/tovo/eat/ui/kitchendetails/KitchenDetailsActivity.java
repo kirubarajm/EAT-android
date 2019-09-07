@@ -49,6 +49,7 @@ import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.TextJustification;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.fonts.poppins.ContentTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -92,6 +93,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     int totalCount;
     TextView rowTextView;
     TextView[] myTextViews;
+
+
+    Analytics analytics;
+    String  pageName="Kitchen details";
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -225,6 +231,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         startKitchenLoader();
 
 
+        analytics=new Analytics(this, pageName);
 
         TextJustification.justify(mFragmentDishBinding.aboutContent);
 

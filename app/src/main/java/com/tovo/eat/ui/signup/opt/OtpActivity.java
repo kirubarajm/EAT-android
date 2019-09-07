@@ -42,6 +42,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.OtpEditText;
 import com.tovo.eat.utilities.SMSReceiver;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -54,6 +55,12 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     String strOtpId = "";
     String strOtp = "";
     String UserId = "";
+
+
+    Analytics analytics;
+    String  pageName="OTP page";
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -319,6 +326,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         startSMSListener();
 
         startTimer();
+
+
+
+        analytics=new Analytics(this,pageName);
 
         /*AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
 

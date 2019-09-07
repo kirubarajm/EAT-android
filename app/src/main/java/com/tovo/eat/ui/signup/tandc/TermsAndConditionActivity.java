@@ -11,6 +11,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityTermsAndConditionBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,11 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     @Inject
     TermsAndConditionViewModel mTermsAndConditionModel;
     ActivityTermsAndConditionBinding mActivityTermsAndConditionBinding;
+
+
+    Analytics analytics;
+    String  pageName="Terms and Conditions";
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, TermsAndConditionActivity.class);
@@ -70,6 +76,7 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
 
 
+        analytics=new Analytics(this,pageName);
 
         mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
 

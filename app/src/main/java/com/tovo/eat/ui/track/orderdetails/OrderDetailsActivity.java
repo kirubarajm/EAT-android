@@ -25,6 +25,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -41,6 +42,11 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
     LinearLayoutManager mLayoutManager;
     @Inject
     BillListAdapter billListAdapter;
+
+
+    Analytics analytics;
+    String  pageName="Order details";
+
 
     public static Intent newIntent(Context context) {
 
@@ -125,6 +131,7 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
 
 
 
+        analytics=new Analytics(this,pageName);
 
         mOrderDetailsAdapter.setListener(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

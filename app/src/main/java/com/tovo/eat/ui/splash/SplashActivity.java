@@ -25,6 +25,7 @@ import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.update.UpdateActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -37,6 +38,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
 
     private ActivitySplashBinding mActivitySplashBinding;
     private PrefManager prefManager;
+
+    Analytics analytics;
+    String  pageName="Splash screen";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -108,6 +112,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         prefManager = new PrefManager(this);
 
 
+
+        analytics=new Analytics( this,pageName);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;

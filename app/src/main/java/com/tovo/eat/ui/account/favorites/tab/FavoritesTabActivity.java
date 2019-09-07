@@ -20,6 +20,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -38,6 +39,9 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
     FavoritesTabAdapter mFavoritesTabAdapter;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    Analytics analytics;
+    String  pageName="Favourites list";
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -104,6 +108,9 @@ public class FavoritesTabActivity extends BaseActivity<ActivityTabFavoritesBindi
         mFavoritesActivityViewModel.setNavigator(this);
         mActivityTabFavoritesBinding = getViewDataBinding();
         setUp();
+
+        analytics=new Analytics(this,pageName);
+
     }
 
     private void setUp() {

@@ -25,6 +25,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -56,6 +57,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     CartListener cartListener;
 
 
+    Analytics analytics;
+    String  pageName="Search";
+
+
 
 
     @Override
@@ -83,6 +88,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         //  ((TestActivity) getActivity()).setFilterListener(FavDishFragment.this);
 
 
+        analytics=new Analytics(getActivity(), pageName);
         //  StartFilter myInterface =getInterface(StartFilter.class, this);
 
 

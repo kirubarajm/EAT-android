@@ -27,6 +27,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.SwipeController;
 import com.tovo.eat.utilities.SwipeControllerActions;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -45,6 +46,8 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     StartFilter startFilter;
 
+    Analytics analytics;
+    String  pageName="Kitchen list";
 
 
     public static KitchenFragment newInstance() {
@@ -60,6 +63,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
 
+        analytics=new Analytics(getActivity(),pageName);
 
       //  mKitchenViewModel.fetchRepos();
 

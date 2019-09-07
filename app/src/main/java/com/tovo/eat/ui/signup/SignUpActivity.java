@@ -29,6 +29,7 @@ import com.tovo.eat.ui.signup.privacy.PrivacyActivity;
 import com.tovo.eat.ui.signup.tandc.TermsAndConditionActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -39,6 +40,12 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     public boolean continueClicked = false;
     @Inject
     SignUpActivityViewModel mLoginViewModelMain;
+
+
+    Analytics analytics;
+    String  pageName="Login";
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -169,6 +176,8 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
         requestPermissionsSafely(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
 
+
+        analytics=new Analytics(this,pageName);
         mActivitySignupBinding.edtPhoneNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

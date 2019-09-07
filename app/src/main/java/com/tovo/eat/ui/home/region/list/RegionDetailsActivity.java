@@ -28,6 +28,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -42,6 +43,8 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     KitchenAdapter adapter;
 
     ActivityRegionDetailsBinding mActivityRegionListBinding;
+    Analytics analytics;
+    String  pageName="Region details";
 
     public static Intent newIntent(Context context) {
 
@@ -57,6 +60,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
         setSupportActionBar(mActivityRegionListBinding.toolbar);
 
+        analytics=new Analytics(this,pageName);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

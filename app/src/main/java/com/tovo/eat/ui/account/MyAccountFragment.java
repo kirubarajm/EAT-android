@@ -21,6 +21,7 @@ import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.GetUserDetailsResponse;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,10 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     MyAccountViewModel mMyAccountViewModel;
 
     FragmentMyAccountBinding mFragmentMyAccountBinding;
+
+    Analytics analytics;
+    String  pageName="My account";
+
 
     public static MyAccountFragment newInstance() {
         Bundle args = new Bundle();
@@ -63,6 +68,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         mMyAccountViewModel.setNavigator(this);
 
 
+        analytics=new Analytics(getActivity(), pageName);
         //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }

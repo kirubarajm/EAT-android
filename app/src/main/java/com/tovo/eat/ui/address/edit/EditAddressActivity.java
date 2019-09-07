@@ -38,6 +38,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.io.IOException;
@@ -63,7 +64,12 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     boolean isFirstTime;
     Location mLocation;
     Integer aid;
+    String atype;
     boolean isGPS;
+    Analytics analytics;
+    String  pageName="Edit address";
+
+
     FusedLocationProviderClient fusedLocationClient;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -168,7 +174,9 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         super.onCreate(savedInstanceState);
         mActivityEditAddressBinding = getViewDataBinding();
         mEditAddressViewModel.setNavigator(this);
-        //  startLocationTracking();
+
+        analytics=new Analytics(this, pageName);
+
 
         isFirstTime = true;
 
@@ -188,8 +196,30 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
         if (intent.getExtras() != null) {
             aid = intent.getExtras().getInt("aid");
-        }
+            atype = intent.getExtras().getString("type");
 
+            if (atype.equals("1")){
+                mEditAddressViewModel.office.set(false);
+                mEditAddressViewModel.home.set(true);
+                mEditAddressViewModel.typeHome.set(true);
+
+                mEditAddressViewModel.other.set(false);
+
+            }else if (atype.equals("2")){
+                mEditAddressViewModel.office.set(true);
+                mEditAddressViewModel.typeOffice.set(true);
+                mEditAddressViewModel.home.set(false);
+                mEditAddressViewModel.other.set(false);
+
+            }else {
+
+                mEditAddressViewModel.office.set(false);
+                mEditAddressViewModel.home.set(false);
+                mEditAddressViewModel.other.set(true);
+                mEditAddressViewModel.typeOther.set(true);
+            }
+
+        }
 
         mEditAddressViewModel.fetchAddress(aid);
 

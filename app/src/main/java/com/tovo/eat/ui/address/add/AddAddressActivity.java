@@ -47,6 +47,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -75,6 +76,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     Dialog locationDialog;
     ProgressDialog dialog;
     FusedLocationProviderClient fusedLocationClient;
+
+    Analytics analytics;
+    String  pageName="Add address";
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -237,6 +243,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         mActivityAddAddressBinding = getViewDataBinding();
         mAddAddressViewModel.setNavigator(this);
         //  startLocationTracking();
+
+
+        analytics=new Analytics(this,pageName);
 
         dialog = new ProgressDialog(this);
         dialog.setCancelable(true);

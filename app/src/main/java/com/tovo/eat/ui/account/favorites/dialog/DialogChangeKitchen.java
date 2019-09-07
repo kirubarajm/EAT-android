@@ -16,6 +16,7 @@ import com.tovo.eat.databinding.DialogChangeKitchenBinding;
 import com.tovo.eat.ui.base.BaseDialog;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenCallBack;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenViewModel;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,8 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     DialogChangeKitchenViewModel mDialogChangeKitchenViewModel;
     DialogChangeKitchenBinding binding;
     Activity activity;
-
+    Analytics analytics;
+    String  pageName="Dialog change kitchen";
 
     Integer makeitId, productId,quantity,price;
 
@@ -104,6 +106,9 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        analytics=new Analytics(getBaseActivity(),pageName);
+
     }
 
     @Override

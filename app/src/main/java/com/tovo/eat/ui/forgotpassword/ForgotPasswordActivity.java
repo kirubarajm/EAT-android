@@ -23,6 +23,7 @@ import com.tovo.eat.databinding.ActivityForgotPasswordBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -35,6 +36,10 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
 
     private ActivityForgotPasswordBinding mActivityForgotPasswordBinding;
     private EditText[] editTexts;
+
+    Analytics analytics;
+    String  pageName="Forgot password";
+
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -130,6 +135,8 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
         mActivityForgotPasswordBinding = getViewDataBinding();
         mForgotPasswordActivityViewModel.setNavigator(this);
 
+
+        analytics=new Analytics(this,pageName);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

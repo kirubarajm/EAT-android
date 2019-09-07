@@ -21,6 +21,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -33,7 +34,8 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     LinearLayoutManager mLayoutManager;*/
     @Inject
     FavKitchenAdapter adapter;
-
+    Analytics analytics;
+    String  pageName="Favourite Kitchens";
     FragmentFavKitchenBinding mFragmentKitchenBinding;
 
     public static FavKitchenFragment newInstance() {
@@ -49,6 +51,9 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
         super.onCreate(savedInstanceState);
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+        analytics=new Analytics(getBaseActivity(),pageName);
 
     }
 

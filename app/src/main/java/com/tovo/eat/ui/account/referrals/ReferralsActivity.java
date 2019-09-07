@@ -17,6 +17,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityReferralsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -27,6 +28,9 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     ReferralsActivityViewModel mFeedbackAndSupportActivityViewModel;
     ActivityReferralsBinding mActivityReferralsBinding;
     String stringReferral = "";
+
+    Analytics analytics;
+    String  pageName="Referral";
 
     public static Intent newIntent(Context context) {
 
@@ -89,6 +93,8 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityReferralsBinding = getViewDataBinding();
+
+        analytics=new Analytics(this,pageName);
 
     }
 

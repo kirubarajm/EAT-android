@@ -26,6 +26,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -38,6 +39,10 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     String strOrderId;
     String message = null;
     ProgressDialog dialog;
+
+
+    Analytics analytics;
+    String  pageName="Order help";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -159,6 +164,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         dialog.setMessage("Please wait...");
 
 
+
+        analytics=new Analytics(this,pageName);
         mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

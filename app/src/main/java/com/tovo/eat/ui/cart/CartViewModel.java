@@ -109,9 +109,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         fetchRefunds();
 
-
-        //  getDataManager().setisPasswordStatus(false);
-
+          //getDataManager().setEmailStatus(false);
 
     }
 
@@ -534,15 +532,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             } else {
                                 refundSelected.set(false);
                             }
-                            if (null!=cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()&& cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
+                            if (null != cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus() && cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
                                 couponSelected.set(true);
                                 couponFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getCouponDiscountAmount()));
 
                             } else {
                                 couponSelected.set(false);
-                                getDataManager().saveCouponId(0);
-                                getDataManager().saveCouponCode(null);
-                                fetchRepos();
+
+                                if (getDataManager().getCouponId()!=0){
+                                    getDataManager().saveCouponId(0);
+                                    getDataManager().saveCouponCode(null);
+                                    fetchRepos();
+                                }
+
                             }
 
 
@@ -583,8 +585,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             getNavigator().showToast(cartPageResponse.getMessage());
 
                         }*/
-
-getNavigator().cartLoaded();
+                        try {
+                            getNavigator().cartLoaded();
+                        } catch (Exception re) {
+                            re.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -604,7 +609,7 @@ getNavigator().cartLoaded();
                         headers.put("Content-Type", "application/json");
                         headers.put("accept-version", AppConstants.API_VERSION_ONE);
                         headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                            headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                        headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
 
                         return headers;
@@ -707,7 +712,7 @@ getNavigator().cartLoaded();
             } else {
                 getNavigator().notServicable();
             }
-        }else {
+        } else {
             Toast.makeText(MvvmApp.getInstance(), statusMessage.get(), Toast.LENGTH_SHORT).show();
 
 
@@ -829,7 +834,7 @@ getNavigator().cartLoaded();
                                 headers.put("accept-version", AppConstants.API_VERSION_ONE);
                                 headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
 
-                                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                                headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
 
                                 return headers;

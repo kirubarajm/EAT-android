@@ -23,6 +23,7 @@ import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -38,6 +39,10 @@ public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, 
 
     ActivityRefundListBinding mActivityRefundListBinding;
 
+    Analytics analytics;
+    String  pageName="Refund list";
+
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, RefundListActivity.class);
@@ -49,6 +54,9 @@ public class RefundListActivity extends BaseActivity<ActivityRefundListBinding, 
         mActivityRefundListBinding = getViewDataBinding();
         mRefundListViewModel.setNavigator(this);
         adapter.setListener(this);
+
+
+        analytics=new Analytics(this,pageName);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRefundListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));

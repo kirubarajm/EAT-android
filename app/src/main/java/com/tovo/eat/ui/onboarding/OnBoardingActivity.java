@@ -31,6 +31,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -47,6 +48,11 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     private PrefManager prefManager;
     private TextView[] dots;
     private int[] layouts;
+
+    Analytics analytics;
+    String  pageName="Onboarding";
+
+
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
@@ -131,6 +137,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
         prefManager = new PrefManager(this);
 
+        analytics=new Analytics(this,pageName);
 /*
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {

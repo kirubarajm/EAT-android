@@ -27,6 +27,7 @@ import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
@@ -51,6 +52,9 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Inject
     BillListAdapter billListAdapter;
     Dialog dialog;
+    Analytics analytics;
+    String  pageName="View order details";
+
 
     public static Intent newIntent(Context context) {
 
@@ -166,6 +170,9 @@ showDialog();
         mActivityOrdersHostiryViewBinding = getViewDataBinding();
         mOrderHistoryActivityViewModelView.setNavigator(this);
         mOrdersHistoryActivityItemAdapter.setListener(this);
+
+
+        analytics=new Analytics(this,pageName);
 
         dialog=new Dialog(this);
 

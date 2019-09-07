@@ -18,9 +18,11 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressSelectBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
+import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -36,6 +38,10 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     ActivityAddressSelectBinding mActivityAddressSelectBinding;
 
+    Analytics analytics;
+    String  pageName="Change address";
+
+
     public static Intent newIntent(Context context) {
 
         return new Intent(context, SelectAddressListActivity.class);
@@ -48,6 +54,9 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         mSelectAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
+
+
+        analytics=new Analytics(this,pageName);
 
 
         mActivityAddressSelectBinding.loader.setVisibility(View.VISIBLE);
@@ -150,8 +159,10 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void editAddressClick(SelectAddressListResponse.Result address) {
+
         Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
         intent.putExtra("aid",address.getAid());
+        intent.putExtra("type", address.getAddressType());
         startActivity(intent);
         finish();
 

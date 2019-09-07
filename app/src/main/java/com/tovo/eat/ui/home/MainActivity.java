@@ -69,6 +69,7 @@ import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
@@ -97,6 +98,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     boolean cart = false;
     String pageid = "";
+
+
+    Analytics analytics;
+    String  pageName="Main menu page";
 
 
     FusedLocationProviderClient fusedLocationClient;
@@ -653,6 +658,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
+
+        analytics=new Analytics(this , pageName);
 
         saveFcmToken();
 

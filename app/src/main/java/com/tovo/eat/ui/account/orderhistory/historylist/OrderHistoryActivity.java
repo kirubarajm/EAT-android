@@ -20,6 +20,7 @@ import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -34,6 +35,10 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     OrdersHistoryActivityAdapter mOrdersHistoryActivityAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
+
+    Analytics analytics;
+    String  pageName="Order history list";
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -114,6 +119,8 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
         mActivityOrdersHistoryListBinding = getViewDataBinding();
         mOrderHistoryActivityViewModel.setNavigator(this);
 
+
+        analytics=new Analytics(this,pageName);
 
         mActivityOrdersHistoryListBinding.loader.setVisibility(View.VISIBLE);
 

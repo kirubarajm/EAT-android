@@ -17,6 +17,7 @@ import com.tovo.eat.databinding.ActivityTermsAndConditionBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -26,6 +27,11 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
     @Inject
     PrivacyViewModel mPrivacyViewModel;
     ActivityPrivacyBinding mActivityPrivacyBinding;
+
+
+    Analytics analytics;
+    String  pageName="App privacy";
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, PrivacyActivity.class);
@@ -77,6 +83,9 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
         mActivityPrivacyBinding.webview.getSettings().setJavaScriptEnabled(true);
 
 
+
+
+        analytics=new Analytics(this,pageName);
     }
 
     @Override

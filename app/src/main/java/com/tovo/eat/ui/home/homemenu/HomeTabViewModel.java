@@ -393,22 +393,23 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {
+                        if (response.getStatus()) {
+                            if (null != response.getResult() && response.getResult().size() > 0) {
+                                //  couponListItemViewModels.addAll(response.getResult());
+                                couponListItemsLiveData.setValue(response.getResult());
 
-                        if (response.getResult().size() > 0) {
-                            //  couponListItemViewModels.addAll(response.getResult());
-                            couponListItemsLiveData.setValue(response.getResult());
+                                if (!couponAdded) {
+                                    if (kitchenItemViewModels.size() > 0) {
+                                        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                        kitchenResponse1.setCoupons(response.getResult());
+                                        kitchenItemViewModels.add(Math.round(kitchenItemViewModels.size() / 2) + 1, kitchenResponse1);
+                                        couponAdded = true;
+                                        // kitchenItemsLiveData.setValue(kitchenItemViewModels);
+                                    }
 
-                            if (!couponAdded) {
-                                if (kitchenItemViewModels.size() > 0) {
-                                    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                    kitchenResponse1.setCoupons(response.getResult());
-                                    kitchenItemViewModels.add(Math.round(kitchenItemViewModels.size() / 2)+1, kitchenResponse1);
-                                    couponAdded = true;
-                                    // kitchenItemsLiveData.setValue(kitchenItemViewModels);
                                 }
 
                             }
-
                         }
                     }
                 }

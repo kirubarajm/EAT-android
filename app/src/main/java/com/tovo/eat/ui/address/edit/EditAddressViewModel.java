@@ -52,6 +52,9 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
     public final ObservableField<String> landmark = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
 
+    public final ObservableBoolean home = new ObservableBoolean();
+    public final ObservableBoolean office = new ObservableBoolean();
+    public final ObservableBoolean other = new ObservableBoolean();
 
     public final ObservableBoolean typeHome = new ObservableBoolean();
     public final ObservableBoolean typeOffice = new ObservableBoolean();

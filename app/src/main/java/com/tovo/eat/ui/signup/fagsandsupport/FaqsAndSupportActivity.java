@@ -23,6 +23,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -32,6 +33,10 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     @Inject
     FaqsAndSupportViewModel mFaqsAndSupportViewModel;
     ActivityFaqsSupportBinding mActivityFaqsSupportBinding;
+
+
+    Analytics analytics;
+    String  pageName="FAQs and support";
 
 
     public static Intent newIntent(Context context) {
@@ -94,6 +99,8 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
         mFaqsAndSupportViewModel.setNavigator(this);
         mActivityFaqsSupportBinding = getViewDataBinding();
 
+
+        analytics=new Analytics(this, pageName);
 
     }
 

@@ -18,6 +18,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityViewImageBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,8 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
 
     ActivityViewImageBinding mActivityViewImageBinding;
 
+    Analytics analytics;
+    String  pageName="View Image";
 
     public static Intent newIntent(Context context) {
        /* Intent intent = new Intent(context, CartActivity.class);
@@ -110,6 +113,9 @@ public class ViewImageActivity extends BaseActivity<ActivityViewImageBinding, Vi
                 .setContentView(this, R.layout.kitchen_dish_sub);*/
 
         mViewImageViewModel.setNavigator(this);
+
+
+        analytics=new Analytics(this,pageName);
 
        /* Intent intent = getIntent();
         if (intent.getExtras() != null) {

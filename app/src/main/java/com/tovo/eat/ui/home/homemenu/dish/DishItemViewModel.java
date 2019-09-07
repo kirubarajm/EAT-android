@@ -18,6 +18,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONObject;
 
@@ -224,7 +225,7 @@ public class DishItemViewModel {
 
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
-
+            new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         } else {
             Toast.makeText(MvvmApp.getInstance(), "Only " + dishList.getQuantity() + " Quantity of " + dishList.getProductName() + " Available", Toast.LENGTH_SHORT).show();
 
@@ -299,7 +300,7 @@ public class DishItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
 
         results.clear();
-
+        new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
@@ -369,7 +370,7 @@ public class DishItemViewModel {
         isAddClicked.set(true);
         quantity.set(1);
         sQuantity.set(String.valueOf(quantity.get()));
-
+        new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);

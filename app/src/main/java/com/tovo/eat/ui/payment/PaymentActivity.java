@@ -25,6 +25,7 @@ import com.tovo.eat.ui.payment.pendingpaymentpage.PendingPaymentPageAlert;
 import com.tovo.eat.ui.pendingpayment.PaymentListener;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import org.json.JSONObject;
@@ -47,6 +48,8 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     JSONObject options;
 boolean paymentRetry=false;
+    Analytics analytics;
+    String  pageName="Payment page";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -206,10 +209,15 @@ boolean paymentRetry=false;
         mPaymentViewModel.setNavigator(this);
 
 
+        analytics=new Analytics(this,pageName);
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             if (intent.getExtras().getString("amount") != null) {
                 mPaymentViewModel.amount.set(intent.getExtras().getString("amount"));
+
+                new Analytics(intent.getExtras().getString("amount"));
+
             }
         }
     }

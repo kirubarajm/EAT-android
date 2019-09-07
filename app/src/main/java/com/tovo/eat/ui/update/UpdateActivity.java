@@ -15,6 +15,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.onboarding.PrefManager;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,11 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
     private ActivityUpdateBinding mActivityUpdateBinding;
     private PrefManager prefManager;
+
+
+    Analytics analytics;
+    String  pageName="Force update";
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, UpdateActivity.class);
@@ -99,6 +105,8 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
         }
 
 
+
+        analytics=new Analytics(this,pageName);
     }
 
     @Override

@@ -35,6 +35,7 @@ import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListe
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -66,6 +67,10 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     private boolean isImmersive = true;
     private boolean isCaching = true;
     private ProgressTarget<String, Bitmap> target;
+
+    Analytics analytics;
+    String  pageName="Stories";
+
 
     public static StoriesPagerFragment newInstance() {
         Bundle args = new Bundle();
@@ -106,6 +111,10 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSplashActivityViewModel.setNavigator(this);
+
+
+
+        analytics=new Analytics(getActivity(),pageName);
 
     }
 

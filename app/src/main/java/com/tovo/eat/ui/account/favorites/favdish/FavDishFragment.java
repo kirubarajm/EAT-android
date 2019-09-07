@@ -19,6 +19,7 @@ import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.DishViewModel;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
@@ -33,6 +34,8 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     DishAdapter adapter;
 
     FragmentDishBinding mFragmentDishBinding;
+    Analytics analytics;
+    String  pageName="Favourite dishes";
 
 
     CartFavListener cartListener;
@@ -58,6 +61,9 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         super.onCreate(savedInstanceState);
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
+
+        analytics=new Analytics(getBaseActivity(),pageName);
+
     }
 
     @Override

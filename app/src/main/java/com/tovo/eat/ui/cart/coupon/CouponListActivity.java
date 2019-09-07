@@ -19,6 +19,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCouponListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -33,7 +34,8 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     CouponListAdapter adapter;
 
     ActivityCouponListBinding mActivityCouponListBinding;
-
+    Analytics analytics;
+    String  pageName="Coupon list";
 
     boolean notClickable = false;
 
@@ -51,6 +53,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         adapter.setListener(this);
 
 
+        analytics=new Analytics(this, pageName);
 
         mActivityCouponListBinding.loader.setVisibility(View.VISIBLE);
 

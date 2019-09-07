@@ -21,6 +21,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -30,6 +31,9 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     @Inject
     FeedbackAndSupportActivityViewModel mFeedbackAndSupportActivityViewModel;
     ActivityFeedbackSupportBinding mActivityFeedbackSupportBinding;
+
+    Analytics analytics;
+    String  pageName="Feedback and Support page";
 
 
     public static Intent newIntent(Context context) {
@@ -85,6 +89,8 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityFeedbackSupportBinding = getViewDataBinding();
+
+        analytics=new Analytics(this,pageName);
     }
 
 

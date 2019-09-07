@@ -25,6 +25,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.util.List;
@@ -40,6 +41,11 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     String regionId = "";
     RegionListAdapter regionListAdapter;
     RegionSearchModel.Result result;
+
+
+    Analytics analytics;
+    String  pageName="User registration";
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -128,6 +134,8 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         mLoginViewModelMain.setNavigator(this);
 
         mLoginViewModelMain.regionList();
+
+        analytics=new Analytics(this, pageName);
 
         mActivityNameGenderBinding.region.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -25,6 +25,7 @@ import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     String regionId = "";
     RegionListAdapter regionListAdapter;
     RegionSearchModel.Result result;
+    Analytics analytics;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -131,6 +133,11 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         super.onCreate(savedInstanceState);
         mActivityNameGenderBinding = getViewDataBinding();
         mLoginViewModelMain.setNavigator(this);
+
+
+         analytics=new Analytics(this,"Edit My Account");
+
+
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {

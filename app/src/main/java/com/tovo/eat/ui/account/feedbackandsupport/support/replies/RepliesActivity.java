@@ -21,6 +21,7 @@ import com.tovo.eat.databinding.ActivityRepliesBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -34,6 +35,9 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     RepliesAdapter mRepliesAdapter;
     @Inject
     RepliesActivityViewModel mRepliesActivityViewModel;
+
+    Analytics analytics;
+    String  pageName="Queries questions list";
 
     private ActivityRepliesBinding mActivityRepliesBinding;
 
@@ -100,7 +104,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mRepliesActivityViewModel.setNavigator(this);
         mRepliesAdapter.setListener(this);
 
-
+        analytics=new Analytics(this,pageName);
 
         mActivityRepliesBinding.loader.setVisibility(View.VISIBLE);
 

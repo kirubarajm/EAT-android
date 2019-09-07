@@ -17,6 +17,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,10 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     int foodRating = 0;
     int deliveryRating = 0;
     int orderId = 0;
+
+    Analytics analytics;
+    String  pageName="Order rating popup";
+
 
     @Inject
     OrderRatingActivityViewModel mLoginViewModelMain;
@@ -138,6 +143,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
         super.onCreate(savedInstanceState);
         mLoginViewModelMain.setNavigator(this);
 
+        analytics=new Analytics(getActivity(), pageName);
 
     }
 

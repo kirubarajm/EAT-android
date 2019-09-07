@@ -123,12 +123,27 @@
                             <ImageView
                                 android:id="@+id/image"
                                 imageUrl="@{regionDetailsViewModel.detailImageUrl}"
+                                loader="@{loader}"
                                 android:layout_width="match_parent"
                                 android:layout_height="400dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerInParent="true"
                                 android:scaleType="fitCenter"
                                 app:layout_collapseMode="parallax" />
+
+
+                            <ImageView
+                                android:foregroundGravity="center"
+                                android:id="@+id/loader"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center_horizontal|center_vertical" />
+
+
+
+
+
 
 
                             <LinearLayout

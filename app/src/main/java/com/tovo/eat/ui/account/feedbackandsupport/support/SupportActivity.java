@@ -27,6 +27,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -38,6 +39,9 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     private ActivityQueriesBinding mActivityQueriesBinding;
     String strQueries="";
     public static final String TAG = SupportActivity.class.getSimpleName();
+
+    Analytics analytics;
+    String  pageName="Support page";
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SupportActivity.class);
@@ -136,6 +140,8 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         super.onCreate(savedInstanceState);
         mActivityQueriesBinding = getViewDataBinding();
         mQueriesViewModel.setNavigator(this);
+
+        analytics=new Analytics(this,pageName);
 
     }
 

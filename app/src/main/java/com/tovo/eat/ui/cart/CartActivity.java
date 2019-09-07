@@ -26,6 +26,7 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 
 import javax.inject.Inject;
@@ -49,6 +50,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     BillListAdapter billListAdapter;
     Dialog dialog;
     private ActivityCartBinding mActivityCartBinding;
+
+    Analytics analytics;
+    String  pageName="Cart page";
+
 
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
@@ -96,6 +101,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         refundListAdapter.setListener(this);
 
 
+        analytics=new Analytics(getActivity(), pageName);
 
         /*if (mCartViewModel.getCartPojoDetails() == null) {
 

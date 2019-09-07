@@ -30,6 +30,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.util.List;
@@ -60,6 +61,11 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     String fromScreen;
     String total;
+
+    Analytics analytics;
+    String  pageName="Get Email page";
+
+
 
     @Inject
     RegistrationActivityViewModel mRegistrationActivityViewModel;
@@ -231,6 +237,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         //mRegionAdapter.setListener(this);
         /*mActivityRegistrationBinding.spnHometown.setAdapter(mRegionAdapter);*/
 
+        analytics=new Analytics(this,pageName);
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
