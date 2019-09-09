@@ -666,7 +666,7 @@
                             app:cardCornerRadius="7dp"
                             app:cardElevation="3dp">
 
-                            <com.tovo.eat.utilities.fonts.RegionNameTextView
+                            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical|center_horizontal"

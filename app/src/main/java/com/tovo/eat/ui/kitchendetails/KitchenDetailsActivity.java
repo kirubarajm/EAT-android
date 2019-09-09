@@ -512,12 +512,43 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         subscribeToLiveDataKitchenImages();
 
 
+
+
+
+        mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+
+
+
+            }
+        });
+
+
+
+
+
     }
 
     @Override
     public void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
-        totalCount = kitchenmenuimageArrayList.size();
-        dots = new TextView[totalCount];
+
+
+        if (kitchenmenuimageArrayList!=null) {
+            totalCount = kitchenmenuimageArrayList.size();
+            kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
+
+            mFragmentDishBinding.left.setVisibility(View.GONE);
+            mFragmentDishBinding.right.setVisibility(View.VISIBLE);
+
+        }else {
+            return;
+        }
+
+       /* dots = new TextView[totalCount];
         mFragmentDishBinding.layoutDots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
@@ -528,20 +559,79 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             mFragmentDishBinding.layoutDots.addView(dots[i]);
         }
         if (dots.length > 0)
-            dots[0].setTextColor(Color.YELLOW);
+            dots[0].setTextColor(Color.YELLOW);*/
+
+
+        mFragmentDishBinding.left.setVisibility(View.GONE);
+
+
+        mFragmentDishBinding.right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
+               int currentFirstVisible = ll.findFirstVisibleItemPosition();
+
+                mFragmentDishBinding.left.setVisibility(View.VISIBLE);
+                mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible+1);
+
+
+                if (currentFirstVisible==totalCount-1){
+                    mFragmentDishBinding.right.setVisibility(View.GONE);
+                }
+
+
+            }
+        });
+
+        mFragmentDishBinding.left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
+               int currentFirstVisible = ll.findFirstVisibleItemPosition();
+
+                if (currentFirstVisible==0){
+                    mFragmentDishBinding.left.setVisibility(View.GONE);
+                }else   {
+
+                    mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible-1);
+                }
+
+
+            }
+        });
+
+
 
         mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-                int currentFirstVisible = ll.findFirstVisibleItemPosition();
-                addBottomDots(currentFirstVisible);
+                int currentFirstVisible = ll.findFirstCompletelyVisibleItemPosition();
+            //    addBottomDots(currentFirstVisible);
+
+
+                if (currentFirstVisible==totalCount-1){
+                    mFragmentDishBinding.right.setVisibility(View.GONE);
+                }else if (currentFirstVisible==0){
+                    mFragmentDishBinding.left.setVisibility(View.GONE);
+                }else {
+
+                    if (totalCount==1){
+                        mFragmentDishBinding.right.setVisibility(View.GONE);
+                        mFragmentDishBinding.left.setVisibility(View.GONE);
+                    }else   {
+                        mFragmentDishBinding.right.setVisibility(View.VISIBLE);
+                        mFragmentDishBinding.left.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
             }
         });
 
-
-        kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
 
     }
 

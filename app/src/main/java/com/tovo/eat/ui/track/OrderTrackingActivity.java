@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.service.autofill.FieldClassification;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -29,7 +30,9 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryDataEventListener;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.firebase.geofire.LocationCallback;
+import com.firebase.geofire.util.Constants;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,6 +49,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.maps.DirectionsApi;
@@ -60,6 +65,7 @@ import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderTrackingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
@@ -71,7 +77,10 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import org.joda.time.DateTime;
 
+import java.io.FilterReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -666,7 +675,165 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
 
-        geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {
+        Query locationDataQuery =FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location").child(String.valueOf(moveitId));
+        locationDataQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //The dataSnapshot should hold the actual data about the location
+              //  dataSnapshot.getChild("name").getValue(String.class); //should return the name of the location and dataSnapshot.getChild("description").getValue(String.class); //should return the description of the locations
+
+                dataSnapshot.child("l").getValue();
+
+
+
+              List<Double> gg= (List<Double>) dataSnapshot.child("l").getValue();
+
+
+
+                moveitLatLng = new LatLng(gg.get(0),gg.get(1));
+
+                if (distance(cusLatLng.latitude, cusLatLng.longitude, gg.get(0),gg.get(1), "K") <= 2) {
+                    //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+
+                    if (moveitLocationMarker == null) {
+                        if (mMap!=null)
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                    }
+
+                    showMarker1(moveitLatLng);
+                  //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                }
+
+
+
+
+
+
+                /*Map<String, Object> objectMap = (HashMap<String, Object>)dataSnapshot.getValue();
+
+                for (Object obj : objectMap.values()) {
+                    if (obj instanceof Map) {
+                        Map<String, Object> mapObj = (Map<String, Object>) obj;
+
+                    }
+                }
+
+
+
+
+
+
+
+                List<Double> messages =  dataSnapshot.child("l").getValue();
+
+
+
+                Object o=   dataSnapshot.child("name").getValue(String.class);
+
+
+            String lt=requestPojo.getLat();
+            String ln=requestPojo.getLon();
+
+
+
+                Log.e("lat", requestPojo.getLat());
+                Log.e("lng", requestPojo.getLon());
+
+                Log.e("lat", requestPojo.getLat());
+                Log.e("lng", requestPojo.getLon());
+                Log.e("lat", requestPojo.getLat());
+                Log.e("lng", requestPojo.getLon());
+                Log.e("lat", requestPojo.getLat());
+                Log.e("lng", requestPojo.getLon());*/
+
+
+
+
+
+
+
+               /* if (dataSnapshot != null) {
+                    for (DataSnapshot transportStatus : dataSnapshot.getChildren()) {
+                        mTransportStatuses.add(Integer.parseInt(transportStatus.getKey()),
+                                (Map<String, Object>) transportStatus.getValue());
+                    }
+                }
+                if (mTransportStatuses.size() != 0) {
+
+                    Map<String, Object> status = mTransportStatuses.get(0);
+                    Location locationForStatus = new Location("");
+                    locationForStatus.setLatitude((double) status.get("lat"));
+                    locationForStatus.setLongitude((double) status.get("lng"));
+                    LatLng latLng = new LatLng((double) status.get("lat"), (double) status.get("lng"));
+
+                    if (distance(cusLatLng.latitude, cusLatLng.longitude, (double) status.get("lat"), (double) status.get("lng"), "K") <= 2) {
+
+
+                        mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+
+                        if (moveitLocationMarker == null) {
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(origin_marker)).position(latLng));
+                        }
+
+                        showMarker1(latLng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    }
+                }*/
+
+
+
+
+
+                /*if (location != null) {
+                    System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
+                    Log.e("loc", String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+
+
+                    mOrderTrackingViewModel.getOrderETA(String.valueOf( location.latitude), String.valueOf(location.longitude));
+
+
+                    moveitLatLng = new LatLng(location.latitude, location.longitude);
+
+                    if (distance(cusLatLng.latitude, cusLatLng.longitude, location.latitude, location.longitude, "K") <= 2) {
+                        //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+
+                        if (moveitLocationMarker == null) {
+                            if (mMap!=null)
+                                moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                        }
+
+                        showMarker1(moveitLatLng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                    }
+
+
+                } else {
+                    System.out.println(String.format("There is no location for key %s in GeoFire", key));
+                }*/
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {
             @Override
             public void onLocationResult(String key, GeoLocation location) {
                 if (location != null) {
@@ -703,12 +870,15 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 System.err.println("There was an error getting the GeoFire location: " + databaseError);
             }
 
-        });
+        });*/
 
 
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(cusLatLng.latitude, cusLatLng.longitude), 2);
 
-        geoQuery.addGeoQueryDataEventListener(new GeoQueryDataEventListener() {
+
+
+       // GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(cusLatLng.latitude, cusLatLng.longitude), 2);
+
+       /* geoQuery.addGeoQueryDataEventListener(new GeoQueryDataEventListener() {
 
             @Override
             public void onDataEntered(DataSnapshot dataSnapshot, GeoLocation location) {
@@ -730,28 +900,27 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 // ...
 
 
-                moveitLatLng = new LatLng(location.latitude, location.longitude);
+                if (dataSnapshot.getKey().equals(String.valueOf(moveitId))) {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                    moveitLatLng = new LatLng(location.latitude, location.longitude);
 
-                        if (moveitLocationMarker == null) {
-                            if (mMap!=null)
-                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
-                        } else {
-                            MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (moveitLocationMarker == null) {
+                                if (mMap != null)
+                                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                            } else {
+                                MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());
+                            }
+                            //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
                         }
-                      //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
-                    }
-                });
+                    });
 
+                }
 
-
-
-
-
-                /*try {
+                *//*try {
                     LatLng latLng = new LatLng(location.latitude, location.longitude);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
@@ -772,7 +941,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
                 } catch (Exception e) {
                     e.printStackTrace();
-                }*/
+                }*//*
             }
 
             @Override
@@ -786,7 +955,81 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             }
 
         });
+*/
 
+
+       /* geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String username, GeoLocation location) {
+
+
+
+
+
+                Query locationDataQuery = new FirebaseDatabase.getInstance().child("locations").child(key);
+
+
+
+
+                locationDataQuery.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //The dataSnapshot should hold the actual data about the location
+                        dataSnapshot.getChild("name").getValue(String.class); //should return the name of the location and dataSnapshot.getChild("description").getValue(String.class); //should return the description of the locations
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onKeyExited(String username) {
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                if (key.equals(String.valueOf(moveitId))) {
+                    moveitLatLng = new LatLng(location.latitude, location.longitude);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (moveitLocationMarker == null) {
+                                if (mMap != null)
+                                    moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                            } else {
+                                MarkerAnimation.animateMarkerToGB(moveitLocationMarker, moveitLatLng, new LatLngInterpolator.Spherical());
+                            }
+                            //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+
+        });*/
 
 
       /*  //  String transportId = mPrefs.getString(getString(R.string.transport_id), "");
