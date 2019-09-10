@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.api.remote.GsontoJsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
@@ -130,8 +131,6 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
     public void readMessageServiceCall(List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest) {
         setIsLoading(true);
 
-        try {
-
 
         List<ChatRepliesReadRequest.Aidlist> itemid = new ArrayList<>();
         itemid=mChatRepliesReadRequest;
@@ -140,51 +139,33 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         String payloadStr = gson.toJson(dialogPickedUpRequest);
 
 
+            try {
+                GsontoJsonRequest gsonRequest = new GsontoJsonRequest(Request.Method.PUT, AppConstants.URL_CHAT_REPLIES_READ, ChatReplyResponse.class, new JSONObject(payloadStr)
+                       , new Response.Listener<ChatReplyResponse>() {
+                    @Override
+                    public void onResponse(ChatReplyResponse response) {
+                        if (response != null) {
+                            boolean success = response.getSuccess();
+                            String strMessage = response.getMessage();
+                            getNavigator().sendSuccess(strMessage);
+                        }
+                    }
+                }, errorListener = new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        setIsLoading(false);
 
-        JsonObjectRequest jsonObjectRequest = null;
-        try {
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, AppConstants.URL_CHAT_REPLIES_READ,
-                    new JSONObject(payloadStr), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.e("data", response.toString());
-                    setIsLoading(false);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("data", error.toString());
-                    setIsLoading(false);
-                }
-            }){
+                    }
+                },AppConstants.API_VERSION_ONE);
+                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+            }catch (Exception ee){
 
+                ee.printStackTrace();
 
-                /**
-                 * Passing some request headers
-                 */
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                    return headers;
-                }
-            };
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+            }
 
 
 
-
-        }catch (Exception ee){
-
-            ee.printStackTrace();
-
-        }
     }
 
     public void sendClick() {

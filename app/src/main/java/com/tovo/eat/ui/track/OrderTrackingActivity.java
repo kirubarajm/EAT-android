@@ -682,9 +682,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 //The dataSnapshot should hold the actual data about the location
               //  dataSnapshot.getChild("name").getValue(String.class); //should return the name of the location and dataSnapshot.getChild("description").getValue(String.class); //should return the description of the locations
 
-                dataSnapshot.child("l").getValue();
-
-
 
               List<Double> gg= (List<Double>) dataSnapshot.child("l").getValue();
 
@@ -701,7 +698,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     }
 
                     showMarker1(moveitLatLng);
-                  //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                   // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
                 }
 
 

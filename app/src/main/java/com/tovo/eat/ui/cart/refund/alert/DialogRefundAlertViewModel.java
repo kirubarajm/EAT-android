@@ -10,11 +10,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.AddHeaders;
+import com.tovo.eat.api.remote.GsontoJsonRequest;
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatReplyResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.PlaceOrderRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
@@ -94,6 +98,50 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                     setIsLoading(true);
 
 
+
+
+                   /* try {
+                        GsontoJsonRequest gsonRequest = new GsontoJsonRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, CommonResponse.class, new JSONObject(json)
+                                , new Response.Listener<CommonResponse>() {
+                            @Override
+                            public void onResponse(CommonResponse response) {
+                                try {
+
+
+                                    if (response.isStatus()) {
+
+                                        getDataManager().currentOrderId(response.getOrderid());
+                                        getDataManager().setCartDetails("");
+                                        getNavigator().orderCompleted();
+                                        getDataManager().saveRefundId(0);
+                                        getDataManager().saveCouponId(0);
+                                        getDataManager().saveCouponCode(null);
+
+                                    } else {
+
+
+                                        Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                setIsLoading(false);
+                            }
+                        }, AppConstants.API_VERSION_ONE);
+                        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                    }catch (Exception ee){
+
+                        ee.printStackTrace();
+
+                    }*/
+
+
+
                     JsonObjectRequest jsonObjectRequest = null;
                     try {
                         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
@@ -134,6 +182,10 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
+
+                                return new AddHeaders().setHeaders(AppConstants.API_VERSION_ONE);
+                             /*
+
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
                                 headers.put("accept-version",AppConstants.API_VERSION_ONE);
@@ -141,7 +193,7 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
 
                                     headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
 
-                                return headers;
+                                return headers;*/
                             }
                         };
                     } catch (JSONException e) {

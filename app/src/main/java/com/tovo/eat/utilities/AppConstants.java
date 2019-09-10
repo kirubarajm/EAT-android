@@ -93,7 +93,6 @@ public class AppConstants {
 
     ///////Server Ip Ports
 
-
     //public static final String URL_SERVER_IP_PORT = BuildConfig.BASE_URL;////live ip port new
 
 

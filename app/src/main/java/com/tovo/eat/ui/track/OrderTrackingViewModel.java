@@ -107,10 +107,18 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                     orderTrackingResponse = response;
 
                     if (response != null) {
+
+
+
+
+
+
                         Log.e("----response:---------", response.toString());
 
                         if (response.getStatus()) {
 
+
+                           // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             addressTitle.set(response.getResult().get(0).getLocality());
 

@@ -54,9 +54,9 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
 
-    //    return item_list.size()*100;
+        return item_list.size();
 
-        return item_list.size()!=0? Integer.MAX_VALUE:1;
+       // return item_list.size()!=0? Integer.MAX_VALUE:1;
 
 
         /*if (item_list != null && item_list.size() > 0) {
@@ -140,9 +140,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             {
                 if ((blog.getStories().get(blog.getStories().size() - 1).isSeen())) {
 
-
-
-                    mListItemLiveProductsBinding.storyWhite.setVisibility(View.VISIBLE);
+                 //   mListItemLiveProductsBinding.storyWhite.setVisibility(View.VISIBLE);
 
                    /* ColorMatrix matrix = new ColorMatrix();
                     matrix.setSaturation(0);
@@ -151,7 +149,7 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     mListItemLiveProductsBinding.storyCard.setColorFilter(filter);*/
 
                 }else {
-                    mListItemLiveProductsBinding.storyWhite.setVisibility(View.GONE);
+                  //  mListItemLiveProductsBinding.storyWhite.setVisibility(View.GONE);
                 }
         }
         }

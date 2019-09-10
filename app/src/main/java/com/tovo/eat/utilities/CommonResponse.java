@@ -7,7 +7,7 @@ public class CommonResponse {
 
     @SerializedName("success")
     @Expose
-    private String success;
+    private boolean success;
     @SerializedName("message")
     @Expose
     private String message;
@@ -16,10 +16,27 @@ public class CommonResponse {
     @Expose
     private Integer favid;
 
+    @SerializedName("orderid")
+    @Expose
+    private Integer orderid;
+
 
     @SerializedName("status")
     @Expose
     private boolean status;
+
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public Integer getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
+    }
 
     public boolean isStatus() {
         return status;
@@ -37,11 +54,11 @@ public class CommonResponse {
         this.favid = favid;
     }
 
-    public String getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
