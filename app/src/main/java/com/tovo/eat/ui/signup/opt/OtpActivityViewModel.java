@@ -18,6 +18,7 @@ import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
@@ -147,6 +148,9 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     passwordstatus = response.getPasswordstatus();
                                     otpStatus = response.getOtpstatus();
                                     genderstatus = response.getGenderstatus();
+
+
+                                    new Analytics().userLogin(response.getUserid(),phoneNumber);
 
 
                                     getDataManager().saveApiToken(response.getToken());

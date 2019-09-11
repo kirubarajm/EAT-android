@@ -110,7 +110,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
 
 
-
+                       // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
 
                         Log.e("----response:---------", response.toString());

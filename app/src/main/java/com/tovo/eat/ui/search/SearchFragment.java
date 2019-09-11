@@ -300,6 +300,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 mSearchViewModel.fetchDishes(result.getName());
 
+
+                new Analytics().search("DISH",result.getName());
+
+
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.VISIBLE);
                 mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
@@ -316,6 +320,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
                 break;
             case 2:
+
+                new Analytics().search("HOME",result.getName());
+
                 Intent intent1 = KitchenDetailsActivity.newIntent(getContext());
                 intent1.putExtra("kitchenId", result.getId());
                 startActivity(intent1);
@@ -323,6 +330,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
 
             case 3:
+
+                new Analytics().search("REGION",result.getName());
 
                 mSearchViewModel.fetchRegionKitchens(result.getName(), result.getId());
 

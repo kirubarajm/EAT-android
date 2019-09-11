@@ -183,17 +183,15 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                                return new AddHeaders().setHeaders(AppConstants.API_VERSION_ONE);
-                             /*
+                             //  return new AddHeaders().setHeaders(AppConstants.API_VERSION_ONE);
 
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
                                 headers.put("accept-version",AppConstants.API_VERSION_ONE);
                                 headers.put("Authorization","Bearer "+getDataManager().getApiToken());
+                                 headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
 
-                                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-
-                                return headers;*/
+                                return headers;
                             }
                         };
                     } catch (JSONException e) {

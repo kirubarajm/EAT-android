@@ -541,8 +541,16 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             totalCount = kitchenmenuimageArrayList.size();
             kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
 
-            mFragmentDishBinding.left.setVisibility(View.GONE);
-            mFragmentDishBinding.right.setVisibility(View.VISIBLE);
+
+            if (kitchenmenuimageArrayList.size()==1){
+                mFragmentDishBinding.left.setVisibility(View.GONE);
+                mFragmentDishBinding.right.setVisibility(View.GONE);
+            }else {
+
+                mFragmentDishBinding.left.setVisibility(View.GONE);
+                mFragmentDishBinding.right.setVisibility(View.VISIBLE);
+            }
+
 
         }else {
             return;

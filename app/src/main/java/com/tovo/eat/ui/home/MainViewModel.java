@@ -46,6 +46,7 @@ import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MasterPojo;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,6 +91,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public LiveOrderResponsePojo liveOrderResponsePojo;
     private int orderId;
+    private int payment_orderId;
+    private int payment_price;
     private int action = NO_ACTION;
 
     public MainViewModel(DataManager dataManager) {
@@ -385,6 +388,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             isLiveOrder.set(false);
 
                             if (response.getResult() != null && response.getResult().size() > 0) {
+
+
+                                payment_orderId=response.getResult().get(0).getOrderid();
+                                payment_price=response.getResult().get(0).getPrice();
+
+
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
 
@@ -722,6 +731,17 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void paymentSuccess(String paymentId, Integer status) {
 
+
+
+        if (status==1){
+
+            new Analytics().paymentSuccess(payment_orderId,payment_price);
+
+        }else {
+            new Analytics().paymentFailed(payment_orderId,payment_price);
+        }
+
+
         JsonObjectRequest jsonObjectRequest = null;
         try {
 
@@ -749,6 +769,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                     try {
 
                         if (response.getBoolean("status")) {
+
+                            new Analytics().orderPlaced(payment_orderId,payment_price);
+
                             getDataManager().setCartDetails(null);
                             getDataManager().saveRefundId(0);
                             getDataManager().saveCouponId(0);

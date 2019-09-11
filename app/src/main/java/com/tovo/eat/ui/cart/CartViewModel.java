@@ -653,7 +653,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         if (totalAmount == 0) {
                             if (getDataManager().getRefundId() != 0) {
 
-                                if (refundBalance.get() >= 0) {
+                                if (refundBalance.get() > 0) {
                                     getNavigator().refundAlert();
                                 } else {
                                     getNavigator().paymentGateway(grand_total.get());
@@ -665,7 +665,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         } else {
                             if (getDataManager().getRefundId() != 0) {
 
-                                if (refundBalance.get() >= 0) {
+                                if (refundBalance.get() > 0) {
                                     getNavigator().refundAlert();
                                 } else {
                                     getNavigator().paymentGateway(grand_total.get());
@@ -681,7 +681,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (totalAmount == 0) {
                                 if (getDataManager().getRefundId() != 0) {
 
-                                    if (refundBalance.get() >= 0) {
+                                    if (refundBalance.get() >0) {
                                         getNavigator().refundAlert();
                                     } else {
                                         getNavigator().paymentGateway(grand_total.get());
@@ -692,7 +692,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             } else {
                                 if (getDataManager().getRefundId() != 0) {
 
-                                    if (refundBalance.get() >= 0) {
+                                    if (refundBalance.get() > 0) {
                                         getNavigator().refundAlert();
                                     } else {
                                         getNavigator().paymentGateway(grand_total.get());

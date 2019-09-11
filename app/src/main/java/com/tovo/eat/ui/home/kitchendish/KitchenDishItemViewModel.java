@@ -167,6 +167,7 @@ public class KitchenDishItemViewModel {
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
             new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
+            new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
         } else {
            // mListener.productNotAvailable();
 
@@ -242,6 +243,7 @@ public class KitchenDishItemViewModel {
 
         results.clear();
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
+        new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
@@ -323,6 +325,7 @@ public class KitchenDishItemViewModel {
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
+        new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
 

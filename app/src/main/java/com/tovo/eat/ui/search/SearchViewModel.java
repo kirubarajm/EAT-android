@@ -37,19 +37,24 @@ import java.util.Map;
 public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
 
-    public ObservableList<SearchResponse.Result> searchItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<SearchResponse.Result>> searchItemsLiveData;
-
     public final ObservableField<String> regionName = new ObservableField<>();
     public final ObservableField<String> totalKitchens = new ObservableField<>();
-
-
-public KitchenResponse kitchenResponse;
-
+    public ObservableList<SearchResponse.Result> searchItemViewModels = new ObservableArrayList<>();
+    public KitchenResponse kitchenResponse;
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
+    public ObservableList<KitchenDishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
+    public ObservableField<String> kitchenName = new ObservableField<>();
+    public ObservableField<String> kitchenImage = new ObservableField<>();
+    public ObservableField<String> kitchenCategory = new ObservableField<>();
+    public ObservableField<String> cartItems = new ObservableField<>();
+    public ObservableField<String> cartPrice = new ObservableField<>();
+    public ObservableField<String> items = new ObservableField<>();
+    public ObservableBoolean cart = new ObservableBoolean();
+    public ObservableField<String> searched = new ObservableField<>();
     boolean haveAddress = false;
+    private MutableLiveData<List<SearchResponse.Result>> searchItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
-
+    private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
         searchItemsLiveData = new MutableLiveData<>();
@@ -57,8 +62,6 @@ public KitchenResponse kitchenResponse;
         kitchenListItemsLiveData = new MutableLiveData<>();
 
     }
-
-
 
     public ObservableList<KitchenResponse.Result> getkitchenListItemViewModels() {
         return kitchenListItemViewModels;
@@ -82,26 +85,6 @@ public KitchenResponse kitchenResponse;
 
     }
 
-
-
-    public ObservableList<KitchenDishResponse.Result> dishItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
-
-
-    public ObservableField<String> kitchenName = new ObservableField<>();
-    public ObservableField<String> kitchenImage = new ObservableField<>();
-    public ObservableField<String> kitchenCategory = new ObservableField<>();
-    public ObservableField<String> cartItems = new ObservableField<>();
-    public ObservableField<String> cartPrice = new ObservableField<>();
-    public ObservableField<String> items = new ObservableField<>();
-
-
-    public ObservableBoolean cart = new ObservableBoolean();
-
-
-    public ObservableField<String> searched=new ObservableField<>();
-
-
     public ObservableList<KitchenDishResponse.Result> getDishItemViewModels() {
         return dishItemViewModels;
     }
@@ -119,12 +102,14 @@ public KitchenResponse kitchenResponse;
     }
 
     public void addDishItemsToList(List<KitchenDishResponse.Result> ordersItems) {
-        dishItemViewModels.clear();
-        dishItemViewModels.addAll(ordersItems);
+        if (dishItemViewModels != null) {
+            if (ordersItems != null) {
+                dishItemViewModels.clear();
+                dishItemViewModels.addAll(ordersItems);
+            }
+        }
 
     }
-
-
 
 
     public ObservableList<SearchResponse.Result> getSearchItemViewModels() {
@@ -144,7 +129,6 @@ public KitchenResponse kitchenResponse;
     }
 
 
-
     public void addSearchItemsToList(List<SearchResponse.Result> ordersItems) {
         searchItemViewModels.clear();
         searchItemViewModels.addAll(ordersItems);
@@ -160,33 +144,33 @@ public KitchenResponse kitchenResponse;
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
 
+        setIsLoading(true);
+
+        try {
             setIsLoading(true);
-
-            try {
-                setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_EXPLORE_SEARCH, SearchResponse.class, new SearchRequest(data), new Response.Listener<SearchResponse>() {
-                    @Override
-                    public void onResponse(SearchResponse response) {
-                        
-
-                        searchItemsLiveData.setValue(response.getResult());
-                        getNavigator().listLoaded();
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_EXPLORE_SEARCH, SearchResponse.class, new SearchRequest(data), new Response.Listener<SearchResponse>() {
+                @Override
+                public void onResponse(SearchResponse response) {
 
 
-                    }
-                },AppConstants.API_VERSION_ONE);
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                    searchItemsLiveData.setValue(response.getResult());
+                    getNavigator().listLoaded();
 
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (Exception ee) {
-                ee.printStackTrace();
-            }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
 
     }
 
@@ -274,7 +258,7 @@ public KitchenResponse kitchenResponse;
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -312,7 +296,7 @@ public KitchenResponse kitchenResponse;
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -358,7 +342,8 @@ public KitchenResponse kitchenResponse;
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
 
-                        dishItemsLiveData.setValue(KitchenDishResponse.getResult());
+                        if (KitchenDishResponse.getResult() != null)
+                            dishItemsLiveData.setValue(KitchenDishResponse.getResult());
                         Log.e("----response:---------", response.toString());
                         getNavigator().listLoaded();
 
@@ -373,7 +358,7 @@ public KitchenResponse kitchenResponse;
                     // Log.e("", error.getMessage());
                     //  SearchDishViewModel.this.getNavigator().dishListLoaded();
                 }
-            }){
+            }) {
                 /**
                  * Passing some request headers
                  */
@@ -381,9 +366,9 @@ public KitchenResponse kitchenResponse;
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("accept-version",AppConstants.API_VERSION_ONE);
-                    headers.put("Authorization","Bearer "+getDataManager().getApiToken());
-                        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
                     return headers;
                 }
@@ -403,9 +388,7 @@ public KitchenResponse kitchenResponse;
     }
 
 
-
     public void fetchRegionKitchens(String search, Integer regionId) {
-
 
 
         searched.set(search);
@@ -415,22 +398,22 @@ public KitchenResponse kitchenResponse;
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId,getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {
 
 
-                        if (response.getResult().size()!=0) {
+                        if (response.getResult().size() > 0) {
 
                             kitchenListItemsLiveData.setValue(response.getResult());
                             regionName.set(response.getResult().get(0).getRegionname());
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
-                            kitchenResponse=response;
+                            kitchenResponse = response;
 
                             getNavigator().listLoaded();
 
-                        }else {
+                        } else {
                             getNavigator().noResults();
                         }
 
@@ -442,19 +425,18 @@ public KitchenResponse kitchenResponse;
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().listLoaded();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
         }
     }
-
 
 
 }

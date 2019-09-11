@@ -811,6 +811,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onItemClickData(StoriesResponse.Result result, int pos) {
 
         if (result.getStories().size() > 0) {
+
+            new Analytics().story(result.getStoryid(),result.getThumbTitle());
+
+
+
             Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);

@@ -326,7 +326,7 @@
     <string name="change">Change</string>
     <string name="set_delivery_address">Set Delivery Address</string>
     <string name="location_area">Location/Area*</string>
-    <string name="house_flat_no">House/Flat.No</string>
+    <string name="house_flat_no">House/Flat.No*</string>
     <string name="area">Area*</string>
     <string name="landmark">Landmark</string>
     <string name="save">Save</string>

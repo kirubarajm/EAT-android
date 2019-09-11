@@ -91,12 +91,51 @@ public class AppConstants {
     public static final String API_VERSION_FOUR = "4.0.0";
     public static final String APP_TYPE_ANDROID= "1";// 1 means android
 
+
+
+//Analytics param key
+
+
+    public static final String ANALYTICYS_PRODUCT_ID = "product_id";
+    public static final String ANALYTICYS_PRODUCT_NAME = "product_name";
+    public static final String ANALYTICYS_PRODUCT_QUANTITY = "product_quantity";
+    public static final String ANALYTICYS_PRODUCT_PRICE= "product_price";
+    public static final String ANALYTICYS_MOBILE_NUMBER= "mobile_number";
+    public static final String ANALYTICYS_ORDER_ID= "order_id";
+    public static final String ANALYTICYS_PRICE= "price";
+    public static final String ANALYTICYS_USER_ID= "user_id";
+    public static final String ANALYTICYS_USER_NAME= "user_name";
+    public static final String ANALYTICYS_STORY_ID= "story_id";
+    public static final String ANALYTICYS_STORY_TITLE= "story_title";
+    public static final String ANALYTICYS_SEARCH_TYPE= "search_type";
+    public static final String ANALYTICYS_SEARCH_NAME= "search_name";
+    public static final String ANALYTICYS_SEARCH_ID= "search_id";
+
+
+
+
+
+//Analytics param event key
+public static final String ANALYTICYS_ADD_TO_CART= "add_to_cart";
+public static final String ANALYTICYS_REMOVE_FROM_CART= "remove_from_cart";
+public static final String ANALYTICYS_CURRENCY_TYPE= "currency";
+public static final String ANALYTICYS_CURRENCY= "INR";
+public static final String ANALYTICYS_PAYMENT_SUCCESS= "online_payment_success";
+public static final String ANALYTICYS_PAYMENT_FAILED= "online_payment_failed";
+public static final String ANALYTICYS_USER_LOGIN= "user_login";
+public static final String ANALYTICYS_STORY_VIEW= "story";
+public static final String ANALYTICYS_SEARCH_CLICKED= "search";
+public static final String ANALYTICYS_PROCEED_TO_PAY= "proceed_to_pay";
+public static final String ANALYTICYS_ORDER_PLACED= "order_placed";
+
+
+
     ///////Server Ip Ports
 
     //public static final String URL_SERVER_IP_PORT = BuildConfig.BASE_URL;////live ip port new
 
 
-    //public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";
+    public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";
 
     //public static final String URL_SERVER_IP_PORT = "http://192.168.1.100:3000";////ip port(suresh)
    //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:5000";////live ip port new
@@ -104,7 +143,7 @@ public class AppConstants {
    //public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";////live ip port new
 
  // public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";////live ip port new
-    public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+    //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
 

@@ -2,13 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/dialog_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/round_corner_alert"
     android:orientation="vertical"
     android:paddingStart="10dp"
     android:paddingTop="10dp"
     android:paddingEnd="10dp"
     android:layout_margin="20dp"
     android:paddingBottom="10dp">
+
+
+
+
 
     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
         android:id="@+id/title"

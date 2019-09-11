@@ -1,9 +1,5 @@
 package com.tovo.eat.ui.splash;
 
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.database.Observable;
 import android.databinding.ObservableField;
 import android.util.Log;
 
@@ -31,8 +27,6 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
-
-
 
 
     }
