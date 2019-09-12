@@ -197,6 +197,15 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_STORY_TITLE, title);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_STORY_VIEW, bundle);
     }
+ public void regionSelected(String title) {
+
+        if (mFirebaseAnalytics == null)
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.ANALYTICYS_REGION, title);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REGION_SELECTED, bundle);
+    }
 
 
 }

@@ -24,6 +24,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.RegionListAdapter;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -135,7 +136,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         mLoginViewModelMain.setNavigator(this);
 
 
-         analytics=new Analytics(this,"Edit My Account");
+         analytics=new Analytics(this, AppConstants.SCREEN_EDIT_MYACCOUNT);
 
 
 
@@ -197,6 +198,8 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 regionId = String.valueOf(result.getRegionid());
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
+
+                new Analytics().regionSelected(result.getRegionname());
 
             }
         });

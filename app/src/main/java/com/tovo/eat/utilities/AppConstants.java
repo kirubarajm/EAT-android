@@ -107,6 +107,7 @@ public class AppConstants {
     public static final String ANALYTICYS_USER_NAME= "user_name";
     public static final String ANALYTICYS_STORY_ID= "story_id";
     public static final String ANALYTICYS_STORY_TITLE= "story_title";
+    public static final String ANALYTICYS_REGION= "region_name";
     public static final String ANALYTICYS_SEARCH_TYPE= "search_type";
     public static final String ANALYTICYS_SEARCH_NAME= "search_name";
     public static final String ANALYTICYS_SEARCH_ID= "search_id";
@@ -127,6 +128,19 @@ public static final String ANALYTICYS_STORY_VIEW= "story";
 public static final String ANALYTICYS_SEARCH_CLICKED= "search";
 public static final String ANALYTICYS_PROCEED_TO_PAY= "proceed_to_pay";
 public static final String ANALYTICYS_ORDER_PLACED= "order_placed";
+public static final String ANALYTICYS_REGION_SELECTED= "region_selected";
+
+
+
+
+//analytics screen name
+
+
+    public static final String SCREEN_EDIT_MYACCOUNT=  "Edit My Account";
+
+
+
+
 
 
 
