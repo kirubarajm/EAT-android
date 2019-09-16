@@ -36,6 +36,7 @@ import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFragment;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -131,7 +132,7 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     @Override
     public void dish() {
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITES,AppConstants.CLICK_DISH_MENU);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         FavDishFragment fragment = new FavDishFragment();
         transaction.replace(R.id.favourite_container, fragment);
@@ -143,6 +144,8 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
     @Override
     public void kitchen() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITES,AppConstants.CLICK_KITCHEN_MENU);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         FavKitchenFragment fragment = new FavKitchenFragment();
         transaction.replace(R.id.favourite_container, fragment);
@@ -151,6 +154,9 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
     @Override
     public void goBack() {
+
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITES,AppConstants.CLICK_BACK_BUTTON);
+
         finish();
     }
 
@@ -172,6 +178,7 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITES,AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

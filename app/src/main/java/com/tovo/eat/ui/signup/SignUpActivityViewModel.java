@@ -69,29 +69,14 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                 @Override
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
-                        passwordstatus = response.getPasswordstatus();
-                        otpStatus = response.getOtpstatus();
-                        genderstatus = response.getGenderstatus();
-                        getDataManager().updateUserGender(genderstatus);
-                        getDataManager().updateUserPasswordStatus(passwordstatus);
-                        if (!passwordstatus) {
+                        if (response.getStatus()) {
+                            passwordstatus = response.getPasswordstatus();
+                            otpStatus = response.getOtpstatus();
+                            genderstatus = response.getGenderstatus();
+                            getDataManager().updateUserGender(genderstatus);
+                            getDataManager().updateUserPasswordStatus(passwordstatus);
                             OtpId = response.getOid();
-                        } else {
-                            userId = response.getUserid();
-                        }
-
-                        if (passwordstatus) {
-                            getNavigator().otpScreenFalse(otpStatus, OtpId, userId);
-                        } else {
-                            if (otpStatus) {
-                                if (genderstatus) {
-                                    getNavigator().openHomeScreen(otpStatus);
-                                } else {
-                                    getDataManager().updateUserGender(genderstatus);
-                                }
-                            } else {
-                                getNavigator().otpScreenFalse(otpStatus, OtpId, userId);
-                            }
+                            getNavigator().otpScreenFalse(OtpId);
                         }
                     }
                 }
@@ -100,33 +85,13 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().loginError(false);
                     setIsLoading(false);
-
-                    Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
                 }
             },AppConstants.API_VERSION_ONE);
 
-        /*gsonRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 2000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 2;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });*/
-            Log.e("ERROR", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0)+"number"+phoneNumber);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
         } catch (Exception ee) {
-            Log.e("OTP", "Apps Hash Key: " + appSignatureHashHelper.getAppSignatures().get(0));
             ee.printStackTrace();
 
         }

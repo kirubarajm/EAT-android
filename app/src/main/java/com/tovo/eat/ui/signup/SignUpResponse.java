@@ -8,6 +8,9 @@ public class SignUpResponse {
     @SerializedName("success")
     @Expose
     public Boolean success;
+    @SerializedName("status")
+    @Expose
+    public Boolean status;
     @SerializedName("passwordstatus")
     @Expose
     public Boolean passwordstatus;
@@ -24,6 +27,13 @@ public class SignUpResponse {
     @Expose
     public Integer oid;
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Boolean getSuccess() {
         return success;

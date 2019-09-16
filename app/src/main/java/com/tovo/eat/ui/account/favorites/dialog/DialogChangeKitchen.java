@@ -16,6 +16,7 @@ import com.tovo.eat.databinding.DialogChangeKitchenBinding;
 import com.tovo.eat.ui.base.BaseDialog;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenCallBack;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchenViewModel;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -78,6 +79,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
 
     @Override
     public void dismissDialog() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_CHANGE_KITCHEN_CANCEL);
         dismissDialog(TAG);
     }
 
@@ -89,11 +91,15 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
 
         addKitchenDishListener.confirmClick(true);
 
+
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_CHANGE_KITCHEN_CONFIRM);
+
     }
 
     @Override
     public void cancelClick() {
         addKitchenDishListener.confirmClick(false);
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_CHANGE_KITCHEN_CANCEL);
         dismissDialog();
     }
 
@@ -118,10 +124,6 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         AndroidSupportInjection.inject(this);
         binding.setDialogChangeKitchenViewModel(mDialogChangeKitchenViewModel);
         mDialogChangeKitchenViewModel.setNavigator(this);
-
-
-
-
 
         return view;
     }

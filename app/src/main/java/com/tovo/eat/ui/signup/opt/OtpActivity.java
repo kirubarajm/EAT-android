@@ -339,7 +339,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String booleanOtp = bundle.getString("booleanOpt");
+          //  String booleanOtp = bundle.getString("booleanOpt");
             strOtpId = bundle.getString("optId");
             mLoginViewModelMain.OtpId = Integer.parseInt(strOtpId);
 
@@ -347,6 +347,14 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
             mLoginViewModelMain.number.set(strPhoneNumber);
 
+
+            mLoginViewModelMain.otp.set(true);
+            mLoginViewModelMain.otp.set(false);
+            mLoginViewModelMain.title.set("OTP");
+
+
+
+           /*
             UserId = bundle.getString("UserId");
             if (booleanOtp.equalsIgnoreCase("true")) {
                 mLoginViewModelMain.otp.set(true);
@@ -357,7 +365,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
             } else {
                 mLoginViewModelMain.otp.set(false);
                 mLoginViewModelMain.title.set("OTP");
-            }
+            }*/
             mActivityOtpBinding.txtMessageSent.setText("(OTP) Sent to " + strPhoneNumber);
 
         }

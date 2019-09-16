@@ -20,6 +20,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRepliesBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -37,7 +38,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     RepliesActivityViewModel mRepliesActivityViewModel;
 
     Analytics analytics;
-    String  pageName="Queries questions list";
+    String  pageName=AppConstants.SCREEN_SUPPORT_REPLIES;
 
     private ActivityRepliesBinding mActivityRepliesBinding;
 
@@ -68,6 +69,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     @Override
     public void backClick() {
         finish();
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
     }
 
     @Override
@@ -98,6 +100,12 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     }
 
     @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityRepliesBinding = getViewDataBinding();
@@ -123,6 +131,10 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
 
     @Override
     public void chatList(RepliesResponse.Result replies) {
+
+
+        new Analytics().sendClickData(pageName,AppConstants.ANALYTICYS_QUERIES);
+
         Log.e("orders",replies.toString());
         String strQid= String.valueOf(replies.getQid());
         Log.e("orders", strQid);

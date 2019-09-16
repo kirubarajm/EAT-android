@@ -47,7 +47,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     String strDate = "";
 
     Analytics analytics;
-    String  pageName="Queries chat";
+    String  pageName=AppConstants.SCREEN_QUERY_CHAT;
 
     List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest = new ArrayList<>();
 
@@ -104,9 +104,16 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
 
     @Override
     public void send() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEND);
+
+
         String strMessage = mActivityChatBinding.edtMessage.getText().toString();
         if (!strMessage.equals("")) {
             mChatActivityViewModel.insertAnswerServiceCall(strMessage, strQId);
+
+            new Analytics().queriesChat(strQuestion,strMessage);
+
+
         }else {
             Toast.makeText(this, AppConstants.TOAST_ENTER_REPLY_TO_SEND, Toast.LENGTH_SHORT).show();
         }
@@ -115,6 +122,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     @Override
     public void onRefreshLayout() {
         mChatActivityViewModel.fetchChatServiceCall(strQId, 0);
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
     }
 
     @Override
@@ -155,6 +163,11 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         onBackPressed();
     }
 
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
+    }
 
     @Override
     protected void onResume() {

@@ -76,8 +76,12 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         String name = mActivityNameGenderBinding.edtName.getText().toString();
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
 
-        if (validForProceed())
+        if (validForProceed()) {
             mLoginViewModelMain.insertNameGenderServiceCall(name, email, Integer.parseInt(regionId));
+
+            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_APPLY_CHANGES);
+
+        }
     }
 
     @Override
@@ -106,6 +110,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
     @Override
     public void goBack() {
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_BACK_BUTTON);
         finish();
     }
 
@@ -232,6 +237,8 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(false);
                     mActivityNameGenderBinding.chkOthers.setChecked(true);
+                    new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_REGION_OTHER);
+
                 } else {
                     regionId = "";
                     mActivityNameGenderBinding.region.setText("");
@@ -266,6 +273,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_BACK_BUTTON);
         finish();
     }
 

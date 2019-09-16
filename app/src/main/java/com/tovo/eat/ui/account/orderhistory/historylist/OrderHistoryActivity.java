@@ -19,6 +19,7 @@ import com.tovo.eat.databinding.ActivityOrdersHistoryListBinding;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrderHistoryActivityView;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -37,7 +38,7 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     LinearLayoutManager mLayoutManager;
 
     Analytics analytics;
-    String  pageName="Order history list";
+    String  pageName=AppConstants.SCREEN_ORDER_LIST;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -68,6 +69,9 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
 
     @Override
     public void onRefreshLayout() {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
+
         mOrderHistoryActivityViewModel.fetchRepos(1);
     }
 
@@ -85,11 +89,15 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
 
     @Override
     public void goBack() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
         onBackPressed();
     }
 
     @Override
     public void goHome() {
+
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_OREDER_HISTORY_PLACE_FIRST_ORDER);
 
         Intent intent = MainActivity.newIntent(OrderHistoryActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -142,6 +150,10 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     @Override
     public void listItem(OrdersHistoryListResponse.Result mOrderList) {
 
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_VIEW_DETAILS);
+
+
         Intent intent = OrderHistoryActivityView.newIntent(this);
         intent.putExtra("orderId",
                 String.valueOf(mOrderList.getOrderid()));
@@ -160,6 +172,7 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

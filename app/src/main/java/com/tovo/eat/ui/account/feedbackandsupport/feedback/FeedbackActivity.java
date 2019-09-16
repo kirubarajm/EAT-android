@@ -19,6 +19,7 @@ import com.tovo.eat.databinding.ActivityFeedbackBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.opt.OtpActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -33,7 +34,7 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     int rate = 0;
     String message = "";
     Analytics analytics;
-    String  pageName="Feedback";
+    String  pageName= AppConstants.SCREEN_APP_FEEDBCK;
 
     public static Intent newIntent(Context context) {
 
@@ -50,8 +51,11 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         rate = (int) mActivityFeedbackBinding.rateApp.getRating();
         message = mActivityFeedbackBinding.edtFeedback.getText().toString();
 
-        if (validForSubmit())
+        if (validForSubmit()) {
             mFeedbackAndSupportActivityViewModel.insertFeedbackServiceCall(rate, message);
+            new Analytics().appFeedback(rate,message);
+
+        }
     }
 
     @Override
@@ -72,6 +76,13 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_APP_FEEDBCK,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
+
     }
 
     @Override
@@ -177,7 +188,5 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     private  void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
-
 
 }

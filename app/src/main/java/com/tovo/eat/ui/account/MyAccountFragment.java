@@ -35,7 +35,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     FragmentMyAccountBinding mFragmentMyAccountBinding;
 
     Analytics analytics;
-    String  pageName="My account";
+    String  pageName=AppConstants.SCREEN_MY_ACCOUNT;
 
 
     public static MyAccountFragment newInstance() {
@@ -99,25 +99,24 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void manageAddress() {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_MANAGE_ADDRESS);
+
         Intent intent = AddressListActivity.newIntent(getContext());
         startActivity(intent);
     }
 
     @Override
     public void orderHistory() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_ORDER_HISTORY);
         Intent intent = OrderHistoryActivity.newIntent(getContext());
         startActivity(intent);
     }
 
     @Override
     public void favourites() {
-
-
-
-
-
-        Intent intent=FavoritesTabActivity.newIntent(getContext());
-        startActivity(intent);
+       /* Intent intent=FavoritesTabActivity.newIntent(getContext());
+        startActivity(intent);*/
 
 
 
@@ -136,6 +135,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void referrals() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFERRALS);
         Intent intent = ReferralsActivity.newIntent(getContext());
         startActivity(intent);
     }
@@ -149,6 +149,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void logout() {
 
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_LOGOUT);
+
 
         SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         settings.edit().clear().apply();
@@ -159,6 +161,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void feedbackAndSupport() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_FEEDBACK_SUPPORT);
+
         Intent intent = FeedbackAndSupportActivity.newIntent(getContext());
         startActivity(intent);
     }

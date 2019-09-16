@@ -95,7 +95,6 @@ public class AppConstants {
 
 //Analytics param key
 
-
     public static final String ANALYTICYS_PRODUCT_ID = "product_id";
     public static final String ANALYTICYS_PRODUCT_NAME = "product_name";
     public static final String ANALYTICYS_PRODUCT_QUANTITY = "product_quantity";
@@ -129,15 +128,67 @@ public static final String ANALYTICYS_SEARCH_CLICKED= "search";
 public static final String ANALYTICYS_PROCEED_TO_PAY= "proceed_to_pay";
 public static final String ANALYTICYS_ORDER_PLACED= "order_placed";
 public static final String ANALYTICYS_REGION_SELECTED= "region_selected";
-
+public static final String ANALYTICYS_RATING= "rating";
+public static final String ANALYTICYS_feedback= "feedback";
+public static final String ANALYTICYS_CHAT_MESSAGE= "chat_message";
+public static final String ANALYTICYS_QUERIES= "query";
+public static final String ANALYTICYS_MAKE_QUERIES= "make_query";
+public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
 
 
 
 //analytics screen name
+    public static final String SCREEN_EDIT_MYACCOUNT=  "edit_my_account";
+    public static final String SCREEN_FAVOURITE_DISH=  "favourite_dish";
+        public static final String SCREEN_FAVOURITE_KITCHEN=  "favourite_kitchen";
+        public static final String SCREEN_FAVOURITES=  "favourites";
+        public static final String SCREEN_APP_FEEDBCK=  "app_feedback";
+        public static final String SCREEN_SUPPORT_REPLIES=  "support_replies";
+        public static final String SCREEN_QUERY_CHAT=  "queries_chat";
+        public static final String SCREEN_SUPPORT=  "support";
+        public static final String SCREEN_FEEDBACK_SUPPORT=  "feedback_and_support_page";
+        public static final String SCREEN_ORDER_LIST=  "orders_list";
+        public static final String SCREEN_ORDER_DETAILS=  "orders_details";
+        public static final String SCREEN_REFERRAL=  "referral";
+        public static final String SCREEN_MY_ACCOUNT=  "my_account";
 
 
-    public static final String SCREEN_EDIT_MYACCOUNT=  "Edit My Account";
+//analytics screen click
 
+    //edit my account
+
+    public static final String CLICK_REGION_CHANGE=  "change_region";
+    public static final String CLICK_REGION_OTHER=  "region_other";
+    public static final String CLICK_APPLY_CHANGES=  "profile_update";
+    public static final String CLICK_BACK_BUTTON=  "back_click";
+    public static final String CLICK_MALE_SELECTED=  "male_selected";
+    public static final String CLICK_FEMALE_SELECTED=  "female_selected";
+
+    public static final String CLICK_CHANGE_KITCHEN_CONFIRM=  "change_kitchen_confirm";
+    public static final String CLICK_CHANGE_KITCHEN_CANCEL=  "change_kitchen_cancel";
+    public static final String CLICK_REFRESH=  "refresh";
+    public static final String CLICK_KITCHEN_CLICK=  "kitchen_click";
+
+
+    public static final String CLICK_KITCHEN_MENU=  "kitchen_menu";
+    public static final String CLICK_DISH_MENU=  "dish_menu";
+    public static final String CLICK_SEND=  "send";
+    public static final String CLICK_CALL_SUPPORT=  "call_support";
+    public static final String CLICK_QUERY_SUBMIT=  "query_submit";
+    public static final String CLICK_REPLIES=  "replies";
+    public static final String CLICK_FEEDBACK=  "feedback";
+    public static final String CLICK_SUPPORT=  "support";
+    public static final String CLICK_FAQ=  "faq";
+    public static final String CLICK_VIEW_DETAILS=  "view_details";
+    public static final String CLICK_OREDER_HISTORY_PLACE_FIRST_ORDER=  "orders_history_place_first_order";
+    public static final String CLICK_REPEAT_THIS_ORDER=  "repeat_this_order";
+    public static final String CLICK_SEND_REFERRAL=  "send_referral";
+    public static final String CLICK_EDIT=  "edit_profile";
+    public static final String CLICK_MANAGE_ADDRESS=  "manage_address";
+    public static final String CLICK_REFERRALS=  "referrals";
+    public static final String CLICK_ORDER_HISTORY=  "order_history";
+    public static final String CLICK_FEEDBACK_SUPPORT=  "feedback_and_support";
+    public static final String CLICK_LOGOUT=  "logout";
 
 
 
@@ -157,10 +208,10 @@ public static final String ANALYTICYS_REGION_SELECTED= "region_selected";
    //public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";////live ip port new
 
  // public static final String URL_SERVER_IP_PORT = "http://eatalltime.co.in";////live ip port new
-    public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:3000";////live ip port new
+    public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:4000";////live ip port new
+    //public static final String URL_SERVER_IP_PORT = "http://www.eatalltime.co.in:6000";////live ip port new
 
       //public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:3000";////live ip port new
-
 
    //  public static final String URL_SERVER_IP_PORT = "http://13.127.100.137:5000";////live ip port new
 

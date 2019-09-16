@@ -16,6 +16,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityReferralsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -30,7 +31,7 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     String stringReferral = "";
 
     Analytics analytics;
-    String  pageName="Referral";
+    String  pageName= AppConstants.SCREEN_REFERRAL;
 
     public static Intent newIntent(Context context) {
 
@@ -44,6 +45,10 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
 
     @Override
     public void sendReferralsClick() {
+
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEND_REFERRAL);
+
         try {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
@@ -71,6 +76,12 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

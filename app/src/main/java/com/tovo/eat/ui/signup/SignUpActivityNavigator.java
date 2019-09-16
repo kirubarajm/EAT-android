@@ -13,7 +13,7 @@ public interface SignUpActivityNavigator {
 
     void loginError(boolean strError);
 
-    void otpScreenFalse(boolean trurOrFalse,int passwordSuccess,int UserId);
+    void otpScreenFalse(int otpId);
 
     void genderScreenFalse(boolean passwordSuccess);
 

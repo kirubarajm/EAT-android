@@ -21,6 +21,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -35,7 +36,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     @Inject
     FavKitchenAdapter adapter;
     Analytics analytics;
-    String  pageName="Favourite Kitchens";
+    String  pageName=AppConstants.SCREEN_FAVOURITE_KITCHEN;
     FragmentFavKitchenBinding mFragmentKitchenBinding;
 
     public static FavKitchenFragment newInstance() {
@@ -75,7 +76,9 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
         mFragmentKitchenBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               mFragmentKitchenBinding.loader.setVisibility(View.VISIBLE);
+                new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_REFRESH);
+
+                mFragmentKitchenBinding.loader.setVisibility(View.VISIBLE);
                 mKitchenViewModel.fetchRepos();
             }
         });
@@ -178,6 +181,8 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     public void onItemClickData(Integer kitchenId) {
 
         mKitchenViewModel.saveMakeitId(kitchenId);
+
+        new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_KITCHEN_CLICK);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);

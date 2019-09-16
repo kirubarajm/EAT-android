@@ -12,6 +12,7 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
@@ -35,24 +36,23 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
     public void maleClicked(){
         male.set(true);
-
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_MALE_SELECTED);
     }
 
     public void feMaleClicked(){
         male.set(false);
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_FEMALE_SELECTED);
 
     }
 
 
     public void insertNameGenderServiceCall(String name,String email,int regionId) {
 
-
         if (male.get()){
              gender=1;
         }else {
              gender=2;
         }
-
 
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

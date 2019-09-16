@@ -20,6 +20,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -33,7 +34,7 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     ActivityFeedbackSupportBinding mActivityFeedbackSupportBinding;
 
     Analytics analytics;
-    String  pageName="Feedback and Support page";
+    String  pageName= AppConstants.SCREEN_FEEDBACK_SUPPORT;
 
 
     public static Intent newIntent(Context context) {
@@ -48,18 +49,21 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
 
     @Override
     public void feedBackClick() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_FEEDBACK);
         Intent intent = FeedbackActivity.newIntent(this);
         startActivity(intent);
     }
 
     @Override
     public void supportClick() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SUPPORT);
         Intent intent = SupportActivity.newIntent(this);
         startActivity(intent);
     }
 
     @Override
     public void faqs() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_FAQ);
         Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
     }
@@ -67,6 +71,12 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

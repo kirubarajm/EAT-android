@@ -41,7 +41,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     public static final String TAG = SupportActivity.class.getSimpleName();
 
     Analytics analytics;
-    String  pageName="Support page";
+    String  pageName=AppConstants.SCREEN_SUPPORT;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SupportActivity.class);
@@ -69,11 +69,21 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void backClick() {
-        finish();
+      onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override
     public void repliesOnClick() {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_REPLIES);
+
+
         Intent intent = RepliesActivity.newIntent(this);
         startActivity(intent);
     }
@@ -85,9 +95,14 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void submit() {
+        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT,AppConstants.CLICK_QUERY_SUBMIT);
+
         strQueries=mActivityQueriesBinding.edtQueries.getText().toString();
         if (!strQueries.equals("")) {
             mQueriesViewModel.insertQueriesServiceCall(strQueries);
+
+            new Analytics().makeQuery(strQueries);
+
         }else {
             Toast.makeText(this, AppConstants.TOAST_ENTER_QUERY_TO_SEND, Toast.LENGTH_SHORT).show();
         }
@@ -122,6 +137,10 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     @Override
     public void callAdmin() {
 
+
+        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT,AppConstants.CLICK_CALL_SUPPORT);
+
+
             String number = AppConstants.SUPPORT_NUMBER;
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
@@ -134,6 +153,8 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     public void goBack() {
         onBackPressed();
     }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
