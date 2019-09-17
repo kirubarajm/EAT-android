@@ -26,6 +26,7 @@ import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.home.kitchendish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -52,7 +53,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     Analytics analytics;
-    String  pageName="Collection explore";
+    String  pageName= AppConstants.SCREEN_EXPLORE_COLLECTION;
 
     int collectionId;
     String collectionTitle;
@@ -87,7 +88,14 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
 
     @Override
     public void goBack() {
-        finish();
+     onBackPressed();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override
@@ -98,6 +106,8 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
 
     @Override
     public void viewCart() {
+        new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_VIEW_CART);
+
         Intent intent = MainActivity.newIntent(SearchDishActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("cart", true);
@@ -225,10 +235,23 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
      //   mSearchDishViewModel.fetchRepos(collectionId);
         mSearchDishViewModel.totalCart();
 
+        if (status){
+            new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_CHANGE_KITCHEN_YES);
+        }else {
+            new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_CHANGE_KITCHEN_NO);
+
+        }
+
+
+
+
     }
 
     @Override
     public void onItemClickData(Integer kitchenId) {
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_VIEW_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());
         intent.putExtra("kitchenId", kitchenId);
@@ -238,7 +261,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
 
     @Override
     public void showMore(Integer kitchenId) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION,AppConstants.CLICK_VIEW_MENU);
 
         Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());
         intent.putExtra("kitchenId", kitchenId);

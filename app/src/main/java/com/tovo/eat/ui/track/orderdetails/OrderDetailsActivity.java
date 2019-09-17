@@ -24,6 +24,7 @@ import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResp
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -45,7 +46,7 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
 
 
     Analytics analytics;
-    String  pageName="Order details";
+    String  pageName= AppConstants.SCREEN_ORDER_DETAILS;
 
 
     public static Intent newIntent(Context context) {
@@ -104,7 +105,13 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
 
     @Override
     public void goBack() {
-       finish();
+       onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_DETAILS, AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

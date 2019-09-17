@@ -25,6 +25,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -58,7 +59,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
 
     Analytics analytics;
-    String  pageName="Search";
+    String  pageName= AppConstants.SCREEN_SEARCH;
 
 
 
@@ -116,6 +117,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.searchh.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CLOSE);
+
+
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
                 mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
@@ -293,10 +297,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     public void onItemClickData(SearchResponse.Result result) {
 
 
+
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,result.getName());
+
+
         switch (result.getType()) {
 
 
             case 1:
+
+                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,result.getName());
+
 
                 mSearchViewModel.fetchDishes(result.getName());
 
@@ -374,6 +385,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onItemClickData(Integer kitchenId) {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_KITCHEN);
+
+
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
@@ -388,7 +402,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void showMore(Integer regionId) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_MENU);
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", regionId);
         startActivity(intent);
@@ -454,6 +468,17 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void confirmClick(boolean status) {
         subscribeToLiveData();
+
+
+
+        if (status){
+            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CHANGE_KITCHEN_YES);
+        }else {
+            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CHANGE_KITCHEN_NO);
+
+        }
+
+
     }
 
     @Override

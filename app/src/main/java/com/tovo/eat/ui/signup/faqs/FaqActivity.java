@@ -16,6 +16,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFaqsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -34,7 +35,7 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     private ActivityFaqsBinding mActivityFaqsBinding;
 
     Analytics analytics;
-    String  pageName="FAQs";
+    String  pageName= AppConstants.SCREEN_FAQS;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, FaqActivity.class);
@@ -62,7 +63,13 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
 
     @Override
     public void backClick() {
-        finish();
+       onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAQS,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

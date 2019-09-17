@@ -27,6 +27,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -44,7 +45,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     ActivityRegionDetailsBinding mActivityRegionListBinding;
     Analytics analytics;
-    String  pageName="Region details";
+    String  pageName= AppConstants.SCREEN_REGION_DETAILS;
 
     public static Intent newIntent(Context context) {
 
@@ -163,8 +164,11 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     @Override
     public void goBack() {
-        finish();
+        onBackPressed();
     }
+
+
+
 
     @Override
     public void showToast(String msg) {
@@ -195,6 +199,7 @@ registerWifiReceiver();
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS,AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -211,6 +216,7 @@ registerWifiReceiver();
     @Override
     public void onItemClickData(Integer kitchenId) {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS,AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);

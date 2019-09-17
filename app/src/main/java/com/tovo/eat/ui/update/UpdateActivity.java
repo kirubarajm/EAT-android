@@ -15,6 +15,7 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.onboarding.PrefManager;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -30,7 +31,7 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
 
     Analytics analytics;
-    String  pageName="Force update";
+    String  pageName=AppConstants.SCREEN_FORCE_UPDATE;
 
 
     public static Intent newIntent(Context context) {
@@ -65,6 +66,9 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
     @Override
     public void update() {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_UPDATE);
+
+
         final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
@@ -75,6 +79,13 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
+
+    }
 
     @Override
     public int getBindingVariable() {

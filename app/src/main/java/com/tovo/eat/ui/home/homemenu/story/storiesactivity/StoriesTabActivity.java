@@ -20,7 +20,9 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.CubeTransformer;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesPagerFragment;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
@@ -59,12 +61,13 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
     }
 
     public void moveToNext(){
+        new Analytics().sendClickData(AppConstants.SCREEN_STORIES, AppConstants.CLICK_NEXT);
 
         mActivitySampleBinding.viewPagerSample.setCurrentItem(mActivitySampleBinding.viewPagerSample.getCurrentItem()+1);
     }
 
     public void moveToPrevious(){
-
+        new Analytics().sendClickData(AppConstants.SCREEN_STORIES, AppConstants.CLICK_NEXT);
         mActivitySampleBinding.viewPagerSample.setCurrentItem(mActivitySampleBinding.viewPagerSample.getCurrentItem()-1);
     }
 
@@ -186,6 +189,7 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_STORIES, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 

@@ -149,7 +149,32 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/mistake_order"
                                     android:textSize="14sp"/>
+                                <RadioButton
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/radioButton4"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/other"
+                                    android:textSize="14sp"/>
                             </RadioGroup>
+
+
+
+                            <android.support.design.widget.TextInputEditText
+                                android:visibility="@{orderHelpViewModel.otherReason?View.VISIBLE:View.GONE}"
+                                android:scrollbarStyle="insideInset"
+                                android:id="@+id/other_reason"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minLines="2"
+                                android:layout_marginStart="16dp"
+                                android:gravity="top"
+                                android:hint="@string/cancel_reason"
+                                android:inputType="textCapSentences|textMultiLine"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:scrollHorizontally="false"
+                                android:background="@drawable/textview_border" />
 
 
 
@@ -166,7 +191,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="20dp"
                                 android:onClick="@{()->orderHelpViewModel.cancelOrderButton()}"
                                 android:text="@string/cancel_order"
                                 android:textAllCaps="true"

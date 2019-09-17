@@ -30,6 +30,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -164,6 +165,9 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mActivityOnboardingBinding.btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                new Analytics().sendClickData(AppConstants.SCREEN_ONBOARDING,AppConstants.CLICK_GET_STARTED);
+
                 launchHomeScreen();
             }
         });

@@ -67,7 +67,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     String atype;
     boolean isGPS;
     Analytics analytics;
-    String  pageName="Edit address";
+    String  pageName=AppConstants.SCREEN_EDIT_ADDRESS;
 
 
     FusedLocationProviderClient fusedLocationClient;
@@ -167,6 +167,12 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

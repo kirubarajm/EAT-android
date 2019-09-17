@@ -51,7 +51,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     ActivityAddressListBinding mActivityAddressListBinding;
     Analytics analytics;
-    String  pageName="Manage address";
+    String  pageName=AppConstants.CLICK_MANAGE_ADDRESS;
 
     public static Intent newIntent(Context context) {
 
@@ -121,6 +121,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void addNewAddress() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_NEW_ADDRESS);
 
         Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
         startActivity(intent);
@@ -130,6 +131,10 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void editAddress() {
+
+       // new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
+
+
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         //  intent.putExtra("aid",)
         startActivity(intent);
@@ -143,7 +148,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void goBack() {
-        finish();
+       onBackPressed();
     }
 
     @Override
@@ -198,6 +203,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void editAddressClick(AddressListResponse.Result address) {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         intent.putExtra("aid", address.getAid());
         intent.putExtra("type", address.getAddressType());
@@ -207,6 +213,8 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void deleteAddress(AddressListResponse.Result addressList) {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_DELETE);
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
@@ -251,6 +259,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
     public void turnOnGps() {

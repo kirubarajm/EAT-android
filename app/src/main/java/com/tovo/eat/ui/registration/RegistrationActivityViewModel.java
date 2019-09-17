@@ -13,6 +13,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
     }
 
     public void userProceed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL,AppConstants.CLICK_SAVE);
+
         getNavigator().usersRegistrationMain();
     }
 

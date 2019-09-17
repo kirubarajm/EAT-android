@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MasterPojo;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -200,6 +202,10 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
 
     public void sort() {
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_FILTER, AppConstants.CLICK_SORT);
+
         selectedOptions.set(1);
         isSortClicked.set(true);
         isRegionalClicked.set(false);
@@ -235,6 +241,9 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     }
 
     public void cusines() {
+
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_FILTER, AppConstants.CLICK_CUISINE);
+
 
         selectedOptions.set(3);
 

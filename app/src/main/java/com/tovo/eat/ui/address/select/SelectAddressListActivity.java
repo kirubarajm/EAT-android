@@ -21,6 +21,7 @@ import com.tovo.eat.ui.address.edit.EditAddressActivity;
 import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -39,7 +40,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     ActivityAddressSelectBinding mActivityAddressSelectBinding;
 
     Analytics analytics;
-    String  pageName="Change address";
+    String  pageName= AppConstants.CLICK_MANAGE_ADDRESS;
 
 
     public static Intent newIntent(Context context) {
@@ -71,6 +72,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         mActivityAddressSelectBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
                 mSelectAddressListViewModel.fetchRepos();
             }
         });
@@ -101,7 +103,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void addNewAddress() {
-
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_NEW_ADDRESS);
         Intent intent = AddAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
         finish();
@@ -123,6 +125,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void goBack() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
@@ -134,6 +137,15 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
                 addrressListItemViewModel -> mSelectAddressListViewModel.addDishItemsToList(addrressListItemViewModel));
     }
 
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
+        finish();//finishing activity
+        super.onBackPressed();
+    }
 
     @Override
     public void onResume() {
@@ -151,6 +163,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void onItemClickData(SelectAddressListResponse.Result address) {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SELECT_ADDRESS);
         mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality(),address.getAid());
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
@@ -159,7 +172,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void editAddressClick(SelectAddressListResponse.Result address) {
-
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
         Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
         intent.putExtra("aid",address.getAid());
         intent.putExtra("type", address.getAddressType());

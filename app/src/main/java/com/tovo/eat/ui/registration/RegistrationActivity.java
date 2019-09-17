@@ -63,7 +63,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     String total;
 
     Analytics analytics;
-    String  pageName="Get Email page";
+    String  pageName=AppConstants.SCREEN_GET_EMAIL;
 
 
 
@@ -260,6 +260,8 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL,AppConstants.CLICK_BACK_BUTTON);
+
         Intent intent=new Intent();
         intent.putExtra("status",false);
         setResult(Activity.RESULT_CANCELED,intent);

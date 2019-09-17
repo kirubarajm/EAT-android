@@ -96,7 +96,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
     Analytics analytics;
-    String  pageName="Kitchen details";
+    String  pageName=AppConstants.SCREEN_KITCHEN_DETAILS;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -588,14 +588,14 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                     mFragmentDishBinding.right.setVisibility(View.GONE);
                 }
 
-
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_NEXT);
             }
         });
 
         mFragmentDishBinding.left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_PREVIOUS);
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
                int currentFirstVisible = ll.findFirstVisibleItemPosition();
 
@@ -763,7 +763,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void goBack() {
-        finish();
+      onBackPressed();
     }
 
     @Override
@@ -925,6 +925,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -956,6 +957,10 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     public void viewImage(String url) {
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VIEW_IMAGE);
+
         final Dialog nagDialog = new Dialog(KitchenDetailsActivity.this, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         nagDialog.setCancelable(true);
@@ -970,6 +975,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             @Override
             public void onClick(View arg0) {
                 nagDialog.dismiss();
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_CLOSE);
             }
         });
         nagDialog.show();

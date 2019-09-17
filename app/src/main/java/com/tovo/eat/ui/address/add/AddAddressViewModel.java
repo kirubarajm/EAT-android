@@ -34,6 +34,7 @@ import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 
 /**
@@ -100,6 +101,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             typeHome.set(false);
 
         } else {
+
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_HOME);
+
             typeHome.set(true);
             typeOffice.set(false);
             typeOther.set(false);
@@ -116,7 +120,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         } else {
 
-
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_WORK);
             typeHome.set(false);
             typeOffice.set(true);
             typeOther.set(false);
@@ -143,7 +147,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             typeOther.set(false);
 
         } else {
-
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_OTHER);
             typeHome.set(false);
             typeOffice.set(false);
             typeOther.set(true);
@@ -163,6 +167,12 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
     public void saveAddress(String locationAddress, String house, String area, String landmark, String title) {
+
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_SAVE);
+
+
 
         if (locationAddress.equals("")) {
 

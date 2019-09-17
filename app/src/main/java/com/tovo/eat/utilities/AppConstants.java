@@ -137,6 +137,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
 
 
 
+
+
 //analytics screen name
     public static final String SCREEN_EDIT_MYACCOUNT=  "edit_my_account";
     public static final String SCREEN_FAVOURITE_DISH=  "favourite_dish";
@@ -151,6 +153,49 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
         public static final String SCREEN_ORDER_DETAILS=  "orders_details";
         public static final String SCREEN_REFERRAL=  "referral";
         public static final String SCREEN_MY_ACCOUNT=  "my_account";
+        public static final String SCREEN_ADD_ADDRESS=  "add_address";
+        public static final String SCREEN_EDIT_ADDRESS=  "edit_address";
+        public static final String SCREEN_ADDRESS_LIST=  "address_list";
+        public static final String SCREEN_ORDER_CANCELED=  "order_canceled_popup";
+        public static final String SCREEN_COUPON_LIST=  "coupon_list";
+        public static final String SCREEN_REFUND_ALERT=  "refund_amount_excess_popup";
+        public static final String SCREEN_CART_PAGE=  "cart_page";
+        public static final String SCREEN_KITCHEN_FILTER=  "kitchen_filter";
+
+        public static final String SCREEN_STORIES=  "stories";
+        public static final String SCREEN_HOME=  "home";
+        public static final String SCREEN_REGION_DETAILS=  "region_details";
+        public static final String SCREEN_REGION_LIST=  "region_list";
+
+        public static final String SCREEN_KITCHEN_DETAILS=  "kitchen_details";
+        public static final String SCREEN_ONBOARDING=  "on_boarding";
+        public static final String SCREEN_ORDER_RATING=  "order_rating";
+
+        public static final String SCREEN_PAYMENT=  "payment";
+
+        public static final String SCREEN_GET_EMAIL=  "get_email";
+        public static final String SCREEN_EXPLORE_COLLECTION=  "explore_collection";
+        public static final String SCREEN_SEARCH=  "search";
+
+        public static final String SCREEN_FAQS_AND_SUPPORT=  "faqs_support";
+        public static final String SCREEN_FAQS=  "faqs";
+        public static final String SCREEN_PRIVACY_POLICY=  "privacy_policy";
+
+        public static final String SCREEN_USER_REGISTRATION=  "user_registration";
+        public static final String SCREEN_OTP=  "OTP";
+
+        public static final String SCREEN_TERMS_CONDITION=  "terms_and_condition";
+
+        public static final String SCREEN_LOGIN=  "login";
+
+        public static final String SCREEN_FORCE_UPDATE=  "force_update";
+        public static final String SCREEN_ORDER_HELP=  "order_help";
+        public static final String SCREEN_CURRENT_ORDER_DETAILS=  "current_order_details";
+        public static final String SCREEN_CURRENT_ORDER_TRACKING=  "current_order_tracking";
+
+        public static final String SCREEN_KITCHEN_LIST=  "kitchen_list";
+
+
 
 
 //analytics screen click
@@ -178,20 +223,119 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
     public static final String CLICK_REPLIES=  "replies";
     public static final String CLICK_FEEDBACK=  "feedback";
     public static final String CLICK_SUPPORT=  "support";
-    public static final String CLICK_FAQ=  "faq";
+    public static final String CLICK_FAQ=  "faqs";
     public static final String CLICK_VIEW_DETAILS=  "view_details";
     public static final String CLICK_OREDER_HISTORY_PLACE_FIRST_ORDER=  "orders_history_place_first_order";
     public static final String CLICK_REPEAT_THIS_ORDER=  "repeat_this_order";
     public static final String CLICK_SEND_REFERRAL=  "send_referral";
-    public static final String CLICK_EDIT=  "edit_profile";
+    public static final String CLICK_EDIT=  "edit";
     public static final String CLICK_MANAGE_ADDRESS=  "manage_address";
     public static final String CLICK_REFERRALS=  "referrals";
     public static final String CLICK_ORDER_HISTORY=  "order_history";
     public static final String CLICK_FEEDBACK_SUPPORT=  "feedback_and_support";
     public static final String CLICK_LOGOUT=  "logout";
 
+    public static final String CLICK_SAVE=  "save";
+    public static final String CLICK_DELETE=  "delete";
+    public static final String CLICK_ADDRESS_HOME=  "address_home";
+    public static final String CLICK_ADDRESS_OTHER=  "address_other";
+    public static final String CLICK_ADDRESS_WORK=  "address_work";
+    public static final String CLICK_ADDRESS_CURRENT_LOCATION = "current_location";
+    public static final String CLICK_ADD_NEW_ADDRESS = "add_new_address";
+    public static final String CLICK_SELECT_ADDRESS = "select_address";
+
+    public static final String CLICK_CLOSE= "close";
+    public static final String CLICK_APPLY= "apply";
+    public static final String CLICK_SELECT= "select";
+    public static final String CLICK_CANCEL= "cancel";
+    public static final String CLICK_YES= "yes";
+    public static final String CLICK_NO= "no";
+
+    public static final String CLICK_CHANGE_ADDRESS= "change_address";
+    public static final String CLICK_REFUND_CHECK= "refund_check";
+    public static final String CLICK_REFUND_UNCHECK= "refund_uncheck";
+    public static final String CLICK_REFUND_SELECT= "refund_select";
+    public static final String CLICK_EXPLORE_KITCHEN= "explore_kitchen";
+    public static final String CLICK_GO_HOME= "go_home";
+    public static final String CLICK_ADD_PROMO_CODE= "add_promo_code";
+    public static final String CLICK_PROCEED_TO_PAY= "proceed_to_pay";
+    public static final String CLICK_ADD_QUANTITY= "add_quantity";
+    public static final String CLICK_REMOVE_QUANTITY= "remove_quantity";
+
+    public static final String CLICK_CLEAR= "clear";
+    public static final String CLICK_SORT= "sort";
+    public static final String CLICK_CUISINE= "cuisine";
+    public static final String CLICK_NEXT= "next";
+    public static final String CLICK_PREVIOUS= "previous";
+    public static final String CLICK_HOLD= "hold";
+    public static final String CLICK_SEE_MORE= "see_more";
 
 
+    public static final String CLICK_STORY= "click_story";
+    public static final String CLICK_FAVOURITES= "favourites";
+    public static final String CLICK_REGION_CARD= "region_card";
+    public static final String CLICK_REGION_EXPLORE_ALL= "explore_all_ region";
+    public static final String CLICK_FILTER= "filter";
+    public static final String CLICK_KITCHEN= "kitchen";
+    public static final String CLICK_ALLOW_LOACTION= "allow_location";
+    public static final String CLICK_GPS_ON= "gps_on";
+    public static final String CLICK_GPS_NO_THANKS= "no_thanks";
+    public static final String CLICK_COLLECTION= "collection";
+    public static final String CLICK_COUPON= "coupon";
+    public static final String CLICK_SEARCH= "search";
+    public static final String CLICK_CART= "cart";
+    public static final String CLICK_MY_ACCOUNT= "my_account";
+    public static final String CLICK_ORDER_TRACK= "track_order";
+    public static final String CLICK_ORDER_RATING= "order_rating";
+    public static final String CLICK_EXIT_APP= "exit_app";
+    public static final String CLICK_PAYMENT_RETRY= "payment_retry";
+    public static final String CLICK_PAYMENT_CANCEL= "payment_cancel";
+    public static final String CLICK_VIEW_KITCHEN= "view_kitchen";
+
+
+    public static final String CLICK_VEG_ONLY= "veg_only";
+    public static final String CLICK_MENU= "menu";
+    public static final String CLICK_INFO= "info";
+    public static final String CLICK_VIEW_CART= "view_cart";
+    public static final String CLICK_VIEW_IMAGE= "view_image";
+    public static final String CLICK_GET_STARTED= "get_started";
+    public static final String CLICK_SUBMIT= "submit";
+    public static final String CLICK_NOT_NOW= "not_now";
+
+
+    public static final String CLICK_COD= "cash_on_delivery";
+    public static final String CLICK_ONLINE= "online_banking";
+
+
+    public static final String CLICK_VIEW_MENU= "view_menu";
+
+    public static final String CLICK_CHANGE_KITCHEN_YES= "change_kitchen_yes";
+    public static final String CLICK_CHANGE_KITCHEN_NO= "change_kitchen_no";
+
+    public static final String CLICK_MALE= "male";
+    public static final String CLICK_FEMALE= "female";
+    public static final String CLICK_PROCEED= "proceed";
+
+
+    public static final String CLICK_CONTINUE= "continue";
+    public static final String CLICK_RESEND= "resend_otp";
+
+
+    public static final String CLICK_ACCEPT_AND_CONTINUE= "accept_and_continue";
+    public static final String CLICK_VERIFY= "verify";
+    public static final String CLICK_ACCEPT_CHECK_BOX= "accept_check_box";
+
+    public static final String CLICK_UPDATE= "update";
+    public static final String CLICK_CALL_DELIVERY_EXECUTIVE= "call_delivery_executive";
+
+    public static final String CLICK_CONTACT_SUPPORT= "contact_support";
+    public static final String CLICK_ORDER_CANCEL= "order_cancel";
+
+    public static final String CLICK_HELP= "help";
+    public static final String CLICK_ORDER_DETAILS= "order_details";
+
+    public static final String CLICK_ADD_TO_FAV= "add_to_favourite";
+    public static final String CLICK_REMOVE_FROM_FAV= "remove_from_favourite";
 
 
 

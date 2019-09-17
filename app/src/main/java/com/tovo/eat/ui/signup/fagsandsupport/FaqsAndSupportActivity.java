@@ -36,7 +36,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
 
     Analytics analytics;
-    String  pageName="FAQs and support";
+    String  pageName=AppConstants.SCREEN_FAQS_AND_SUPPORT;
 
 
     public static Intent newIntent(Context context) {
@@ -51,12 +51,16 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
     @Override
     public void feedBackClick() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_FAQ);
+
         Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
     }
 
     @Override
     public void supportClick() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_SUPPORT);
+
         Intent intent = SupportActivity.newIntent(this);
         startActivity(intent);
     }
@@ -67,10 +71,20 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     }
 
     @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_BACK_BUTTON);
+
+        super.onBackPressed();
+    }
+
+    @Override
     public void callCusstomerCare() {
 
 
-            String number = AppConstants.SUPPORT_NUMBER;
+            new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_CALL_SUPPORT);
+
+
+        String number = AppConstants.SUPPORT_NUMBER;
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

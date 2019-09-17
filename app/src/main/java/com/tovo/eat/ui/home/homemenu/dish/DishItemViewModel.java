@@ -445,9 +445,11 @@ public class DishItemViewModel {
 
         if (isFavourite.get()) {
             removeFavourite();
+            new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_REMOVE_FROM_FAV);
             isFavourite.set(false);
         } else {
             addFavourite(dishList.getProductid());
+            new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_ADD_TO_FAV);
             isFavourite.set(true);
         }
 

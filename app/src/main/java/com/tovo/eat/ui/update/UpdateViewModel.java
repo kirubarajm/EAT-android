@@ -7,6 +7,7 @@ import android.util.Log;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
 
@@ -19,6 +20,9 @@ public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
     }
 
     public void checkIsUserLoggedInOrNot(){
+
+        new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_NOT_NOW);
+
         if (getDataManager().getCurrentUserId()!=null)
         {
             int userId = getDataManager().getCurrentUserId();

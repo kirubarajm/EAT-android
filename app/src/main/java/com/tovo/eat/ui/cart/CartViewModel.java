@@ -26,6 +26,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -636,6 +637,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void paymentModeCheck() {
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_CART_PAGE,AppConstants.CLICK_PROCEED_TO_PAY);
 
 
         if (available.get()) {

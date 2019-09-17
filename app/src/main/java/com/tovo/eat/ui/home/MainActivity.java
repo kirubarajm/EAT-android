@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     Analytics analytics;
-    String  pageName="Main menu page";
+    String  pageName=AppConstants.SCREEN_HOME;
 
 
     FusedLocationProviderClient fusedLocationClient;
@@ -201,6 +201,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 locationDialog.dismiss();
                 startLocationTracking();
 
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ALLOW_LOACTION);
+
             }
         });
 
@@ -242,6 +244,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_CART);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CartActivity fragment = new CartActivity();
@@ -267,6 +270,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GO_HOME);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -286,6 +290,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openExplore() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SEARCH);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
@@ -348,7 +353,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openAccount() {
         stopLoader();
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_MY_ACCOUNT);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         MyAccountFragment fragment = new MyAccountFragment();
         transaction.replace(R.id.content_main, fragment);
@@ -389,6 +394,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void selectAddress() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SELECT_ADDRESS);
         Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
     }
@@ -398,6 +404,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
         if (mMainViewModel.checkInternet()) {
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_TRACK);
             Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
             startActivity(intent);
         } else {
@@ -413,7 +420,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         intent.putExtra("orderid", orderId);
         startActivity(intent);*/
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_RATING);
         Bundle bundle = new Bundle();
         bundle.putInt("orderid", orderId);
         bundle.putString("brandname", brandname);
@@ -431,7 +438,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_BACK_BUTTON);
         if (doubleBackToExitPressedOnce) {
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_EXIT_APP);
             super.onBackPressed();
             return;
         }
@@ -537,6 +546,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
             if (resultCode == RESULT_OK) {
 
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GPS_ON);
+
                 getLocation();
                /* new Handler().postDelayed(new Runnable() {
                     @Override
@@ -547,6 +558,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
             } else {
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GPS_NO_THANKS);
                 showLocationDialog();
             }
 
@@ -577,7 +589,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     public void selectHomeAddress() {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SELECT_ADDRESS);
         Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
     }
@@ -1068,6 +1080,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         int orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
 
 
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_PAYMENT_RETRY);
+
+
+
         final Activity activity = this;
 
         final Checkout co = new Checkout();
@@ -1099,6 +1115,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void paymentCancel() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_PAYMENT_CANCEL);
         mMainViewModel.paymentSuccess("Canceled", 2);
 
     }

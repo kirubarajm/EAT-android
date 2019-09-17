@@ -16,6 +16,7 @@ import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.filter.FilterFragment;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 
@@ -29,7 +30,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     int orderId = 0;
 
     Analytics analytics;
-    String  pageName="Order rating popup";
+    String  pageName= AppConstants.SCREEN_ORDER_RATING;
 
 
     @Inject
@@ -51,6 +52,9 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     @Override
     public void submit() {
         if (validForRating()) {
+
+            new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING,AppConstants.CLICK_SUBMIT);
+
             String strFood = mActivityOrderRatingBinding.edtFood.getText().toString();
             String strDelivery = mActivityOrderRatingBinding.edtDelivery.getText().toString();
             mLoginViewModelMain.orderRatingSubmit(foodRating, deliveryRating, strFood, strDelivery);

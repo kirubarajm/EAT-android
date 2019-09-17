@@ -10,6 +10,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.AlertOrderCanceledBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
     int orderId = 0;
 
     Analytics analytics;
-    String  pageName="Order canceled popup";
+    String  pageName= AppConstants.SCREEN_ORDER_CANCELED;
 
 
     @Inject
@@ -43,6 +44,9 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
 
     @Override
     public void submit() {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_CLOSE);
+
         dismiss();
     }
 

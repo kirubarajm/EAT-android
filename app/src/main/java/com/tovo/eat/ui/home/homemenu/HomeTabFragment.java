@@ -74,7 +74,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private int currentPosition;
 
     Analytics analytics;
-    String  pageName="Home page";
+    String  pageName=AppConstants.SCREEN_HOME;
 
 
     public static HomeTabFragment newInstance() {
@@ -111,6 +111,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void filter() {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_FILTER);
         FilterFragment bottomSheetFragment = new FilterFragment();
         bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
@@ -118,7 +119,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void favourites() {
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_FAVOURITES);
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
 
@@ -192,7 +193,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void trackLiveOrder(Integer orderId) {
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_TRACK);
             Intent intent = OrderTrackingActivity.newIntent(getContext());
             startActivity(intent);
 
@@ -580,7 +581,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void onItemClickData(Integer kitchenId) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
@@ -756,6 +757,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         if (position == activeCardPosition) {
             if (!regionCardClicked) {
                 regionCardClicked = true;
+
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REGION_CARD);
                 Intent intent = RegionDetailsActivity.newIntent(getContext());
                 intent.putExtra("image", mRegionList.getRegionDetailImage());
                 intent.putExtra("id", mRegionList.getRegionid());
@@ -797,7 +800,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.regionResult.getResult().size() == activeCardPosition) {
 
-
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REGION_EXPLORE_ALL);
             Intent intent = RegionListActivity.newIntent(getContext());
             startActivity(intent);
 
@@ -815,7 +818,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             new Analytics().story(result.getStoryid(),result.getThumbTitle());
 
 
-
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_STORY);
             Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);
@@ -854,7 +857,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_COLLECTION);
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
@@ -864,7 +867,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void offersItemClick(CouponListResponse.Result offers) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_COUPON);
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);

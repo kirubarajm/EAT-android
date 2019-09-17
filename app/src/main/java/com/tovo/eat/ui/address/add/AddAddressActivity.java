@@ -78,7 +78,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     FusedLocationProviderClient fusedLocationClient;
 
     Analytics analytics;
-    String  pageName="Add address";
+    String  pageName=AppConstants.SCREEN_ADD_ADDRESS;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -154,6 +154,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void addressSaved() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SAVE);
         finish();
         hideKeyboard();
     }
@@ -167,7 +168,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void myLocationn() {
-
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADDRESS_CURRENT_LOCATION);
 
 
         /*if (mLocation != null) {
@@ -234,7 +235,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void goBack() {
-        finish();
+      onBackPressed();
     }
 
     @Override
@@ -737,6 +738,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
         if (dialog.isShowing()) dialog.dismiss();
         super.onBackPressed();
 

@@ -12,6 +12,7 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivityNavigator> {
 
@@ -34,13 +35,14 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
     public void maleClicked() {
         male.set(true);
+        new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_MALE);
 
     }
 
 
     public void feMaleClicked() {
         male.set(false);
-
+        new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_FEMALE);
     }
 
 

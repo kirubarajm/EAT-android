@@ -24,6 +24,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
 import com.tovo.eat.ui.signup.SignUpActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -44,8 +45,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
 
     Analytics analytics;
-    String  pageName="User registration";
-
+    String  pageName= AppConstants.SCREEN_USER_REGISTRATION;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -79,8 +79,10 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
         String name = mActivityNameGenderBinding.edtName.getText().toString();
         String referral = mActivityNameGenderBinding.referral.getText().toString();
 
-        if (validForProceed())
+        if (validForProceed()) {
             mLoginViewModelMain.insertNameGenderServiceCall(name, Integer.parseInt(regionId), referral);
+            new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_PROCEED);
+        }
     }
 
     @Override
@@ -126,6 +128,9 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     public void onFragmentDetached(String tag) {
 
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +208,8 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
 
     @Override
     public void onBackPressed() {
-        finish();
+       new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION,AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

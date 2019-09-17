@@ -58,7 +58,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
 
     Analytics analytics;
-    String  pageName="OTP page";
+    String  pageName=AppConstants.SCREEN_OTP;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -379,6 +379,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
                 strOtp = str.toString();
 
+                new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_CONTINUE);
+
+
                 mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(str.toString()));
                 //  mLoginViewModelMain.continueClick();
 
@@ -419,6 +422,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                         //set color back to default
                         startSMSListener();
                         startTimer();
+                        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_RESEND);
                         Toast.makeText(OtpActivity.this, "OTP has been sent again.", Toast.LENGTH_SHORT).show();
                         mLoginViewModelMain.resendOtp();
                         break;
@@ -430,7 +434,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
     @Override
     public void onBackPressed() {
-        finish();
+        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override

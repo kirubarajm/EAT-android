@@ -10,6 +10,7 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,6 +91,9 @@ public  int orderID=0;
     }
 
     public void maybeLater(){
+
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING,AppConstants.CLICK_NOT_NOW);
+
         getDataManager().saveRatingAppStatus(false);
         getDataManager().saveRatingSkipDate(getDataManager().getRatingSkips()+1);
         getNavigator().maybeLater();

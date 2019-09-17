@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -33,7 +35,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     @Inject
     RegionsListAdapter adapter;
     Analytics analytics;
-    String  pageName="Explore all regions";
+    String  pageName= AppConstants.SCREEN_REGION_LIST;
 
 
     ActivityRegionListBinding mActivityRegionListBinding;
@@ -122,8 +124,10 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
 
     @Override
     public void goBack() {
-        finish();
+      onBackPressed();
     }
+
+
 
     @Override
     public void showToast(String msg) {
@@ -151,11 +155,14 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_LIST,AppConstants.CLICK_VIEW_DETAILS);
         super.onBackPressed();
     }
 
     @Override
     public void onItemClickData(RegionsResponse.Result mRegionList) {
+
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_LIST,AppConstants.CLICK_VIEW_DETAILS);
 
         Intent intent = RegionDetailsActivity.newIntent(RegionListActivity.this);
         intent.putExtra("image", mRegionList.getRegionDetailImage());

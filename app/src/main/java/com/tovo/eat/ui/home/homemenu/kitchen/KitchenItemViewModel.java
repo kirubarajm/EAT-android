@@ -18,6 +18,7 @@ import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONObject;
 
@@ -167,10 +168,15 @@ public class KitchenItemViewModel {
 
         if (isFavourite.get()) {
             // isFavourite.set(false);
-            if (favID != 0)
+            if (favID != 0) {
+
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REMOVE_FROM_FAV);
+
                 removeFavourite();
+            }
         } else {
             //isFavourite.set(true);
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ADD_TO_FAV);
             addFavourite(mKitchenList.getMakeituserid());
         }
 

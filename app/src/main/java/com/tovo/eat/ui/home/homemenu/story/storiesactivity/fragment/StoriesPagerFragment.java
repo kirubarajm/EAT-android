@@ -35,6 +35,7 @@ import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListe
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.Locale;
@@ -69,7 +70,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     private ProgressTarget<String, Bitmap> target;
 
     Analytics analytics;
-    String  pageName="Stories";
+    String  pageName= AppConstants.SCREEN_STORIES;
 
 
     public static StoriesPagerFragment newInstance() {
@@ -86,6 +87,9 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
     @Override
     public void onSeeMore() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEE_MORE);
+
+
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", mSplashActivityViewModel.category_id.get());
         intent.putExtra("type", mSplashActivityViewModel.category_type.get());
@@ -148,6 +152,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             @Override
             public void onClick(View view) {
                 storyStatusView.skip();
+
             }
         });
 
@@ -158,6 +163,9 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                     storyStatusView.pause();
                     if (videoView != null) {
                         videoView.pause();
+
+                        new Analytics().sendClickData(pageName,AppConstants.CLICK_HOLD);
+
                     }
                 } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
                     storyStatusView.resume();
@@ -295,6 +303,8 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     }
     @Override
     public void onNext() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_NEXT);
+
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
         if (storiesResponse.getStories().size() > 0) {
@@ -340,6 +350,11 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
     @Override
     public void onPrev() {
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_PREVIOUS);
+
+
+
         if (counter - 1 >= 0) {
             --counter;
             if (counter == 0) {

@@ -52,7 +52,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     private ActivityCartBinding mActivityCartBinding;
 
     Analytics analytics;
-    String  pageName="Cart page";
+    String  pageName=AppConstants.SCREEN_CART_PAGE;
 
 
     public static CartActivity newInstance() {
@@ -203,6 +203,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void selectAddress() {
 
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_CHANGE_ADDRESS);
+
         Intent intent = SelectAddressListActivity.newIntent(getContext());
         startActivityForResult(intent, AppConstants.SELECT_ADDRESS_LIST_CODE);
 
@@ -294,7 +296,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         if (mActivityCartBinding.refundCheck.isChecked()) {
             mCartViewModel.refundChecked.set(true);
 
+            new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_CHECK);
         } else {
+            new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_UNCHECK);
             mCartViewModel.refundChecked.set(false);
             mCartViewModel.getDataManager().setRefundId(0);
             refundListAdapter.selectedItemClear();
@@ -311,7 +315,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void promoList() {
 
-
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_PROMO_CODE);
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", false);
         startActivityForResult(intent, AppConstants.COUPON_LIST_CODE);
@@ -471,6 +475,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void onItemClickData(RefundListResponse.Result result, int selected) {
 
+
+
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_SELECT);
+
         if (selected == -1) {
             mCartViewModel.saveRefundandCalculate(0);
         } else {
@@ -487,6 +495,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                new Analytics().sendClickData(pageName,AppConstants.CLICK_CHANGE_ADDRESS);
+
                 dialog.dismiss();
                 selectAddress();
             }
@@ -498,6 +511,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             public void onClick(View v) {
                 redirectHome();
                 dialog.dismiss();
+
+                new Analytics().sendClickData(pageName,AppConstants.CLICK_GO_HOME);
+
             }
         });
 

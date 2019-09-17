@@ -14,6 +14,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentFilterBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.home.homemenu.FilterListener;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     FilterListener filterListener;
 
     Analytics analytics;
-    String  pageName="Kitchen filter popup";
+    String  pageName= AppConstants.SCREEN_KITCHEN_FILTER;
 
 
     public void setFilterListener(FilterListener filterListener) {
@@ -157,6 +158,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void clearFilters() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_CLEAR);
         startFilter.applyFilter();
         dismiss();
 
@@ -164,6 +166,7 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public void applyFilter() {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_APPLY);
         dismiss();
         startFilter.applyFilter();
 

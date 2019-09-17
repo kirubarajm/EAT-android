@@ -136,6 +136,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashOnDelivery() {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_COD);
 
         try {
 
@@ -319,7 +320,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_ONLINE);
 
 
         if (getDataManager().getAddressId() != 0) {

@@ -16,6 +16,7 @@ import com.tovo.eat.databinding.ActivityPrivacyBinding;
 import com.tovo.eat.databinding.ActivityTermsAndConditionBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -30,7 +31,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
 
     Analytics analytics;
-    String  pageName="App privacy";
+    String  pageName=AppConstants.SCREEN_PRIVACY_POLICY;
 
 
     public static Intent newIntent(Context context) {
@@ -71,8 +72,9 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
     @Override
     public void goBack() {
-        finish();
+        onBackPressed();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
 
     @Override
     public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_PRIVACY_POLICY,AppConstants.CLICK_BACK_BUTTON);
        super.onBackPressed();
     }
 

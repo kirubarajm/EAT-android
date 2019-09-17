@@ -11,6 +11,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityTermsAndConditionBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -23,7 +24,7 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
 
     Analytics analytics;
-    String  pageName="Terms and Conditions";
+    String  pageName= AppConstants.SCREEN_TERMS_CONDITION;
 
 
     public static Intent newIntent(Context context) {
@@ -58,11 +59,14 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     @Override
     public void goBack() {
-        finish();
+      onBackPressed();
     }
+
+
 
     @Override
     public void accept() {
+        new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_ACCEPT_AND_CONTINUE);
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
@@ -86,6 +90,9 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
     @Override
     public void onBackPressed() {
+
+        new Analytics().sendClickData(AppConstants.SCREEN_TERMS_CONDITION, AppConstants.CLICK_BACK_BUTTON);
+
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED, returnIntent);
         finish();

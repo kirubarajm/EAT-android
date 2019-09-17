@@ -26,10 +26,12 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
     public ObservableBoolean cancelClicked = new ObservableBoolean();
     public ObservableBoolean deliveryClicked = new ObservableBoolean();
     public ObservableBoolean deliveryAssigned = new ObservableBoolean();
+    public ObservableBoolean otherReason = new ObservableBoolean();
 
 
     public OrderHelpViewModel(DataManager dataManager) {
         super(dataManager);
+        otherReason.set(false);
     }
 
 
@@ -46,8 +48,6 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
             cancelClicked.set(true);
             deliveryClicked.set(false);
         }
-
-
 
 
     }

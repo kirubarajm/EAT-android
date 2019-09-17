@@ -24,6 +24,7 @@ import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.pendingpaymentpage.PendingPaymentPageAlert;
 import com.tovo.eat.ui.pendingpayment.PaymentListener;
 import com.tovo.eat.ui.registration.RegistrationActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -49,7 +50,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     JSONObject options;
 boolean paymentRetry=false;
     Analytics analytics;
-    String  pageName="Payment page";
+    String  pageName= AppConstants.SCREEN_PAYMENT;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -98,7 +99,14 @@ boolean paymentRetry=false;
 
     @Override
     public void goBack() {
-        finish();
+      onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_BACK_BUTTON);
+
+        super.onBackPressed();
     }
 
     @Override

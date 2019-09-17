@@ -25,6 +25,7 @@ import com.tovo.eat.databinding.ActivityOrderHelpBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -42,7 +43,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
 
     Analytics analytics;
-    String  pageName="Order help";
+    String  pageName= AppConstants.SCREEN_ORDER_HELP;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -75,7 +76,14 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void goBack() {
-        finish();
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_BACK_BUTTON);
+
+        super.onBackPressed();
     }
 
     @Override
@@ -85,7 +93,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(callIntent);*/
-
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_CALL_DELIVERY_EXECUTIVE);
 
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
@@ -96,7 +104,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     @Override
     public void gotoSupport() {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_CONTACT_SUPPORT);
         Intent intent = SupportActivity.newIntent(OrderHelpActivity.this);
         startActivity(intent);
 
@@ -119,13 +127,26 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void orderCancelClicked() {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_ORDER_CANCEL);
 
-        if (message != null && !message.isEmpty()) {
-            showAlert();
-        } else {
-            Toast.makeText(OrderHelpActivity.this, "Please select the reason for order cancel.", Toast.LENGTH_SHORT).show();
+        if (mOrderHelpViewModel.otherReason.get()){
+
+            message=mActivityOrderHelpBinding.otherReason.getText().toString();
+
+            if (message != null && !message.isEmpty()) {
+                showAlert();
+            } else {
+                Toast.makeText(OrderHelpActivity.this, "Please enter the reason for order cancel.", Toast.LENGTH_SHORT).show();
+            }
+
+        }else {
+
+            if (message != null && !message.isEmpty()) {
+                showAlert();
+            } else {
+                Toast.makeText(OrderHelpActivity.this, "Please select the reason for order cancel.", Toast.LENGTH_SHORT).show();
+            }
         }
-
 
     }
 
@@ -172,7 +193,16 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 // mOrderHelpViewModel.cancelOrder(rb.getText().toString());
 
-                message = rb.getText().toString();
+                if (checkedId==R.id.radioButton4){
+                    mOrderHelpViewModel.otherReason.set(true);
+                }else {
+                    message = rb.getText().toString();
+                    mOrderHelpViewModel.otherReason.set(false);
+                }
+
+
+
+
 
 
                 //   Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();

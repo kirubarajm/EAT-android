@@ -18,6 +18,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCouponListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -35,7 +36,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     ActivityCouponListBinding mActivityCouponListBinding;
     Analytics analytics;
-    String  pageName="Coupon list";
+    String  pageName= AppConstants.SCREEN_COUPON_LIST;
 
     boolean notClickable = false;
 
@@ -73,6 +74,8 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         mActivityCouponListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
+
                 mCouponListViewModel.fetchRepos();
             }
         });
@@ -113,8 +116,9 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void goBack() {
-        finish();
+     onBackPressed();
     }
+
 
     @Override
     public void noList() {
@@ -128,6 +132,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void couponValid(Integer cid) {
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_APPLY);
         Intent intent = new Intent();
         intent.putExtra("couponid", cid);
         setResult(Activity.RESULT_OK, intent);
@@ -161,7 +166,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
@@ -183,6 +188,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         if (!notClickable) {
             mCouponListViewModel.saveCouponId(result.getCid(),result.getCouponName());
 
+            new Analytics().sendClickData(pageName,AppConstants.CLICK_SELECT);
 
             Intent intent = new Intent();
             intent.putExtra("couponid", result.getCid());

@@ -43,7 +43,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
 
     Analytics analytics;
-    String  pageName="Login";
+    String  pageName=AppConstants.SCREEN_LOGIN;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -84,6 +84,10 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
                 if (mActivitySignupBinding.acceptTandC.isChecked()) {
                     String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
                     mLoginViewModelMain.users(strPhoneNumber);
+
+                    new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_VERIFY);
+                    new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_ACCEPT_CHECK_BOX);
+
                     continueClicked = true;
                 } else {
 
@@ -96,6 +100,8 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void faqs() {
+        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_FAQS_AND_SUPPORT);
+
         Intent intent = FaqsAndSupportActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
 
@@ -103,6 +109,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void privacy() {
+        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_PRIVACY_POLICY);
         Intent intent = PrivacyActivity.newIntent(SignUpActivity.this);
         startActivity(intent);
 
@@ -110,6 +117,8 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void termsandconditions() {
+        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.SCREEN_TERMS_CONDITION);
+
         Intent intent = TermsAndConditionActivity.newIntent(SignUpActivity.this);
         startActivityForResult(intent, AppConstants.TERMS_AND_CONDITION_REQUEST_CODE);
     }
@@ -205,7 +214,9 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
 
     @Override
     public void onBackPressed() {
-        finish();
+        new Analytics().sendClickData(AppConstants.SCREEN_LOGIN, AppConstants.CLICK_BACK_BUTTON);
+
+        super.onBackPressed();
     }
 
     private boolean validForMobileNo() {

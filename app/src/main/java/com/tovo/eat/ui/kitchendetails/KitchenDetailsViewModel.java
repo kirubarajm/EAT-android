@@ -20,6 +20,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +126,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void vegType() {
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VEG_ONLY);
+
+
         if (!isVegOnly.get()) {
             isVegOnly.set(true);
             getDataManager().saveVegType(1);
@@ -141,7 +147,13 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
 
     public void menu() {
+
+
+
+
         if (!optionmenu.get()) {
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_MENU);
+
             optionmenu.set(true);
           //  getNavigator().animChanges(true);
         }
@@ -159,6 +171,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     public void info() {
         if (optionmenu.get()) {
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_INFO);
             optionmenu.set(false);
           //  getNavigator().animChanges(false);
         }
@@ -526,6 +539,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void viewCart() {
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VIEW_CART);
         getNavigator().viewCart();
     }
 

@@ -69,6 +69,7 @@ import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.ui.track.orderdetails.OrderDetailsActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.LatLngInterpolator;
 import com.tovo.eat.utilities.MarkerAnimation;
 import com.tovo.eat.utilities.MvvmApp;
@@ -113,7 +114,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
 
     Analytics analytics;
-    String  pageName="Live order tracking";
+    String  pageName= AppConstants.SCREEN_CURRENT_ORDER_TRACKING;
 
 
     @Inject
@@ -422,7 +423,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
             finish();
         } else if (id == R.id.refresh) {
             mOrderTrackingViewModel.getOrderDetails();
+            new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_REFRESH);
         } else if (id == R.id.order_cancel) {
+            new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_HELP);
             Intent intent = OrderHelpActivity.newIntent(this);
             intent.putExtra("name", mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getName());
             intent.putExtra("number", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getPhoneno()));
@@ -554,7 +557,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     @Override
     public void callDeliveryMan(String number) {
-
+        new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_CALL_DELIVERY_EXECUTIVE);
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -624,11 +627,19 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     @Override
     public void clickBack() {
-        finish();
+        onBackPressed();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_BACK_BUTTON);
+        super.onBackPressed();
     }
 
     @Override
     public void orderDetails(Integer orderId) {
+        new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_ORDER_DETAILS);
 
         Intent intent = OrderDetailsActivity.newIntent(this);
         intent.putExtra("orderId",

@@ -13,6 +13,7 @@ import com.tovo.eat.databinding.AlertPaymentRetryBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.pendingpayment.PaymentListener;
 import com.tovo.eat.ui.pendingpayment.PendingPaymentNavigator;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -55,7 +56,7 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
     @Override
     public void retry() {
 
-
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_PAYMENT_RETRY);
         paymentListener.paymentRetry();
         dismiss();
 
@@ -93,6 +94,7 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
 
     @Override
     public void cancel() {
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_PAYMENT_CANCEL);
         paymentListener.paymentCancel();
         dismiss();
 
@@ -124,7 +126,6 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginViewModelMain.setNavigator(this);
-
 
         analytics=new Analytics(getActivity(),pageName);
     }
