@@ -10,15 +10,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tovo.eat.api.remote.AddHeaders;
-import com.tovo.eat.api.remote.GsontoJsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatReplyResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.PlaceOrderRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
-import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 
 import org.json.JSONException;
