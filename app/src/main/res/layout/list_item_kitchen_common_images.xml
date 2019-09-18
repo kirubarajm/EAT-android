@@ -6,7 +6,7 @@
     tools:context=".ui.main.MainActivity">
 
     <RelativeLayout
-        android:minHeight="410dp"
+        android:minHeight="350dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

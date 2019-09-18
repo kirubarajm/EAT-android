@@ -1,6 +1,7 @@
 package com.tovo.eat.api.remote;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -36,6 +37,9 @@ public class GsontoJsonRequest extends Request {
         this.headers = addHeaders(version);
         this.params = null;
         this.listener = listener;
+        setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     public GsontoJsonRequest(int type, String url, Class myClass,
@@ -46,6 +50,9 @@ public class GsontoJsonRequest extends Request {
         this.headers = addHeaders(version);
         this.params = params;
         this.listener = listener;
+        setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     public boolean onNetWorkCheck(){

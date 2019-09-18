@@ -538,7 +538,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
        /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
         //mHomeTabViewModel.fetchStories();
-        mHomeTabViewModel.fetchKitchen();
+
+        if (mHomeTabViewModel.getDataManager().getFilterSort() != null) {
+
+            mHomeTabViewModel.fetchKitchenFilter();
+        }else {
+            mHomeTabViewModel.fetchKitchen();
+        }
         mHomeTabViewModel.liveOrders();
         mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
@@ -568,7 +574,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void applyFilter() {
 
-        mHomeTabViewModel.fetchKitchen();
+       // mHomeTabViewModel.fetchKitchenFilter();
         // subscribeToLiveData();
 
     }

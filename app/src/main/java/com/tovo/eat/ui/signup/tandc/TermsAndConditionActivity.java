@@ -1,10 +1,15 @@
 package com.tovo.eat.ui.signup.tandc;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -26,6 +31,8 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     Analytics analytics;
     String  pageName= AppConstants.SCREEN_TERMS_CONDITION;
 
+
+    ProgressDialog pd;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, TermsAndConditionActivity.class);
@@ -84,7 +91,12 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
 
         mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
 
+        pd = new ProgressDialog(TermsAndConditionActivity.this);
+        pd.setMessage("Please wait Loading...");
+        pd.show();
+        mActivityTermsAndConditionBinding.webview.setWebViewClient(new MyWebViewClient());
 
+        mActivityTermsAndConditionBinding.webview.getSettings().setJavaScriptEnabled(true);
 
     }
 
@@ -112,6 +124,26 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
     @Override
     protected void onResume() {
         super.onResume();
-        mActivityTermsAndConditionBinding.webview.loadUrl("file:///android_asset/terms.html");
+        mActivityTermsAndConditionBinding.webview.loadUrl("http://www.eatalltime.co.in/eat_terms.html");
+    }
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+
+            if (!pd.isShowing()) {
+                pd.show();
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if (pd.isShowing()) {
+                pd.dismiss();
+            }
+
+        }
     }
 }

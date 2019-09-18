@@ -9,6 +9,7 @@ import android.databinding.ObservableList;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -56,6 +57,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean isVeg = new ObservableBoolean();
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
+    public ObservableBoolean fullEmpty = new ObservableBoolean();
     public ObservableBoolean regionTitleLoaded = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModelstemp = new ObservableArrayList<>();
@@ -98,6 +100,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         storiesItemsLiveData = new MutableLiveData<>();
         collectionItemLiveData = new MutableLiveData<>();
         couponListItemsLiveData = new MutableLiveData<>();
+
+        fullEmpty.set(false);
 
        /* if (getDataManager().getVegType() == 1) {
             isVeg.set(true);
@@ -506,6 +510,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 }
             }, AppConstants.API_VERSION_TWO);
 
+
+/*
+            gsonRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -676,6 +685,164 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 } else {
 
                     FilterRequestPojo filterRequestPojo;
+ {
+                        filterRequestPojo = new FilterRequestPojo();
+
+                        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
+                        filterRequestPojo.setLat(getDataManager().getCurrentLat());
+                        filterRequestPojo.setLon(getDataManager().getCurrentLng());
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(filterRequestPojo);
+                        getDataManager().setFilterSort(json);
+                    }
+
+
+                    try {
+                        setIsLoading(true);
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                if (response != null) {
+
+                                    KitchenResponse kitchenResponse;
+                                    Gson sGson = new GsonBuilder().create();
+                                    kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
+
+                                    if (kitchenResponse.getResult().size() > 0) {
+                                        fullEmpty.set(false);
+
+
+                                        if (collectionItemViewModels.size() > 0) {
+                                            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                            kitchenResponse1.setCollection(collectionItemViewModels);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
+                                            collectionAdded = true;
+                                        }
+                                        if (couponListItemViewModels.size() > 0) {
+                                            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                            kitchenResponse2.setCoupons(couponListItemViewModels);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2)+1, kitchenResponse2);
+                                            couponAdded = true;
+                                        }
+
+
+                                    /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                        kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+                                        kitchenItemViewModels.clear();
+                                        kitchenItemViewModels.add(3, kitchenResponse1);
+                                        kitchenResponse.setResult(kitchenItemViewModels);
+*/
+                                      //  kitchenItemsLiveData.setValue(null);
+
+                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+                                        //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
+                                        //   addKitchenItemsToList(kitchenItemViewModelstemp);
+                                        try {
+
+                                            getNavigator().kitchenLoaded();
+                                        } catch (Exception ee) {
+                                            ee.printStackTrace();
+                                        }
+                                    } else {
+                                        fullEmpty.set(true);
+                                        try {
+
+                                            getNavigator().kitchenLoaded();
+                                        } catch (Exception ee) {
+                                            ee.printStackTrace();
+                                        }
+                                    }
+
+                                    //    getNavigator().kitchenListLoaded();
+
+                                } else {
+                                    fullEmpty.set(true);
+                                    try {
+
+                                        getNavigator().kitchenLoaded();
+                                    } catch (Exception ee) {
+                                        ee.printStackTrace();
+                                    }
+                                }
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //   Log.e("", ""+error.getMessage());
+                                try {
+
+                                    getNavigator().kitchenLoaded();
+                                } catch (Exception ee) {
+                                    ee.printStackTrace();
+                                }
+                                fullEmpty.set(true);
+                            }
+                        }) {
+
+                            /**
+                             * Passing some request headers
+                             */
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Content-Type", "application/json");
+                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                                //  headers.put("Authorization","Bearer");
+                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
+                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                                return headers;
+                            }
+                        };
+                        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    } catch (JSONException j) {
+                        j.printStackTrace();
+                    } catch (Exception ee) {
+
+                        ee.printStackTrace();
+
+                    }
+
+
+                }
+
+
+            }
+        }
+    }
+
+public void fetchKitchenFilter() throws NullPointerException {
+
+        // getNavigator().kitchenListLoading();
+
+
+        if (getDataManager().getCurrentLat() == null) {
+
+            //   getNavigator().kitchenListLoading();
+
+
+        } else {
+
+            if (!getDataManager().getIsFav()) {
+
+                if (!MvvmApp.getInstance().onCheckNetWork()) {
+
+                    return;
+
+                } else {
+
+                    FilterRequestPojo filterRequestPojo;
 
                     if (getDataManager().getFilterSort() != null) {
 
@@ -819,6 +986,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 return headers;
                             }
                         };
+                        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 

@@ -97,11 +97,11 @@ xmlns:tools="http://schemas.android.com/tools">
                     app:scrimAnimationDuration="1000">
 
                     <RelativeLayout
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="?actionBarSize"
                         android:id="@+id/image"
                         app:layout_collapseMode="parallax"
                         android:layout_width="match_parent"
-                        android:minHeight="460dp"
+                        android:minHeight="300dp"
                         android:layout_height="wrap_content">
 
                         <android.support.v7.widget.RecyclerView
@@ -127,11 +127,9 @@ xmlns:tools="http://schemas.android.com/tools">
 
 
                         <RelativeLayout
-                            android:layout_marginTop="230dp"
+                            android:layout_marginTop="200dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
-
 
 
                             <com.tovo.eat.utilities.RoundCornerImageView
@@ -176,13 +174,13 @@ xmlns:tools="http://schemas.android.com/tools">
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="?actionBarSize"
                         android:layout_alignParentTop="true"
                         app:contentInsetLeft="0dp"
                         app:contentInsetStart="0dp"
                         app:layout_collapseMode="pin"
                         android:elevation="0dp"
-                        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                        app:layout_scrollFlags="scroll|enterAlways"
                         app:popupTheme="@style/AppTheme.PopupOverlay"
                         app:titleTextColor="@color/eat_color">
 
@@ -194,7 +192,7 @@ xmlns:tools="http://schemas.android.com/tools">
                                 app:cardBackgroundColor="@color/white"
                                 android:id="@+id/topBar"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
+                                android:layout_height="?actionBarSize"
                                 app:cardElevation="0dp"
                                 app:cardMaxElevation="0dp">
 
@@ -272,37 +270,6 @@ xmlns:tools="http://schemas.android.com/tools">
 
                     </android.support.v7.widget.Toolbar>
 
-                    <RelativeLayout
-                        android:layout_below="@+id/recycler_kitchen_common_slider"
-                        android:visibility="visible"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@color/white"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="center_horizontal|bottom"
-                        app:layout_collapseMode="pin">
-
-                        <RelativeLayout
-                            android:id="@+id/signature"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_gravity="center_horizontal|bottom"
-                            android:background="@drawable/coner_radius_layout"
-                            app:layout_collapseMode="parallax">
-
-                            <ImageView
-                                imageUrl="@{kitchenDetailsViewModel.signatureImageUrl}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:gravity="center"
-                                android:scaleType="fitCenter" />
-                        </RelativeLayout>
-
-
-                    </RelativeLayout>
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 

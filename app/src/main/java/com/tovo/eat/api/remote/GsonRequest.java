@@ -3,6 +3,7 @@ package com.tovo.eat.api.remote;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -36,6 +37,11 @@ public class GsonRequest extends Request {
         this.headers = addHeaders(version);
         this.params = null;
         this.listener = listener;
+
+        setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
     }
 
     public GsonRequest(int type, String url, Class myClass,
@@ -46,6 +52,11 @@ public class GsonRequest extends Request {
         this.headers = addHeaders(version);
         this.params = getStringMap(params);
         this.listener = listener;
+
+        setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
     }
 
     @Override

@@ -8,35 +8,30 @@
     </domain-config>
 
     <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.1.225</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">13.232.246.20</domain>
     </domain-config>
-
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.200</domain>
-    </domain-config>
- <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.100</domain>
-    </domain-config><domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.102</domain>
-    </domain-config>/domain-config><domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">13.127.100.137</domain>
     </domain-config>
-
-
-
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.101</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">13.127.100.137</domain>
     </domain-config>
 
 
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.3</domain>
     </domain-config>
-
-
-  <!--  <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">www.chinadaily.com.cn</domain>
-    </domain-config>-->
-
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">www.eatalltime.co.in</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">eatalltime.co.in</domain>
+    </domain-config>
 
 </network-security-config>

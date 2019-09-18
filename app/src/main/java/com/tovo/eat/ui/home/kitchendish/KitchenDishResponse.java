@@ -270,11 +270,42 @@ public class KitchenDishResponse {
         @SerializedName("productimage")
         @Expose
         public String productimage;
+ @SerializedName("next_available_time")
+        @Expose
+        public String nextAvailableTime;
 
         @SerializedName("makeit_userid")
         @Expose
         public Integer makeitUserid;
+ @SerializedName("next_available")
+        @Expose
+        public Integer nextAvailable=0;
 
+
+        public String getNextAvailableTime() {
+            return nextAvailableTime;
+        }
+
+        public void setNextAvailableTime(String nextAvailableTime) {
+            this.nextAvailableTime = nextAvailableTime;
+        }
+
+        public Boolean getNextAvailable() {
+
+            if (nextAvailable!=null){
+
+            if (nextAvailable==1){
+                return true;
+            }else {
+                return false;
+            }}
+            return false;
+
+        }
+
+        public void setNextAvailable(Integer nextAvailable) {
+            this.nextAvailable = nextAvailable;
+        }
 
         public void setFavid(Integer favid) {
             this.favid = favid;

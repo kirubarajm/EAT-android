@@ -186,6 +186,29 @@
 
 
                 </RelativeLayout>
+                <RelativeLayout
+                    android:visibility="@{favTodaysMenuItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
+                    android:layout_marginEnd="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content">
+
+
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_marginStart="3dp"
+                           android:paddingTop="3dp"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{favTodaysMenuItemViewModel.nextAvailableTime}"
+                            android:textAllCaps="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+
+                </RelativeLayout>
 
 
                 <LinearLayout

@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -616,6 +617,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         return headers;
                     }
                 };
+
+                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
                 MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
             } catch (JSONException j) {
                 getNavigator().cartLoaded();
@@ -847,7 +853,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    assert jsonObjectRequest != null;
+                    jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
                 } else {

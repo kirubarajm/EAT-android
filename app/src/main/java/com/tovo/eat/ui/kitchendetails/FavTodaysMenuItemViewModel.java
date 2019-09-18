@@ -30,6 +30,8 @@ public class FavTodaysMenuItemViewModel {
     public final ObservableField<String> image = new ObservableField<>();
     public final ObservableField<String> sprice = new ObservableField<>();
     public final ObservableField<String> productDes = new ObservableField<>();
+    public final ObservableField<String> nextAvailableTime = new ObservableField<>();
+    public final ObservableBoolean nextAvailable = new ObservableBoolean();
     public final ObservableField<Integer> price = new ObservableField<>();
 
     public final ObservableField<String> sQuantity = new ObservableField<>();
@@ -42,6 +44,7 @@ public class FavTodaysMenuItemViewModel {
     public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
     public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
+
 
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
@@ -85,6 +88,17 @@ public class FavTodaysMenuItemViewModel {
 
 
         productDes.set(dishList.getProdDesc());
+
+
+        if (dishList.getNextAvailable()){
+            this.nextAvailable.set(dishList.getNextAvailable());
+            this.serviceableKitchen.set(false);
+            this.nextAvailableTime.set(dishList.getNextAvailableTime());
+        }
+
+
+
+
 
 
 

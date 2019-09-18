@@ -192,6 +192,21 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 mListItemLiveProductsBinding.image.setColorFilter(filter);
                 // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
 
+            }else if (blog.getNextAvailable()){
+
+                mListItemLiveProductsBinding.content.setAlpha(1);
+                mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.amount.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                mListItemLiveProductsBinding.image.setColorFilter(filter);
+
             }
 
 

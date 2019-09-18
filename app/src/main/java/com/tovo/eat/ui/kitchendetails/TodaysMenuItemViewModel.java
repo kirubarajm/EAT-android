@@ -46,7 +46,8 @@ public class TodaysMenuItemViewModel {
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final KitchenDishResponse.Productlist dishList;
-
+    public final ObservableField<String> nextAvailableTime = new ObservableField<>();
+    public final ObservableBoolean nextAvailable = new ObservableBoolean();
 
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
@@ -79,6 +80,15 @@ public class TodaysMenuItemViewModel {
         if (dishList.getProductimage() != null) {
             isFavouriteMenu.set(true);
         }
+
+
+        if (dishList.getNextAvailable()){
+            this.nextAvailable.set(dishList.getNextAvailable());
+            this.serviceablekitchen.set(false);
+            this.nextAvailableTime.set(dishList.getNextAvailableTime());
+        }
+
+
 
         productDes.set(dishList.getProdDesc());
 

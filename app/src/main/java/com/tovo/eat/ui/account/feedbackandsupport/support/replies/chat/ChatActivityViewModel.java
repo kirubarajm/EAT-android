@@ -7,6 +7,7 @@ import android.databinding.ObservableList;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
@@ -133,8 +134,32 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         Gson gson = new GsonBuilder().create();
         String payloadStr = gson.toJson(dialogPickedUpRequest);
 
+        try {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.PUT, AppConstants.URL_CHAT_REPLIES_READ, new JSONObject(payloadStr), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                setIsLoading(false);
 
-            try {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setIsLoading(false);
+            }
+        });
+
+        MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+        }catch (Exception ee){
+
+            ee.printStackTrace();
+
+        }
+
+
+
+          /*  try {
                 GsontoJsonRequest gsonRequest = new GsontoJsonRequest(Request.Method.PUT, AppConstants.URL_CHAT_REPLIES_READ, ChatReplyResponse.class, new JSONObject(payloadStr)
                        , new Response.Listener<ChatReplyResponse>() {
                     @Override
@@ -157,7 +182,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
 
                 ee.printStackTrace();
 
-            }
+            }*/
 
 
 
