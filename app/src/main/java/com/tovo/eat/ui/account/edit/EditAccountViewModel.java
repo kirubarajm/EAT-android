@@ -16,13 +16,10 @@ import com.tovo.eat.utilities.analytics.Analytics;
 
 public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
+    public ObservableBoolean male = new ObservableBoolean();
+    public ObservableBoolean female = new ObservableBoolean();
     Response.ErrorListener errorListener;
-
-
-    public  ObservableBoolean male=new ObservableBoolean();
-    public  ObservableBoolean female=new ObservableBoolean();
-    int gender=0;
-
+    int gender = 0;
 
 
     public EditAccountViewModel(DataManager dataManager) {
@@ -34,58 +31,59 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
     }
 
 
-    public void maleClicked(){
+    public void maleClicked() {
         male.set(true);
-        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_MALE_SELECTED);
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT, AppConstants.CLICK_MALE_SELECTED);
     }
 
-    public void feMaleClicked(){
+    public void feMaleClicked() {
         male.set(false);
-        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_FEMALE_SELECTED);
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT, AppConstants.CLICK_FEMALE_SELECTED);
 
     }
 
 
-    public void insertNameGenderServiceCall(String name,String email,int regionId) {
+    public void insertNameGenderServiceCall(String name, String email, int regionId) {
 
-        if (male.get()){
-             gender=1;
-        }else {
-             gender=2;
+        if (male.get()) {
+            gender = 1;
+        } else {
+            gender = 2;
         }
 
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-        setIsLoading(true);
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name,email, gender,regionId), new Response.Listener<EditAccountResponse>() {
-            @Override
-            public void onResponse(EditAccountResponse response) {
-                if (response != null) {
-                    Log.i("", "" + response.getSuccess());
-                    if (response.getStatus()) {
-                        getDataManager().updateUserGender(true);
-                        getNavigator().genderSuccess(response.getMessage());
-                        getDataManager().saveRegionId(regionId);
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId), new Response.Listener<EditAccountResponse>() {
+                @Override
+                public void onResponse(EditAccountResponse response) {
+                    if (response != null) {
+                        Log.i("", "" + response.getSuccess());
+                        if (response.getStatus()) {
+                            getDataManager().updateUserGender(true);
+                            if (response.getMessage() != null)
+                                getNavigator().genderSuccess(response.getMessage());
+                            getDataManager().saveRegionId(regionId);
+                        }
                     }
                 }
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
-                getNavigator().genderFailure("Failed to update");
-            }
-        },AppConstants.API_VERSION_ONE);
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    getNavigator().genderFailure("Failed to update");
+                }
+            }, AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
         }
     }
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
     }
 
@@ -98,8 +96,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 @Override
                 public void onResponse(RegionSearchModel response) {
 
-
-                    getNavigator().regionListLoaded(response.getResult());
+                    if (response.getResult() != null && response.getResult().size() > 0)
+                        getNavigator().regionListLoaded(response.getResult());
 
 
                 }
@@ -109,17 +107,17 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
 
 
     }

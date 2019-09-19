@@ -49,7 +49,8 @@ public class DishItemViewModel {
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
     public final ObservableField<Integer> makeit_userid = new ObservableField<>();
-
+    public final ObservableField<String> nextAvailableTime = new ObservableField<>();
+    public final ObservableBoolean nextAvailable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final DishResponse.Result dishList;
@@ -74,6 +75,14 @@ public class DishItemViewModel {
         }
 
         productDes.set(dishList.getProdDesc());
+
+
+
+        if (dishList.getNextAvailable()){
+            this.nextAvailable.set(dishList.getNextAvailable());
+            this.nextAvailableTime.set(dishList.getNextAvailableTime());
+        }
+
 
         if (dishList.getBrandname().isEmpty()) {
             this.makeitBrandName.set(dishList.getMakeitUsername());

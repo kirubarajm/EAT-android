@@ -39,7 +39,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     @Inject
     EditAccountViewModel mLoginViewModelMain;
     int gender;
-    String regionId = "";
+    int regionId = 0;
     RegionListAdapter regionListAdapter;
     RegionSearchModel.Result result;
     Analytics analytics;
@@ -77,7 +77,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
 
         if (validForProceed()) {
-            mLoginViewModelMain.insertNameGenderServiceCall(name, email, Integer.parseInt(regionId));
+            mLoginViewModelMain. insertNameGenderServiceCall(name, email, regionId);
 
             new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_APPLY_CHANGES);
 
@@ -152,7 +152,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             String email = intent.getExtras().getString("email");
             String regionName = intent.getExtras().getString("region");
             gender = intent.getExtras().getInt("gender");
-            regionId = String.valueOf(intent.getExtras().getInt("regionid"));
+            regionId = intent.getExtras().getInt("regionid");
 
 
             if (gender == 1) {
@@ -178,7 +178,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             if (email != null)
                 mActivityNameGenderBinding.edtEmail.setText(email);
 
-            if (regionId.equals("0")) {
+            if (regionId==0) {
                 mActivityNameGenderBinding.region.setText("");
                 mActivityNameGenderBinding.region.setEnabled(false);
                 mActivityNameGenderBinding.chkOthers.setChecked(true);
@@ -200,7 +200,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
                 //  Log.e("", selectedItem.getMenuitem_name());
 
-                regionId = String.valueOf(result.getRegionid());
+                regionId =result.getRegionid();
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
@@ -233,14 +233,14 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    regionId = "0";
+                    regionId = 0;
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(false);
                     mActivityNameGenderBinding.chkOthers.setChecked(true);
                     new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_REGION_OTHER);
 
                 } else {
-                    regionId = "";
+
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(true);
                     mActivityNameGenderBinding.chkOthers.setChecked(false);
@@ -263,7 +263,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             public void afterTextChanged(Editable s) {
                 if (!mActivityNameGenderBinding.chkOthers.isChecked()) {
                     if (mActivityNameGenderBinding.region.getText().toString().length() == 0) {
-                        regionId = "";
+
                     }
                 }
             }
@@ -286,7 +286,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     }
 
     private boolean validForProceed() {
-        if (mActivityNameGenderBinding.edtName.getText().toString().equals("") || regionId.equals("")) {
+        if (mActivityNameGenderBinding.edtName.getText().toString().equals("")) {
 
 
             if ((mActivityNameGenderBinding.edtName.getText().toString().equals(""))) {
@@ -294,9 +294,9 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
             }
 
-            if (regionId.equals("")) {
-                mActivityNameGenderBinding.regionList.setError("Enter your region");
-            }
+//            if (regionId.equals("")) {
+//                mActivityNameGenderBinding.regionList.setError("Enter your region");
+//            }
 
             // Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
             return false;

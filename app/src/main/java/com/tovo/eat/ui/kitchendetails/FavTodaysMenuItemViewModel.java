@@ -90,7 +90,7 @@ public class FavTodaysMenuItemViewModel {
         productDes.set(dishList.getProdDesc());
 
 
-        if (dishList.getNextAvailable()){
+        if (null!=dishList.getNextAvailable()&&dishList.getNextAvailable()){
             this.nextAvailable.set(dishList.getNextAvailable());
             this.serviceableKitchen.set(false);
             this.nextAvailableTime.set(dishList.getNextAvailableTime());

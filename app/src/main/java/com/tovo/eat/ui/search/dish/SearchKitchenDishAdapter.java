@@ -160,6 +160,10 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
 
 
+
+
+
+
             if (!serviceablekitchen){
 
                 mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
@@ -180,6 +184,21 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
               //  mListItemLiveProductsBinding.image.setColorFilter(filter);
 
 
+            }else if (blog.getNextAvailable()){
+
+                mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
+
+                mListItemLiveProductsBinding.content.setAlpha(1);
+                mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.amount.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
+
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
             }else {
                 mListItemLiveProductsBinding.addDish.setVisibility(View.VISIBLE);
             }

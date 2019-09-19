@@ -336,7 +336,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                                 emptyDish.set(true);
                                 getNavigator().dishListLoaded();
                             }
-                        },AppConstants.API_VERSION_ONE);
+                        },AppConstants.API_VERSION_TWO);
 
 
                         MvvmApp.getInstance().addToRequestQueue(gsonRequest);

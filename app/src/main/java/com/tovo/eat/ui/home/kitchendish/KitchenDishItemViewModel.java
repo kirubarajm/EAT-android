@@ -36,7 +36,8 @@ public class KitchenDishItemViewModel {
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
     public final ObservableField<Integer> makeit_userid = new ObservableField<>();
-
+    public final ObservableField<String> nextAvailableTime = new ObservableField<>();
+    public final ObservableBoolean nextAvailable = new ObservableBoolean();
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
 
@@ -81,6 +82,19 @@ public class KitchenDishItemViewModel {
         }
 
         productDes.set(dishList.getProdDesc());
+
+
+
+
+
+        if (dishList.getNextAvailable()){
+            this.nextAvailable.set(dishList.getNextAvailable());
+            this.nextAvailableTime.set(dishList.getNextAvailableTime());
+        }
+
+
+
+
 
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());

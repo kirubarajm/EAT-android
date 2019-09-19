@@ -588,6 +588,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         }*/
                         try {
+                            if (getNavigator()!=null)
                             getNavigator().cartLoaded();
                         } catch (Exception re) {
                             re.printStackTrace();
@@ -597,6 +598,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         emptyCart.set(true);
+                        if (getNavigator()!=null)
                         getNavigator().cartLoaded();
                     }
                 }) {
@@ -624,14 +626,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                 MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
             } catch (JSONException j) {
+                if (getNavigator()!=null)
                 getNavigator().cartLoaded();
                 emptyCart.set(true);
                 j.printStackTrace();
             } catch (NullPointerException n) {
+                if (getNavigator()!=null)
                 getNavigator().cartLoaded();
                 emptyCart.set(true);
                 n.printStackTrace();
             } catch (Exception ee) {
+                if (getNavigator()!=null)
                 getNavigator().cartLoaded();
                 emptyCart.set(true);
                 ee.printStackTrace();

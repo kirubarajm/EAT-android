@@ -4,6 +4,7 @@
     tools:context=".ui.main.MainActivity">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -11,9 +12,10 @@
 
 
         <LinearLayout
+            android:layout_marginTop="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@{dishItemViewModel.nextAvailable?@color/gray:@color/white}"
             android:orientation="vertical">
 
 
@@ -21,17 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:background="@color/white"
                 android:orientation="horizontal">
 
 
                 <RelativeLayout
                     android:layout_width="120dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginEnd="3dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:layout_marginBottom="5dp"
                     android:visibility="@{dishItemViewModel.noImage?View.GONE:View.VISIBLE}">
 
 
@@ -66,12 +66,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_toStartOf="@+id/end"
                         android:layout_toLeftOf="@+id/end"
                         android:orientation="vertical">
-
 
 
                         <RelativeLayout
@@ -100,6 +100,7 @@
                         </RelativeLayout>
 
                         <LinearLayout
+                            android:layout_marginTop="2dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
@@ -181,6 +182,7 @@
 
 
                         <RelativeLayout
+                            android:visibility="@{dishItemViewModel.nextAvailable?View.GONE:View.VISIBLE}"
                             android:layout_width="70dp"
                             android:layout_height="30dp"
                             android:layout_centerHorizontal="true"
@@ -275,6 +277,34 @@
 
 
                         </RelativeLayout>
+
+
+
+                        <RelativeLayout
+                            android:visibility="@{dishItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
+                            android:layout_marginEnd="7dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content">
+
+
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_marginStart="3dp"
+                                android:paddingTop="3dp"
+                                android:textAlignment="center"
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{dishItemViewModel.nextAvailableTime}"
+                                android:textAllCaps="true"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
 
                     </RelativeLayout>
 

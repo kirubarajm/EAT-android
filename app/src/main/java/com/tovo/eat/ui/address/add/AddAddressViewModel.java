@@ -202,6 +202,9 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
+            if (request==null) request= new AddressRequestPojo();
+
+
             request.setAddress(locationAddress);
             request.setFlatno(house);
             request.setLocality(area);
@@ -231,7 +234,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 return;
             }
 
-
+            if (request==null) request= new AddressRequestPojo();
             request.setUserid(getDataManager().getCurrentUserId());
 
             try {
@@ -239,9 +242,6 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ADD_ADDRESS_URL, AddressResponse.class, request, new Response.Listener<AddressResponse>() {
                     @Override
                     public void onResponse(AddressResponse response) {
-
-                        Log.e("response", response.getMessage());
-                        Log.e("response", response.getMessage());
 
                         if (!response.getStatus())
                             getNavigator().showToast(response.getMessage());

@@ -1,7 +1,6 @@
 package com.tovo.eat.ui.signup.namegender;
 
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -90,8 +89,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                 @Override
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
-                        Log.i("", "" + response.getSuccess());
-                        getNavigator().genderSuccess(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().genderSuccess(response.getMessage());
                         if (response.getStatus()) {
                             getDataManager().updateUserGender(true);
                         }

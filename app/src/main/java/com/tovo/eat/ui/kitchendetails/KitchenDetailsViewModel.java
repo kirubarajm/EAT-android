@@ -75,7 +75,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     List<KitchenDishResponse.Productlist> favoriteProductlists = new ArrayList<>();
     List<KitchenDishResponse.Productlist> todaysMenuProductlists = new ArrayList<>();
     int favId;
-    int makeitId;
+   public int makeitId;
     String isFav;
     int vegid;
     List<KitchenDishResponse.Kitchenmenuimage> commonKitchenImagesList = new ArrayList<>();
@@ -141,7 +141,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             isVegOnly.set(false);
             getDataManager().saveVegType(0);
             vegid = 0;
-            fetchVegProducts();
+            fetchRepos(makeitId);
         }
     }
 
@@ -166,6 +166,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
 
+        if (kitchenmenuimageArrayList!=null)
+
         getNavigator().update(kitchenmenuimageArrayList);
     }
 
@@ -181,7 +183,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             commonKitchenImagesList = kitchenInfoTempArray;
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
-
+        if (kitchenInfoTempArray!=null)
         getNavigator().update(kitchenInfoTempArray);
     }
 
@@ -379,6 +381,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
 
                             int count = kitchenmenuimageArrayList.size();
+
+                            if (kitchenmenuimageArrayList!=null)
                             getNavigator().update(kitchenmenuimageArrayList);
                             /////menu slider details
                             commonKitchenImagesList = kitchenmenuimageArrayList;

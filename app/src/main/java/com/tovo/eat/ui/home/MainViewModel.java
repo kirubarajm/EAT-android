@@ -785,7 +785,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
+                   // Log.e("", error.getMessage());
                     //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                 }
             }) {

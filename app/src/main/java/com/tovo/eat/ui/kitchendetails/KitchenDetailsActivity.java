@@ -257,6 +257,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getInt("kitchenId");
+     mKitchenDetailsViewModel.makeitId=kitchenID;
             mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
             if (intent.getExtras().getInt("type") == 2) {
@@ -738,7 +739,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         stopKitchenLoader();
 
-        if (response != null && response.getResult().size() > 0) {
+        if (response != null &&response.getResult()!=null&& response.getResult().size() > 0) {
             mFavTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
             mTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
 

@@ -65,7 +65,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber,appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_SIGN_UP, SignUpResponse.class, new SignUpRequest(phoneNumber, appSignatureHashHelper.getAppSignatures().get(0)), new Response.Listener<SignUpResponse>() {
                 @Override
                 public void onResponse(SignUpResponse response) {
                     if (response != null) {
@@ -75,8 +75,10 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                             genderstatus = response.getGenderstatus();
                             getDataManager().updateUserGender(genderstatus);
                             getDataManager().updateUserPasswordStatus(passwordstatus);
-                            OtpId = response.getOid();
-                            getNavigator().otpScreenFalse(OtpId);
+                            if (response.getOid() != null) {
+                                OtpId = response.getOid();
+                                getNavigator().otpScreenFalse(OtpId);
+                            }
                         }
                     }
                 }
@@ -86,7 +88,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                     getNavigator().loginError(false);
                     setIsLoading(false);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

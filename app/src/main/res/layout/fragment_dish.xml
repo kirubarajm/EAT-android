@@ -79,6 +79,7 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:visibility="@{dishViewModel.emptyDish?View.GONE:View.VISIBLE}"
             android:id="@+id/refreshList"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

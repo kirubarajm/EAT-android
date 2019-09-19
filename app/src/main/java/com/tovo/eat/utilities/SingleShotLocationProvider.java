@@ -38,6 +38,7 @@ public class SingleShotLocationProvider {
             locationManager.requestSingleUpdate(criteria, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+                    if (location!=null)
                     callback.onNewLocationAvailable(new GPSCoordinates(location.getLatitude(), location.getLongitude()));
                 }
 

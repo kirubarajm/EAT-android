@@ -94,8 +94,40 @@ public class DishResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
+        @SerializedName("next_available")
+        @Expose
+        public Integer nextAvailable=0;
+        @SerializedName("next_available_time")
+        @Expose
+        public String nextAvailableTime;
 
 
+
+
+        public String getNextAvailableTime() {
+            return nextAvailableTime;
+        }
+
+        public void setNextAvailableTime(String nextAvailableTime) {
+            this.nextAvailableTime = nextAvailableTime;
+        }
+
+        public Boolean getNextAvailable() {
+
+            if (nextAvailable!=null){
+
+                if (nextAvailable==1){
+                    return true;
+                }else {
+                    return false;
+                }}
+            return false;
+
+        }
+
+        public void setNextAvailable(Integer nextAvailable) {
+            this.nextAvailable = nextAvailable;
+        }
         public String getProdDesc() {
             return prodDesc;
         }
