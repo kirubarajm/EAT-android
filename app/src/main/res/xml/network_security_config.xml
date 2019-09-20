@@ -33,5 +33,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">eatalltime.co.in</domain>
     </domain-config>
+ <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">https://eatalltime.global</domain>
+    </domain-config>
 
 </network-security-config>

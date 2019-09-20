@@ -12,6 +12,7 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.update.UpdateRequest;
 import com.tovo.eat.ui.update.UpdateResponse;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.HttpsTrustManager;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigator> {
@@ -50,7 +51,6 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public void checkUpdate() {
         /*   MvvmApp.getInstance().getVersionCode()*/
-
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

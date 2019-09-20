@@ -1,10 +1,13 @@
 package com.tovo.eat.utilities;
 
 import com.tovo.eat.BuildConfig;
+import com.tovo.eat.data.prefs.AppPreferencesHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class AppConstants {
 
@@ -67,6 +70,33 @@ public class AppConstants {
         // Googleplex.
         BAY_AREA_LANDMARKS.put("GOOGLE", new LatLng(37.422611,-122.0840577));
     }*/
+
+
+
+
+
+
+
+    public static Map<String, String> setHeaders(String version) {
+
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        //  headers.put("Content-Type", "application/json; charset=utf-8");
+        headers.put("accept-version",version);
+        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+        //  headers.put("Authorization","Bearer");
+
+        AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+        headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
+
+        // headers.put("token",preferencesHelper.getApiToken());
+
+        return  headers;
+
+
+    }
+
+
 
 
     public static final int KITCHEMN_REQUEST_CODE = 1;

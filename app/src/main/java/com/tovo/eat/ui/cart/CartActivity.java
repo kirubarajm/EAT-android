@@ -22,6 +22,7 @@ import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
@@ -355,6 +356,13 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (!dialog.isShowing())
             showDialog();
+    }
+
+    @Override
+    public void gotoKitchen(int kitchenid) {
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
+        intent.putExtra("kitchenId", kitchenid);
+        startActivity(intent);
     }
 
     private void subscribeToLiveData() {

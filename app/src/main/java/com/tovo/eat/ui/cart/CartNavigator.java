@@ -46,4 +46,6 @@ public interface CartNavigator {
     void redirectHome();
     void notServicable();
 
+
+    void gotoKitchen(int kitchenid);
 }

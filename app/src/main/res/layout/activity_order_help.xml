@@ -169,6 +169,7 @@
                                 android:minLines="2"
                                 android:layout_marginStart="16dp"
                                 android:gravity="top"
+                                android:paddingStart="3dp"
                                 android:hint="@string/cancel_reason"
                                 android:inputType="textCapSentences|textMultiLine"
                                 android:layout_marginTop="10dp"

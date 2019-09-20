@@ -154,6 +154,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
+ public void openKitchen() {
+
+      getNavigator().gotoKitchen(makeitId);
+
+
+    }
+
     public void promoCouponClose() {
         getDataManager().saveCouponId(0);
         couponSelected.set(false);
@@ -430,6 +437,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             cartRequestPojo.setLon(getDataManager().getCurrentLng());
 
 
+
+            makeitId=cartRequestPojo.getMakeitUserid();
+
+
             if (getDataManager().getRefundId() != 0) {
                 cartRequestPojo.setRcid(getDataManager().getRefundId());
             }
@@ -447,107 +458,110 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Gson gson = new Gson();
-                        CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
+                        if (response!=null) {
 
-                        //    if (cartPageResponse.getStatus()) {
+                            Gson gson = new Gson();
+                            CartPageResponse cartPageResponse = gson.fromJson(response.toString(), CartPageResponse.class);
 
-                        statusMessage.set(cartPageResponse.getMessage());
-                        available.set(cartPageResponse.getStatus());
+                            //    if (cartPageResponse.getStatus()) {
 
-                        if (!cartPageResponse.getStatus()) {
+                            statusMessage.set(cartPageResponse.getMessage());
+                            available.set(cartPageResponse.getStatus());
 
-                            Toast.makeText(MvvmApp.getInstance(), cartPageResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            if (!cartPageResponse.getStatus()) {
 
-                        }
-
-
-                        if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
-
-                            getNavigator().emptyCart();
-
-                            getDataManager().setCartDetails(null);
-
-                            emptyCart.set(true);
-
-
-                        } else {
-                            dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
-
-                            emptyCart.set(false);
-
-                            if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
-
-                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
-                            } else {
-
-                                makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
+                                Toast.makeText(MvvmApp.getInstance(), cartPageResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                             }
 
-                            cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartDetails());
+                            if (cartPageResponse.getResult() != null) {
+
+                                if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
+
+                                    getNavigator().emptyCart();
+
+                                    getDataManager().setCartDetails(null);
+
+                                    emptyCart.set(true);
 
 
-                            getDataManager().totalOrders((cartPageResponse.getResult().get(0).getOrdercount()));
+                                } else {
+                                    dishItemsLiveData.setValue(cartPageResponse.getResult().get(0).getItem());
+
+                                    emptyCart.set(false);
+
+                                    if (cartPageResponse.getResult().get(0).getMakeitbrandname().isEmpty()) {
+
+                                        makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitusername());
+                                    } else {
+
+                                        makeit_brand_name.set(cartPageResponse.getResult().get(0).getMakeitbrandname());
+
+                                    }
+
+                                    cartBillLiveData.setValue(cartPageResponse.getResult().get(0).getCartDetails());
 
 
-                            makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
-                            //  makeit_category.set(response.getResult().get(0).getCategory());
+                                    getDataManager().totalOrders((cartPageResponse.getResult().get(0).getOrdercount()));
 
 
-                            if (cartPageResponse.getResult().get(0).getIsFav().equals("1")) {
-                                isFavourite.set(true);
-                            } else {
-                                isFavourite.set(false);
-                            }
+                                    makeit_image.set(cartPageResponse.getResult().get(0).getMakeitimg());
+                                    //  makeit_category.set(response.getResult().get(0).getCategory());
 
 
-                            totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
+                                    if (cartPageResponse.getResult().get(0).getIsFav().equals("1")) {
+                                        isFavourite.set(true);
+                                    } else {
+                                        isFavourite.set(false);
+                                    }
 
 
-                            total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
-
-                            grand_total.set(String.valueOf(totalAmount));
-
-                            grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandTotalTitle());
-                            refundBalance.set(cartPageResponse.getResult().get(0).getAmountdetails().getRefundBalance());
+                                    totalAmount = cartPageResponse.getResult().get(0).getAmountdetails().getGrandtotal();
 
 
-                            gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
-                            delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
+                                    total.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getProductOrginalPrice()));
+
+                                    grand_total.set(String.valueOf(totalAmount));
+
+                                    grandTotalTitle.set(cartPageResponse.getResult().get(0).getAmountdetails().getGrandTotalTitle());
+                                    refundBalance.set(cartPageResponse.getResult().get(0).getAmountdetails().getRefundBalance());
 
 
-                            localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
+                                    gst.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getGstcharge()));
+                                    delivery_charge.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getDeliveryCharge()));
 
 
-                            makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
+                                    localityname.set(cartPageResponse.getResult().get(0).getLocalityname());
 
 
-                            if (cartPageResponse.getResult().get(0).getFavid() != null)
-                                favId = cartPageResponse.getResult().get(0).getFavid();
+                                    makeitId = cartPageResponse.getResult().get(0).getMakeituserid();
 
 
-                            if (cartPageResponse.getResult().get(0).getAmountdetails().getRefundcouponstatus()) {
-                                refundSelected.set(true);
-                                refundFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getRefundCouponAdjustment()));
+                                    if (cartPageResponse.getResult().get(0).getFavid() != null)
+                                        favId = cartPageResponse.getResult().get(0).getFavid();
 
-                            } else {
-                                refundSelected.set(false);
-                            }
-                            if (null != cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus() && cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
-                                couponSelected.set(true);
-                                couponFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getCouponDiscountAmount()));
 
-                            } else {
-                                couponSelected.set(false);
+                                    if (cartPageResponse.getResult().get(0).getAmountdetails().getRefundcouponstatus()) {
+                                        refundSelected.set(true);
+                                        refundFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getRefundCouponAdjustment()));
 
-                                if (getDataManager().getCouponId()!=0){
-                                    getDataManager().saveCouponId(0);
-                                    getDataManager().saveCouponCode(null);
-                                    fetchRepos();
-                                }
+                                    } else {
+                                        refundSelected.set(false);
+                                    }
+                                    if (null != cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus() && cartPageResponse.getResult().get(0).getAmountdetails().getCouponstatus()) {
+                                        couponSelected.set(true);
+                                        couponFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getCouponDiscountAmount()));
 
-                            }
+                                    } else {
+                                        couponSelected.set(false);
+
+                                        if (getDataManager().getCouponId() != 0) {
+                                            getDataManager().saveCouponId(0);
+                                            getDataManager().saveCouponCode(null);
+                                            fetchRepos();
+                                        }
+
+                                    }
 
 
                           /*  StringBuilder itemsBuilder = new StringBuilder();
@@ -565,16 +579,16 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             }
                             String items = itemsBuilder.toString();*/
-                            //cuisines.set(items);
-                            cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from ");
-                            region.set(cartPageResponse.getResult().get(0).getRegionname());
+                                    //cuisines.set(items);
+                                    cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from ");
+                                    region.set(cartPageResponse.getResult().get(0).getRegionname());
 
-                        }
+                                }
 
 
-                        setAddressTitle();
+                                setAddressTitle();
 
-                        serviceable.set(cartPageResponse.getResult().get(0).isAvaliablekitchen());
+                                serviceable.set(cartPageResponse.getResult().get(0).isAvaliablekitchen());
 
 //                        if (!cartPageResponse.getResult().get(0).isAvaliablekitchen()) {
 //                            getNavigator().notServicable();
@@ -587,11 +601,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             getNavigator().showToast(cartPageResponse.getMessage());
 
                         }*/
-                        try {
-                            if (getNavigator()!=null)
-                            getNavigator().cartLoaded();
-                        } catch (Exception re) {
-                            re.printStackTrace();
+                                try {
+                                    if (getNavigator() != null)
+                                        getNavigator().cartLoaded();
+                                } catch (Exception re) {
+                                    re.printStackTrace();
+                                }
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -609,14 +625,21 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                      */
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
+                       /* HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
                         headers.put("accept-version", AppConstants.API_VERSION_ONE);
                         headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                         headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
+                        return headers;*/
 
-                        return headers;
+
+
+                        Map<String, String> mm=AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+
+                      // return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                       return mm;
+
                     }
                 };
 
