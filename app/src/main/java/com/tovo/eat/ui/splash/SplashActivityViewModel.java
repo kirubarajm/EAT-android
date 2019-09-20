@@ -12,18 +12,12 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.update.UpdateRequest;
 import com.tovo.eat.ui.update.UpdateResponse;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.HttpsTrustManager;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigator> {
 
 
-
-
-    public final ObservableField<String> version=new ObservableField<>();
-
-
-
+    public final ObservableField<String> version = new ObservableField<>();
 
 
     public SplashActivityViewModel(DataManager dataManager) {
@@ -58,12 +52,12 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
             @Override
             public void onResponse(UpdateResponse response) {
 
-
-                if (response.getStatus()) {
-                    getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
-                }else {
-                    getNavigator().update(false, false);
-                }
+                if (response != null)
+                    if (response.getResult()!=null&&response.getStatus()) {
+                        getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+                    } else {
+                        getNavigator().update(false, false);
+                    }
 
             }
         }, new Response.ErrorListener() {

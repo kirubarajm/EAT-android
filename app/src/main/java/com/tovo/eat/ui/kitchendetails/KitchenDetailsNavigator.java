@@ -19,7 +19,7 @@ public interface KitchenDetailsNavigator {
 
 
     void goBack();
-
+void loadError();
     void animChanges(boolean status);
 
     void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList);

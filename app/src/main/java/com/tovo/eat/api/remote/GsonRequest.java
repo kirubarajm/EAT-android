@@ -100,8 +100,8 @@ public class GsonRequest extends Request {
     }
 
     public Map<String, String> addHeaders(String version){
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+       /* HashMap<String, String> headers = new HashMap<>();
+      //  headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         //headers.put("Content-Type", "application/json");
         headers.put("accept-version",version);
         headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
@@ -112,7 +112,8 @@ public class GsonRequest extends Request {
 
        // headers.put("token",preferencesHelper.getApiToken());
 
-        return  headers;
+        return  headers;*/
+        return AppConstants.setHeaders(version);
     }
 
 

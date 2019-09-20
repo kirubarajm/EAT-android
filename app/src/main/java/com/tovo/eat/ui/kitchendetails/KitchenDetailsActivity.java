@@ -31,8 +31,6 @@ import android.transition.TransitionManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,7 +94,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_KITCHEN_DETAILS;
+    String pageName = AppConstants.SCREEN_KITCHEN_DETAILS;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -229,9 +227,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
         startKitchenLoader();
+        subscribeToLiveDataKitchenImages();
 
-
-        analytics=new Analytics(this, pageName);
+        analytics = new Analytics(this, pageName);
 
         TextJustification.justify(mFragmentDishBinding.aboutContent);
 
@@ -257,8 +255,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getInt("kitchenId");
-     mKitchenDetailsViewModel.makeitId=kitchenID;
-            mKitchenDetailsViewModel.fetchRepos(kitchenID);
+            mKitchenDetailsViewModel.makeitId = kitchenID;
+            //  mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
             if (intent.getExtras().getInt("type") == 2) {
                 mKitchenDetailsViewModel.info();
@@ -510,11 +508,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
         mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(foodBadgesImageAdapter);
 
-        subscribeToLiveDataKitchenImages();
-
-
-
-
 
         mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -522,14 +515,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 super.onScrollStateChanged(recyclerView, newState);
 
 
-
-
-
             }
         });
-
-
-
 
 
     }
@@ -538,22 +525,22 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     public void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
 
 
-        if (kitchenmenuimageArrayList!=null) {
+        if (kitchenmenuimageArrayList != null) {
             totalCount = kitchenmenuimageArrayList.size();
             kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
 
 
-            if (kitchenmenuimageArrayList.size()==1){
+            if (kitchenmenuimageArrayList.size() == 1) {
                 mFragmentDishBinding.left.setVisibility(View.GONE);
                 mFragmentDishBinding.right.setVisibility(View.GONE);
-            }else {
+            } else {
 
                 mFragmentDishBinding.left.setVisibility(View.GONE);
                 mFragmentDishBinding.right.setVisibility(View.VISIBLE);
             }
 
 
-        }else {
+        } else {
             return;
         }
 
@@ -579,38 +566,37 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             public void onClick(View v) {
 
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-               int currentFirstVisible = ll.findFirstVisibleItemPosition();
+                int currentFirstVisible = ll.findFirstVisibleItemPosition();
 
                 mFragmentDishBinding.left.setVisibility(View.VISIBLE);
-                mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible+1);
+                mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible + 1);
 
 
-                if (currentFirstVisible==totalCount-1){
+                if (currentFirstVisible == totalCount - 1) {
                     mFragmentDishBinding.right.setVisibility(View.GONE);
                 }
 
-                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_NEXT);
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_NEXT);
             }
         });
 
         mFragmentDishBinding.left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_PREVIOUS);
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_PREVIOUS);
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-               int currentFirstVisible = ll.findFirstVisibleItemPosition();
+                int currentFirstVisible = ll.findFirstVisibleItemPosition();
 
-                if (currentFirstVisible==0){
+                if (currentFirstVisible == 0) {
                     mFragmentDishBinding.left.setVisibility(View.GONE);
-                }else   {
+                } else {
 
-                    mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible-1);
+                    mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible - 1);
                 }
 
 
             }
         });
-
 
 
         mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -619,19 +605,19 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
                 super.onScrollStateChanged(recyclerView, newState);
                 LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
                 int currentFirstVisible = ll.findFirstCompletelyVisibleItemPosition();
-            //    addBottomDots(currentFirstVisible);
+                //    addBottomDots(currentFirstVisible);
 
 
-                if (currentFirstVisible==totalCount-1){
+                if (currentFirstVisible == totalCount - 1) {
                     mFragmentDishBinding.right.setVisibility(View.GONE);
-                }else if (currentFirstVisible==0){
+                } else if (currentFirstVisible == 0) {
                     mFragmentDishBinding.left.setVisibility(View.GONE);
-                }else {
+                } else {
 
-                    if (totalCount==1){
+                    if (totalCount == 1) {
                         mFragmentDishBinding.right.setVisibility(View.GONE);
                         mFragmentDishBinding.left.setVisibility(View.GONE);
-                    }else   {
+                    } else {
                         mFragmentDishBinding.right.setVisibility(View.VISIBLE);
                         mFragmentDishBinding.left.setVisibility(View.VISIBLE);
                     }
@@ -666,6 +652,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     private void subscribeToLiveDataKitchenImages() {
+
+
         mKitchenDetailsViewModel.getKitchenCommonImages().observe(this,
                 kitchenImagesViewModel -> mKitchenDetailsViewModel.addkitchenCommonImagesList(kitchenImagesViewModel));
 
@@ -739,7 +727,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         stopKitchenLoader();
 
-        if (response != null &&response.getResult()!=null&& response.getResult().size() > 0) {
+        if (response != null && response.getResult() != null && response.getResult().size() > 0) {
             mFavTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
             mTodaysMenuAdapter.serviceable(response.getResult().get(0).isServiceableStatus());
 
@@ -747,6 +735,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
     }
+
 
     @Override
     public void viewCart() {
@@ -764,7 +753,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void goBack() {
-      onBackPressed();
+        onBackPressed();
+    }
+
+    @Override
+    public void loadError() {
+        stopKitchenLoader();
     }
 
     @Override
@@ -851,7 +845,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
       /*  mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
 
-        //mKitchenDetailsViewModel.fetchRepos(kitchenID);
+        mKitchenDetailsViewModel.fetchRepos(kitchenID);
 
         registerWifiReceiver();
 
@@ -899,8 +893,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
     @Override
-    public void productNotAvailable(int quantity,String productname) {
-        Toast.makeText(KitchenDetailsActivity.this, "Only "+quantity+" Quantity of "+productname+" Available", Toast.LENGTH_SHORT).show();
+    public void productNotAvailable(int quantity, String productname) {
+        Toast.makeText(KitchenDetailsActivity.this, "Only " + quantity + " Quantity of " + productname + " Available", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -914,7 +908,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
         if (true) {
-            mKitchenDetailsViewModel.fetchVegProducts();
+            mKitchenDetailsViewModel.fetchRepos(kitchenID);
         }
 
     }
@@ -926,7 +920,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -960,7 +954,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     public void viewImage(String url) {
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VIEW_IMAGE);
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_VIEW_IMAGE);
 
         final Dialog nagDialog = new Dialog(KitchenDetailsActivity.this, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         nagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -976,7 +970,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             @Override
             public void onClick(View arg0) {
                 nagDialog.dismiss();
-                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_CLOSE);
+                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_CLOSE);
             }
         });
         nagDialog.show();
@@ -1019,7 +1013,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
-            mKitchenDetailsViewModel.fetchRepos(kitchenID);
+            //  mKitchenDetailsViewModel.fetchRepos(kitchenID);
         }
     }
 

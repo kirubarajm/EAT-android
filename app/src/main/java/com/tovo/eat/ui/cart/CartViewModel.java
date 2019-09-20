@@ -618,8 +618,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         getNavigator().cartLoaded();
                     }
                 }) {
-
-
                     /**
                      * Passing some request headers
                      */
@@ -632,14 +630,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                         headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
                         return headers;*/
-
-
-
-                        Map<String, String> mm=AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-
-                      // return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                       return mm;
-
+                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                     }
                 };
 

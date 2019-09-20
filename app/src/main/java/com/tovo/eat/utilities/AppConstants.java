@@ -80,7 +80,7 @@ public class AppConstants {
     public static Map<String, String> setHeaders(String version) {
 
         HashMap<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
+        //headers.put("Content-Type", "application/json");
         //  headers.put("Content-Type", "application/json; charset=utf-8");
         headers.put("accept-version",version);
         headers.put("apptype",AppConstants.APP_TYPE_ANDROID);

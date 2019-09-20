@@ -792,7 +792,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                                headers.put("accept-version", AppConstants.API_VERSION_TWO);
                                 //  headers.put("Authorization","Bearer");
                                 headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                                 headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
@@ -979,7 +979,7 @@ public void fetchKitchenFilter() throws NullPointerException {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
+                                headers.put("accept-version", AppConstants.API_VERSION_TWO);
                                 //  headers.put("Authorization","Bearer");
                                 headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
                                 headers.put("apptype",AppConstants.APP_TYPE_ANDROID);

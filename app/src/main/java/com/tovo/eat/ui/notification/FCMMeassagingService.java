@@ -242,7 +242,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         int userIdMain = appPreferencesHelper.getCurrentUserId();
 
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+       // if (!MvvmApp.getInstance().onCheckNetWork()) return;
         if (userIdMain == 0) return;
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override

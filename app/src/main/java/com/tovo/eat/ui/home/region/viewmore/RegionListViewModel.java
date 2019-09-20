@@ -79,7 +79,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {
 
-                        if (response.getResult().size() >0) {
+                        if (response.getResult()!=null&&response.getResult().size() >0) {
                             emptyRegion.set(false);
                             regionListItemsLiveData.setValue(response.getResult());
 

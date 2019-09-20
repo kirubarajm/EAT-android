@@ -323,7 +323,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         totalCart();
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
-
+                            favoriteProductlists.clear();
+                            todaysMenuProductlists.clear();
+                            favoriteArrayViewModels.clear();
+                            todaysMenuArrayViewModels.clear();
                             isProductAvailable.set(true);
 
 
@@ -339,6 +342,9 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                         todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                     }
                                 }
+
+                                favoriteArrayViewModels.clear();
+                                todaysMenuArrayViewModels.clear();
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);
                                 todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
@@ -352,6 +358,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             } else {
                                 favoriteProductlists.clear();
                                 todaysMenuProductlists.clear();
+                                favoriteArrayViewModels.clear();
+                                todaysMenuArrayViewModels.clear();
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);
                                 todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
                                 favorites.set(false);
@@ -455,7 +463,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().dishListLoaded(null);
+                    getNavigator().loadError();
                 }
             }, AppConstants.API_VERSION_TWO);
 
@@ -479,7 +487,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         setIsLoading(false);
                         totalCart();
 
-                        if (response.getResult() != null && response.getResult().size() != 0) {
+                        if (response.getResult() != null && response.getResult().size()> 0) {
                             favoriteProductlists.clear();
                             todaysMenuProductlists.clear();
                             serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
@@ -495,6 +503,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                                         todaysMenuProductlists.add(response.getResult().get(0).getProductlist().get(i));
                                     }
                                 }
+                                favoriteArrayViewModels.clear();
+                                todaysMenuArrayViewModels.clear();
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);
                                 todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
 
@@ -509,6 +519,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             } else {
                                 favoriteProductlists.clear();
                                 todaysMenuProductlists.clear();
+                                favoriteArrayViewModels.clear();
+                                todaysMenuArrayViewModels.clear();
                                 favoriteArrayViewLiveData.setValue(favoriteProductlists);
                                 todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
                                 favorites.set(false);
@@ -519,6 +531,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         } else {
                             favoriteProductlists.clear();
                             todaysMenuProductlists.clear();
+                            favoriteArrayViewModels.clear();
+                            todaysMenuArrayViewModels.clear();
                             favoriteArrayViewLiveData.setValue(favoriteProductlists);
                             todaysMenuArrayViewLiveData.setValue(todaysMenuProductlists);
                             favorites.set(false);
@@ -622,6 +636,23 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         todaysMenuArrayViewModels.addAll(productlists);
     }
 
+
+
+
+/*
+    public void addTodaysMenu(List<KitchenDishResponse.Productlist> productlists) {
+        todaysMenuArrayViewModels.clear();
+        todaysMenuArrayViewModels.addAll(productlists);
+    }
+
+     public void addFavMenu(List<KitchenDishResponse.Productlist> productlists) {
+         favoriteArrayViewModels.clear();
+         favoriteArrayViewModels.addAll(productlists);
+    }*/
+
+
+
+
     public ObservableList<KitchenDishResponse.Productlist> getTodaysItemViewModels() {
         return todaysMenuArrayViewModels;
     }
@@ -629,5 +660,15 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public MutableLiveData<List<KitchenDishResponse.Productlist>> getTodaysItemsImages() {
         return todaysMenuArrayViewLiveData;
     }
+
+
+    public MutableLiveData<List<KitchenDishResponse.Result>> getFavAndTodayMenuArrayListLiveData() {
+        return favAndTodayMenuArrayListLiveData;
+    }
+
+    public void setFavAndTodayMenuArrayListLiveData(MutableLiveData<List<KitchenDishResponse.Result>> favAndTodayMenuArrayListLiveData) {
+        this.favAndTodayMenuArrayListLiveData = favAndTodayMenuArrayListLiveData;
+    }
+
 
 }
