@@ -9,6 +9,7 @@ public interface ChatActivityNavigator {
     void send();
 
     void onRefreshLayout();
+
     void apiLoaded();
 
     void onRefreshSuccess(List<ChatRepliesReadRequest.Aidlist> aidlist);
@@ -16,10 +17,6 @@ public interface ChatActivityNavigator {
     void onRefreshFailure(String strFailure);
 
     void sendSuccess(String strFailure);
-
-    void sendFailure(String strFailure);
-
-
 
     void goBack();
 }

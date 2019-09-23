@@ -10,9 +10,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.tovo.eat.BR;
@@ -27,7 +25,7 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, RepliesActivityViewModel> implements RepliesActivityNavigator,RepliesAdapter.RepliesAdapterListener {
+public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, RepliesActivityViewModel> implements RepliesActivityNavigator, RepliesAdapter.RepliesAdapterListener {
 
 
     @Inject
@@ -38,8 +36,18 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     RepliesActivityViewModel mRepliesActivityViewModel;
 
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_SUPPORT_REPLIES;
-
+    String pageName = AppConstants.SCREEN_SUPPORT_REPLIES;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
     private ActivityRepliesBinding mActivityRepliesBinding;
 
     public static Intent newIntent(Context context) {
@@ -101,7 +109,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -112,11 +120,9 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mRepliesActivityViewModel.setNavigator(this);
         mRepliesAdapter.setListener(this);
 
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
         mActivityRepliesBinding.loader.setVisibility(View.VISIBLE);
-
-
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRepliesBinding.recyclerReplies.setLayoutManager(new LinearLayoutManager(this));
@@ -132,20 +138,15 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     @Override
     public void chatList(RepliesResponse.Result replies) {
 
-
-        new Analytics().sendClickData(pageName,AppConstants.ANALYTICYS_QUERIES);
-
-        Log.e("orders",replies.toString());
-        String strQid= String.valueOf(replies.getQid());
-        Log.e("orders", strQid);
+        new Analytics().sendClickData(pageName, AppConstants.ANALYTICYS_QUERIES);
+        String strQid = String.valueOf(replies.getQid());
 
         Intent intent = ChatActivity.newIntent(this);
-        intent.putExtra("qId",strQid);
-        intent.putExtra("question",replies.getQuestion());
-        intent.putExtra("date",replies.getCreatedAt());
+        intent.putExtra("qId", strQid);
+        intent.putExtra("question", replies.getQuestion());
+        intent.putExtra("date", replies.getCreatedAt());
         startActivity(intent);
     }
-
 
     @Override
     protected void onResume() {
@@ -168,14 +169,13 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -190,24 +190,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

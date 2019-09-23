@@ -10,12 +10,9 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityChatBinding;
@@ -31,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.inject.Inject;
 
 public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivityViewModel> implements ChatActivityNavigator, ChatAdapter.ChatAdapterListener {
@@ -45,11 +43,20 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     String strQId = "";
     String strQuestion = "";
     String strDate = "";
-
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_QUERY_CHAT;
+    String pageName = AppConstants.SCREEN_QUERY_CHAT;
 
     List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest = new ArrayList<>();
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ChatActivity.class);
@@ -77,25 +84,21 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mChatActivityViewModel.setNavigator(this);
         mChatAdapter.setListener(this);
 
-
-        analytics=new Analytics(this,pageName);
-
+        // Save screen view to analytics
+        analytics = new Analytics(this, pageName);
+        //Start page loader
         mActivityChatBinding.loader.setVisibility(View.VISIBLE);
-
-
+        //initialize recyclerview
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityChatBinding.recyclerChat.setLayoutManager(new LinearLayoutManager(this));
         mActivityChatBinding.recyclerChat.setAdapter(mChatAdapter);
+        //Subscribe mutable live data to array list
         subscribeToLiveData();
-
-
-
     }
 
     private void subscribeToLiveData() {
         mChatActivityViewModel.getOrders().observe(this, chatItemViewModel -> mChatActivityViewModel.addChatItemsToList(chatItemViewModel));
     }
-
 
     @Override
     public void handleError() {
@@ -104,17 +107,13 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
 
     @Override
     public void send() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEND);
-
-
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_SEND);
         String strMessage = mActivityChatBinding.edtMessage.getText().toString();
         if (!strMessage.equals("")) {
             mChatActivityViewModel.insertAnswerServiceCall(strMessage, strQId);
-
-            new Analytics().queriesChat(strQuestion,strMessage);
-
-
-        }else {
+            //Send click to analytics
+            new Analytics().queriesChat(strQuestion, strMessage);
+        } else {
             Toast.makeText(this, AppConstants.TOAST_ENTER_REPLY_TO_SEND, Toast.LENGTH_SHORT).show();
         }
     }
@@ -122,21 +121,18 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     @Override
     public void onRefreshLayout() {
         mChatActivityViewModel.fetchChatServiceCall(strQId, 0);
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_REFRESH);
     }
 
     @Override
     public void apiLoaded() {
-
         mActivityChatBinding.loader.setVisibility(View.GONE);
-
     }
 
     @Override
     public void onRefreshSuccess(List<ChatRepliesReadRequest.Aidlist> aidlist) {
         mActivityChatBinding.swipeChat.setRefreshing(false);
         mActivityChatBinding.edtMessage.setText("");
-
         mChatActivityViewModel.readMessageServiceCall(aidlist);
     }
 
@@ -150,7 +146,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     public void sendSuccess(String strFailure) {
         Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
         mActivityChatBinding.edtMessage.setText("");
-        mChatActivityViewModel.fetchChatServiceCall(strQId,1);
+        mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
     }
 
     @Override
@@ -165,7 +161,7 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -179,11 +175,11 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
             strQId = bundle.getString("qId");
             strQuestion = bundle.getString("question");
             strDate = bundle.getString("date");
-            mActivityChatBinding.txtQuestion.setText(strQuestion+"?");
+            mActivityChatBinding.txtQuestion.setText(strQuestion + "?");
 
             mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
             try {
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" +" | "+"hh:mm a");
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy" + " | " + "hh:mm a");
                 DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String outputDateStr = "";
                 //Date  date1 = new Date(strDate);
@@ -192,14 +188,12 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
                 mActivityChatBinding.txtDate.setText(outputDateStr);
             } catch (ParseException e) {
                 e.printStackTrace();
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
     }
-
 
     @Override
     protected void onPause() {
@@ -215,14 +209,13 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -237,27 +230,9 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
 
 
 }

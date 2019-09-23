@@ -9,8 +9,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -18,7 +16,6 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFeedbackBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.signup.opt.OtpActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -34,37 +31,42 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
     int rate = 0;
     String message = "";
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_APP_FEEDBCK;
+    String pageName = AppConstants.SCREEN_APP_FEEDBCK;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
-
         return new Intent(context, FeedbackActivity.class);
     }
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
-
     @Override
     public void submit() {
         rate = (int) mActivityFeedbackBinding.rateApp.getRating();
         message = mActivityFeedbackBinding.edtFeedback.getText().toString();
-
         if (validForSubmit()) {
             mFeedbackAndSupportActivityViewModel.insertFeedbackServiceCall(rate, message);
-            new Analytics().appFeedback(rate,message);
-
+            new Analytics().appFeedback(rate, message);
         }
     }
-
     @Override
     public void feedBackSucess(String strMessage) {
-        mActivityFeedbackBinding.edtFeedback.setText("");
-        mActivityFeedbackBinding.rateApp.setRating(0);
-        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
+     /*   mActivityFeedbackBinding.edtFeedback.setText("");
+        mActivityFeedbackBinding.rateApp.setRating(0);*/
+       /* Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         Intent intent = MainActivity.newIntent(FeedbackActivity.this);
-        startActivity(intent);
+        startActivity(intent);*/
         finish();
     }
 
@@ -80,9 +82,8 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_APP_FEEDBCK,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_APP_FEEDBCK, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
-
     }
 
     @Override
@@ -105,12 +106,8 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         super.onCreate(savedInstanceState);
         mActivityFeedbackBinding = getViewDataBinding();
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
-
-        analytics=new Analytics(this,pageName);
-
+        analytics = new Analytics(this, pageName);
     }
-
-
 
     private boolean validForSubmit() {
         if (rate == 0) {
@@ -124,13 +121,11 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         return true;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
     }
-
 
     @Override
     protected void onPause() {
@@ -146,14 +141,13 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -168,24 +162,7 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

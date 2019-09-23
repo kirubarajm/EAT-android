@@ -46,17 +46,12 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
+
             if (checkWifiConnect()) {
             } else {
                 Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -87,9 +82,6 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     @Override
     public void genderSuccess(String strMessage) {
         Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
-        //mLoginViewModelMain.fetchUserDetails();
-       /* Intent intent = MainActivity.newIntent(EditAccountActivity.this);
-        startActivity(intent);*/
         finish();
     }
 
@@ -154,21 +146,9 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             gender = intent.getExtras().getInt("gender");
             regionId = intent.getExtras().getInt("regionid");
 
-
             if (gender == 1) {
-              /*  mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.eat_color));
-                mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.dark_gray));
-                mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.eat_color));
-                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.dark_gray));*/
-
                 mLoginViewModelMain.male.set(true);
-
-
             } else {
-              /*  mActivityNameGenderBinding.imgMale.setTextColor(getResources().getColor(R.color.dark_gray));
-                mActivityNameGenderBinding.imgFemale.setTextColor(getResources().getColor(R.color.eat_color));
-                mActivityNameGenderBinding.txtMale.setTextColor(getResources().getColor(R.color.dark_gray));
-                mActivityNameGenderBinding.txtFemale.setTextColor(getResources().getColor(R.color.eat_color));*/
                 mLoginViewModelMain.male.set(false);
 
             }
@@ -197,9 +177,8 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
         mActivityNameGenderBinding.region.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //get selected region name and id
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
-                //  Log.e("", selectedItem.getMenuitem_name());
-
                 regionId =result.getRegionid();
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
@@ -229,6 +208,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             }
         });
 
+        // other region
         mActivityNameGenderBinding.chkOthers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -293,12 +273,6 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 mActivityNameGenderBinding.inputName.setError("Enter your name");
 
             }
-
-//            if (regionId.equals("")) {
-//                mActivityNameGenderBinding.regionList.setError("Enter your region");
-//            }
-
-            // Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
             return false;
         }
 

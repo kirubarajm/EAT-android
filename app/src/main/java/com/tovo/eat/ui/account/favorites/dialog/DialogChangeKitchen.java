@@ -32,18 +32,13 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     DialogChangeKitchenBinding binding;
     Activity activity;
     Analytics analytics;
-    String  pageName="Dialog change kitchen";
-
+    String  pageName=AppConstants.SCREEN_CHANGE_KITCHEN;
     Integer makeitId, productId,quantity,price;
-
-
     AddKitchenDishListener addKitchenDishListener;
-
 
     public DialogChangeKitchen() {
 
     }
-
 
     public static DialogChangeKitchen newInstance() {
         DialogChangeKitchen fragment = new DialogChangeKitchen();
@@ -54,11 +49,9 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         return fragment;
     }
 
-
     public static DialogChangeKitchen newInstance(DialogChangeKitchen fragment) {
         return fragment;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -86,12 +79,9 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void confirmClick() {
         dismissDialog();
-
+        //add item to cart
         mDialogChangeKitchenViewModel.addToCart(makeitId,productId,quantity,price);
-
         addKitchenDishListener.confirmClick(true);
-
-
         new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_CHANGE_KITCHEN_CONFIRM);
 
     }
@@ -103,7 +93,6 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         dismissDialog();
     }
 
-
     public void show(FragmentManager fragmentManager, String strProductId) {
         super.show(fragmentManager, TAG);
         this.strProductId = strProductId;
@@ -112,9 +101,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         analytics=new Analytics(getBaseActivity(),pageName);
-
     }
 
     @Override
@@ -124,7 +111,6 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         AndroidSupportInjection.inject(this);
         binding.setDialogChangeKitchenViewModel(mDialogChangeKitchenViewModel);
         mDialogChangeKitchenViewModel.setNavigator(this);
-
         return view;
     }
 }

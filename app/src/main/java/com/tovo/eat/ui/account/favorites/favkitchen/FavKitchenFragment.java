@@ -31,8 +31,6 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
 
     @Inject
     FavKitchenViewModel mKitchenViewModel;
-   /* @Inject
-    LinearLayoutManager mLayoutManager;*/
     @Inject
     FavKitchenAdapter adapter;
     Analytics analytics;
@@ -45,29 +43,20 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
         fragment.setArguments(args);
         return fragment;
     }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
-
-
         analytics=new Analytics(getBaseActivity(),pageName);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentKitchenBinding = getViewDataBinding();
-
-
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-
-
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentKitchenBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentKitchenBinding.recyclerviewOrders.setAdapter(adapter);
@@ -76,14 +65,14 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
         mFragmentKitchenBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                //save refresh click
                 new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_REFRESH);
-
+                //Start loader
                 mFragmentKitchenBinding.loader.setVisibility(View.VISIBLE);
+                //fetch fav kitchens
                 mKitchenViewModel.fetchRepos();
             }
         });
-
-
     }
 
     @Override
@@ -103,25 +92,19 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
 
     @Override
     public void gotoJobCompleted() {
-
-
     }
 
     @Override
     public void gotoInJobCompleted() {
-
     }
 
     @Override
     public void kitchenListLoaded() {
-
         mFragmentKitchenBinding.loader.setVisibility(View.GONE);
-
         mFragmentKitchenBinding.refreshList.setRefreshing(false);
     }
 
@@ -132,14 +115,10 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
 
     @Override
     public void filter() {
-
-
-
     }
 
     @Override
     public void addressAdded1() {
-
     }
 
     @Override
@@ -160,30 +139,23 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
                 kitchenItemViewModel -> mKitchenViewModel.addKitchenItemsToList(kitchenItemViewModel));
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
     }
-
-
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
-
     }
-
     @Override
     public void offersItemClick(CouponListResponse.Result offers) {
-
     }
 
     @Override
     public void onItemClickData(Integer kitchenId) {
-
         mKitchenViewModel.saveMakeitId(kitchenId);
-
+        // save kitchen click to analytics
         new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_KITCHEN_CLICK);
-
+        //Open kitchen details
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
@@ -192,34 +164,24 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
 
     @Override
     public void animateView(View view) {
-
     }
-
     @Override
     public void empty() {
-
         mKitchenViewModel.emptyKitchen.set(true);
     }
 
-
     @Override
     public void addFav(Integer id, String fav) {
-
         mKitchenViewModel.addFavourite(id, fav);
     }
-
-
     @Override
     public void removeDishFavourite(Integer favId) {
         mKitchenViewModel.removeFavourite(favId);
     }
 
-
     @Override
     public void applyFilter() {
         mFragmentKitchenBinding.loader.setVisibility(View.VISIBLE);
-
-
         mKitchenViewModel.fetchRepos();
     }
 }

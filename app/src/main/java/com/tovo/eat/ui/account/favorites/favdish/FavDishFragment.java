@@ -21,7 +21,6 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
-import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import javax.inject.Inject;
 
@@ -33,15 +32,10 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     LinearLayoutManager mLayoutManager;
     @Inject
     DishAdapter adapter;
-
     FragmentDishBinding mFragmentDishBinding;
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_FAVOURITE_DISH;
-
-
+    String pageName = AppConstants.SCREEN_FAVOURITE_DISH;
     CartFavListener cartListener;
-
-    InternetListener internetListener;
 
     public static FavDishFragment newInstance() {
         Bundle args = new Bundle();
@@ -62,8 +56,8 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         super.onCreate(savedInstanceState);
         mDishViewModel.setNavigator(this);
         adapter.setListener(this);
-
-        analytics=new Analytics(getBaseActivity(),pageName);
+        // Save screen view to analytics
+        analytics = new Analytics(getBaseActivity(), pageName);
 
     }
 
@@ -71,10 +65,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentDishBinding = getViewDataBinding();
-
         setUp();
-
-
     }
 
 
@@ -89,12 +80,9 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
         mFragmentDishBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-
-                new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_REFRESH);
-
-              mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
-
+                new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH, AppConstants.CLICK_REFRESH);
+                //Start loader
+                mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
                 mDishViewModel.fetchRepos();
             }
         });
@@ -141,13 +129,10 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     @Override
     public void addressAdded() {
 
-
     }
 
     @Override
     public void noAddressFound() {
-
-        toastMessage("Please Add your address");
     }
 
     @Override
@@ -169,14 +154,6 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     @Override
     public void onResume() {
         super.onResume();
-
-       /* mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();*/
-
-
-//        ((TestActivity) getActivity()).statusUpdate();
-
-        // mDishViewModel.fetchRepos();
     }
 
     @Override
@@ -187,26 +164,20 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
     @Override
     public void sendCart() {
-
         cartListener.checkCart();
-
     }
 
     @Override
     public void dishRefresh() {
-
-
+        //Start loader
         mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
-
+        //fetch fav dish list
         mDishViewModel.fetchRepos();
     }
 
     @Override
     public void productNotAvailable() {
-
-        toastMessage("Entered quantity not available now");
-
-
+        toastMessage(getResources().getString(R.string.quantity_not_availabe));
     }
 
     @Override
@@ -221,9 +192,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
     @Override
     public void showToast(String msg) {
-
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -233,11 +202,10 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
 
     @Override
     public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
-
+        //open change kitchen dialog
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         fragment.setTargetFragment(this, 0);
         fragment.setCancelable(false);
-
         DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(), makeitId, productId, quantity, price);
 
     }
@@ -251,7 +219,6 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     public void applyFilter() {
         mFragmentDishBinding.loader.setVisibility(View.VISIBLE);
         mDishViewModel.fetchRepos();
-
     }
 
     @Override

@@ -12,19 +12,12 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActivityNavigator> {
-
-    Response.ErrorListener errorListener;
-
 
     public final ObservableField<String> order = new ObservableField<>();
     public final ObservableField<String> kitchen = new ObservableField<>();
-
-public  int orderID=0;
+    public int orderID = 0;
+    Response.ErrorListener errorListener;
 
 
     public OrderRatingActivityViewModel(DataManager dataManager) {
@@ -68,10 +61,10 @@ public  int orderID=0;
                 @Override
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {
-                        getNavigator().ratingSuccess();
+                        if (getNavigator() != null)
+                            getNavigator().ratingSuccess();
                         getDataManager().saveRatingSkipDate(0);
                     }
-
 
 
                 }
@@ -79,23 +72,24 @@ public  int orderID=0;
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    if (getNavigator() != null)
                     getNavigator().ratingFailure();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 
         }
     }
 
-    public void maybeLater(){
+    public void maybeLater() {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING,AppConstants.CLICK_NOT_NOW);
+        new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING, AppConstants.CLICK_NOT_NOW);
 
         getDataManager().saveRatingAppStatus(false);
-        getDataManager().saveRatingSkipDate(getDataManager().getRatingSkips()+1);
+        getDataManager().saveRatingSkipDate(getDataManager().getRatingSkips() + 1);
         getNavigator().maybeLater();
 
 
@@ -106,6 +100,7 @@ public  int orderID=0;
                 @Override
                 public void onResponse(OrderRatingResponse response) {
                     if (response != null) {
+                        if (getNavigator() != null)
                         getNavigator().ratingSuccess();
                         getDataManager().saveRatingSkipDate(0);
                     }
@@ -115,11 +110,12 @@ public  int orderID=0;
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    if (getNavigator() != null)
                     getNavigator().ratingFailure();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+        } catch (Exception ee) {
 
             ee.printStackTrace();
 

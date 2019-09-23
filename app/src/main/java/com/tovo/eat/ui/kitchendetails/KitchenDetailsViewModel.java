@@ -70,12 +70,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> about = new ObservableField<>();
     public ObservableField<String> signatureImageUrl = new ObservableField<>();
     public ObservableField<String> ratingCount = new ObservableField<>();
-
-
+    public int makeitId;
     List<KitchenDishResponse.Productlist> favoriteProductlists = new ArrayList<>();
     List<KitchenDishResponse.Productlist> todaysMenuProductlists = new ArrayList<>();
     int favId;
-   public int makeitId;
     String isFav;
     int vegid;
     List<KitchenDishResponse.Kitchenmenuimage> commonKitchenImagesList = new ArrayList<>();
@@ -128,7 +126,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void vegType() {
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VEG_ONLY);
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_VEG_ONLY);
 
 
         if (!isVegOnly.get()) {
@@ -149,13 +147,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void menu() {
 
 
-
-
         if (!optionmenu.get()) {
-            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_MENU);
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_MENU);
 
             optionmenu.set(true);
-          //  getNavigator().animChanges(true);
+            //  getNavigator().animChanges(true);
         }
 
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
@@ -166,16 +162,16 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
 
-        if (kitchenmenuimageArrayList!=null)
+        if (kitchenmenuimageArrayList != null)
 
-        getNavigator().update(kitchenmenuimageArrayList);
+            getNavigator().update(kitchenmenuimageArrayList);
     }
 
     public void info() {
         if (optionmenu.get()) {
-            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_INFO);
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_INFO);
             optionmenu.set(false);
-          //  getNavigator().animChanges(false);
+            //  getNavigator().animChanges(false);
         }
 
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
@@ -183,8 +179,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             commonKitchenImagesList = kitchenInfoTempArray;
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
-        if (kitchenInfoTempArray!=null)
-        getNavigator().update(kitchenInfoTempArray);
+        if (kitchenInfoTempArray != null)
+            getNavigator().update(kitchenInfoTempArray);
     }
 
     public void fav() {
@@ -329,7 +325,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             todaysMenuArrayViewModels.clear();
                             isProductAvailable.set(true);
 
-
                             serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
 
                             if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
@@ -378,20 +373,23 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             foodBadgesMutableLiveData.setValue(response.getResult().get(0).getFoodbadge());
                             specialitemsMutableLiveData.setValue(response.getResult().get(0).getSpecialitems());
 
-                            if (response.getResult().get(0).getFoodbadge().size() > 0) {
+                            if (response.getResult().get(0).getFoodbadge() != null && response.getResult().get(0).getFoodbadge().size() > 0) {
                                 foodBadges.set(true);
                             }
-                            if (response.getResult().get(0).getSpecialitems().size() > 0) {
+                            if (response.getResult().get(0).getSpecialitems() != null && response.getResult().get(0).getSpecialitems().size() > 0) {
                                 specialities.set(true);
                             }
 
-                            kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
-                            kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
+
+                            if (response.getResult().get(0).getKitchenmenuimage() != null && response.getResult().get(0).getKitchenmenuimage().size() > 0)
+                                kitchenmenuimageArrayList = response.getResult().get(0).getKitchenmenuimage();
+                            if (response.getResult().get(0).getKitcheninfoimage() != null && response.getResult().get(0).getKitcheninfoimage().size() > 0)
+                                kitchenInfoimageArrayList = response.getResult().get(0).getKitcheninfoimage();
 
                             int count = kitchenmenuimageArrayList.size();
 
-                            if (kitchenmenuimageArrayList!=null)
-                            getNavigator().update(kitchenmenuimageArrayList);
+                            if (kitchenmenuimageArrayList != null)
+                                getNavigator().update(kitchenmenuimageArrayList);
                             /////menu slider details
                             commonKitchenImagesList = kitchenmenuimageArrayList;
                             if (commonKitchenImagesList != null) {
@@ -455,7 +453,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             isProductAvailable.set(false);
                         }
                     }
-                   // info();
+                    // info();
                     menu();
                     getNavigator().dishListLoaded(response);
                 }
@@ -487,7 +485,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         setIsLoading(false);
                         totalCart();
 
-                        if (response.getResult() != null && response.getResult().size()> 0) {
+                        if (response.getResult() != null && response.getResult().size() > 0) {
                             favoriteProductlists.clear();
                             todaysMenuProductlists.clear();
                             serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
@@ -557,7 +555,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     }
 
     public void viewCart() {
-        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_VIEW_CART);
+        new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_VIEW_CART);
         getNavigator().viewCart();
     }
 
@@ -649,8 +647,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
          favoriteArrayViewModels.clear();
          favoriteArrayViewModels.addAll(productlists);
     }*/
-
-
 
 
     public ObservableList<KitchenDishResponse.Productlist> getTodaysItemViewModels() {

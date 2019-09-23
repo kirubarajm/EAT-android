@@ -56,19 +56,12 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     Analytics analytics;
-    String  pageName="Favourites";
-
-
+    String  pageName=AppConstants.SCREEN_FAVOURITES;
     ActivityFavouritesBinding mActivityFavouritesBinding;
 
-    Integer kitchenID;
-
     public static Intent newIntent(Context context) {
-       /* Intent intent = new Intent(context, CartActivity.class);
-        return intent;*/
         return new Intent(context, FavouritesActivity.class);
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,11 +69,8 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
         mFavouritesViewModel.setNavigator(this);
         mActivityFavouritesBinding = getViewDataBinding();
         kitchen();
-
         analytics=new Analytics(this,pageName);
     }
-
-
 
     @Override
     public int getBindingVariable() {
@@ -99,14 +89,11 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
 
     @Override
     public void toastMessage(String msg) {
-
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -116,7 +103,7 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
     @Override
     public void viewCart() {
-
+        // Open Cart
         Intent intent = MainActivity.newIntent(FavouritesActivity.this);
         intent.putExtra("cart", true);
         startActivity(intent);
@@ -127,19 +114,13 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     public void back() {
         finish();
     }
-
-
     @Override
     public void dish() {
-
         new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITES,AppConstants.CLICK_DISH_MENU);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         FavDishFragment fragment = new FavDishFragment();
         transaction.replace(R.id.favourite_container, fragment);
         transaction.commit();
-
-
-
     }
 
     @Override

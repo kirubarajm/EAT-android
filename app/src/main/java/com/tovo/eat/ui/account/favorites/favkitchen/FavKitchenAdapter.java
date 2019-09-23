@@ -16,7 +16,6 @@ import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
-import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -28,15 +27,13 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_COLLECTION = 2;
-    private static final int VIEW_TYPE_COUPON= 3;
+    private static final int VIEW_TYPE_COUPON = 3;
     Context context;
     private List<KitchenResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
     public FavKitchenAdapter(List<KitchenResponse.Result> item_list) {
-
         this.item_list = item_list;
-
     }
 
     @Override
@@ -76,61 +73,27 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         if (item_list != null && item_list.size() > 0) {
             return item_list.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-
-
         if (item_list != null && !item_list.isEmpty()) {
 
-            if (item_list.get(position).getCollection()!=null && item_list.get(position).getCollection().size()>0) {
+            if (item_list.get(position).getCollection() != null && item_list.get(position).getCollection().size() > 0) {
 
                 return VIEW_TYPE_COLLECTION;
-            } else if (item_list.get(position).getCoupons()!=null && item_list.get(position).getCoupons().size()>0) {
+            } else if (item_list.get(position).getCoupons() != null && item_list.get(position).getCoupons().size() > 0) {
 
                 return VIEW_TYPE_COUPON;
 
-            }else {
+            } else {
                 return VIEW_TYPE_NORMAL;
             }
-
-
         } else {
             return VIEW_TYPE_EMPTY;
         }
-
-
-
-
-
-
-
-        /*if (item_list != null && !item_list.isEmpty()) {
-
-            if (item_list.get(position).getCollection() != null) {
-
-                return VIEW_TYPE_COLLECTION;
-            } else {
-
-                return VIEW_TYPE_NORMAL;
-            }
-
-
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }*/
-
-
-      /*
-
-        if (item_list != null && !item_list.isEmpty()) {
-            return VIEW_TYPE_NORMAL;
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }*/
     }
 
     public void clearItems() {
@@ -156,10 +119,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
-
-
         mLiveProductsAdapterListener.collectionItemClick(collection);
-
     }
 
     @Override
@@ -232,10 +192,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         @Override
         public void onItemClick(Integer id) {
-
             mLiveProductsAdapterListener.onItemClickData(id);
-
-
         }
 
         @Override
@@ -245,26 +202,15 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         @Override
         public void removeFavourites(Integer favId) {
-
-           // mLiveProductsAdapterListener.removeDishFavourite(favId);
             removeAt(getAdapterPosition());
-
-
-
-            if (item_list.size()==0){
-
+            if (item_list.size() == 0) {
                 mLiveProductsAdapterListener.empty();
-
             }
-
-
         }
     }
 
-
     public class CollectionViewHolder extends BaseViewHolder {
         ListItemCollectionsBinding mListItemLiveProductsBinding;
-        CollectionItemViewModel mLiveProductsItemViewModel;
 
         public CollectionViewHolder(ListItemCollectionsBinding binding) {
             super(binding.getRoot());
@@ -274,31 +220,17 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         @Override
         public void onBind(int position) {
             if (item_list.get(position).getCollection().isEmpty()) return;
-          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
-            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
-
-
             mListItemLiveProductsBinding.executePendingBindings();
-
-
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
             mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             CollectionAdapter collectionAdapter = new CollectionAdapter(item_list.get(position).getCollection());
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(mLayoutManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(collectionAdapter);
-
             collectionAdapter.setListener(FavKitchenAdapter.this);
-
-
         }
-
-
     }
-
     public class OffernViewHolder extends BaseViewHolder {
         ListItemHomeOffersBinding mListItemLiveProductsBinding;
-        CollectionItemViewModel mLiveProductsItemViewModel;
 
         public OffernViewHolder(ListItemHomeOffersBinding binding) {
             super(binding.getRoot());
@@ -308,23 +240,13 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         @Override
         public void onBind(int position) {
             if (item_list.get(position).getCoupons().isEmpty()) return;
-          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
-            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
-
-
             mListItemLiveProductsBinding.executePendingBindings();
-
-
             LinearLayoutManager offerLayputManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
             offerLayputManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             OffersAdapter offersAdapter = new OffersAdapter(item_list.get(position).getCoupons());
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(offerLayputManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(offersAdapter);
-
             offersAdapter.setListener(FavKitchenAdapter.this);
-
-
         }
 
     }

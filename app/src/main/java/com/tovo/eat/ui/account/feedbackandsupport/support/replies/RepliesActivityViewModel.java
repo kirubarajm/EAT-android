@@ -49,15 +49,6 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         return repliesItemViewModels;
     }
 
-    public void imgBackClick() {
-        getNavigator().backClick();
-    }
-
-    public void nextClick() {
-        getNavigator().next();
-    }
-
-
     public void goBack(){
         getNavigator().goBack();
     }
@@ -74,7 +65,8 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
                 new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
             @Override
             public void onResponse(RepliesResponse response) {
-                if (response.getResult().size()>0) {
+                if (response!=null)
+                if (response.getResult()!=null&&response.getResult().size()>0) {
                     ordersItemsLiveData.setValue(response.getResult());
 
                     emptyReplies.set(false);
@@ -90,19 +82,15 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
-
                     getNavigator().onRefreshFailure();
-
             }
         },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
             getNavigator().onRefreshFailure();
             ee.printStackTrace();
-
         }
     }
-
     public void onRefreshLayout() {
         getNavigator().onFrefresh();
     }

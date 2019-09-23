@@ -20,11 +20,6 @@ public class RepliesItemViewModel {
     public final ObservableField<String> updated_at = new ObservableField<>();
     public final ObservableField<String> createdAtFinal = new ObservableField<>();
     public final ObservableField<String> flagCount = new ObservableField<>();
-
-
-
-
-
     public final ObservableBoolean unreadCount=new ObservableBoolean();
     public final RepliesItemViewModelListener mListener;
     private final RepliesResponse.Result repliesList;
@@ -37,13 +32,8 @@ public class RepliesItemViewModel {
         this.admin_read.set(String.valueOf(replies.getAdminRead()));
         this.created_at.set(String.valueOf(replies.getCreatedAt()));
         this.updated_at.set(String.valueOf(replies.getUpdatedAt()));
-
         this.mListener = listener;
         this.repliesList = replies;
-
-
-
-
 
         if (replies.getUnReadCount()>0){
             flagCount.set(String.valueOf(replies.getUnReadCount()));

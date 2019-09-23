@@ -1,7 +1,6 @@
 package com.tovo.eat.ui.account.edit;
 
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -45,11 +44,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
     public void insertNameGenderServiceCall(String name, String email, int regionId) {
 
-        if (male.get()) {
-            gender = 1;
-        } else {
-            gender = 2;
-        }
+
+        gender = male.get() ? AppConstants.TYPE_MALE : AppConstants.TYPE_FEMALE;
 
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -59,7 +55,6 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 @Override
                 public void onResponse(EditAccountResponse response) {
                     if (response != null) {
-                        Log.i("", "" + response.getSuccess());
                         if (response.getStatus()) {
                             getDataManager().updateUserGender(true);
                             if (response.getMessage() != null)
@@ -95,9 +90,9 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_REGION_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
                 @Override
                 public void onResponse(RegionSearchModel response) {
-
-                    if (response.getResult() != null && response.getResult().size() > 0)
-                        getNavigator().regionListLoaded(response.getResult());
+                    if (response != null)
+                        if (response.getResult() != null && response.getResult().size() > 0)
+                            getNavigator().regionListLoaded(response.getResult());
 
 
                 }

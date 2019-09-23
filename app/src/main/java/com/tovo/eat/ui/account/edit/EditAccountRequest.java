@@ -23,6 +23,14 @@ public class EditAccountRequest {
     public Integer regionId;
 
 
+    public EditAccountRequest(Integer userid, String name, String email, Integer gender, Integer regionId) {
+        this.userid = userid;
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.regionId = regionId;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -35,29 +43,7 @@ public class EditAccountRequest {
         return regionId;
     }
 
-
-    public EditAccountRequest(Integer userid, String name, String email, Integer gender, Integer regionId) {
-        this.userid = userid;
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
-        this.regionId = regionId;
-    }
-
     public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
-    }
-
-    public EditAccountRequest(Integer userid, String name, Integer gender) {
-        this.userid = userid;
-        this.name = name;
-        this.gender = gender;
-    }
-
-    public EditAccountRequest(Integer userid, String name, Integer gender, Integer regionId) {
-        this.userid = userid;
-        this.name = name;
-        this.gender = gender;
         this.regionId = regionId;
     }
 

@@ -73,8 +73,9 @@ public class AppConstants {
 
 
 
-
-
+    public static final int TYPE_MALE = 1;
+    public static final int TYPE_FEMALE = 2;
+    public static final String SCREEN_CHANGE_KITCHEN = "Change kitchen alert";
 
 
     public static Map<String, String> setHeaders(String version) {

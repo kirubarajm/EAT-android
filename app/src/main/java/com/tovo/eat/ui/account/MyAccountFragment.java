@@ -12,7 +12,6 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentMyAccountBinding;
 import com.tovo.eat.ui.account.edit.EditAccountActivity;
-import com.tovo.eat.ui.account.favorites.tab.FavoritesTabActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.account.referrals.ReferralsActivity;

@@ -138,8 +138,6 @@
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.favorites.tab.FavoritesTabActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.payment.PaymentActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.home.region.list.RegionDetailsActivity"

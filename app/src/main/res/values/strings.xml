@@ -674,6 +674,7 @@
     <string name="customer_care_and_support">Customer care and support</string>
     <string name="eat_stories">EAT stories</string>
     <string name="cancel_reason">\u0020\u0020Cancel reason</string>
+    <string name="quantity_not_availabe">Entered quantity not available now</string>
 
 
 </resources>

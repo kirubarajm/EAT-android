@@ -52,7 +52,6 @@ public class ChatItemViewModel {
             typeString.set(String.valueOf(mBlog.getType()));
         }
 
-
         try {
             String strDate = mBlog.getCreatedAt();
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
@@ -68,9 +67,6 @@ public class ChatItemViewModel {
         {
             e.printStackTrace();
         }
-
-
-
     }
 
     public void onItemClick() {

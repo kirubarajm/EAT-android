@@ -1,6 +1,5 @@
 package com.tovo.eat.ui.account.favorites;
 
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 public interface FavouritesNavigator {
 

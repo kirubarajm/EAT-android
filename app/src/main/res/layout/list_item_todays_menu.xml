@@ -182,8 +182,8 @@
                         android:layout_height="wrap_content"
                         android:text="@{todaysMenuItemViewModel.nextAvailableTime}"
                         android:textAllCaps="true"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="10sp"
+                        android:textColor="@color/black"
+                        android:textSize="8sp"
                         android:textStyle="bold" />
 
 

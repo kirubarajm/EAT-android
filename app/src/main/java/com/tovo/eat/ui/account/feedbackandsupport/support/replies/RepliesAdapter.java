@@ -44,7 +44,6 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void onBindViewHolder(@NonNull BaseViewHolder baseViewHolder, int i) {
         baseViewHolder.onBind(i);
     }
-
     @Override
     public int getItemCount() {
         if (orderLists != null && orderLists.size() > 0) {
@@ -53,7 +52,6 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return 1;
         }
     }
-
     @Override
     public int getItemViewType(int position) {
         if (orderLists != null && !orderLists.isEmpty()) {
@@ -62,12 +60,9 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return VIEW_TYPE_EMPTY;
         }
     }
-
     public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
-
-
         EmptyItemViewModel emptyItemViewModel;
 
         public EmptyViewHolder(ListItemEmptyBinding binding) {
@@ -92,10 +87,6 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public RepliesViewHolder(ListItemRepliesBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
-        }
-
-        public RepliesViewHolder(View itemView) {
-            super(itemView);
         }
 
         @Override

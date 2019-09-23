@@ -18,7 +18,6 @@ import com.tovo.eat.utilities.MvvmApp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator> {
@@ -109,8 +108,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                     if (response != null) {
 
 
-
-                       // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                        // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
 
                         Log.e("----response:---------", response.toString());
@@ -118,7 +116,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                         if (response.getStatus()) {
 
 
-                           // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                            // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             addressTitle.set(response.getResult().get(0).getLocality());
 
@@ -190,8 +188,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 deliveryManNumber = response.getResult().get(0).getMoveitdetail().getPhoneno();
 
                             }
-
-                            getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
+                            if (getNavigator() != null)
+                                getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
 
 
                             StringBuilder itemsBuilder = new StringBuilder();
@@ -282,7 +280,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconPrepared.set(true);
                                 iconDeliverd.set(false);
                                 orderAccepted.set(true);
-
+                                if (getNavigator() != null)
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
@@ -301,7 +299,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconDeliveredORcancel.set(MvvmApp.getInstance().getString(R.string.icon_selected));
 
                                 delivered.set(true);
-
+                                if (getNavigator() != null)
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             } else if (response.getResult().get(0).getOrderstatus() == 7) {
                                 isReeceived.set(false);
@@ -319,12 +317,12 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 orderAccepted.set(false);
                                 delivered.set(true);
 
-
+                                if (getNavigator() != null)
                                 getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                             }
 
                         } else {
-
+                            if (getNavigator() != null)
                             getNavigator().showToast(response.getMessage());
 
                         }
@@ -527,6 +525,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             iconPrepared.set(true);
                             iconDeliverd.set(false);
                             orderAccepted.set(true);
+
+                            if (getNavigator() != null)
                             getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                         } else if (response.getResult().get(0).getOrderstatus() == 6) {
@@ -546,6 +546,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                             orderAccepted.set(false);
                             delivered.set(true);
+                            if (getNavigator() != null)
                             getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                         } else if (response.getResult().get(0).getOrderstatus() == 7) {
                             isReeceived.set(false);
@@ -563,12 +564,12 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             orderAccepted.set(false);
                             delivered.set(true);
 
-
+                            if (getNavigator() != null)
                             getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
                         }
 
                     } else {
-
+                        if (getNavigator() != null)
                         getNavigator().showToast(response.getMessage());
 
                     }

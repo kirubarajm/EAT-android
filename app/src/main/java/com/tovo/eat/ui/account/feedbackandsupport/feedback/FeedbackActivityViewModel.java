@@ -10,8 +10,6 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
 public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNavigator> {
-
-
     Response.ErrorListener errorListener;
     String strMessage = "";
 
@@ -27,14 +25,12 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
         int userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-
         try {
-
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_APP_FEEDBACK, FeedBackResponse.class, new FeedBackRequest(rating, userIdMain, message), new Response.Listener<FeedBackResponse>() {
                 @Override
                 public void onResponse(FeedBackResponse response) {
                     if (response != null) {
-                        int faqId = response.getFaqid();
+                        //int faqId = response.getFaqid();
                         strMessage = response.getMessage();
                         boolean booleanSucces = response.getSuccess();
                         if (booleanSucces) {
@@ -50,7 +46,7 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
                     setIsLoading(false);
                     getNavigator().feedBackFailure(strMessage);
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -60,8 +56,6 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
 
 
     public void goBack() {
-
         getNavigator().goBack();
-
     }
 }

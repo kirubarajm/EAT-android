@@ -418,7 +418,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         }
 
 
-                        if (response.getOrderdetails().size() > 0) {
+                        if (response.getOrderdetails()!=null&& response.getOrderdetails().size() > 0) {
 
                             boolean st = response.getOrderdetails().get(0).getRating();
 

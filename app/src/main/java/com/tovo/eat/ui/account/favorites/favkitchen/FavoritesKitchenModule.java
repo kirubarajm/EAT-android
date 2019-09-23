@@ -20,17 +20,14 @@ public class FavoritesKitchenModule {
         return new FavKitchenViewModel(dataManager);
     }
 
-
     @Provides
     FavKitchenAdapter provideFavKitchenAdapter() {
         return new FavKitchenAdapter(new ArrayList<>());
     }
 
-
     @Provides
     LinearLayoutManager provideLinearLayoutManager(FavKitchenFragment fragment) {
         return new LinearLayoutManager(fragment.getActivity());
     }
-
 
 }

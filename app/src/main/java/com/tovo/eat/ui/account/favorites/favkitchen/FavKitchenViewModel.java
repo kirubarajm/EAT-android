@@ -37,17 +37,12 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
-
     public ObservableBoolean favFragment=new ObservableBoolean();
     public ObservableBoolean emptyKitchen=new ObservableBoolean();
-
-
-
 
     public FavKitchenViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
-
         if (getDataManager().getIsFav()) {
             favFragment.set(false);
         }else {
@@ -61,17 +56,8 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
         return kitchenItemViewModels;
     }
-
-    public void setKitchenItemViewModels(ObservableList<KitchenResponse.Result> kitchenItemViewModels) {
-        this.kitchenItemViewModels = kitchenItemViewModels;
-    }
-
     public MutableLiveData<List<KitchenResponse.Result>> getKitchenItemsLiveData() {
         return kitchenItemsLiveData;
-    }
-
-    public void setKitchenItemsLiveData(MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData) {
-        this.kitchenItemsLiveData = kitchenItemsLiveData;
     }
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
@@ -79,19 +65,11 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
         kitchenItemViewModels.addAll(ordersItems);
     }
 
-
     public void saveMakeitId(Integer id) {
-
-
         getDataManager().kitchenId(id);
-
     }
-
-
-
     public void filter(){
         getNavigator().filter();
-
     }
 
 
@@ -99,21 +77,13 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
-
                         getNavigator().toastMessage(response.getMessage());
-
-                        //fetchRepos();
-
                     }
                 }
             }, new Response.ErrorListener() {
@@ -131,7 +101,6 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
         ee.printStackTrace();
 
     }
-
     }
 
 
@@ -147,10 +116,7 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
-
                         getNavigator().toastMessage(response.getMessage());
-
                         fetchRepos();
                     }
                 }
@@ -169,33 +135,20 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
         ee.printStackTrace();
 
     }
-
-
     }
-
-
     public void fetchRepos() {
-
                 try {
                     setIsLoading(true);
                     GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_FAV_KITCHEN_LIST_URL + getDataManager().getCurrentUserId(), KitchenResponse.class, new Response.Listener<KitchenResponse>() {
                         @Override
                         public void onResponse(KitchenResponse response) {
-
                                 if (response != null) {
-
                                     if (response.getResult().size()>0){
                                         emptyKitchen.set(false);
                                         kitchenItemsLiveData.setValue(response.getResult());
-
                                     }else {
-
                                         emptyKitchen.set(true);
                                     }
-
-                                    Log.e("Kitchen----response:", response.toString());
-
-
                                 }else {
 
                                     emptyKitchen.set(true);
@@ -210,8 +163,6 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             getNavigator().kitchenListLoaded();
                         }
                     },AppConstants.API_VERSION_ONE);
-
-
                     MvvmApp.getInstance().addToRequestQueue(gsonRequest);
                 } catch (NullPointerException e) {
                     e.printStackTrace();

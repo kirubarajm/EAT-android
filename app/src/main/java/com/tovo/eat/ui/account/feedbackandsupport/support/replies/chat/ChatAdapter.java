@@ -48,7 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         if (orderLists != null && orderLists.size() > 0) {
             return orderLists.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 
@@ -111,12 +111,6 @@ public class ChatAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(ChatResponse.Result orders) {
-            //Log.e("error",String.valueOf(order_status));
-            /*if (orders.orderstatus == 6) {
-                mOrdersAdapterListener.chatList(orders);
-            }else{
-                mOrdersAdapterListener.ordersDetailed(orders);
-            }*/
         }
     }
 

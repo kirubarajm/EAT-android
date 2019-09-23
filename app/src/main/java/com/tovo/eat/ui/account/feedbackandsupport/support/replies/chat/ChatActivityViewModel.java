@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,6 +21,7 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> {
 
@@ -42,8 +44,6 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
             setIsLoading(true);
         }
         try {
-
-
         GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REPLIES_CHAT + strQid, ChatResponse.class, new Response.Listener<ChatResponse>() {
             @Override
             public void onResponse(ChatResponse response) {
@@ -53,7 +53,6 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                     if (val == 1) {
                         setIsLoading(false);
                     }
-
                     for (int i=0;i<chatListUserRead.size();i++)
                     {
                         if (chatListUserRead.get(i).getUserRead().equals(0))
@@ -65,15 +64,12 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                     }
                     getNavigator().onRefreshSuccess(chatListUserReadFinal);
                 }
-
-
                 getNavigator().apiLoaded();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-
                     if (val == 1) {
                         setIsLoading(false);
                     }
@@ -96,8 +92,6 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
-
-
         GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_CHAT_ANSWER, ChatReplyResponse.class,
                 new ChatReplyRequest(qId, strMessage,AppConstants.EAT, AppConstants.ADMIN, userId), new Response.Listener<ChatReplyResponse>() {
             @Override
@@ -111,23 +105,18 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
         }, errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 setIsLoading(false);
                 getNavigator().sendSuccess(strMessage);
             }
         },AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         }catch (Exception ee){
-
             ee.printStackTrace();
-
         }
     }
 
     public void readMessageServiceCall(List<ChatRepliesReadRequest.Aidlist> mChatRepliesReadRequest) {
         setIsLoading(true);
-
-
         List<ChatRepliesReadRequest.Aidlist> itemid = new ArrayList<>();
         itemid=mChatRepliesReadRequest;
         ChatRepliesReadRequest dialogPickedUpRequest = new ChatRepliesReadRequest(itemid);
@@ -139,81 +128,43 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
             @Override
             public void onResponse(JSONObject response) {
                 setIsLoading(false);
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 setIsLoading(false);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+            }
+        };
 
         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
         }catch (Exception ee){
 
             ee.printStackTrace();
-
         }
-
-
-
-          /*  try {
-                GsontoJsonRequest gsonRequest = new GsontoJsonRequest(Request.Method.PUT, AppConstants.URL_CHAT_REPLIES_READ, ChatReplyResponse.class, new JSONObject(payloadStr)
-                       , new Response.Listener<ChatReplyResponse>() {
-                    @Override
-                    public void onResponse(ChatReplyResponse response) {
-                        if (response != null) {
-                            boolean success = response.getSuccess();
-                            String strMessage = response.getMessage();
-                            getNavigator().sendSuccess(strMessage);
-                        }
-                    }
-                }, errorListener = new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        setIsLoading(false);
-
-                    }
-                },AppConstants.API_VERSION_ONE);
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-            }catch (Exception ee){
-
-                ee.printStackTrace();
-
-            }*/
-
-
-
     }
-
     public void sendClick() {
         getNavigator().send();
     }
 
     public void goBack(){
-
         getNavigator().goBack();
-
     }
-
-
-
-
     public void onRefreshLayout() {
         getNavigator().onRefreshLayout();
     }
-
     public void addChatItemsToList(List<ChatResponse.Result> ordersItems) {
         chatItemViewModels.clear();
         chatItemViewModels.addAll(ordersItems);
     }
-
     public ObservableList<ChatResponse.Result> getChatItemViewModels() {
         return chatItemViewModels;
     }
-
     public MutableLiveData<List<ChatResponse.Result>> getOrders() {
         return chatItemsLiveData;
     }

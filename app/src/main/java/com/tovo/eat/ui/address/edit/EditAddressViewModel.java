@@ -239,20 +239,17 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        Log.e("response", response.getMessage());
-                        Log.e("response", response.getMessage());
+                        if (response!=null&&response.getStatus()) {
 
+                            try {
+                                getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
+                                defaultAddress(request.getAid());
+                                getNavigator().addressSaved();
+                            } catch (Exception dd) {
+                                dd.printStackTrace();
+                            }
 
-
-                        try {
-                            getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
-                            defaultAddress(request.getAid());
-                            getNavigator().addressSaved();
-                        } catch (Exception dd) {
-                            dd.printStackTrace();
                         }
-
-
 
 
 
@@ -307,34 +304,37 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             @Override
             public void onResponse(SingleAddressResponse response) {
 
-                locationAddress.set(response.getResult().get(0).getAddress());
-                area.set(response.getResult().get(0).getLocality());
-                house.set(response.getResult().get(0).getFlatno());
-                landmark.set(response.getResult().get(0).getLandmark());
+                if (response!=null&&response.getResult()!=null&&response.getResult().size()>0) {
 
 
-                title.set(response.getResult().get(0).getAddressTitle());
+                    locationAddress.set(response.getResult().get(0).getAddress());
+                    area.set(response.getResult().get(0).getLocality());
+                    house.set(response.getResult().get(0).getFlatno());
+                    landmark.set(response.getResult().get(0).getLandmark());
 
-                if (response.getResult().get(0).getAddressType() == 1) {
 
-                    typeHome.set(true);
+                    title.set(response.getResult().get(0).getAddressTitle());
 
-                } else if (response.getResult().get(0).getAddressType() == 2) {
+                    if (response.getResult().get(0).getAddressType() == 1) {
 
-                    typeOffice.set(true);
-                } else {
+                        typeHome.set(true);
 
-                    typeOther.set(true);
+                    } else if (response.getResult().get(0).getAddressType() == 2) {
 
+                        typeOffice.set(true);
+                    } else {
+
+                        typeOther.set(true);
+
+                    }
+
+                    getNavigator().setLatLng(response.getResult().get(0).getLat(), response.getResult().get(0).getLon());
+
+                    request.setLat(String.valueOf(response.getResult().get(0).getLat()));
+                    request.setLon(String.valueOf(response.getResult().get(0).getLon()));
+                    request.setPincode(response.getResult().get(0).getPincode());
+                    request.setAid(response.getResult().get(0).getAid());
                 }
-
-                getNavigator().setLatLng(response.getResult().get(0).getLat(), response.getResult().get(0).getLon());
-
-                request.setLat(String.valueOf(response.getResult().get(0).getLat()));
-                request.setLon(String.valueOf(response.getResult().get(0).getLon()));
-                request.setPincode(response.getResult().get(0).getPincode());
-                request.setAid(response.getResult().get(0).getAid());
-
 
             }
         }, new Response.ErrorListener() {

@@ -1,30 +1,23 @@
 package com.tovo.eat.ui.account.feedbackandsupport.support;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityQueriesBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -34,14 +27,24 @@ import javax.inject.Inject;
 
 public class SupportActivity extends BaseActivity<ActivityQueriesBinding, SupportActivityViewModel> implements SupportActivityNavigator {
 
+    public static final String TAG = SupportActivity.class.getSimpleName();
     @Inject
     SupportActivityViewModel mQueriesViewModel;
-    private ActivityQueriesBinding mActivityQueriesBinding;
-    String strQueries="";
-    public static final String TAG = SupportActivity.class.getSimpleName();
-
+    String strQueries = "";
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_SUPPORT;
+    String pageName = AppConstants.SCREEN_SUPPORT;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+
+            }
+        }
+    };
+    private ActivityQueriesBinding mActivityQueriesBinding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SupportActivity.class);
@@ -69,19 +72,19 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void backClick() {
-      onBackPressed();
+        onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
     @Override
     public void repliesOnClick() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_REPLIES);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_REPLIES);
 
 
         Intent intent = RepliesActivity.newIntent(this);
@@ -95,15 +98,15 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void submit() {
-        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT,AppConstants.CLICK_QUERY_SUBMIT);
+        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT, AppConstants.CLICK_QUERY_SUBMIT);
 
-        strQueries=mActivityQueriesBinding.edtQueries.getText().toString();
+        strQueries = mActivityQueriesBinding.edtQueries.getText().toString();
         if (!strQueries.equals("")) {
             mQueriesViewModel.insertQueriesServiceCall(strQueries);
 
             new Analytics().makeQuery(strQueries);
 
-        }else {
+        } else {
             Toast.makeText(this, AppConstants.TOAST_ENTER_QUERY_TO_SEND, Toast.LENGTH_SHORT).show();
         }
     }
@@ -124,29 +127,23 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     @Override
     public void onRefreshSuccess() {
-     //   mActivityQueriesBinding.swipeQueries.setRefreshing(false);
-        //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onRefreshFailure() {
-     //   mActivityQueriesBinding.swipeQueries.setRefreshing(false);
-        //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void callAdmin() {
 
+        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT, AppConstants.CLICK_CALL_SUPPORT);
 
-        new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT,AppConstants.CLICK_CALL_SUPPORT);
-
-
-            String number = AppConstants.SUPPORT_NUMBER;
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
-            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(callIntent);
-
+        String number = AppConstants.SUPPORT_NUMBER;
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(callIntent);
     }
 
     @Override
@@ -154,15 +151,13 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         onBackPressed();
     }
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityQueriesBinding = getViewDataBinding();
         mQueriesViewModel.setNavigator(this);
 
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
     }
 
@@ -196,14 +191,13 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -218,24 +212,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

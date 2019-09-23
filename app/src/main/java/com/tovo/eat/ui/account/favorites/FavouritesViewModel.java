@@ -43,19 +43,14 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
     public FavouritesViewModel(DataManager dataManager) {
         super(dataManager);
         optionmenu.set(true);
-
-
     }
 
     public void goBack(){
         getNavigator().goBack();
-
-
     }
 
 
     public String getCartPojoDetails() {
-
         return getDataManager().getCartDetails();
     }
 
@@ -64,8 +59,6 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
             optionmenu.set(true);
             getNavigator().kitchen();
         }
-
-
     }
 
     public void dish() {
@@ -73,36 +66,28 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
             optionmenu.set(false);
             getNavigator().dish();
         }
-
     }
 
     public void fav() {
         if (isFavourite.get()) {
             removeFavourite(favId);
             isFavourite.set(false);
-
         } else {
             addFavourite(makeitId);
             isFavourite.set(true);
         }
-        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
 
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
                         getNavigator().toastMessage(response.getMessage());
-
 
                     }
                 }
@@ -128,17 +113,12 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
     public void addFavourite(Integer kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new KitchenFavRequest(String.valueOf(getDataManager().getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
-
                         getNavigator().toastMessage(response.getMessage());
                         if (response.getFavid() != null)
                             favId = response.getFavid();
