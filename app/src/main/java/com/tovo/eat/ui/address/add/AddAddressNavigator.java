@@ -16,10 +16,6 @@
 
 package com.tovo.eat.ui.address.add;
 
-/**
- * Created by amitshekhar on 09/07/17.
- */
-
 public interface AddAddressNavigator {
 
     void handleError(Throwable throwable);
@@ -33,7 +29,7 @@ public interface AddAddressNavigator {
     void myLocationn();
 
 
-void showToast(String msg);
+    void showToast(String msg);
 
     void goBack();
 

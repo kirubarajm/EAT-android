@@ -61,9 +61,6 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("coupon")
         @Expose
         public String coupon;
-        @SerializedName("cartdetails")
-        @Expose
-        private List<CartPageResponse.Cartdetail> cartDetails = null;
         @SerializedName("payment_type")
         @Expose
         public String paymentType;
@@ -118,14 +115,12 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("updated_at")
         @Expose
         public String updatedAt;
-
         @SerializedName("address_title")
         @Expose
         public String address_title;
         @SerializedName("payment_type_name")
         @Expose
         public String paymentTypeName;
-
         @SerializedName("order_assigned_time")
         @Expose
         public String orderAssignedTime;
@@ -141,6 +136,9 @@ public class OrdersHistoryActivityResponse {
         @SerializedName("items")
         @Expose
         public List<Item> items = null;
+        @SerializedName("cartdetails")
+        @Expose
+        private List<CartPageResponse.Cartdetail> cartDetails = null;
 
         public List<CartPageResponse.Cartdetail> getCartDetails() {
             return cartDetails;

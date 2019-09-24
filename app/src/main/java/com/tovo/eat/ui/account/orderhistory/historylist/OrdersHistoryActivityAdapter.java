@@ -64,6 +64,23 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
         }
     }
 
+    public void clearItems() {
+        orderLists.clear();
+    }
+
+    public void addOrderItems(List<OrdersHistoryListResponse.Result> blogList) {
+        orderLists.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(OrdersHistoryAdapterListener listener) {
+        this.mOrdersAdapterListener = listener;
+    }
+
+    public interface OrdersHistoryAdapterListener {
+        void listItem(OrdersHistoryListResponse.Result mOrderList);
+    }
+
     public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
@@ -84,8 +101,6 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
 
     }
 
-
-
     public class OrdersViewHolder extends BaseViewHolder implements OrdersHistoryListItemModel.OrdersItemViewModelListener {
 
         private ListItemOrdersHistoryListBinding mBinding;
@@ -95,10 +110,6 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
         public OrdersViewHolder(ListItemOrdersHistoryListBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
-        }
-
-        public OrdersViewHolder(View itemView) {
-            super(itemView);
         }
 
         @Override
@@ -112,32 +123,12 @@ public class OrdersHistoryActivityAdapter extends RecyclerView.Adapter<BaseViewH
 
         @Override
         public void onItemClick(OrdersHistoryListResponse.Result mOrderList) {
-            if (mOrderList!=null) {
+            if (mOrderList != null) {
                 Log.e("error", String.valueOf(mOrderList));
                 mOrdersAdapterListener.listItem(mOrderList);
             }
         }
 
-    }
-
-
-    public void clearItems() {
-        orderLists.clear();
-    }
-
-    public void addOrderItems(List<OrdersHistoryListResponse.Result> blogList) {
-        orderLists.addAll(blogList);
-        notifyDataSetChanged();
-    }
-
-    public void setListener(OrdersHistoryAdapterListener listener) {
-        this.mOrdersAdapterListener = listener;
-    }
-
-
-
-    public interface OrdersHistoryAdapterListener {
-        void listItem(OrdersHistoryListResponse.Result mOrderList);
     }
 
 }

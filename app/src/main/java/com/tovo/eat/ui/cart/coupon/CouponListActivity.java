@@ -36,10 +36,20 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     ActivityCouponListBinding mActivityCouponListBinding;
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_COUPON_LIST;
+    String pageName = AppConstants.SCREEN_COUPON_LIST;
 
     boolean notClickable = false;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
@@ -54,7 +64,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         adapter.setListener(this);
 
 
-        analytics=new Analytics(this, pageName);
+        analytics = new Analytics(this, pageName);
 
         mActivityCouponListBinding.loader.setVisibility(View.VISIBLE);
 
@@ -62,7 +72,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             notClickable = intent.getExtras().getBoolean("clickable");
-            mCouponListViewModel.notClickable.set( intent.getExtras().getBoolean("clickable"));
+            mCouponListViewModel.notClickable.set(intent.getExtras().getBoolean("clickable"));
         }
 
 
@@ -74,7 +84,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         mActivityCouponListBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
+                new Analytics().sendClickData(pageName, AppConstants.CLICK_REFRESH);
 
                 mCouponListViewModel.fetchRepos();
             }
@@ -82,7 +92,6 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
 
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -104,7 +113,6 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     }
 
-
     @Override
     public void listLoaded() {
         mActivityCouponListBinding.refreshList.setRefreshing(false);
@@ -116,9 +124,8 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void goBack() {
-     onBackPressed();
+        onBackPressed();
     }
-
 
     @Override
     public void noList() {
@@ -132,21 +139,18 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void couponValid(Integer cid) {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_APPLY);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_APPLY);
         Intent intent = new Intent();
         intent.putExtra("couponid", cid);
         setResult(Activity.RESULT_OK, intent);
         finish();//finishing activity
 
-
     }
-
 
     private void subscribeToLiveData() {
         mCouponListViewModel.getcouponListItemsLiveData().observe(this,
                 couponsListItemViewModel -> mCouponListViewModel.addDishItemsToList(couponsListItemViewModel));
     }
-
 
     @Override
     public void onResume() {
@@ -166,7 +170,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
@@ -183,22 +187,15 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
 
     @Override
     public void onItemClickData(CouponListResponse.Result result, int selected) {
-
-
         if (!notClickable) {
-            mCouponListViewModel.saveCouponId(result.getCid(),result.getCouponName());
-
-            new Analytics().sendClickData(pageName,AppConstants.CLICK_SELECT);
-
+            mCouponListViewModel.saveCouponId(result.getCid(), result.getCouponName());
+            new Analytics().sendClickData(pageName, AppConstants.CLICK_SELECT);
             Intent intent = new Intent();
             intent.putExtra("couponid", result.getCid());
             setResult(Activity.RESULT_OK, intent);
             finish();//finishing activity
         }
     }
-
-
-
 
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
@@ -208,14 +205,13 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -230,24 +226,7 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

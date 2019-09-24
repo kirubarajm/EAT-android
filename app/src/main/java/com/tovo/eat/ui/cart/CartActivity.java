@@ -37,9 +37,6 @@ import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
 public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener {
 
-
-    /*  @Inject
-      LinearLayoutManager mLayoutManager;*/
     @Inject
     CartDishAdapter adapter;
     @Inject
@@ -96,22 +93,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // mActivityCartBinding = getViewDataBinding();
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
         refundListAdapter.setListener(this);
 
-
         analytics=new Analytics(getActivity(), pageName);
-
-        /*if (mCartViewModel.getCartPojoDetails() == null) {
-
-            ((MainActivity) getActivity()).openHome();
-        }*/
-
-
-        //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
-
     }
 
     @Override
@@ -120,24 +106,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding = getViewDataBinding();
         dialog = new Dialog(getBaseActivity());
 
-       /* if(getArguments()!=null)
-        {
-            String text = getArguments().getString("text", null);
-            Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-        }*/
-
-
-
-
-
         mCartViewModel.toolbarTitle.set(getString(R.string.cart));
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-
-        // CartDishAdapter adapter=new CartDishAdapter(mCartViewModel.cartDishItemViewModels);
 
         mActivityCartBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mActivityCartBinding.recyclerviewOrders.setAdapter(adapter);
@@ -156,23 +129,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
         mActivityCartBinding.recyclerviewBill.setAdapter(billListAdapter);
 
-
         subscribeToLiveData();
-
-        //mCartViewModel.fetchRepos();
-
     }
 
 
-    @Override
-    public void gotoJobCompleted() {
 
-    }
-
-    @Override
-    public void gotoInJobCompleted() {
-
-    }
 
     @Override
     public void cartLoaded() {
@@ -181,7 +142,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void dishListLoaded() {
-        //   mFragmentDishBinding.refreshList.setRefreshing(false);
     }
 
     @Override
@@ -211,33 +171,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
-    @Override
-    public boolean paymentStatus(String mode) {
-
-        /*if (mode.equals(getString(R.string.cash_on_delivery))) {
-            Toast.makeText(getBaseActivity(), mode, Toast.LENGTH_SHORT).show();
-            return true;
-
-        } else if (mode.equals(getString(R.string.pay_online))) {
-            Toast.makeText(getBaseActivity(), mode, Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            Toast.makeText(getBaseActivity(), "nothing selected", Toast.LENGTH_SHORT).show();
-            return false;
-        }*/
-        return true;
-
-    }
 
     @Override
     public void orderCompleted() {
-
-       /* FragmentTransaction transaction =getBaseActivity().getSupportFragmentManager().beginTransaction();
-        StoriesPagerFragment fragment = new StoriesPagerFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();*/
-
-
         Intent intent = OrderPlacedActivity.newIntent(getContext());
         startActivity(intent);
 
@@ -250,11 +186,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void emptyCart() {
-      /*  FragmentTransaction transaction = getBaseActivity().getSupportFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();*/
-
     }
 
     @Override
@@ -283,11 +214,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void refundList() {
-
-      /*  Intent intent = RefundListActivity.newIntent(getContext());
-        startActivityForResult(intent, AppConstants.REFUND_LIST_CODE);*/
-
-
     }
 
     @Override
@@ -336,18 +262,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void redirectHome() {
-
-
         ((MainActivity) getActivity()).openHome();
-
-
-
-
-       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        StoriesPagerFragment fragment = new StoriesPagerFragment();
-        transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
-        transaction.commit();*/
 
     }
 
@@ -433,57 +348,31 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CART_REQUESTCODE) {
-
             boolean status = data.getBooleanExtra("status", false);
             if (status) {
                 mCartViewModel.paymentModeCheck();
-               /* Intent intent = PaymentActivity.newIntent(getContext());
-                intent.putExtra("amount", mCartViewModel.grand_total.get());
-                startActivity(intent);*/
 
             }
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
 
-
             if (resultCode == RESULT_OK) {
-
                 mCartViewModel.fetchRepos();
-
-
             }
-
-
         } else if (requestCode == AppConstants.COUPON_LIST_CODE) {
-
-
             if (resultCode == RESULT_OK) {
-
                 mCartViewModel.fetchRepos();
-
-
             }
 
 
         }else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
-
-
             if (resultCode == RESULT_OK) {
-
                 mCartViewModel.fetchRepos();
-
-
             }
-
-
         }
-
-
     }
 
     @Override
     public void onItemClickData(RefundListResponse.Result result, int selected) {
-
-
 
         new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_SELECT);
 
@@ -503,11 +392,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 new Analytics().sendClickData(pageName,AppConstants.CLICK_CHANGE_ADDRESS);
-
                 dialog.dismiss();
                 selectAddress();
             }
@@ -524,19 +409,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
             }
         });
-
         dialog.show();
-
     }
 
     public void startCartLoader() {
             mActivityCartBinding.cartLoader.setVisibility(View.VISIBLE);
-        //mActivityCartBinding.cartLoader.startShimmerAnimation();
     }
 
     public void stopCartLoader() {
-
         mActivityCartBinding.cartLoader.setVisibility(View.GONE);
-      //  mActivityCartBinding.cartLoader.stopShimmerAnimation();
     }
 }

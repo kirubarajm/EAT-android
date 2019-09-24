@@ -34,15 +34,12 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -79,7 +76,6 @@ import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
@@ -98,8 +94,6 @@ import com.tovo.eat.ui.signup.faqs.FaqResponse;
 import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
 
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -165,15 +159,7 @@ public final class BindingUtils {
     }
 
 
-    @BindingAdapter({"adapter"})
-    public static void addKitchenDishItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {
-        KitchenDishAdapter adapter = (KitchenDishAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
 
-            adapter.addItems(response);
-        }
-    }
 
     @BindingAdapter({"dishadapter"})
     public static void addSearchDishItems(RecyclerView recyclerView, List<KitchenDishResponse.Result> response) {

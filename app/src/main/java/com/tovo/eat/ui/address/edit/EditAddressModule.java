@@ -21,9 +21,6 @@ import com.tovo.eat.data.DataManager;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
 @Module
 public class EditAddressModule {
 

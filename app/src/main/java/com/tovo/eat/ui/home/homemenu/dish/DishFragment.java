@@ -30,8 +30,6 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
 
     @Inject
     DishViewModel mDishViewModel;
-  /*  @Inject
-    LinearLayoutManager mLayoutManager;*/
     @Inject
     DishAdapter adapter;
 

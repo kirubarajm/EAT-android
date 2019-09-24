@@ -58,7 +58,6 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         cartBillLiveData = new MutableLiveData<>();
         cartRequestPojo = new CartRequestPojo();
         orderitems = new ArrayList<>();
-        // fetchRepos();
     }
 
     public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
@@ -86,11 +85,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         return ordersItemsLiveData;
     }
 
-        public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
-            billdetails.clear();
-            billdetails.addAll(results);
+    public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+        billdetails.clear();
+        billdetails.addAll(results);
 
-        }
+    }
 
     public void orderRepeat() {
 
@@ -103,17 +102,12 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     }
 
     public void orderAvailable() {
-
         getDataManager().setCartDetails(null);
-
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
         getDataManager().setCartDetails(json);
-
         getNavigator().orderRepeat();
-
     }
-
 
     public void fetchRepos(String orderId) {
 
@@ -140,7 +134,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             addressTitle.set(response.getResult().get(0).getAddress_title());
                             price.set(String.valueOf(response.getResult().get(0).getPrice()));
                             paymentType.set(String.valueOf(response.getResult().get(0).getPaymentType()));
-                            locality.set("Delivered | " + String.valueOf(response.getResult().get(0).getLocality()));
+                            locality.set("Delivered | " + response.getResult().get(0).getLocality());
                             // actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
@@ -153,7 +147,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             if (response.getResult().get(0).getOrderstatus().equals(7) || response.getResult().get(0).getOrderstatus().equals(8)) {
                                 isOrderCanced.set(true);
                                 orderStatus.set("Order canceled!");
-                            }else {
+                            } else {
                                 isOrderCanced.set(false);
                                 orderStatus.set("Order completed!");
                             }

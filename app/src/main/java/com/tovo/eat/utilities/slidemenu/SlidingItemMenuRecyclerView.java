@@ -744,10 +744,6 @@ public class SlidingItemMenuRecyclerView extends RecyclerView {
             super.start();
         }
     }
-    public static void animateView(View view){
-        Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
-        view.startAnimation(shake);
-    }
 
 
     public static void stopAnim(View view){

@@ -16,46 +16,33 @@
 
 package com.tovo.eat.ui.cart;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
-import com.tovo.eat.ui.home.MainViewModel;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishAdapter;
-import com.tovo.eat.utilities.ViewModelProviderFactory;
 
 import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by amitshekhar on 14/09/17.
- */
 @Module
 public class CartModule {
 
- /*   @Provides
-    ViewModelProvider.Factory cartViewModelProvider(CartViewModel cartViewModel) {
-        return new ViewModelProviderFactory<>(cartViewModel);
-    }*/
 
-
-   DataManager dataManager;
+    DataManager dataManager;
 
     @Provides
     CartViewModel provideMainViewModel(DataManager dataManager) {
 
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
 
         return new CartViewModel(dataManager);
     }
 
     @Provides
     CartDishAdapter provideCartDishAdapter() {
-        return new CartDishAdapter(new ArrayList<>(),dataManager);
+        return new CartDishAdapter(new ArrayList<>(), dataManager);
     }
 
     @Provides
@@ -65,9 +52,10 @@ public class CartModule {
 
     @Provides
     RefundListAdapter provideRefundsListAdapter() {
-        return new RefundListAdapter(new ArrayList<>(),dataManager);
+        return new RefundListAdapter(new ArrayList<>(), dataManager);
     }
- @Provides
+
+    @Provides
     BillListAdapter provideBillListAdapter() {
         return new BillListAdapter(new ArrayList<>());
     }

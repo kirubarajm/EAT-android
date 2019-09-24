@@ -23,35 +23,10 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private DataManager dataManager;
 
 
-    public AddressListAdapter(List<AddressListResponse.Result> item_list,DataManager dataManager) {
+    public AddressListAdapter(List<AddressListResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
     }
-
-
-
-
-    public class EmptyViewHolder extends BaseViewHolder  {
-
-        private final ListItemEmptyBinding mBinding;
-
-
-        EmptyItemViewModel emptyItemViewModel;
-
-        public EmptyViewHolder(ListItemEmptyBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
-
-        @Override
-        public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
-            mBinding.setEmptyItemViewModel(emptyItemViewModel);
-        }
-
-    }
-
-
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -112,6 +87,26 @@ public class AddressListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         void editAddressClick(AddressListResponse.Result blogUrl);
 
         void deleteAddress(AddressListResponse.Result addressList);
+    }
+
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
+        }
+
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements AddressListItemViewModel.addressListItemViewModelListener {

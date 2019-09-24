@@ -64,7 +64,6 @@ public class DishItemViewModel {
 
         this.mListener = mListener;
         this.dishList = dishList;
-        //  this.date.set(mSalesList.getDate());
 
         if (dishList.getFavid() != null)
             favID = dishList.getFavid();
@@ -314,7 +313,6 @@ public class DishItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
 
         results.clear();
-      //  new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
 
 
         new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
@@ -461,19 +459,6 @@ public class DishItemViewModel {
             new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_DISH,AppConstants.CLICK_ADD_TO_FAV);
             isFavourite.set(true);
         }
-
-
-/*
-
-        if (dishList.getIsfav().equalsIgnoreCase("0")) {
-            mListener.addFavourites(dishList.getProductid(), dishList.getIsfav());
-        } else if (dishList.getIsfav().equalsIgnoreCase("1")) {
-            if (dishList.getFavid() != null)
-                mListener.removeFavourites(dishList.getFavid());
-
-        } else {
-            isFavourite.set(false);
-        }*/
     }
 
 

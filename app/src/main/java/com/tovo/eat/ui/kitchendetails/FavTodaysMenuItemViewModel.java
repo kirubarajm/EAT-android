@@ -24,7 +24,6 @@ import java.util.List;
 
 public class FavTodaysMenuItemViewModel {
 
-    public final ObservableField<String> makeit_username = new ObservableField<>();
     public final ObservableField<String> producttype = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
@@ -33,19 +32,14 @@ public class FavTodaysMenuItemViewModel {
     public final ObservableField<String> nextAvailableTime = new ObservableField<>();
     public final ObservableBoolean nextAvailable = new ObservableBoolean();
     public final ObservableField<Integer> price = new ObservableField<>();
-
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
     public final ObservableField<Integer> makeit_userid = new ObservableField<>();
-
-
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isVeg = new ObservableBoolean();
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
     public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
-
-
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
     private final KitchenDishResponse.Productlist dishList;
@@ -54,35 +48,31 @@ public class FavTodaysMenuItemViewModel {
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
 
-    Analytics analytics;
-
-
     Integer favID;
 
 
-    public FavTodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList,boolean sericeable) {
+    public FavTodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, boolean sericeable) {
 
         this.mListener = mListener;
         this.dishList = dishList;
 
         this.serviceableKitchen.set(sericeable);
 
-        //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
-        if(dishList.getVegtype().equals("1")){
+        if (dishList.getVegtype().equals("1")) {
             this.producttype.set(dishList.getCuisinename());
             this.isVeg.set(false);
 
 
-        }else {
+        } else {
             this.producttype.set(dishList.getCuisinename());
             this.isVeg.set(true);
         }
 
 
-        if (dishList.getProductimage()!=null){
+        if (dishList.getProductimage() != null) {
             isFavouriteMenu.set(true);
         }
 
@@ -90,17 +80,11 @@ public class FavTodaysMenuItemViewModel {
         productDes.set(dishList.getProdDesc());
 
 
-        if (null!=dishList.getNextAvailable()&&dishList.getNextAvailable()){
+        if (null != dishList.getNextAvailable() && dishList.getNextAvailable()) {
             this.nextAvailable.set(dishList.getNextAvailable());
             this.serviceableKitchen.set(false);
             this.nextAvailableTime.set(dishList.getNextAvailableTime());
         }
-
-
-
-
-
-
 
         if (cartRequestPojo == null) {
 
@@ -181,10 +165,10 @@ public class FavTodaysMenuItemViewModel {
 
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
-            new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
-            new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+            new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
+            new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
         } else {
-            mListener.productNotAvailable(dishList.getQuantity(),dishList.getProductName());
+            mListener.productNotAvailable(dishList.getQuantity(), dishList.getProductName());
             return;
         }
 
@@ -254,10 +238,7 @@ public class FavTodaysMenuItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
 
         results.clear();
-
-      //  new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
-
-        new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+        new Analytics().removeFromCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
@@ -335,8 +316,8 @@ public class FavTodaysMenuItemViewModel {
         quantity.set(1);
         sQuantity.set(String.valueOf(quantity.get()));
 
-        new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
-        new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+        new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
+        new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
@@ -366,18 +347,18 @@ public class FavTodaysMenuItemViewModel {
             if (cartRequestPojo.getCartitems() != null) {
 
 
-                    if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
+                if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
 
-                        cartRequestPojoCartitem.setProductid(dishList.getProductid());
-                        cartRequestPojoCartitem.setQuantity(quantity.get());
-                        cartRequestPojoCartitem.setPrice(dishList.getPrice());
-                        results.add(cartRequestPojoCartitem);
-                    } else {
+                    cartRequestPojoCartitem.setProductid(dishList.getProductid());
+                    cartRequestPojoCartitem.setQuantity(quantity.get());
+                    cartRequestPojoCartitem.setPrice(dishList.getPrice());
+                    results.add(cartRequestPojoCartitem);
+                } else {
 
-                        mListener.otherKitchenDish(dishList.getMakeitUserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
+                    mListener.otherKitchenDish(dishList.getMakeitUserid(), dishList.getProductid(), quantity.get(), dishList.getPrice());
 
 
-                    }
+                }
 
 
             } else {
@@ -409,35 +390,20 @@ public class FavTodaysMenuItemViewModel {
 
         if (isFavourite.get()) {
             removeFavourite();
-            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_REMOVE_FROM_FAV);
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_REMOVE_FROM_FAV);
             isFavourite.set(false);
         } else {
             addFavourite(dishList.getProductid());
-            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS,AppConstants.CLICK_ADD_TO_FAV);
+            new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_ADD_TO_FAV);
             isFavourite.set(true);
         }
 
-       /*
-        if (dishList.getIsfav().equalsIgnoreCase("0")) {
-            mListener.addFavourites(dishList.getProductid(), dishList.getIsfav());
-            isFavourite.set(true);
-        } else if (dishList.getIsfav().equalsIgnoreCase("1")) {
-            if (dishList.getFavid() != null)
-                mListener.removeFavourites(dishList.getFavid());
-            isFavourite.set(false);
-        } else {
-            isFavourite.set(false);
-        }*/
-        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
 
 
     public void removeFavourite() {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favID, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
@@ -453,7 +419,7 @@ public class FavTodaysMenuItemViewModel {
                 public void onErrorResponse(VolleyError error) {
                     Log.e("", error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -466,9 +432,6 @@ public class FavTodaysMenuItemViewModel {
     public void addFavourite(Integer kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
 
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(mListener.getEatId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
@@ -483,9 +446,8 @@ public class FavTodaysMenuItemViewModel {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("", error.getMessage());
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -498,16 +460,9 @@ public class FavTodaysMenuItemViewModel {
 
     public void onItemClick() {
         mListener.onItemClick(dishList);
-
-        //     mListener.addQuantity();
-
-        //  mListener.onItemClick(isJobCompleted,Integer.parseInt(sales_emp_id.toString()) , Integer.parseInt(makeit_userid.toString()), date.toString(), name.toString(), email.toString(), phoneno.toString(), brandname.toString(),address.toString(),lat.toString(),lng.toString(),localityid.toString());
-
     }
 
     public interface DishItemViewModelListener {
-        // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
-
         void onItemClick(KitchenDishResponse.Productlist blogUrl);
 
         String addQuantity();
@@ -525,7 +480,7 @@ public class FavTodaysMenuItemViewModel {
         void removeFavourites(Integer favId);
 
 
-        void productNotAvailable(int quantity,String productname);
+        void productNotAvailable(int quantity, String productname);
 
         void refresh();
 

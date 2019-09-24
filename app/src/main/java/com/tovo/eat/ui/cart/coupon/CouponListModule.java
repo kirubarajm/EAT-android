@@ -16,13 +16,13 @@ public class CouponListModule {
 
     @Provides
     CouponListViewModel provideRefundListViewModel(DataManager dataManager) {
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
         return new CouponListViewModel(dataManager);
     }
 
     @Provides
     CouponListAdapter provideRefundListAdapter() {
-        return new CouponListAdapter(new ArrayList<>(),dataManager);
+        return new CouponListAdapter(new ArrayList<>(), dataManager);
     }
 
 

@@ -41,18 +41,6 @@ public class FilterItemViewModel {
                     isClicked.set(true);
                 }
 
-               /* if (filterRequestPojo.getSortlist() != null) {
-
-                    for (int i = 0; i < filterRequestPojo.getSortlist().size(); i++) {
-
-
-                        int sort=filterRequestPojo.getSortlist().get(i).getSort();
-
-                        if (sort==id) {
-                            isClicked.set(true);
-                        }
-                    }
-                }*/
             } else if (type == 2) {
 
                 if (filterRequestPojo.getRegionlist() != null) {

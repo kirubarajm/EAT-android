@@ -7,12 +7,9 @@ import com.tovo.eat.ui.base.BaseViewModel;
 public class StoriesTabActivityViewModel extends BaseViewModel<StoriesTabActivityNavigator> {
 
 
-
-
     public StoriesTabActivityViewModel(DataManager dataManager) {
         super(dataManager);
     }
-
 
 
 }

@@ -24,9 +24,6 @@
     </style>
 
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/circular</item>
-    </style>
 
 
     <style name="EditTextHint" parent="TextAppearance.AppCompat">

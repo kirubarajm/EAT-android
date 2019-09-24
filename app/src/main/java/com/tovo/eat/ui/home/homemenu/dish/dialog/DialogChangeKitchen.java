@@ -29,7 +29,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     Activity activity;
 
 
-    Integer makeitId, productId,quantity,price;
+    Integer makeitId, productId, quantity, price;
 
 
     AddDishListener addDishListener;
@@ -44,7 +44,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
-       // fragment.setTargetFragment(new DialogRefundAlert(),0);
+        // fragment.setTargetFragment(new DialogRefundAlert(),0);
         fragment.setCancelable(false);
         return fragment;
     }
@@ -58,17 +58,17 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void onAttach(Context context) {
 
-        addDishListener=(AddDishListener)getTargetFragment();
+        addDishListener = (AddDishListener) getTargetFragment();
 
         super.onAttach(context);
     }
 
     public void show(FragmentManager fragmentManager, Activity activity, Integer makeitId, Integer productId, Integer quantity, Integer price) {
         this.activity = activity;
-        this.makeitId=makeitId;
-        this.productId=productId;
-        this.quantity=quantity;
-        this.price=price;
+        this.makeitId = makeitId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.price = price;
         super.show(fragmentManager, TAG);
     }
 
@@ -81,7 +81,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     public void confirmClick() {
         dismissDialog();
 
-        mDialogChangeKitchenViewModel.addToCart(makeitId,productId,quantity,price);
+        mDialogChangeKitchenViewModel.addToCart(makeitId, productId, quantity, price);
 
         addDishListener.confirmClick(true);
 

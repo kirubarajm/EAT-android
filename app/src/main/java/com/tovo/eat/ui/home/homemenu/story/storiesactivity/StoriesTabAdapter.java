@@ -10,8 +10,8 @@ import com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesPager
 
 public class StoriesTabAdapter extends FragmentStatePagerAdapter {
 
-    private int mTabCount;
     StoriesResponse storiesFullResponse;
+    private int mTabCount;
 
     public StoriesTabAdapter(FragmentManager fm) {
         super(fm);
@@ -20,7 +20,7 @@ public class StoriesTabAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Bundle args = new Bundle();
-        args.putInt("position",position);
+        args.putInt("position", position);
         StoriesPagerFragment fragment = new StoriesPagerFragment();
         fragment.setArguments(args);
         return fragment;
@@ -31,7 +31,7 @@ public class StoriesTabAdapter extends FragmentStatePagerAdapter {
         return mTabCount;
     }
 
-    public void setCount(StoriesResponse storiesFullResponse){
+    public void setCount(StoriesResponse storiesFullResponse) {
         this.mTabCount = storiesFullResponse.getResult().size();
         this.storiesFullResponse = storiesFullResponse;
     }

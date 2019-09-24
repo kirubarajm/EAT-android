@@ -74,11 +74,6 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
 
     }
 
-    @Override
-    public void backClick() {
-        finish();
-        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
-    }
 
     @Override
     public void next() {

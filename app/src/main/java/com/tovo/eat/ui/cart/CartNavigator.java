@@ -4,13 +4,7 @@ public interface CartNavigator {
 
     void handleError(Throwable throwable);
 
-    void gotoJobCompleted();
-
-    void gotoInJobCompleted();
-
-
     void cartLoaded();
-
 
     void dishListLoaded();
 
@@ -18,32 +12,28 @@ public interface CartNavigator {
 
     void selectAddress();
 
-    boolean paymentStatus(String mode);
-
-
     void orderCompleted();
 
     void showToast(String msg);
-
 
     void emptyCart();
 
     void postRegistration(String type, String totalAmount);
 
-
     void toastMessage(String msg);
-
 
     void paymentGateway(String totalAmount);
 
-
     void refundList();
+
     void checkRefund();
 
-
     void promoList();
-    void  refundAlert();
+
+    void refundAlert();
+
     void redirectHome();
+
     void notServicable();
 
 

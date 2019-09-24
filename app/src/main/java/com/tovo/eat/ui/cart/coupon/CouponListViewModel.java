@@ -18,12 +18,9 @@ import com.tovo.eat.utilities.MvvmApp;
 import java.util.List;
 
 public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
-
-
-    public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
-    boolean haveAddress = false;
-    private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
     public final ObservableBoolean notClickable = new ObservableBoolean();
+    public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
+    private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
 
 
     public CouponListViewModel(DataManager dataManager) {
@@ -34,28 +31,15 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     }
 
 
-    public void saveCouponId(int id,String coupon) {
+    public void saveCouponId(int id, String coupon) {
         getDataManager().saveCouponId(id);
         getDataManager().saveCouponCode(coupon);
     }
 
 
-    public ObservableList<CouponListResponse.Result> getcouponListItemViewModels() {
-        return couponListItemViewModels;
-    }
-
-    public void setcouponListItemViewModels(ObservableList<CouponListResponse.Result> couponListItemViewModels) {
-        this.couponListItemViewModels = couponListItemViewModels;
-    }
-
     public MutableLiveData<List<CouponListResponse.Result>> getcouponListItemsLiveData() {
         return couponListItemsLiveData;
     }
-
-    public void setcouponListItemsLiveData(MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData) {
-        this.couponListItemsLiveData = couponListItemsLiveData;
-    }
-
     public void addDishItemsToList(List<CouponListResponse.Result> ordersItems) {
         couponListItemViewModels.clear();
         couponListItemViewModels.addAll(ordersItems);
@@ -63,17 +47,15 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     }
 
     public void goBack() {
-
         getNavigator().goBack();
     }
 
     public void fetchRepos() {
-
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class,new CollectionRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class, new CollectionRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {
@@ -83,10 +65,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
                             getNavigator().noList();
 
                         } else {
-
                             couponListItemsLiveData.setValue(response.getResult());
-
-
                         }
                     }
                     getNavigator().listLoaded();
@@ -116,7 +95,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_CHECK_URL , CouponListResponse.class,new CouponCheckRequest(getDataManager().getCurrentUserId(),code), new Response.Listener<CouponListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_CHECK_URL, CouponListResponse.class, new CouponCheckRequest(getDataManager().getCurrentUserId(), code), new Response.Listener<CouponListResponse>() {
                 @Override
                 public void onResponse(CouponListResponse response) {
                     if (response != null) {
@@ -127,11 +106,11 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
                             if (response.getResult().size() != 0) {
                                 getNavigator().couponValid(response.getResult().get(0).getCid());
 
-                                saveCouponId(response.getResult().get(0).getCid(),response.getResult().get(0).getCouponName());
+                                saveCouponId(response.getResult().get(0).getCid(), response.getResult().get(0).getCouponName());
 
 
                             }
-                        }else {
+                        } else {
                             getNavigator().showToast(response.getMessage());
                         }
                     }
@@ -139,7 +118,6 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    //   Log.e("", error.getMessage());
                 }
             }, AppConstants.API_VERSION_ONE);
 

@@ -18,7 +18,6 @@ public class SpecialitiesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<KitchenDishResponse.Result> response;
     private List<KitchenDishResponse.Specialitem> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;

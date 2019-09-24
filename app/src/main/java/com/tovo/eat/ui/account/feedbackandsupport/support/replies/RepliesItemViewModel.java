@@ -20,7 +20,7 @@ public class RepliesItemViewModel {
     public final ObservableField<String> updated_at = new ObservableField<>();
     public final ObservableField<String> createdAtFinal = new ObservableField<>();
     public final ObservableField<String> flagCount = new ObservableField<>();
-    public final ObservableBoolean unreadCount=new ObservableBoolean();
+    public final ObservableBoolean unreadCount = new ObservableBoolean();
     public final RepliesItemViewModelListener mListener;
     private final RepliesResponse.Result repliesList;
 
@@ -35,13 +35,12 @@ public class RepliesItemViewModel {
         this.mListener = listener;
         this.repliesList = replies;
 
-        if (replies.getUnReadCount()>0){
+        if (replies.getUnReadCount() > 0) {
             flagCount.set(String.valueOf(replies.getUnReadCount()));
             unreadCount.set(true);
-        }else {
+        } else {
             unreadCount.set(false);
         }
-
 
 
         try {
@@ -52,11 +51,10 @@ public class RepliesItemViewModel {
             //Date  date1 = new Date(strDate);
             Date date = currentFormat.parse(strDate);
             outputDateStr = dateFormat.format(date);
-            createdAtFinal.set("Query made "+outputDateStr);
+            createdAtFinal.set("Query made " + outputDateStr);
         } catch (ParseException e) {
             e.printStackTrace();
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

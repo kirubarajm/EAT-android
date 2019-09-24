@@ -13,5 +13,4 @@ public interface ReferralsActivityNavigator {
     void goBack();
 
 
-
 }

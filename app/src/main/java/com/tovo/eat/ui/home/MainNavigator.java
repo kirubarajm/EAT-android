@@ -16,38 +16,28 @@
 
 package com.tovo.eat.ui.home;
 
-/**
- * Created by amitshekhar on 09/07/17.
- */
-
 public interface MainNavigator {
 
     void handleError(Throwable throwable);
 
-
-
-
     void openCart();
-    void disConnectGPS();
 
+    void disConnectGPS();
 
     void openHome();
 
     void openExplore();
+
     void paymentStausChanged();
 
-    void paymentPending(int orderid,String brandname,int price,String products);
+    void paymentPending(int orderid, String brandname, int price, String products);
 
     void openAccount();
 
-    void toastMsg(String msg);
-
     void selectAddress();
-
 
     void trackLiveOrder(Integer orderId);
 
-
-    void showOrderRating(Integer orderId,String brandname);
+    void showOrderRating(Integer orderId, String brandname);
 
 }

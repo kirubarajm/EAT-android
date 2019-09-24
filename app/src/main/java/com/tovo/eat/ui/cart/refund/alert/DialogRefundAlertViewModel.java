@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,18 +41,12 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
     }
 
 
-
     public void cashMode() {
         if (getDataManager().getEmailStatus()) {
             try {
-
                 if (getDataManager().getAddressId() != 0) {
 
-
                     if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-                    //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
 
                     List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
                     List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
@@ -93,51 +86,6 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
 
                     setIsLoading(true);
 
-
-
-
-                   /* try {
-                        GsontoJsonRequest gsonRequest = new GsontoJsonRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, CommonResponse.class, new JSONObject(json)
-                                , new Response.Listener<CommonResponse>() {
-                            @Override
-                            public void onResponse(CommonResponse response) {
-                                try {
-
-
-                                    if (response.isStatus()) {
-
-                                        getDataManager().currentOrderId(response.getOrderid());
-                                        getDataManager().setCartDetails("");
-                                        getNavigator().orderCompleted();
-                                        getDataManager().saveRefundId(0);
-                                        getDataManager().saveCouponId(0);
-                                        getDataManager().saveCouponCode(null);
-
-                                    } else {
-
-
-                                        Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                setIsLoading(false);
-                            }
-                        }, AppConstants.API_VERSION_ONE);
-                        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-                    }catch (Exception ee){
-
-                        ee.printStackTrace();
-
-                    }*/
-
-
-
                     JsonObjectRequest jsonObjectRequest = null;
                     try {
                         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
@@ -169,25 +117,11 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
                             @Override
                             public void onErrorResponse(VolleyError error) {
 
-
-                                //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                             }
                         }) {
-                            /**
-                             * Passing some request headers
-                             */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-
-                             //  return new AddHeaders().setHeaders(AppConstants.API_VERSION_ONE);
-
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("accept-version",AppConstants.API_VERSION_ONE);
-                                headers.put("Authorization","Bearer "+getDataManager().getApiToken());
-                                 headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-
-                                return headers;
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                             }
                         };
                     } catch (JSONException e) {
@@ -196,8 +130,6 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
 
                     MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
-                } else {
-                    //  getNavigator().showToast("Please select the address...");
                 }
             } catch (Exception ee) {
 

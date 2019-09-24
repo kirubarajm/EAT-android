@@ -52,7 +52,7 @@ public class CouponListResponse {
         this.result = result;
     }
 
-    public class    Result {
+    public class Result {
 
         @SerializedName("cid")
         @Expose
@@ -106,6 +106,10 @@ public class CouponListResponse {
             return cid;
         }
 
+        public void setCid(Integer cid) {
+            this.cid = cid;
+        }
+
         public String getImgUrl() {
             return imgUrl;
         }
@@ -120,10 +124,6 @@ public class CouponListResponse {
 
         public void setDescription(String description) {
             this.description = description;
-        }
-
-        public void setCid(Integer cid) {
-            this.cid = cid;
         }
 
         public String getCouponName() {

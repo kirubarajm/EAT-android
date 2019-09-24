@@ -67,11 +67,6 @@ public class RegionsCardTitleAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     @Override
     public int getItemViewType(int position) {
-
-
-     //   return VIEW_TYPE_NORMAL;
-
-        /*if (position != 0) {*/
             if (position == item_list.size()) {
                 return VIEW_TYPE_MORE;
             } else {
@@ -81,10 +76,6 @@ public class RegionsCardTitleAdapter extends RecyclerView.Adapter<BaseViewHolder
                     return VIEW_TYPE_EMPTY;
                 }
             }
-       /* }else {
-            return VIEW_TYPE_EMPTY;
-        }*/
-
     }
 
 
@@ -101,10 +92,6 @@ public class RegionsCardTitleAdapter extends RecyclerView.Adapter<BaseViewHolder
         this.mLiveProductsAdapterListener = listener;
     }
 
-    public void viewRegion() {
-
-
-    }
 
     @Override
     public long getItemId(int position) {
@@ -197,14 +184,6 @@ public class RegionsCardTitleAdapter extends RecyclerView.Adapter<BaseViewHolder
                 mListItemLiveProductsBinding.executePendingBindings();
 
             }
-          /*  if (position ==getAdapterPosition()) {
-
-                mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
-
-            } else {
-                mListItemLiveProductsBinding.title.setVisibility(View.INVISIBLE);
-            }*/
-
 
         }
 

@@ -56,12 +56,6 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-
-      /*  ListItemCartDishesBinding blogViewBinding = ListItemCartDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
-                parent, false);
-        return new LiveProductsViewHolder(blogViewBinding);*/
-
-
         switch (i) {
             case VIEW_TYPE_NORMAL:
                 ListItemCartDishesBinding blogViewBinding = ListItemCartDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
@@ -170,9 +164,6 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public String addQuantity() {
-            // mLiveProductsItemViewModel.isAddClicked.set(true);
-
-        //  return dataManager.getCartDetails();
           return mLiveProductsAdapterListener.getCartData();
 
         }
@@ -189,9 +180,6 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void saveCart(String jsonCartDetails) {
-
-          //  dataManager.setCartDetails(jsonCartDetails);
-
             mLiveProductsAdapterListener.saveToCart(jsonCartDetails);
 
         }
@@ -210,7 +198,6 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void reload() {
          mLiveProductsAdapterListener.reloadCart();
         }
-
 
     }
 

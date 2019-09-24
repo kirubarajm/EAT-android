@@ -28,7 +28,7 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
     public final ObservableField<String> identityImage = new ObservableField<>();
     public final ObservableField<String> spclFoodImage = new ObservableField<>();
 
-public ObservableBoolean emptyRegion=new ObservableBoolean();
+    public ObservableBoolean emptyRegion = new ObservableBoolean();
 
     public ObservableList<RegionsResponse.Result> regionResults = new ObservableArrayList<>();
     private MutableLiveData<List<RegionsResponse.Result>> regionListItemsLiveData;
@@ -36,7 +36,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
     public RegionListViewModel(DataManager dataManager) {
         super(dataManager);
         regionListItemsLiveData = new MutableLiveData<>();
-       // fetchRepos();
+        // fetchRepos();
     }
 
 
@@ -44,17 +44,11 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
         return regionResults;
     }
 
-    public void setRegionResults(ObservableList<RegionsResponse.Result> regionResults) {
-        this.regionResults = regionResults;
-    }
 
     public MutableLiveData<List<RegionsResponse.Result>> getRegionListItemsLiveData() {
         return regionListItemsLiveData;
     }
 
-    public void setRegionListItemsLiveData(MutableLiveData<List<RegionsResponse.Result>> regionListItemsLiveData) {
-        this.regionListItemsLiveData = regionListItemsLiveData;
-    }
 
     public void addDishItemsToList(List<RegionsResponse.Result> ordersItems) {
         regionResults.clear();
@@ -74,12 +68,12 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), getDataManager().getRegionId(),getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionListRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), getDataManager().getRegionId(), getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
                     if (response != null) {
 
-                        if (response.getResult()!=null&&response.getResult().size() >0) {
+                        if (response.getResult() != null && response.getResult().size() > 0) {
                             emptyRegion.set(false);
                             regionListItemsLiveData.setValue(response.getResult());
 
@@ -88,7 +82,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
                             getNavigator().listLoaded();
-                        }else {
+                        } else {
 
                             emptyRegion.set(true);
                         }
@@ -102,7 +96,7 @@ public ObservableBoolean emptyRegion=new ObservableBoolean();
                     emptyRegion.set(true);
                     getNavigator().listLoaded();
                 }
-            },AppConstants.API_VERSION_TWO);
+            }, AppConstants.API_VERSION_TWO);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

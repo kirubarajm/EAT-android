@@ -41,7 +41,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +53,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public final ObservableField<String> region2 = new ObservableField<>();
     public final ObservableField<String> slogan1 = new ObservableField<>();
     public final ObservableField<String> slogan2 = new ObservableField<>();
+    public final ObservableBoolean cart = new ObservableBoolean();
+    public final ObservableField<String> kitchenName = new ObservableField<>();
+    public final ObservableField<String> eta = new ObservableField<>();
+    public final ObservableField<String> kitchenImage = new ObservableField<>();
+    public final ObservableField<String> products = new ObservableField<>();
+    public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public ObservableBoolean isVeg = new ObservableBoolean();
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
@@ -77,20 +82,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
-
-
-
-    public final ObservableBoolean cart = new ObservableBoolean();
-
-    public final ObservableField<String> kitchenName = new ObservableField<>();
-    public final ObservableField<String> eta = new ObservableField<>();
-    public final ObservableField<String> kitchenImage = new ObservableField<>();
-    public final ObservableField<String> products = new ObservableField<>();
-    public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     private int orderId;
-
-
-
 
 
     public HomeTabViewModel(DataManager dataManager) {
@@ -103,9 +95,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         fullEmpty.set(false);
 
-       /* if (getDataManager().getVegType() == 1) {
-            isVeg.set(true);
-        }*/
     }
 
 
@@ -113,7 +102,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchStories();
         fetchCoupons();
         fetchCollections();
-       // fetchKitchen();
+        // fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
 
@@ -122,70 +111,36 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         return kitchenItemViewModels;
     }
 
-    public void setKitchenItemViewModels(ObservableList<KitchenResponse.Result> kitchenItemViewModels) {
-        this.kitchenItemViewModels = kitchenItemViewModels;
-    }
 
     public MutableLiveData<List<KitchenResponse.Result>> getKitchenItemsLiveData() {
         return kitchenItemsLiveData;
     }
 
-    public void setKitchenItemsLiveData(MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData) {
-        this.kitchenItemsLiveData = kitchenItemsLiveData;
-    }
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
 
-
-        if (ordersItems!=null) {
+        if (ordersItems != null) {
             kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
-/*
-        //  if (collectionItemViewModels.size() > 0) {
-        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-        kitchenResponse1.setCollection(collectionItemViewModels);
-        ordersItems.add(Math.round(ordersItems.size() / 2), kitchenResponse1);
-        //   }
-        //  if (couponListItemViewModels.size() > 0) {
-        KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-        kitchenResponse2.setCoupons(couponListItemViewModels);
-        ordersItems.add(2, kitchenResponse2);
-        //  }*/
+
     }
 
     public MutableLiveData<List<KitchenResponse.Collection>> getCollectionItemLiveData() {
         return collectionItemLiveData;
     }
 
-    public void setCollectionItemLiveData(MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData) {
-        this.collectionItemLiveData = collectionItemLiveData;
-    }
 
     public MutableLiveData<List<CouponListResponse.Result>> getCouponListItemsLiveData() {
         return couponListItemsLiveData;
     }
 
-    public void setCouponListItemsLiveData(MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData) {
-        this.couponListItemsLiveData = couponListItemsLiveData;
-    }
-
-    public ObservableList<RegionsResponse.Result> getregionItemViewModels() {
-        return regionItemViewModels;
-    }
-
-    public void setregionItemViewModels(ObservableList<RegionsResponse.Result> regionItemViewModels) {
-        this.regionItemViewModels = regionItemViewModels;
-    }
 
     public MutableLiveData<List<RegionsResponse.Result>> getregionItemsLiveData() {
         return regionItemsLiveData;
     }
 
-    public void setregionItemsLiveData(MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData) {
-        this.regionItemsLiveData = regionItemsLiveData;
-    }
 
     public void addRegionItemsToList(List<RegionsResponse.Result> ordersItems) {
         regionItemViewModels.clear();
@@ -220,9 +175,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
@@ -259,8 +211,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void addFavourite(Integer kitchenId, String fav) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         try {
             setIsLoading(true);
@@ -367,7 +317,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 isLiveOrder.set(false);
 
                             }
-                        }else {
+                        } else {
                             isLiveOrder.set(false);
                         }
                     }
@@ -436,12 +386,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchRepos(Integer regionId) throws NullPointerException {
 
-
-        //   if (getDataManager().getCurrentLat() == null) {
-
-        //   getNavigator().kitchenListLoading();
-
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
@@ -480,17 +424,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             ee.printStackTrace();
 
                         }
-                    }else {
+                    } else {
 
                         emptyRegion.set(true);
                     }
-                    try{
-                    getNavigator().regionsLoaded(response);
+                    try {
+                        getNavigator().regionsLoaded(response);
 
-                }catch (NullPointerException e){
-                    e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
                         emptyRegion.set(true);
-                }
+                    }
 
                 }
 
@@ -500,21 +444,17 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     // Log.e("", error.getMessage());
                     emptyRegion.set(true);
                     try {
-                    getNavigator().regionsLoaded(null);
+                        getNavigator().regionsLoaded(null);
 
-                }catch (NullPointerException e){
-                    e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
                         emptyRegion.set(true);
-                }
+                    }
 
                 }
             }, AppConstants.API_VERSION_TWO);
 
 
-/*
-            gsonRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -525,94 +465,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
 
 
-       /*
-        } else {
-            if (!MvvmApp.getInstance().onCheckNetWork()) {
-
-                getNavigator().kitchenListLoaded();
-                return;
-
-            } else {
-
-                FilterRequestPojo filterRequestPojo;
-
-                if (getDataManager().getFilterSort() != null) {
-
-                    Gson sGson = new GsonBuilder().create();
-                    filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(filterRequestPojo);
-                    getDataManager().setFilterSort(json);
-                } else {
-                    filterRequestPojo = new FilterRequestPojo();
-
-                    filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-                    filterRequestPojo.setLat(getDataManager().getCurrentLat());
-                    filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(filterRequestPojo);
-                    getDataManager().setFilterSort(json);
-                }
-
-                try {
-                    setIsLoading(true);
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            if (response != null) {
-                                RegionsResponse regionsResponse;
-                                Gson sGson = new GsonBuilder().create();
-                                regionsResponse = sGson.fromJson(response.toString(), RegionsResponse.class);
-
-                                regionItemsLiveData.setValue(regionsResponse.getResult());
-
-                                Log.e("Kitchen----response:", response.toString());
-
-
-                                getNavigator().kitchenListLoaded();
-
-                            }
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Log.e("", error.getMessage());
-                            getNavigator().kitchenListLoaded();
-                        }
-                    }) {
-
-                        *//**
-         * Passing some request headers
-         *//*
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            headers.put("Content-Type", "application/json");
-                            return headers;
-                        }
-                    };
-
-                    MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (JSONException j) {
-                    j.printStackTrace();
-                }
-
-
-            }*/
-
-        // }
     }
 
     public void selectAddress() {
@@ -630,9 +482,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         getNavigator().filter();
     }
 
-    public void setCurrentFragment(Integer id) {
-        getDataManager().setCurrentFragment(id);
-    }
 
     public void favourites() {
         getDataManager().setIsFav(true);
@@ -666,13 +515,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchKitchen() throws NullPointerException {
 
-        // getNavigator().kitchenListLoading();
-
 
         if (getDataManager().getCurrentLat() == null) {
-
-            //   getNavigator().kitchenListLoading();
-
 
         } else {
 
@@ -685,7 +529,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 } else {
 
                     FilterRequestPojo filterRequestPojo;
- {
+                    {
                         filterRequestPojo = new FilterRequestPojo();
 
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
@@ -723,7 +567,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         if (couponListItemViewModels.size() > 0) {
                                             KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
                                             kitchenResponse2.setCoupons(couponListItemViewModels);
-                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2)+1, kitchenResponse2);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
                                             couponAdded = true;
                                         }
 
@@ -735,7 +579,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         kitchenItemViewModels.add(3, kitchenResponse1);
                                         kitchenResponse.setResult(kitchenItemViewModels);
 */
-                                      //  kitchenItemsLiveData.setValue(null);
+                                        //  kitchenItemsLiveData.setValue(null);
 
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
@@ -790,13 +634,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_TWO);
-                                //  headers.put("Authorization","Bearer");
-                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-                                return headers;
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -822,16 +660,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
     }
 
-public void fetchKitchenFilter() throws NullPointerException {
-
-        // getNavigator().kitchenListLoading();
-
+    public void fetchKitchenFilter() throws NullPointerException {
 
         if (getDataManager().getCurrentLat() == null) {
-
-            //   getNavigator().kitchenListLoading();
-
-
         } else {
 
             if (!getDataManager().getIsFav()) {
@@ -852,47 +683,35 @@ public void fetchKitchenFilter() throws NullPointerException {
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
-                        //    filterRequestPojo.setVegtype(getDataManager().getVegType());
-
                         if (filterRequestPojo.getCusinelist() != null) {
-
                             if (filterRequestPojo.getCusinelist().size() == 0)
                                 filterRequestPojo.setCusinelist(null);
                         }
-
                         if (filterRequestPojo.getRegionlist() != null) {
 
                             if (filterRequestPojo.getRegionlist().size() == 0)
                                 filterRequestPojo.setRegionlist(null);
                         }
 
-
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
                         getDataManager().setFilterSort(json);
-
-
                     } else {
                         filterRequestPojo = new FilterRequestPojo();
-
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
                         Gson gson = new Gson();
                         String json = gson.toJson(filterRequestPojo);
                         getDataManager().setFilterSort(json);
                     }
-
 
                     try {
                         setIsLoading(true);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
                                 if (response != null) {
-
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
@@ -910,7 +729,7 @@ public void fetchKitchenFilter() throws NullPointerException {
                                         if (couponListItemViewModels.size() > 0) {
                                             KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
                                             kitchenResponse2.setCoupons(couponListItemViewModels);
-                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2)+1, kitchenResponse2);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
                                             couponAdded = true;
                                         }
 
@@ -922,7 +741,7 @@ public void fetchKitchenFilter() throws NullPointerException {
                                         kitchenItemViewModels.add(3, kitchenResponse1);
                                         kitchenResponse.setResult(kitchenItemViewModels);
 */
-                                      //  kitchenItemsLiveData.setValue(null);
+                                        //  kitchenItemsLiveData.setValue(null);
 
                                         kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
@@ -977,13 +796,7 @@ public void fetchKitchenFilter() throws NullPointerException {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_TWO);
-                                //  headers.put("Authorization","Bearer");
-                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-                                return headers;
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -1016,8 +829,6 @@ public void fetchKitchenFilter() throws NullPointerException {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_STORIES_LIST, StoriesResponse.class, new Response.Listener<StoriesResponse>() {
                 @Override
                 public void onResponse(StoriesResponse response) {
-
-
 
 
                     if (response != null) {
@@ -1062,9 +873,9 @@ public void fetchKitchenFilter() throws NullPointerException {
                                                 int id = response.getResult().get(i).getStories().get(l).getId();
 
                                                 for (int k = 0; k < localStoriesResponse.getResult().get(j).getStories().size(); k++) {
-                                                    Log.i("Seen_Sid_"+sid,""+localStoriesResponse.getResult().get(j).getStories().get(k).getId());
+                                                    Log.i("Seen_Sid_" + sid, "" + localStoriesResponse.getResult().get(j).getStories().get(k).getId());
                                                     if (id == (localStoriesResponse.getResult().get(j).getStories().get(k).getId())) {
-                                                        Log.i("Seen_Sid_"+sid+"_id_"+id,""+localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
+                                                        Log.i("Seen_Sid_" + sid + "_id_" + id, "" + localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
                                                         response.getResult().get(i).getStories().get(k).setSeen(localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
 
                                                     }
@@ -1098,9 +909,9 @@ public void fetchKitchenFilter() throws NullPointerException {
 
                                 }
                                 StoriesResponse completeStories = new StoriesResponse();
-                                if(newStories.size()==0){
+                                if (newStories.size() == 0) {
                                     completeStories.setResult(response.getResult());
-                                }else {
+                                } else {
                                     newStories.addAll(oldStories);
                                     completeStories.setResult(newStories);
                                 }
@@ -1114,9 +925,9 @@ public void fetchKitchenFilter() throws NullPointerException {
                                 storiesItemsLiveData.setValue(completeStories.getResult());
 
                                 try {
-                                getNavigator().getFullStories(completeStories);
+                                    getNavigator().getFullStories(completeStories);
 
-                                }catch (NullPointerException e){
+                                } catch (NullPointerException e) {
                                     e.printStackTrace();
                                 }
 
@@ -1129,13 +940,13 @@ public void fetchKitchenFilter() throws NullPointerException {
 
                                 storiesItemsLiveData.setValue(response.getResult());
                                 try {
-                                getNavigator().getFullStories(response);
+                                    getNavigator().getFullStories(response);
 
-                            }catch (NullPointerException e){
-                                e.printStackTrace();
+                                } catch (NullPointerException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
-
-                        }
 
                         } else {
 
@@ -1148,13 +959,13 @@ public void fetchKitchenFilter() throws NullPointerException {
                             if (null != response.getResult())
                                 storiesItemsLiveData.setValue(response.getResult());
                             try {
-                            getNavigator().getFullStories(response);
+                                getNavigator().getFullStories(response);
 
-                        }catch (NullPointerException e){
-                            e.printStackTrace();
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+                            }
+
                         }
-
-                    }
                     }
                 }
             }, new Response.ErrorListener() {
@@ -1163,7 +974,7 @@ public void fetchKitchenFilter() throws NullPointerException {
                     try {
                         getNavigator().getFullStories(null);
 
-                    }catch (NullPointerException e){
+                    } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 }
@@ -1175,9 +986,9 @@ public void fetchKitchenFilter() throws NullPointerException {
     }
 
 
-    public void storiesRefresh(){
+    public void storiesRefresh() {
         StoriesResponse localStoriesResponse;
-        if(getDataManager().getStoriesList()!=null) {
+        if (getDataManager().getStoriesList() != null) {
             Gson sGson = new GsonBuilder().create();
             localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
             List<StoriesResponse.Result> newStories = new ArrayList<>();
@@ -1214,11 +1025,11 @@ public void fetchKitchenFilter() throws NullPointerException {
                         if (response.getCollection().size() > 0) {
                             collectionItemLiveData.setValue(response.getCollection());
                             try {
-                            getNavigator().collectionLoaded();
+                                getNavigator().collectionLoaded();
 
-                        }catch (NullPointerException e){
-                            e.printStackTrace();
-                        }
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+                            }
 
                             if (!collectionAdded) {
                                 if (kitchenItemViewModels.size() > 0) {

@@ -217,9 +217,6 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
             filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
         }
 
-       /* if (getDataManager().getCurrentFragment() == 1) {
-            filterItemList.remove(1);
-        }*/
         filterItems.clear();
         filterItems.addAll(filterItemList);
 
@@ -266,33 +263,6 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public void clearAll() {
         getNavigator().clearFilters();
         getDataManager().saveFilterSort(null);
-
-       /* FilterRequestPojo filterRequestPojo;
-
-        if (getDataManager().getFilterSort() != null) {
-
-            Gson sGson = new GsonBuilder().create();
-            filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-            filterRequestPojo.setLat(getDataManager().getCurrentLat());
-            filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-            Gson gson = new Gson();
-            String json = gson.toJson(filterRequestPojo);
-            getDataManager().setFilterSort(json);
-        } else {
-            filterRequestPojo = new FilterRequestPojo();
-
-            filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-            filterRequestPojo.setLat(getDataManager().getCurrentLat());
-            filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
-            Gson gson = new Gson();
-            String json = gson.toJson(filterRequestPojo);
-            getDataManager().setFilterSort(json);
-        }*/
-
 
     }
 

@@ -29,14 +29,10 @@ import java.util.Map;
 public class KitchenItemViewModel {
 
 
-    //   public final ObservableField<Integer> sales_emp_id = new ObservableField<Integer>();
 
     public final ObservableField<String> ratings = new ObservableField<>();
 
     public final ObservableField<String> kitchen_name = new ObservableField<>();
-
-    public final ObservableField<String> kitchen_type = new ObservableField<>();
-    public final ObservableField<String> favourite = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchen_image = new ObservableField<>();
     public final ObservableField<String> offer = new ObservableField<>();
@@ -60,39 +56,11 @@ public class KitchenItemViewModel {
     public KitchenItemViewModel(KitchenItemViewModelListener mListener, KitchenResponse.Result mKitchenList) {
         this.mListener = mListener;
         this.mKitchenList = mKitchenList;
-        //  this.date.set(mSalesList.getDate());
 
-        //    this.ratings.set(String.valueOf(mKitchenList.getRatings()));
-
-        //  this.kitchen_type.set(mKitchenList.getKitchenType());
         this.kitchen_image.set(mKitchenList.getMakeitimg());
 
 
-
         seriviceable.set(mKitchenList.isServiceableStatus());
-
-
-       /* if (!mKitchenList.isServiceableStatus()) {
-
-            // mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
-            mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
-            mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
-            mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
-
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0);
-
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            mListItemLiveProductsBinding.image.setColorFilter(filter);
-            mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
-            // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
-
-        }*/
-
-
-
-
-
 
 
         if (mKitchenList.getEta() == null) {
@@ -106,8 +74,6 @@ public class KitchenItemViewModel {
         if (mKitchenList.getFavid() != null)
             favID = mKitchenList.getFavid();
 
-        //  this.favourite.set(mKitchenList.getFavourite());
-        //  this.offer.set(mKitchenList.getOffer());
 
         this.region.set(mKitchenList.getRegionname());
 
@@ -118,40 +84,12 @@ public class KitchenItemViewModel {
             isRated.set(false);
         }
 
-/*
-        StringBuilder itemsBuilder = new StringBuilder();
-
-        if (mKitchenList.getCuisines() != null) {
-
-            for (int i = 0; i < mKitchenList.getCuisines().size(); i++) {
-
-                itemsBuilder.append(mKitchenList.getCuisines().get(i).getCuisinename());
-
-                if (mKitchenList.getCuisines().size() - 1 == i) {
-
-                } else {
-                    itemsBuilder.append(" | ");
-
-                }
-            }
-        }
-
-        String items = itemsBuilder.toString();
-        cuisines.set(items);*/
-
 
         cuisines.set("by " + mKitchenList.getMakeitusername() + ", from ");
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));
         this.kitchen_name.set(mKitchenList.getMakeitbrandname());
-
-       /* if (mKitchenList.getMakeitbrandname() != null)
-            if (mKitchenList.getMakeitbrandname().isEmpty()) {
-                this.kitchen_name.set(mKitchenList.getMakeitusername());
-            } else {
-                this.kitchen_name.set(mKitchenList.getMakeitbrandname());
-            }*/
 
         if (mKitchenList.getIsfav() != null) {
             if (mKitchenList.getIsfav().equals("0")) {
@@ -167,7 +105,7 @@ public class KitchenItemViewModel {
     public void fav() {
 
         if (isFavourite.get()) {
-            // isFavourite.set(false);
+
             if (favID != 0) {
 
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REMOVE_FROM_FAV);
@@ -175,23 +113,11 @@ public class KitchenItemViewModel {
                 removeFavourite();
             }
         } else {
-            //isFavourite.set(true);
+
             new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ADD_TO_FAV);
             addFavourite(mKitchenList.getMakeituserid());
         }
 
-
-        /*if (mKitchenList.getIsfav().equals("0")) {
-            isFavourite.set(true);
-            mListener.addFavourites(mKitchenList.getMakeituserid(), mKitchenList.getIsfav());
-        } else if (mKitchenList.getIsfav().equals("1")) {
-
-            if (mKitchenList.getFavid() != null) {
-                isFavourite.set(false);
-                mListener.removeFavourites(mKitchenList.getFavid());
-            }
-
-        }*/
     }
 
     public void removeFavourite() {
@@ -222,15 +148,7 @@ public class KitchenItemViewModel {
                      */
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json");
-                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                        AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-
-                        headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
-                            headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-
-                        return headers;
+                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                     }
                 };
                 MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
@@ -282,12 +200,9 @@ public class KitchenItemViewModel {
 
     public void onItemClick() {
         mListener.onItemClick(mKitchenList.getMakeituserid());
-        //  mListener.onItemClick(isJobCompleted,Integer.parseInt(sales_emp_id.toString()) , Integer.parseInt(makeit_userid.toString()), date.toString(), name.toString(), email.toString(), phoneno.toString(), brandname.toString(),address.toString(),lat.toString(),lng.toString(),localityid.toString());
     }
 
     public interface KitchenItemViewModelListener {
-        // void onItemClick(boolean completed_status, Object salesEmpId, int makeitUserId, String date, String name, String email, String phNum, String brandName, String address, String lat, String lng);
-
         void onItemClick(Integer id);
 
         void addFavourites(Integer id, String fav);

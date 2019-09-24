@@ -17,11 +17,8 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.CardView;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -55,36 +52,25 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Inject
     public EditAddressViewModel mEditAddressViewModel;
     protected LocationManager locationManager;
-    protected LocationListener locationListener;
     SupportMapFragment mapFragment;
     GoogleMap map;
     LatLng center;
     LatLng lastPosition;
-    CardView cardView;
     boolean isFirstTime;
     Location mLocation;
     Integer aid;
     String atype;
     boolean isGPS;
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_EDIT_ADDRESS;
+    String pageName = AppConstants.SCREEN_EDIT_ADDRESS;
 
-
-    FusedLocationProviderClient fusedLocationClient;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
+            if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -112,7 +98,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
 
     @Override
@@ -131,37 +116,18 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     }
 
-
-    public void hideSoftKeyboard() {
-        if (getCurrentFocus() != null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-    }
-
     @Override
     public void myLocationn() {
         turnOnGps();
-
-       /* if (mLocation != null) {
-            LatLng latLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
-            initCameraIdle();
-        } else {
-            turnOnGps();
-        }*/
     }
 
     @Override
     public void setLatLng(double lat, double lng) {
-
         if (map != null) {
             LatLng latLng = new LatLng(lat, lng);
             lastPosition = latLng;
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
         }
-
-
     }
 
     @Override
@@ -171,7 +137,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -181,18 +147,13 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         mActivityEditAddressBinding = getViewDataBinding();
         mEditAddressViewModel.setNavigator(this);
 
-        analytics=new Analytics(this, pageName);
-
-
+        analytics = new Analytics(this, pageName);
         isFirstTime = true;
 
-        /*buildGoogleAPIClient();*/
-
-
+        //check gps and turn on gps alert
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
                 isGPS = isGPSEnable;
             }
         });
@@ -204,20 +165,20 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
             aid = intent.getExtras().getInt("aid");
             atype = intent.getExtras().getString("type");
 
-            if (atype.equals("1")){
+            if (atype.equals("1")) {
                 mEditAddressViewModel.office.set(false);
                 mEditAddressViewModel.home.set(true);
                 mEditAddressViewModel.typeHome.set(true);
 
                 mEditAddressViewModel.other.set(false);
 
-            }else if (atype.equals("2")){
+            } else if (atype.equals("2")) {
                 mEditAddressViewModel.office.set(true);
                 mEditAddressViewModel.typeOffice.set(true);
                 mEditAddressViewModel.home.set(false);
                 mEditAddressViewModel.other.set(false);
 
-            }else {
+            } else {
 
                 mEditAddressViewModel.office.set(false);
                 mEditAddressViewModel.home.set(false);
@@ -268,7 +229,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
                 if (isGPSEnable) {
                     if (ActivityCompat.checkSelfPermission(EditAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(EditAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(EditAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
@@ -276,20 +236,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                     } else {
                         initCameraIdle();
                         getLocation();
-
-
-                        //  getUserLocation();
-
-                           /* if (location != null) {
-
-                                if (dialog.isShowing())
-                                    dialog.dismiss();
-
-                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-                                initCameraIdle();
-                            }*/
-                        //  initCameraIdle();
                     }
 
                 } else {
@@ -316,104 +262,10 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
                     }
                 });
-
-
-
-       /* fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-
-                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-                            initCameraIdle();
-
-                        }
-                    }
-                });*/
-
-       /* LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
-
-                return null;
-
-            }
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-            Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastKnownLocationGPS != null) {
-                return lastKnownLocationGPS;
-            } else {
-                Location loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-                return loc;
-            }
-        } else {
-            return null;
-        }*/
     }
 
     private void getAddressFromLocation(double latitude, double longitude) {
-
-
         new AsyncTaskAddress().execute(latitude, longitude);
-
-
-
-
-
-
-
-        /*Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
-
-
-        try {
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-            if (addresses.size() > 0) {
-                Address fetchedAddress = addresses.get(0);
-
-                mEditAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
-
-                mEditAddressViewModel.area.set(fetchedAddress.getSubLocality());
-                mEditAddressViewModel.house.set(fetchedAddress.getFeatureName());
-
-
-                mEditAddressViewModel.saveAddress(String.valueOf(fetchedAddress.getLatitude()), String.valueOf(fetchedAddress.getLongitude()), fetchedAddress.getPostalCode(), aid);
-
-
-                StringBuilder strAddress = new StringBuilder();
-                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
-                    strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
-
-                }
-
-
-                //  mEditAddressViewModel.locationAddress.set(strAddress.toString());
-                //    txtLocationAddress.setText(strAddress.toString());
-
-            } else {
-                //   txtLocationAddress.setText("Searching Current Address");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            printToast("Could not get address..!");
-        }*/
     }
 
     @Override
@@ -423,13 +275,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 if (!place.getAddress().toString().contains(place.getName())) {
 
-
-                    // mEditAddressViewModel.locationAddress.set(place.getAddress().toString());
-
-
-                    //   txtLocationAddress.setText(place.getName() + ", " + place.getAddress());
-                } else {
-                    //   txtLocationAddress.setText(place.getAddress());
                 }
 
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 16);
@@ -451,10 +296,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     public void onLocationChanged(Location location) {
 
         mLocation = location;
-
-        //  if (location != null)
-        //  center = new LatLng(location.getLatitude(), location.getLongitude());
-
 
     }
 

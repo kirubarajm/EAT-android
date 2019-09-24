@@ -19,9 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.tovo.eat.R;
@@ -29,7 +27,6 @@ import com.tovo.eat.databinding.ActivityOnboardingBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
-import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -43,17 +40,23 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
     @Inject
     OnBoardingActivityViewModel mOnBoardingActivityViewModel;
-
+    Analytics analytics;
+    String pageName = "Onboarding";
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
     private ActivityOnboardingBinding mActivityOnboardingBinding;
-
     private PrefManager prefManager;
     private TextView[] dots;
     private int[] layouts;
-
-    Analytics analytics;
-    String  pageName="Onboarding";
-
-
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
@@ -109,13 +112,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
     }
 
     @Override
-    public void checkForUserGenderStatus(boolean trueOrFalse) {
-        Intent intent = NameGenderActivity.newIntent(OnBoardingActivity.this);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
     public int getBindingVariable() {
         return BR.onBoardingViewModel;
     }
@@ -138,7 +134,7 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
 
         prefManager = new PrefManager(this);
 
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 /*
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
@@ -161,12 +157,11 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mActivityOnboardingBinding.viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 
-
         mActivityOnboardingBinding.btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                new Analytics().sendClickData(AppConstants.SCREEN_ONBOARDING,AppConstants.CLICK_GET_STARTED);
+                new Analytics().sendClickData(AppConstants.SCREEN_ONBOARDING, AppConstants.CLICK_GET_STARTED);
 
                 launchHomeScreen();
             }
@@ -204,10 +199,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         mOnBoardingActivityViewModel.checkIsUserLoggedInOrNot();
 
 
-       /* startActivity(new Intent(OnBoardingActivity.this, StoriesPagerFragment.class));
-        finish();*/
-
-
     }
 
     /**
@@ -219,6 +210,52 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    private void registerWifiReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mWifiReceiver, filter);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterWifiReceiver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerWifiReceiver();
+    }
+
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+
+        ConnectivityManager cm =
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+        if (networkInfo != null
+                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && networkInfo.isConnected()) {
+            return true;
+        } else return networkInfo != null
+                && networkInfo.isConnected();
+    }
+
+    private void unregisterWifiReceiver() {
+        unregisterReceiver(mWifiReceiver);
     }
 
     /**
@@ -257,68 +294,6 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
             View view = (View) object;
             container.removeView(view);
         }
-    }
-    private void registerWifiReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mWifiReceiver, filter);
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterWifiReceiver();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerWifiReceiver();
-    }
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-
-
-        ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-
-        if (networkInfo != null
-                && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
-                && networkInfo.isConnected()) {
-            return true;
-        } else return networkInfo != null
-                && networkInfo.isConnected();
-    }
-
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
-        unregisterReceiver(mWifiReceiver);
     }
 
 

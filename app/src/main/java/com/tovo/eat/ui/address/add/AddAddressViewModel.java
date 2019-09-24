@@ -20,7 +20,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,11 +34,6 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
-
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
@@ -102,7 +96,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_HOME);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_HOME);
 
             typeHome.set(true);
             typeOffice.set(false);
@@ -120,7 +114,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_WORK);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_WORK);
             typeHome.set(false);
             typeOffice.set(true);
             typeOther.set(false);
@@ -147,7 +141,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             typeOther.set(false);
 
         } else {
-            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_ADDRESS_OTHER);
+            new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_ADDRESS_OTHER);
             typeHome.set(false);
             typeOffice.set(false);
             typeOther.set(true);
@@ -169,9 +163,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     public void saveAddress(String locationAddress, String house, String area, String landmark, String title) {
 
 
-
-        new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS,AppConstants.CLICK_SAVE);
-
+        new Analytics().sendClickData(AppConstants.SCREEN_ADD_ADDRESS, AppConstants.CLICK_SAVE);
 
 
         if (locationAddress.equals("")) {
@@ -194,7 +186,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
         }
 
-        if (!locationAddress.equals("")  && !area.equals("")&& !house.equals("")) {
+        if (!locationAddress.equals("") && !area.equals("") && !house.equals("")) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -202,7 +194,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
             //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
 
-            if (request==null) request= new AddressRequestPojo();
+            if (request == null) request = new AddressRequestPojo();
 
 
             request.setAddress(locationAddress);
@@ -234,7 +226,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                 return;
             }
 
-            if (request==null) request= new AddressRequestPojo();
+            if (request == null) request = new AddressRequestPojo();
             request.setUserid(getDataManager().getCurrentUserId());
 
             try {

@@ -46,7 +46,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableBoolean optionmenu = new ObservableBoolean();
     public ObservableBoolean isFavourite = new ObservableBoolean();
     public ObservableBoolean isVegOnly = new ObservableBoolean();
-    public ObservableField<KitchenDishResponse> kitchenDishModells = new ObservableField<>();
     public ObservableList<KitchenDishResponse.Kitchenmenuimage> kitchenInfoImagesListViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Kitchenmenuimage>> kitchenInfoImagesListLiveData;
     public ObservableList<KitchenDishResponse.Foodbadge> foodBadgeObservableArrayListViewModels = new ObservableArrayList<>();
@@ -97,38 +96,14 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         imageOrVideo.set(true);
         isProductAvailable.set(true);
         serviceablestatus.set(true);
-
-        //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
-
-
     }
-
-    public MutableLiveData<List<KitchenDishResponse.Productlist>> getKitchenItemsLiveData() {
-        return dishItemsLiveData;
-    }
-
-    public String getCartPojoDetails() {
-
-        return getDataManager().getCartDetails();
-    }
-
 
     public void goBack() {
         getNavigator().goBack();
     }
 
     public void vegType() {
-
-
         new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_VEG_ONLY);
-
-
         if (!isVegOnly.get()) {
             isVegOnly.set(true);
             getDataManager().saveVegType(1);
@@ -145,15 +120,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
 
     public void menu() {
-
-
         if (!optionmenu.get()) {
             new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_MENU);
-
             optionmenu.set(true);
-            //  getNavigator().animChanges(true);
         }
-
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
         commonKitchenImagesList = new ArrayList<>();
         if (kitchenmenuimageArrayList != null) {
@@ -161,7 +131,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             kitchenInfoImagesListLiveData.setValue(commonKitchenImagesList);
             addkitchenCommonImagesList(commonKitchenImagesList);
         }
-
         if (kitchenmenuimageArrayList != null)
 
             getNavigator().update(kitchenmenuimageArrayList);
@@ -171,7 +140,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         if (optionmenu.get()) {
             new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_INFO);
             optionmenu.set(false);
-            //  getNavigator().animChanges(false);
         }
 
         kitchenInfoImagesListLiveData = new MutableLiveData<>();
@@ -192,15 +160,11 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
             addFavourite(makeitId);
             isFavourite.set(true);
         }
-        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
 
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.DELETE, AppConstants.EAT_FAV_URL + favId, CommonResponse.class, null, new Response.Listener<CommonResponse>() {
@@ -288,12 +252,12 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     cart.set(false);
                 } else {
                     if (count == 1) {
-                        cartItems.set(String.valueOf(count) + " Item");
+                        cartItems.set(count + " Item");
                         cart.set(true);
                         cartPrice.set(String.valueOf(price));
                         items.set("Item");
                     } else {
-                        cartItems.set(String.valueOf(count) + " Items");
+                        cartItems.set(count + " Items");
                         cart.set(true);
                         cartPrice.set(String.valueOf(price));
                         items.set("Items");
@@ -437,19 +401,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             memberTypeDesc.set(response.getResult().get(0).getMemberTypeName());
                             memberTypeIcon.set(response.getResult().get(0).getMemberTypeIcon());
 
-
-                          /*  if (memberType.equals("1")) {
-                                memberTypeDesc.set("Gold member");
-                            } else if (memberType.equals("2")) {
-                                memberTypeDesc.set("Silver member");
-                            } else if (memberType.equals("3")) {
-                                memberTypeDesc.set("Bronze member");
-                            } else {
-                                memberTypeDesc.set("null");
-                            }*/
                         } else {
-
-
                             isProductAvailable.set(false);
                         }
                     }
@@ -565,9 +517,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         kitchenInfoImagesListViewModels.addAll(kitchenCommonimageList);
     }
 
-    public ObservableList<KitchenDishResponse.Kitchenmenuimage> getKicthenCommonImagesItemViewModels() {
-        return kitchenInfoImagesListViewModels;
-    }
 
     public MutableLiveData<List<KitchenDishResponse.Kitchenmenuimage>> getKitchenCommonImages() {
         return kitchenInfoImagesListLiveData;
@@ -578,10 +527,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         foodBadgeObservableArrayListViewModels.addAll(kitchenCommonimageList);
     }
 
-    public ObservableList<KitchenDishResponse.Foodbadge> getFoodBadgesImagesItemViewModels() {
-        return foodBadgeObservableArrayListViewModels;
-    }
-
     public MutableLiveData<List<KitchenDishResponse.Foodbadge>> getFoodBadgesImages() {
         return foodBadgesMutableLiveData;
     }
@@ -589,10 +534,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public void addSpecialItemsImagesList(List<KitchenDishResponse.Specialitem> kitchenCommonImageList) {
         specialItemsListViewModels.clear();
         specialItemsListViewModels.addAll(kitchenCommonImageList);
-    }
-
-    public ObservableList<KitchenDishResponse.Specialitem> getSpecialItemsImagesItemViewModels() {
-        return specialItemsListViewModels;
     }
 
     public MutableLiveData<List<KitchenDishResponse.Specialitem>> getSpeialItemsImages() {
@@ -605,25 +546,16 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         favAndTodayMenuArrayListViewModels.addAll(productlists);
     }
 
-    public ObservableList<KitchenDishResponse.Result> getFavTodaysMenuImagesItemViewModels() {
-        return favAndTodayMenuArrayListViewModels;
-    }
-
     public MutableLiveData<List<KitchenDishResponse.Result>> getFavTodaysMenuItemsImages() {
         return favAndTodayMenuArrayListLiveData;
     }
 
-
-    ///////////
 
     public void addFav1ImagesList(List<KitchenDishResponse.Productlist> productlists) {
         favoriteArrayViewModels.clear();
         favoriteArrayViewModels.addAll(productlists);
     }
 
-    public ObservableList<KitchenDishResponse.Productlist> getFav1ItemViewModels() {
-        return favoriteArrayViewModels;
-    }
 
     public MutableLiveData<List<KitchenDishResponse.Productlist>> getFav1ItemsImages() {
         return favoriteArrayViewLiveData;
@@ -634,36 +566,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         todaysMenuArrayViewModels.addAll(productlists);
     }
 
-
-
-
-/*
-    public void addTodaysMenu(List<KitchenDishResponse.Productlist> productlists) {
-        todaysMenuArrayViewModels.clear();
-        todaysMenuArrayViewModels.addAll(productlists);
-    }
-
-     public void addFavMenu(List<KitchenDishResponse.Productlist> productlists) {
-         favoriteArrayViewModels.clear();
-         favoriteArrayViewModels.addAll(productlists);
-    }*/
-
-
-    public ObservableList<KitchenDishResponse.Productlist> getTodaysItemViewModels() {
-        return todaysMenuArrayViewModels;
-    }
-
     public MutableLiveData<List<KitchenDishResponse.Productlist>> getTodaysItemsImages() {
         return todaysMenuArrayViewLiveData;
-    }
-
-
-    public MutableLiveData<List<KitchenDishResponse.Result>> getFavAndTodayMenuArrayListLiveData() {
-        return favAndTodayMenuArrayListLiveData;
-    }
-
-    public void setFavAndTodayMenuArrayListLiveData(MutableLiveData<List<KitchenDishResponse.Result>> favAndTodayMenuArrayListLiveData) {
-        this.favAndTodayMenuArrayListLiveData = favAndTodayMenuArrayListLiveData;
     }
 
 

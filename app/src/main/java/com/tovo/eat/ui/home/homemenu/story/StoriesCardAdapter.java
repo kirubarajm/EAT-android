@@ -1,12 +1,9 @@
 package com.tovo.eat.ui.home.homemenu.story;
 
 import android.content.Context;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
@@ -55,15 +52,6 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public int getItemCount() {
 
         return item_list.size();
-
-       // return item_list.size()!=0? Integer.MAX_VALUE:1;
-
-
-        /*if (item_list != null && item_list.size() > 0) {
-            return item_list.size();
-        } else {
-            return 1;
-        }*/
     }
 
     @Override
@@ -136,11 +124,10 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.executePendingBindings();
 
 
-            if (blog.getStories().size() > 0)
-            {
+            if (blog.getStories().size() > 0) {
                 if ((blog.getStories().get(blog.getStories().size() - 1).isSeen())) {
 
-                 //   mListItemLiveProductsBinding.storyWhite.setVisibility(View.VISIBLE);
+                    //   mListItemLiveProductsBinding.storyWhite.setVisibility(View.VISIBLE);
 
                    /* ColorMatrix matrix = new ColorMatrix();
                     matrix.setSaturation(0);
@@ -148,10 +135,10 @@ public class StoriesCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
                     mListItemLiveProductsBinding.storyCard.setColorFilter(filter);*/
 
-                }else {
-                  //  mListItemLiveProductsBinding.storyWhite.setVisibility(View.GONE);
+                } else {
+                    //  mListItemLiveProductsBinding.storyWhite.setVisibility(View.GONE);
                 }
-        }
+            }
         }
 
         @Override

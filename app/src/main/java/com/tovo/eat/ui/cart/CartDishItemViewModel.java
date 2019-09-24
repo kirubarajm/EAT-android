@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.MvvmApp;
 
@@ -43,16 +42,13 @@ public class CartDishItemViewModel {
 
     public CartDishItemViewModel(DishItemViewModelListener mListener, CartPageResponse.Item dishList) {
 
-
         this.mListener = mListener;
         this.dishList = dishList;
-
 
         product_name.set(dishList.getProductName());
         sprice.set(String.valueOf(dishList.getPrice()));
         sQuantity.set(String.valueOf(dishList.getCartquantity()));
         quantity.set(dishList.getCartquantity());
-
 
         if (dishList.getAvailablity()) {
             isAvailable.set(true);
@@ -61,7 +57,6 @@ public class CartDishItemViewModel {
                 isAvailable.set(false);
                 availability.set(dishList.getQuantity() + " Only left");
             }
-
         }
 
         productDes.set(dishList.getProdDesc());
@@ -81,27 +76,17 @@ public class CartDishItemViewModel {
             isVeg.set(false);
 
         }
-       // producttype.set(dishList.getCusine() + " | " + veg_type.get());
         producttype.set(dishList.getCuisinename());
-
     }
 
     public void addClicked() throws NullPointerException {
 
-
         int checkQuantity = quantity.get();
-
-
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
 
         } else {
-           // mListener.productNotAvailable();
-
-            Toast.makeText(MvvmApp.getInstance(), "Only "+dishList.getQuantity()+" Quantity of "+dishList.getProductName()+" Available", Toast.LENGTH_SHORT).show();
-
-
-
+            Toast.makeText(MvvmApp.getInstance(), "Only " + dishList.getQuantity() + " Quantity of " + dishList.getProductName() + " Available", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -265,11 +250,6 @@ public class CartDishItemViewModel {
 
     public void onItemClick() {
         mListener.onItemClick();
-
-        //     mListener.addQuantity();
-
-        //  mListener.onItemClick(isJobCompleted,Integer.parseInt(sales_emp_id.toString()) , Integer.parseInt(makeit_userid.toString()), date.toString(), name.toString(), email.toString(), phoneno.toString(), brandname.toString(),address.toString(),lat.toString(),lng.toString(),localityid.toString());
-
     }
 
     public interface DishItemViewModelListener {

@@ -16,13 +16,13 @@ public class AddressListModule {
 
     @Provides
     AddressListViewModel provideAddressListViewModel(DataManager dataManager) {
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
         return new AddressListViewModel(dataManager);
     }
 
     @Provides
     AddressListAdapter provideAddressListAdapter() {
-        return new AddressListAdapter(new ArrayList<>(),dataManager);
+        return new AddressListAdapter(new ArrayList<>(), dataManager);
     }
 
 

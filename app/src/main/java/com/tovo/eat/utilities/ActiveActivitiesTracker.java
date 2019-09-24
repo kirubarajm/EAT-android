@@ -1,35 +1,20 @@
 package com.tovo.eat.utilities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-
-import com.tovo.eat.data.prefs.AppPreferencesHelper;
-import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
-
 public class ActiveActivitiesTracker {
     public static int sActiveActivities = 0;
 
-    public static void activityStarted()
-    {
-        if( sActiveActivities == 0 )
-        {
+    public static void activityStarted() {
+        if (sActiveActivities == 0) {
             // TODO: Here is presumably "application level" resume
-
 
 
         }
         sActiveActivities++;
     }
 
-    public static void activityStopped()
-    {
+    public static void activityStopped() {
         sActiveActivities--;
-        if( sActiveActivities == 0 ){
+        if (sActiveActivities == 0) {
             // TODO: Here is presumably "application level" pause
 
 
@@ -45,7 +30,6 @@ public class ActiveActivitiesTracker {
             //unregisterWifiReceiver();
         }
     }
-
 
 
 }

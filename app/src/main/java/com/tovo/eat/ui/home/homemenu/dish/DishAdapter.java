@@ -244,20 +244,11 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void favChanged() {
-
-            //notifyItemRemoved(getAdapterPosition());
-
             removeAt(getAdapterPosition());
 
-            if (item_list.size()==0){
-
+            if (item_list.size() == 0) {
                 mLiveProductsAdapterListener.empty();
-
-
             }
-
-
-       //     mLiveProductsAdapterListener.favChanged();
         }
     }
 }

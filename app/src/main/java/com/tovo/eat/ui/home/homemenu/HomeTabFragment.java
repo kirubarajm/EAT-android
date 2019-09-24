@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -70,12 +69,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     StackLayoutManager mStackLayoutManager;
     boolean regionCardClicked = false;
     ProgressDialog progressDialog;
+    Analytics analytics;
+    String pageName = AppConstants.SCREEN_HOME;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
-
-    Analytics analytics;
-    String  pageName=AppConstants.SCREEN_HOME;
-
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -83,12 +80,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public int getBindingVariable() {
         return BR.homeTabViewModel;
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -101,34 +96,27 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
-
     @Override
     public void selectAddress() {
         ((MainActivity) getActivity()).selectHomeAddress();
     }
-
     @Override
     public void filter() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_FILTER);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FILTER);
         FilterFragment bottomSheetFragment = new FilterFragment();
         bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override
     public void favourites() {
-
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_FAVOURITES);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FAVOURITES);
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
-
-
     }
 
     @Override
     public void disconnectGps() {
-        // mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -143,14 +131,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void regionsLoaded(RegionsResponse regionResponse) {
         this.regionsResponse = regionResponse;
-         stopRegioneLoader();
+        stopRegioneLoader();
         initCountryText();
-
-        //  stopLoader();
-
-        //stopRegioneLoader();
-
-
     }
 
     @Override
@@ -166,22 +148,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void collectionLoaded() {
 
-      /*  mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
-                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));*/
 
     }
 
     @Override
     public void kitchenLoaded() {
-        //stopLoader();
-
         stopKitchenLoader();
-
-       /* mHomeTabViewModel.getKitchenItemsLiveData().removeObservers(this);
-
-        mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
-                kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));*/
-
     }
 
     @Override
@@ -193,9 +165,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void trackLiveOrder(Integer orderId) {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_TRACK);
-            Intent intent = OrderTrackingActivity.newIntent(getContext());
-            startActivity(intent);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
+        Intent intent = OrderTrackingActivity.newIntent(getContext());
+        startActivity(intent);
 
     }
 
@@ -210,16 +182,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         subscribeToLiveData();
 
 
-        analytics=new Analytics(getActivity(),pageName);
+        analytics = new Analytics(getActivity(), pageName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-/*
-        if (isFinishing() && decodeBitmapTask != null) {
-             decodeBitmapTask.cancel(true);
-        }*/
     }
 
     @Override
@@ -231,16 +199,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(true);
 
-
-        // startLoader();
         startStoriesLoader();
-            startRegionLoader();
-            startKitchenLoader();
-//stopRegioneLoader();
-
-
-
-
+        startRegionLoader();
+        startKitchenLoader();
         regionsResponse = new RegionsResponse();
 
         if (mHomeTabViewModel.isAddressAdded()) {
@@ -248,7 +209,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
 
-        }else {
+        } else {
             ((MainActivity) getActivity()).startLocationTracking();
         }
 
@@ -258,10 +219,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     private void setUp() {
 
-        //  subscribeToLiveData();
         LinearLayoutManager mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
@@ -270,16 +229,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         LinearLayoutManager mLayoutManagerTitle
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mLayoutManagerTitle.setOrientation(LinearLayoutManager.HORIZONTAL);
-       /* mLayoutManagerTitle = new LinearLayoutManager(getContext()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };*/
         mFragmentHomeBinding.recyclerViewRegionTitle.setLayoutManager(mLayoutManagerTitle);
         mFragmentHomeBinding.recyclerViewRegionTitle.setAdapter(regionsCardTitleAdapter);
 
@@ -293,12 +242,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFragmentHomeBinding.recyclerViewStory.setLayoutManager(mLayoutManager3);
         mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
-
-
-     /*   SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
-        snapHelper.attachToRecyclerView(    mFragmentHomeBinding.recyclerViewStory);*/
-        //mFragmentHomeBinding.recyclerViewStory.smoothScrollToPosition(15);
-
 
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -327,67 +270,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                //     mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
-
-
             }
 
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-
-               /* LinearLayoutManager ll = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                int firstVisiblePosition = ll.findFirstVisibleItemPosition();
-
-                mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);*/
             }
         });
-
-
-
-
-
-       /* final RecyclerView.OnScrollListener[] scrollListeners = new RecyclerView.OnScrollListener[2];
-        scrollListeners[0] = new RecyclerView.OnScrollListener( )
-        {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                super.onScrolled(recyclerView, dx, dy);
-                mFragmentHomeBinding.recyclerViewRegionTitle.removeOnScrollListener(scrollListeners[1]);
-                mFragmentHomeBinding.recyclerViewRegionTitle.scrollBy(dx, dy);
-                mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(scrollListeners[1]);
-            }
-        };
-        scrollListeners[1] = new RecyclerView.OnScrollListener( )
-        {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                super.onScrolled(recyclerView, dx, dy);
-                mFragmentHomeBinding.recyclerViewRegion.removeOnScrollListener(scrollListeners[0]);
-                mFragmentHomeBinding.recyclerViewRegion.scrollBy(dx, dy);
-                mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(scrollListeners[0]);
-            }
-        };
-        mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(scrollListeners[0]);
-        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(scrollListeners[1]);*/
-
-
-        // subscribeToLiveData();
-
-        /*mFragmentHomeBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-                mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();
-                mKitchenViewModel.fetchRepos();
-            }
-        });*/
-
 
         mFragmentHomeBinding.recyclerviewOrders.setItemAnimator(new DefaultItemAnimator());
 
@@ -416,12 +306,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         mStackLayoutManager = new StackLayoutManager();
         mStackLayoutManager.setItemOffset(70);
-        // mStackLayoutManager.setPagerMode(mStackLayoutManager.getPagerMode());
-
-       /* mStackLayoutManager.setItemOffset(mStackLayoutManager.getItemOffset() - 10);
-        mStackLayoutManager.requestLayout();*/
-        // mStackLayoutManager.setPagerFlingVelocity(mStackLayoutManager.getPagerFlingVelocity() + 5000);
-
 
         mFragmentHomeBinding.recyclerViewRegion.setLayoutManager(mStackLayoutManager);
 
@@ -430,7 +314,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             @Override
             public void onItemChanged(int position) {
 
-                // onActiveCardChange(position);
+
                 mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(position);
 
 
@@ -470,79 +354,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-       /* mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-
-
-            }
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                StackLayoutManager ll = (StackLayoutManager) recyclerView.getLayoutManager();
-
-                int firstVisiblePosition = ll.getFirstVisibleItemPosition();
-
-                // mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(firstVisiblePosition);
-                mFragmentHomeBinding.recyclerViewRegionTitle.smoothScrollToPosition(firstVisiblePosition);
-            }
-        });*/
-
-
-        //   mFragmentHomeBinding.recyclerViewRegion.addItemDecoration(new OverlapDecoration());
-
-/*
-        mFragmentHomeBinding.recyclerViewRegion.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    onActiveCardChange();
-                } else {
-
-                    cardSliderLayoutManager = (CardSliderLayoutManager) recyclerView.getLayoutManager();
-
-                    int firstVisiblePosition = cardSliderLayoutManager.getActiveCardPosition();
-
-
-                    //   Toast.makeText(getContext(), "Position : "+ firstVisiblePosition, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        cardSliderLayoutManager = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.geFtLayoutManager();*/
-
-
-        //      new CardSnapHelper().attachToRecyclerView(mFragmentHomeBinding.recyclerViewRegion);
-        
-        
-        
-        
-        
-        
-       /* FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        KitchenFragment fragment = new KitchenFragment();
-        transaction.replace(R.id.contentKitchen, fragment);
-        transaction.commit();*/
-
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        /* mHomeTabViewModel.updateAddressTitle();*/
-       /* mFragmentHomeBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentHomeBinding.shimmerViewContainer.startShimmerAnimation();*/
-        //mHomeTabViewModel.fetchStories();
-
         if (mHomeTabViewModel.getDataManager().getFilterSort() != null) {
 
             mHomeTabViewModel.fetchKitchenFilter();
-        }else {
+        } else {
             mHomeTabViewModel.fetchKitchen();
         }
         mHomeTabViewModel.liveOrders();
@@ -574,20 +395,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void applyFilter() {
 
-       // mHomeTabViewModel.fetchKitchenFilter();
-        // subscribeToLiveData();
-
     }
 
     @Override
     public void animateView(View view) {
-      /*  Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
-        view.startAnimation(shake);*/
     }
 
     @Override
     public void onItemClickData(Integer kitchenId) {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_KITCHEN);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
@@ -721,8 +537,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.slogan1.set(mHomeTabViewModel.regionResult.getResult().get(pos).getTagline());
         }
 
-        //   setCountryText(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
-        //  setCountryTextSlogan(mHomeTabViewModel.regionResult.getResult().get(pos).getRegionname(), left2right);
 
         currentPosition = pos;
     }
@@ -734,27 +548,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();
 
 
-    /*
-        mStackLayoutManager.setItemChangedListener(new StackLayoutManager.ItemChangedListener() {
-            @Override
-            public void onItemChanged(int positions) {
-
-
-               activeCardPosition=positions;
-
-
-            }
-        });*/
-
-
-
-
-      /*  final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
-
-        if (lm.isSmoothScrolling()) {
-            return;
-        }*/
-
 
         if (activeCardPosition == RecyclerView.NO_POSITION) {
             return;
@@ -764,7 +557,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             if (!regionCardClicked) {
                 regionCardClicked = true;
 
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REGION_CARD);
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_CARD);
                 Intent intent = RegionDetailsActivity.newIntent(getContext());
                 intent.putExtra("image", mRegionList.getRegionDetailImage());
                 intent.putExtra("id", mRegionList.getRegionid());
@@ -774,8 +567,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
 
         } else if (position > activeCardPosition) {
-            //    mFragmentHomeBinding.recyclerViewRegion.smoothScrollToPosition(position);
-            // onActiveCardChange();
+
         }
 
     }
@@ -788,14 +580,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void viewMoreRegions() {
 
-/*
-        final CardSliderLayoutManager lm = (CardSliderLayoutManager) mFragmentHomeBinding.recyclerViewRegion.getLayoutManager();
-
-        if (lm.isSmoothScrolling()) {
-            return;
-        }
-
-        final int activeCardPosition = lm.getActiveCardPosition();*/
 
 
         int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();
@@ -806,7 +590,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.regionResult.getResult().size() == activeCardPosition) {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_REGION_EXPLORE_ALL);
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_EXPLORE_ALL);
             Intent intent = RegionListActivity.newIntent(getContext());
             startActivity(intent);
 
@@ -821,49 +605,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (result.getStories().size() > 0) {
 
-            new Analytics().story(result.getStoryid(),result.getThumbTitle());
+            new Analytics().story(result.getStoryid(), result.getThumbTitle());
 
 
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_STORY);
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_STORY);
             Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);
             startActivity(intent);
         }
 
-        /*Bundle bundle = new Bundle();
-        bundle.putSerializable("fullStories", storiesFullResponse);
-        bundle.putInt("position",pos);
-        StatusStoriesFragment fragment = new StatusStoriesFragment();
-        fragment.setArguments(bundle);
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.commit();*/
-
-/*
-        ActivitySwitcher.animationOut(getView().findViewById(R.id.homemain), getActivity().getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
-            @Override
-            public void onAnimationFinished() {
-                startActivity(intent);
-            }
-        });
-*/
-
-        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        StoriesViewPagerActivity fragment = new StoriesViewPagerActivity();
-        Bundle args = new Bundle();
-        args.putSerializable("fullStories", storiesFullResponse);
-        args.putInt("position",pos);
-        fragment.setArguments(args);
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commitNow();*/
     }
 
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_COLLECTION);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
@@ -873,7 +630,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void offersItemClick(CouponListResponse.Result offers) {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_COUPON);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COUPON);
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);
@@ -893,14 +650,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
 
         } else if (requestCode == AppConstants.GPS_REQUEST) {
-
-          /*  if (resultCode == Activity.RESULT_OK) {
-                startLocationTracking();
-
-
-            } else {
-                startLocationTracking();
-            }*/
 
         }
     }
@@ -947,7 +696,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.regionLoader.setVisibility(View.GONE);
         mFragmentHomeBinding.regionLoader.stopShimmerAnimation();
     }
- public void startKitchenLoader() {
+
+    public void startKitchenLoader() {
         mFragmentHomeBinding.kitchenLoader.setVisibility(View.VISIBLE);
         mFragmentHomeBinding.kitchenLoader.startShimmerAnimation();
     }

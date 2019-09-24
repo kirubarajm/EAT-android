@@ -48,25 +48,19 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     JSONObject options;
-boolean paymentRetry=false;
+    boolean paymentRetry = false;
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_PAYMENT;
+    String pageName = AppConstants.SCREEN_PAYMENT;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
+
+            if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -99,12 +93,12 @@ boolean paymentRetry=false;
 
     @Override
     public void goBack() {
-      onBackPressed();
+        onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_BACK_BUTTON);
 
         super.onBackPressed();
     }
@@ -217,7 +211,7 @@ boolean paymentRetry=false;
         mPaymentViewModel.setNavigator(this);
 
 
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -233,34 +227,22 @@ boolean paymentRetry=false;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-       // boolean status = data.getBooleanExtra("status", false);
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
-
                 case COD_REQUESTCODE:
-
                     mPaymentViewModel.cashMode();
-
                     break;
-
                 case ONLINE_REQUESTCODE:
-
-
                     mPaymentViewModel.payOnline();
-
                     break;
-
             }
-    }
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-
-
         if (paymentRetry) showRetry();
 
 
@@ -274,47 +256,15 @@ boolean paymentRetry=false;
 
     @Override
     public void onPaymentSuccess(String s) {
-
         mPaymentViewModel.paymentSuccess(s, 1);
-
-
-
-
-
-
     }
 
     @Override
     public void onPaymentError(int i, String s) {
 
-/*
-        AlertDialog.Builder builder=new AlertDialog.Builder(PaymentActivity.this);
-        builder.setTitle("Payment failed");
-        builder.show();*/
-
-
-        // mPaymentViewModel.paymentSuccess("Canceled", 2);
-
-
-paymentRetry=true;
-
-
-               // showRetry();
-
-
-       /* Bundle bundle = new Bundle();
-        bundle.putInt("orderid", 880);
-        bundle.putString("brandname", "dddddff");
-        bundle.putString("products", "dfdfff");
-        bundle.putInt("price", 500);
-        PendingPaymentAlert bottomSheetFragment = new PendingPaymentAlert();
-        bottomSheetFragment.setArguments(bundle);
-        bottomSheetFragment.setCancelable(false);
-        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());*/
-
+        paymentRetry = true;
 
     }
-
 
     public void showRetry() {
 
@@ -324,7 +274,7 @@ paymentRetry=true;
             bottomSheetFragment.setArguments(bundle);
             bottomSheetFragment.setCancelable(false);
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-            paymentRetry=false;
+            paymentRetry = false;
         } catch (Exception ee) {
             ee.printStackTrace();
 
@@ -333,7 +283,7 @@ paymentRetry=true;
                 public void run() {
                     showRetry();
                 }
-            },1000);
+            }, 1000);
         }
     }
 

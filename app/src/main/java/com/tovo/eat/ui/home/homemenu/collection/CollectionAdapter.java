@@ -10,7 +10,6 @@ import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 
 import java.util.List;
 
@@ -23,11 +22,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public CollectionAdapter(List<KitchenResponse.Collection> item_list) {
-        for (int i=0;i<item_list.size();i++){
+        for (int i = 0; i < item_list.size(); i++) {
 
-           if ( !item_list.get(i).isCollectionStatus()){
-               item_list.remove(i);
-           }
+            if (!item_list.get(i).isCollectionStatus()) {
+                item_list.remove(i);
+            }
 
         }
         this.item_list = item_list;

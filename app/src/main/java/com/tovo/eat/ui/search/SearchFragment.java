@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -22,7 +21,6 @@ import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.DialogChangeKitchen;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 import com.tovo.eat.utilities.AppConstants;

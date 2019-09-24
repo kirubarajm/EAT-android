@@ -66,24 +66,15 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-
-
-     //   return VIEW_TYPE_NORMAL;
-
-        /*if (position != 0) {*/
-            if (position == item_list.size()) {
-                return VIEW_TYPE_MORE;
+        if (position == item_list.size()) {
+            return VIEW_TYPE_MORE;
+        } else {
+            if (item_list != null && !item_list.isEmpty()) {
+                return VIEW_TYPE_NORMAL;
             } else {
-                if (item_list != null && !item_list.isEmpty()) {
-                    return VIEW_TYPE_NORMAL;
-                } else {
-                    return VIEW_TYPE_EMPTY;
-                }
+                return VIEW_TYPE_EMPTY;
             }
-       /* }else {
-            return VIEW_TYPE_EMPTY;
-        }*/
-
+        }
     }
 
 
@@ -100,10 +91,6 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.mLiveProductsAdapterListener = listener;
     }
 
-    public void viewRegion() {
-
-
-    }
 
     @Override
     public long getItemId(int position) {
@@ -195,21 +182,7 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 // To force execution, use the executePendingBindings() method.
                 mListItemLiveProductsBinding.executePendingBindings();
 
-
-
-
-
-
-
             }
-          /*  if (position ==getAdapterPosition()) {
-
-                mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
-
-            } else {
-                mListItemLiveProductsBinding.title.setVisibility(View.INVISIBLE);
-            }*/
-
 
         }
 
@@ -217,8 +190,6 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onItemClick(RegionsResponse.Result mRegionList, int position) {
             mLiveProductsAdapterListener.onItemClickData(mRegionList, position);
-
-
         }
 
         @Override
@@ -226,8 +197,6 @@ public class RegionsCardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsAdapterListener.showMore(id);
         }
 
-
     }
-
 
 }

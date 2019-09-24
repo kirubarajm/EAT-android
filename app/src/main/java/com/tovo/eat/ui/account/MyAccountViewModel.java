@@ -2,7 +2,6 @@ package com.tovo.eat.ui.account;
 
 
 import android.databinding.ObservableField;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -49,8 +48,6 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().setIsFav(true);
         getNavigator().favourites();
     }
-
-
     public void referrals() {
         getNavigator().referrals();
     }
@@ -61,14 +58,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void logOut() {
-
-
-
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-            int userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOG_OUT, GetUserDetailsResponse.class,new CouponCheckRequest(getDataManager().getCurrentUserId()   ),new Response.Listener<GetUserDetailsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOG_OUT, GetUserDetailsResponse.class, new CouponCheckRequest(getDataManager().getCurrentUserId()), new Response.Listener<GetUserDetailsResponse>() {
                 @Override
                 public void onResponse(GetUserDetailsResponse response) {
 
@@ -85,7 +78,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                         e.printStackTrace();
                     }
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -99,17 +92,12 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
 
-
-
-
-
-
     public void feedbackAndSupport() {
         getNavigator().feedbackAndSupport();
     }
 
     public void editProfile() {
-        if (getUserDetailsResponse!=null) {
+        if (getUserDetailsResponse != null) {
             getNavigator().editProfile(getUserDetailsResponse);
         }
     }
@@ -134,9 +122,9 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                 @Override
                 public void onResponse(GetUserDetailsResponse response) {
                     try {
-                        if (response != null && response.getResult() != null && response.getResult().size()>0) {
+                        if (response != null && response.getResult() != null && response.getResult().size() > 0) {
 
-                            getUserDetailsResponse=response;
+                            getUserDetailsResponse = response;
 
                             setIsLoading(false);
                             String strUserName = response.getResult().get(0).getName();
@@ -151,7 +139,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             if (response.getResult().get(0).getGender() == 1) {
 
                                 gender.set("M");
-                            }else {
+                            } else {
 
                                 gender.set("F");
 
@@ -172,7 +160,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                         e.printStackTrace();
                     }
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

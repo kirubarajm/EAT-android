@@ -455,6 +455,7 @@ public class OrdersHistoryListResponse {
             this.productName = productName;
         }
     }
+
     public class Moveitdetail {
 
         @SerializedName("name")

@@ -18,7 +18,6 @@ public class FoodBadgeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    List<KitchenDishResponse.Result> response;
     private List<KitchenDishResponse.Foodbadge> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
@@ -88,7 +87,7 @@ public class FoodBadgeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -126,7 +125,7 @@ public class FoodBadgeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(String url) {
-mLiveProductsAdapterListener.onFoodBadgesItemClickData(url);
+            mLiveProductsAdapterListener.onFoodBadgesItemClickData(url);
         }
     }
 }

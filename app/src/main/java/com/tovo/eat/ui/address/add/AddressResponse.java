@@ -3,7 +3,7 @@ package com.tovo.eat.ui.address.add;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class    AddressResponse {
+public class AddressResponse {
 
     @SerializedName("success")
     @Expose

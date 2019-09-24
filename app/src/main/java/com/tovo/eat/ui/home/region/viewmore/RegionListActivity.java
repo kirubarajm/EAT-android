@@ -42,17 +42,10 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
+            if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
         }
     };
@@ -73,13 +66,6 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         analytics=new Analytics(this,pageName);
 
         subscribeToLiveData();
-
-       /* Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            mRegionListViewModel.fetchRepos(intent.getExtras().getInt("id"));
-
-            subscribeToLiveData();
-        }*/
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRegionListBinding.recyclerviewList.setLayoutManager(new LinearLayoutManager(this));

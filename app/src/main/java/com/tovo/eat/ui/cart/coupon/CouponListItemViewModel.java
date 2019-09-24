@@ -10,33 +10,21 @@ import java.util.Date;
 public class CouponListItemViewModel {
 
 
-
-
-
-
     public final ObservableField<String> code = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
     public final ObservableField<String> expiry = new ObservableField<>();
-
-
-
-
 
     public final RefundListItemViewModelListener mListener;
     private final CouponListResponse.Result refundList;
 
 
-
     public CouponListItemViewModel(RefundListItemViewModelListener mListener, CouponListResponse.Result refundList) {
-
 
         this.mListener = mListener;
         this.refundList = refundList;
         code.set(refundList.getCouponName());
         description.set(refundList.getDescription());
-        expiry.set("Expires "+ parseDateToddMMyyyy(refundList.getExpiryDate()));
-
-
+        expiry.set("Expires " + parseDateToddMMyyyy(refundList.getExpiryDate()));
     }
 
 
@@ -44,7 +32,6 @@ public class CouponListItemViewModel {
         mListener.onItemClick(refundList);
 
     }
-
 
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";

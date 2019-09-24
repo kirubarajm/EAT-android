@@ -17,9 +17,4 @@ public class RegistrationActivityModule {
     RegistrationActivityViewModel provideSignUpViewModel(DataManager dataManager) {
         return new RegistrationActivityViewModel(dataManager);
     }
-
-   /* @Provides
-    RegionsAdapter provideRegionListAdapter() {
-        return new RegionsAdapter(new ArrayList());
-    }*/
 }

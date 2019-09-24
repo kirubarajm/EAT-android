@@ -18,9 +18,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressSelectBinding;
 import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.address.edit.EditAddressActivity;
-import com.tovo.eat.ui.address.list.AddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -40,8 +38,17 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     ActivityAddressSelectBinding mActivityAddressSelectBinding;
 
     Analytics analytics;
-    String  pageName= AppConstants.CLICK_MANAGE_ADDRESS;
-
+    String pageName = AppConstants.CLICK_MANAGE_ADDRESS;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
@@ -56,8 +63,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         adapter.setListener(this);
 
 
-
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
 
         mActivityAddressSelectBinding.loader.setVisibility(View.VISIBLE);
@@ -72,14 +78,13 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         mActivityAddressSelectBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Analytics().sendClickData(pageName,AppConstants.CLICK_REFRESH);
+                new Analytics().sendClickData(pageName, AppConstants.CLICK_REFRESH);
                 mSelectAddressListViewModel.fetchRepos();
             }
         });
 
 
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -103,7 +108,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void addNewAddress() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_NEW_ADDRESS);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_ADD_NEW_ADDRESS);
         Intent intent = AddAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
         finish();
@@ -125,22 +130,20 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void goBack() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
     }
-
 
     private void subscribeToLiveData() {
         mSelectAddressListViewModel.getSelectAddrressListItemsLiveData().observe(this,
                 addrressListItemViewModel -> mSelectAddressListViewModel.addDishItemsToList(addrressListItemViewModel));
     }
 
-
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         Intent intent = new Intent();
         setResult(Activity.RESULT_CANCELED, intent);
         finish();//finishing activity
@@ -150,10 +153,8 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     @Override
     public void onResume() {
         super.onResume();
-        //  mSelectAddressListViewModel.fetchRepos();
         registerWifiReceiver();
     }
-
 
     @Override
     protected void onPause() {
@@ -163,8 +164,8 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void onItemClickData(SelectAddressListResponse.Result address) {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_SELECT_ADDRESS);
-        mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(),address.getLocality(),address.getAid());
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_SELECT_ADDRESS);
+        mSelectAddressListViewModel.updateCurrentAddress(address.getAddressTitle(), address.getAddress(), address.getLat(), address.getLon(), address.getLocality(), address.getAid());
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
         finish();//finishing activity
@@ -172,23 +173,18 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
 
     @Override
     public void editAddressClick(SelectAddressListResponse.Result address) {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_EDIT);
         Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
-        intent.putExtra("aid",address.getAid());
+        intent.putExtra("aid", address.getAid());
         intent.putExtra("type", address.getAddressType());
         startActivity(intent);
         finish();
-
     }
 
     @Override
     protected void onDestroy() {
-       /* Intent intent = new Intent();
-        setResult(Activity.RESULT_CANCELED, intent);*/
         super.onDestroy();
     }
-
-
 
     private void registerWifiReceiver() {
         IntentFilter filter = new IntentFilter();
@@ -198,14 +194,13 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -220,24 +215,7 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

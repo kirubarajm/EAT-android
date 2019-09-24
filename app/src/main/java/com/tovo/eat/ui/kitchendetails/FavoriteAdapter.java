@@ -29,10 +29,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
 
-    public FavoriteAdapter(List<KitchenDishResponse.Productlist> item_list) {
-        this.item_list = item_list;
-    }
-
 
     public FavoriteAdapter(List<KitchenDishResponse.Result> result, DataManager dataManager) {
         this.item_list = new ArrayList<>();
@@ -85,13 +81,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void addItems(List<KitchenDishResponse.Productlist> productlists) {
         item_list.addAll(productlists);
-        //response.addAll(blogList);
-
         notifyDataSetChanged();
     }
 
 
-    public void     serviceable(boolean status) {
+    public void serviceable(boolean status) {
         this.serviceablekitchen = status;
 
     }
@@ -111,7 +105,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void addDishFavourite(Integer dishId, String fav);
 
-        void productNotAvailable(int quantity,String productname);
+        void productNotAvailable(int quantity, String productname);
 
         void removeDishFavourite(Integer favId);
 
@@ -156,24 +150,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new FavTodaysMenuItemViewModel(this, blog,serviceablekitchen);
+            mLiveProductsItemViewModel = new FavTodaysMenuItemViewModel(this, blog, serviceablekitchen);
             mListItemLiveProductsBinding.setFavTodaysMenuItemViewModel(mLiveProductsItemViewModel);
 
             mLiveProductsAdapterListener.onItemClickData(null, mListItemLiveProductsBinding.fav);
-
-            /*ObjectAnimator rotate = ObjectAnimator.ofFloat(mListItemLiveProductsBinding.fav, "rotation", 0f, 20f, 0f, -20f, 0f); // rotate o degree then 20 degree and so on for one loop of rotation.
-// animateView (View object)
-            rotate.setRepeatCount(20); // repeat the loop 20 times
-            rotate.setDuration(100); // animation play time 100 ms
-            rotate.start();*/
-
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
-
 
 
             if (!serviceablekitchen) {
@@ -190,9 +176,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
                 mListItemLiveProductsBinding.image.setColorFilter(filter);
-                // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
 
-            }else if (blog.getNextAvailable()){
+            } else if (blog.getNextAvailable()) {
 
                 mListItemLiveProductsBinding.content.setAlpha(1);
                 mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
@@ -220,10 +205,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public String addQuantity() {
-            // mLiveProductsItemViewModel.isAddClicked.set(true);
-
             return dataManager.getCartDetails();
-
         }
 
         @Override
@@ -261,8 +243,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void productNotAvailable(int quantity,String productname) {
-            mLiveProductsAdapterListener.productNotAvailable(quantity,productname);
+        public void productNotAvailable(int quantity, String productname) {
+            mLiveProductsAdapterListener.productNotAvailable(quantity, productname);
         }
 
         @Override
@@ -278,9 +260,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void showToast(String msg) {
-
             mLiveProductsAdapterListener.showToast(msg);
-
         }
 
         @Override

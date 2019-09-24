@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemCartBillBinding;
-import com.tovo.eat.databinding.ListItemCouponBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -43,7 +42,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-
     public void clearItems() {
         item_list.clear();
     }
@@ -52,8 +50,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         item_list.addAll(blogList);
         notifyDataSetChanged();
     }
-
-
 
 
     public class LiveProductsViewHolder extends BaseViewHolder {
@@ -70,9 +66,8 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
             final CartPageResponse.Cartdetail blog = item_list.get(position);
-            mLiveProductsItemViewModel = new BillItemViewModel( blog);
+            mLiveProductsItemViewModel = new BillItemViewModel(blog);
             mListItemLiveProductsBinding.setBillItemViewModel(mLiveProductsItemViewModel);
-
 
 
             mListItemLiveProductsBinding.executePendingBindings();

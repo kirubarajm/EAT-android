@@ -7,6 +7,7 @@ public interface CouponListNavigator {
     void listLoaded();
 
     void goBack();
+
     void noList();
 
     void showToast(String msg);

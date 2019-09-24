@@ -33,38 +33,10 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     FilterAdapter adapter;
     @Inject
     LinearLayoutManager mLayoutManager;
-
-
     StartFilter startFilter;
-
-    FilterListener filterListener;
-
     Analytics analytics;
     String  pageName= AppConstants.SCREEN_KITCHEN_FILTER;
 
-
-    public void setFilterListener(FilterListener filterListener) {
-        this.filterListener = filterListener;
-    }
-
-
-
-    /*public static <T> getInterface(Class<T> interfaceClass, Fragment thisFragment) {
-        final Fragment parent = thisFragment.getParentFragment();
-        if (parent != null && interfaceClass.isAssignableFrom(parent)) {
-            return interfaceClass.cast(parent);
-        }
-
-        final Activity activity = thisFragment.getActivity();
-        if (activity != null && interfaceClass.isAssignableFrom(activity)) {
-            return interfaceClass.cast(activity);
-        }
-
-        return null;
-    }*/
-    public final StartFilter getContract() {
-        return startFilter;
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -76,16 +48,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
             throw new RuntimeException(context.toString()
                     + " must implement InteractionListener");
         }
-
-
-
-      /*  try {
-            startFilter=(StartFilter)context;
-        } catch (ClassCastException e) {
-            throw new IllegalStateException(context.getClass().getSimpleName()
-                    + " does not implement " + getClass().getSimpleName() + "'s contract interface.", e);
-        }
-        super.onAttach(context);*/
 
     }
 
@@ -108,7 +70,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
 
     @Override
     public FilterViewModel getViewModel() {
-        //  mFoodMenuViewModel = ViewModelProviders.of(this, mViewModelFactory).get(FoodMenuViewModel.class);
         return mFilterViewModel;
     }
 
@@ -116,18 +77,8 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFilterViewModel.setNavigator(this);
-
         adapter.setListener(this);
-
-
         analytics=new Analytics(getActivity(),pageName);
-
-      //  startFilter=(StartFilter)getContext();
-
-
-
-        //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
-
     }
 
     @Override
@@ -138,9 +89,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentFilterBinding.recyclerviewFilters.setLayoutManager(mLayoutManager);
         mFragmentFilterBinding.recyclerviewFilters.setAdapter(adapter);
-
-        //  mFilterViewModel.toolbarTitle.set(getString(R.string.my_account));
-
         mFilterViewModel.sort();
 
     }
@@ -148,7 +96,6 @@ public class FilterFragment extends BaseBottomSheetFragment<FragmentFilterBindin
     @Override
     public void onResume() {
         super.onResume();
-        //  ((FilterActivity) getActivity()).setActionBarTitle("My Account");
     }
 
     @Override

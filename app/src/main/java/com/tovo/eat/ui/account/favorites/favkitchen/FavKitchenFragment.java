@@ -11,15 +11,11 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentFavKitchenBinding;
-import com.tovo.eat.databinding.FragmentKitchenBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenNavigator;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenViewModel;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -94,13 +90,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     public void handleError(Throwable throwable) {
     }
 
-    @Override
-    public void gotoJobCompleted() {
-    }
 
-    @Override
-    public void gotoInJobCompleted() {
-    }
 
     @Override
     public void kitchenListLoaded() {
@@ -117,14 +107,8 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     public void filter() {
     }
 
-    @Override
-    public void addressAdded1() {
-    }
 
-    @Override
-    public void noAddressFound1() {
-        Toast.makeText(getContext(), "Please Add your address", Toast.LENGTH_SHORT).show();
-    }
+
 
     @Override
     public void toastMessage(String msg) {

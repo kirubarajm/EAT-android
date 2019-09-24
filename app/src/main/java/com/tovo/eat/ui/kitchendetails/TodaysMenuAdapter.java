@@ -1,8 +1,5 @@
 package com.tovo.eat.ui.kitchendetails;
 
-import android.animation.ObjectAnimator;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +26,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<KitchenDishResponse.Productlist> item_list;
     private FavoriteAdapter.LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
-    private boolean serviceablekitchen=true;
+    private boolean serviceablekitchen = true;
 
 
     public TodaysMenuAdapter(List<KitchenDishResponse.Productlist> item_list) {
@@ -90,6 +87,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         notifyDataSetChanged();
     }
+
     public void serviceable(boolean status) {
         this.serviceablekitchen = status;
 
@@ -109,7 +107,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void addDishFavourite(Integer dishId, String fav);
 
-        void productNotAvailable(int quantity,String productname);
+        void productNotAvailable(int quantity, String productname);
 
         void removeDishFavourite(Integer favId);
 
@@ -151,28 +149,16 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new TodaysMenuItemViewModel(this, blog,serviceablekitchen);
+            mLiveProductsItemViewModel = new TodaysMenuItemViewModel(this, blog, serviceablekitchen);
             mListItemLiveProductsBinding.setTodaysMenuItemViewModel(mLiveProductsItemViewModel);
 
             mLiveProductsAdapterListener.onItemClickData(null, mListItemLiveProductsBinding.fav);
-
-           /* ObjectAnimator rotate = ObjectAnimator.ofFloat(mListItemLiveProductsBinding.fav, "rotation", 0f, 20f, 0f, -20f, 0f); // rotate o degree then 20 degree and so on for one loop of rotation.
-            // animateView (View object)
-            rotate.setRepeatCount(20); // repeat the loop 20 times
-            rotate.setDuration(100); // animation play time 100 ms
-            rotate.start();*/
-
-
-
-
 
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
-
-
 
 
             if (!serviceablekitchen) {
@@ -184,7 +170,7 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
 
 
-            }else if (blog.getNextAvailable()){
+            } else if (blog.getNextAvailable()) {
                 mListItemLiveProductsBinding.content.setAlpha(1);
                 mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
                 mListItemLiveProductsBinding.inr.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
@@ -195,7 +181,6 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         }
-
 
 
         @Override
@@ -246,8 +231,8 @@ public class TodaysMenuAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void productNotAvailable(int quantity,String productname) {
-            mLiveProductsAdapterListener.productNotAvailable(quantity,productname);
+        public void productNotAvailable(int quantity, String productname) {
+            mLiveProductsAdapterListener.productNotAvailable(quantity, productname);
         }
 
         @Override

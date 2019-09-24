@@ -43,7 +43,6 @@ public class CollectionResponse {
     }
 
 
-
     public class Collection {
 
         @SerializedName("cid")

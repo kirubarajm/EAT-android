@@ -20,15 +20,10 @@ import java.util.List;
 
 public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryActivityNavigator> {
 
-    public ObservableList<OrdersHistoryListResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
-    private MutableLiveData<List<OrdersHistoryListResponse.Result>> ordersItemsLiveData;
     public final ObservableField<String> makeItLocality = new ObservableField<>();
-
-
-
-    public ObservableBoolean emptyHistory=new ObservableBoolean();
-
-
+    public ObservableList<OrdersHistoryListResponse.Result> ordersItemViewModels = new ObservableArrayList<>();
+    public ObservableBoolean emptyHistory = new ObservableBoolean();
+    private MutableLiveData<List<OrdersHistoryListResponse.Result>> ordersItemsLiveData;
 
 
     public OrderHistoryActivityViewModel(DataManager dataManager) {
@@ -59,16 +54,16 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                 setIsLoading(true);
             }
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST+userId, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_ORDERS_HISTORY_LIST + userId, OrdersHistoryListResponse.class, new Response.Listener<OrdersHistoryListResponse>() {
                 @Override
                 public void onResponse(OrdersHistoryListResponse response) {
                     try {
 
-                        if (!response.getStatus()){
+                        if (!response.getStatus()) {
                             emptyHistory.set(true);
                         }
 
-                        if ( response.getResult().size() >0) {
+                        if (response.getResult().size() > 0) {
                             emptyHistory.set(false);
                             ordersItemsLiveData.setValue(response.getResult());
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
@@ -76,7 +71,7 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                                 setIsLoading(false);
                             }
 
-                        }else {
+                        } else {
                             emptyHistory.set(true);
                         }
                     } catch (NullPointerException e) {
@@ -100,7 +95,7 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                     }
                     getNavigator().onRefreshFailure();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -113,16 +108,14 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
     }
 
 
-
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
 
     }
- public void goHome(){
+
+    public void goHome() {
         getNavigator().goHome();
 
     }
-
-
 
 }

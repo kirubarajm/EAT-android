@@ -16,7 +16,6 @@ public class KitchenDetailsListRequest {
     private Integer makeit_userid;
 
 
-
     @SerializedName("eatuserid")
     @Expose
     private Integer eatuserid;
@@ -25,20 +24,31 @@ public class KitchenDetailsListRequest {
     private Integer vegtype;
 
 
-    public Integer getEatuserid() {
-        return eatuserid;
-    }
-
-    public void setEatuserid(Integer eatuserid) {
-        this.eatuserid = eatuserid;
-    }
-
     public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid, Integer eatuserid, Integer vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.makeit_userid = makeit_userid;
         this.eatuserid = eatuserid;
         this.vegtype = vegtype;
+    }
+
+    public KitchenDetailsListRequest(String lat, String lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid) {
+        this.lat = lat;
+        this.lon = lon;
+        this.makeit_userid = makeit_userid;
+    }
+
+    public Integer getEatuserid() {
+        return eatuserid;
+    }
+
+    public void setEatuserid(Integer eatuserid) {
+        this.eatuserid = eatuserid;
     }
 
     public String getLat() {
@@ -55,18 +65,6 @@ public class KitchenDetailsListRequest {
 
     public void setLon(String lon) {
         this.lon = lon;
-    }
-
-
-    public KitchenDetailsListRequest(String lat, String lon) {
-        this.lat = lat;
-        this.lon = lon;
-    }
-
-    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid) {
-        this.lat = lat;
-        this.lon = lon;
-        this.makeit_userid = makeit_userid;
     }
 
     public Integer getMakeit_userid() {

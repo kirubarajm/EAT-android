@@ -12,7 +12,6 @@ public class DefaultAddressRequest {
     @Expose
     private Integer aid;
 
-
     public DefaultAddressRequest(Integer userid, Integer aid) {
         this.userid = userid;
         this.aid = aid;

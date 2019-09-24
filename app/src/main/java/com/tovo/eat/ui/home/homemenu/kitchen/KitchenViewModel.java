@@ -167,29 +167,13 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
     public void fetchRepos() {
 
-        // getNavigator().kitchenListLoading();
-
 
         if (getDataManager().getCurrentLat() == null) {
-
-            //   getNavigator().kitchenListLoading();
-
 
         } else {
 
 
             if (!getDataManager().getIsFav()) {
-
-/*
-            if (getDataManager().getCurrentLat() == null) {
-
-                //   getNavigator().noAddressFound1();
-                getNavigator().kitchenListLoaded();
-
-            } else {*/
-
-
-                //    getNavigator().addressAdded1();
 
 
                 if (!MvvmApp.getInstance().onCheckNetWork()) {
@@ -283,13 +267,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                                //  headers.put("Authorization","Bearer");
-                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                                headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-                                return headers;
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                             }
                         };
 

@@ -15,7 +15,6 @@ public class CartDishResponse {
     private List<Result> result = null;
 
 
-
     public Boolean getSuccess() {
         return success;
     }

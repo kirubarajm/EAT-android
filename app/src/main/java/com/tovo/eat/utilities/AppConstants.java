@@ -75,6 +75,10 @@ public class AppConstants {
 
     public static final int TYPE_MALE = 1;
     public static final int TYPE_FEMALE = 2;
+    public static final String ADDRESS_TYPE_HOME = "1";
+    public static final String ADDRESS_TYPE_WORK = "2";
+    public static final String ADDRESS_TYPE_OTHER = "3";
+
     public static final String SCREEN_CHANGE_KITCHEN = "Change kitchen alert";
 
 
@@ -182,6 +186,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
         public static final String SCREEN_FEEDBACK_SUPPORT=  "feedback_and_support_page";
         public static final String SCREEN_ORDER_LIST=  "orders_list";
         public static final String SCREEN_ORDER_DETAILS=  "orders_details";
+        public static final String SCREEN_PAYMENT_RETRY=  "payment_retry";
+        public static final String SCREEN_ORDER_PLACED=  "order_placed";
         public static final String SCREEN_REFERRAL=  "referral";
         public static final String SCREEN_MY_ACCOUNT=  "my_account";
         public static final String SCREEN_ADD_ADDRESS=  "add_address";
@@ -223,6 +229,7 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
         public static final String SCREEN_ORDER_HELP=  "order_help";
         public static final String SCREEN_CURRENT_ORDER_DETAILS=  "current_order_details";
         public static final String SCREEN_CURRENT_ORDER_TRACKING=  "current_order_tracking";
+        public static final String SCREEN_VIEW_IMAGE=  "view_image";
 
         public static final String SCREEN_KITCHEN_LIST=  "kitchen_list";
 

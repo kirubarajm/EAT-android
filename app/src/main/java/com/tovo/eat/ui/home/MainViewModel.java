@@ -1,19 +1,3 @@
-/*
- *  Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      https://mindorks.com/license/apache-v2
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License
- */
-
 package com.tovo.eat.ui.home;
 
 import android.databinding.ObservableBoolean;
@@ -54,26 +38,18 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public static final int NO_ACTION = -1, ACTION_ADD_ALL = 0, ACTION_DELETE_SINGLE = 1;
     public final ObservableBoolean cart = new ObservableBoolean();
 
-    //private final MutableLiveData<List<QuestionCardData>> questionCardData;
     public final ObservableField<String> addressTitle = new ObservableField<>();
     public final ObservableField<String> toolbarTitle = new ObservableField<>();
     public final ObservableBoolean titleVisible = new ObservableBoolean();
-    public final ObservableBoolean cartAvailable = new ObservableBoolean();
     public final ObservableField<String> kitchenName = new ObservableField<>();
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchenImage = new ObservableField<>();
@@ -83,7 +59,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public final ObservableBoolean isExplore = new ObservableBoolean();
     public final ObservableBoolean isCart = new ObservableBoolean();
     public final ObservableBoolean isMyAccount = new ObservableBoolean();
-    //private final ObservableList<QuestionCardData> questionDataList = new ObservableArrayList<>();
     private final ObservableField<String> appVersion = new ObservableField<>();
     private final ObservableField<String> userEmail = new ObservableField<>();
     private final ObservableField<String> userName = new ObservableField<>();
@@ -97,23 +72,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
-
         getDataManager().setIsFav(false);
-
         masterRequest();
-
     }
-
 
     public int getAction() {
         return action;
     }
-
-
-    public ObservableField<String> getAppVersion() {
-        return appVersion;
-    }
-
 
     public void selectAddress() {
         getNavigator().selectAddress();
@@ -121,58 +86,25 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void gotoCart() {
-
-        /*if (getDataManager().getCartDetails() != null) {*/
         if (!isCart.get()) {
-
             getNavigator().openCart();
-
             isHome.set(false);
             isExplore.set(false);
             isCart.set(true);
             isMyAccount.set(false);
         }
 
-     /*   } else {
-
-            getNavigator().toastMsg("No items in cart");
-        }*/
-
-
     }
-
-
-    public String updateAddressTitle() {
-
-        return getDataManager().getCurrentAddressTitle();
-
-    }
-
 
     public void trackLiveOrder() {
-
         getNavigator().trackLiveOrder(orderId);
-
-
     }
-
 
     public boolean isAddressAdded() {
-
-        if (getDataManager().getCurrentLat() == null || getDataManager().getCurrentLat().equals("0.0")) {
-
-            return false;
-        } else {
-
-            return true;
-        }
-
+        return getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0");
     }
 
-
     public void getMoveitLatLng(int moveitId) {
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
 
@@ -337,27 +269,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                         e.printStackTrace();
                                     }
 
-
-
-
-
-                            /*String startTime = response.getResult().get(0).getDeliverytime();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-                            SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm a");
-                            Date dt;
-                            try {
-                                dt = sdf.parse(startTime);
-
-                                String s=sdfs.format(dt);
-                                eta.set(s);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }*/
-
-
-                                    // eta.set(response.getResult().get(0).getDeliverytime());
-
                                     orderId = response.getResult().get(0).getOrderid();
 
                                     getDataManager().setOrderId(orderId);
@@ -390,9 +301,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                             if (response.getResult() != null && response.getResult().size() > 0) {
 
 
-                                payment_orderId=response.getResult().get(0).getOrderid();
-                                payment_price=response.getResult().get(0).getPrice();
-
+                                payment_orderId = response.getResult().get(0).getOrderid();
+                                payment_price = response.getResult().get(0).getPrice();
 
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
@@ -418,7 +328,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         }
 
 
-                        if (response.getOrderdetails()!=null&& response.getOrderdetails().size() > 0) {
+                        if (response.getOrderdetails() != null && response.getOrderdetails().size() > 0) {
 
                             boolean st = response.getOrderdetails().get(0).getRating();
 
@@ -427,25 +337,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                                 if (getDataManager().getRatingAppStatus()) {
 
                                     if (response.getOrderdetails().get(0).getShowRating()) {
-
                                         getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
-
-
-
-                                       /* if (response.getOrderdetails().get(0).getOrderid().equals(getDataManager().getRatingOrderid())) {
-                                            if (getDataManager().getRatingSkips() < 3) {
-                                                getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
-                                            }
-
-                                        } else {
-                                            getDataManager().saveRatingSkipDate(0);
-                                            getDataManager().saveRatingOrderId(response.getOrderdetails().get(0).getOrderid());
-                                            getNavigator().showOrderRating(response.getOrderdetails().get(0).getOrderid(), response.getOrderdetails().get(0).getBrandname());
-
-                                        }*/
-
                                     }
-
 
                                 }
                             }
@@ -590,60 +483,6 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         return userName;
     }
 
-    public ObservableField<String> getUserProfilePicUrl() {
-        return userProfilePicUrl;
-    }
-
-/*
-    public void loadQuestionCards() {
-        getCompositeDisposable().add(getDataManager()
-                .getQuestionCardData()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(questionList -> {
-                    if (questionList != null) {
-                        action = ACTION_ADD_ALL;
-                        questionCardData.setValue(questionList);
-                    }
-                }, throwable -> {
-
-                }));
-    }
-*/
-
-    public void logout() {
-        getDataManager().setUserAsLoggedOut();
-    }
-
-    public void onNavMenuCreated() {
-        final String currentUserName = getDataManager().getCurrentUserName();
-        if (!TextUtils.isEmpty(currentUserName)) {
-            userName.set(currentUserName);
-        }
-
-        final String currentUserEmail = getDataManager().getCurrentUserEmail();
-        if (!TextUtils.isEmpty(currentUserEmail)) {
-            userEmail.set(currentUserEmail);
-        }
-/*
-        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
-        if (!TextUtils.isEmpty(profilePicUrl)) {
-            userProfilePicUrl.set(profilePicUrl);
-        }*/
-    }
-
-/*
-    public void removeQuestionCard() {
-        action = ACTION_DELETE_SINGLE;
-        questionDataList.remove(0);
-        questionCardData.getValue().remove(0);
-    }
-*/
-
-    public void updateAppVersion(String version) {
-        appVersion.set(version);
-    }
-
 
     public ObservableField<String> getNumOfCarts() {
         return numOfCarts;
@@ -684,20 +523,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public boolean checkInternet() {
         return MvvmApp.getInstance().onCheckNetWork();
-
     }
 
     public void saveRequestData() {
 
-
         FilterRequestPojo filterRequestPojo;
-
-
         if (getDataManager().getFilterSort() != null) {
-
             Gson sGson = new GsonBuilder().create();
             filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
             filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
             filterRequestPojo.setLat(getDataManager().getCurrentLat());
             filterRequestPojo.setLon(getDataManager().getCurrentLng());
@@ -707,18 +540,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             getDataManager().setFilterSort(json);
         } else {
             filterRequestPojo = new FilterRequestPojo();
-
             filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
             filterRequestPojo.setLat(getDataManager().getCurrentLat());
             filterRequestPojo.setLon(getDataManager().getCurrentLng());
-
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
             getDataManager().setFilterSort(json);
         }
-
     }
-
 
     public void currentLatLng(double lat, double lng) {
         getDataManager().setCurrentAddressTitle("Current location");
@@ -732,13 +561,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void paymentSuccess(String paymentId, Integer status) {
 
 
+        if (status == 1) {
 
-        if (status==1){
+            new Analytics().paymentSuccess(payment_orderId, payment_price);
 
-            new Analytics().paymentSuccess(payment_orderId,payment_price);
-
-        }else {
-            new Analytics().paymentFailed(payment_orderId,payment_price);
+        } else {
+            new Analytics().paymentFailed(payment_orderId, payment_price);
         }
 
 
@@ -770,7 +598,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                         if (response.getBoolean("status")) {
 
-                            new Analytics().orderPlaced(payment_orderId,payment_price);
+                            new Analytics().orderPlaced(payment_orderId, payment_price);
 
                             getDataManager().setCartDetails(null);
                             getDataManager().saveRefundId(0);
@@ -785,25 +613,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                   // Log.e("", error.getMessage());
+                    // Log.e("", error.getMessage());
                     //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                 }
             }) {
 
-                /**
-                 * Passing some request headers
-                 */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                    //  headers.put("Authorization","Bearer");
-                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-
-                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-                    return headers;
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                 }
             };
         } catch (JSONException e) {

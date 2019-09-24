@@ -149,10 +149,6 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
         mChatActivityViewModel.fetchChatServiceCall(strQId, 1);
     }
 
-    @Override
-    public void sendFailure(String strFailure) {
-        Toast.makeText(this, "message not sent", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void goBack() {

@@ -52,14 +52,14 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     StoriesPagerFragmentViewModel mSplashActivityViewModel;
     StoriesResponse storiesFullResponse;
     int position;
-    int tempPosition = 0;
     boolean isVisibleToUser;
     boolean isoNcREATRE;
     StoriesResponse.Result storiesResponse;
     VideoView videoView;
     ProgressBar imageProgressBar;
     TextView txtProgress;
-    String strPosition = "";
+    Analytics analytics;
+    String pageName = AppConstants.SCREEN_STORIES;
     private FragmentSampleBinding mFragmentSampleBinding;
     private ImageView image;
     private int counter = 0;
@@ -68,10 +68,6 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     private boolean isImmersive = true;
     private boolean isCaching = true;
     private ProgressTarget<String, Bitmap> target;
-
-    Analytics analytics;
-    String  pageName= AppConstants.SCREEN_STORIES;
-
 
     public static StoriesPagerFragment newInstance() {
         Bundle args = new Bundle();
@@ -87,7 +83,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
     @Override
     public void onSeeMore() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEE_MORE);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_SEE_MORE);
 
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
@@ -117,8 +113,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         mSplashActivityViewModel.setNavigator(this);
 
 
-
-        analytics=new Analytics(getActivity(),pageName);
+        analytics = new Analytics(getActivity(), pageName);
 
     }
 
@@ -164,7 +159,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                     if (videoView != null) {
                         videoView.pause();
 
-                        new Analytics().sendClickData(pageName,AppConstants.CLICK_HOLD);
+                        new Analytics().sendClickData(pageName, AppConstants.CLICK_HOLD);
 
                     }
                 } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
@@ -301,9 +296,10 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             }
         });
     }
+
     @Override
     public void onNext() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_NEXT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_NEXT);
 
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
@@ -351,8 +347,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     @Override
     public void onPrev() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_PREVIOUS);
-
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_PREVIOUS);
 
 
         if (counter - 1 >= 0) {
@@ -425,7 +420,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             mSplashActivityViewModel.getDataManager().setStoriesList(null);
             mSplashActivityViewModel.getDataManager().setStoriesList(json);
 
-            if (position+1>=response.getResult().size()){
+            if (position + 1 >= response.getResult().size()) {
                 Objects.requireNonNull(getActivity()).finish();
                 return;
             }

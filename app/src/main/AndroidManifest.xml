@@ -46,9 +46,6 @@
         </activity>
 
         <activity
-            android:name=".ui.home.kitchendish.KitchenDishActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.address.add.AddAddressActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -151,8 +148,6 @@
         <activity android:name=".ui.track.help.OrderHelpActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.kitchendetails.KitchenDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.cart.refund.RefundListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.signup.tandc.TermsAndConditionActivity"
             android:screenOrientation="portrait">

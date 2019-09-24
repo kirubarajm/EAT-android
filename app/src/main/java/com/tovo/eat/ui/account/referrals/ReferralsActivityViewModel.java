@@ -16,7 +16,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
 
     public final ObservableField<String> referalcode = new ObservableField<>();
     public final ObservableField<String> referalMessage = new ObservableField<>();
-    public String referallink="" ;
+    public String referallink = "";
 
 
     public ReferralsActivityViewModel(DataManager dataManager) {
@@ -25,9 +25,10 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
     }
 
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
     }
+
     public void sendReferrals() {
         getNavigator().sendReferralsClick();
     }
@@ -38,48 +39,47 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
             long userId = getDataManager().getCurrentUserId();
             //String strUserId = String.valueOf(userId);
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REFERRALS+userId, ReferralsResponse.class, new Response.Listener<ReferralsResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REFERRALS + userId, ReferralsResponse.class, new Response.Listener<ReferralsResponse>() {
                 @Override
                 public void onResponse(ReferralsResponse response) {
                     try {
-                        if (response != null && response.getResult() != null && response.getResult().size()>0) {
+                        if (response != null && response.getResult() != null && response.getResult().size() > 0) {
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
                             setIsLoading(false);
                             referalcode.set(response.getResult().get(0).getReferalcode());
-                            referallink=response.getResult().get(0).getApplink();
+                            referallink = response.getResult().get(0).getApplink();
                             referalMessage.set(response.getResult().get(0).getApplink());
 
                             getNavigator().success(String.valueOf(referallink));
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
-                    } catch (Exception ee){
+                    } catch (Exception ee) {
 
-                    ee.printStackTrace();
+                        ee.printStackTrace();
 
-                }
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-
                         setIsLoading(false);
                         getNavigator().failure("failed");
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
     }
 
 }

@@ -9,8 +9,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -31,24 +29,28 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     String stringReferral = "";
 
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_REFERRAL;
+    String pageName = AppConstants.SCREEN_REFERRAL;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
-
         return new Intent(context, ReferralsActivity.class);
     }
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
-
     @Override
     public void sendReferralsClick() {
-
-
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_SEND_REFERRAL);
-
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_SEND_REFERRAL);
         try {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
@@ -80,15 +82,13 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
-
     @Override
     public int getBindingVariable() {
         return BR.referralsViewModel;
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_referrals;
@@ -98,24 +98,19 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
     public ReferralsActivityViewModel getViewModel() {
         return mFeedbackAndSupportActivityViewModel;
     }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityReferralsBinding = getViewDataBinding();
-
-        analytics=new Analytics(this,pageName);
-
+        analytics = new Analytics(this, pageName);
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
     }
-
 
     @Override
     protected void onPause() {
@@ -132,14 +127,13 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -154,24 +148,7 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

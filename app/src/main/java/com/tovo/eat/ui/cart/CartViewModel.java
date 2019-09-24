@@ -40,9 +40,9 @@ import java.util.Map;
 public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
-    public final ObservableField<String> makeit_username = new ObservableField<>();
+
     public final ObservableField<String> makeit_image = new ObservableField<>();
-    public final ObservableField<String> makeit_category = new ObservableField<>();
+
     public final ObservableField<String> total = new ObservableField<>();
     public final ObservableField<String> grand_total = new ObservableField<>();
     public final ObservableField<String> refundFare = new ObservableField<>();
@@ -58,20 +58,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> promocode = new ObservableField<>();
     public final ObservableField<String> grandTotalTitle = new ObservableField<>();
     public final ObservableField<Integer> refundBalance = new ObservableField<>();
-
     public final ObservableField<String> statusMessage = new ObservableField<>();
-
     public final ObservableField<String> cuisines = new ObservableField<>();
     public final ObservableField<String> region = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
-
-
     public final ObservableBoolean payment = new ObservableBoolean();
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean emptyCart = new ObservableBoolean();
     public final ObservableBoolean serviceable = new ObservableBoolean();
     public final ObservableBoolean available = new ObservableBoolean();
-
     public final ObservableBoolean refunds = new ObservableBoolean();
     public final ObservableBoolean refundSelected = new ObservableBoolean();
     public final ObservableBoolean couponSelected = new ObservableBoolean();
@@ -100,19 +95,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         refundListItemsLiveData = new MutableLiveData<>();
         cartBillLiveData = new MutableLiveData<>();
         serviceable.set(true);
-
         getDataManager().saveRefundId(0);
         getDataManager().saveCouponId(0);
 
-
-
-      /*  if (getCartPojoDetails() != null)
-            fetchRepos();*/
-
         fetchRefunds();
-
-          //getDataManager().setEmailStatus(false);
-
     }
 
 
@@ -120,32 +106,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         return cartBillLiveData;
     }
 
-    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
-        this.cartBillLiveData = cartBillLiveData;
-    }
 
     public ObservableList<RefundListResponse.Result> getRefundListItemViewModels() {
         return refundListItemViewModels;
     }
 
-    public void setRefundListItemViewModels(ObservableList<RefundListResponse.Result> refundListItemViewModels) {
-        this.refundListItemViewModels = refundListItemViewModels;
-    }
+
 
     public MutableLiveData<List<RefundListResponse.Result>> getRefundListItemsLiveData() {
         return refundListItemsLiveData;
     }
 
-    public void setRefundListItemsLiveData(MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData) {
-        this.refundListItemsLiveData = refundListItemsLiveData;
-    }
-
-    public void refundCoupon() {
-
-        getNavigator().refundList();
-
-
-    }
 
     public void promoCoupon() {
 
@@ -188,15 +159,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             addFavourite(makeitId);
             isFavourite.set(true);
         }
-        //   mListener.addFavourites(originalResult.getMakeituserid(), dishList.getProductid(), dishList.getIsfav());
     }
 
 
     public void removeFavourite(Integer favId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         try {
             setIsLoading(true);
@@ -307,23 +275,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         return cartDishItemViewModels;
     }
 
-    public void setCartDishItemViewModels(ObservableList<CartPageResponse.Item> cartDishItemViewModels) {
-        this.cartDishItemViewModels = cartDishItemViewModels;
-    }
 
     public MutableLiveData<List<CartPageResponse.Item>> getDishItemsLiveData() {
         return dishItemsLiveData;
     }
 
-    public void setDishItemsLiveData(MutableLiveData<List<CartPageResponse.Item>> dishItemsLiveData) {
-        this.dishItemsLiveData = dishItemsLiveData;
-    }
-
     public void addDishItemsToList(List<CartPageResponse.Item> ordersItems) {
         cartDishItemViewModels.clear();
         cartDishItemViewModels.addAll(ordersItems);
-
-
     }
 
 
@@ -421,9 +380,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         promocode.set(getDataManager().getCouponCode());
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-
-        //  String ss = getDataManager().getCartDetails();
 
         if (getCartPojoDetails() != null) {
 
@@ -564,22 +520,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                     }
 
 
-                          /*  StringBuilder itemsBuilder = new StringBuilder();
-                            for (int i = 0; i < cartPageResponse.getResult().get(0).getCuisines().size(); i++) {
-
-                                itemsBuilder.append(cartPageResponse.getResult().get(0).getCuisines().get(i).getCuisinename());
-
-                                if (cartPageResponse.getResult().get(0).getCuisines().size() - 1 == i) {
-
-                                } else {
-
-                                    itemsBuilder.append(" | ");
-
-                                }
-
-                            }
-                            String items = itemsBuilder.toString();*/
-                                    //cuisines.set(items);
                                     cuisines.set("by " + cartPageResponse.getResult().get(0).getMakeitusername() + ", from ");
                                     region.set(cartPageResponse.getResult().get(0).getRegionname());
 
@@ -590,17 +530,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 serviceable.set(cartPageResponse.getResult().get(0).isAvaliablekitchen());
 
-//                        if (!cartPageResponse.getResult().get(0).isAvaliablekitchen()) {
-//                            getNavigator().notServicable();
-//                        }
-
-
-
-                       /* } else {
-
-                            getNavigator().showToast(cartPageResponse.getMessage());
-
-                        }*/
                                 try {
                                     if (getNavigator() != null)
                                         getNavigator().cartLoaded();
@@ -623,13 +552,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                      */
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
-                       /* HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json");
-                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                        headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                        headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-                        return headers;*/
                         return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                     }
                 };
@@ -758,7 +680,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         RadioButton rb = radioGroup.findViewById(buttonId);
         if (null != rb) {
-            //  Toast.makeText(DirectionTestTestActivity.this,String.valueOf(rb.getT) , Toast.LENGTH_SHORT).show();
             sPaymentMode = rb.getText().toString();
             buttonText.set(sPaymentMode);
             getNavigator().paymentMode(sPaymentMode);
@@ -777,9 +698,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                     if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-                    //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
 
                     List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
                     List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
@@ -858,15 +776,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                HashMap<String, String> headers = new HashMap<String, String>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                                headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-
-                                headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-
-                                return headers;
+                                return  AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                             }
                         };
                     } catch (JSONException e) {

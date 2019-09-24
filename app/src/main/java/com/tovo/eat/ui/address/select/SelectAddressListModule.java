@@ -12,17 +12,17 @@ import dagger.Provides;
 @Module
 public class SelectAddressListModule {
 
-DataManager dataManager;
+    DataManager dataManager;
 
     @Provides
     SelectAddressListViewModel provideSelectAddressListViewModel(DataManager dataManager) {
-    this.dataManager=dataManager;
+        this.dataManager = dataManager;
         return new SelectAddressListViewModel(dataManager);
     }
 
     @Provides
     SelectAddressListAdapter provideSelectAddressListAdapter() {
-        return new SelectAddressListAdapter(new ArrayList<>(),dataManager);
+        return new SelectAddressListAdapter(new ArrayList<>(), dataManager);
     }
 
 

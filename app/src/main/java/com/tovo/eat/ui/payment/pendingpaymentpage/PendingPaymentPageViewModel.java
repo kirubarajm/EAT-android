@@ -22,15 +22,11 @@ import java.util.Map;
 
 public class PendingPaymentPageViewModel extends BaseViewModel<PendingPaymentNavigator> {
 
-    Response.ErrorListener errorListener;
-
-
     public final ObservableField<String> order = new ObservableField<>();
     public final ObservableField<String> kitchen = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> amount = new ObservableField<>();
-
-
+    Response.ErrorListener errorListener;
 
 
     public PendingPaymentPageViewModel(DataManager dataManager) {
@@ -43,8 +39,7 @@ public class PendingPaymentPageViewModel extends BaseViewModel<PendingPaymentNav
     }
 
 
-
-    public void cancel(){
+    public void cancel() {
         getNavigator().cancel();
 
     }
@@ -109,7 +104,7 @@ public class PendingPaymentPageViewModel extends BaseViewModel<PendingPaymentNav
                     headers.put("accept-version", AppConstants.API_VERSION_ONE);
                     //  headers.put("Authorization","Bearer");
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                        headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
 
                     return headers;

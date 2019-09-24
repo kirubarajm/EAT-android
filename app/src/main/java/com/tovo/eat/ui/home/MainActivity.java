@@ -8,7 +8,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -24,24 +23,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -57,8 +48,6 @@ import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.filter.StartFilter;
-import com.tovo.eat.ui.home.dialog.DialogSelectAddress;
-import com.tovo.eat.ui.home.homemenu.FilterListener;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
@@ -85,32 +74,22 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
-    public FilterListener filterListener;
     protected LocationManager locationManager;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
-    String DialogTag = DialogSelectAddress.newInstance().getTag();
-    boolean internetCheck = false;
     boolean doubleBackToExitPressedOnce = false;
     ProgressDialog progressDialog;
-
     boolean cart = false;
     String pageid = "";
-
-
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_HOME;
+    String pageName = AppConstants.SCREEN_HOME;
 
-
-    FusedLocationProviderClient fusedLocationClient;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
-            //   if (mMainViewModel.isAddressAdded()) {
             if (!checkWifiConnect()) {
                 Intent inIntent = InternetErrorFragment.newIntent(MainActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -143,50 +122,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }
     };
-    //private SwipePlaceHolderView mCardsContainerView;
-    private DrawerLayout mDrawer;
-    private NavigationView mNavigationView;
-    private Toolbar mToolbar;
-    private ViewGroup mRrootLayout;
-    private int _xDelta;
-    private int _yDelta;
-    private BroadcastReceiver mNetworkReceiver;
-   /* private GoogleApiClient mGoogleApiClient;
-    private GoogleApiClient.ConnectionCallbacks mLocationRequestCallback = new GoogleApiClient
-            .ConnectionCallbacks() {
 
-        @Override
-        public void onConnected(Bundle bundle) {
-            LocationRequest request = new LocationRequest();
-            request.setInterval(1);
-            request.setFastestInterval(1);
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            try {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                        request, MainActivity.this::onLocationChanged);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onConnectionSuspended(int reason) {
-            // TODO: Handle gracefully
-        }
-
-    };*/
 
     public static Intent newIntent(Context context) {
-       /* Intent intent = new Intent(context, CartActivity.class);
-        return intent;*/
         return new Intent(context, MainActivity.class);
-    }
-
-    public void setFilterListener(FilterListener filterListener) {
-        this.filterListener = filterListener;
     }
 
     public void showLocationDialog() {
@@ -201,7 +140,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 locationDialog.dismiss();
                 startLocationTracking();
 
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ALLOW_LOACTION);
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ALLOW_LOACTION);
 
             }
         });
@@ -211,9 +150,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* locationDialog.dismiss();
-                finish();
-*/
+
             }
         });
 
@@ -244,7 +181,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openCart() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_CART);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CartActivity fragment = new CartActivity();
@@ -270,7 +207,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openHome() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GO_HOME);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -290,7 +227,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void openExplore() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SEARCH);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
         stopLoader();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
@@ -335,92 +272,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding.loading.setVisibility(View.VISIBLE);
         mActivityMainBinding.loading.startShimmerAnimation();
 
-        //  if (!progressDialog.isShowing()) progressDialog.show();
-
-
-        // mActivityMainBinding.loading.setVisibility(View.VISIBLE);
 
     }
 
     public void stopLoader() {
         mActivityMainBinding.loading.setVisibility(View.GONE);
         mActivityMainBinding.loading.stopShimmerAnimation();
-        // if (progressDialog.isShowing()) progressDialog.dismiss();
-        // mActivityMainBinding.loading.setVisibility(View.GONE);
+
     }
 
     @Override
     public void openAccount() {
         stopLoader();
-
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_MY_ACCOUNT);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         MyAccountFragment fragment = new MyAccountFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
+        // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
         transaction.commit();
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
-
-
-    }
-
-    Fragment getCurrentFragment() {
-        Fragment currentFragment = getSupportFragmentManager()
-                .findFragmentById(R.id.content_main);
-        return currentFragment;
-    }
-
-    @Override
-    public void toastMsg(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-
-        /*Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-        View toastView = toast.getView(); // This'll return the default View of the Toast.
-
-        *//* And now you can get the TextView of the default View of the Toast. *//*
-        TextView toastMessage = (TextView) toastView.findViewById(android.R.id.message);
-        toastMessage.setTextSize(12);
-        toastMessage.setTextColor(Color.WHITE);
-       // toastMessage.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_fly, 0, 0, 0);
-        toastMessage.setGravity(Gravity.CENTER);
-        toastView.setBackgroundColor(Color.BLACK);
-        toast.show();*/
-
-      /*  new CustomToast(this, msg);
-        CustomToast.show();*/
-
     }
 
     @Override
     public void selectAddress() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SELECT_ADDRESS);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SELECT_ADDRESS);
         Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivity(intent);
     }
 
     @Override
     public void trackLiveOrder(Integer orderId) {
-
-        // Toast.makeText(this, "Tracking is working", Toast.LENGTH_SHORT).show();
         if (mMainViewModel.checkInternet()) {
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_TRACK);
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
             Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Please check your internet...", Toast.LENGTH_SHORT).show();
-
         }
     }
 
     @Override
     public void showOrderRating(Integer orderId, String brandname) {
-
-     /*   Intent intent = OrderCanceledBottomFragment.newIntent(MainActivity.this);
-        intent.putExtra("orderid", orderId);
-        startActivity(intent);*/
-
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_ORDER_RATING);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_RATING);
         Bundle bundle = new Bundle();
         bundle.putInt("orderid", orderId);
         bundle.putString("brandname", brandname);
@@ -428,7 +322,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.setCancelable(false);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-
     }
 
     @Override
@@ -438,9 +331,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_BACK_BUTTON);
         if (doubleBackToExitPressedOnce) {
-            new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_EXIT_APP);
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_EXIT_APP);
             super.onBackPressed();
             return;
         }
@@ -456,140 +349,28 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         }, 2000);
 
-           /* FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentByTag(StoriesPagerFragment.TAG);
-            if (fragment == null) {
-                super.onBackPressed();
-            } else {
-                onFragmentDetached(StoriesPagerFragment.TAG);
-            }*/
-
-        //  showExitDialog();
-
-       /* FragmentManager fm = getSupportFragmentManager();
-
-
-      //  Fragment fragment = fm.findFragmentByTag(StoriesPagerFragment.TAG);
-
-        Fragment fragment = fm.findFragmentById(R.id.content_main);
-
-
-
-
-        if (fragment instanceof StoriesPagerFragment) {
-
-
-                if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    return;
-                }
-
-                this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
-                    }
-                }, 2000);
-
-
-        }else {
-
-            if (fm.getBackStackEntryCount() > 0) {
-                Log.i("TestActivity", "popping backstack");
-                *//*fm.popBackStack();*//*
-                fm.popBackStack();
-            } else {
-
-                if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    return;
-                }
-
-                this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
-                    }
-                }, 2000);
-
-
-            }
-
-
-        }*/
-
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        HomeTabFragment homeTabFragment = new HomeTabFragment();
-
-/*
-        Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentByTag(homeTabFragment.getTag());
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-        openHome();*/
-
 
         if (requestCode == AppConstants.GPS_REQUEST) {
-
-
             if (resultCode == RESULT_OK) {
-
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GPS_ON);
-
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_ON);
                 getLocation();
-               /* new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getLocation();
-                    }
-                }, 5000);*/
-
-
             } else {
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_GPS_NO_THANKS);
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_NO_THANKS);
                 showLocationDialog();
             }
-
-
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
             openHome();
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
-            /* openCurrentFragment();*/
         }
-    }
-
-
-    public void openCurrentFragment() {
-        if (mMainViewModel.isHome.get()) {
-            openHome();
-        } else if (mMainViewModel.isExplore.get()) {
-            openExplore();
-        } else if (mMainViewModel.isCart.get()) {
-            openCart();
-        } else if (mMainViewModel.isMyAccount.get()) {
-            openAccount();
-        } else {
-            openHome();
-        }
-
-
     }
 
 
     public void selectHomeAddress() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_SELECT_ADDRESS);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SELECT_ADDRESS);
         Intent intent = SelectAddressListActivity.newIntent(MainActivity.this);
         startActivityForResult(intent, AppConstants.HOME_ADDRESS_CODE);
     }
@@ -602,52 +383,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            //   Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
-
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
                         mMainViewModel.saveToken(token);
-
-
                     }
                 });
-
-
-    }
-
-    private void showExitDialog() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Do you want to exit?");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        //SharedPreference sharedPreference = new SharedPreference(KitchenActivity.this);
-                        //sharedPreference.clearSession();
-                        //Intent i = new Intent(this, LoginActivity.class);
-                        //startActivity(i);
-                        //clearSharedPreference();
-                        finish();
-
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
     }
 
     public void onFragmentDetached(String tag) {
@@ -671,7 +414,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
-        analytics=new Analytics(this , pageName);
+        analytics = new Analytics(this, pageName);
 
         saveFcmToken();
 
@@ -695,121 +438,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startLoader();
             startLocationTracking();
         }
-
-//        Intent intent = getIntent();
-//        if (mMainViewModel.isAddressAdded()) {
-//            if (intent.getExtras() != null) {
-//                if (intent.getExtras().getBoolean("cart")) {
-//                    mMainViewModel.gotoCart();
-//                } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
-//
-//                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-//                    startActivity(repliesIntent);
-//                } else {
-//                    openHome();
-//                }
-//            }else {
-//                openHome();
-//            }
-//        }else {
-//            startLoader();
-//            startLocationTracking();
-//
-//        }
-
-
-
-        /*if (intent.getExtras() != null) {
-            if (intent.getExtras().getBoolean("cart")) {
-
-                if (mMainViewModel.isAddressAdded()) {
-                    mMainViewModel.gotoCart();
-                } else {
-                    openHome();
-                }
-            } else if (null != intent.getExtras().getString("pageid") && intent.getExtras().getString("pageid").equals("9")) {
-
-                Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-                startActivity(repliesIntent);
-
-
-            } else {
-                if (mMainViewModel.getDataManager().getAddressId() == 0) {
-                    mMainViewModel.getDataManager().setCurrentLat(0.0);
-                    mMainViewModel.getDataManager().setCurrentLng(0.0);
-                    startLoader();
-                    startLocationTracking();
-                } else {
-
-                    openHome();
-                }
-
-            }
-        } else {
-            if (mMainViewModel.getDataManager().getAddressId() == 0) {
-                mMainViewModel.getDataManager().setCurrentLat(0.0);
-                mMainViewModel.getDataManager().setCurrentLng(0.0);
-                startLoader();
-                startLocationTracking();
-            } else {
-
-                openHome();
-            }
-
-        }*/
-
-
-
-
-
-
-       /* IntentFilter intentFilter= new IntentFilter(AppConstants.FCM_RECEIVER_ORDER);
-        registerReceiver(orderReciever,intentFilter);*/
-
-        //  checkAndRequestPermissions();
-
-
-       /* if (mMainViewModel.isAddressAdded()) {
-
-            Intent intent = getIntent();
-            if (intent.getExtras() != null) {
-                if (intent.getExtras().getBoolean("cart")) {
-                    mMainViewModel.gotoCart();
-                } else {
-
-                    openHome();
-
-                }
-            } else {
-
-
-                openHome();
-
-            }
-
-        } else {
-
-
-            Intent intent = getIntent();
-            if (intent.getExtras() != null) {
-                if (intent.getExtras().getBoolean("cart")) {
-                    mMainViewModel.gotoCart();
-                } else {
-
-                    startLoader();
-                    startLocationTracking();
-
-                }
-            } else {
-
-                startLoader();
-                startLocationTracking();
-
-            }
-
-        }*/
-
-        // startLocationTracking();
 
 
     }
@@ -850,14 +478,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.totalCart();
         mMainViewModel.saveRequestData();
         mMainViewModel.getDataManager().setIsFav(false);
-
-        /*if (mMainViewModel.isAddressAdded()) {
-            mMainViewModel.addressTitle.set(mMainViewModel.updateAddressTitle());
-
-        } else {
-            mMainViewModel.addressTitle.set("Current location");
-            startLocationTracking();
-        }*/
         mMainViewModel.liveOrders();
 
     }
@@ -973,7 +593,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             snackbar.setActionTextColor(getResources().getColor(R.color.white));
             View snackbarView = snackbar.getView();
             int snackbarTextId = android.support.design.R.id.snackbar_text;
-            TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
+            TextView textView = snackbarView.findViewById(snackbarTextId);
             textView.setTextColor(getResources().getColor(R.color.white));
             snackbarView.setBackgroundColor((getResources().getColor(R.color.black)));
 
@@ -1020,7 +640,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 snackbar.setActionTextColor(getResources().getColor(R.color.white));
                 View snackbarView = snackbar.getView();
                 int snackbarTextId = android.support.design.R.id.snackbar_text;
-                TextView textView = (TextView) snackbarView.findViewById(snackbarTextId);
+                TextView textView = snackbarView.findViewById(snackbarTextId);
                 textView.setTextColor(getResources().getColor(R.color.white));
                 snackbarView.setBackgroundColor(Color.parseColor("#2d77bd"));
 
@@ -1080,8 +700,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         int orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_PAYMENT_RETRY);
-
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_PAYMENT_RETRY);
 
 
         final Activity activity = this;
@@ -1115,7 +734,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void paymentCancel() {
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME,AppConstants.CLICK_PAYMENT_CANCEL);
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_PAYMENT_CANCEL);
         mMainViewModel.paymentSuccess("Canceled", 2);
 
     }
@@ -1139,7 +758,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         SingleShotLocationProvider.requestSingleUpdate(MainActivity.this,
                 new SingleShotLocationProvider.LocationCallback() {
-                    @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
                         mMainViewModel.currentLatLng(location.latitude, location.longitude);
                         if (mMainViewModel.isAddressAdded()) {
@@ -1176,100 +796,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 });
 
 
-
-
-       /* fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-                            if (mMainViewModel.isAddressAdded()) {
-                                if (cart) {
-                                    mMainViewModel.gotoCart();
-                                } else if (pageid.equals("") && pageid.equals("9")) {
-
-                                    Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);
-                                    startActivity(repliesIntent);
-                                } else {
-
-                                    if (mMainViewModel.isHome.get()) {
-
-
-                                    } else if (mMainViewModel.isMyAccount.get()) {
-
-
-                                    } else if (mMainViewModel.isExplore.get()) {
-
-
-                                    } else if (mMainViewModel.isCart.get()) {
-
-
-                                    } else {
-                                        openHome();
-                                    }
-
-
-                                }
-
-                            }
-
-                        } else {
-
-                            getLocation();
-
-                          //  getlocationUsingDefault();
-                        }
-                    }
-
-                });
-*/
     }
-
-
-
-    public void getlocationUsingDefault(){
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, AppConstants.GPS_REQUEST);
-
-
-            }
-
-               locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3, 1, this);
-
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
-
-          if( locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)!=null){
-              Location ll=  locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-              mMainViewModel.currentLatLng(ll.getLatitude(), ll.getLongitude());
-              openHome();
-             /* locationManager.removeUpdates(this);*/
-
-          }
-
-
-
-        }
-
-    }
-
-
-
-
 
 
     @Override
@@ -1280,11 +807,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected void onStop() {
-       /* if (mMainViewModel.getDataManager().getAddressId() == 0) {
-            mMainViewModel.getDataManager().setCurrentLat(0.0);
-            mMainViewModel.getDataManager().setCurrentLng(0.0);
-        }*/
-
         super.onStop();
 
     }
@@ -1329,15 +851,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
 
-/*
-        if (!mMainViewModel.isAddressAdded()) {
-            startLoader();
-            startLocationTracking();
-        }*/
-
-        /*if (mMainViewModel.getDataManager().getAddressId()==0){
-            startLocationTracking();
-        }*/
     }
 
     @Override

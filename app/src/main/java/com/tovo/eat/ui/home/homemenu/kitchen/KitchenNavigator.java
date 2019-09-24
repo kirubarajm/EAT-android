@@ -4,17 +4,11 @@ public interface KitchenNavigator {
 
     void handleError(Throwable throwable);
 
-    void gotoJobCompleted();
-    void gotoInJobCompleted();
-
-
     void kitchenListLoaded();
+
     void kitchenListLoading();
 
-void filter();
-
-    void addressAdded1();
-    void noAddressFound1();
+    void filter();
 
     void toastMessage(String msg);
 }

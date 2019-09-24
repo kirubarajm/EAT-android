@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -20,12 +19,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddressListBinding;
@@ -51,7 +44,17 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     ActivityAddressListBinding mActivityAddressListBinding;
     Analytics analytics;
-    String  pageName=AppConstants.CLICK_MANAGE_ADDRESS;
+    String pageName = AppConstants.CLICK_MANAGE_ADDRESS;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!checkWifiConnect()) {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
@@ -65,22 +68,8 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         mAddressListViewModel.setNavigator(this);
         adapter.setListener(this);
 
-
-        analytics=new Analytics(this,pageName);
-
-      /*  Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            if (intent.getExtras().getString("for").equals("new")) {
-                if (!mAddressListViewModel.haveAddress) {
-                    Intent intentAddress = PaymentActivity.newIntent(RegionDetailsActivity.this);
-                    startActivity(intentAddress);
-                    finish();
-                }
-            }
-        }*/
-
-
-      mActivityAddressListBinding.loader.setVisibility(View.VISIBLE);
+        analytics = new Analytics(this, pageName);
+        mActivityAddressListBinding.loader.setVisibility(View.VISIBLE);
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -97,7 +86,6 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
 
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -121,19 +109,14 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void addNewAddress() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_NEW_ADDRESS);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_ADD_NEW_ADDRESS);
 
         Intent intent = AddAddressActivity.newIntent(AddressListActivity.this);
         startActivity(intent);
-
-    //    turnOnGps();
     }
 
     @Override
     public void editAddress() {
-
-       // new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
-
 
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         //  intent.putExtra("aid",)
@@ -148,7 +131,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void goBack() {
-       onBackPressed();
+        onBackPressed();
     }
 
     @Override
@@ -163,18 +146,13 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void noAddress() {
-       /* Intent intentAddress = AddAddressActivity.newIntent(RegionDetailsActivity.this);
-        startActivity(intentAddress);
-        finish();*/
         mActivityAddressListBinding.refreshList.setRefreshing(false);
     }
-
 
     private void subscribeToLiveData() {
         mAddressListViewModel.getAddrressListItemsLiveData().observe(this,
                 addrressListItemViewModel -> mAddressListViewModel.addDishItemsToList(addrressListItemViewModel));
     }
-
 
     @Override
     public void onResume() {
@@ -187,7 +165,6 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -196,14 +173,11 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     @Override
     public void onItemClickData(AddressListResponse.Result blogUrl) {
-
-      /*  mAddressListViewModel.setCurrentAddress(blogUrl);
-        finish();*/
     }
 
     @Override
     public void editAddressClick(AddressListResponse.Result address) {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_EDIT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_EDIT);
         Intent intent = EditAddressActivity.newIntent(AddressListActivity.this);
         intent.putExtra("aid", address.getAid());
         intent.putExtra("type", address.getAddressType());
@@ -214,7 +188,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     @Override
     public void deleteAddress(AddressListResponse.Result addressList) {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_DELETE);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_DELETE);
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(AddressListActivity.this);
@@ -228,14 +202,12 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                         dialog.cancel();
 
 
-
                         mAddressListViewModel.deleteAddress(addressList.getAid());
                         //   mAddressListViewModel.fetchRepos();
 
-                        if (addressList.getAddressType().equals("1")){
+                        if (addressList.getAddressType().equals("1")) {
                             mAddressListViewModel.getDataManager().setHomeAddressAdded(false);
-                        }else
-                        if (addressList.getAddressType().equals("2")){
+                        } else if (addressList.getAddressType().equals("2")) {
                             mAddressListViewModel.getDataManager().setOfficeAddressAdded(false);
                         }
 
@@ -256,12 +228,12 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     }
 
-
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
+
     public void turnOnGps() {
 
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
@@ -285,6 +257,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         });
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -305,14 +278,13 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -327,27 +299,9 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
-
 
 
 }

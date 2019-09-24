@@ -4,18 +4,14 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -31,15 +27,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     public SelectAddressListViewModel(DataManager dataManager) {
         super(dataManager);
         selectAddrressListItemsLiveData = new MutableLiveData<>();
-
-        //    AlertDialog.Builder builder=new AlertDialog.Builder(getDataManager().);
-       /* ConnectivityManager cm =
-                (ConnectivityManager)getDataManager(). getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();*/
-
         fetchRepos();
     }
 
@@ -47,36 +34,23 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         return selectAddrressListItemViewModels;
     }
 
-    public void setSelectAddrressListItemViewModels(ObservableList<SelectAddressListResponse.Result> selectAddrressListItemViewModels) {
-        this.selectAddrressListItemViewModels = selectAddrressListItemViewModels;
-    }
-
     public MutableLiveData<List<SelectAddressListResponse.Result>> getSelectAddrressListItemsLiveData() {
         return selectAddrressListItemsLiveData;
-    }
-
-    public void setSelectAddrressListItemsLiveData(MutableLiveData<List<SelectAddressListResponse.Result>> selectAddrressListItemsLiveData) {
-        this.selectAddrressListItemsLiveData = selectAddrressListItemsLiveData;
     }
 
     public void addDishItemsToList(List<SelectAddressListResponse.Result> ordersItems) {
         selectAddrressListItemViewModels.clear();
         selectAddrressListItemViewModels.addAll(ordersItems);
-
     }
 
 
     public void goBack() {
-
         getNavigator().goBack();
     }
 
 
     public void addAddress() {
-
         getNavigator().addNewAddress();
-
-
     }
 
     public void defaultAddress(Integer aid) {
@@ -95,7 +69,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -115,28 +89,11 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         defaultAddress(aid);
 
-
-      /*  FilterRequestPojo filterRequestPojo;
-
-        Gson sGson = new GsonBuilder().create();
-        filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
-
-        filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
-        filterRequestPojo.setLat(getDataManager().getCurrentLat());
-        filterRequestPojo.setLat(getDataManager().getCurrentLng());
-
-        Gson gson = new Gson();
-        String json = gson.toJson(filterRequestPojo);
-        getDataManager().setFilterSort(json);*/
-
     }
 
 
     public void fetchRepos() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-        //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL + getDataManager().getCurrentUserId(), SelectAddressListResponse.class, new Response.Listener<SelectAddressListResponse>() {
@@ -153,8 +110,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                         } else {
                             emptyAddress.set(false);
                             selectAddrressListItemsLiveData.setValue(response.getResult());
-                            Log.e("----response:---------", response.toString());
-
 
                         }
 
@@ -166,7 +121,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().listLoaded();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

@@ -16,10 +16,6 @@
 
 package com.tovo.eat.ui.payment;
 
-/**
- * Created by amitshekhar on 09/07/17.
- */
-
 public interface PaymentNavigator {
 
     void handleError(Throwable throwable);

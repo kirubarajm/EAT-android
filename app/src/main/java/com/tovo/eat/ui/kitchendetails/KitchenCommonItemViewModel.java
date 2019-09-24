@@ -9,7 +9,7 @@ public class KitchenCommonItemViewModel {
 
     public final ObservableField<String> image_url = new ObservableField<>();
     public final ObservableField<Integer> type = new ObservableField<>();
-    public  KitchenCommonImageItemViewModelListener mListener;
+    public KitchenCommonImageItemViewModelListener mListener;
     KitchenDishResponse.Kitchenmenuimage kitchenmenuimage;
 
     public KitchenCommonItemViewModel(KitchenCommonImageItemViewModelListener mListener, KitchenDishResponse.Kitchenmenuimage kitchenmenuimage) {
@@ -20,7 +20,7 @@ public class KitchenCommonItemViewModel {
     }
 
     public interface KitchenCommonImageItemViewModelListener {
-        //void onItemClick();
+
     }
 
 }

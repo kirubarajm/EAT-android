@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.databinding.ListItemDishesBinding;
 import com.tovo.eat.databinding.ListItemFiltersBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 
@@ -36,10 +35,6 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
-            case VIEW_TYPE_NORMAL:
-                ListItemFiltersBinding blogViewBinding = ListItemFiltersBinding.inflate(LayoutInflater.from(parent.getContext()),
-                        parent, false);
-                return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
             default:
                 ListItemFiltersBinding blogViewBinding1 = ListItemFiltersBinding.inflate(LayoutInflater.from(parent.getContext()),
@@ -89,7 +84,9 @@ public class FilterAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public interface FiltersAdapterListener {
 
         void onItemClickData(Integer id);
+
         void addToFilter(Integer id);
+
         void removeFromFilter(Integer id);
 
         Integer getSelectedOption();

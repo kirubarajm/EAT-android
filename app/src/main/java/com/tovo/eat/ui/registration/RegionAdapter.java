@@ -1,6 +1,5 @@
 package com.tovo.eat.ui.registration;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +13,10 @@ import java.util.List;
 
 public class RegionAdapter extends BaseAdapter {
 
-    Activity activity;
     List<RegionResponse.Result> metadatas;
     Context context;
 
-    public RegionAdapter(Context context,List<RegionResponse.Result> metadatas) {
+    public RegionAdapter(Context context, List<RegionResponse.Result> metadatas) {
         this.metadatas = metadatas;
         this.context = context;
     }
@@ -40,28 +38,6 @@ public class RegionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-       /* RegionsAdapter.ViewHolder holder = null;
-        ListItemSpinnerBinding mListItemSpinnerBinding = null;
-        if (view == null) {
-
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item_spinner, viewGroup, false);
-           *//* ListItemSpinnerBinding listItemOrdersBinding = ListItemSpinnerBinding.inflate(LayoutInflater.from(viewGroup.getContext()),
-                    viewGroup, false);
-            holder = new RegionsAdapter.ViewHolder(listItemOrdersBinding);*//*
-            holder.txtDemo = (TextView) view.findViewById(R.id.txt_spinner);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
-        RegionsResponse.Result resutlt = (RegionsResponse.Result) getItem(position);
-        holder.txtDemo.setText(resutlt.getRegionname());
-
-       *//* final RegionsResponse.Result order = metadatas.get(position);
-        DishKitchenItemViewModel ordersItemViewModel = new DishKitchenItemViewModel(order);
-        mListItemSpinnerBinding.setRegItemViewModel(ordersItemViewModel);
-        mListItemSpinnerBinding.executePendingBindings();*//*
-        return view;*/
 
         final RegionAdapter.ViewHolder holder;
 
@@ -73,7 +49,7 @@ public class RegionAdapter extends BaseAdapter {
 
             holder = new RegionAdapter.ViewHolder();
 
-            holder.txtDemo  = (TextView) view.findViewById(R.id.txt_spinner);
+            holder.txtDemo = view.findViewById(R.id.txt_spinner);
             view.setTag(holder);
 
         } else {
@@ -84,26 +60,8 @@ public class RegionAdapter extends BaseAdapter {
 
         holder.txtDemo.setText(resutlt.getRegionname());
 
-       return view;
+        return view;
     }
-
-    public class ViewHolder {
-        TextView txtDemo;
-        //ListItemSpinnerBinding mListItemSpinnerBinding;
-
-        /*public ViewHolder(ListItemSpinnerBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
-*/
-
-//        public ViewHolder(ListItemSpinnerBinding mListItemSpinnerBinding) {
-//            this.mListItemSpinnerBinding = mListItemSpinnerBinding;
-//        }
-
-
-    }
-
 
     public void clearItems() {
         metadatas.clear();
@@ -114,11 +72,7 @@ public class RegionAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-   /* public void setListener(Context listener) {
-        this.context = listener;
-    }*/
-
-    /*public interface RegionListener {
-        void listItem(RegionsResponse.Result mOrderList);
-    }*/
+    public class ViewHolder {
+        TextView txtDemo;
+    }
 }

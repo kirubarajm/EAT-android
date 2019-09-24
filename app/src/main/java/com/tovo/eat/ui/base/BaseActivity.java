@@ -16,13 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
-
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
-import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.utilities.ActiveActivitiesTracker;
 import com.tovo.eat.utilities.CommonUtils;
 import com.tovo.eat.utilities.NetworkUtils;
@@ -30,11 +26,8 @@ import com.tovo.eat.utilities.NetworkUtils;
 import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
-BaseFragment.Callback{
+        BaseFragment.Callback {
 
-    private ProgressDialog mProgressDialog;
-    private T mViewDataBinding;
-    private V mViewModel;
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
         @Override
@@ -47,8 +40,8 @@ BaseFragment.Callback{
                 if (pageid != null)
                     if (pageid.equals("8")) {
                         Bundle bundle1 = new Bundle();
-                        bundle1.putString("message",bundle.getString("message"));
-                        bundle1.putString("paymenttype",bundle.getString("paymenttype"));
+                        bundle1.putString("message", bundle.getString("message"));
+                        bundle1.putString("paymenttype", bundle.getString("paymenttype"));
                         OrderCanceledBottomFragment bottomSheetFragment = new OrderCanceledBottomFragment();
                         bottomSheetFragment.setArguments(bundle);
                         bottomSheetFragment.setCancelable(false);
@@ -60,6 +53,9 @@ BaseFragment.Callback{
             }
         }
     };
+    private ProgressDialog mProgressDialog;
+    private T mViewDataBinding;
+    private V mViewModel;
 
     public abstract int getBindingVariable();
 
@@ -78,11 +74,6 @@ BaseFragment.Callback{
     }
 
     public abstract V getViewModel();
-
-//    @Override
-//    protected void attachBaseContext(Context newBase) {
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,14 +111,12 @@ BaseFragment.Callback{
     }
 
     public boolean isNetworkConnected() {
-        //return NetworkUtils.isNetworkConnected(getApplicationContext());
         return NetworkUtils.isNetworkConnected(getApplicationContext());
-        //return true;
+
     }
 
     public void openActivityOnTokenExpire() {
-        /*startActivity(LoginActivity.newIntent(this));
-        finish();*/
+
     }
 
     public void performDependencyInjection() {
@@ -173,7 +162,7 @@ BaseFragment.Callback{
         super.onPause();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        try{
+        try {
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

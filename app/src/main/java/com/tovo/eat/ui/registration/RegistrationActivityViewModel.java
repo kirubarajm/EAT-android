@@ -35,16 +35,14 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         regionItemViewModels.addAll(ordersItems);
     }
 
-    public ObservableList<RegionResponse.Result> getRegionItemViewModels() {
-        return regionItemViewModels;
-    }
+
 
     public MutableLiveData<List<RegionResponse.Result>> getRegions() {
         return regionItemsLiveData;
     }
 
     public void userProceed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL,AppConstants.CLICK_SAVE);
+        new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL, AppConstants.CLICK_SAVE);
 
         getNavigator().usersRegistrationMain();
     }
@@ -79,7 +77,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                     setIsLoading(false);
                     getNavigator().regFailure();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 
@@ -92,8 +90,6 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
-
-
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_REGION_LIST, RegionResponse.class, new Response.Listener<RegionResponse>() {
                 @Override
                 public void onResponse(RegionResponse response) {
@@ -108,7 +104,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                     setIsLoading(false);
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
 

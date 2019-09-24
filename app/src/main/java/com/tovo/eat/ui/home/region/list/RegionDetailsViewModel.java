@@ -30,7 +30,6 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
 
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
-    boolean haveAddress = false;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
 
     public RegionDetailsViewModel(DataManager dataManager) {
@@ -39,21 +38,12 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
     }
 
-    public ObservableList<KitchenResponse.Result> getkitchenListItemViewModels() {
-        return kitchenListItemViewModels;
-    }
 
-    public void setkitchenListItemViewModels(ObservableList<KitchenResponse.Result> kitchenListItemViewModels) {
-        this.kitchenListItemViewModels = kitchenListItemViewModels;
-    }
 
     public MutableLiveData<List<KitchenResponse.Result>> getkitchenListItemsLiveData() {
         return kitchenListItemsLiveData;
     }
 
-    public void setkitchenListItemsLiveData(MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData) {
-        this.kitchenListItemsLiveData = kitchenListItemsLiveData;
-    }
 
     public void addDishItemsToList(List<KitchenResponse.Result> ordersItems) {
         kitchenListItemViewModels.clear();

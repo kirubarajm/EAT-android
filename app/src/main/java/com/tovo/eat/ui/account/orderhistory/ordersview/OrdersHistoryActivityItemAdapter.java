@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemOrdersHistoryItemBinding;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryEmptyItemViewModel;
-import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListItemModel;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 
@@ -67,6 +65,23 @@ public class OrdersHistoryActivityItemAdapter extends RecyclerView.Adapter<BaseV
         }
     }
 
+    public void clearItems() {
+        orderLists.clear();
+    }
+
+    public void addOrderItems(List<OrdersHistoryActivityResponse.Result.Item> blogList) {
+        orderLists.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(OrdersHistoryAdapterListener listener) {
+        this.mOrdersAdapterListener = listener;
+    }
+
+    public interface OrdersHistoryAdapterListener {
+        void listItem(OrdersHistoryActivityResponse.Result mOrderList);
+    }
+
     public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
@@ -113,7 +128,7 @@ public class OrdersHistoryActivityItemAdapter extends RecyclerView.Adapter<BaseV
 
         @Override
         public void onItemClick(OrdersHistoryActivityResponse.Result.Item mOrderList) {
-            Log.e("error",String.valueOf(mOrderList));
+            Log.e("error", String.valueOf(mOrderList));
            /* if (mOrderList.getOrderstatus().equals("6"))
             {
                 mOrdersAdapterListener.listItem(mOrderList);
@@ -122,26 +137,6 @@ public class OrdersHistoryActivityItemAdapter extends RecyclerView.Adapter<BaseV
             }*/
         }
 
-    }
-
-
-    public void clearItems() {
-        orderLists.clear();
-    }
-
-    public void addOrderItems(List<OrdersHistoryActivityResponse.Result.Item> blogList) {
-        orderLists.addAll(blogList);
-        notifyDataSetChanged();
-    }
-
-    public void setListener(OrdersHistoryAdapterListener listener) {
-        this.mOrdersAdapterListener = listener;
-    }
-
-
-
-    public interface OrdersHistoryAdapterListener {
-        void listItem(OrdersHistoryActivityResponse.Result mOrderList);
     }
 
 }

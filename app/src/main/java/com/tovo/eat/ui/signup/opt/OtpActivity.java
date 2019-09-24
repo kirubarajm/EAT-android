@@ -34,7 +34,6 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOtpBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.forgotpassword.ForgotPasswordActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
@@ -213,9 +212,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     @Override
     public void forgotPassword() {
         mActivityOtpBinding.edtPassword.setText("");
-        Intent intent = ForgotPasswordActivity.newIntent(OtpActivity.this);
-        intent.putExtra("strPhoneNumber", strPhoneNumber);
-        startActivity(intent);
     }
 
     @Override

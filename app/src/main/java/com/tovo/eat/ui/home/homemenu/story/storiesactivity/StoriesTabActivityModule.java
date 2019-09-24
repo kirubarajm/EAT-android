@@ -13,11 +13,6 @@ public class StoriesTabActivityModule {
         return new StoriesTabActivityViewModel(dataManager);
     }
 
-  /*  @Provides
-    StoriesTabAdapter provideFavoritesTabPagerAdapter(StoriesTabActivity mFavoritesTabActivity) {
-        return new StoriesTabAdapter(mFavoritesTabActivity.getChildFragmentManager());
-    }*/
-
     @Provides
     StoriesTabAdapter provideSampleTabPagerAdapter(StoriesTabActivity mFavoritesTabActivity) {
         return new StoriesTabAdapter(mFavoritesTabActivity.getSupportFragmentManager());

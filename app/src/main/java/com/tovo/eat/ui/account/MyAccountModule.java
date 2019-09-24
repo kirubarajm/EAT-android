@@ -14,11 +14,4 @@ public class MyAccountModule {
     MyAccountViewModel provideTrainingViewModel(DataManager dataManager) {
         return new MyAccountViewModel(dataManager);
     }
-
-
-   /* @Provides
-    ViewModelProvider.Factory provideTrainingViewModel(InternetErrorViewModel blogViewModel) {
-        return new ViewModelProviderFactory<>(blogViewModel);
-    }*/
-
 }

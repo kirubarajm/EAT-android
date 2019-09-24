@@ -9,10 +9,6 @@ public class OrdersHistoryEmptyItemViewModel {
         this.mListener = listener;
     }
 
-    public void onRetryClick() {
-        mListener.onRetryClick();
-    }
-
     public interface OrdersHistoryEmptyItemViewModelListener {
 
         void onRetryClick();

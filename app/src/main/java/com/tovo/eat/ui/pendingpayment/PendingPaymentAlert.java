@@ -12,6 +12,7 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.databinding.AlertPendingPaymentBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -25,7 +26,7 @@ public class PendingPaymentAlert extends BaseBottomSheetFragment<AlertPendingPay
 
     PaymentListener paymentListener;
     Analytics analytics;
-    String  pageName="Payment retry";
+    String  pageName= AppConstants.SCREEN_PAYMENT_RETRY;
 
     @Inject
     PendingPaymentViewModel mLoginViewModelMain;

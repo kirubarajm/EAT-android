@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +19,10 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegionDetailsBinding;
-import com.tovo.eat.databinding.ActivityRegionListBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
@@ -45,7 +42,24 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     ActivityRegionDetailsBinding mActivityRegionListBinding;
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_REGION_DETAILS;
+    String pageName = AppConstants.SCREEN_REGION_DETAILS;
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //   if (mMainViewModel.isAddressAdded()) {
+            if (checkWifiConnect()) {
+            } else {
+                Intent inIntent = InternetErrorFragment.newIntent(MvvmApp.getInstance());
+                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(inIntent);
+               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                InternetErrorFragment fragment = new InternetErrorFragment();
+                transaction.replace(R.id.content_main, fragment);
+                transaction.commit();
+                internetCheck = true;*/
+            }
+        }
+    };
 
     public static Intent newIntent(Context context) {
 
@@ -61,70 +75,38 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
         setSupportActionBar(mActivityRegionListBinding.toolbar);
 
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         Drawable backArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
-        /*backArrow.setColorFilter(getResources().getColor(R.color.md_grey_900), PorterDuff.Mode.SRC_ATOP);*/
         getSupportActionBar().setHomeAsUpIndicator(backArrow);
 
 
-
         setTitle(mRegionDetailsViewModel.regionName.get());
-      //  mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
         mActivityRegionListBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
         mActivityRegionListBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            //private State state;
-
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset == 0) {
-
-
-                    //   Toast.makeText(FavouritesActivity.this, "Expanded", Toast.LENGTH_SHORT).show();
-
-                    //   setTitle(" ");
                     mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
-
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-
-
-                    // Toast.makeText(FavouritesActivity.this, "collapsed", Toast.LENGTH_SHORT).show();
-                    // setTitle("Kitchen");
                     mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
-                    //  mFragmentDishBinding.toolbar.setVisibility(View.GONE);
-                    // mFragmentDishBinding.image.setVisibility(View.GONE);
 
                 } else {
-                    //   Toast.makeText(FavouritesActivity.this, "d", Toast.LENGTH_SHORT).show();
-                    //   setTitle(" ");
-                    //  mFragmentDishBinding.toolbar.setVisibility(View.VISIBLE);
-                    // mFragmentDishBinding.image.setVisibility(View.VISIBLE);
-
                     mActivityRegionListBinding.toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
                 }
             }
         });
-
-
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mActivityRegionListBinding.recyclerviewOrders.setLayoutManager(new LinearLayoutManager(this));
         mActivityRegionListBinding.recyclerviewOrders.setAdapter(adapter);
 
-/*
-        mActivityRegionListBinding.r.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
-            }
-        });*/
 
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -158,17 +140,12 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     @Override
     public void listLoaded() {
-        //mActivityRegionListBinding.refreshList.setRefreshing(false);
-
     }
 
     @Override
     public void goBack() {
         onBackPressed();
     }
-
-
-
 
     @Override
     public void showToast(String msg) {
@@ -177,14 +154,14 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     private void subscribeToLiveData() {
         mRegionDetailsViewModel.getkitchenListItemsLiveData().observe(this,
-               kitchensListItemViewModel -> mRegionDetailsViewModel.addDishItemsToList(kitchensListItemViewModel));
+                kitchensListItemViewModel -> mRegionDetailsViewModel.addDishItemsToList(kitchensListItemViewModel));
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-registerWifiReceiver();
+        registerWifiReceiver();
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -196,10 +173,9 @@ registerWifiReceiver();
         }
     }
 
-
     @Override
     public void onBackPressed() {
-        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS,AppConstants.CLICK_BACK_BUTTON);
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
 
@@ -216,7 +192,7 @@ registerWifiReceiver();
     @Override
     public void onItemClickData(Integer kitchenId) {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS,AppConstants.CLICK_KITCHEN);
+        new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
@@ -252,14 +228,13 @@ registerWifiReceiver();
         registerReceiver(mWifiReceiver, filter);
     }
 
-
-    private  boolean checkWifiConnect() {
-        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance(). getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkWifiConnect() {
+        ConnectivityManager manager = (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
 
         ConnectivityManager cm =
-                (ConnectivityManager) MvvmApp.getInstance() .getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MvvmApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
@@ -274,24 +249,7 @@ registerWifiReceiver();
                 && networkInfo.isConnected();
     }
 
-    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //   if (mMainViewModel.isAddressAdded()) {
-            if (checkWifiConnect()) {
-            } else {
-                Intent inIntent= InternetErrorFragment.newIntent(MvvmApp.getInstance());
-                inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-               startActivity(inIntent);
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
-            }
-        }
-    };
-    private  void unregisterWifiReceiver() {
+    private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
 

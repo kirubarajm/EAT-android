@@ -1,8 +1,6 @@
 package com.tovo.eat.ui.orderrating;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,9 +11,7 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderRatingBinding;
-import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
-import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -30,7 +26,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     int orderId = 0;
 
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_ORDER_RATING;
+    String pageName = AppConstants.SCREEN_ORDER_RATING;
 
 
     @Inject
@@ -53,7 +49,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     public void submit() {
         if (validForRating()) {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING,AppConstants.CLICK_SUBMIT);
+            new Analytics().sendClickData(AppConstants.SCREEN_ORDER_RATING, AppConstants.CLICK_SUBMIT);
 
             String strFood = mActivityOrderRatingBinding.edtFood.getText().toString();
             String strDelivery = mActivityOrderRatingBinding.edtDelivery.getText().toString();
@@ -64,7 +60,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     @Override
     public void ratingSuccess() {
         dismiss();
-      //  Toast.makeText(getContext(), "Thanks for your feedback", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(getContext(), "Thanks for your feedback", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -141,16 +137,14 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginViewModelMain.setNavigator(this);
 
-        analytics=new Analytics(getActivity(), pageName);
+        analytics = new Analytics(getActivity(), pageName);
 
     }
-
 
 
     @Override
@@ -160,25 +154,14 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
 
 
         if (getArguments() != null) {
-            mLoginViewModelMain.order.set("Order #"+ String.valueOf(getArguments().getInt("orderid")));
+            mLoginViewModelMain.order.set("Order #" + getArguments().getInt("orderid"));
             mLoginViewModelMain.kitchen.set(getArguments().getString("brandname"));
-
-            mLoginViewModelMain.orderID=getArguments().getInt("orderid");
-
+            mLoginViewModelMain.orderID = getArguments().getInt("orderid");
 
         }
 
 
-
-      /*  Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            orderId=intent.getExtras().getInt("orderid");
-        }*/
-
-
     }
-
-
 
 
     private boolean validForRating() {

@@ -15,15 +15,14 @@ public interface KitchenDetailsNavigator {
 
     void viewCart();
 
-    void changeImageArray(KitchenDishResponse.Kitchenmenuimage kitchenmenuimages);
 
 
     void goBack();
-void loadError();
-    void animChanges(boolean status);
+
+    void loadError();
+
 
     void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList);
-
 
 
 }

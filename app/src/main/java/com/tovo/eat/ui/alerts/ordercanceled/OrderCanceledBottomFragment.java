@@ -17,14 +17,8 @@ import javax.inject.Inject;
 
 public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOrderCanceledBinding, OrderCanceledViewModel>
         implements OrderCanceledNavigator {
-
-    int foodRating = 0;
-    int deliveryRating = 0;
-    int orderId = 0;
-
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_ORDER_CANCELED;
-
+    String pageName = AppConstants.SCREEN_ORDER_CANCELED;
 
     @Inject
     OrderCanceledViewModel mLoginViewModelMain;
@@ -45,7 +39,7 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
     @Override
     public void submit() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_CLOSE);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_CLOSE);
 
         dismiss();
     }
@@ -71,7 +65,7 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
         super.onCreate(savedInstanceState);
         mLoginViewModelMain.setNavigator(this);
 
-        analytics=new Analytics(getActivity(),pageName);
+        analytics = new Analytics(getActivity(), pageName);
 
     }
 
@@ -85,14 +79,13 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
             mLoginViewModelMain.message.set(getArguments().getString("message"));
 
 
-            if (null!= getArguments().getString("paymenttype")&& getArguments().getString("paymenttype").equals("1")){
+            if (null != getArguments().getString("paymenttype") && getArguments().getString("paymenttype").equals("1")) {
 
                 mLoginViewModelMain.codPayment.set(false);
 
-            }else {
+            } else {
                 mLoginViewModelMain.codPayment.set(true);
             }
-
 
 
         }

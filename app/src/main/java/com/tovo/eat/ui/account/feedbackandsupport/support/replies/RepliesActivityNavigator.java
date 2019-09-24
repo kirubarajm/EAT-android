@@ -4,8 +4,6 @@ public interface RepliesActivityNavigator {
 
     void handleError(Throwable throwable);
 
-    void backClick();
-
     void next();
 
     void onFrefresh();

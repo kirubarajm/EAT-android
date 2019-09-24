@@ -1,9 +1,6 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tovo.eat.R;
 import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemHomeOffersBinding;
@@ -20,8 +16,6 @@ import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
-import com.tovo.eat.ui.home.homemenu.collection.CollectionItemViewModel;
-import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -82,10 +76,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             return 1;
         }
     }
-    public void serviceable(boolean status) {
-        this.serviceablekitchen = status;
 
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -109,35 +100,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             return VIEW_TYPE_EMPTY;
         }
 
-
-
-
-
-
-
-        /*if (item_list != null && !item_list.isEmpty()) {
-
-            if (item_list.get(position).getCollection() != null) {
-
-                return VIEW_TYPE_COLLECTION;
-            } else {
-
-                return VIEW_TYPE_NORMAL;
-            }
-
-
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }*/
-
-
-      /*
-
-        if (item_list != null && !item_list.isEmpty()) {
-            return VIEW_TYPE_NORMAL;
-        } else {
-            return VIEW_TYPE_EMPTY;
-        }*/
     }
 
     public void clearItems() {
@@ -153,13 +115,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     public void setListener(LiveProductsAdapterListener listener) {
         this.mLiveProductsAdapterListener = listener;
     }
-
-    public void removeAt(int position) {
-        item_list.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, item_list.size());
-    }
-
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
@@ -225,38 +180,10 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             mLiveProductsItemViewModel = new KitchenItemViewModel(this, blog);
             mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
 
-           // mLiveProductsAdapterListener.animateView(mListItemLiveProductsBinding.fav);
+            if (blog.getMakeituserid() == null)
+                mListItemLiveProductsBinding.kitchenTile.setVisibility(View.GONE);
 
-
-
-
-            if (blog.getMakeituserid()==null)   mListItemLiveProductsBinding.kitchenTile.setVisibility(View.GONE);
-
-            /*if (!blog.isServiceableStatus()) {
-
-               // mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
-                mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
-                mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
-                mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
-
-                ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(0);
-
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-                mListItemLiveProductsBinding.image.setColorFilter(filter);
-                mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
-                // mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
-
-            }*/
-
-
-
-            // Immediate Binding
-            // When a variable or observable changes, the binding will be scheduled to change before
-            // the next frame. There are times, however, when binding must be executed immediately.
-            // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
-            
 
 
         }
@@ -279,14 +206,13 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         public void removeFavourites(Integer favId) {
 
             mLiveProductsAdapterListener.removeDishFavourite(favId);
-            // removeAt(getAdapterPosition());
         }
     }
 
 
     public class CollectionViewHolder extends BaseViewHolder {
         ListItemCollectionsBinding mListItemLiveProductsBinding;
-        CollectionItemViewModel mLiveProductsItemViewModel;
+
 
         public CollectionViewHolder(ListItemCollectionsBinding binding) {
             super(binding.getRoot());
@@ -296,9 +222,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         @Override
         public void onBind(int position) {
             if (item_list.get(position).getCollection().isEmpty()) return;
-          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
-            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
-
 
             mListItemLiveProductsBinding.executePendingBindings();
 
@@ -320,7 +243,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
     public class OffernViewHolder extends BaseViewHolder {
         ListItemHomeOffersBinding mListItemLiveProductsBinding;
-        CollectionItemViewModel mLiveProductsItemViewModel;
 
         public OffernViewHolder(ListItemHomeOffersBinding binding) {
             super(binding.getRoot());
@@ -330,12 +252,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         @Override
         public void onBind(int position) {
             if (item_list.get(position).getCoupons().isEmpty()) return;
-          /*  mLiveProductsItemViewModel = new CollectionItemViewModel(this,  item_list.get(position).getCollection());
-            mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);*/
-
-
             mListItemLiveProductsBinding.executePendingBindings();
-
 
             LinearLayoutManager offerLayputManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
             offerLayputManager.setOrientation(LinearLayoutManager.HORIZONTAL);

@@ -9,8 +9,4 @@ public abstract class CartProvider {
     @ContributesAndroidInjector(modules = CartModule.class)
     abstract CartActivity provideCartActivityFactory();
 
-
-
-
-
 }

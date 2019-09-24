@@ -34,7 +34,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     FragmentMyAccountBinding mFragmentMyAccountBinding;
 
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_MY_ACCOUNT;
+    String pageName = AppConstants.SCREEN_MY_ACCOUNT;
 
 
     public static MyAccountFragment newInstance() {
@@ -56,7 +56,6 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public MyAccountViewModel getViewModel() {
-        //  mFoodMenuViewModel = ViewModelProviders.of(this, mViewModelFactory).get(FoodMenuViewModel.class);
         return mMyAccountViewModel;
     }
 
@@ -65,29 +64,20 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         super.onCreate(savedInstanceState);
         mFragmentMyAccountBinding = getViewDataBinding();
         mMyAccountViewModel.setNavigator(this);
-
-
-        analytics=new Analytics(getActivity(), pageName);
-        //   ((FilterActivity) getActivity()).setActionBarTitle("My Account");
+        analytics = new Analytics(getActivity(), pageName);
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // mFragmentMyAccountBinding = getViewDataBinding();
-
         mMyAccountViewModel.toolbarTitle.set(getString(R.string.my_account));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-
         mMyAccountViewModel.fetchUserDetails();
-
-        //  ((FilterActivity) getActivity()).setActionBarTitle("My Account");
 
     }
 
@@ -99,7 +89,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     @Override
     public void manageAddress() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_MANAGE_ADDRESS);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_MANAGE_ADDRESS);
 
         Intent intent = AddressListActivity.newIntent(getContext());
         startActivity(intent);
@@ -107,48 +97,30 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void orderHistory() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_ORDER_HISTORY);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_ORDER_HISTORY);
         Intent intent = OrderHistoryActivity.newIntent(getContext());
         startActivity(intent);
     }
 
     @Override
     public void favourites() {
-       /* Intent intent=FavoritesTabActivity.newIntent(getContext());
-        startActivity(intent);*/
-
-
-
-/*
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FavoritesActivity fragment = new FavoritesActivity();
-        transaction.replace(R.id.content_main, fragment);
-       // transaction.addToBackStack(FavoritesActivity.class.getSimpleName());
-      //  transaction.addToBackStack(null);
-        transaction.commitNow();
-        // transaction.commitNowAllowingStateLoss();*/
-
-
-
     }
 
     @Override
     public void referrals() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFERRALS);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_REFERRALS);
         Intent intent = ReferralsActivity.newIntent(getContext());
         startActivity(intent);
     }
 
     @Override
     public void offers() {
-       /* Intent intent = RegistrationActivity.newIntent(getContext());
-        startActivity(intent);*/
     }
 
     @Override
     public void logout() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_LOGOUT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_LOGOUT);
 
 
         SharedPreferences settings = getActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
@@ -160,7 +132,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void feedbackAndSupport() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_FEEDBACK_SUPPORT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_FEEDBACK_SUPPORT);
 
         Intent intent = FeedbackAndSupportActivity.newIntent(getContext());
         startActivity(intent);
@@ -168,7 +140,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
 
     @Override
     public void editProfile(GetUserDetailsResponse getUserDetailsResponse) {
-        if (getUserDetailsResponse.getResult()!=null && getUserDetailsResponse.getResult().size()>0) {
+        if (getUserDetailsResponse.getResult() != null && getUserDetailsResponse.getResult().size() > 0) {
             Intent intent = EditAccountActivity.newIntent(getContext());
             intent.putExtra("name", getUserDetailsResponse.getResult().get(0).getName());
             intent.putExtra("email", getUserDetailsResponse.getResult().get(0).getEmail());

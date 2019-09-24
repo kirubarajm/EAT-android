@@ -4,11 +4,10 @@ public interface OrderHistoryActivityViewNavigator {
 
     void handleError(Throwable throwable);
 
-
     void clearCart();
+
     void orderRepeat();
 
-void goBack();
-
+    void goBack();
 
 }

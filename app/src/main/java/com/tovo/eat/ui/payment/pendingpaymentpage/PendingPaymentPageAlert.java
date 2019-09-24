@@ -21,14 +21,10 @@ import javax.inject.Inject;
 public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymentRetryBinding, PendingPaymentPageViewModel>
         implements PendingPaymentNavigator {
 
-
-    int orderId = 0;
-    int price = 0;
-
     PaymentListener paymentListener;
 
     Analytics analytics;
-    String  pageName="Payment retry";
+    String  pageName=AppConstants.SCREEN_PAYMENT_RETRY;
 
 
     @Inject
@@ -59,37 +55,6 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_PAYMENT_RETRY);
         paymentListener.paymentRetry();
         dismiss();
-
-/*
-        final Activity activity = getActivity();
-
-        final Checkout co = new Checkout();
-
-        // co.setImage(R.mipmap.ic_launcher);
-
-        co.setFullScreenDisable(true);
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", getString(R.string.app_name));
-            options.put("description", getString(R.string.orderid) + orderId);
-            options.put("currency", "INR");
-            options.put("amount", price * 100);
-            options.put("customer_id", mLoginViewModelMain.getDataManager().getRazorpayCustomerId());
-            JSONObject ReadOnly = new JSONObject();
-            ReadOnly.put("email", "true");
-            ReadOnly.put("contact", "true");
-            options.put("readonly", ReadOnly);
-
-            co.open(activity, options);
-
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-
-        dismiss();*/
-
     }
 
     @Override
@@ -135,13 +100,6 @@ public class PendingPaymentPageAlert extends BaseBottomSheetFragment<AlertPaymen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAlertPendingPaymentBinding = getViewDataBinding();
-
-
-        /*if (getArguments() != null) {
-            mLoginViewModelMain.order.set("Order #" + String.valueOf(getArguments().getInt("orderid")));
-            mLoginViewModelMain.amount.set(String.valueOf(getArguments().getInt("price")));
-        }*/
-
 
     }
 }

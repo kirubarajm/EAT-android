@@ -105,90 +105,45 @@ public class CartPageResponse {
             return grandtotal;
         }
 
-        public void setGrandtotal(Integer grandtotal) {
-            this.grandtotal = grandtotal;
-        }
-
-        public Integer getOriginalPrice() {
-            return originalPrice;
-        }
-
-        public void setOriginalPrice(Integer originalPrice) {
-            this.originalPrice = originalPrice;
-        }
 
         public Integer getRefundBalance() {
             return refundBalance;
         }
 
-        public void setRefundBalance(Integer refundBalance) {
-            this.refundBalance = refundBalance;
-        }
 
         public Integer getGstcharge() {
             return gstcharge;
         }
 
-        public void setGstcharge(Integer gstcharge) {
-            this.gstcharge = gstcharge;
-        }
 
         public Integer getDeliveryCharge() {
             return deliveryCharge;
         }
 
-        public void setDeliveryCharge(Integer deliveryCharge) {
-            this.deliveryCharge = deliveryCharge;
-        }
 
         public Integer getRefundCouponAdjustment() {
             return refundCouponAdjustment;
         }
 
-        public void setRefundCouponAdjustment(Integer refundCouponAdjustment) {
-            this.refundCouponAdjustment = refundCouponAdjustment;
-        }
 
         public Integer getProductOrginalPrice() {
             return productOrginalPrice;
         }
 
-        public void setProductOrginalPrice(Integer productOrginalPrice) {
-            this.productOrginalPrice = productOrginalPrice;
-        }
-
-        public Integer getTotalamount() {
-            return totalamount;
-        }
-
-        public void setTotalamount(Integer totalamount) {
-            this.totalamount = totalamount;
-        }
 
         public Boolean getCouponstatus() {
             return couponstatus;
         }
 
-        public void setCouponstatus(Boolean couponstatus) {
-            this.couponstatus = couponstatus;
-        }
 
         public Boolean getRefundcouponstatus() {
             return refundcouponstatus;
         }
 
-        public void setRefundcouponstatus(Boolean refundcouponstatus) {
-            this.refundcouponstatus = refundcouponstatus;
-        }
 
         public Integer getCouponDiscountAmount() {
             return couponDiscountAmount;
         }
-
-        public void setCouponDiscountAmount(Integer couponDiscountAmount) {
-            this.couponDiscountAmount = couponDiscountAmount;
-        }
-
     }
 
     public class Cuisine {
@@ -211,22 +166,9 @@ public class CartPageResponse {
             this.cid = cid;
         }
 
-        public Integer getCuisineid() {
-            return cuisineid;
-        }
-
-        public void setCuisineid(Integer cuisineid) {
-            this.cuisineid = cuisineid;
-        }
-
         public String getCuisinename() {
             return cuisinename;
         }
-
-        public void setCuisinename(String cuisinename) {
-            this.cuisinename = cuisinename;
-        }
-
     }
 
     public class Item {

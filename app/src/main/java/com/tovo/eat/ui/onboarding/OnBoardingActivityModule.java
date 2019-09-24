@@ -1,7 +1,5 @@
 package com.tovo.eat.ui.onboarding;
 
-
-
 import com.tovo.eat.data.DataManager;
 
 import dagger.Module;

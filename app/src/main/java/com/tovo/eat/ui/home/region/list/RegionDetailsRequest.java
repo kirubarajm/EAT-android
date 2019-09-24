@@ -20,21 +20,20 @@ public class RegionDetailsRequest {
     @Expose
     private Integer vegtype;
 
+    public RegionDetailsRequest(String lat, String lon, Integer eatuserid, Integer regionid, Integer vegtype) {
+        this.lat = lat;
+        this.lon = lon;
+        this.eatuserid = eatuserid;
+        this.regionid = regionid;
+        this.vegtype = vegtype;
+    }
+
     public Integer getVegtype() {
         return vegtype;
     }
 
     public void setVegtype(Integer vegtype) {
         this.vegtype = vegtype;
-    }
-
-
-    public RegionDetailsRequest(String lat, String lon, Integer eatuserid, Integer regionid,Integer vegtype) {
-        this.lat = lat;
-        this.lon = lon;
-        this.eatuserid = eatuserid;
-        this.regionid = regionid;
-        this.vegtype=vegtype;
     }
 
     public String getLat() {

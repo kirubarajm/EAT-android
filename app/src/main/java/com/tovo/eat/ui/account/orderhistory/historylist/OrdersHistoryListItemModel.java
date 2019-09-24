@@ -73,9 +73,6 @@ public class OrdersHistoryListItemModel {
         this.moveit_reached_time.set(String.valueOf(orders.getMoveitReachedTime()));
         this.moveit_expected_delivered_time.set(String.valueOf(orders.getMoveitExpectedDeliveredTime()));
         actualDeliveryTime = String.valueOf(orders.getMoveitActualDeliveredTime());
-        //this.moveit_actual_delivered_time.set(actualDeliveryTime.equals("null")?"":actualDeliveryTime);
-
-
 
         if (orders.getOrderstatus().equals(7) || orders.getOrderstatus().equals(8)) {
             isOrderCanced.set(true);

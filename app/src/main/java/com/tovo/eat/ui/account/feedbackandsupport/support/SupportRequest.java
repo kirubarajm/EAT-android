@@ -37,7 +37,6 @@ public class SupportRequest {
     public void setType(Integer type) {
         this.type = type;
     }
-
     public Integer getUserid() {
         return userid;
     }

@@ -26,8 +26,6 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegistrationBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
-import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -37,10 +35,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
-
-import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
-import static com.tovo.eat.utilities.AppConstants.COD_REQUESTCODE;
-import static com.tovo.eat.utilities.AppConstants.ONLINE_REQUESTCODE;
 
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, RegistrationActivityViewModel>
         implements RegistrationActivityNavigator, AdapterView.OnItemSelectedListener {
@@ -105,40 +99,6 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         intent.putExtra("status",true);
         setResult(Activity.RESULT_OK,intent);
         finish();//finishing activity
-
-
-
-
-     /*   if (fromScreen.equals("cart")) {
-            intent.putExtra("status",true);
-            setResult(Activity.RESULT_OK,intent);
-            finish();//finishing activity
-
-
-
-        } else if (fromScreen.equals("cod")) {
-
-            intent.putExtra("status",true);
-            setResult(COD_REQUESTCODE,intent);
-            finish();//finishing activity
-
-        }
-        if (fromScreen.equals("online")) {
-
-
-            intent.putExtra("status",true);
-            setResult(ONLINE_REQUESTCODE,intent);
-            finish();//finishing activity
-
-
-        }else {
-
-            intent.putExtra("status",true);
-            setResult(CART_REQUESTCODE,intent);
-            finish();//finishing activity
-
-        }*/
-
 
     }
 

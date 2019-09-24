@@ -145,17 +145,6 @@ public class CouponListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsItemViewModel = new CouponListItemViewModel(this, blog);
             mListItemLiveProductsBinding.setCouponListItemViewModel(mLiveProductsItemViewModel);
 
-
-
-
-/*
-            if (sSelected == position) {
-                mListItemLiveProductsBinding.op.setChecked(true);
-            } else {
-                mListItemLiveProductsBinding.op.setChecked(false);
-            }*/
-
-
             mListItemLiveProductsBinding.executePendingBindings();
         }
 

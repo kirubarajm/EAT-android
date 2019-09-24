@@ -14,6 +14,7 @@ import com.tovo.eat.databinding.ActivityReferralsBinding;
 import com.tovo.eat.databinding.OrderPlacedBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -23,21 +24,16 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
     @Inject
     OrderPlacedViewModel mOrderPlacedViewModel;
     OrderPlacedBinding mOrderPlacedBinding;
-
     Analytics analytics;
-    String  pageName="Order placed";
-
+    String  pageName= AppConstants.SCREEN_ORDER_PLACED;
 
     public static Intent newIntent(Context context) {
-
         return new Intent(context, OrderPlacedActivity.class);
     }
 
     @Override
     public void handleError(Throwable throwable) {
-
     }
-
 
     @Override
     public int getBindingVariable() {
@@ -60,7 +56,6 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
         mOrderPlacedViewModel.setNavigator(this);
         mOrderPlacedBinding = getViewDataBinding();
 
-
         analytics=new Analytics(this,pageName);
 
         new Handler().postDelayed(() -> {
@@ -69,9 +64,5 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
             startActivity(intent);
             finish();
         },1000);
-
-
-
-
     }
 }

@@ -20,7 +20,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,11 +35,6 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
-
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
@@ -81,6 +75,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         }
     };
     AddressRequestPojo request = new AddressRequestPojo();
+
     public EditAddressViewModel(DataManager dataManager) {
         super(dataManager);
     }
@@ -107,7 +102,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             typeHome.set(false);
 
         } else {
-            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS,AppConstants.CLICK_ADDRESS_HOME);
+            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS, AppConstants.CLICK_ADDRESS_HOME);
             typeHome.set(true);
             typeOffice.set(false);
             typeOther.set(false);
@@ -124,7 +119,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
         } else {
 
-            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS,AppConstants.CLICK_ADDRESS_WORK);
+            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS, AppConstants.CLICK_ADDRESS_WORK);
             typeHome.set(false);
             typeOffice.set(true);
             typeOther.set(false);
@@ -143,7 +138,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             typeOther.set(false);
 
         } else {
-            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS,AppConstants.CLICK_ADDRESS_OTHER);
+            new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS, AppConstants.CLICK_ADDRESS_OTHER);
             typeHome.set(false);
             typeOffice.set(false);
             typeOther.set(true);
@@ -170,36 +165,24 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
     public void saveAddress(String locationAddress, String house, String area, String landmark, String title) {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS,AppConstants.CLICK_SAVE);
+        new Analytics().sendClickData(AppConstants.SCREEN_EDIT_ADDRESS, AppConstants.CLICK_SAVE);
 
-
-        if (locationAddress.equals("")) {
-
+       /* if (locationAddress.isEmpty()) {
+            return;
+        }
+        if (area.isEmpty()) {
+            return;
         }
 
-        if (house.equals("")) {
-
-
+        if (landmark.isEmpty()) {
+            return;
         }
-
-        if (area.equals("")) {
-
-        }
-
-        if (landmark.equals("")) {
-
-        }
-        if (house.equals("")) {
-
-        }
+        if (house.isEmpty()) {
+            return;
+        }*/
 
         if (!locationAddress.equals("") && !area.equals("") && !house.equals("")) {
-
-
             if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-            //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
 
             request.setAddress(locationAddress);
             request.setFlatno(house);
@@ -239,7 +222,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        if (response!=null&&response.getStatus()) {
+                        if (response != null && response.getStatus()) {
 
                             try {
                                 getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
@@ -288,12 +271,8 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
 
 
         } else {
-
             getNavigator().emptyFields();
-
         }
-
-
     }
 
 
@@ -304,7 +283,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             @Override
             public void onResponse(SingleAddressResponse response) {
 
-                if (response!=null&&response.getResult()!=null&&response.getResult().size()>0) {
+                if (response != null && response.getResult() != null && response.getResult().size() > 0) {
 
 
                     locationAddress.set(response.getResult().get(0).getAddress());
@@ -356,24 +335,16 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DEFAULT_ADDRESS, CommonResponse.class, new DefaultAddressRequest(getDataManager().getCurrentUserId(), aid), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
-
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
-
                 }
             }, AppConstants.API_VERSION_ONE);
-
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-
     }
-
-
 }

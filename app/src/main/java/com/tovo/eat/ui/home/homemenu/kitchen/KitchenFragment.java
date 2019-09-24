@@ -1,15 +1,12 @@
 package com.tovo.eat.ui.home.homemenu.kitchen;
 
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -22,11 +19,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.homemenu.FilterListener;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
-import com.tovo.eat.utilities.SwipeController;
-import com.tovo.eat.utilities.SwipeControllerActions;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -36,18 +29,14 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     @Inject
     KitchenViewModel mKitchenViewModel;
-   /* @Inject
-    LinearLayoutManager mLayoutManager;*/
     @Inject
     KitchenAdapter adapter;
 
     FragmentKitchenBinding mFragmentKitchenBinding;
 
 
-    StartFilter startFilter;
-
     Analytics analytics;
-    String  pageName="Kitchen list";
+    String pageName = "Kitchen list";
 
 
     public static KitchenFragment newInstance() {
@@ -63,11 +52,11 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mKitchenViewModel.setNavigator(this);
         adapter.setListener(this);
 
-        analytics=new Analytics(getActivity(),pageName);
+        analytics = new Analytics(getActivity(), pageName);
 
-      //  mKitchenViewModel.fetchRepos();
+        //  mKitchenViewModel.fetchRepos();
 
-       // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
+        // ((TestActivity) getActivity()).setFilterListener(FavKitchenFragment.this);
     }
 
     @Override
@@ -83,7 +72,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentKitchenBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentKitchenBinding.recyclerviewOrders.setAdapter(adapter);
-       // subscribeToLiveData();
+        // subscribeToLiveData();
 
         mFragmentKitchenBinding.refreshList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,43 +101,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
             }
         };
 
-
-
         mFragmentKitchenBinding.recyclerviewOrders.setOnScrollListener(onScrollListener);
-
-
-      //  mFragmentKitchenBinding.recyclerviewOrders.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-
-
-
-
-
-
-        
-
-
-
-       /* SwipeController  swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onRightClicked(int position) {
-
-            }
-        });
-
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(   mFragmentKitchenBinding.recyclerviewOrders);
-
-        mFragmentKitchenBinding.recyclerviewOrders.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });*/
-
-
-
-
 
 
     }
@@ -173,16 +126,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     }
 
-    @Override
-    public void gotoJobCompleted() {
-
-
-    }
-
-    @Override
-    public void gotoInJobCompleted() {
-
-    }
 
     @Override
     public void kitchenListLoaded() {
@@ -207,38 +150,13 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
     }
 
-    @Override
-    public void addressAdded1() {
 
-    }
-
-    @Override
-    public void noAddressFound1() {
-        Toast.makeText(getContext(), "Please Add your address", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void toastMessage(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
     }
-
-
-
-
-
-
-   /* @Override
-    public void gotoOrderView() {
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        ViewFragment fragment = new VideoActivity();
-        transaction.setCustomAnimations(R.rotate_out.slide_left, R.rotate_out.slide_right);
-        transaction.replace(R.id.frame_food, fragment);
-        transaction.commit();
-
-
-    }*/
 
     private void subscribeToLiveData() {
         mKitchenViewModel.getKitchenItemsLiveData().observe(this,
@@ -253,17 +171,13 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
         mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.GONE);
         mFragmentKitchenBinding.shimmerViewContainer.stopShimmerAnimation();
 
-
-     /*   mFragmentKitchenBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentKitchenBinding.shimmerViewContainer.startShimmerAnimation();
-*/
         ((MainActivity) getActivity()).statusUpdate();
 
 
         kitchenListLoading();
-       mKitchenViewModel.fetchRepos();
+        mKitchenViewModel.fetchRepos();
 
-       subscribeToLiveData();
+        subscribeToLiveData();
     }
 
 
@@ -305,11 +219,6 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void removeDishFavourite(Integer favId) {
         mKitchenViewModel.removeFavourite(favId);
     }
-
-    /*@Override
-    public void filterList() {
-        mKitchenViewModel.fetchRepos();
-    }*/
 
     @Override
     public void applyFilter() {

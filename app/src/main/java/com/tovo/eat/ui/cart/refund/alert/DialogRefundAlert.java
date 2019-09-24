@@ -32,13 +32,9 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     DialogRefundAlertViewModel mDialogRefundAlertViewModel;
     DialogRefundAlertBinding binding;
     Activity activity;
-
     String totalAmount;
-
-    Context context;
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_REFUND_ALERT;
-
+    String pageName = AppConstants.SCREEN_REFUND_ALERT;
 
     public DialogRefundAlert() {
 
@@ -73,15 +69,15 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
 
     @Override
     public void confirmClick() {
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_YES);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_YES);
 
         dismissDialog();
-        if (Integer.parseInt(totalAmount) >0) {
+        if (Integer.parseInt(totalAmount) > 0) {
             Intent intent = PaymentActivity.newIntent(getContext());
             intent.putExtra("amount", totalAmount);
             startActivity(intent);
 
-        }else {
+        } else {
             mDialogRefundAlertViewModel.cashMode();
         }
     }
@@ -89,7 +85,7 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     @Override
     public void cancelClick() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_NO);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_NO);
 
         dismissDialog();
     }
@@ -112,8 +108,7 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        analytics=new Analytics(getActivity(), pageName);
+        analytics = new Analytics(getActivity(), pageName);
 
     }
 

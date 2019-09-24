@@ -34,38 +34,6 @@ public class OrderRatingRequest {
         this.orderid = orderid;
     }
 
-    public Integer getRatingFood() {
-        return ratingFood;
-    }
-
-    public void setRatingFood(Integer ratingFood) {
-        this.ratingFood = ratingFood;
-    }
-
-    public Integer getRatingDelivery() {
-        return ratingDelivery;
-    }
-
-    public void setRatingDelivery(Integer ratingDelivery) {
-        this.ratingDelivery = ratingDelivery;
-    }
-
-    public String getDescFood() {
-        return descFood;
-    }
-
-    public void setDescFood(String descFood) {
-        this.descFood = descFood;
-    }
-
-    public String getDescDelivery() {
-        return descDelivery;
-    }
-
-    public void setDescDelivery(String descDelivery) {
-        this.descDelivery = descDelivery;
-    }
-
     public Integer getOrderid() {
         return orderid;
     }

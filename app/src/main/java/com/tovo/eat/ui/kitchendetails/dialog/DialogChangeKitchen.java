@@ -30,27 +30,19 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     DialogChangeKitchenViewModel mDialogChangeKitchenViewModel;
     DialogChangeKitchenBinding binding;
     Activity activity;
-
-
-    Integer makeitId, productId,quantity,price;
-
-
+    Integer makeitId, productId, quantity, price;
     AddKitchenDishListener addKitchenDishListener;
-
     Analytics analytics;
-    String  pageName="Change kitchen popup";
-
+    String pageName = "Change kitchen popup";
 
     public DialogChangeKitchen() {
 
     }
-
-
     public static DialogChangeKitchen newInstance() {
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
-       // fragment.setTargetFragment(new DialogRefundAlert(),0);
+        // fragment.setTargetFragment(new DialogRefundAlert(),0);
         fragment.setCancelable(false);
         return fragment;
     }
@@ -60,21 +52,20 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         return fragment;
     }
 
-
     @Override
     public void onAttach(Context context) {
 
-        addKitchenDishListener =(AddKitchenDishListener)context;
+        addKitchenDishListener = (AddKitchenDishListener) context;
 
         super.onAttach(context);
     }
 
     public void show(FragmentManager fragmentManager, Activity activity, Integer makeitId, Integer productId, Integer quantity, Integer price) {
         this.activity = activity;
-        this.makeitId=makeitId;
-        this.productId=productId;
-        this.quantity=quantity;
-        this.price=price;
+        this.makeitId = makeitId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.price = price;
         super.show(fragmentManager, TAG);
     }
 
@@ -86,11 +77,8 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void confirmClick() {
         dismissDialog();
-
-        mDialogChangeKitchenViewModel.addToCart(makeitId,productId,quantity,price);
-
+        mDialogChangeKitchenViewModel.addToCart(makeitId, productId, quantity, price);
         addKitchenDishListener.confirmClick(true);
-
     }
 
     @Override
@@ -108,10 +96,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        analytics=new Analytics(getActivity(), pageName);
-
+        analytics = new Analytics(getActivity(), pageName);
     }
 
     @Override

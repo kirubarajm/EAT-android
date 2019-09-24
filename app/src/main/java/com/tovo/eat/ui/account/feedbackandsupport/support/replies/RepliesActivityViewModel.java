@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,18 +13,17 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+
 import java.util.List;
 
 
 public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavigator> {
 
     public ObservableList<RepliesResponse.Result> repliesItemViewModels = new ObservableArrayList<>();
+    public ObservableBoolean emptyReplies = new ObservableBoolean();
     Response.ErrorListener errorListener;
-    private MutableLiveData<List<RepliesResponse.Result>> ordersItemsLiveData;
     int userId;
-
-
-    public ObservableBoolean emptyReplies=new ObservableBoolean();
+    private MutableLiveData<List<RepliesResponse.Result>> ordersItemsLiveData;
 
 
     public RepliesActivityViewModel(DataManager dataManager) {
@@ -49,7 +47,7 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         return repliesItemViewModels;
     }
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
     }
 
@@ -60,37 +58,37 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
         setIsLoading(true);
         try {
 
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_QUERIES_LIST, RepliesResponse.class,
+                    new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
+                @Override
+                public void onResponse(RepliesResponse response) {
+                    if (response != null)
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+                            ordersItemsLiveData.setValue(response.getResult());
 
-        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_QUERIES_LIST, RepliesResponse.class,
-                new RepliesRequest(AppConstants.EAT, userId), new Response.Listener<RepliesResponse>() {
-            @Override
-            public void onResponse(RepliesResponse response) {
-                if (response!=null)
-                if (response.getResult()!=null&&response.getResult().size()>0) {
-                    ordersItemsLiveData.setValue(response.getResult());
+                            emptyReplies.set(false);
 
-                    emptyReplies.set(false);
+                        } else {
+                            emptyReplies.set(true);
+                        }
 
-                }else {
-                    emptyReplies.set(true);
+                    getNavigator().onRefreshSuccess();
+
                 }
-
-                getNavigator().onRefreshSuccess();
-
-            }
-        }, errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                setIsLoading(false);
+            }, errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
                     getNavigator().onRefreshFailure();
-            }
-        },AppConstants.API_VERSION_ONE);
-        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
-        }catch (Exception ee){
+                }
+            }, AppConstants.API_VERSION_ONE);
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
             getNavigator().onRefreshFailure();
             ee.printStackTrace();
         }
     }
+
     public void onRefreshLayout() {
         getNavigator().onFrefresh();
     }

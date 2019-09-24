@@ -17,7 +17,9 @@ public class RegionSearchModel {
     public RegionSearchModel(String success, List<Result> result) {
         this.success = success;
         this.result = result;
-    }  public RegionSearchModel() {
+    }
+
+    public RegionSearchModel() {
 
     }
 
@@ -47,20 +49,18 @@ public class RegionSearchModel {
         private String regionname;
 
 
-
-        @Override
-        public String toString() {
-            return regionname;
-        }
-
-
-
         public Result() {
         }
+
 
         public Result(Integer regionid, String regionname) {
             this.regionid = regionid;
             this.regionname = regionname;
+        }
+
+        @Override
+        public String toString() {
+            return regionname;
         }
 
         public Integer getRegionid() {
@@ -80,11 +80,6 @@ public class RegionSearchModel {
         }
 
     }
-
-
-
-
-
 
 
 }

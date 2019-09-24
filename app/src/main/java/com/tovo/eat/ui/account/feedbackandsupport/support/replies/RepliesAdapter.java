@@ -3,7 +3,6 @@ package com.tovo.eat.ui.account.feedbackandsupport.support.replies;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemEmptyBinding;
@@ -44,14 +43,16 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void onBindViewHolder(@NonNull BaseViewHolder baseViewHolder, int i) {
         baseViewHolder.onBind(i);
     }
+
     @Override
     public int getItemCount() {
         if (orderLists != null && orderLists.size() > 0) {
             return orderLists.size();
         } else {
-            return 1;
+            return 0;
         }
     }
+
     @Override
     public int getItemViewType(int position) {
         if (orderLists != null && !orderLists.isEmpty()) {
@@ -60,6 +61,24 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return VIEW_TYPE_EMPTY;
         }
     }
+
+    public void clearItems() {
+        orderLists.clear();
+    }
+
+    public void addOrderItems(List<RepliesResponse.Result> blogList) {
+        orderLists.addAll(blogList);
+        notifyDataSetChanged();
+    }
+
+    public void setListener(RepliesAdapterListener listener) {
+        this.mRepliesAdapterListener = listener;
+    }
+
+    public interface RepliesAdapterListener {
+        void chatList(RepliesResponse.Result orders);
+    }
+
     public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
@@ -103,22 +122,5 @@ public class RepliesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             mRepliesAdapterListener.chatList(replies);
         }
-    }
-
-    public void clearItems() {
-        orderLists.clear();
-    }
-
-    public void addOrderItems(List<RepliesResponse.Result> blogList) {
-        orderLists.addAll(blogList);
-        notifyDataSetChanged();
-    }
-
-    public void setListener(RepliesAdapterListener listener) {
-        this.mRepliesAdapterListener = listener;
-    }
-
-    public interface RepliesAdapterListener {
-        void chatList(RepliesResponse.Result orders);
     }
 }

@@ -5,7 +5,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
-import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
 import java.util.List;
 
@@ -19,9 +18,7 @@ public class HomeOfferItemViewModel {
     public final ObservableField<String> imageUrl = new ObservableField<>();
 
 
-
-    public final ObservableList<CouponListResponse.Result> collections =new ObservableArrayList<>();
-
+    public final ObservableList<CouponListResponse.Result> collections = new ObservableArrayList<>();
 
 
     public HomeOfferItemViewModel(List<CouponListResponse.Result> item_list) {

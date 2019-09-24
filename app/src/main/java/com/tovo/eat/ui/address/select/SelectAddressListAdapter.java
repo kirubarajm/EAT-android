@@ -1,13 +1,11 @@
 package com.tovo.eat.ui.address.select;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.databinding.ListItemAddressBinding;
 import com.tovo.eat.databinding.ListItemAddressSelectBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
@@ -27,30 +25,8 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
     public SelectAddressListAdapter(List<SelectAddressListResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
     }
-
-    public class EmptyViewHolder extends BaseViewHolder  {
-
-        private final ListItemEmptyBinding mBinding;
-
-
-        EmptyItemViewModel emptyItemViewModel;
-
-        public EmptyViewHolder(ListItemEmptyBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
-
-        @Override
-        public void onBind(int position) {
-            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
-            mBinding.setEmptyItemViewModel(emptyItemViewModel);
-        }
-
-    }
-
-
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -105,11 +81,29 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
     }
 
     public interface LiveProductsAdapterListener {
-
         void onItemClickData(SelectAddressListResponse.Result blogUrl);
 
         void editAddressClick(SelectAddressListResponse.Result blogUrl);
 
+    }
+
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        private final ListItemEmptyBinding mBinding;
+
+
+        EmptyItemViewModel emptyItemViewModel;
+
+        public EmptyViewHolder(ListItemEmptyBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            emptyItemViewModel = new EmptyItemViewModel("You have no address \n Please add your address");
+            mBinding.setEmptyItemViewModel(emptyItemViewModel);
+        }
 
     }
 
@@ -129,17 +123,12 @@ public class SelectAddressListAdapter extends RecyclerView.Adapter<BaseViewHolde
             final SelectAddressListResponse.Result blog = item_list.get(position);
             mLiveProductsItemViewModel = new SelectAddressListItemViewModel(this, blog);
             mListItemLiveProductsBinding.setSelectAddressListItemViewModel(mLiveProductsItemViewModel);
-
             mListItemLiveProductsBinding.executePendingBindings();
         }
 
-
         @Override
         public void onItemClick(SelectAddressListResponse.Result result) {
-
-
             mLiveProductsAdapterListener.onItemClickData(result);
-
         }
 
         @Override

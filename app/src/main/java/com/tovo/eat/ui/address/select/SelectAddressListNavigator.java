@@ -5,9 +5,11 @@ public interface SelectAddressListNavigator {
     void handleError(Throwable throwable);
 
     void addNewAddress();
-    void editAddress();
-    void listLoaded();
-    void goBack();
 
+    void editAddress();
+
+    void listLoaded();
+
+    void goBack();
 
 }

@@ -43,19 +43,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
-
 public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     public final ObservableBoolean cart = new ObservableBoolean();
-
-    public final ObservableField<String> locationAddress = new ObservableField<>();
     public final ObservableField<String> area = new ObservableField<>();
-    public final ObservableField<String> house = new ObservableField<>();
     public final ObservableField<String> landmark = new ObservableField<>();
     public final ObservableField<String> amount = new ObservableField<>();
     public final ObservableBoolean cardClicked = new ObservableBoolean();
@@ -63,14 +55,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableBoolean upiClicked = new ObservableBoolean();
     public final ObservableBoolean codClicked = new ObservableBoolean();
     public final ObservableBoolean walletClicked = new ObservableBoolean();
-
     public final ObservableField<String> brandname = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
 
-
     public Integer orderid = 0;
-
-
     public int refundBalance = 0;
     public int price = 0;
     public String razorpayCustomerId = null;
@@ -136,7 +124,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashOnDelivery() {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_COD);
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_COD);
 
         try {
 
@@ -194,80 +182,57 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            Gson gson = new Gson();
-                            CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
-                            if (cartPaymentResponse.getStatus()) {
+                            if (response != null) {
+
+                                Gson gson = new Gson();
+                                CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
+
+                                if (cartPaymentResponse != null) {
+
+                                    if (cartPaymentResponse.getStatus()) {
+
+                                        Integer sorderId = cartPaymentResponse.getOrderid();
+                                        getDataManager().setOrderId(sorderId);
 
 
-                                Integer sorderId = cartPaymentResponse.getOrderid();
-                                getDataManager().setOrderId(sorderId);
+                                        if (cartPaymentResponse.getPrice() != null)
+                                            new Analytics().orderPlaced(sorderId, Integer.parseInt(amount.get()));
+                                        new Analytics().proceedToPay(sorderId, Integer.parseInt(amount.get()));
 
 
-                                if (cartPaymentResponse.getPrice() != null)
-                                    new Analytics().orderPlaced(sorderId, Integer.parseInt(amount.get()));
-                                    new Analytics().proceedToPay(sorderId, Integer.parseInt(amount.get()));
+                                        getDataManager().currentOrderId(sorderId);
+                                        getDataManager().setCartDetails(null);
+                                        getNavigator().orderCompleted();
 
 
+                                    } else {
 
-                                getDataManager().currentOrderId(sorderId);
-                                getDataManager().setCartDetails(null);
-                                getNavigator().orderCompleted();
+                                        if (cartPaymentResponse.getResult() != null)
 
+                                            if (cartPaymentResponse.getResult().size() > 0) {
+                                                Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                                getDataManager().setOrderId(orderId);
+                                                price = cartPaymentResponse.getResult().get(0).getPrice();
+                                                getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
 
-                            } else {
+                                            } else {
+                                                getNavigator().showToast(cartPaymentResponse.getMessage());
+                                            }
 
-                                if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
-                                    Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                    getDataManager().setOrderId(orderId);
-                                    price = cartPaymentResponse.getResult().get(0).getPrice();
-
-
-                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
-
-
-                                } else {
-                                    getNavigator().showToast(cartPaymentResponse.getMessage());
+                                    }
                                 }
-
                             }
-
-                               /* if (response.getBoolean("status")) {
-
-                                    getDataManager().currentOrderId(response.getInt("orderid"));
-                                    getDataManager().setCartDetails(null);
-                                    getNavigator().orderCompleted();
-
-
-                                } else {
-
-                                    getNavigator().showToast(response.getString("message"));
-
-                                }*/
 
 
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
-
-                            //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                         }
                     }) {
-
-                        /**
-                         * Passing some request headers
-                         */
                         @Override
                         public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            headers.put("Content-Type", "application/json");
-                            headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                            //  headers.put("Authorization","Bearer");
-                            headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                            headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-                            return headers;
+                            return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                         }
                     };
                 } catch (JSONException e) {
@@ -319,17 +284,13 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public void payOnline() {
 
 
-
-        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT,AppConstants.CLICK_ONLINE);
+        new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_ONLINE);
 
 
         if (getDataManager().getAddressId() != 0) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
-            //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
-
 
             List<CartRequestPojo.Cartitem> cartitems = new ArrayList<>();
             List<PlaceOrderRequestPojo.Orderitem> orderitems = new ArrayList<>();
@@ -373,45 +334,55 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Gson gson = new Gson();
-                        CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
+                        Integer sorderId=0;
+                        if (response!=null) {
 
+                            Gson gson = new Gson();
+                            CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
 
-                        if (cartPaymentResponse.getStatus()) {
-                            Integer sorderId = cartPaymentResponse.getOrderid();
-                            orderid = sorderId;
-                            getDataManager().setOrderId(sorderId);
+                            if (cartPaymentResponse!=null)
+                            if (cartPaymentResponse.getStatus()) {
+                                if (cartPaymentResponse.getOrderid()!=null) {
+                                     sorderId = cartPaymentResponse.getOrderid();
+                                    orderid = sorderId;
+                                    getDataManager().setOrderId(sorderId);
 
-                            new Analytics().proceedToPay(orderid, cartPaymentResponse.getPrice());
+                                    new Analytics().proceedToPay(orderid, cartPaymentResponse.getPrice());
+                                }
+                                if (getDataManager().getRefundId() != 0) {
+                                    if (cartPaymentResponse.getRefundBalance()!=null) {
+                                        refundBalance = cartPaymentResponse.getRefundBalance();
 
-                            if (getDataManager().getRefundId() != 0) {
-                                refundBalance = cartPaymentResponse.getRefundBalance();
+                                        getDataManager().saveRefundBalance(refundBalance);
+                                    }
 
-                                getDataManager().saveRefundBalance(refundBalance);
+                                }
+                                if (cartPaymentResponse.getRazerCustomerid()!=null) {
+                                    razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
 
-                            }
-                            razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
+                                    getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
 
-                            getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
-
-                            price = cartPaymentResponse.getPrice();
-                            getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
-
-                        } else {
-
-                            if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
-                                Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                getDataManager().setOrderId(orderId);
-                                price = cartPaymentResponse.getResult().get(0).getPrice();
-
-
-                                getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
-
+                                    price = cartPaymentResponse.getPrice();
+                                    getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
+                                }
 
                             } else {
-                                getNavigator().showToast(cartPaymentResponse.getMessage());
-                            }
 
+                                if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
+                                    Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                    getDataManager().setOrderId(orderId);
+                                    price = cartPaymentResponse.getResult().get(0).getPrice();
+
+
+                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+
+
+                                } else {
+                                    if (cartPaymentResponse.getMessage()!=null)
+                                    getNavigator().showToast(cartPaymentResponse.getMessage());
+                                }
+
+                            }
                         }
 
                     }
@@ -423,20 +394,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     }
                 }) {
 
-
-                    /**
-                     * Passing some request headers
-                     */
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json");
-                        headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                        //  headers.put("Authorization","Bearer");
-                        headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                        headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-                        return headers;
+                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                     }
                 };
             } catch (JSONException e) {
@@ -449,8 +409,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
 
-        } else {
-            //  getNavigator().showToast("Please select the address...");
         }
     }
 
@@ -492,7 +450,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-
+                        if (response!=null)
                         if (response.getBoolean("status")) {
 
                             new Analytics().orderPlaced(orderid, price);
@@ -518,20 +476,9 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }
             }) {
 
-                /**
-                 * Passing some request headers
-                 */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("accept-version", AppConstants.API_VERSION_ONE);
-                    //  headers.put("Authorization","Bearer");
-                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-
-                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
-
-                    return headers;
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                 }
             };
         } catch (JSONException e) {

@@ -364,13 +364,8 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                  */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("accept-version", AppConstants.API_VERSION_TWO);
-                    headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
 
-                    return headers;
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                 }
             };
 
