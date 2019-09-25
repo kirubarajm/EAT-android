@@ -688,7 +688,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                     List<Double> gg = (List<Double>) dataSnapshot.child("l").getValue();
                     moveitLatLng = new LatLng(gg.get(0), gg.get(1));
 
-                    if (distance(cusLatLng.latitude, cusLatLng.longitude, gg.get(0), gg.get(1), "K") <= 2) {
+                    //if (distance(cusLatLng.latitude, cusLatLng.longitude, gg.get(0), gg.get(1), "K") <= 2) {
                         //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
                         if (moveitLocationMarker == null) {
@@ -698,7 +698,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                         showMarker1(moveitLatLng);
                         // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
-                    }
+                   // }
                 }
 
 

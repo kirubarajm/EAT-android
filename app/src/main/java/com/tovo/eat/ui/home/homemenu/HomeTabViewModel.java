@@ -815,9 +815,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                     }
 
-
                 }
-
 
             }
         }

@@ -31,6 +31,7 @@ public class SearchDishItemViewModel {
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean isRated = new ObservableBoolean();
     public final ObservableBoolean isEta = new ObservableBoolean();
+    public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
     public final ObservableBoolean haveMore = new ObservableBoolean();
 
 
@@ -50,7 +51,7 @@ public class SearchDishItemViewModel {
             KitchenDishItemViewModels.addAll(mKitchenList.getProductlist());
 
 
-
+serviceableKitchen.set(mKitchenList.isServiceableStatus());
 
         this.kitchen_image.set(mKitchenList.getMakeitimg());
 

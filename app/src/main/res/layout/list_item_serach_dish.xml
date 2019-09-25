@@ -17,10 +17,11 @@
         android:orientation="vertical">
 
         <LinearLayout
+
             android:id="@+id/kitchenTile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@{searchDishItemViewModel.serviceableKitchen?@color/white:@color/gray}"
             android:onClick="@{()->searchDishItemViewModel.onItemClick()}"
             android:orientation="horizontal">
 
@@ -38,8 +39,8 @@
                     loader="@{loader}"
                     android:layout_width="120dp"
                     android:layout_height="80dp"
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="fitXY" />
+                    android:layout_gravity="center_vertical" />
+
 
                 <ImageView
                     android:foregroundGravity="center"
@@ -50,6 +51,11 @@
                     android:layout_gravity="center_horizontal|center_vertical" />
 
 
+            <RelativeLayout
+                android:background="#B7FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{searchDishItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}">
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                     android:id="@+id/service1"
                     android:layout_width="120dp"
@@ -61,8 +67,8 @@
                     android:text="@string/unserviceable"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
+                    android:textSize="12sp"/>
+            </RelativeLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -99,7 +105,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentTop="true"
                                     android:text="@{searchDishItemViewModel.kitchen_name}"
-                                    android:textColor="@color/black"
+                                    android:textColor="@{searchDishItemViewModel.serviceableKitchen?@color/black:@color/dark_gray}"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />
                                 <!--

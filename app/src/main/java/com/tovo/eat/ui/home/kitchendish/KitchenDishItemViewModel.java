@@ -38,6 +38,7 @@ public class KitchenDishItemViewModel {
     public final ObservableField<Integer> makeit_userid = new ObservableField<>();
     public final ObservableField<String> nextAvailableTime = new ObservableField<>();
     public final ObservableBoolean nextAvailable = new ObservableBoolean();
+    public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
 
@@ -59,12 +60,13 @@ public class KitchenDishItemViewModel {
     public ObservableBoolean isVeg=new ObservableBoolean();
 
 
-    public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response) {
+    public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response,boolean serviceablekitchen) {
 
         this.originalResult = response;
         this.mListener = mListener;
         this.dishList = dishList;
         this.response = response;
+        this.serviceableKitchen.set(serviceablekitchen);
 
 
         //  this.date.set(mSalesList.getDate());
@@ -84,17 +86,11 @@ public class KitchenDishItemViewModel {
         productDes.set(dishList.getProdDesc());
 
 
-
-
-
         if (dishList.getNextAvailable()){
+            this.serviceableKitchen.set(false);
             this.nextAvailable.set(dishList.getNextAvailable());
             this.nextAvailableTime.set(dishList.getNextAvailableTime());
         }
-
-
-
-
 
         if (cartRequestPojo == null) {
             this.makeit_username.set(response.getMakeitusername());

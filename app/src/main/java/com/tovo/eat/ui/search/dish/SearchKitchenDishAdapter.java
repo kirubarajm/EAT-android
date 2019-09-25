@@ -52,7 +52,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemCollectionDishesBinding blogViewBinding = ListItemCollectionDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemKitchenDishesBinding blogViewBinding = ListItemKitchenDishesBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -136,10 +136,10 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements KitchenDishItemViewModel.DishItemViewModelListener {
-        ListItemCollectionDishesBinding mListItemLiveProductsBinding;
+        ListItemKitchenDishesBinding mListItemLiveProductsBinding;
         KitchenDishItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemCollectionDishesBinding binding) {
+        public LiveProductsViewHolder(ListItemKitchenDishesBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -149,7 +149,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, response);
+            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, response,serviceablekitchen);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -166,7 +166,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
             if (!serviceablekitchen){
 
-                mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
+               /* mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
 
 
 
@@ -180,13 +180,13 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
                 ColorMatrix matrix = new ColorMatrix();
                 matrix.setSaturation(0);
 
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);*/
               //  mListItemLiveProductsBinding.image.setColorFilter(filter);
 
 
             }else if (blog.getNextAvailable()){
 
-                mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
+               /* mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
 
                 mListItemLiveProductsBinding.content.setAlpha(1);
                 mListItemLiveProductsBinding.content.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
@@ -198,7 +198,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
                 ColorMatrix matrix = new ColorMatrix();
                 matrix.setSaturation(0);
 
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);*/
             }else {
                 mListItemLiveProductsBinding.addDish.setVisibility(View.VISIBLE);
             }

@@ -207,7 +207,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
             if (!blog.isServiceableStatus()) {
 
                 mListItemLiveProductsBinding.kitchenTile.setAlpha(1);
-                mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
+                /*mListItemLiveProductsBinding.kitchenTile.setBackgroundColor(MvvmApp.getInstance().getResources().getColor(R.color.gray));
                 mListItemLiveProductsBinding.kitchenName.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
                 mListItemLiveProductsBinding.region.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.medium_gray));
 
@@ -216,7 +216,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
                 mListItemLiveProductsBinding.image.setColorFilter(filter);
-                mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);
+                mListItemLiveProductsBinding.service1.setVisibility(View.VISIBLE);*/
                 //  mListItemLiveProductsBinding.rating.setVisibility(View.GONE);
 
             }
