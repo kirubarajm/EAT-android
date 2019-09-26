@@ -119,6 +119,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 break;
             case "9":
                 intent = new Intent(this, RepliesActivity.class);
+                intent.putExtra("notification",true);
                 break;
             default:
                 intent = new Intent(this, MainActivity.class);

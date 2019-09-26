@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{myAccountViewModel.userName}"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 

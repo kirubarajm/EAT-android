@@ -84,12 +84,11 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     @Override
     public void onSeeMore() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_SEE_MORE);
-
-
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", mSplashActivityViewModel.category_id.get());
         intent.putExtra("type", mSplashActivityViewModel.category_type.get());
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
@@ -216,6 +215,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         if (!isoNcREATRE) return;
         storyStatusView.pause();
         videoView.pause();
+
     }
 
     @Override

@@ -33,6 +33,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public final ObservableField<String> products = new ObservableField<>();
     public final ObservableField<String> sItems = new ObservableField<>();
     public final ObservableField<String> orderId = new ObservableField<>();
+    public final ObservableField<String> orderTime = new ObservableField<>();
 
 
     public final ObservableField<String> orderReceivedStatus = new ObservableField<>();
@@ -116,6 +117,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                         if (response.getStatus()) {
 
 
+
                             // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
 
                             addressTitle.set(response.getResult().get(0).getLocality());
@@ -149,6 +151,9 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 e.printStackTrace();
                             }
 
+
+
+orderTime.set(response.getResult().get(0).getOrdertime());
 
 
 

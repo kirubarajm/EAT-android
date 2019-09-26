@@ -9,6 +9,8 @@ import android.view.View;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.freshchat.consumer.sdk.Freshchat;
+import com.freshchat.consumer.sdk.FreshchatUser;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
@@ -159,6 +161,15 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
                                     getDataManager().updateEmailStatus(response.getEmailstatus());
+
+
+
+
+                                  /*  FreshchatUser freshUser= Freshchat.getInstance(MvvmApp.getInstance()).getUser();
+                                    freshUser.setPhone("+91", String.valueOf(phoneNumber));
+                                    Freshchat.getInstance(MvvmApp.getInstance()).setUser(freshUser);*/
+
+
 
                                     userId.set(String.valueOf(response.getUserid()));
                                     CurrentuserId = response.getUserid();

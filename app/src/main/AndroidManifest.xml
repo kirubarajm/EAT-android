@@ -238,7 +238,9 @@
             android:value="@bool/FIREBASE_ANALYTICS_DEACTIVATED"/>
 
 
-
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/freshchat_file_provider_paths" />
 <!--
   <meta-data
             android:name="com.razorpay.ApiKey"

@@ -18,6 +18,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRepliesBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatActivity;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -34,7 +36,7 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
     RepliesAdapter mRepliesAdapter;
     @Inject
     RepliesActivityViewModel mRepliesActivityViewModel;
-
+boolean fromNotification=false;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_SUPPORT_REPLIES;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -99,7 +101,15 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
 
     @Override
     public void goBack() {
-        onBackPressed();
+
+        if (fromNotification){
+            Intent intent = MainActivity.newIntent(RepliesActivity.this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }else {
+            onBackPressed();
+        }
     }
 
     @Override
@@ -123,6 +133,15 @@ public class RepliesActivity extends BaseActivity<ActivityRepliesBinding, Replie
         mActivityRepliesBinding.recyclerReplies.setLayoutManager(new LinearLayoutManager(this));
         mActivityRepliesBinding.recyclerReplies.setAdapter(mRepliesAdapter);
         subscribeToLiveData();
+
+
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            fromNotification = intent.getExtras().getBoolean("notification");
+        }
+
+
 
     }
 

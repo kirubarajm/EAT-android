@@ -36,6 +36,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> paymentType = new ObservableField<>();
     public final ObservableField<String> strPaymentType = new ObservableField<>();
     public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
+    public final ObservableField<String> placedTime = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
@@ -142,6 +143,8 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
                             cartBillLiveData.setValue(response.getResult().get(0).getCartDetails());
 
                             strPaymentType.set("Payment type " + response.getResult().get(0).getPaymentTypeName());
+
+                            placedTime.set("Order placed on " + response.getResult().get(0).getOrdertime());
 
 
                             if (response.getResult().get(0).getOrderstatus().equals(7) || response.getResult().get(0).getOrderstatus().equals(8)) {

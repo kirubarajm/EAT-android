@@ -644,10 +644,15 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
+    public void startTrackingTimer(int minuts) {
+
+    }
+
+   /* @Override
     public void startTrackingTimer(long minuts) {
 
 
-      /*  if (countDownTimer != null) countDownTimer.cancel();
+      *//*  if (countDownTimer != null) countDownTimer.cancel();
 
 
         if (minuts * 60000 > 0) {
@@ -668,8 +673,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 }
 
             }.start();
-        }*/
-    }
+        }*//*
+    }*/
 
     private void loadPreviousStatuses(Integer moveitId) {
 

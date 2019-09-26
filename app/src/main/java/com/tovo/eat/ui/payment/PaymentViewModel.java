@@ -64,6 +64,15 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public String razorpayCustomerId = null;
 
 
+    public String transactionId = null;
+    public int paymentStatus = 0;
+public boolean paymentSuccessNotSent=false;
+
+
+
+
+
+
     public PaymentViewModel(DataManager dataManager) {
         super(dataManager);
     }
@@ -412,8 +421,19 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
         }
     }
 
+    public void paymentSuccessData(String paymentId, Integer status,boolean success){
+
+       paymentStatus=status;
+       transactionId=paymentId;
+       paymentSuccessNotSent=success;
+    }
+
 
     public void paymentSuccess(String paymentId, Integer status) {
+
+        paymentSuccessData(paymentId,status,true);
+
+
 
 
         if (status == 1) {
@@ -454,6 +474,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                         if (response.getBoolean("status")) {
 
                             new Analytics().orderPlaced(orderid, price);
+
+                            paymentSuccessData(null,0,false);
 
                             getNavigator().paymentSuccessed(true);
                             getDataManager().setCartDetails(null);

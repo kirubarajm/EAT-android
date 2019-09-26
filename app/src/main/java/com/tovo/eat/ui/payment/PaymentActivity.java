@@ -246,6 +246,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         if (paymentRetry) showRetry();
 
 
+        if (mPaymentViewModel.paymentSuccessNotSent){
+            mPaymentViewModel.paymentSuccess(mPaymentViewModel.transactionId,mPaymentViewModel.paymentStatus);
+        }
+
     }
 
     @Override
@@ -256,6 +260,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void onPaymentSuccess(String s) {
+
+
+
+
         mPaymentViewModel.paymentSuccess(s, 1);
     }
 

@@ -413,8 +413,6 @@ public class OrderTrackingResponse {
         @SerializedName("moveitdetail")
         @Expose
         private Moveitdetail moveitdetail;
-
-
         @SerializedName("eta")
         @Expose
         private String eta;

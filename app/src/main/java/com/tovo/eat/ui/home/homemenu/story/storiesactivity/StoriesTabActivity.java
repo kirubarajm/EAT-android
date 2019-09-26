@@ -130,9 +130,6 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
 
-                Log.e("",""+arg0);
-                Log.e("",""+arg1);
-                Log.e("",""+arg2);
 
             }
 
@@ -181,6 +178,7 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
     protected void onPause() {
         super.onPause();
         unregisterWifiReceiver();
+        finish();
     }
 
     public void back(){

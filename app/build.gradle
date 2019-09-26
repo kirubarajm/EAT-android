@@ -24,8 +24,8 @@ android {
             minifyEnabled false
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
 
-            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
-            buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
+            buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
+            //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
            // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
 
@@ -34,9 +34,9 @@ android {
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
         }
         release {
-           // buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
            // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
-            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "true")
@@ -247,8 +247,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 //page progress
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    
 
+    implementation 'com.github.freshdesk:freshchat-android:2.8.0'
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {
