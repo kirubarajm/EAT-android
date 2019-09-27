@@ -208,6 +208,10 @@ public interface PreferencesHelper {
 
     void setRatingAppStatus(boolean status);
 
+boolean isFilterApplied();
+
+    void setIsFilterApplied(boolean filter);
+
 
     String getApiToken();
 

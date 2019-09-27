@@ -226,6 +226,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveIsFilterApplied(boolean filter) {
+        setIsFilterApplied(filter);
+    }
+
+    @Override
     public void saveApiToken(String token) {
         setApiToken(token);
     }
@@ -649,6 +654,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setRatingAppStatus(boolean status) {
         mPreferencesHelper.setRatingAppStatus(status);
+    }
+
+    @Override
+    public boolean isFilterApplied() {
+        return mPreferencesHelper.isFilterApplied();
+    }
+
+    @Override
+    public void setIsFilterApplied(boolean filter) {
+mPreferencesHelper.setIsFilterApplied(filter);
     }
 
     @Override

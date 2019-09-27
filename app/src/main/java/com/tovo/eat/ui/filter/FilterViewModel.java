@@ -54,10 +54,11 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
         int selectedId = selectedOptions.get();
 
 
-        FilterRequestPojo filterRequestPojo;
+        FilterRequestPojo filterRequestPojo=new FilterRequestPojo();
 
 
         Gson sGson = new GsonBuilder().create();
+        if (getDataManager().getFilterSort()!=null)
         filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
 
@@ -118,9 +119,10 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public void removeFromFilter(Integer id) {
 
 
-        FilterRequestPojo filterRequestPojo;
+        FilterRequestPojo filterRequestPojo=new FilterRequestPojo();
 
         Gson sGson = new GsonBuilder().create();
+        if (getDataManager().getFilterSort()!=null)
         filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
 
 
@@ -192,6 +194,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
 
     public void apply() {
+        getDataManager().saveIsFilterApplied(true);
         getNavigator().applyFilter();
 
     }
@@ -261,8 +264,10 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
 
     public void clearAll() {
-        getNavigator().clearFilters();
+        getDataManager().saveIsFilterApplied(false);
         getDataManager().saveFilterSort(null);
+        getNavigator().clearFilters();
+
 
     }
 

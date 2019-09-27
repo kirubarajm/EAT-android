@@ -265,12 +265,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="1dp"
+                tools:itemCount="2"
                 android:animateLayoutChanges="false"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
                 tools:listitem="@layout/list_item_cart_dishes" />
 
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:id="@+id/viewMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

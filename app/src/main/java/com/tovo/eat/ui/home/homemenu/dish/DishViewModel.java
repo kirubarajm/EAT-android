@@ -161,7 +161,7 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
 //        getNavigator().dishLoading();
 
-
+        String json=null;
         if (getDataManager().getCurrentLat() == null) {
 
             //   getNavigator().kitchenListLoading();
@@ -216,8 +216,8 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
 
 
                         Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                         json = gson.toJson(filterRequestPojo);
+
                     } else {
                         filterRequestPojo = new FilterRequestPojo();
 
@@ -226,13 +226,12 @@ public class DishViewModel extends BaseViewModel<DishNavigator> {
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
                         Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                         json = gson.toJson(filterRequestPojo);
                     }
 
                     try {
                         setIsLoading(true);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_DISH_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
 

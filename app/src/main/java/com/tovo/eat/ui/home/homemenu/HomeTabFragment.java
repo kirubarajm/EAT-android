@@ -182,6 +182,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         subscribeToLiveData();
 
 
+
         analytics = new Analytics(getActivity(), pageName);
     }
 
@@ -198,6 +199,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(true);
+
+
+
+
 
         startStoriesLoader();
         startRegionLoader();
@@ -360,16 +365,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onResume() {
         super.onResume();
-        if (mHomeTabViewModel.getDataManager().getFilterSort() != null) {
 
-            mHomeTabViewModel.fetchKitchenFilter();
-        } else {
-            mHomeTabViewModel.fetchKitchen();
-        }
+      if (mHomeTabViewModel.getDataManager().isFilterApplied()){
+          mHomeTabViewModel.fetchKitchenFilter();
+      } else {
+          mHomeTabViewModel.fetchKitchen();
+      }
+
         mHomeTabViewModel.liveOrders();
         mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
-
 
     }
 

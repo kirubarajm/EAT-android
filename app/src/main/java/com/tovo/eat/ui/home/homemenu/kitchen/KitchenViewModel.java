@@ -167,7 +167,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
 
     public void fetchRepos() {
 
-
+        String json=null;
         if (getDataManager().getCurrentLat() == null) {
 
         } else {
@@ -207,8 +207,8 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         }
 
                         Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                         json = gson.toJson(filterRequestPojo);
+                      //  getDataManager().setFilterSort(json);
                     } else {
                         filterRequestPojo = new FilterRequestPojo();
 
@@ -217,14 +217,14 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
                         Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                         json = gson.toJson(filterRequestPojo);
+                       // getDataManager().setFilterSort(json);
                     }
 
 
                     try {
                         setIsLoading(true);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
 

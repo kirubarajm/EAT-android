@@ -74,6 +74,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         super(dataManager);
         getDataManager().setIsFav(false);
         masterRequest();
+        getDataManager().setIsFilterApplied(false);
     }
 
     public int getAction() {
@@ -537,7 +538,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
-            getDataManager().setFilterSort(json);
+         //   getDataManager().setFilterSort(json);
         } else {
             filterRequestPojo = new FilterRequestPojo();
             filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
@@ -545,7 +546,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             filterRequestPojo.setLon(getDataManager().getCurrentLng());
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
-            getDataManager().setFilterSort(json);
+           // getDataManager().setFilterSort(json);
         }
     }
 

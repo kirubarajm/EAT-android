@@ -231,8 +231,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
         getNavigator().resend();
 
-
-
     }
 
     public void resendOtp() {

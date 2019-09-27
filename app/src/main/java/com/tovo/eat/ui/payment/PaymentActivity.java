@@ -244,10 +244,8 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         super.onResume();
         registerWifiReceiver();
         if (paymentRetry) showRetry();
-
-
-        if (mPaymentViewModel.paymentSuccessNotSent){
-            mPaymentViewModel.paymentSuccess(mPaymentViewModel.transactionId,mPaymentViewModel.paymentStatus);
+        if (mPaymentViewModel.paymentSuccessNotSent) {
+            mPaymentViewModel.paymentSuccess(mPaymentViewModel.transactionId, mPaymentViewModel.paymentStatus);
         }
 
     }
@@ -261,10 +259,16 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void onPaymentSuccess(String s) {
 
-
-
-
         mPaymentViewModel.paymentSuccess(s, 1);
+
+       /* new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPaymentViewModel.paymentSuccess(s, 1);
+            }
+        }, 10000);*/
+
+
     }
 
     @Override

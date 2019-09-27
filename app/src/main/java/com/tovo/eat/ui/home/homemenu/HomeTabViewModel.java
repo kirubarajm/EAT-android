@@ -557,7 +557,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     if (kitchenResponse.getResult().size() > 0) {
                                         fullEmpty.set(false);
 
-
                                         if (collectionItemViewModels.size() > 0) {
                                             KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                             kitchenResponse1.setCollection(collectionItemViewModels);
@@ -652,9 +651,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                     }
 
-
                 }
-
 
             }
         }
@@ -768,13 +765,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } else {
                                     emptyKitchen.set(true);
                                     try {
-
                                         getNavigator().kitchenLoaded();
                                     } catch (Exception ee) {
                                         ee.printStackTrace();
                                     }
                                 }
-
 
                             }
                         }, new Response.ErrorListener() {
@@ -790,7 +785,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 emptyKitchen.set(true);
                             }
                         }) {
-
                             /**
                              * Passing some request headers
                              */

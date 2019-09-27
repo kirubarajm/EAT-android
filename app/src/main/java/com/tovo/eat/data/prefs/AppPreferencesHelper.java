@@ -44,6 +44,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_PROFILE_PIC_URL = "PREF_KEY_CURRENT_USER_PROFILE_PIC_URL";
 
     private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
+    private static final String PREF_KEY_FILTER_APPLIED = "FILTER_APPLIED";
 
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
@@ -506,6 +507,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setRatingAppStatus(boolean status) {
         mPrefs.edit().putBoolean(PREF_KEY_RATING_APP_STATUS, status).apply();
+    }
+
+    @Override
+    public boolean isFilterApplied() {
+        return mPrefs.getBoolean(PREF_KEY_FILTER_APPLIED, false);
+    }
+
+    @Override
+    public void setIsFilterApplied(boolean filter) {
+        mPrefs.edit().putBoolean(PREF_KEY_FILTER_APPLIED, filter).apply();
     }
 
     @Override

@@ -68,6 +68,9 @@ public interface DataManager extends PreferencesHelper {
 
 
     void saveRefundId(int rcid);
+
+
+
   void saveRazorpayCustomerId(String razorpayCustomerId);
   void saveRefundBalance(int refundBalance);
 
@@ -80,6 +83,8 @@ public interface DataManager extends PreferencesHelper {
     void saveRatingSkipDate(String date,int skips);
     void saveRatingSkipDate(int skips);
     void saveRatingAppStatus(boolean live);
+
+    void saveIsFilterApplied(boolean filter);
 
 
     void saveApiToken(String token);

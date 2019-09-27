@@ -162,7 +162,7 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
                             emptyKitchen.set(true);
                             getNavigator().kitchenListLoaded();
                         }
-                    },AppConstants.API_VERSION_ONE);
+                    },AppConstants.API_VERSION_TWO);
                     MvvmApp.getInstance().addToRequestQueue(gsonRequest);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
