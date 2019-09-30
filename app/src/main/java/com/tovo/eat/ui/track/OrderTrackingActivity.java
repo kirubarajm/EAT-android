@@ -599,8 +599,8 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 } catch (Exception ee) {
                     ee.printStackTrace();
-                    mOrderTrackingViewModel.getOrderDetails();
 
+                    mOrderTrackingViewModel.getOrderDetails();
                 }
 
             }
@@ -823,18 +823,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /*geoFire.getLocation(String.valueOf(moveitId), new LocationCallback() {

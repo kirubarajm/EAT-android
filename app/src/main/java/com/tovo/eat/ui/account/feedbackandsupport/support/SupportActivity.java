@@ -33,6 +33,9 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     String strQueries = "";
     Analytics analytics;
     String pageName = AppConstants.SCREEN_SUPPORT;
+
+    int orderid=0;
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -158,6 +161,11 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         mQueriesViewModel.setNavigator(this);
 
         analytics = new Analytics(this, pageName);
+
+       /* Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            orderid = intent.getExtras().getInt("orderid");
+        }*/
 
     }
 

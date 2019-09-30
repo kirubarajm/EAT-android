@@ -564,10 +564,21 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             collectionAdded = true;
                                         }
                                         if (couponListItemViewModels.size() > 0) {
-                                            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-                                            kitchenResponse2.setCoupons(couponListItemViewModels);
-                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
-                                            couponAdded = true;
+
+
+
+                                            if (kitchenResponse.getResult().size()>4){
+                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                kitchenResponse2.setCoupons(couponListItemViewModels);
+                                                kitchenResponse.getResult().add(2, kitchenResponse2);
+                                                couponAdded = true;
+                                            }else{
+                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                kitchenResponse2.setCoupons(couponListItemViewModels);
+                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
+                                                couponAdded = true;
+                                            }
+
                                         }
 
 
@@ -724,10 +735,23 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             collectionAdded = true;
                                         }
                                         if (couponListItemViewModels.size() > 0) {
-                                            KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
-                                            kitchenResponse2.setCoupons(couponListItemViewModels);
-                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
-                                            couponAdded = true;
+
+
+                                            if (kitchenResponse.getResult().size()>4){
+                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                kitchenResponse2.setCoupons(couponListItemViewModels);
+                                                kitchenResponse.getResult().add(2, kitchenResponse2);
+                                                couponAdded = true;
+                                            }else{
+                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                kitchenResponse2.setCoupons(couponListItemViewModels);
+                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
+                                                couponAdded = true;
+                                            }
+
+
+
+
                                         }
 
 

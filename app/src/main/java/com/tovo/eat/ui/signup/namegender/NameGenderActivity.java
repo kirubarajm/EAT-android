@@ -150,6 +150,8 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
                 regionId = String.valueOf(result.getRegionid());
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
+
+                hideKeyboard();
             }
         });
 

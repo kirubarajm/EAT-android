@@ -21,14 +21,10 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
@@ -37,7 +33,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
@@ -224,7 +219,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     private void getUserLocation() {
 
-
         SingleShotLocationProvider.requestSingleUpdate(AddAddressActivity.this,
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
@@ -232,11 +226,12 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
                         if (dialog.isShowing())
                             dialog.dismiss();
-
-                        LatLng latLng = new LatLng(location.latitude, location.longitude);
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
-                        initCameraIdle();
-
+                        if (location != null)
+                            if (map != null) {
+                                LatLng latLng = new LatLng(location.latitude, location.longitude);
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                                initCameraIdle();
+                            }
                     }
                 });
     }
@@ -324,14 +319,13 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         mLocation = location;
         if (map != null) {
             if (location != null) {
-                locationManager.removeUpdates(this);
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                 initCameraIdle();
-
-
+                if (locationManager != null)
+                    locationManager.removeUpdates(this);
             }
         }
     }

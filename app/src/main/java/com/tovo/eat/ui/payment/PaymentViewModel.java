@@ -201,6 +201,7 @@ public boolean paymentSuccessNotSent=false;
                                     if (cartPaymentResponse.getStatus()) {
 
                                         Integer sorderId = cartPaymentResponse.getOrderid();
+                                        if (sorderId!=null)
                                         getDataManager().setOrderId(sorderId);
 
 
@@ -220,6 +221,7 @@ public boolean paymentSuccessNotSent=false;
 
                                             if (cartPaymentResponse.getResult().size() > 0) {
                                                 Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                                if (orderId!=null)
                                                 getDataManager().setOrderId(orderId);
                                                 price = cartPaymentResponse.getResult().get(0).getPrice();
                                                 getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
@@ -353,10 +355,13 @@ public boolean paymentSuccessNotSent=false;
                             if (cartPaymentResponse.getStatus()) {
                                 if (cartPaymentResponse.getOrderid()!=null) {
                                      sorderId = cartPaymentResponse.getOrderid();
-                                    orderid = sorderId;
-                                    getDataManager().setOrderId(sorderId);
+                                     if (sorderId!=null) {
+                                         orderid = sorderId;
 
-                                    new Analytics().proceedToPay(orderid, cartPaymentResponse.getPrice());
+                                         getDataManager().setOrderId(sorderId);
+
+                                         new Analytics().proceedToPay(orderid, cartPaymentResponse.getPrice());
+                                     }
                                 }
                                 if (getDataManager().getRefundId() != 0) {
                                     if (cartPaymentResponse.getRefundBalance()!=null) {
@@ -379,6 +384,7 @@ public boolean paymentSuccessNotSent=false;
 
                                 if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
                                     Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                    if (orderId!=null)
                                     getDataManager().setOrderId(orderId);
                                     price = cartPaymentResponse.getResult().get(0).getPrice();
 

@@ -222,7 +222,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        if (response != null && response.getStatus()) {
+                        if (response != null &&response.getStatus()!=null&& response.getStatus()) {
 
                             try {
                                 getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());

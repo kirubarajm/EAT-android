@@ -39,6 +39,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public final ObservableField<String> actualDeliveryTime = new ObservableField<>();
     public final ObservableField<String> gst = new ObservableField<>();
     public final ObservableField<String> delivery = new ObservableField<>();
+    public final ObservableField<String> placedTime = new ObservableField<>();
     public final ObservableField<String> title = new ObservableField<>();
 
     public final ObservableField<String> locality = new ObservableField<>();
@@ -152,6 +153,8 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
 
                             cartBillLiveData.setValue(response.getResult().get(0).getCartDetails());
 
+                            placedTime.set("Order placed at " + response.getResult().get(0).getOrdertime());
+
 
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));
                             Log.e("----response:---------", String.valueOf(response.getSuccess()));
@@ -165,7 +168,6 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                              }else {
                                  strPaymentType.set("Amount to be paid through "+response.getResult().get(0).getPaymentTypeName());
                              }
-
 
 
 

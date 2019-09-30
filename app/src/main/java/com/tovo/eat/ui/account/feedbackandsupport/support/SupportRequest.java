@@ -14,12 +14,31 @@ public class SupportRequest {
     @SerializedName("userid")
     @Expose
     public Integer userid;
+ @SerializedName("orderid")
+    @Expose
+    public Integer orderid;
 
 
     public SupportRequest(String question, Integer type, Integer userid) {
         this.question = question;
         this.type = type;
         this.userid = userid;
+    }
+
+
+    public SupportRequest(String question, Integer type, Integer userid, Integer orderid) {
+        this.question = question;
+        this.type = type;
+        this.userid = userid;
+        this.orderid = orderid;
+    }
+
+    public Integer getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
     }
 
     public String getQuestion() {

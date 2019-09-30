@@ -106,6 +106,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     public void gotoSupport() {
         new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_CONTACT_SUPPORT);
         Intent intent = SupportActivity.newIntent(OrderHelpActivity.this);
+        intent.putExtra("orderid",mOrderHelpViewModel.getDataManager().getOrderId());
         startActivity(intent);
 
 

@@ -55,7 +55,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 @Override
                 public void onResponse(EditAccountResponse response) {
                     if (response != null) {
-                        if (response.getStatus()) {
+                        if (response.getStatus()!=null&&response.getStatus()) {
                             getDataManager().updateUserGender(true);
                             if (response.getMessage() != null)
                                 getNavigator().genderSuccess(response.getMessage());

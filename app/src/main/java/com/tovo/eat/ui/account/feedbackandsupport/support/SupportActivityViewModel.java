@@ -88,9 +88,10 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
     public void insertQueriesServiceCall(String strQueries) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
+        SupportRequest supportRequest=new SupportRequest(strQueries, AppConstants.EAT, userId,getDataManager().getOrderId());
         try {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_INSERT, SupportResponse.class,
-                    new SupportRequest(strQueries, AppConstants.EAT, userId), new Response.Listener<SupportResponse>() {
+                    supportRequest, new Response.Listener<SupportResponse>() {
                 @Override
                 public void onResponse(SupportResponse response) {
                     if (response != null) {
@@ -115,7 +116,6 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
             ee.printStackTrace();
         }
     }
-
     public void callAdmin() {
         getNavigator().callAdmin();
     }

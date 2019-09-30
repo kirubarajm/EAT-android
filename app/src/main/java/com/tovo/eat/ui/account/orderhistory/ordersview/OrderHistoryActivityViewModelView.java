@@ -144,7 +144,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
                             strPaymentType.set("Payment type " + response.getResult().get(0).getPaymentTypeName());
 
-                            placedTime.set("Order placed on " + response.getResult().get(0).getOrdertime());
+                            placedTime.set("Order placed at " + response.getResult().get(0).getOrdertime());
 
 
                             if (response.getResult().get(0).getOrderstatus().equals(7) || response.getResult().get(0).getOrderstatus().equals(8)) {
