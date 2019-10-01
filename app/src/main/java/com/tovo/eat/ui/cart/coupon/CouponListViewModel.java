@@ -19,6 +19,7 @@ import java.util.List;
 
 public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     public final ObservableBoolean notClickable = new ObservableBoolean();
+    public final ObservableBoolean emptyCoupon = new ObservableBoolean();
     public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
 
@@ -61,10 +62,11 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
                     if (response != null) {
 
                         if (response.getResult().size() == 0) {
-
+                            emptyCoupon.set(true);
                             getNavigator().noList();
 
                         } else {
+                            emptyCoupon.set(false);
                             couponListItemsLiveData.setValue(response.getResult());
                         }
                     }
@@ -75,6 +77,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", error.getMessage());
                     getNavigator().listLoaded();
+                    emptyCoupon.set(true);
                 }
             }, AppConstants.API_VERSION_ONE);
 

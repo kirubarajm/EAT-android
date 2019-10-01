@@ -153,7 +153,25 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
 
 
-orderTime.set(response.getResult().get(0).getOrdertime());
+
+                            try {
+                                String strDate = response.getResult().get(0).getOrdertime();
+                                DateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+                                DateFormat currentFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String outputDateStr2 = "";
+                                //Date  date1 = new Date(strDate);
+                                Date date = currentFormat2.parse(strDate);
+                                outputDateStr2 = dateFormat2.format(date);
+
+                                orderTime.set("Order placed at " + outputDateStr2);
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
+
 
 
 

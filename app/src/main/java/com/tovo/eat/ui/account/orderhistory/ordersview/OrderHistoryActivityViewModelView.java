@@ -144,7 +144,23 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
                             strPaymentType.set("Payment type " + response.getResult().get(0).getPaymentTypeName());
 
-                            placedTime.set("Order placed at " + response.getResult().get(0).getOrdertime());
+                            try {
+                                String strDate = response.getResult().get(0).getOrdertime();
+                                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String outputDateStr = "";
+                                //Date  date1 = new Date(strDate);
+                                Date date = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(date);
+
+                                placedTime.set("Order placed at " + outputDateStr);
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
 
 
                             if (response.getResult().get(0).getOrderstatus().equals(7) || response.getResult().get(0).getOrderstatus().equals(8)) {
@@ -175,7 +191,6 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
 
                             // Repeat Order
-
 
                             cartRequestPojo.setMakeitUserid(response.getResult().get(0).getMakeitdetail().userid);
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {

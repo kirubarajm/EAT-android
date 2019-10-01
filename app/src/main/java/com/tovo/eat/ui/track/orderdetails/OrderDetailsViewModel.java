@@ -153,7 +153,39 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
 
                             cartBillLiveData.setValue(response.getResult().get(0).getCartDetails());
 
-                            placedTime.set("Order placed at " + response.getResult().get(0).getOrdertime());
+
+
+
+
+
+
+                            try {
+                                String strDate = response.getResult().get(0).getOrdertime();
+                                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+                                DateFormat currentFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String outputDateStr = "";
+                                //Date  date1 = new Date(strDate);
+                                Date date = currentFormat.parse(strDate);
+                                outputDateStr = dateFormat.format(date);
+
+                                placedTime.set("Order placed at " + outputDateStr);
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
+
+
+
+
+
+
+
+
+
+
 
 
                             //actualDeliveryTime.set("Order delivered on "+String.valueOf(response.getResult().get(0).getMoveitActualDeliveredTime()));

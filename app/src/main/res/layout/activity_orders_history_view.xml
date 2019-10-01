@@ -18,8 +18,6 @@
         android:background="@color/white">
 
 
-
-
         <android.support.v7.widget.CardView
             android:id="@+id/topBar"
             android:layout_width="match_parent"
