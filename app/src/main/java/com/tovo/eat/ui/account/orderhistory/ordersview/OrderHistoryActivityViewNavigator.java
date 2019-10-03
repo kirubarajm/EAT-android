@@ -10,4 +10,5 @@ public interface OrderHistoryActivityViewNavigator {
 
     void goBack();
 
+    void gotoSupport();
 }

@@ -182,7 +182,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             if (kitchenmenuimageArrayList.size() == 1) {
                 mFragmentDishBinding.left.setVisibility(View.GONE);
                 mFragmentDishBinding.right.setVisibility(View.GONE);
-            } else {
+            } else if (kitchenmenuimageArrayList.size() == 0) {
+                mFragmentDishBinding.left.setVisibility(View.GONE);
+                mFragmentDishBinding.right.setVisibility(View.GONE);
+            }
+            else {
 
                 mFragmentDishBinding.left.setVisibility(View.GONE);
                 mFragmentDishBinding.right.setVisibility(View.VISIBLE);
@@ -190,6 +194,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
 
         } else {
+            mFragmentDishBinding.left.setVisibility(View.GONE);
+            mFragmentDishBinding.right.setVisibility(View.GONE);
             return;
         }
 

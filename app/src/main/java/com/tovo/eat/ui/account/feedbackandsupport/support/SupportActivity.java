@@ -36,6 +36,8 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
     int orderid=0;
 
+    int type=AppConstants.QUERY_TYPE_GENERAL;
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -105,7 +107,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         strQueries = mActivityQueriesBinding.edtQueries.getText().toString();
         if (!strQueries.equals("")) {
-            mQueriesViewModel.insertQueriesServiceCall(strQueries);
+            mQueriesViewModel.insertQueriesServiceCall(strQueries,type,orderid);
 
             new Analytics().makeQuery(strQueries);
 
@@ -162,10 +164,14 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         analytics = new Analytics(this, pageName);
 
-       /* Intent intent = getIntent();
+        Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            orderid = intent.getExtras().getInt("orderid");
-        }*/
+            orderid = intent.getExtras().getInt("orderid",0);
+            type = intent.getExtras().getInt("type",AppConstants.QUERY_TYPE_GENERAL);
+        }
+
+
+
 
     }
 

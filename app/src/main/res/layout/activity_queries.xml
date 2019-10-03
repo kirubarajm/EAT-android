@@ -137,19 +137,20 @@
                         android:textSize="14sp" />
 
                     <android.support.design.widget.TextInputEditText
-                        android:scrollbarStyle="insideInset"
                         android:id="@+id/edt_queries"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minLines="10"
-                        android:gravity="top"
-                        android:inputType="textCapSentences|textMultiLine"
                         android:layout_marginLeft="40dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginBottom="10dp"
-                        android:scrollHorizontally="false"
-                        android:background="@drawable/textview_border" />
+                        android:background="@drawable/textview_border"
+                        android:gravity="top"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minLines="10"
+                        android:padding="5dp"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollHorizontally="false" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

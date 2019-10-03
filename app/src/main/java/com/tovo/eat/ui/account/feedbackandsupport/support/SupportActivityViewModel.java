@@ -85,10 +85,10 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
         }
     }
 
-    public void insertQueriesServiceCall(String strQueries) {
+    public void insertQueriesServiceCall(String strQueries,int type,int orderid) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
-        SupportRequest supportRequest=new SupportRequest(strQueries, AppConstants.EAT, userId,getDataManager().getOrderId());
+        SupportRequest supportRequest=new SupportRequest(strQueries, AppConstants.EAT, userId,orderid,type);
         try {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_QUERY_INSERT, SupportResponse.class,
                     supportRequest, new Response.Listener<SupportResponse>() {

@@ -78,6 +78,9 @@ public class AppConstants {
     public static final String ADDRESS_TYPE_HOME = "1";
     public static final String ADDRESS_TYPE_WORK = "2";
     public static final String ADDRESS_TYPE_OTHER = "3";
+    public static final int QUERY_TYPE_ORDER = 1;
+    public static final int QUERY_TYPE_GENERAL = 2;
+    public static final int QUERY_TYPE_ORDER_HISTORY = 3;
 
     public static final String SCREEN_CHANGE_KITCHEN = "Change kitchen alert";
 
@@ -88,6 +91,7 @@ public class AppConstants {
         //headers.put("Content-Type", "application/json");
         //  headers.put("Content-Type", "application/json; charset=utf-8");
         headers.put("accept-version",version);
+        headers.put("app-version",String.valueOf(BuildConfig.VERSION_CODE));
         headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
         //  headers.put("Authorization","Bearer");
 
@@ -97,7 +101,6 @@ public class AppConstants {
         // headers.put("token",preferencesHelper.getApiToken());
 
         return  headers;
-
 
     }
 

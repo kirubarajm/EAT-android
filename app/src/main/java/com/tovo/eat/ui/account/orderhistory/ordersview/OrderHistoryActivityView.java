@@ -17,9 +17,11 @@ import android.view.View;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
+import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -121,6 +123,14 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Override
     public void goBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void gotoSupport() {
+        Intent intent = SupportActivity.newIntent(OrderHistoryActivityView.this);
+        intent.putExtra("orderid",Integer.parseInt(strOrderId));
+        intent.putExtra("type",AppConstants.QUERY_TYPE_ORDER_HISTORY);
+        startActivity(intent);
     }
 
     @Override

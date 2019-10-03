@@ -102,6 +102,12 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
 
     }
 
+
+    public void gotoSupport(){
+        getNavigator().gotoSupport();
+    }
+
+
     public void orderAvailable() {
         getDataManager().setCartDetails(null);
         Gson gson = new Gson();

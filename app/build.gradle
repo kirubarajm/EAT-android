@@ -23,11 +23,11 @@ android {
         debug {
             minifyEnabled false
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
-
-            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
+            //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            buildConfigField "String", 'BASE_URL', '"http://192.168.0.100:3000"'
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
            // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
 
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "false")
@@ -48,7 +48,7 @@ android {
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "false")
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
             minifyEnabled false
-            buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
+            buildConfigField "String", 'BASE_URL', '"http://192.168.0.100:3000"'
         }
     }
     compileOptions {

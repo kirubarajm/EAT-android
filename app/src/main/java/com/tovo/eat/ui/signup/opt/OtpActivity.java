@@ -404,7 +404,19 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         //}
 
 
-        mActivityOtpBinding.resend.setOnTouchListener(new View.OnTouchListener() {
+        mActivityOtpBinding.resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSMSListener();
+                startTimer();
+                new Analytics().sendClickData(AppConstants.SCREEN_OTP, AppConstants.CLICK_RESEND);
+                Toast.makeText(OtpActivity.this, "OTP has been sent again.", Toast.LENGTH_SHORT).show();
+                mLoginViewModelMain.resendOtp();
+            }
+        });
+
+
+       /* mActivityOtpBinding.resend.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int id = v.getId();
@@ -425,7 +437,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
                 }
                 return false;
             }
-        });
+        });*/
     }
 
     @Override
