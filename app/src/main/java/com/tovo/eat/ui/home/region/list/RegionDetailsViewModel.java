@@ -88,6 +88,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
             },AppConstants.API_VERSION_ONE);

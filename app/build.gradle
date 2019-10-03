@@ -246,7 +246,7 @@ dependencies {
 //page progress
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
-    implementation 'com.github.freshdesk:freshchat-android:2.8.0'
+   // implementation 'com.github.freshdesk:freshchat-android:2.8.0'
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

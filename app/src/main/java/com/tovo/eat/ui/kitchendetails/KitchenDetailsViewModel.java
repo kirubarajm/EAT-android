@@ -413,7 +413,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().loadError();
+                    if (getNavigator() != null)
+                        getNavigator().loadError();
                 }
             }, AppConstants.API_VERSION_TWO);
 
@@ -496,7 +497,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().dishListLoaded(null);
+                    if (getNavigator() != null)
+                        getNavigator().dishListLoaded(null);
                 }
             }, AppConstants.API_VERSION_TWO);
 

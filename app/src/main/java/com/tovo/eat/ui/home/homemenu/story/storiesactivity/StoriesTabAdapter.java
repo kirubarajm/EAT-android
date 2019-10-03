@@ -32,7 +32,8 @@ public class StoriesTabAdapter extends FragmentStatePagerAdapter {
     }
 
     public void setCount(StoriesResponse storiesFullResponse) {
-        this.mTabCount = storiesFullResponse.getResult().size();
+        if (storiesFullResponse != null && storiesFullResponse.getResult() != null && storiesFullResponse.getResult().size() > 0)
+            this.mTabCount = storiesFullResponse.getResult().size();
         this.storiesFullResponse = storiesFullResponse;
     }
 

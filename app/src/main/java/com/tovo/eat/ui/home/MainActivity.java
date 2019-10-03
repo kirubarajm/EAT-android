@@ -32,12 +32,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.freshchat.consumer.sdk.ConversationOptions;
-import com.freshchat.consumer.sdk.Freshchat;
-import com.freshchat.consumer.sdk.FreshchatConfig;
-import com.freshchat.consumer.sdk.FreshchatMessage;
-import com.freshchat.consumer.sdk.FreshchatUser;
-import com.freshchat.consumer.sdk.exception.MethodNotAllowedException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -62,7 +56,6 @@ import com.tovo.eat.ui.pendingpayment.PendingPaymentAlert;
 import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
-import com.tovo.eat.utilities.CustomImageLoader;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -71,11 +64,6 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -334,6 +322,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.setCancelable(false);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
     }
 
     @Override
@@ -426,7 +416,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
-
         analytics = new Analytics(this, pageName);
 
         saveFcmToken();
@@ -451,6 +440,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             startLoader();
             startLocationTracking();
         }
+
+
+
+
         /*Freshchat.setImageLoader(com.freshchat.consumer.sdk.j.af.aw(MainActivity.this));
         FreshchatConfig freshchatConfig=new FreshchatConfig("378cbc0d-a29a-4853-8a00-a7833858dc97","d7a5250c-a166-40bb-a5c4-b94b2788b52c");
        *//* freshchatConfig.setCameraCaptureEnabled(true);
@@ -503,7 +496,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 .filterByTags(tags, "Order Queries");
         Freshchat.showConversations(getApplicationContext(),convOptions);*/
 
-       // Freshchat.showConversations(getApplicationContext());
+        // Freshchat.showConversations(getApplicationContext());
     }
 
     public void startLocationTracking() {
