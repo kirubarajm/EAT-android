@@ -1113,7 +1113,6 @@
     </LinearLayout>
 
         <LinearLayout
-            android:onClick="@{()->homeTabViewModel.trackLiveOrder()}"
             android:layout_alignParentBottom="true"
             android:id="@+id/bottom"
             android:layout_marginBottom="40dp"
@@ -1121,7 +1120,77 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
             <LinearLayout
+                android:id="@+id/funnel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/funnel_back"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="@{homeTabViewModel.showFunnel?View.VISIBLE:View.GONE}">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:onClick="@{()->homeTabViewModel.closeFunnel()}"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_close_black_24dp"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+               <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                   android:layout_gravity="center_horizontal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="We are sorry!"
+                   android:textColor="@color/black"
+                   android:textSize="12sp"
+                   android:textStyle="bold"
+                   android:textAllCaps="true"/>
+
+ <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+     android:layout_marginEnd="10dp"
+     android:layout_marginStart="10dp"
+     android:layout_marginTop="10dp"
+     android:textAlignment="center"
+                   android:layout_gravity="center_horizontal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="We will be serving in your area soon. A coupon of Rs.100 has been added to your account."
+                   android:textColor="@color/black"
+                   android:textSize="10sp"
+                   android:textStyle="bold"/>
+
+
+
+
+</LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:onClick="@{()->homeTabViewModel.trackLiveOrder()}"
                 android:id="@+id/live_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

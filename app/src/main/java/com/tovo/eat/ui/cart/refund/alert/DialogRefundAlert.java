@@ -71,8 +71,9 @@ public class DialogRefundAlert extends BaseDialog implements DialogRefundAlertCa
     public void confirmClick() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_YES);
 
-        dismissDialog();
+
         if (Integer.parseInt(totalAmount) > 0) {
+            dismissDialog();
             Intent intent = PaymentActivity.newIntent(getContext());
             intent.putExtra("amount", totalAmount);
             startActivity(intent);

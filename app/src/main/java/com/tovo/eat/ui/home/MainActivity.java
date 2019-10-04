@@ -250,7 +250,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void paymentStausChanged() {
-        mMainViewModel.liveOrders();
+       // mMainViewModel.liveOrders();
     }
 
     @Override
@@ -442,6 +442,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
+        mMainViewModel.liveOrders();
+
 
 
         /*Freshchat.setImageLoader(com.freshchat.consumer.sdk.j.af.aw(MainActivity.this));
@@ -535,7 +537,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.totalCart();
         mMainViewModel.saveRequestData();
         mMainViewModel.getDataManager().setIsFav(false);
-        mMainViewModel.liveOrders();
+//        mMainViewModel.liveOrders();
 
     }
 

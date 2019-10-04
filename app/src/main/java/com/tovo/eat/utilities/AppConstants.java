@@ -191,6 +191,7 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
         public static final String SCREEN_ORDER_DETAILS=  "orders_details";
         public static final String SCREEN_PAYMENT_RETRY=  "payment_retry";
         public static final String SCREEN_ORDER_PLACED=  "order_placed";
+        public static final String SCREEN_FUNNEL_COUPON=  "funnel_coupon_page";
         public static final String SCREEN_REFERRAL=  "referral";
         public static final String SCREEN_MY_ACCOUNT=  "my_account";
         public static final String SCREEN_ADD_ADDRESS=  "add_address";
@@ -449,6 +450,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
     public static final String EAT_GET_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addresslist/";
     public static final String EAT_DELETE_ADDRESS_URL = URL_SERVER_IP_PORT + "/eat/addressdelete/";
     public static final String EAT_ADD_ADDRESS_LIST_URL = URL_SERVER_IP_PORT + "/eat/address/";
+
+    public static final String EAT_FUNNEL_URL = URL_SERVER_IP_PORT + "/eat/tunnelorder";
 
     public static final String EAT_REFUND_LIST_URL = URL_SERVER_IP_PORT + "/eat/refund/";
     public static final String EAT_COUPON_LIST_URL = URL_SERVER_IP_PORT + "/eat/coupon/";

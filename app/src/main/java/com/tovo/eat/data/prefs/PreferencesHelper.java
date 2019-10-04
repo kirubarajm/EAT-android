@@ -212,6 +212,10 @@ boolean isFilterApplied();
 
     void setIsFilterApplied(boolean filter);
 
+boolean getFunnelStatus();
+
+    void setFunnelStatus(boolean filter);
+
 
     String getApiToken();
 

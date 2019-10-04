@@ -21,7 +21,6 @@ public class CartPageResponse {
     @Expose
     private List<Result> result = null;
 
-
     public String getMessage() {
         return message;
     }
@@ -565,6 +564,11 @@ public class CartPageResponse {
         @SerializedName("isfav")
         @Expose
         private String isFav = "0";
+
+        @SerializedName("first_tunnel")
+        @Expose
+        private  Integer funnelStatus = 0;
+
         @SerializedName("favid")
         @Expose
         private Integer favid;
@@ -593,6 +597,14 @@ public class CartPageResponse {
 
         public void setAvaliablekitchen(boolean avaliablekitchen) {
             isAvaliablekitchen = avaliablekitchen;
+        }
+
+        public Integer getFunnelStatus() {
+            return funnelStatus;
+        }
+
+        public void setFunnelStatus(Integer funnelStatus) {
+            this.funnelStatus = funnelStatus;
         }
 
         public String getIsFav() {

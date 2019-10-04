@@ -126,9 +126,7 @@
 
 
         </activity>
-        <activity
-            android:name=".ui.forgotpassword.ForgotPasswordActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.address.edit.EditAddressActivity"
             android:screenOrientation="portrait" />
@@ -169,10 +167,7 @@
 
         <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivityOP"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.kitchendetails.viewimage.ViewImageActivity"
-            android:screenOrientation="portrait"/>
+
 
         <activity android:name=".ui.cart.coupon.CouponListActivity"
             android:screenOrientation="portrait"/>
@@ -187,18 +182,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".utilities.nointernet.InternetErrorFragment"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.cart.funnel.FunnelActivity" />
 
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw" />
-
-        <receiver android:name="com.tovo.eat.ui.forgotpassword.SmsReceiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
-
 
 
 

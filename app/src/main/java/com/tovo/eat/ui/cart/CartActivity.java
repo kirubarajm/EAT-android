@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -17,6 +16,7 @@ import com.tovo.eat.databinding.ActivityCartBinding;
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
+import com.tovo.eat.ui.cart.funnel.FunnelActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
@@ -47,11 +47,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Inject
     BillListAdapter billListAdapter;
     Dialog dialog;
-    private ActivityCartBinding mActivityCartBinding;
-
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_CART_PAGE;
-
+    String pageName = AppConstants.SCREEN_CART_PAGE;
+    private ActivityCartBinding mActivityCartBinding;
 
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
@@ -59,7 +57,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -97,7 +94,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         adapter.setListener(this);
         refundListAdapter.setListener(this);
 
-        analytics=new Analytics(getActivity(), pageName);
+        analytics = new Analytics(getActivity(), pageName);
     }
 
     @Override
@@ -133,8 +130,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
 
-
-
     @Override
     public void cartLoaded() {
         stopCartLoader();
@@ -164,7 +159,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void selectAddress() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_CHANGE_ADDRESS);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_CHANGE_ADDRESS);
 
         Intent intent = SelectAddressListActivity.newIntent(getContext());
         startActivityForResult(intent, AppConstants.SELECT_ADDRESS_LIST_CODE);
@@ -223,9 +218,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         if (mActivityCartBinding.refundCheck.isChecked()) {
             mCartViewModel.refundChecked.set(true);
 
-            new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_CHECK);
+            new Analytics().sendClickData(pageName, AppConstants.CLICK_REFUND_CHECK);
         } else {
-            new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_UNCHECK);
+            new Analytics().sendClickData(pageName, AppConstants.CLICK_REFUND_UNCHECK);
             mCartViewModel.refundChecked.set(false);
             mCartViewModel.getDataManager().setRefundId(0);
             refundListAdapter.selectedItemClear();
@@ -242,7 +237,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void promoList() {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_ADD_PROMO_CODE);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_ADD_PROMO_CODE);
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", false);
         startActivityForResult(intent, AppConstants.COUPON_LIST_CODE);
@@ -274,6 +269,14 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
+    public void funnelAlert() {
+
+        Intent intent = FunnelActivity.newIntent(getActivity());
+        startActivity(intent);
+
+    }
+
+    @Override
     public void gotoKitchen(int kitchenid) {
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenid);
@@ -299,7 +302,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onResume();
         mCartViewModel.setAddressTitle();
 
-        if (mCartViewModel.getCartPojoDetails() != null){
+        if (mCartViewModel.getCartPojoDetails() != null) {
             startCartLoader();
             mCartViewModel.fetchRepos();
         }
@@ -364,7 +367,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             }
 
 
-        }else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
+        } else if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
             if (resultCode == RESULT_OK) {
                 mCartViewModel.fetchRepos();
             }
@@ -374,7 +377,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void onItemClickData(RefundListResponse.Result result, int selected) {
 
-        new Analytics().sendClickData(pageName,AppConstants.CLICK_REFUND_SELECT);
+        new Analytics().sendClickData(pageName, AppConstants.CLICK_REFUND_SELECT);
 
         if (selected == -1) {
             mCartViewModel.saveRefundandCalculate(0);
@@ -392,7 +395,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Analytics().sendClickData(pageName,AppConstants.CLICK_CHANGE_ADDRESS);
+                new Analytics().sendClickData(pageName, AppConstants.CLICK_CHANGE_ADDRESS);
                 dialog.dismiss();
                 selectAddress();
             }
@@ -405,7 +408,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 redirectHome();
                 dialog.dismiss();
 
-                new Analytics().sendClickData(pageName,AppConstants.CLICK_GO_HOME);
+                new Analytics().sendClickData(pageName, AppConstants.CLICK_GO_HOME);
 
             }
         });
@@ -413,7 +416,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     public void startCartLoader() {
-            mActivityCartBinding.cartLoader.setVisibility(View.VISIBLE);
+        mActivityCartBinding.cartLoader.setVisibility(View.VISIBLE);
     }
 
     public void stopCartLoader() {

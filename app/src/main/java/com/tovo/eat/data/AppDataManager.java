@@ -128,6 +128,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void showFunnel(boolean status) {
+        setFunnelStatus(status);
+    }
+
+    @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
@@ -664,6 +669,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setIsFilterApplied(boolean filter) {
 mPreferencesHelper.setIsFilterApplied(filter);
+    }
+
+    @Override
+    public boolean getFunnelStatus() {
+        return mPreferencesHelper.getFunnelStatus();
+    }
+
+    @Override
+    public void setFunnelStatus(boolean status) {
+mPreferencesHelper.setFunnelStatus(status);
     }
 
     @Override

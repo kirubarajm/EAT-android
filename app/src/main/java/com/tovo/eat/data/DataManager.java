@@ -49,6 +49,8 @@ public interface DataManager extends PreferencesHelper {
 
      void updateUserPasswordStatus(boolean passwordStatus);
 
+     void showFunnel(boolean status);
+
     void saveMaster(String master);
 
     void saveFilterSort(String filters);

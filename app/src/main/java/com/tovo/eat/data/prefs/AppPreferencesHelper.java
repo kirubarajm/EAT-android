@@ -46,6 +46,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
     private static final String PREF_KEY_FILTER_APPLIED = "FILTER_APPLIED";
 
+    private static final String PREF_KEY_FUNNEL_STATUS = "FUNNEL_STATUS";
+
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
     private static final String PREF_KEY_REFUND_BALANCE = "PREF_KEY_REFUND_BALANCE";
@@ -517,6 +519,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setIsFilterApplied(boolean filter) {
         mPrefs.edit().putBoolean(PREF_KEY_FILTER_APPLIED, filter).apply();
+    }
+
+    @Override
+    public boolean getFunnelStatus() {
+        return mPrefs.getBoolean(PREF_KEY_FUNNEL_STATUS, false);
+    }
+
+    @Override
+    public void setFunnelStatus(boolean filter) {
+        mPrefs.edit().putBoolean(PREF_KEY_FUNNEL_STATUS, filter).apply();
     }
 
     @Override

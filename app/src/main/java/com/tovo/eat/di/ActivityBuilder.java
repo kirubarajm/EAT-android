@@ -51,6 +51,8 @@ import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledProvider;
 import com.tovo.eat.ui.cart.CartProvider;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListModule;
+import com.tovo.eat.ui.cart.funnel.FunnelActivity;
+import com.tovo.eat.ui.cart.funnel.FunnelModule;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlertProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.home.MainActivity;
@@ -143,7 +145,10 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {KitchenDetailsModule.class, DialogChangeKitchenDetailsProvider.class, OrderCanceledProvider.class})
     abstract KitchenDetailsActivity bindKitchenDetailsActivity();
 
-    @ContributesAndroidInjector(modules = {AddAddressModule.class, OrderCanceledProvider.class})
+    @ContributesAndroidInjector(modules = {FunnelModule.class})
+    abstract FunnelActivity bindFunnelActivity();
+
+@ContributesAndroidInjector(modules = {AddAddressModule.class, OrderCanceledProvider.class})
     abstract AddAddressActivity bindAddAddressActivity();
 
 
