@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.home.homemenu;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,7 +19,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
@@ -43,8 +43,11 @@ import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
+import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
 
 import javax.inject.Inject;
@@ -67,7 +70,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     RegionsCardTitleAdapter regionsCardTitleAdapter;
     @Inject
     StoriesCardAdapter storiesCardAdapter;
-
+    Dialog locationDialog;
     RegionsResponse regionsResponse;
     CardSliderLayoutManager cardSliderLayoutManager;
     StoriesResponse storiesFullResponse;
@@ -76,19 +79,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     ProgressDialog progressDialog;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_HOME;
+    ToolTipView myToolTipView;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
-    ToolTipView myToolTipView;
+
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
         HomeTabFragment fragment = new HomeTabFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public int getBindingVariable() {
         return BR.homeTabViewModel;
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -102,10 +108,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void handleError(Throwable throwable) {
     }
+
     @Override
     public void selectAddress() {
         ((MainActivity) getActivity()).selectHomeAddress();
     }
+
     @Override
     public void filter() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FILTER);
@@ -187,7 +195,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         subscribeToLiveData();
 
 
-
         analytics = new Analytics(getActivity(), pageName);
     }
 
@@ -206,15 +213,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         progressDialog.setCancelable(true);
 
 
-
-
-
         startStoriesLoader();
         startRegionLoader();
         startKitchenLoader();
         regionsResponse = new RegionsResponse();
 
         if (mHomeTabViewModel.isAddressAdded()) {
+            startLocationTrackingForAddress();
             setUp();
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
@@ -224,28 +229,123 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
 
+    }
 
 
+    public void startLocationTrackingForAddress() {
 
-        ToolTip toolTip = new ToolTip()
-                .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
-                .withText("Do you want to delivery to this address?")
-                .withColor(Color.GREEN)
-                .withShadow()
-                .withTextColor(Color.WHITE)
-                .withAnimationType(ToolTip.AnimationType.FROM_TOP);
-         myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip,mFragmentHomeBinding.delAddress);
-        myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+
+        new GpsUtils(getBaseActivity()).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
-            public void onToolTipViewClicked(ToolTipView toolTipView) {
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                if (isGPSEnable) {
+                    getLocation();
 
-                myToolTipView.remove();
-                myToolTipView = null;
+
+                } else {
+                    //  turnOnGps();
+                    showLocationDialog();
+                }
+            }
+
+        });
+
+
+    }
+
+    public void getLocation() {
+
+
+        SingleShotLocationProvider.requestSingleUpdate(getActivity(),
+                new SingleShotLocationProvider.LocationCallback() {
+                    @Override
+                    public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                        if (location != null)
+
+                            if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
+
+                                ToolTip toolTip = new ToolTip()
+                                        .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
+                                        .withText("Do you want to delivery to this address?")
+                                        .withColor(Color.GREEN)
+                                        .withShadow()
+                                        .withTextColor(Color.WHITE)
+                                        .withAnimationType(ToolTip.AnimationType.FROM_TOP);
+                                myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mFragmentHomeBinding.delAddress);
+                                myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                                    @Override
+                                    public void onToolTipViewClicked(ToolTipView toolTipView) {
+                                        myToolTipView.remove();
+                                        myToolTipView = null;
+
+                                    }
+                                });
+
+
+                            }
+
+
+                    }
+                });
+
+
+    }
+
+
+    public void showLocationDialog() {
+        locationDialog = new Dialog(getActivity());
+        locationDialog.setCancelable(false);
+        locationDialog.setContentView(R.layout.dialog_get_location);
+
+        ButtonTextView text = locationDialog.findViewById(R.id.allowgps);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationDialog.dismiss();
+                startLocationTrackingForAddress();
+
+                new Analytics().sendClickData(pageName, AppConstants.CLICK_ALLOW_LOACTION);
 
             }
         });
 
+        ButtonTextView dialogButton = locationDialog.findViewById(R.id.cancelgps);
+        dialogButton.setVisibility(View.GONE);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        locationDialog.show();
+
+    }
+
+    public double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    public double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+
+    public double distance(double lat1, double lon1, double lat2, double lon2, String sr) {
+
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (sr.equals("K")) {
+            dist = dist * 1.609344;
+        } else if (sr.equals("N")) {
+            dist = dist * 0.8684;
+        }
+        return (dist);
     }
 
 
@@ -393,11 +493,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
 
-      if (mHomeTabViewModel.getDataManager().isFilterApplied()){
-          mHomeTabViewModel.fetchKitchenFilter();
-      } else {
-          mHomeTabViewModel.fetchKitchen();
-      }
+        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+            mHomeTabViewModel.fetchKitchenFilter();
+        } else {
+            mHomeTabViewModel.fetchKitchen();
+        }
 
         mHomeTabViewModel.liveOrders();
         mHomeTabViewModel.storiesRefresh();
@@ -580,7 +680,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();
 
 
-
         if (activeCardPosition == RecyclerView.NO_POSITION) {
             return;
         }
@@ -611,7 +710,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void viewMoreRegions() {
-
 
 
         int activeCardPosition = mStackLayoutManager.getFirstVisibleItemPosition();

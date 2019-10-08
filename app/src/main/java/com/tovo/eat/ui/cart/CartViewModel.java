@@ -590,7 +590,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         if (funnelStatus == 0) {
 
-
             if (available.get()) {
 
                 if (serviceable.get()) {

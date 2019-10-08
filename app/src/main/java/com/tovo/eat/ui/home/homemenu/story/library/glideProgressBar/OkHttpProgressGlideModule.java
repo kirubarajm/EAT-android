@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -50,6 +51,7 @@ public class OkHttpProgressGlideModule implements GlideModule {
             }
         };
     }
+
 
     public interface UIProgressListener {
         void onProgress(long bytesRead, long expectedLength);

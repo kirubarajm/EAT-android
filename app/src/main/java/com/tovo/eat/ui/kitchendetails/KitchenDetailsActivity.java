@@ -477,8 +477,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         ButtonTextView btnClose = nagDialog.findViewById(R.id.btnIvClose);
         ImageView ivPreview = nagDialog.findViewById(R.id.iv_preview_image);
         if (url != null) {
-            Glide.with(getApplicationContext()).load(url).placeholder(null)
-                    .error(R.drawable.images_loading).into(ivPreview);
+           /* Glide.with(getApplicationContext()).load(url).placeholder(null)
+                    .error(R.drawable.images_loading).into(ivPreview); */
+            Glide.with(getApplicationContext()).load(url).into(ivPreview);
         }
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

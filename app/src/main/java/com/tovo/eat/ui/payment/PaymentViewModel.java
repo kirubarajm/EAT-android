@@ -180,7 +180,6 @@ public boolean paymentSuccessNotSent=false;
                 Gson gson = new Gson();
                 String json = gson.toJson(placeOrderRequestPojo1);
 
-                Log.e("sfsdfd", json);
 
                 setIsLoading(true);
 
@@ -216,20 +215,18 @@ public boolean paymentSuccessNotSent=false;
 
 
                                     } else {
-
-                                        if (cartPaymentResponse.getResult() != null)
+                                        getNavigator().showToast(cartPaymentResponse.getMessage());
+                                        if (cartPaymentResponse.getResult() != null) {
 
                                             if (cartPaymentResponse.getResult().size() > 0) {
                                                 Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                                if (orderId!=null)
-                                                getDataManager().setOrderId(orderId);
+                                                if (orderId != null)
+                                                    getDataManager().setOrderId(orderId);
                                                 price = cartPaymentResponse.getResult().get(0).getPrice();
                                                 getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
 
-                                            } else {
-                                                getNavigator().showToast(cartPaymentResponse.getMessage());
                                             }
-
+                                        }
                                     }
                                 }
                             }
