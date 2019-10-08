@@ -7,36 +7,35 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
-
-    <supports-screens android:smallScreens="true"
-        android:normalScreens="true"
+    <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:anyDensity="true" />
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:name=".utilities.MvvmApp"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
-        android:screenOrientation="portrait"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        tools:replace="android:allowBackup"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
 
 
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".ui.home.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
 
 
         <activity
@@ -119,6 +118,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -133,62 +133,78 @@
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.payment.PaymentActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.home.region.list.RegionDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.search.dish.SearchDishActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.account.edit.EditAccountActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.track.orderdetails.OrderDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.track.help.OrderHelpActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.kitchendetails.KitchenDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.signup.tandc.TermsAndConditionActivity"
+        <activity
+            android:name=".ui.payment.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.region.list.RegionDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.dish.SearchDishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.edit.EditAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.track.orderdetails.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.track.help.OrderHelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.kitchendetails.KitchenDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.signup.tandc.TermsAndConditionActivity"
             android:screenOrientation="portrait">
 
 
         </activity>
-        <activity android:name=".ui.signup.privacy.PrivacyActivity"
-            android:screenOrientation="portrait">
-
-
-        </activity>
-
-        <activity android:name=".ui.signup.faqs.FaqActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.home.region.viewmore.RegionListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.account.favorites.FavouritesActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity"
-            android:screenOrientation="portrait"/>
-
-
-        <activity android:name=".ui.cart.coupon.CouponListActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity"
+        <activity
+            android:name=".ui.signup.privacy.PrivacyActivity"
             android:screenOrientation="portrait">
 
 
         </activity>
 
-        <activity android:name=".ui.update.UpdateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".utilities.nointernet.InternetErrorFragment"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.signup.faqs.FaqActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.region.viewmore.RegionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.favorites.FavouritesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".ui.cart.coupon.CouponListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity"
+            android:screenOrientation="portrait">
+
+
+        </activity>
+
+        <activity
+            android:name=".ui.update.UpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".utilities.nointernet.InternetErrorFragment"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.cart.funnel.FunnelActivity" />
 
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw" />
-
 
 
         <service android:name=".ui.notification.FCMMeassagingService">
@@ -205,37 +221,40 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
+        <!--<meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_BLJVf00DRLWexs"
-            />
+            />-->
 
 
-
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_bCMW6sG1GWp36Q" />
 
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="@bool/FIREBASE_PERFORMANCE_ENABLED" />
 
-        <meta-data android:name="firebase_crash_collection_enabled"
+        <meta-data
+            android:name="firebase_crash_collection_enabled"
             android:value="@bool/FIREBASE_CRASH_ENABLED" />
 
 
         <meta-data
             android:name="firebase_analytics_collection_deactivated"
-            android:value="@bool/FIREBASE_ANALYTICS_DEACTIVATED"/>
+            android:value="@bool/FIREBASE_ANALYTICS_DEACTIVATED" />
 
 
         <meta-data
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/freshchat_file_provider_paths" />
-<!--
-  <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_3cduMl5T89iR9G"
-            />
--->
+        <!--
+          <meta-data
+                    android:name="com.razorpay.ApiKey"
+                    android:value="rzp_test_3cduMl5T89iR9G"
+                    />
+        -->
 
         <!--
                 <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
