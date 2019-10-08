@@ -2,6 +2,7 @@ package com.tovo.eat.ui.home.homemenu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +12,14 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+import com.nhaarman.supertooltips.ToolTipView;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
@@ -73,7 +78,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     String pageName = AppConstants.SCREEN_HOME;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
-
+    ToolTipView myToolTipView;
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
         HomeTabFragment fragment = new HomeTabFragment();
@@ -217,6 +222,28 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         } else {
             ((MainActivity) getActivity()).startLocationTracking();
         }
+
+
+
+
+
+        ToolTip toolTip = new ToolTip()
+                .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
+                .withText("Do you want to delivery to this address?")
+                .withColor(Color.GREEN)
+                .withShadow()
+                .withTextColor(Color.WHITE)
+                .withAnimationType(ToolTip.AnimationType.FROM_TOP);
+         myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip,mFragmentHomeBinding.delAddress);
+        myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+            @Override
+            public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                myToolTipView.remove();
+                myToolTipView = null;
+
+            }
+        });
 
 
     }

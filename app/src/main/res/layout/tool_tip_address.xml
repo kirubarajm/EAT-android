@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content">
+    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        android:textSize="12sp"
+        android:text="Do you want to delivery to this address?"
+        android:id="@+id/activity_main_redtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/activity_main_redtv"
+        android:text="@string/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</LinearLayout>
+</RelativeLayout>

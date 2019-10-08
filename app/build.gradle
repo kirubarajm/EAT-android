@@ -24,11 +24,12 @@ android {
             minifyEnabled false
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
-            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
+           // buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.0.200:3000"'
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
            // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
 
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "false")
@@ -248,6 +249,10 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
    // implementation 'com.github.freshdesk:freshchat-android:2.8.0'
+
+    //ToolTips address
+    implementation 'com.nhaarman.supertooltips:library:3.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

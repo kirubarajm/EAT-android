@@ -106,9 +106,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         couponListItemsLiveData = new MutableLiveData<>();
 
         fullEmpty.set(false);
-
-       // showFunnel.set(getDataManager().getFunnelStatus());
-        showFunnel.set(true);
+        showFunnel.set(getDataManager().getFunnelStatus());
     }
 
 
@@ -596,13 +594,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         }
 
 
-
-
                                         if (collectionItemViewModels.size() > 0) {
                                             KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                             kitchenResponse1.setCollection(collectionItemViewModels);
                                             kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
                                             collectionAdded = true;
+
                                         }
                                         if (couponListItemViewModels.size() > 0) {
 
