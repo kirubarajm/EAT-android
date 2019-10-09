@@ -106,7 +106,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         couponListItemsLiveData = new MutableLiveData<>();
 
         fullEmpty.set(false);
-        showFunnel.set(getDataManager().getFunnelStatus());
+
+        //showFunnel.set(getDataManager().getFunnelStatus());
+        showFunnel.set(false);
     }
 
 
