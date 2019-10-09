@@ -84,7 +84,8 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
             new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_CALL_SUPPORT);
 
 
-        String number = AppConstants.SUPPORT_NUMBER;
+       // String number = AppConstants.SUPPORT_NUMBER;
+        String number = mFaqsAndSupportViewModel.support.get();
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -27,9 +27,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 @Singleton
 public class AppDataManager implements DataManager {
 
@@ -246,6 +243,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveSupportNumber(String number) {
+        setSupportNumber(number);
+    }
+
+    @Override
     public void currentOrderId(Integer orderId) {
 
         mPreferencesHelper.getOrderId();
@@ -264,6 +266,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void isFavClicked(boolean status) {
         setIsFav(status);
+    }
+
+    @Override
+    public void appStartedAgain(boolean status) {
+        setAppStartedAgain(status);
     }
 
    /* @Override
@@ -652,6 +659,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public String getSupportNumber() {
+        return mPreferencesHelper.getSupportNumber();
+    }
+
+    @Override
+    public void setSupportNumber(String number) {
+mPreferencesHelper.setSupportNumber(number);
+    }
+
+    @Override
     public boolean getRatingAppStatus() {
         return mPreferencesHelper.getRatingAppStatus();
     }
@@ -679,6 +696,16 @@ mPreferencesHelper.setIsFilterApplied(filter);
     @Override
     public void setFunnelStatus(boolean status) {
 mPreferencesHelper.setFunnelStatus(status);
+    }
+
+    @Override
+    public boolean getAppStartedAgain() {
+        return mPreferencesHelper.getAppStartedAgain();
+    }
+
+    @Override
+    public void setAppStartedAgain(boolean status) {
+mPreferencesHelper.setAppStartedAgain(status);
     }
 
     @Override

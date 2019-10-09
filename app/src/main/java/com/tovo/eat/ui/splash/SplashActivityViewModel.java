@@ -54,7 +54,11 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
                 if (response != null)
                     if (response.getResult()!=null&&response.getStatus()) {
+
                         getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+
+                        getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
+
                     } else {
                         getNavigator().update(false, false);
                     }

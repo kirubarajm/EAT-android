@@ -48,6 +48,17 @@ public class UpdateResponse {
         @SerializedName("eatforceupdate")
         @Expose
         private Boolean eatforceupdate;
+        @SerializedName("support")
+        @Expose
+        private String supportNumber="9790876528";
+
+        public String getSupportNumber() {
+            return supportNumber;
+        }
+
+        public void setSupportNumber(String supportNumber) {
+            this.supportNumber = supportNumber;
+        }
 
         public Boolean getVersionstatus() {
             return versionstatus;

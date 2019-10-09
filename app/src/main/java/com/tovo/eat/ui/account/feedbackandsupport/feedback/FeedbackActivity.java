@@ -68,6 +68,7 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         Intent intent = MainActivity.newIntent(FeedbackActivity.this);
         startActivity(intent);*/
         finish();
+        Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override

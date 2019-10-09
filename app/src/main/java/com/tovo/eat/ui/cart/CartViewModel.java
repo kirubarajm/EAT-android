@@ -602,6 +602,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     } else {
                         if (getDataManager().getTotalOrders() == 0) {
 
+
                             if (totalAmount == 0) {
                                 if (getDataManager().getRefundId() != 0) {
 

@@ -203,6 +203,9 @@ public interface PreferencesHelper {
 
     void setRatingDate(String date);
 
+ String getSupportNumber();
+    void setSupportNumber(String number);
+
 
     boolean getRatingAppStatus();
 
@@ -214,7 +217,11 @@ boolean isFilterApplied();
 
 boolean getFunnelStatus();
 
-    void setFunnelStatus(boolean filter);
+    void setFunnelStatus(boolean status);
+
+boolean getAppStartedAgain();
+
+    void setAppStartedAgain(boolean status);
 
 
     String getApiToken();

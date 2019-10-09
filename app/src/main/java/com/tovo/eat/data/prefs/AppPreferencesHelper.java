@@ -25,9 +25,6 @@ import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class AppPreferencesHelper implements PreferencesHelper {
 
@@ -47,6 +44,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_FILTER_APPLIED = "FILTER_APPLIED";
 
     private static final String PREF_KEY_FUNNEL_STATUS = "FUNNEL_STATUS";
+
+    private static final String PREF_KEY_APP_STARTED_AGAIN = "APP_STARTED_AGAIN";
+
+    private static final String PREF_KEY_SUPPORT_NUMBER = "SUPPORT_NUMBER";
 
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
@@ -502,6 +503,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
+    public String getSupportNumber() {
+        return mPrefs.getString(PREF_KEY_SUPPORT_NUMBER, "9790876528");
+    }
+
+    @Override
+    public void setSupportNumber(String number) {
+        mPrefs.edit().putString(PREF_KEY_SUPPORT_NUMBER, number).apply();
+    }
+
+    @Override
     public boolean getRatingAppStatus() {
         return mPrefs.getBoolean(PREF_KEY_RATING_APP_STATUS, false);
     }
@@ -529,6 +540,17 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFunnelStatus(boolean filter) {
         mPrefs.edit().putBoolean(PREF_KEY_FUNNEL_STATUS, filter).apply();
+    }
+
+    @Override
+    public boolean getAppStartedAgain() {
+
+        return mPrefs.getBoolean(PREF_KEY_APP_STARTED_AGAIN, false);
+    }
+
+    @Override
+    public void setAppStartedAgain(boolean status) {
+        mPrefs.edit().putBoolean(PREF_KEY_APP_STARTED_AGAIN, status).apply();
     }
 
     @Override

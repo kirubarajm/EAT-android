@@ -94,17 +94,11 @@ public class AppConstants {
         headers.put("app-version",String.valueOf(BuildConfig.VERSION_CODE));
         headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
         //  headers.put("Authorization","Bearer");
-
         AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
-
         // headers.put("token",preferencesHelper.getApiToken());
-
         return  headers;
-
     }
-
-
 
 
     public static final int KITCHEMN_REQUEST_CODE = 1;
@@ -119,7 +113,10 @@ public class AppConstants {
     public static final int ONLINE_REQUESTCODE = 333;
     public static final int INTERNET_ERROR_REQUEST_CODE = 4404;
 
-    public static final String SUPPORT_NUMBER = "9790876528";
+    public static  AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+
+    //public static final String SUPPORT_NUMBER = "9790876528";
+    public static final String SUPPORT_NUMBER = preferencesHelper.getSupportNumber();
 
     public static final int CALL_PHONE_PERMISSION_REQUEST_CODE= 501;
 
@@ -128,7 +125,6 @@ public class AppConstants {
     public static final String API_VERSION_THEREE = "3.0.0";
     public static final String API_VERSION_FOUR = "4.0.0";
     public static final String APP_TYPE_ANDROID= "1";// 1 means android
-
 
 
 //Analytics param key
@@ -481,6 +477,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
     public static final String EAT_ORDER_SUCCESS = URL_SERVER_IP_PORT + "/eat/orderplace";
 
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
+
+    public static final String EAT_CUSTOMER_SUPPORT=  URL_SERVER_IP_PORT +"/eat/customersupport";
 
 
     public static final String EAT_REGION_LIST = URL_SERVER_IP_PORT + "/eat/regionlist";

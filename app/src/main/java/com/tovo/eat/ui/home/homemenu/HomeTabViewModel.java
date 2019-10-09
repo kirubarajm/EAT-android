@@ -603,8 +603,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         }
                                         if (couponListItemViewModels.size() > 0) {
 
-
-
                                             if (kitchenResponse.getResult().size()>4){
                                                 KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
                                                 kitchenResponse2.setCoupons(couponListItemViewModels);

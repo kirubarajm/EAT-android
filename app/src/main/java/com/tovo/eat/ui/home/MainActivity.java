@@ -419,6 +419,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
+
+
         analytics = new Analytics(this, pageName);
 
         saveFcmToken();
@@ -633,7 +635,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onDestroy() {
         super.onDestroy();
 
-
+mMainViewModel.getDataManager().appStartedAgain(false);
         try {
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {

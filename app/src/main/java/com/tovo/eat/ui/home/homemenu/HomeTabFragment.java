@@ -219,7 +219,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         regionsResponse = new RegionsResponse();
 
         if (mHomeTabViewModel.isAddressAdded()) {
-            startLocationTrackingForAddress();
+
+            if (mHomeTabViewModel.getDataManager().getAddressId()!=0) {
+
+                if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
+                  //  startLocationTrackingForAddress();
+                }
+            }
+
             setUp();
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
@@ -265,6 +272,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                             if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
 
+
+
                                 ToolTip toolTip = new ToolTip()
                                         .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
                                         .withText("Do you want to delivery to this address?")
@@ -278,7 +287,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                                     public void onToolTipViewClicked(ToolTipView toolTipView) {
                                         myToolTipView.remove();
                                         myToolTipView = null;
-
+                                        mHomeTabViewModel.getDataManager().appStartedAgain(false);
                                     }
                                 });
 

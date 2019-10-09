@@ -92,6 +92,8 @@ public interface DataManager extends PreferencesHelper {
     void saveApiToken(String token);
     void saveCouponCode(String coupon);
 
+    void saveSupportNumber(String number);
+
 
 
     void currentOrderId(Integer orderId);
@@ -99,6 +101,11 @@ boolean homeAddressadded(boolean status);
 boolean officeAddressadded(boolean status);
 
     void isFavClicked(boolean status);
+
+
+    void appStartedAgain(boolean status);
+
+
 
     enum LoggedInMode {
         LOGGED_IN_MODE_LOGGED_OUT(0),

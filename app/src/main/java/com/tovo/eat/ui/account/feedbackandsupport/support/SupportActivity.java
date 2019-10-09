@@ -144,7 +144,8 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         new Analytics().sendClickData(AppConstants.SCREEN_SUPPORT, AppConstants.CLICK_CALL_SUPPORT);
 
-        String number = AppConstants.SUPPORT_NUMBER;
+        //String number = AppConstants.SUPPORT_NUMBER;
+        String number = mQueriesViewModel.support.get();
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
