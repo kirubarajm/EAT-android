@@ -86,10 +86,14 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
 
        // String number = AppConstants.SUPPORT_NUMBER;
         String number = mFaqsAndSupportViewModel.support.get();
+
+        assert number != null;
+        if (!number.equals("0")) {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(callIntent);
+        }
 
     }
 

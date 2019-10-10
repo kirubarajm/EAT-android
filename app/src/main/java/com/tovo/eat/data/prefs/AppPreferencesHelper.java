@@ -504,7 +504,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getSupportNumber() {
-        return mPrefs.getString(PREF_KEY_SUPPORT_NUMBER, "9790876528");
+        return mPrefs.getString(PREF_KEY_SUPPORT_NUMBER, "0");
     }
 
     @Override

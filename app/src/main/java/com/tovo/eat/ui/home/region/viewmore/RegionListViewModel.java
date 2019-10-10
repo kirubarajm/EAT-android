@@ -80,21 +80,23 @@ public class RegionListViewModel extends BaseViewModel<RegionListNavigator> {
                             regionName.set(response.getResult().get(0).getRegionname());
 
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
-
-                            getNavigator().listLoaded();
+                            if (getNavigator() != null)
+                                getNavigator().listLoaded();
                         } else {
 
                             emptyRegion.set(true);
                         }
 
                     }
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     emptyRegion.set(true);
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_TWO);
 

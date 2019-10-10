@@ -154,13 +154,13 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             options.put("description", getString(R.string.orderid) + orderId);
             //You can omit the image option to fetch the image from dashboard
             options.put("currency", "INR");
+          //  options.put("order_id","order_DSJqzwMe7ULv5L");
             options.put("amount", amount * 100);
             options.put("customer_id", customerId);
             JSONObject ReadOnly = new JSONObject();
             ReadOnly.put("email", "true");
             ReadOnly.put("contact", "true");
             options.put("readonly", ReadOnly);
-
             co.open(activity, options);
 
         } catch (Exception e) {
@@ -168,6 +168,51 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
                     .show();
         }
 
+
+       /* {
+            "id": "order_4xbQrmEoA5WJ0G",
+                "entity": "order",
+                "amount": 50000,
+                "currency": "INR",
+                "receipt": "Receipt #20",
+                "status": "created",
+                "attempts": 0,
+                "created_at": 1455696638,
+                "notes": {}
+        }*/
+
+
+
+        /*try {
+            options = new JSONObject();
+
+            options.put("name", getString(R.string.app_name));
+            options.put("description", getString(R.string.orderid) + orderId);
+            options.put("id", String.valueOf(orderId));
+            options.put("entity", "order");
+            options.put("currency", "INR");
+            options.put("amount", amount * 100);
+            options.put("customer_id", customerId);
+            JSONObject ReadOnly = new JSONObject();
+            ReadOnly.put("email", "true");
+            ReadOnly.put("contact", "true");
+            options.put("readonly", ReadOnly);
+
+            options.put("receipt", "receipt #"+String.valueOf(orderId));
+
+            options.put("status", "created");
+
+            options.put("attempts", 10);
+
+          //  options.put("created_at", 1455696638);
+
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+*/
 
     }
 

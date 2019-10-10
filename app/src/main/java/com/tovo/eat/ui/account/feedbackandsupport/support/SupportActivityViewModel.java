@@ -27,6 +27,9 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
 
     public final ObservableBoolean success = new ObservableBoolean();
     public final ObservableBoolean flagCount = new ObservableBoolean();
+
+    public final ObservableBoolean supportNumber = new ObservableBoolean();
+
     public final ObservableField<String> count = new ObservableField<String>();
     public ObservableField<String> support = new ObservableField<>();
     public String message = "";
@@ -35,10 +38,12 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
 
     public SupportActivityViewModel(DataManager dataManager) {
         super(dataManager);
-        support.set(getDataManager().getSupportNumber());
+        support.set("0");
+        supportNumber.set(false);
         userId = getDataManager().getCurrentUserId();
         fetchCountSertviceCall(1);
         getSupportContact();
+
     }
 
 
@@ -149,6 +154,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                         if (supportResponse.getStatus()){
                             getDataManager().saveSupportNumber(String.valueOf(supportResponse.getCustomerSupport()));
                             support.set(String.valueOf(supportResponse.getCustomerSupport()));
+                            supportNumber.set(true);
                         }
 
                     }

@@ -30,12 +30,14 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
 
     public ObservableField<String> support=new ObservableField<>();
 
+    public final ObservableBoolean supportNumber = new ObservableBoolean();
 
 
     public FaqsAndSupportViewModel(DataManager dataManager) {
         super(dataManager);
         contact.set(false);
-
+        support.set("0");
+        supportNumber.set(false);
         getSupportContact();
         //support.set(getDataManager().getSupportNumber());
     }

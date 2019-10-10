@@ -12,8 +12,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 12
-        versionName "1.0.6"
+        versionCode 13
+        versionName "1.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -256,9 +256,14 @@ dependencies {
     //ToolTips address
     implementation 'com.nhaarman.supertooltips:library:3.0.0'
 
-   /* //Arch
-    implementation "android.arch.core:runtime:1.1.1"
-    implementation "android.arch.core:common:1.1.1"*/
+
+    //Facebook sdk
+    implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
+    implementation 'com.facebook.android:facebook-core:5.8.0'
+    implementation 'com.facebook.android:facebook-marketing:5.8.0'
+    /* //Arch
+     implementation "android.arch.core:runtime:1.1.1"
+     implementation "android.arch.core:common:1.1.1"*/
 
 }
 apply plugin: 'com.google.gms.google-services'

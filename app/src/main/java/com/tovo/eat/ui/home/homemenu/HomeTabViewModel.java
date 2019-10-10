@@ -107,8 +107,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         fullEmpty.set(false);
 
-        //showFunnel.set(getDataManager().getFunnelStatus());
-        showFunnel.set(false);
+        showFunnel.set(getDataManager().getFunnelStatus());
+
     }
 
 

@@ -69,7 +69,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                     if (response != null) {
 
 
-                        if (response.getResult().size()!=0) {
+                        if (response.getResult().size()>0) {
 
 
                             kitchenListItemsLiveData.setValue(response.getResult());
@@ -78,11 +78,12 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
-
+                            if (getNavigator()!=null)
                             getNavigator().listLoaded();
                         }
 
                     }
+                    if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
