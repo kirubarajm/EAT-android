@@ -49,6 +49,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_SUPPORT_NUMBER = "SUPPORT_NUMBER";
 
+    private static final String PREF_KEY_FIRST_ADDRESS = "FIRST_ADDRESS";
+    private static final String PREF_KEY_FIRST_LOCALLITY = "FIRST_LOCALITY";
+    private static final String PREF_KEY_FIRST_CITY = "FIRST_CITY";
+
 
     private static final String PREF_KEY_REFUND_ID = "PREF_KEY_REFUND_ID";
     private static final String PREF_KEY_REFUND_BALANCE = "PREF_KEY_REFUND_BALANCE";
@@ -571,6 +575,36 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCouponCode(String coupon) {
         mPrefs.edit().putString(PREF_KEY_COUPON_CODE, coupon).apply();
+    }
+
+    @Override
+    public String getFirstAddress() {
+        return  mPrefs.getString(PREF_KEY_FIRST_ADDRESS, null);
+    }
+
+    @Override
+    public void setFirstAddress(String address) {
+        mPrefs.edit().putString(PREF_KEY_FIRST_ADDRESS, address).apply();
+    }
+
+    @Override
+    public String getFirstLocatity() {
+        return  mPrefs.getString(PREF_KEY_FIRST_LOCALLITY, null);
+    }
+
+    @Override
+    public void setFirstLocality(String locality) {
+        mPrefs.edit().putString(PREF_KEY_FIRST_LOCALLITY, locality).apply();
+    }
+
+    @Override
+    public String getFirstCity() {
+        return  mPrefs.getString(PREF_KEY_FIRST_CITY, null);
+    }
+
+    @Override
+    public void setFirstCity(String city) {
+        mPrefs.edit().putString(PREF_KEY_FIRST_CITY, city).apply();
     }
 
     @Override

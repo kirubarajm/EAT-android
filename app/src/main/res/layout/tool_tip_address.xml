@@ -9,23 +9,21 @@
     android:orientation="vertical"
     android:layout_width="180dp"
     android:layout_height="wrap_content">
-    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-        android:textSize="12sp"
-        android:text="Do you want to delivery to this address?"
+    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+        android:textSize="14sp"
+        android:text="Are you sure want to delivery to this address?"
         android:id="@+id/activity_main_redtv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:paddingEnd="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/activity_main_redtv"
+    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:text="@string/ok"
+        android:textSize="14sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
 </RelativeLayout>

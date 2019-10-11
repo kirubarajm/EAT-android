@@ -156,9 +156,6 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
 
 
 
-
-
-
                             try {
                                 String strDate = response.getResult().get(0).getOrdertime();
                                 DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
@@ -176,14 +173,6 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                                 e.printStackTrace();
 
                             }
-
-
-
-
-
-
-
-
 
 
 

@@ -478,6 +478,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
 
     public static final String EAT_MASTER =  URL_SERVER_IP_PORT +"/masters";
 
+    public static final String EAT_CUISINELIST =  URL_SERVER_IP_PORT +"/masters/cuisinelist";
+
     public static final String EAT_CUSTOMER_SUPPORT=  URL_SERVER_IP_PORT +"/eat/customersupport";
 
 

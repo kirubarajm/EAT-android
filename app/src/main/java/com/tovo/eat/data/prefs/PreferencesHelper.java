@@ -229,7 +229,17 @@ boolean getAppStartedAgain();
     void setApiToken(String token);
 
     String getCouponCode();
-
     void setCouponCode(String coupon);
+
+    String getFirstAddress();
+    void setFirstAddress(String address);
+
+     String getFirstLocatity();
+    void setFirstLocality(String locality);
+
+     String getFirstCity();
+    void setFirstCity(String city);
+
+
 
 }

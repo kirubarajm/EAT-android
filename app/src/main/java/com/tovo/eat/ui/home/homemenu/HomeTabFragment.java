@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +27,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
+import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
@@ -49,6 +53,10 @@ import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -223,7 +231,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             if (mHomeTabViewModel.getDataManager().getAddressId()!=0) {
 
                 if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
-                  //  startLocationTrackingForAddress();
+                   startLocationTrackingForAddress();
                 }
             }
 
@@ -277,7 +285,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                                 ToolTip toolTip = new ToolTip()
                                         .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
                                         .withText("Do you want to delivery to this address?")
-                                        .withColor(Color.GREEN)
+                                        .withColor(getResources().getColor(R.color.tracking_back))
                                         .withShadow()
                                         .withTextColor(Color.WHITE)
                                         .withAnimationType(ToolTip.AnimationType.FROM_TOP);
@@ -300,7 +308,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     }
-
 
     public void showLocationDialog() {
         locationDialog = new Dialog(getActivity());

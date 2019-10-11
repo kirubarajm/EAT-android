@@ -105,6 +105,8 @@ boolean officeAddressadded(boolean status);
 
     void appStartedAgain(boolean status);
 
+    void saveFirstLocation(String address,String locality,String city);
+
 
 
     enum LoggedInMode {

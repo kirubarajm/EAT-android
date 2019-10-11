@@ -547,7 +547,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchKitchen() throws NullPointerException {
 
-
+        String json="";
         if (getDataManager().getCurrentLat() == null) {
 
         } else {
@@ -568,15 +568,21 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
 
+                        if (getDataManager().getFirstAddress()!=null) {
+                            filterRequestPojo.setAddress(getDataManager().getFirstAddress());
+                            filterRequestPojo.setLocality(getDataManager().getFirstLocatity());
+                            filterRequestPojo.setCity(getDataManager().getFirstCity());
+                        }
+
                         Gson gson = new Gson();
-                        String json = gson.toJson(filterRequestPojo);
-                        getDataManager().setFilterSort(json);
+                         json = gson.toJson(filterRequestPojo);
+                      //  getDataManager().setFilterSort(json);
                     }
 
 
                     try {
                         setIsLoading(true);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
 

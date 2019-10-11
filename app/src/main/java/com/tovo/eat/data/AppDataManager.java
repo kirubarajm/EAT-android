@@ -273,6 +273,13 @@ public class AppDataManager implements DataManager {
         setAppStartedAgain(status);
     }
 
+    @Override
+    public void saveFirstLocation(String address, String locality, String city) {
+        setFirstAddress(address);
+        setFirstLocality(locality);
+        setFirstCity(city);
+    }
+
    /* @Override
     public Call<LoginResponse> userContinueClick(String name, String job) {
         return null;
@@ -726,6 +733,36 @@ mPreferencesHelper.setAppStartedAgain(status);
     @Override
     public void setCouponCode(String coupon) {
         mPreferencesHelper.setCouponCode(coupon);
+    }
+
+    @Override
+    public String getFirstAddress() {
+        return mPreferencesHelper.getFirstAddress();
+    }
+
+    @Override
+    public void setFirstAddress(String address) {
+mPreferencesHelper.setFirstAddress(address);
+    }
+
+    @Override
+    public String getFirstLocatity() {
+        return mPreferencesHelper.getFirstLocatity();
+    }
+
+    @Override
+    public void setFirstLocality(String locality) {
+mPreferencesHelper.setFirstLocality(locality);
+    }
+
+    @Override
+    public String getFirstCity() {
+        return mPreferencesHelper.getFirstCity();
+    }
+
+    @Override
+    public void setFirstCity(String city) {
+mPreferencesHelper.setFirstCity(city);
     }
 
 

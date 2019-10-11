@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,6 +21,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -67,6 +70,10 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -740,6 +747,9 @@ mMainViewModel.getDataManager().appStartedAgain(false);
           /*  if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();*/
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
+
+
+
             openHome();
             locationManager.removeUpdates(this);
         }
@@ -830,7 +840,10 @@ mMainViewModel.getDataManager().appStartedAgain(false);
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
                         mMainViewModel.currentLatLng(location.latitude, location.longitude);
-                        if (mMainViewModel.isAddressAdded()) {
+
+                        getAddressFromLocation(location.latitude, location.longitude);
+
+                       /* if (mMainViewModel.isAddressAdded()) {
                             if (cart) {
                                 mMainViewModel.gotoCart();
                             } else if (pageid.equals("") && pageid.equals("9")) {
@@ -852,13 +865,15 @@ mMainViewModel.getDataManager().appStartedAgain(false);
 
 
                                 } else {
-                                    openHome();
+
+                                    getAddressFromLocation(location.latitude, location.longitude);
+                                   // openHome();
                                 }
 
 
                             }
 
-                        }
+                        }*/
 
                     }
                 });
@@ -937,4 +952,62 @@ mMainViewModel.getDataManager().appStartedAgain(false);
         }
 
     }
-}
+
+
+    private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
+
+
+        @Override
+        protected Address doInBackground(Double... doubles) {
+            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.ENGLISH);
+
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(doubles[0], doubles[1], 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (addresses != null)
+                if (addresses.size() > 0) {
+                    Address fetchedAddress = addresses.get(0);
+
+                    return fetchedAddress;
+
+                }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Address fetchedAddress) {
+            super.onPostExecute(fetchedAddress);
+            if (fetchedAddress != null) {
+                String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = fetchedAddress.getLocality();
+                String state = fetchedAddress.getAdminArea();
+                String country = fetchedAddress.getCountryName();
+                String postalCode = fetchedAddress.getPostalCode();
+                String knownName = fetchedAddress.getFeatureName();
+                mMainViewModel.getDataManager().saveFirstLocation(address,fetchedAddress.getSubLocality(),city);
+                openHome();
+            } else {
+                openHome();
+            }
+
+        }
+    }
+
+    private void getAddressFromLocation(double latitude, double longitude) {
+        new AsyncTaskAddress().execute(latitude, longitude);
+    }
+
+
+
+    }

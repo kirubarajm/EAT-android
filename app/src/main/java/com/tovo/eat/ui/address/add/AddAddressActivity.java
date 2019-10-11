@@ -446,6 +446,28 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
             if (fetchedAddress != null) {
 
+
+
+
+
+
+
+
+
+               /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = fetchedAddress.getLocality();
+                String state = fetchedAddress.getAdminArea();
+                String country = fetchedAddress.getCountryName();
+                String postalCode = fetchedAddress.getPostalCode();
+                String knownName = fetchedAddress.getFeatureName();
+
+
+                Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
+
+
+
+
+
                 mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
 
                 mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());

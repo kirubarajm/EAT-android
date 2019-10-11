@@ -1,17 +1,25 @@
 package com.tovo.eat.ui.filter;
 
 
+import android.app.DownloadManager;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.api.remote.GsontoJsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CusineResponse;
 import com.tovo.eat.utilities.MasterPojo;
+import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import java.util.ArrayList;
@@ -30,7 +38,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
     public ObservableBoolean isRegionalClicked = new ObservableBoolean();
     public ObservableBoolean isCuisinesClicked = new ObservableBoolean();
 
-    List<MasterPojo.Cuisinelist> cuisinelists = new ArrayList<>();
+    List<CusineResponse.Result> cuisinelists = new ArrayList<>();
     List<MasterPojo.Sort> sorts = new ArrayList<>();
     List<MasterPojo.Regionlist> regionlists = new ArrayList<>();
     List<FilterItems> filterItemList = new ArrayList<>();
@@ -43,6 +51,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
     public FilterViewModel(DataManager dataManager) {
         super(dataManager);
+        getCuisineList();
         filterSortOptions();
         sort();
     }
@@ -254,7 +263,7 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
         filterItemList.clear();
 
         for (int i = 0; i < cuisinelists.size(); i++) {
-            filterItemList.add(new FilterItems(cuisinelists.get(i).getCusineid(), cuisinelists.get(i).getCusinename()));
+            filterItemList.add(new FilterItems(cuisinelists.get(i).getCuisineid(), cuisinelists.get(i).getCuisinename()));
         }
         filterItems.clear();
         filterItems.addAll(filterItemList);
@@ -279,7 +288,8 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
         Gson sGson = new GsonBuilder().create();
         masterPojo = sGson.fromJson(getDataManager().getMaster(), MasterPojo.class);
 
-        cuisinelists = masterPojo.getResult().get(1).getCuisinelist();
+       // cuisinelists = masterPojo.getResult().get(1).getCuisinelist();
+
         regionlists = masterPojo.getResult().get(0).getRegionlist();
         sorts = masterPojo.getResult().get(2).getSort();
 
@@ -295,6 +305,31 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
         filterItems.addAll(filterItemList);
 
         isSortClicked.set(true);
+
+    }
+
+
+    public void getCuisineList(){
+
+
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_CUISINELIST, CusineResponse.class, new Response.Listener<CusineResponse>() {
+            @Override
+            public void onResponse(CusineResponse response) {
+                if (response != null) {
+
+                    cuisinelists =response.getResult();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //  Log.e("", error.getMessage());
+                setIsLoading(false);
+            }
+        }, AppConstants.API_VERSION_ONE);
+
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 
     }
 
