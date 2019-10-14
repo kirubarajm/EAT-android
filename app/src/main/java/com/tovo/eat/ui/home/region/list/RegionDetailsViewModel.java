@@ -92,7 +92,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                     if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
-            },AppConstants.API_VERSION_TWO);
+            },AppConstants.API_VERSION_ONE);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

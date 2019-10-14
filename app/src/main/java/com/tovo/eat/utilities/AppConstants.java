@@ -122,7 +122,6 @@ public class AppConstants {
 
     public static final String API_VERSION_ONE = "1.0.0";
     public static final String API_VERSION_TWO = "2.0.0";
-    public static final String API_VERSION_TWO_ONE = "2.0.1";
     public static final String API_VERSION_THEREE = "3.0.0";
     public static final String API_VERSION_FOUR = "4.0.0";
     public static final String APP_TYPE_ANDROID= "1";// 1 means android

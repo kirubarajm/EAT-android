@@ -267,7 +267,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_ONE);
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                             }
                         };
 

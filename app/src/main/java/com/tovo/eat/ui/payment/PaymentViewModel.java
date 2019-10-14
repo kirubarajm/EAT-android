@@ -455,7 +455,6 @@ public boolean paymentSuccessNotSent=false;
             json.put("transactionid", paymentId);
             json.put("payment_status", status);
             json.put("orderid", getDataManager().getOrderId());
-          //  json.put("price", price);
 
 
             if (getDataManager().getCouponId() != 0) {

@@ -282,7 +282,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                  */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
                 }
             };
 
