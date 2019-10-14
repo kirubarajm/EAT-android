@@ -688,7 +688,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_ONE);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -858,7 +858,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_ONE);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,

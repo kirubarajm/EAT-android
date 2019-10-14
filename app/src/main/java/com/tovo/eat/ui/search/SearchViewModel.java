@@ -420,7 +420,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                 public void onErrorResponse(VolleyError error) {
                     getNavigator().listLoaded();
                 }
-            }, AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_TWO);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
