@@ -303,7 +303,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
-        if (storiesResponse.getStories().size() > 0) {
+        if (storiesResponse.getStories().size() > 0&&storiesResponse.getStories().size() > counter) {
             //target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
             if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));

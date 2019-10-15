@@ -23,7 +23,10 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
 
-
+        if (getDataManager().getAddressId() == 0) {
+            getDataManager().setCurrentLat(0.0);
+            getDataManager().setCurrentLng(0.0);
+        }
     }
 
     public void checkIsUserLoggedInOrNot() {
@@ -32,11 +35,14 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
             Log.e("userId", String.valueOf(userId));
             boolean genderStatus = getDataManager().getisGenderStatus();
             if (genderStatus) {
+                if (   getNavigator()!=null)
                 getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
             } else {
+                if (   getNavigator()!=null)
                 getNavigator().checkForUserGenderStatus(false);
             }
         } else {
+            if (   getNavigator()!=null)
             getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
         }
 
@@ -54,12 +60,13 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
                 if (response != null)
                     if (response.getResult()!=null&&response.getStatus()) {
-
+if (   getNavigator()!=null)
                         getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
 
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
 
                     } else {
+                        if (   getNavigator()!=null)
                         getNavigator().update(false, false);
                     }
 

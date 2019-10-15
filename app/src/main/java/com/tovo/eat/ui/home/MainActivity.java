@@ -426,8 +426,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
-
-
         analytics = new Analytics(this, pageName);
 
         saveFcmToken();
@@ -446,17 +444,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
-        if (mMainViewModel.getDataManager().getAddressId() == 0) {
-            mMainViewModel.getDataManager().setCurrentLat(0.0);
-            mMainViewModel.getDataManager().setCurrentLng(0.0);
+        if (!mMainViewModel.isAddressAdded()) {
             startLoader();
             startLocationTracking();
         }
 
 
         mMainViewModel.liveOrders();
-
-
 
 
 
@@ -747,9 +741,6 @@ mMainViewModel.getDataManager().appStartedAgain(false);
           /*  if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();*/
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-
-
-
             openHome();
             locationManager.removeUpdates(this);
         }

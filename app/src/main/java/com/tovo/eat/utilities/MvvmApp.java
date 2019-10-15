@@ -135,6 +135,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .inject(this);
 
         FirebaseAnalytics.getInstance(this);
+
         HttpsTrustManager.allowAllSSL();
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
