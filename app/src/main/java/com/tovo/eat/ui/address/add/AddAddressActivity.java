@@ -228,6 +228,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                             dialog.dismiss();
                         if (location != null)
                             if (map != null) {
+
+                                //LatLng latLng = new LatLng(12.99447060,80.25593567);
+
                                 LatLng latLng = new LatLng(location.latitude, location.longitude);
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                                 initCameraIdle();
@@ -259,7 +262,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             @Override
             public void onCameraIdle() {
                 center = map.getCameraPosition().target;
+
                 getAddressFromLocation(center.latitude, center.longitude);
+                //getAddressFromLocation(12.99447060,80.25593567);
             }
         });
     }

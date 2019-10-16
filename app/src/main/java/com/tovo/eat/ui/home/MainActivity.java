@@ -95,7 +95,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String pageid = "";
     Analytics analytics;
     String pageName = AppConstants.SCREEN_HOME;
-
+    double clatitude;
+    double clongitude;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -831,8 +832,10 @@ mMainViewModel.getDataManager().appStartedAgain(false);
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
                         mMainViewModel.currentLatLng(location.latitude, location.longitude);
-
                         getAddressFromLocation(location.latitude, location.longitude);
+
+                        /*mMainViewModel.currentLatLng(13.09342957, 80.17434692);
+                        getAddressFromLocation(13.09342957, 80.17434692);*/
 
                        /* if (mMainViewModel.isAddressAdded()) {
                             if (cart) {
@@ -989,14 +992,19 @@ mMainViewModel.getDataManager().appStartedAgain(false);
                 mMainViewModel.getDataManager().saveFirstLocation(address,fetchedAddress.getSubLocality(),city);
                 openHome();
             } else {
-                openHome();
+                //openHome();
+                new AsyncTaskAddress().execute(clatitude, clatitude);
             }
 
         }
     }
 
     private void getAddressFromLocation(double latitude, double longitude) {
+
+        clatitude=latitude;
+        clongitude=longitude;
         new AsyncTaskAddress().execute(latitude, longitude);
+
     }
 
 
