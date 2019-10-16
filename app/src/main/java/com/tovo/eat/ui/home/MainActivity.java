@@ -970,7 +970,6 @@ mMainViewModel.getDataManager().appStartedAgain(false);
 
                 }
 
-
             return null;
         }
 
