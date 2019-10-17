@@ -7,7 +7,7 @@ public class ChatReplyRequest {
 
     @SerializedName("qid")
     @Expose
-    public Integer qid;
+    public Long qid;
     @SerializedName("answer")
     @Expose
     public String answer;
@@ -19,9 +19,9 @@ public class ChatReplyRequest {
     public Integer adminid;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
 
-    public ChatReplyRequest(Integer qid, String answer, Integer type, Integer adminid, Integer userid) {
+    public ChatReplyRequest(Long qid, String answer, Integer type, Integer adminid, Long userid) {
         this.qid = qid;
         this.answer = answer;
         this.type = type;
@@ -29,11 +29,11 @@ public class ChatReplyRequest {
         this.userid = userid;
     }
 
-    public Integer getQid() {
+    public Long getQid() {
         return qid;
     }
 
-    public void setQid(Integer qid) {
+    public void setQid(Long qid) {
         this.qid = qid;
     }
 
@@ -61,11 +61,11 @@ public class ChatReplyRequest {
         this.adminid = adminid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 }

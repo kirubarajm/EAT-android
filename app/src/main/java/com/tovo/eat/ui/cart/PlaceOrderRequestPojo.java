@@ -8,7 +8,7 @@ import java.util.List;
 public class PlaceOrderRequestPojo {
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
     @SerializedName("ordertype")
     @Expose
     private Integer ordertype;
@@ -17,7 +17,7 @@ public class PlaceOrderRequestPojo {
     private Integer paymentType;
     @SerializedName("makeit_user_id")
     @Expose
-    private Integer makeitUserId;
+    private Long makeitUserId;
     @SerializedName("payment_status")
     @Expose
     private Integer paymentStatus;
@@ -27,7 +27,7 @@ public class PlaceOrderRequestPojo {
 
     @SerializedName("aid")
     @Expose
-    private Integer aid;
+    private Long aid;
 
     @SerializedName("rcid")
     @Expose
@@ -44,7 +44,7 @@ public class PlaceOrderRequestPojo {
     public PlaceOrderRequestPojo() {
     }
 
-    public PlaceOrderRequestPojo(Integer userid,  Integer makeitUserid, Integer paymentType, Integer aid,Integer rcid,Integer cid, List<Orderitem> orderitems) {
+    public PlaceOrderRequestPojo(Long userid,  Long makeitUserid, Integer paymentType, Long aid,Integer rcid,Integer cid, List<Orderitem> orderitems) {
         this.userid = userid;
         this.makeitUserId = makeitUserid;
         this.paymentType = paymentType;
@@ -71,19 +71,19 @@ public class PlaceOrderRequestPojo {
         this.rcid = rcid;
     }
 
-    public Integer getAid() {
+    public Long getAid() {
         return aid;
     }
 
-    public void setAid(Integer aid) {
+    public void setAid(Long aid) {
         this.aid = aid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
@@ -103,11 +103,11 @@ public class PlaceOrderRequestPojo {
         this.paymentType = paymentType;
     }
 
-    public Integer getMakeitUserId() {
+    public Long getMakeitUserId() {
         return makeitUserId;
     }
 
-    public void setMakeitUserId(Integer makeitUserId) {
+    public void setMakeitUserId(Long makeitUserId) {
         this.makeitUserId = makeitUserId;
     }
 

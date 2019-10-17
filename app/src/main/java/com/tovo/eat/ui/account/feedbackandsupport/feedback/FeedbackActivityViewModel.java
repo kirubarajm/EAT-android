@@ -22,7 +22,7 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
     }
 
     public void insertFeedbackServiceCall(int rating, String message) {
-        int userIdMain = getDataManager().getCurrentUserId();
+        Long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {

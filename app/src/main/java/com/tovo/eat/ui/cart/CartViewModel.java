@@ -79,7 +79,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public ObservableList<CartPageResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
     public int funnelStatus = 0;
     int favId;
-    int makeitId;
+    Long makeitId;
     int totalAmount;
     String isFav;
     private MutableLiveData<List<RefundListResponse.Result>> refundListItemsLiveData;
@@ -205,7 +205,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     }
 
-    public void addFavourite(Integer kitchenId) {
+    public void addFavourite(Long kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -764,7 +764,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     if (response.getBoolean("status")) {
 
-                                        getDataManager().currentOrderId(response.getInt("orderid"));
+                                        getDataManager().currentOrderId(response.getLong("orderid"));
                                         getDataManager().setCartDetails(null);
                                         getNavigator().orderCompleted();
                                         getDataManager().saveRefundId(0);

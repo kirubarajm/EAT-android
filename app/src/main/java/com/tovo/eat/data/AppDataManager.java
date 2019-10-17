@@ -80,7 +80,7 @@ public class AppDataManager implements DataManager {
     @Override
     public void updateUserInfo
             (String accessToken,
-             Integer userId,
+             Long userId,
              LoggedInMode loggedInMode,
              String userName,
              String email, boolean isLoggedIn
@@ -97,7 +97,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateUserInformation(Integer userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
+    public void updateUserInformation(Long userId, String userName, String userEmail, String PhoneNumber, String referralCode) {
         setCurrentUserId(userId);
         setCurrentUserName(userName);
         setCurrentUserEmail(userEmail);
@@ -130,7 +130,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
+    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid) {
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
         setCurrentAddress(address);
@@ -172,7 +172,7 @@ public class AppDataManager implements DataManager {
 
 
     @Override
-    public void kitchenId(Integer id) {
+    public void kitchenId(Long id) {
         setMakeitID(id);
     }
 
@@ -207,7 +207,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void saveRatingOrderId(int orderid) {
+    public void saveRatingOrderId(Long orderid) {
         setRatingOrderid(orderid);
     }
 
@@ -248,7 +248,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void currentOrderId(Integer orderId) {
+    public void currentOrderId(Long orderId) {
 
         mPreferencesHelper.getOrderId();
     }
@@ -311,12 +311,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Integer getCurrentUserId() {
+    public Long getCurrentUserId() {
         return mPreferencesHelper.getCurrentUserId();
     }
 
     @Override
-    public void setCurrentUserId(Integer userId) {
+    public void setCurrentUserId(Long userId) {
         mPreferencesHelper.setCurrentUserId(userId);
     }
 
@@ -433,32 +433,32 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Integer getMakeitID() {
+    public Long getMakeitID() {
         return mPreferencesHelper.getMakeitID();
     }
 
     @Override
-    public void setMakeitID(Integer lng) {
+    public void setMakeitID(Long lng) {
         mPreferencesHelper.setMakeitID(lng);
     }
 
     @Override
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return mPreferencesHelper.getOrderId();
     }
 
     @Override
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         mPreferencesHelper.setOrderId(orderId);
     }
 
     @Override
-    public Integer getAddressId() {
+    public Long getAddressId() {
         return mPreferencesHelper.getAddressId();
     }
 
     @Override
-    public void setAddressId(Integer orderId) {
+    public void setAddressId(Long orderId) {
         mPreferencesHelper.setAddressId(orderId);
     }
 
@@ -646,12 +646,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Integer getRatingOrderid() {
+    public Long getRatingOrderid() {
         return mPreferencesHelper.getRatingOrderid();
     }
 
     @Override
-    public void setRatingOrderid(Integer orderid) {
+    public void setRatingOrderid(Long orderid) {
         mPreferencesHelper.setRatingOrderid(orderid);
     }
 

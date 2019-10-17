@@ -50,7 +50,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         if (email.isEmpty()) email=null;
 
 
-        int userIdMain = getDataManager().getCurrentUserId();
+        Long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);

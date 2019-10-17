@@ -36,7 +36,7 @@ public class CartDishResponse {
 
         @SerializedName("makeit_userid")
         @Expose
-        private Integer makeitUserid;
+        private Long makeitUserid;
         @SerializedName("makeit_username")
         @Expose
         private String makeitUsername;
@@ -59,11 +59,11 @@ public class CartDishResponse {
         @Expose
         private Double distance;
 
-        public Integer getMakeitUserid() {
+        public Long getMakeitUserid() {
             return makeitUserid;
         }
 
-        public void setMakeitUserid(Integer makeitUserid) {
+        public void setMakeitUserid(Long makeitUserid) {
             this.makeitUserid = makeitUserid;
         }
 

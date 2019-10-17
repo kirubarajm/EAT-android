@@ -34,7 +34,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     Analytics analytics;
     String pageName = AppConstants.SCREEN_SUPPORT;
 
-    int orderid=0;
+    Long orderid=null;
 
     int type=AppConstants.QUERY_TYPE_GENERAL;
 
@@ -171,7 +171,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            orderid = intent.getExtras().getInt("orderid",0);
+            orderid = intent.getExtras().getLong("orderid",0);
             type = intent.getExtras().getInt("type",AppConstants.QUERY_TYPE_GENERAL);
         }
 

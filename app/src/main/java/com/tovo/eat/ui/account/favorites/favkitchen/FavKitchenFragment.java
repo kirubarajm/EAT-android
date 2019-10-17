@@ -135,7 +135,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
         mKitchenViewModel.saveMakeitId(kitchenId);
         // save kitchen click to analytics
         new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_KITCHEN_CLICK);

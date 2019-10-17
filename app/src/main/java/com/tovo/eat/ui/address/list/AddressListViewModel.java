@@ -54,7 +54,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
         getNavigator().addNewAddress();
     }
 
-    public void deleteAddress(Integer aid) {
+    public void deleteAddress(Long aid) {
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_DELETE_ADDRESS_URL, CommonResponse.class, new AddressDeleteRequest(aid), new Response.Listener<CommonResponse>() {
@@ -64,7 +64,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         if (getDataManager().getAddressId().equals(aid)) {
 
-                            getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0, null, 0);
+                            getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0, null, null);
                             getDataManager().setCurrentAddress(null);
                         }
                         getNavigator().showToast(response.getMessage());

@@ -13,16 +13,16 @@ public class CollectionRequest {
     private String lon;
     @SerializedName("eatuserid")
     @Expose
-    private Integer eatuserid;
+    private Long eatuserid;
     @SerializedName("cid")
     @Expose
     private Integer cid;
 
-    public CollectionRequest(Integer eatuserid) {
+    public CollectionRequest(Long eatuserid) {
         this.eatuserid = eatuserid;
     }
 
-    public CollectionRequest(String lat, String lon, Integer eatuserid) {
+    public CollectionRequest(String lat, String lon, Long eatuserid) {
         this.lat = lat;
         this.lon = lon;
         this.eatuserid = eatuserid;
@@ -44,11 +44,11 @@ public class CollectionRequest {
         this.lon = lon;
     }
 
-    public Integer getEatuserid() {
+    public Long getEatuserid() {
         return eatuserid;
     }
 
-    public void setEatuserid(Integer eatuserid) {
+    public void setEatuserid(Long eatuserid) {
         this.eatuserid = eatuserid;
     }
 

@@ -22,7 +22,7 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
     public ObservableList<RepliesResponse.Result> repliesItemViewModels = new ObservableArrayList<>();
     public ObservableBoolean emptyReplies = new ObservableBoolean();
     Response.ErrorListener errorListener;
-    int userId;
+    Long userId;
     private MutableLiveData<List<RepliesResponse.Result>> ordersItemsLiveData;
 
 

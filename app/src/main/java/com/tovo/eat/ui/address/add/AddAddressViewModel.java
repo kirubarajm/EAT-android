@@ -288,7 +288,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     }
 
 
-    public void defaultAddress(Integer aid) {
+    public void defaultAddress(Long aid) {
 
         try {
             setIsLoading(true);

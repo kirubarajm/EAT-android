@@ -37,7 +37,7 @@ public class FilterRequestPojo {
 
     @SerializedName("eatuserid")
     @Expose
-    private Integer eatuserid;
+    private Long eatuserid;
 
     @SerializedName("sortid")
     @Expose
@@ -132,11 +132,11 @@ public class FilterRequestPojo {
         this.lon = lon;
     }
 
-    public Integer getEatuserid() {
+    public Long getEatuserid() {
         return eatuserid;
     }
 
-    public void setEatuserid(Integer eatuserid) {
+    public void setEatuserid(Long eatuserid) {
         this.eatuserid = eatuserid;
     }
 

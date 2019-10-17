@@ -31,7 +31,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
     List<ChatResponse.Result> chatListUserRead = new ArrayList<>();
     List<ChatRepliesReadRequest.Aidlist> chatListUserReadFinal = new ArrayList<>();
     ChatRepliesReadRequest.Aidlist aidlist;
-    int userId;
+    Long userId;
     public ChatActivityViewModel(DataManager dataManager) {
         super(dataManager);
         userId = getDataManager().getCurrentUserId();
@@ -88,7 +88,7 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
     }
 
     public void insertAnswerServiceCall(String strMessage, String strQid) {
-        int qId = Integer.parseInt(strQid);
+        Long qId = Long.parseLong(strQid);
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {

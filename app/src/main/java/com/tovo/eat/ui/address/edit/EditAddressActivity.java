@@ -58,7 +58,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     LatLng lastPosition;
     boolean isFirstTime;
     Location mLocation;
-    Integer aid;
+    Long aid;
     String atype;
     boolean isGPS;
     Analytics analytics;
@@ -162,7 +162,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
-            aid = intent.getExtras().getInt("aid");
+            aid = intent.getExtras().getLong("aid");
             atype = intent.getExtras().getString("type");
 
             if (atype.equals("1")) {

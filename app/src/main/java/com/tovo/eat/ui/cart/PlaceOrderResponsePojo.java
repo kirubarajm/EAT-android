@@ -13,7 +13,7 @@ public class PlaceOrderResponsePojo {
     private String message;
     @SerializedName("orderid")
     @Expose
-    private Integer orderid;
+    private Long orderid;
 
     public Boolean getSuccess() {
         return success;
@@ -31,11 +31,11 @@ public class PlaceOrderResponsePojo {
         this.message = message;
     }
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 

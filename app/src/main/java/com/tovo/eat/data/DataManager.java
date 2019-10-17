@@ -21,9 +21,6 @@ import com.tovo.eat.data.prefs.PreferencesHelper;
 
 import io.reactivex.Observable;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public interface DataManager extends PreferencesHelper {
 
@@ -37,11 +34,11 @@ public interface DataManager extends PreferencesHelper {
 
     void updateApiHeader(Long userId, String accessToken);
 
-    void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid);
+    void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid);
 
-     void updateUserInfo(String accessToken, Integer userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
+     void updateUserInfo(String accessToken, Long userId, LoggedInMode loggedInMode, String userName, String email, boolean isLoggedIn);
 
-     void updateUserInformation(Integer userId,String userName,String userEmail,String PhoneNumber,String referralCode);
+     void updateUserInformation(Long userId,String userName,String userEmail,String PhoneNumber,String referralCode);
 
      void updateUserGender(boolean genderStatus);
 
@@ -62,7 +59,7 @@ public interface DataManager extends PreferencesHelper {
     void currentFragment(Integer id);
 
 
-    void kitchenId(Integer id);
+    void kitchenId(Long id);
 
 
     void totalOrders(Integer orders);
@@ -80,7 +77,7 @@ public interface DataManager extends PreferencesHelper {
     void saveRegionId(int regionid);
     void saveCouponId(int couponid);
 
-    void saveRatingOrderId(int orderid);
+    void saveRatingOrderId(Long orderid);
 
     void saveRatingSkipDate(String date,int skips);
     void saveRatingSkipDate(int skips);
@@ -96,7 +93,7 @@ public interface DataManager extends PreferencesHelper {
 
 
 
-    void currentOrderId(Integer orderId);
+    void currentOrderId(Long orderId);
 boolean homeAddressadded(boolean status);
 boolean officeAddressadded(boolean status);
 

@@ -65,7 +65,7 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
         kitchenItemViewModels.addAll(ordersItems);
     }
 
-    public void saveMakeitId(Integer id) {
+    public void saveMakeitId(Long id) {
         getDataManager().kitchenId(id);
     }
     public void filter(){

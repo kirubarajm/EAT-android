@@ -36,5 +36,5 @@ public interface CartNavigator {
 
     void notServicable();
     void funnelAlert();
-    void gotoKitchen(int kitchenid);
+    void gotoKitchen(Long kitchenid);
 }

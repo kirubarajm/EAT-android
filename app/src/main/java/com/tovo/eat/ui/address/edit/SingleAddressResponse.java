@@ -35,7 +35,7 @@ public class SingleAddressResponse {
 
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private Long userid;
         @SerializedName("address_title")
         @Expose
         private String addressTitle;
@@ -53,7 +53,7 @@ public class SingleAddressResponse {
         private String pincode;
         @SerializedName("aid")
         @Expose
-        private Integer aid;
+        private Long aid;
         @SerializedName("lat")
         @Expose
         private Double lat;
@@ -76,11 +76,11 @@ public class SingleAddressResponse {
         @Expose
         private String updatedAt;
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 
@@ -124,11 +124,11 @@ public class SingleAddressResponse {
             this.pincode = pincode;
         }
 
-        public Integer getAid() {
+        public Long getAid() {
             return aid;
         }
 
-        public void setAid(Integer aid) {
+        public void setAid(Long aid) {
             this.aid = aid;
         }
 

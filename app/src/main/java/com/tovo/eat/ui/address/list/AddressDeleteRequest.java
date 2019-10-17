@@ -7,9 +7,9 @@ public class AddressDeleteRequest {
 
     @SerializedName("aid")
     @Expose
-    private Integer aid;
+    private Long aid;
 
-    public AddressDeleteRequest(Integer aid) {
+    public AddressDeleteRequest(Long aid) {
         this.aid = aid;
     }
 }

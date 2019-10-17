@@ -133,7 +133,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void offersItemClick(CouponListResponse.Result offers);
 
-        void onItemClickData(Integer kitchenId);
+        void onItemClickData(Long kitchenId);
 
         void animateView(View view);
 
@@ -191,7 +191,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
 
         @Override
-        public void onItemClick(Integer id) {
+        public void onItemClick(Long id) {
             mLiveProductsAdapterListener.onItemClickData(id);
         }
 

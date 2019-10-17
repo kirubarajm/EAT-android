@@ -7,7 +7,7 @@ public class EditAccountRequest {
 
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
     @SerializedName("name")
     @Expose
     public String name;
@@ -23,7 +23,7 @@ public class EditAccountRequest {
     public Integer regionId;
 
 
-    public EditAccountRequest(Integer userid, String name, String email, Integer gender, Integer regionId) {
+    public EditAccountRequest(Long userid, String name, String email, Integer gender, Integer regionId) {
         this.userid = userid;
         this.name = name;
         this.email = email;
@@ -47,11 +47,11 @@ public class EditAccountRequest {
         this.regionId = regionId;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

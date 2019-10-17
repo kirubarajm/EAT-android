@@ -13,22 +13,22 @@ public class SupportRequest {
     public Integer type;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
  @SerializedName("orderid")
     @Expose
-    public Integer orderid;
+    public Long orderid;
     @SerializedName("querytype")
     @Expose
     public Integer queryType;
 
-    public SupportRequest(String question, Integer type, Integer userid) {
+    public SupportRequest(String question, Integer type, Long userid) {
         this.question = question;
         this.type = type;
         this.userid = userid;
     }
 
 
-    public SupportRequest(String question, Integer type, Integer userid, Integer orderid) {
+    public SupportRequest(String question, Integer type, Long userid, Long orderid) {
         this.question = question;
         this.type = type;
         this.userid = userid;
@@ -36,7 +36,7 @@ public class SupportRequest {
     }
 
 
-    public SupportRequest(String question, Integer type, Integer userid, Integer orderid, Integer queryType) {
+    public SupportRequest(String question, Integer type, Long userid, Long orderid, Integer queryType) {
         this.question = question;
         this.type = type;
         this.userid = userid;
@@ -52,11 +52,11 @@ public class SupportRequest {
         this.queryType = queryType;
     }
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 
@@ -75,11 +75,11 @@ public class SupportRequest {
     public void setType(Integer type) {
         this.type = type;
     }
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 }

@@ -39,7 +39,7 @@ public class RefundListResponse {
         private Integer rcid;
         @SerializedName("orderid")
         @Expose
-        private Integer orderid;
+        private Long orderid;
         @SerializedName("refund_used_orderid")
         @Expose
         private Object refundUsedOrderid;
@@ -54,7 +54,7 @@ public class RefundListResponse {
         private Integer activeStatus;
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private Long userid;
         @SerializedName("refund_balance")
         @Expose
         private Integer refundBalance;
@@ -76,11 +76,11 @@ public class RefundListResponse {
             this.rcid = rcid;
         }
 
-        public Integer getOrderid() {
+        public Long getOrderid() {
             return orderid;
         }
 
-        public void setOrderid(Integer orderid) {
+        public void setOrderid(Long orderid) {
             this.orderid = orderid;
         }
 
@@ -116,11 +116,11 @@ public class RefundListResponse {
             this.activeStatus = activeStatus;
         }
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 
