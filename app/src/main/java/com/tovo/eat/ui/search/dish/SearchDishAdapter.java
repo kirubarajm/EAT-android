@@ -131,16 +131,16 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
         mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
     }
 
 
     public interface LiveProductsAdapterListener {
 
-        void onItemClickData(Integer kitchenId);
+        void onItemClickData(Long kitchenId);
 
-        void showMore(Integer kitchenId);
+        void showMore(Long kitchenId);
 
         void onItemClickData(DishResponse.Result blogUrl);
 
@@ -156,7 +156,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void showToast(String msg);
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
 
 
     }
@@ -247,12 +247,12 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         }
 
         @Override
-        public void onItemClick(Integer id) {
+        public void onItemClick(Long id) {
             mLiveProductsAdapterListener.onItemClickData(id);
         }
 
         @Override
-        public void showMore(Integer id) {
+        public void showMore(Long id) {
             mLiveProductsAdapterListener.showMore(id);
         }
 

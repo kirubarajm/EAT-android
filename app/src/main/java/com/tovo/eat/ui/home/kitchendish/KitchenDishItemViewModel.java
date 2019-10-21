@@ -35,7 +35,7 @@ public class KitchenDishItemViewModel {
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
-    public final ObservableField<Integer> makeit_userid = new ObservableField<>();
+    public final ObservableField<Long> makeit_userid = new ObservableField<>();
     public final ObservableField<String> nextAvailableTime = new ObservableField<>();
     public final ObservableBoolean nextAvailable = new ObservableBoolean();
     public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
@@ -521,12 +521,12 @@ public class KitchenDishItemViewModel {
 
         void refresh();
 
-        Integer getEatId();
+        Long getEatId();
 
         void showToast(String msg);
 
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 }

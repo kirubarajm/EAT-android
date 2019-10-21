@@ -34,7 +34,7 @@ public class TodaysMenuItemViewModel {
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
-    public final ObservableField<Integer> makeit_userid = new ObservableField<>();
+    public final ObservableField<Long> makeit_userid = new ObservableField<>();
 
 
     public final ObservableBoolean isFavourite = new ObservableBoolean();
@@ -512,12 +512,12 @@ public class TodaysMenuItemViewModel {
 
         void refresh();
 
-        Integer getEatId();
+        Long getEatId();
 
         void showToast(String msg);
 
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 }

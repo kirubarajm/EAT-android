@@ -130,7 +130,7 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     }
 
     @Override
-    public void otpScreenFalse(int optid) {
+    public void otpScreenFalse(long optid) {
         String strPhoneNumber = mActivitySignupBinding.edtPhoneNo.getText().toString();
         Intent intent = OtpActivity.newIntent(SignUpActivity.this);
         //intent.putExtra("booleanOpt", String.valueOf(trurOrFalse));

@@ -13,18 +13,18 @@ public class KitchenDetailsListRequest {
     private String lon;
     @SerializedName("makeit_userid")
     @Expose
-    private Integer makeit_userid;
+    private Long makeit_userid;
 
 
     @SerializedName("eatuserid")
     @Expose
-    private Integer eatuserid;
+    private Long eatuserid;
     @SerializedName("vegtype")
     @Expose
     private Integer vegtype;
 
 
-    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid, Integer eatuserid, Integer vegtype) {
+    public KitchenDetailsListRequest(String lat, String lon, Long makeit_userid, Long eatuserid, Integer vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.makeit_userid = makeit_userid;
@@ -37,17 +37,17 @@ public class KitchenDetailsListRequest {
         this.lon = lon;
     }
 
-    public KitchenDetailsListRequest(String lat, String lon, Integer makeit_userid) {
+    public KitchenDetailsListRequest(String lat, String lon, Long makeit_userid) {
         this.lat = lat;
         this.lon = lon;
         this.makeit_userid = makeit_userid;
     }
 
-    public Integer getEatuserid() {
+    public Long getEatuserid() {
         return eatuserid;
     }
 
-    public void setEatuserid(Integer eatuserid) {
+    public void setEatuserid(Long eatuserid) {
         this.eatuserid = eatuserid;
     }
 
@@ -67,11 +67,11 @@ public class KitchenDetailsListRequest {
         this.lon = lon;
     }
 
-    public Integer getMakeit_userid() {
+    public Long getMakeit_userid() {
         return makeit_userid;
     }
 
-    public void setMakeit_userid(Integer makeit_userid) {
+    public void setMakeit_userid(Long makeit_userid) {
         this.makeit_userid = makeit_userid;
     }
 }

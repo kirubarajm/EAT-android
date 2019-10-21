@@ -69,7 +69,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableField<String> about = new ObservableField<>();
     public ObservableField<String> signatureImageUrl = new ObservableField<>();
     public ObservableField<String> ratingCount = new ObservableField<>();
-    public int makeitId;
+    public Long makeitId;
     List<KitchenDishResponse.Productlist> favoriteProductlists = new ArrayList<>();
     List<KitchenDishResponse.Productlist> todaysMenuProductlists = new ArrayList<>();
     int favId;
@@ -196,7 +196,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     }
 
-    public void addFavourite(Integer kitchenId) {
+    public void addFavourite(Long kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -267,7 +267,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         }
     }
 
-    public void fetchRepos(Integer kitchenId) {
+    public void fetchRepos(Long kitchenId) {
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;

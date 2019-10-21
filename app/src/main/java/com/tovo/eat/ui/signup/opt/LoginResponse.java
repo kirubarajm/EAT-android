@@ -45,7 +45,7 @@ public class LoginResponse {
 
         @SerializedName("userid")
         @Expose
-        public Integer userid;
+        public Long userid;
         @SerializedName("name")
         @Expose
         public String name;
@@ -70,7 +70,7 @@ public class LoginResponse {
 
         @SerializedName("aid")
         @Expose
-        private Integer aid;
+        private Long aid;
         @SerializedName("address_title")
         @Expose
         private String addressTitle;
@@ -89,11 +89,11 @@ public class LoginResponse {
             this.address = address;
         }
 
-        public Integer getAid() {
+        public Long getAid() {
             return aid;
         }
 
-        public void setAid(Integer aid) {
+        public void setAid(Long aid) {
             this.aid = aid;
         }
 
@@ -122,11 +122,11 @@ public class LoginResponse {
         }
 
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 

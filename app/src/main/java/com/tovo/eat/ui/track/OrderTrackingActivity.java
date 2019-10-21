@@ -629,7 +629,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
-    public void orderDetails(Integer orderId) {
+    public void orderDetails(Long orderId) {
         new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_ORDER_DETAILS);
 
         Intent intent = OrderDetailsActivity.newIntent(this);

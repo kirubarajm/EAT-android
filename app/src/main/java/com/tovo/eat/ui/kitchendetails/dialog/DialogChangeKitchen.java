@@ -30,7 +30,8 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     DialogChangeKitchenViewModel mDialogChangeKitchenViewModel;
     DialogChangeKitchenBinding binding;
     Activity activity;
-    Integer makeitId, productId, quantity, price;
+    Integer  productId, quantity, price;
+    Long makeitId;
     AddKitchenDishListener addKitchenDishListener;
     Analytics analytics;
     String pageName = "Change kitchen popup";
@@ -60,7 +61,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         super.onAttach(context);
     }
 
-    public void show(FragmentManager fragmentManager, Activity activity, Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void show(FragmentManager fragmentManager, Activity activity, Long makeitId, Integer productId, Integer quantity, Integer price) {
         this.activity = activity;
         this.makeitId = makeitId;
         this.productId = productId;

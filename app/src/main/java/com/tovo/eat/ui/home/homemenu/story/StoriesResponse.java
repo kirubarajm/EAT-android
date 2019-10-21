@@ -201,7 +201,7 @@ public class StoriesResponse implements Serializable {
             public boolean seen;
             @SerializedName("cat_ids")
             @Expose
-            public Integer catIds;
+            public Long catIds;
             @SerializedName("created_at")
             @Expose
             public String createdAt;
@@ -290,11 +290,11 @@ public class StoriesResponse implements Serializable {
                 this.catType = catType;
             }
 
-            public Integer getCatIds() {
+            public Long getCatIds() {
                 return catIds;
             }
 
-            public void setCatIds(Integer catIds) {
+            public void setCatIds(Long catIds) {
                 this.catIds = catIds;
             }
 

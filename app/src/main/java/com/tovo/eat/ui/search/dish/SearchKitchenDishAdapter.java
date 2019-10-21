@@ -111,7 +111,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         void  removeDishFavourite(Integer favId);
         void showToast(String msg);
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
@@ -268,7 +268,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
 
         @Override
-        public Integer getEatId() {
+        public Long getEatId() {
             return dataManager.getCurrentUserId();
         }
 
@@ -281,7 +281,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
 
         @Override
-        public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+        public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
             mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
         }
 

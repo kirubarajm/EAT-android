@@ -160,7 +160,7 @@ public class KitchenItemViewModel {
     }
 
 
-    public void addFavourite(Integer kitchenId) {
+    public void addFavourite(long kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -205,7 +205,7 @@ public class KitchenItemViewModel {
     public interface KitchenItemViewModelListener {
         void onItemClick(Long id);
 
-        void addFavourites(Integer id, String fav);
+        void addFavourites(Long id, String fav);
 
         void removeFavourites(Integer favId);
     }

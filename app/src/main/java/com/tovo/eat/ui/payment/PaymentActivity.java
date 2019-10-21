@@ -139,7 +139,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
     @Override
-    public void orderGenerated(Integer orderId, String customerId, Integer amount) {
+    public void orderGenerated(Long orderId, String customerId, Integer amount) {
 
         final Activity activity = this;
 
@@ -217,7 +217,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
     @Override
-    public void pendingPayment(Integer orderId, String customerId, Integer amount) {
+    public void pendingPayment(Long orderId, String customerId, Integer amount) {
 
     }
 

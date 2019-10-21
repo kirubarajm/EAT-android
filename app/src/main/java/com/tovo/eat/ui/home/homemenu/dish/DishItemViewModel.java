@@ -48,7 +48,7 @@ public class DishItemViewModel {
     public final ObservableField<String> sQuantity = new ObservableField<>();
     public final ObservableField<Integer> quantity = new ObservableField<>();
     public final ObservableField<Integer> product_id = new ObservableField<>();
-    public final ObservableField<Integer> makeit_userid = new ObservableField<>();
+    public final ObservableField<Long> makeit_userid = new ObservableField<>();
     public final ObservableField<String> nextAvailableTime = new ObservableField<>();
     public final ObservableBoolean nextAvailable = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
@@ -272,7 +272,7 @@ public class DishItemViewModel {
                     for (int i = 0; i < totalSize; i++) {
 
 
-                        if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
+                        if (dishList.getMakeitUserid()==(cartRequestPojo.getMakeitUserid())) {
 
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
 
@@ -340,7 +340,7 @@ public class DishItemViewModel {
                     for (int i = 0; i < totalSize; i++) {
 
 
-                        if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
+                        if (dishList.getMakeitUserid()==(cartRequestPojo.getMakeitUserid())) {
 
                             if (dishList.getProductid().equals(results.get(i).getProductid())) {
                                 if (quantity.get() == 0) {
@@ -415,7 +415,7 @@ public class DishItemViewModel {
             if (cartRequestPojo.getCartitems() != null) {
 
 
-                if (dishList.getMakeitUserid().equals(cartRequestPojo.getMakeitUserid())) {
+                if (dishList.getMakeitUserid()==(cartRequestPojo.getMakeitUserid())) {
                     cartRequestPojoCartitem.setProductid(dishList.getProductid());
                     cartRequestPojoCartitem.setQuantity(quantity.get());
                     cartRequestPojoCartitem.setPrice(dishList.getPrice());
@@ -573,12 +573,12 @@ public class DishItemViewModel {
 
         void productNotAvailable();
 
-        Integer getEatId();
+        long getEatId();
 
         void showToast(String msg);
 
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(long makeitId, Integer productId, Integer quantity, Integer price);
 
 
         void favChanged();

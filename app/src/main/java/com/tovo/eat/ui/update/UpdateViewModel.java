@@ -25,7 +25,7 @@ public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
 
         if (getDataManager().getCurrentUserId()!=null)
         {
-            int userId = getDataManager().getCurrentUserId();
+            long userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));
             boolean genderStatus = getDataManager().getisGenderStatus();
             if (genderStatus) {

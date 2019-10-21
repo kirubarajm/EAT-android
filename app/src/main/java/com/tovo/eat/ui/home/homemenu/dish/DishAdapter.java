@@ -112,7 +112,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void favChanged();
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
 
         void empty();
     }
@@ -224,7 +224,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public Integer getEatId() {
+        public long getEatId() {
             return dataManager.getCurrentUserId();
         }
 
@@ -236,7 +236,7 @@ public class DishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+        public void otherKitchenDish(long makeitId, Integer productId, Integer quantity, Integer price) {
 
             mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
 

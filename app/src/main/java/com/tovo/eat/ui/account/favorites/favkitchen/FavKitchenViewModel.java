@@ -104,7 +104,7 @@ public class FavKitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-    public void addFavourite(Integer kitchenId, String fav) {
+    public void addFavourite(Long kitchenId, String fav) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

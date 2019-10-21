@@ -7,7 +7,7 @@ public class RegistrationRequest {
 
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
     @SerializedName("hometownid")
     @Expose
     public Integer hometownid;
@@ -18,7 +18,7 @@ public class RegistrationRequest {
     @Expose
     public String password;
 
-    public RegistrationRequest(Integer userid, String email) {
+    public RegistrationRequest(Long userid, String email) {
         this.userid = userid;
         this.email = email;
     }
@@ -31,11 +31,11 @@ public class RegistrationRequest {
         this.hometownid = hometownid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

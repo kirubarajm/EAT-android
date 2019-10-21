@@ -1,7 +1,8 @@
 package com.tovo.eat.ui.splash;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.ObservableField;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,32 +23,40 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
+     //   try {
+            if (getDataManager().getAddressId() == 0) {
+                getDataManager().setCurrentLat(0.0);
+                getDataManager().setCurrentLng(0.0);
+            }
+      /*  } catch (Exception e) {
 
-        if (getDataManager().getAddressId() == 0) {
-            getDataManager().setCurrentLat(0.0);
-            getDataManager().setCurrentLng(0.0);
-        }
+            SharedPreferences settings =MvvmApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+        }*/
     }
 
     public void checkIsUserLoggedInOrNot() {
-        if (getDataManager().getCurrentUserId() != 0) {
-            int userId = getDataManager().getCurrentUserId();
-            Log.e("userId", String.valueOf(userId));
-            boolean genderStatus = getDataManager().getisGenderStatus();
-            if (genderStatus) {
-                if (   getNavigator()!=null)
-                getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
+
+        try {
+            if (getDataManager().getCurrentUserId() != 0) {
+                boolean genderStatus = getDataManager().getisGenderStatus();
+                if (genderStatus) {
+                    if (getNavigator() != null)
+                        getNavigator().checkForUserLoginMode(AppConstants.FLAG_TRUE);
+                } else {
+                    if (getNavigator() != null)
+                        getNavigator().checkForUserGenderStatus(false);
+                }
             } else {
-                if (   getNavigator()!=null)
-                getNavigator().checkForUserGenderStatus(false);
+                if (getNavigator() != null)
+                    getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
             }
-        } else {
-            if (   getNavigator()!=null)
-            getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
+        } catch (Exception e) {
+
+            if (getNavigator() != null)
+                getNavigator().checkForUserLoginMode(AppConstants.FLAG_FALSE);
         }
-
     }
-
 
     public void checkUpdate() {
         /*   MvvmApp.getInstance().getVersionCode()*/
@@ -59,15 +68,15 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
             public void onResponse(UpdateResponse response) {
 
                 if (response != null)
-                    if (response.getResult()!=null&&response.getStatus()) {
-if (   getNavigator()!=null)
-                        getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+                    if (response.getResult() != null && response.getStatus()) {
+                        if (getNavigator() != null)
+                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
 
                         getDataManager().saveSupportNumber(response.getResult().getSupportNumber());
 
                     } else {
-                        if (   getNavigator()!=null)
-                        getNavigator().update(false, false);
+                        if (getNavigator() != null)
+                            getNavigator().update(false, false);
                     }
 
             }

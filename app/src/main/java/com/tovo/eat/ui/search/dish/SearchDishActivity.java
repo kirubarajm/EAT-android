@@ -210,7 +210,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
 
 
         DialogChangeKitchen fragment = new DialogChangeKitchen();
@@ -239,7 +239,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
 
 
         new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION, AppConstants.CLICK_VIEW_KITCHEN);
@@ -251,7 +251,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     }
 
     @Override
-    public void showMore(Integer kitchenId) {
+    public void showMore(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION, AppConstants.CLICK_VIEW_MENU);
 
         Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());

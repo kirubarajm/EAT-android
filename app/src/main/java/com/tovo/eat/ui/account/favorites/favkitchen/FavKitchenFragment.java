@@ -155,7 +155,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     }
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(Long id, String fav) {
         mKitchenViewModel.addFavourite(id, fav);
     }
     @Override

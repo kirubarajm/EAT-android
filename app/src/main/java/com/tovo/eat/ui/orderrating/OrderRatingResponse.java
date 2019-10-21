@@ -45,7 +45,7 @@ public class OrderRatingResponse {
 
         @SerializedName("orid")
         @Expose
-        public Integer orid;
+        public Long orid;
         @SerializedName("rating_food")
         @Expose
         public Integer ratingFood;
@@ -69,11 +69,11 @@ public class OrderRatingResponse {
         public Object updatedAt;
 
 
-        public Integer getOrid() {
+        public Long getOrid() {
             return orid;
         }
 
-        public void setOrid(Integer orid) {
+        public void setOrid(Long orid) {
             this.orid = orid;
         }
 

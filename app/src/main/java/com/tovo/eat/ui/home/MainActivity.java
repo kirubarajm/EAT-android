@@ -313,7 +313,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void trackLiveOrder(Integer orderId) {
+    public void trackLiveOrder(long orderId) {
         if (mMainViewModel.checkInternet()) {
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
             Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);

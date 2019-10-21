@@ -48,7 +48,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
     }
 
     public void userRegistrationServiceCall(String strEmail) {
-        int userId = getDataManager().getCurrentUserId();
+        long userId = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {

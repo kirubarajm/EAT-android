@@ -147,7 +147,7 @@ public class OrderTrackingResponse {
         private String email;
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private Long userid;
         @SerializedName("address")
         @Expose
         private String address;
@@ -193,11 +193,11 @@ public class OrderTrackingResponse {
             this.email = email;
         }
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 

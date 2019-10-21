@@ -73,7 +73,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     ActivityKitchenDetailsBinding mFragmentDishBinding;
-    Integer kitchenID;
+    Long kitchenID;
 
     int totalCount;
 
@@ -124,7 +124,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            kitchenID = intent.getExtras().getInt("kitchenId");
+            kitchenID = intent.getExtras().getLong("kitchenId");
             mKitchenDetailsViewModel.makeitId = kitchenID;
             if (intent.getExtras().getInt("type") == 2) {
                 mKitchenDetailsViewModel.info();
@@ -337,10 +337,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
         DialogChangeKitchen.newInstance().show(getSupportFragmentManager(), this, makeitId, productId, quantity, price);
 
     }
+
 
     @Override
     public void dishListLoaded(KitchenDishResponse response) {
@@ -411,7 +412,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void addDishFavourite(Integer favId, String fav) {
 
-        mKitchenDetailsViewModel.addFavourite(favId);
+      //  mKitchenDetailsViewModel.addFavourite(favId);
     }
 
 

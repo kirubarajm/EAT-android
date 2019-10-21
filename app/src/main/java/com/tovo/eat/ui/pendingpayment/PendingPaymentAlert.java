@@ -135,7 +135,7 @@ public class PendingPaymentAlert extends BaseBottomSheetFragment<AlertPendingPay
 
 
         if (getArguments() != null) {
-            mLoginViewModelMain.order.set("Order #" + String.valueOf(getArguments().getInt("orderid")));
+            mLoginViewModelMain.order.set("Order #" + String.valueOf(getArguments().getLong("orderid")));
             mLoginViewModelMain.kitchen.set(getArguments().getString("brandname"));
             mLoginViewModelMain.amount.set(String.valueOf(getArguments().getInt("price")));
             mLoginViewModelMain.products.set(getArguments().getString("products"));

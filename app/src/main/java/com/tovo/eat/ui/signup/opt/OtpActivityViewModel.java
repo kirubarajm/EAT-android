@@ -29,7 +29,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     public final ObservableField<String> number = new ObservableField<>();
     public final ObservableField<String> timer = new ObservableField<>();
 
-    public Integer OtpId=0;
+    public long OtpId=0;
 
     public boolean passwordstatus;
     public boolean otpStatus;
@@ -82,7 +82,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                         if (response.getStatus()) {
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 try {
-                                    int userId = response.getResult().get(0).getUserid();
+                                    long userId = response.getResult().get(0).getUserid();
                                     String UserName = response.getResult().get(0).getName();
                                     String UserEmail = response.getResult().get(0).getEmail();
                                     String userPhoneNumber = response.getResult().get(0).getPhoneno();
@@ -139,7 +139,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                 public void onResponse(OtpResponse response) {
 
                     try {
-                        int CurrentuserId = 0;
+                        long CurrentuserId = 0;
 
                         if (response != null) {
 
@@ -282,7 +282,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void saveToken(String token) {
-        int userIdMain = getDataManager().getCurrentUserId();
+        long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 

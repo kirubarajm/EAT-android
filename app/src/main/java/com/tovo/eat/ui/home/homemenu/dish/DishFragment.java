@@ -244,7 +244,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
 
 
 

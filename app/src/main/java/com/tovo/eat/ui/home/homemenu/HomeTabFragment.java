@@ -184,7 +184,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void trackLiveOrder(Integer orderId) {
+    public void trackLiveOrder(long orderId) {
 
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
         Intent intent = OrderTrackingActivity.newIntent(getContext());
@@ -550,7 +550,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
@@ -565,7 +565,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(long id, String fav) {
 
         mHomeTabViewModel.addFavourite(id, fav);
 

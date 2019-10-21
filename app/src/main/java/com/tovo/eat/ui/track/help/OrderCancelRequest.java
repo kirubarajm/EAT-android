@@ -7,13 +7,13 @@ public class OrderCancelRequest {
 
     @SerializedName("orderid")
     @Expose
-    public Integer orderid;
+    public Long orderid;
 
     @SerializedName("cancel_reason")
     @Expose
     public String reason;
 
-    public OrderCancelRequest(Integer orderid, String reason) {
+    public OrderCancelRequest(Long orderid, String reason) {
         this.orderid = orderid;
         this.reason = reason;
     }
@@ -26,11 +26,11 @@ public class OrderCancelRequest {
         this.reason = reason;
     }
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 }

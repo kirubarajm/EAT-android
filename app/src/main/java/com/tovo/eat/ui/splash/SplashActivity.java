@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -24,6 +25,7 @@ import com.tovo.eat.ui.onboarding.PrefManager;
 import com.tovo.eat.ui.signup.SignUpActivity;
 import com.tovo.eat.ui.signup.namegender.NameGenderActivity;
 import com.tovo.eat.ui.update.UpdateActivity;
+import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
@@ -58,6 +60,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
             startActivity(intent);
             finish();
         } else {
+            SharedPreferences settings = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
             Intent intent = SignUpActivity.newIntent(SplashActivity.this);
             startActivity(intent);
             finish();
@@ -110,7 +114,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
 
 
         prefManager = new PrefManager(this);
-
 
 
         analytics=new Analytics( this,pageName);

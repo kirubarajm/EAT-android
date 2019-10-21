@@ -39,7 +39,7 @@ public class DishResponse {
         private Integer productid;
         @SerializedName("makeit_userid")
         @Expose
-        private Integer makeitUserid;
+        private long makeitUserid;
         @SerializedName("makeit_username")
         @Expose
         private String makeitUsername;
@@ -160,11 +160,11 @@ public class DishResponse {
             this.productid = productid;
         }
 
-        public Integer getMakeitUserid() {
+        public long getMakeitUserid() {
             return makeitUserid;
         }
 
-        public void setMakeitUserid(Integer makeitUserid) {
+        public void setMakeitUserid(long makeitUserid) {
             this.makeitUserid = makeitUserid;
         }
 

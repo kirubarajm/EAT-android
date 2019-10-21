@@ -1,5 +1,7 @@
 package com.tovo.eat.ui.signup.namegender;
 
+import android.widget.LinearLayout;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,22 +9,22 @@ public class TokenRequest {
 
 @SerializedName("userid")
 @Expose
-private Integer userid;
+private Long userid;
 @SerializedName("pushid_android")
 @Expose
 private String pushidAndroid;
 
 
-    public TokenRequest(Integer userid, String pushidAndroid) {
+    public TokenRequest(Long userid, String pushidAndroid) {
         this.userid = userid;
         this.pushidAndroid = pushidAndroid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
 return userid;
 }
 
-public void setUserid(Integer userid) {
+public void setUserid(Long userid) {
 this.userid = userid;
 }
 

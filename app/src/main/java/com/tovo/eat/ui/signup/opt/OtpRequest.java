@@ -14,9 +14,9 @@ public class OtpRequest {
     public Integer otp;
     @SerializedName("oid")
     @Expose
-    public Integer oid;
+    public Long oid;
 
-    public OtpRequest(String phoneno, Integer otp, Integer oid) {
+    public OtpRequest(String phoneno, Integer otp, Long oid) {
         this.phoneno = phoneno;
         this.otp = otp;
         this.oid = oid;
@@ -38,11 +38,11 @@ public class OtpRequest {
         this.otp = otp;
     }
 
-    public Integer getOid() {
+    public Long getOid() {
         return oid;
     }
 
-    public void setOid(Integer oid) {
+    public void setOid(Long oid) {
         this.oid = oid;
     }
 }

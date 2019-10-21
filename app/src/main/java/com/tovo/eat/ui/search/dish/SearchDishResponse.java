@@ -152,7 +152,7 @@ public class SearchDishResponse {
 
         @SerializedName("makeituserid")
         @Expose
-        private Integer makeituserid;
+        private Long makeituserid;
         @SerializedName("makeitusername")
         @Expose
         private String makeitusername;
@@ -193,11 +193,11 @@ public class SearchDishResponse {
         @Expose
         private String eta;
 
-        public Integer getMakeituserid() {
+        public Long getMakeituserid() {
             return makeituserid;
         }
 
-        public void setMakeituserid(Integer makeituserid) {
+        public void setMakeituserid(Long makeituserid) {
             this.makeituserid = makeituserid;
         }
 

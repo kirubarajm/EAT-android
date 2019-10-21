@@ -158,9 +158,9 @@ serviceableKitchen.set(mKitchenList.isServiceableStatus());
 
     public interface RegionItemViewModelListener {
 
-        void onItemClick(Integer id);
+        void onItemClick(Long id);
 
-        void showMore(Integer id);
+        void showMore(Long id);
 
     }
 

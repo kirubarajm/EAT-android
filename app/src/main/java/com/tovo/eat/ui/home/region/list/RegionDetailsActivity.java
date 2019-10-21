@@ -190,7 +190,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
 
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_KITCHEN);
 
@@ -210,7 +210,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     }
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(long id, String fav) {
 
     }
 

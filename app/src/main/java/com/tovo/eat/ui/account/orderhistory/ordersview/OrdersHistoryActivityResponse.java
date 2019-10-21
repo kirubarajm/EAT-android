@@ -565,7 +565,7 @@ public class OrdersHistoryActivityResponse {
             public String email;
             @SerializedName("userid")
             @Expose
-            public Integer userid;
+            public Long userid;
             @SerializedName("address")
             @Expose
             public String address;
@@ -622,11 +622,11 @@ public class OrdersHistoryActivityResponse {
                 this.email = email;
             }
 
-            public Integer getUserid() {
+            public Long getUserid() {
                 return userid;
             }
 
-            public void setUserid(Integer userid) {
+            public void setUserid(Long userid) {
                 this.userid = userid;
             }
 

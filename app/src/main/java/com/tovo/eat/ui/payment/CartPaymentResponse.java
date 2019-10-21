@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tovo.eat.ui.home.LiveOrderResponsePojo;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class CartPaymentResponse {
     private Boolean status;
     @SerializedName("orderid")
     @Expose
-    private Integer orderid;
+    private Long orderid;
     @SerializedName("refund_balance")
     @Expose
     private Integer refundBalance;
@@ -35,11 +36,11 @@ public class CartPaymentResponse {
     private List<Result> result = null;
 
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 
@@ -103,10 +104,10 @@ public class CartPaymentResponse {
 
         @SerializedName("orderid")
         @Expose
-        private Integer orderid;
+        private Long orderid;
         @SerializedName("userid")
         @Expose
-        private Integer userid;
+        private Long userid;
         @SerializedName("ordertime")
         @Expose
         private String ordertime;
@@ -231,19 +232,19 @@ public class CartPaymentResponse {
         @Expose
         private String createdAt;
 
-        public Integer getOrderid() {
+        public Long getOrderid() {
             return orderid;
         }
 
-        public void setOrderid(Integer orderid) {
+        public void setOrderid(Long orderid) {
             this.orderid = orderid;
         }
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 

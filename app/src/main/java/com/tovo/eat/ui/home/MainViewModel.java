@@ -65,8 +65,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public LiveOrderResponsePojo liveOrderResponsePojo;
-    private int orderId;
-    private int payment_orderId;
+    private long orderId;
+    private long payment_orderId;
     private int payment_price;
     private int action = NO_ACTION;
 
@@ -369,7 +369,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void saveToken(String token) {
-        int userIdMain = getDataManager().getCurrentUserId();
+        long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {

@@ -141,7 +141,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void removeDishFavourite(Integer favId);
 
-        void addFav(Integer id, String fav);
+        void addFav(Long id, String fav);
     }
 
     public class EmptyViewHolder extends BaseViewHolder {
@@ -196,7 +196,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         }
 
         @Override
-        public void addFavourites(Integer id, String fav) {
+        public void addFavourites(Long id, String fav) {
             mLiveProductsAdapterListener.addFav(id, fav);
         }
 
