@@ -104,7 +104,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public boolean isAddressAdded() {
-        return getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0");
+
+        if (getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0")){
+            return true;
+        }else {
+            return false;
+        }
+
+//        return getDataManager().getCurrentLat() != null || !getDataManager().getCurrentLat().equals("0.0")|| !getDataManager().getCurrentLat().equals(0.0);
     }
 
     public void getMoveitLatLng(int moveitId) {
@@ -557,7 +564,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setCurrentLat(lat);
         getDataManager().setCurrentLng(lng);
         getNavigator().disConnectGPS();
-        getNavigator().openHome();
+       // getNavigator().openHome();
     }
 
 

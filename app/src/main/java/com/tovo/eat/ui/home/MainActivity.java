@@ -376,7 +376,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 showLocationDialog();
             }
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
-            openHome();
+
+            if ( resultCode==RESULT_OK) openHome();
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
         }
     }
