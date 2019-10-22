@@ -23,17 +23,24 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
-     //   try {
+    }
+
+
+
+    public void clearLatLng(){
+        try {
             if (getDataManager().getAddressId() == 0) {
                 getDataManager().setCurrentLat(0.0);
                 getDataManager().setCurrentLng(0.0);
             }
-      /*  } catch (Exception e) {
+        } catch (Exception e) {
 
             SharedPreferences settings =MvvmApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
             settings.edit().clear().apply();
-        }*/
+        }
+
     }
+
 
     public void checkIsUserLoggedInOrNot() {
 

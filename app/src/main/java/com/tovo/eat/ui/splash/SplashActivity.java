@@ -116,6 +116,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         prefManager = new PrefManager(this);
 
 
+
+
+        mSplashActivityViewModel.clearLatLng();
+
+
         analytics=new Analytics( this,pageName);
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
