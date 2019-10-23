@@ -89,6 +89,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
 
         defaultAddress(aid);
 
+
     }
 
 

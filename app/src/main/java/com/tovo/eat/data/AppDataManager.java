@@ -131,11 +131,12 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid) {
-        setCurrentAddressTitle(title);
+       /* setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
         setCurrentAddress(address);
         setCurrentLat(lat);
-        setCurrentLng(lng);
+        setCurrentLng(lng);*/
+
         setCurrentAddressTitle(title);
         setCurrentAddressArea(area);
         setCurrentAddress(address);
