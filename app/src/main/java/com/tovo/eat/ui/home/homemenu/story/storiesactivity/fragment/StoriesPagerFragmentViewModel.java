@@ -17,7 +17,7 @@ public class StoriesPagerFragmentViewModel extends BaseViewModel<StoriesPagerFra
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> subTitle = new ObservableField<>();
     public ObservableField<Integer> category_type = new ObservableField<>();
-    public ObservableField<Integer> category_id = new ObservableField<>();
+    public ObservableField<Long> category_id = new ObservableField<>();
     public ObservableField<String> imageUrl = new ObservableField<>();
     public ObservableBoolean aBooleanImg = new ObservableBoolean();
 

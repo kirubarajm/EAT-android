@@ -32,7 +32,7 @@ public class KitchenDishResponse {
 
         @SerializedName("makeituserid")
         @Expose
-        public Integer makeituserid;
+        public Long makeituserid;
         @SerializedName("makeitusername")
         @Expose
         public String makeitusername;
@@ -128,7 +128,7 @@ public class KitchenDishResponse {
             this.memberTypeName = memberTypeName;
         }
 
-        public void setMakeituserid(Integer makeituserid) {
+        public void setMakeituserid(Long makeituserid) {
             this.makeituserid = makeituserid;
         }
 
@@ -148,7 +148,7 @@ public class KitchenDishResponse {
             this.ratingCount = ratingCount;
         }
 
-        public Integer getMakeituserid() {
+        public Long getMakeituserid() {
             return makeituserid;
         }
 
@@ -276,7 +276,7 @@ public class KitchenDishResponse {
 
         @SerializedName("makeit_userid")
         @Expose
-        public Integer makeitUserid;
+        public Long makeitUserid;
  @SerializedName("next_available")
         @Expose
         public Integer nextAvailable=0;
@@ -319,7 +319,7 @@ public class KitchenDishResponse {
             this.prodDesc = prodDesc;
         }
 
-        public Integer getMakeitUserid() {
+        public Long getMakeitUserid() {
             return makeitUserid;
         }
 

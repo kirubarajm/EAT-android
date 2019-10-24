@@ -10,7 +10,7 @@ public interface OrderTrackingNavigator {
     void orderPickedUp(Integer MoveitId);
 
     void clickBack();
-    void orderDetails(Integer orderId);
+    void orderDetails(Long orderId);
     void showToast(String msg);
 void startTrackingTimer(int minuts);
 }

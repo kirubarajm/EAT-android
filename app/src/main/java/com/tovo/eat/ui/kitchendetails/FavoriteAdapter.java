@@ -111,7 +111,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         void showToast(String msg);
 
-        void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price);
+        void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
@@ -253,7 +253,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public Integer getEatId() {
+        public Long getEatId() {
             return dataManager.getCurrentUserId();
         }
 
@@ -264,7 +264,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+        public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
             mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
         }
 

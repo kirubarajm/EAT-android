@@ -39,9 +39,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
-import com.nhaarman.supertooltips.ToolTipView;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.tovo.eat.BR;
@@ -95,7 +92,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String pageid = "";
     Analytics analytics;
     String pageName = AppConstants.SCREEN_HOME;
+    double clatitude;
+    double clongitude;
 
+    int getAddressCount = 0;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -260,7 +260,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void paymentStausChanged() {
-       // mMainViewModel.liveOrders();
+        // mMainViewModel.liveOrders();
     }
 
     @Override
@@ -312,7 +312,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void trackLiveOrder(Integer orderId) {
+    public void trackLiveOrder(long orderId) {
         if (mMainViewModel.checkInternet()) {
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
             Intent intent = OrderTrackingActivity.newIntent(MainActivity.this);
@@ -375,7 +375,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 showLocationDialog();
             }
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
-            openHome();
+
+            if (resultCode == RESULT_OK) openHome();
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
         }
     }
@@ -426,8 +427,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
-
-
         analytics = new Analytics(this, pageName);
 
         saveFcmToken();
@@ -446,17 +445,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
-        if (mMainViewModel.getDataManager().getAddressId() == 0) {
-            mMainViewModel.getDataManager().setCurrentLat(0.0);
-            mMainViewModel.getDataManager().setCurrentLng(0.0);
+        if (!mMainViewModel.isAddressAdded()) {
             startLoader();
             startLocationTracking();
         }
 
 
         mMainViewModel.liveOrders();
-
-
 
 
 
@@ -642,7 +637,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void onDestroy() {
         super.onDestroy();
 
-mMainViewModel.getDataManager().appStartedAgain(false);
+        mMainViewModel.getDataManager().appStartedAgain(false);
         try {
             unregisterReceiver(dataReceiver);
         } catch (IllegalArgumentException e) {
@@ -747,9 +742,6 @@ mMainViewModel.getDataManager().appStartedAgain(false);
           /*  if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();*/
             mMainViewModel.currentLatLng(location.getLatitude(), location.getLongitude());
-
-
-
             openHome();
             locationManager.removeUpdates(this);
         }
@@ -840,8 +832,10 @@ mMainViewModel.getDataManager().appStartedAgain(false);
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
                         mMainViewModel.currentLatLng(location.latitude, location.longitude);
-
                         getAddressFromLocation(location.latitude, location.longitude);
+
+                        /*mMainViewModel.currentLatLng(13.09342957, 80.17434692);
+                        getAddressFromLocation(13.09342957, 80.17434692);*/
 
                        /* if (mMainViewModel.isAddressAdded()) {
                             if (cart) {
@@ -953,6 +947,13 @@ mMainViewModel.getDataManager().appStartedAgain(false);
 
     }
 
+    private void getAddressFromLocation(double latitude, double longitude) {
+
+        clatitude = latitude;
+        clongitude = longitude;
+        new AsyncTaskAddress().execute(latitude, longitude);
+
+    }
 
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
 
@@ -976,7 +977,6 @@ mMainViewModel.getDataManager().appStartedAgain(false);
 
                 }
 
-
             return null;
         }
 
@@ -995,19 +995,20 @@ mMainViewModel.getDataManager().appStartedAgain(false);
                 String country = fetchedAddress.getCountryName();
                 String postalCode = fetchedAddress.getPostalCode();
                 String knownName = fetchedAddress.getFeatureName();
-                mMainViewModel.getDataManager().saveFirstLocation(address,fetchedAddress.getSubLocality(),city);
+                mMainViewModel.getDataManager().saveFirstLocation(address, fetchedAddress.getSubLocality(), city);
                 openHome();
             } else {
-                openHome();
+                //openHome();
+                getAddressCount++;
+                if (getAddressCount < 3) {
+                    new AsyncTaskAddress().execute(clatitude, clatitude);
+                }else {
+                    openHome();
+                }
             }
 
         }
     }
 
-    private void getAddressFromLocation(double latitude, double longitude) {
-        new AsyncTaskAddress().execute(latitude, longitude);
-    }
 
-
-
-    }
+}

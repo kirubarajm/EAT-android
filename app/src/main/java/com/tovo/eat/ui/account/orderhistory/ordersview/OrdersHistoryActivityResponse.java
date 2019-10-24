@@ -36,10 +36,10 @@ public class OrdersHistoryActivityResponse {
 
         @SerializedName("orderid")
         @Expose
-        public Integer orderid;
+        public Long orderid;
         @SerializedName("userid")
         @Expose
-        public Integer userid;
+        public Long userid;
         @SerializedName("ordertime")
         @Expose
         public String ordertime;
@@ -164,19 +164,19 @@ public class OrdersHistoryActivityResponse {
             this.address_title = address_title;
         }
 
-        public Integer getOrderid() {
+        public Long getOrderid() {
             return orderid;
         }
 
-        public void setOrderid(Integer orderid) {
+        public void setOrderid(Long orderid) {
             this.orderid = orderid;
         }
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 
@@ -565,7 +565,7 @@ public class OrdersHistoryActivityResponse {
             public String email;
             @SerializedName("userid")
             @Expose
-            public Integer userid;
+            public Long userid;
             @SerializedName("address")
             @Expose
             public String address;
@@ -622,11 +622,11 @@ public class OrdersHistoryActivityResponse {
                 this.email = email;
             }
 
-            public Integer getUserid() {
+            public Long getUserid() {
                 return userid;
             }
 
-            public void setUserid(Integer userid) {
+            public void setUserid(Long userid) {
                 this.userid = userid;
             }
 

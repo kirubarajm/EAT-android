@@ -44,7 +44,7 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
     public void cashMode() {
         if (getDataManager().getEmailStatus()) {
             try {
-                if (getDataManager().getAddressId() != 0) {
+                if (getDataManager().getAddressId() != null) {
 
                     if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -96,7 +96,7 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
 
                                     if (response.getBoolean("status")) {
 
-                                        getDataManager().currentOrderId(response.getInt("orderid"));
+                                        getDataManager().currentOrderId(response.getLong("orderid"));
                                         getDataManager().setCartDetails("");
                                         getNavigator().orderCompleted();
                                         getDataManager().saveRefundId(0);

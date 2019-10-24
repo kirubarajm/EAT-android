@@ -381,7 +381,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
 
         new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_KITCHEN);
 
@@ -399,7 +399,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void showMore(Integer regionId) {
+    public void showMore(Long regionId) {
         new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_MENU);
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", regionId);
@@ -441,7 +441,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(long id, String fav) {
 
     }
 
@@ -451,7 +451,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
 
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         fragment.setTargetFragment(this, 0);

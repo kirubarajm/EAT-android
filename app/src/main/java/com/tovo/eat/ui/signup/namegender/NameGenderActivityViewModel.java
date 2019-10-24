@@ -69,7 +69,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             gender = 2;
         }
 
-        int userIdMain = getDataManager().getCurrentUserId();
+        long userIdMain = getDataManager().getCurrentUserId();
         NameGenderRequest nameGenderRequest;
 
         if (referral.isEmpty()) {

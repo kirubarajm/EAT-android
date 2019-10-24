@@ -22,10 +22,10 @@ public class SignUpResponse {
     public Boolean genderstatus;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
     @SerializedName("oid")
     @Expose
-    public Integer oid;
+    public Long oid;
 
     public Boolean getStatus() {
         return status;
@@ -67,19 +67,19 @@ public class SignUpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
-    public Integer getOid() {
+    public Long getOid() {
         return oid;
     }
 
-    public void setOid(Integer oid) {
+    public void setOid(Long oid) {
         this.oid = oid;
     }
 }

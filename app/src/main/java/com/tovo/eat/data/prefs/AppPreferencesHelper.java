@@ -129,24 +129,23 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Integer getCurrentUserId() {
+    public Long getCurrentUserId() {
         // return userId == AppConstants.NULL_INDEX ? null : userId;
         //return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, null);
 
-        int userId = mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, AppConstants.NULL_INDEX);
-        return userId;
+        return mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, 0);
     }
 
     @Override
-    public void setCurrentUserId(Integer userId) {
+    public void setCurrentUserId(Long userId) {
         // Integer id = userId == null ? AppConstants.NULL_INDEX : userId;
         /*if (userId == null) {
             userId = 0;
         }
         mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();*/
 
-        int id = userId == null ? AppConstants.NULL_INDEX : userId;
-        mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, id).apply();
+       // Long id = userId == null ? AppConstants.NULL_INDEX : userId;
+        mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, userId).apply();
     }
 
     @Override
@@ -275,33 +274,33 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Integer getMakeitID() {
-        return mPrefs.getInt(PREF_KEY_SELECTED_MAKEIT_ID, 0);
+    public Long getMakeitID() {
+        return mPrefs.getLong(PREF_KEY_SELECTED_MAKEIT_ID, 0);
     }
 
     @Override
-    public void setMakeitID(Integer id) {
-        mPrefs.edit().putInt(PREF_KEY_SELECTED_MAKEIT_ID, id).apply();
+    public void setMakeitID(Long id) {
+        mPrefs.edit().putLong(PREF_KEY_SELECTED_MAKEIT_ID, id).apply();
     }
 
     @Override
-    public Integer getOrderId() {
-        return mPrefs.getInt(PREF_KEY_ORDER_ID, 0);
+    public Long getOrderId() {
+        return mPrefs.getLong(PREF_KEY_ORDER_ID, 0);
     }
 
     @Override
-    public void setOrderId(Integer orderId) {
-        mPrefs.edit().putInt(PREF_KEY_ORDER_ID, orderId).apply();
+    public void setOrderId(Long orderId) {
+        mPrefs.edit().putLong(PREF_KEY_ORDER_ID, orderId).apply();
     }
 
     @Override
-    public Integer getAddressId() {
-        return mPrefs.getInt(PREF_KEY_CURRENT_ADDRESS_ID, 0);
+    public Long getAddressId() {
+        return mPrefs.getLong(PREF_KEY_CURRENT_ADDRESS_ID, 0);
     }
 
     @Override
-    public void setAddressId(Integer orderId) {
-        mPrefs.edit().putInt(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
+    public void setAddressId(Long orderId) {
+        mPrefs.edit().putLong(PREF_KEY_CURRENT_ADDRESS_ID, orderId).apply();
     }
 
     @Override
@@ -487,13 +486,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public Integer getRatingOrderid() {
-        return mPrefs.getInt(PREF_KEY_RATING_ORDER_ID, 0);
+    public Long getRatingOrderid() {
+        return mPrefs.getLong(PREF_KEY_RATING_ORDER_ID, 0);
     }
 
     @Override
-    public void setRatingOrderid(Integer orderid) {
-        mPrefs.edit().putInt(PREF_KEY_RATING_ORDER_ID, orderid).apply();
+    public void setRatingOrderid(Long orderid) {
+        mPrefs.edit().putLong(PREF_KEY_RATING_ORDER_ID, orderid).apply();
     }
 
     @Override

@@ -25,7 +25,7 @@ public class DialogChangeKitchenViewModel extends BaseViewModel<DialogChangeKitc
     }
 
 
-    public void addToCart(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void addToCart(Long makeitId, Integer productId, Integer quantity, Integer price) {
 
         List<CartRequestPojo.Cartitem> results = new ArrayList<>();
         CartRequestPojo cartRequestPojo = new CartRequestPojo();

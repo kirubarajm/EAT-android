@@ -53,7 +53,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         getNavigator().addNewAddress();
     }
 
-    public void defaultAddress(Integer aid) {
+    public void defaultAddress(Long aid) {
 
         try {
             setIsLoading(true);
@@ -81,13 +81,14 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     }
 
 
-    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Integer aid) {
+    public void updateCurrentAddress(String title, String address, double lat, double lng, String area, Long aid) {
 
         getDataManager().updateCurrentAddress(title, address, lat, lng, area, aid);
 
         getDataManager().setCurrentAddress(address);
 
         defaultAddress(aid);
+
 
     }
 

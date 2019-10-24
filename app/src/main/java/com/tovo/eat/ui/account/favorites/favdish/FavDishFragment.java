@@ -201,7 +201,7 @@ public class FavDishFragment extends BaseFragment<FragmentDishBinding, DishViewM
     }
 
     @Override
-    public void otherKitchenDish(Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
         //open change kitchen dialog
         DialogChangeKitchen fragment = new DialogChangeKitchen();
         fragment.setTargetFragment(this, 0);

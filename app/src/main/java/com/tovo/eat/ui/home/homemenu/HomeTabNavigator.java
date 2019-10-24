@@ -24,6 +24,6 @@ public interface HomeTabNavigator {
     void kitchenLoaded();
 
     void getFullStories(StoriesResponse storiesResponse);
-    void trackLiveOrder(Integer orderId);
+    void trackLiveOrder(long orderId);
 
 }

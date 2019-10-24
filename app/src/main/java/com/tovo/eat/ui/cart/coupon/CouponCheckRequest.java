@@ -10,14 +10,14 @@ public class CouponCheckRequest {
     private String couponName;
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
 
 
-    public CouponCheckRequest(Integer userid,String couponName) {
+    public CouponCheckRequest(Long userid,String couponName) {
         this.couponName = couponName;
         this.userid = userid;
     }
- public CouponCheckRequest(Integer userid) {
+ public CouponCheckRequest(Long userid) {
         this.userid = userid;
     }
 
@@ -29,11 +29,11 @@ public class CouponCheckRequest {
         this.couponName = couponName;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

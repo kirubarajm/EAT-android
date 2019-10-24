@@ -11,13 +11,13 @@ public class FeedBackRequest {
     public Integer rating;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
     @SerializedName("content")
     @Expose
     public String content;
 
 
-    public FeedBackRequest(Integer rating, Integer userid, String content) {
+    public FeedBackRequest(Integer rating, Long userid, String content) {
         this.rating = rating;
         this.userid = userid;
         this.content = content;
@@ -32,11 +32,11 @@ public class FeedBackRequest {
         this.rating = rating;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

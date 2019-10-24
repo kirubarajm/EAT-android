@@ -23,7 +23,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
 
     int foodRating = 0;
     int deliveryRating = 0;
-    int orderId = 0;
+    long orderId = 0;
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ORDER_RATING;

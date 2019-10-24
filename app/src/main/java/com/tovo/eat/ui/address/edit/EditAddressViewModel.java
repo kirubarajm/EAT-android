@@ -56,7 +56,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
     public final ObservableBoolean typeOther = new ObservableBoolean();
 
 
-    public Integer mAid;
+    public Long mAid;
     public TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,7 +147,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
     }
 
 
-    public void saveAddress(String lat, String lng, String pincode, Integer aid) {
+    public void saveAddress(String lat, String lng, String pincode, Long aid) {
 
         request.setLat(lat);
         request.setLon(lng);
@@ -276,7 +276,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
     }
 
 
-    public void fetchAddress(Integer aaid) {
+    public void fetchAddress(Long aaid) {
 
 
         GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_GET_ADDRESS_URL + aaid, SingleAddressResponse.class, new Response.Listener<SingleAddressResponse>() {
@@ -328,7 +328,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
     }
 
-    public void defaultAddress(Integer aid) {
+    public void defaultAddress(Long aid) {
 
         try {
             setIsLoading(true);

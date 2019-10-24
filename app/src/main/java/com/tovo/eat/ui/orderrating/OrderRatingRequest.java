@@ -19,9 +19,9 @@ public class OrderRatingRequest {
     public String descDelivery;
     @SerializedName("orderid")
     @Expose
-    public Integer orderid;
+    public Long orderid;
 
-    public OrderRatingRequest(Integer ratingFood, Integer ratingDelivery, String descFood, String descDelivery, Integer orderid) {
+    public OrderRatingRequest(Integer ratingFood, Integer ratingDelivery, String descFood, String descDelivery, Long orderid) {
         this.ratingFood = ratingFood;
         this.ratingDelivery = ratingDelivery;
         this.descFood = descFood;
@@ -30,15 +30,15 @@ public class OrderRatingRequest {
     }
 
 
-    public OrderRatingRequest(Integer orderid) {
+    public OrderRatingRequest(Long orderid) {
         this.orderid = orderid;
     }
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 }

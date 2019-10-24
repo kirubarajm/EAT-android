@@ -174,7 +174,7 @@ public class CartPageResponse {
 
         @SerializedName("makeit_userid")
         @Expose
-        private Integer makeitUserid;
+        private Long makeitUserid;
         @SerializedName("productid")
         @Expose
         private Integer productid;
@@ -280,11 +280,11 @@ public class CartPageResponse {
             this.prodDesc = prodDesc;
         }
 
-        public Integer getMakeitUserid() {
+        public Long getMakeitUserid() {
             return makeitUserid;
         }
 
-        public void setMakeitUserid(Integer makeitUserid) {
+        public void setMakeitUserid(Long makeitUserid) {
             this.makeitUserid = makeitUserid;
         }
 
@@ -542,7 +542,7 @@ public class CartPageResponse {
 
         @SerializedName("makeituserid")
         @Expose
-        private Integer makeituserid;
+        private Long makeituserid;
         @SerializedName("makeitusername")
         @Expose
         private String makeitusername;
@@ -623,11 +623,11 @@ public class CartPageResponse {
             this.cartDetails = cartDetails;
         }
 
-        public Integer getMakeituserid() {
+        public Long getMakeituserid() {
             return makeituserid;
         }
 
-        public void setMakeituserid(Integer makeituserid) {
+        public void setMakeituserid(Long makeituserid) {
             this.makeituserid = makeituserid;
         }
 

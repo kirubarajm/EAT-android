@@ -135,13 +135,13 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         void offersItemClick(CouponListResponse.Result offers);
 
-        void onItemClickData(Integer kitchenId);
+        void onItemClickData(Long kitchenId);
 
         void animateView(View view);
 
         void removeDishFavourite(Integer favId);
 
-        void addFav(Integer id, String fav);
+        void addFav(long id, String fav);
     }
 
     public class EmptyViewHolder extends BaseViewHolder {
@@ -190,7 +190,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
 
         @Override
-        public void onItemClick(Integer id) {
+        public void onItemClick(Long id) {
 
             mLiveProductsAdapterListener.onItemClickData(id);
 
@@ -198,7 +198,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         }
 
         @Override
-        public void addFavourites(Integer id, String fav) {
+        public void addFavourites(Long id, String fav) {
             mLiveProductsAdapterListener.addFav(id, fav);
         }
 

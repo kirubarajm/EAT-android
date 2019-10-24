@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
-/**
- * Created by Dhanasekar on 3/19/2018.
- */
 public class RegionListAdapter extends ArrayAdapter<RegionSearchModel.Result> implements Filterable {
 
     // Context

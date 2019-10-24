@@ -47,7 +47,10 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
         gender = male.get() ? AppConstants.TYPE_MALE : AppConstants.TYPE_FEMALE;
 
-        int userIdMain = getDataManager().getCurrentUserId();
+        if (email.isEmpty()) email=null;
+
+
+        Long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
@@ -72,7 +75,6 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
-
             ee.printStackTrace();
 
         }

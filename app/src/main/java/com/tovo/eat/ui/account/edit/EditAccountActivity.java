@@ -267,8 +267,6 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
     private boolean validForProceed() {
         if (mActivityNameGenderBinding.edtName.getText().toString().equals("")) {
-
-
             if ((mActivityNameGenderBinding.edtName.getText().toString().equals(""))) {
                 mActivityNameGenderBinding.inputName.setError("Enter your name");
 

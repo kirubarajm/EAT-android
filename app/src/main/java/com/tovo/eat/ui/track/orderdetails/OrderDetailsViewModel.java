@@ -195,7 +195,7 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
                             // Repeat Order
 
 
-                            cartRequestPojo.setMakeitUserid(response.getResult().get(0).getMakeitdetail().userid);
+                            cartRequestPojo.setMakeitUserid(response.getResult().get(0).getMakeitdetail().getUserid());
                             for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
 
                                 CartRequestPojo.Cartitem cartitem = new CartRequestPojo.Cartitem();

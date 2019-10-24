@@ -34,7 +34,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
     public ObservableField<String> support = new ObservableField<>();
     public String message = "";
     Response.ErrorListener errorListener;
-    int userId;
+    Long userId;
 
     public SupportActivityViewModel(DataManager dataManager) {
         super(dataManager);
@@ -103,7 +103,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
         }
     }
 
-    public void insertQueriesServiceCall(String strQueries, int type, int orderid) {
+    public void insertQueriesServiceCall(String strQueries, int type, Long orderid) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         SupportRequest supportRequest = new SupportRequest(strQueries, AppConstants.EAT, userId, orderid, type);

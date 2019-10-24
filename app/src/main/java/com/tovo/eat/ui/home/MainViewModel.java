@@ -65,8 +65,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public LiveOrderResponsePojo liveOrderResponsePojo;
-    private int orderId;
-    private int payment_orderId;
+    private long orderId;
+    private long payment_orderId;
     private int payment_price;
     private int action = NO_ACTION;
 
@@ -104,7 +104,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public boolean isAddressAdded() {
-        return getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0");
+
+        if (getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0")){
+            return true;
+        }else {
+            return false;
+        }
+
+//        return getDataManager().getCurrentLat() != null || !getDataManager().getCurrentLat().equals("0.0")|| !getDataManager().getCurrentLat().equals(0.0);
     }
 
     public void getMoveitLatLng(int moveitId) {
@@ -369,7 +376,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     }
 
     public void saveToken(String token) {
-        int userIdMain = getDataManager().getCurrentUserId();
+        long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
@@ -557,7 +564,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setCurrentLat(lat);
         getDataManager().setCurrentLng(lng);
         getNavigator().disConnectGPS();
-        getNavigator().openHome();
+       // getNavigator().openHome();
     }
 
 

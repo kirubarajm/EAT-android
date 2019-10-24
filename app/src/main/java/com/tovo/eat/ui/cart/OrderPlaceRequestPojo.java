@@ -9,7 +9,7 @@ public class OrderPlaceRequestPojo {
 
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
     @SerializedName("locality")
     @Expose
     private String locality;
@@ -53,11 +53,11 @@ public class OrderPlaceRequestPojo {
     @Expose
     private List<Orderitem> orderitems = null;
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
@@ -184,7 +185,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void trackLiveOrder(Integer orderId) {
+    public void trackLiveOrder(long orderId) {
 
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
         Intent intent = OrderTrackingActivity.newIntent(getContext());
@@ -231,7 +232,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             if (mHomeTabViewModel.getDataManager().getAddressId()!=0) {
 
                 if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
+<<<<<<< HEAD
                    startLocationTrackingForAddress();
+=======
+                  // startLocationTrackingForAddress();
+
+                    showAddressAler();
+>>>>>>> master-recovery
                 }
             }
 
@@ -269,6 +276,37 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+    public void showAddressAler(){
+
+        ToolTip toolTip = new ToolTip()
+                .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
+               // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
+                .withColor(getResources().getColor(R.color.tracking_back))
+                .withShadow()
+                .withTextColor(Color.BLACK)
+                .withAnimationType(ToolTip.AnimationType.FROM_TOP);
+        myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mFragmentHomeBinding.delAddress);
+
+        TextView title=myToolTipView.findViewById(R.id.activity_main_redtv);
+
+
+        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\n\nClick to change location!";
+
+        title.setText(sTitle);
+
+        myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+            @Override
+            public void onToolTipViewClicked(ToolTipView toolTipView) {
+                myToolTipView.remove();
+                myToolTipView = null;
+                mHomeTabViewModel.getDataManager().appStartedAgain(false);
+
+               // selectAddress();
+            }
+        });
+    }
+
+
     public void getLocation() {
 
 
@@ -281,23 +319,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
 
 
-
-                                ToolTip toolTip = new ToolTip()
-                                        .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
-                                        .withText("Do you want to delivery to this address?")
-                                        .withColor(getResources().getColor(R.color.tracking_back))
-                                        .withShadow()
-                                        .withTextColor(Color.WHITE)
-                                        .withAnimationType(ToolTip.AnimationType.FROM_TOP);
-                                myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mFragmentHomeBinding.delAddress);
-                                myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
-                                    @Override
-                                    public void onToolTipViewClicked(ToolTipView toolTipView) {
-                                        myToolTipView.remove();
-                                        myToolTipView = null;
-                                        mHomeTabViewModel.getDataManager().appStartedAgain(false);
-                                    }
-                                });
+showAddressAler();
 
 
                             }
@@ -550,7 +572,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
@@ -565,7 +587,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(long id, String fav) {
 
         mHomeTabViewModel.addFavourite(id, fav);
 

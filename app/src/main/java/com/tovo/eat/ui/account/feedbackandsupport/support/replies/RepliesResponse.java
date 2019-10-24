@@ -43,7 +43,7 @@ public class RepliesResponse {
         public Integer type;
         @SerializedName("userid")
         @Expose
-        public Integer userid;
+        public Long userid;
         @SerializedName("admin_read")
         @Expose
         public Integer adminRead;
@@ -89,11 +89,11 @@ public class RepliesResponse {
             this.type = type;
         }
 
-        public Integer getUserid() {
+        public Long getUserid() {
             return userid;
         }
 
-        public void setUserid(Integer userid) {
+        public void setUserid(Long userid) {
             this.userid = userid;
         }
 

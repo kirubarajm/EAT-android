@@ -9,10 +9,10 @@ public class CartRequestPojo {
 
     @SerializedName("makeit_user_id")
     @Expose
-    private Integer makeitUserid;
+    private Long makeitUserid;
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
     @SerializedName("rcid")
     @Expose
     private Integer rcid;
@@ -62,19 +62,19 @@ public class CartRequestPojo {
         this.cid = cid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
-    public Integer getMakeitUserid() {
+    public Long getMakeitUserid() {
         return makeitUserid;
     }
 
-    public void setMakeitUserid(Integer makeitUserid) {
+    public void setMakeitUserid(Long makeitUserid) {
         this.makeitUserid = makeitUserid;
     }
 

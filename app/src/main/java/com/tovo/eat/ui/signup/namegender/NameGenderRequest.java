@@ -7,7 +7,7 @@ public class NameGenderRequest {
 
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
     @SerializedName("name")
     @Expose
     public String name;
@@ -39,13 +39,13 @@ public class NameGenderRequest {
         this.regionId = regionId;
     }
 
-    public NameGenderRequest(Integer userid, String name, Integer gender) {
+    public NameGenderRequest(Long userid, String name, Integer gender) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
     }
 
-    public NameGenderRequest(Integer userid, String name, Integer gender, Integer regionId,String referredby) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String referredby) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
@@ -53,18 +53,18 @@ public class NameGenderRequest {
         this.referredby=referredby;
     }
 
-    public NameGenderRequest(Integer userid, String name, Integer gender, Integer regionId) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
         this.regionId = regionId;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

@@ -31,8 +31,9 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
     Activity activity;
 
 
-    Integer makeitId, productId,quantity,price;
+    Integer  productId,quantity,price;
 
+    long makeitId;
 
     AddKitchenDishListener addKitchenDishListener;
 
@@ -65,7 +66,7 @@ public class DialogChangeKitchen extends BaseDialog implements DialogChangeKitch
         super.onAttach(context);
     }
 
-    public void show(FragmentManager fragmentManager, Activity activity, Integer makeitId, Integer productId, Integer quantity, Integer price) {
+    public void show(FragmentManager fragmentManager, Activity activity, Long makeitId, Integer productId, Integer quantity, Integer price) {
         this.activity = activity;
         this.makeitId=makeitId;
         this.productId=productId;

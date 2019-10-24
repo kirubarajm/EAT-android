@@ -241,7 +241,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
     public void saveToken(String token) {
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-        int userIdMain = appPreferencesHelper.getCurrentUserId();
+        long userIdMain = appPreferencesHelper.getCurrentUserId();
 
        // if (!MvvmApp.getInstance().onCheckNetWork()) return;
         if (userIdMain == 0) return;

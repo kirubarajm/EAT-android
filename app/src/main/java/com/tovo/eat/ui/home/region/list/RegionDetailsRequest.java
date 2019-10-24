@@ -12,7 +12,7 @@ public class RegionDetailsRequest {
     private String lon;
     @SerializedName("eatuserid")
     @Expose
-    private Integer eatuserid;
+    private long eatuserid;
     @SerializedName("regionid")
     @Expose
     private Integer regionid;
@@ -20,7 +20,7 @@ public class RegionDetailsRequest {
     @Expose
     private Integer vegtype;
 
-    public RegionDetailsRequest(String lat, String lon, Integer eatuserid, Integer regionid, Integer vegtype) {
+    public RegionDetailsRequest(String lat, String lon, long eatuserid, Integer regionid, Integer vegtype) {
         this.lat = lat;
         this.lon = lon;
         this.eatuserid = eatuserid;
@@ -52,11 +52,11 @@ public class RegionDetailsRequest {
         this.lon = lon;
     }
 
-    public Integer getEatuserid() {
+    public long getEatuserid() {
         return eatuserid;
     }
 
-    public void setEatuserid(Integer eatuserid) {
+    public void setEatuserid(long eatuserid) {
         this.eatuserid = eatuserid;
     }
 

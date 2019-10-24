@@ -73,7 +73,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-    public void saveMakeitId(Integer id) {
+    public void saveMakeitId(long id) {
 
 
         getDataManager().kitchenId(id);
@@ -126,7 +126,7 @@ public class KitchenViewModel extends BaseViewModel<KitchenNavigator> {
     }
 
 
-    public void addFavourite(Integer kitchenId, String fav) {
+    public void addFavourite(long kitchenId, String fav) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

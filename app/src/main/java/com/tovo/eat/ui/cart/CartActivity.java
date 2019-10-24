@@ -277,7 +277,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void gotoKitchen(int kitchenid) {
+    public void gotoKitchen(Long kitchenid) {
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenid);
         startActivity(intent);

@@ -19,8 +19,8 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
     public boolean passwordstatus;
     public boolean otpStatus;
     public boolean genderstatus;
-    int OtpId;
-    int userId;
+    long OtpId;
+    long userId;
     Response.ErrorListener errorListener;
 
     public SignUpActivityViewModel(DataManager dataManager) {

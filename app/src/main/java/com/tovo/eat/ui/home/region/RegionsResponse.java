@@ -72,7 +72,7 @@ public class RegionsResponse {
 
         @SerializedName("makeituserid")
         @Expose
-        private Integer makeituserid;
+        private Long makeituserid;
         @SerializedName("makeitusername")
         @Expose
         private String makeitusername;
@@ -119,11 +119,11 @@ public class RegionsResponse {
         @Expose
         private String eta;
 
-        public Integer getMakeituserid() {
+        public Long getMakeituserid() {
             return makeituserid;
         }
 
-        public void setMakeituserid(Integer makeituserid) {
+        public void setMakeituserid(Long makeituserid) {
             this.makeituserid = makeituserid;
         }
 

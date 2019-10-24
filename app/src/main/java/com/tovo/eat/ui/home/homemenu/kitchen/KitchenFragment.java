@@ -192,7 +192,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     }
 
     @Override
-    public void onItemClickData(Integer kitchenId) {
+    public void onItemClickData(Long kitchenId) {
 
         mKitchenViewModel.saveMakeitId(kitchenId);
 
@@ -209,7 +209,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
 
 
     @Override
-    public void addFav(Integer id, String fav) {
+    public void addFav(long id, String fav) {
 
         mKitchenViewModel.addFavourite(id, fav);
     }

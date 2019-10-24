@@ -16,7 +16,7 @@ public class OrderRatingActivityViewModel extends BaseViewModel<OrderRatingActiv
 
     public final ObservableField<String> order = new ObservableField<>();
     public final ObservableField<String> kitchen = new ObservableField<>();
-    public int orderID = 0;
+    public long orderID = 0;
     Response.ErrorListener errorListener;
 
 

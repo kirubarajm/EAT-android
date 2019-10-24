@@ -10,9 +10,9 @@ public class RepliesCountRequest {
     public Integer type;
     @SerializedName("userid")
     @Expose
-    public Integer userid;
+    public Long userid;
 
-    public RepliesCountRequest(Integer type, Integer userid) {
+    public RepliesCountRequest(Integer type, Long userid) {
         this.type = type;
         this.userid = userid;
     }
@@ -25,11 +25,11 @@ public class RepliesCountRequest {
         this.type = type;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 }

@@ -105,7 +105,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public void logOutSession() {
         getDataManager().setLogout();
         getDataManager().setCartDetails(null);
-        getDataManager().setAddressId(0);
+        getDataManager().setAddressId(null);
         getDataManager().setCurrentAddress(null);
         getDataManager().setCurrentAddressArea(null);
         getDataManager().setCurrentAddressTitle(null);
@@ -116,7 +116,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public void fetchUserDetails() {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
-            int userId = getDataManager().getCurrentUserId();
+            Long userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.URL_GET_USER_DETAILS + userId, GetUserDetailsResponse.class, new Response.Listener<GetUserDetailsResponse>() {
                 @Override

@@ -13,9 +13,9 @@ public class DeliveryTimeRequest {
     private String lon;
     @SerializedName("orderid")
     @Expose
-    private Integer orderid;
+    private long orderid;
 
-    public DeliveryTimeRequest(String lat, String lon, Integer orderid) {
+    public DeliveryTimeRequest(String lat, String lon, long orderid) {
         this.lat = lat;
         this.lon = lon;
         this.orderid = orderid;
@@ -37,11 +37,11 @@ public class DeliveryTimeRequest {
         this.lon = lon;
     }
 
-    public Integer getOrderid() {
+    public long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(long orderid) {
         this.orderid = orderid;
     }
 

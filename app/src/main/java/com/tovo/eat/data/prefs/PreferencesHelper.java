@@ -33,9 +33,9 @@ public interface PreferencesHelper {
 
     void setCurrentUserEmail(String email);
 
-    Integer getCurrentUserId();
+    Long getCurrentUserId();
 
-    void setCurrentUserId(Integer userId);
+    void setCurrentUserId(Long userId);
 
     int getCurrentUserLoggedInMode();
 
@@ -90,22 +90,22 @@ public interface PreferencesHelper {
     void setCurrentLng(double lng);
 
 
-    Integer getMakeitID();
+    Long getMakeitID();
 
 
-    void setMakeitID(Integer id);
+    void setMakeitID(Long id);
 
 
-    Integer getOrderId();
+    Long getOrderId();
 
 
-    void setOrderId(Integer orderId);
+    void setOrderId(Long orderId);
 
 
-    Integer getAddressId();
+    Long getAddressId();
 
 
-    void setAddressId(Integer orderId);
+    void setAddressId(Long orderId);
 
 
     String getMaster();
@@ -194,9 +194,9 @@ public interface PreferencesHelper {
 
     void setRatingSkips(Integer skips);
 
-    Integer getRatingOrderid();
+    Long getRatingOrderid();
 
-    void setRatingOrderid(Integer orderid);
+    void setRatingOrderid(Long orderid);
 
 
     String getRatingDate();

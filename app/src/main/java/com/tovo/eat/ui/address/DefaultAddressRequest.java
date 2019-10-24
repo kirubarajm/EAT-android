@@ -7,29 +7,29 @@ public class DefaultAddressRequest {
 
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
     @SerializedName("aid")
     @Expose
-    private Integer aid;
+    private Long aid;
 
-    public DefaultAddressRequest(Integer userid, Integer aid) {
+    public DefaultAddressRequest(Long userid, Long aid) {
         this.userid = userid;
         this.aid = aid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
-    public Integer getAid() {
+    public Long getAid() {
         return aid;
     }
 
-    public void setAid(Integer aid) {
+    public void setAid(Long aid) {
         this.aid = aid;
     }
 

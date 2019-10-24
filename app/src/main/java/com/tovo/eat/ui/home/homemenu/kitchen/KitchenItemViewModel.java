@@ -123,7 +123,7 @@ public class KitchenItemViewModel {
     public void removeFavourite() {
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-        int userId = appPreferencesHelper.getCurrentUserId();
+        Long userId = appPreferencesHelper.getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         if (favID != 0)
@@ -160,14 +160,14 @@ public class KitchenItemViewModel {
     }
 
 
-    public void addFavourite(Integer kitchenId) {
+    public void addFavourite(long kitchenId) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         //   AlertDialog.Builder builder=new AlertDialog.Builder(CartActivity.this.getApplicationContext() );
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-        int userId = appPreferencesHelper.getCurrentUserId();
+        Long userId = appPreferencesHelper.getCurrentUserId();
 
 
         try {
@@ -203,9 +203,9 @@ public class KitchenItemViewModel {
     }
 
     public interface KitchenItemViewModelListener {
-        void onItemClick(Integer id);
+        void onItemClick(Long id);
 
-        void addFavourites(Integer id, String fav);
+        void addFavourites(Long id, String fav);
 
         void removeFavourites(Integer favId);
     }

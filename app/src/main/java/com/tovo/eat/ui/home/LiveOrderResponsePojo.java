@@ -75,7 +75,7 @@ public class LiveOrderResponsePojo {
         private Integer userid;
         @SerializedName("makeituserid")
         @Expose
-        private Integer makeituserid;
+        private Long makeituserid;
         @SerializedName("moveit_user_id")
         @Expose
         private Integer moveitUserId;
@@ -158,11 +158,11 @@ public class LiveOrderResponsePojo {
             this.userid = userid;
         }
 
-        public Integer getMakeituserid() {
+        public Long getMakeituserid() {
             return makeituserid;
         }
 
-        public void setMakeituserid(Integer makeituserid) {
+        public void setMakeituserid(Long makeituserid) {
             this.makeituserid = makeituserid;
         }
 

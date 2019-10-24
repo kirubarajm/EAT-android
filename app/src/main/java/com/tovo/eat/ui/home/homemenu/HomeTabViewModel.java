@@ -93,7 +93,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
-    private int orderId;
+    private long orderId;
 
     public boolean singleTime=false;
 
@@ -226,7 +226,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-    public void addFavourite(Integer kitchenId, String fav) {
+    public void addFavourite(long kitchenId, String fav) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

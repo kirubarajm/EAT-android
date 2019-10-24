@@ -152,7 +152,7 @@ public class OtpResponse {
         private String pincode;
         @SerializedName("aid")
         @Expose
-        private Integer aid;
+        private Long aid;
         @SerializedName("lat")
         @Expose
         private Double lat;
@@ -226,11 +226,11 @@ public class OtpResponse {
             this.pincode = pincode;
         }
 
-        public Integer getAid() {
+        public Long getAid() {
             return aid;
         }
 
-        public void setAid(Integer aid) {
+        public void setAid(Long aid) {
             this.aid = aid;
         }
 

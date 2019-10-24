@@ -58,7 +58,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> brandname = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
 
-    public Integer orderid = 0;
+    public Long orderid ;
     public int refundBalance = 0;
     public int price = 0;
     public String razorpayCustomerId = null;
@@ -199,8 +199,8 @@ public boolean paymentSuccessNotSent=false;
 
                                     if (cartPaymentResponse.getStatus()) {
 
-                                        Integer sorderId = cartPaymentResponse.getOrderid();
-                                        if (sorderId!=null)
+                                        long sorderId = cartPaymentResponse.getOrderid();
+                                        if (sorderId!=0)
                                         getDataManager().setOrderId(sorderId);
 
 
@@ -219,7 +219,7 @@ public boolean paymentSuccessNotSent=false;
                                         if (cartPaymentResponse.getResult() != null) {
 
                                             if (cartPaymentResponse.getResult().size() > 0) {
-                                                Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                                Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
                                                 if (orderId != null)
                                                     getDataManager().setOrderId(orderId);
                                                 price = cartPaymentResponse.getResult().get(0).getPrice();
@@ -342,7 +342,7 @@ public boolean paymentSuccessNotSent=false;
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Integer sorderId=0;
+                        Long sorderId = null;
                         if (response!=null) {
 
                             Gson gson = new Gson();
@@ -380,7 +380,7 @@ public boolean paymentSuccessNotSent=false;
                             } else {
 
                                 if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
-                                    Integer orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                    Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
                                     if (orderId!=null)
                                     getDataManager().setOrderId(orderId);
                                     price = cartPaymentResponse.getResult().get(0).getPrice();

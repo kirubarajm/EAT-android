@@ -35,8 +35,8 @@ public interface PaymentNavigator {
 
     void orderCompleted();
 
-    void orderGenerated(Integer orderId, String customerId, Integer amount);
-    void pendingPayment(Integer orderId, String customerId, Integer amount);
+    void orderGenerated(Long orderId, String customerId, Integer amount);
+    void pendingPayment(Long orderId, String customerId, Integer amount);
 
     void paymentSuccessed(boolean status);
     void postRegistration(Integer code);
