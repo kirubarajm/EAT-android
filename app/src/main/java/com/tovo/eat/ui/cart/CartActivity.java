@@ -20,10 +20,12 @@ import com.tovo.eat.ui.cart.funnel.FunnelActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
+import com.tovo.eat.ui.cart.xfactoralert.XFactorFragment;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -266,6 +268,16 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
         if (!dialog.isShowing())
             showDialog();
+    }
+
+    @Override
+    public void showXFactorALert(String msg) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("message", msg);
+        XFactorFragment bottomSheetFragment = new XFactorFragment();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override

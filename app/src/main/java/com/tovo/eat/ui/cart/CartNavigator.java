@@ -35,6 +35,7 @@ public interface CartNavigator {
     void redirectHome();
 
     void notServicable();
+    void showXFactorALert(String msg);
     void funnelAlert();
     void gotoKitchen(Long kitchenid);
 }

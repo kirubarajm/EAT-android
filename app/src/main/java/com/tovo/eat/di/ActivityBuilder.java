@@ -54,6 +54,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListModule;
 import com.tovo.eat.ui.cart.funnel.FunnelActivity;
 import com.tovo.eat.ui.cart.funnel.FunnelModule;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlertProvider;
+import com.tovo.eat.ui.cart.xfactoralert.XFactorProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
@@ -136,7 +137,8 @@ public abstract class ActivityBuilder {
             DialogChangeKitchenProvider.class,
             DialogRefundAlertProvider.class,
             PendingPaymentProvider.class,
-            SearchProvider.class
+            SearchProvider.class,
+            XFactorProvider.class
 
     })
     abstract MainActivity bindMainActivity();

@@ -88,7 +88,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
 
         analytics=new Analytics(getActivity(), pageName);
-        //  StartFilter myInterface =getInterface(StartFilter.class, this);
+        //  XfactorListner myInterface =getInterface(XfactorListner.class, this);
 
 
     }

@@ -199,6 +199,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
         public static final String SCREEN_CART_PAGE=  "cart_page";
         public static final String SCREEN_KITCHEN_FILTER=  "kitchen_filter";
 
+        public static final String SCREEN_X_FACTOR=  "DELIVERY_DEMAND";
+
         public static final String SCREEN_STORIES=  "stories";
         public static final String SCREEN_HOME=  "home";
         public static final String SCREEN_REGION_DETAILS=  "region_details";
@@ -481,6 +483,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
     public static final String EAT_CUISINELIST =  URL_SERVER_IP_PORT +"/masters/cuisinelist";
 
     public static final String EAT_CUSTOMER_SUPPORT=  URL_SERVER_IP_PORT +"/eat/customersupport";
+
+    public static final String EAT_X_FACTOR=  URL_SERVER_IP_PORT +"/eat/getXfactors";
 
 
     public static final String EAT_REGION_LIST = URL_SERVER_IP_PORT + "/eat/regionlist";
