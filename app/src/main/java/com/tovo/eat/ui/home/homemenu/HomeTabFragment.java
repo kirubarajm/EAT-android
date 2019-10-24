@@ -232,13 +232,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             if (mHomeTabViewModel.getDataManager().getAddressId()!=0) {
 
                 if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
-<<<<<<< HEAD
-                   startLocationTrackingForAddress();
-=======
+
                   // startLocationTrackingForAddress();
 
                     showAddressAler();
->>>>>>> master-recovery
+
                 }
             }
 

@@ -95,6 +95,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         getDataManager().setCurrentLat(response.getResult().get(0).getLat());
                                         getDataManager().setCurrentLng(response.getResult().get(0).getLon());
                                         getDataManager().setAddressId(response.getResult().get(0).getAid());
+                                        getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
                                         getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
 
                                     }
