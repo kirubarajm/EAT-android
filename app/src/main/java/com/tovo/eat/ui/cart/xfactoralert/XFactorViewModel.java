@@ -11,6 +11,7 @@ import dagger.Module;
 @Module
 public class XFactorViewModel extends BaseViewModel<XFactorNavigator> {
     public final ObservableField<String> message = new ObservableField<>();
+    public final ObservableField<String> title = new ObservableField<>();
     public XFactorViewModel(DataManager dataManager) {
         super(dataManager);
     }

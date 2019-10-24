@@ -1083,7 +1083,7 @@ xfactor();
 
                                 } else {
 
-                                    getNavigator().showXFactorALert(response.getString("message"));
+                                    getNavigator().showXFactorALert(response.getString("message"),response.getString("title"));
 
                                 }
 

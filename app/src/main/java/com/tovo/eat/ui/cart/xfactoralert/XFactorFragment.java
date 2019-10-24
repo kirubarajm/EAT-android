@@ -82,6 +82,7 @@ public class XFactorFragment extends BaseBottomSheetFragment<FragmentXfactorBind
 
         if (getArguments() != null) {
             mXFactorViewModel.message.set(getArguments().getString("message"));
+            mXFactorViewModel.title.set(getArguments().getString("title"));
         }
 
 

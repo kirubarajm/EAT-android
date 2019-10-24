@@ -271,10 +271,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void showXFactorALert(String msg) {
+    public void showXFactorALert(String msg,String title) {
 
         Bundle bundle = new Bundle();
         bundle.putString("message", msg);
+        bundle.putString("title", title);
         XFactorFragment bottomSheetFragment = new XFactorFragment();
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
