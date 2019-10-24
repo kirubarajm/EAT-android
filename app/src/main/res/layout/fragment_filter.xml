@@ -150,7 +150,7 @@
                 <LinearLayout
                     android:visibility="visible"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="350dp"
                     android:orientation="vertical">
 
                    <!-- <com.tovo.eat.utilities.fonts.CircularTextView

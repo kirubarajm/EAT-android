@@ -36,7 +36,16 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
         } catch (Exception e) {
 
             SharedPreferences settings =MvvmApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
-            settings.edit().clear().apply();
+           // settings.edit().clear().apply();
+         int uid= settings.getInt("PREF_KEY_CURRENT_USER_ID",0);
+         int aid= settings.getInt("CURRENT_ADDRESS_ID",0);
+         int oid= settings.getInt("PREF_KEY_ORDER_ID",0);
+         int roid= settings.getInt("RATING_ORDER_ID",0);
+            getDataManager().setCurrentUserId((long) uid);
+            getDataManager().setAddressId((long) aid);
+            getDataManager().setOrderId((long) oid);
+            getDataManager().setRatingOrderid((long) roid);
+
         }
 
     }

@@ -60,8 +60,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
             startActivity(intent);
             finish();
         } else {
-            SharedPreferences settings = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
-            settings.edit().clear().apply();
+           /* SharedPreferences settings = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+            settings.edit().clear().apply();*/
             Intent intent = SignUpActivity.newIntent(SplashActivity.this);
             startActivity(intent);
             finish();
