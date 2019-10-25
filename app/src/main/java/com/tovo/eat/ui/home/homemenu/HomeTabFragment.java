@@ -288,7 +288,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         TextView title=myToolTipView.findViewById(R.id.activity_main_redtv);
 
 
-        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\n\nClick to change location!";
+        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\nClick to change location!";
 
         title.setText(sTitle);
 

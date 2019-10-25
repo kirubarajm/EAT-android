@@ -17,13 +17,16 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <!--<com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-        android:layout_gravity="end"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="2dp"
+        android:background="@drawable/curve_stroke_gray_add"
+        android:layout_gravity="center_horizontal"
         android:text="@string/ok"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content" />
 </LinearLayout>
 </RelativeLayout>
