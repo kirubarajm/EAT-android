@@ -23,6 +23,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public SplashActivityViewModel(DataManager dataManager) {
         super(dataManager);
+        getDataManager().appStartedAgain(true);
     }
 
 

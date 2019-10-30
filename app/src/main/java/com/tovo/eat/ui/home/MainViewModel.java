@@ -77,7 +77,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setIsFav(false);
         masterRequest();
         getDataManager().setIsFilterApplied(false);
-        getDataManager().appStartedAgain(true);
+        //getDataManager().appStartedAgain(true);
 
     }
 
