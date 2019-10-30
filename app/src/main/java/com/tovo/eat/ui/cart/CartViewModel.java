@@ -587,6 +587,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         new Analytics().sendClickData(AppConstants.SCREEN_CART_PAGE, AppConstants.CLICK_PROCEED_TO_PAY);
 
+        new Analytics().proceedToPay(Integer.parseInt(grand_total.get()));
 
         if (funnelStatus == 0) {
 
@@ -601,7 +602,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                     } else {
 
-xfactor();
+                        xfactor();
                     }
 
                 } else {
@@ -953,8 +954,6 @@ xfactor();
     }
 
 
-
-
     public void xfactor() {
 
         try {
@@ -1010,8 +1009,8 @@ xfactor();
 
 
                                 if (response.getBoolean("status")) {
-/*
-                                       *//* getDataManager().currentOrderId(response.getInt("orderid"));
+                                    /*
+                                     *//* getDataManager().currentOrderId(response.getInt("orderid"));
                                         getDataManager().setCartDetails(null);
                                         getNavigator().orderCompleted();
                                         getDataManager().saveRefundId(0);*//*
@@ -1083,7 +1082,7 @@ xfactor();
 
                                 } else {
 
-                                    getNavigator().showXFactorALert(response.getString("message"),response.getString("title"));
+                                    getNavigator().showXFactorALert(response.getString("message"), response.getString("title"));
 
                                 }
 

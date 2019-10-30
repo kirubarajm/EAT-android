@@ -113,6 +113,9 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     public void viewCart() {
         new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION, AppConstants.CLICK_VIEW_CART);
 
+
+        new Analytics().kitchenViewcart(AppConstants.CLICK_COLLECTION_VIEW_CART,mSearchDishViewModel.kitchenid);
+
         Intent intent = MainActivity.newIntent(SearchDishActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("cart", true);
@@ -243,6 +246,9 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
 
 
         new Analytics().sendClickData(AppConstants.SCREEN_EXPLORE_COLLECTION, AppConstants.CLICK_VIEW_KITCHEN);
+
+
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_COLLECTION_KITCHEN,kitchenId);
 
         Intent intent = KitchenDetailsActivity.newIntent(getApplicationContext());
         intent.putExtra("kitchenId", kitchenId);

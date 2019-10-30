@@ -47,7 +47,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
     public ObservableField<String> searched = new ObservableField<>();
     private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
 
-
+    public Long kitchenid;
     public SearchDishViewModel(DataManager dataManager) {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
@@ -109,6 +109,8 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 cart.set(false);
 
             } else {
+
+                  kitchenid=cartRequestPojo.getMakeitUserid();
 
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
@@ -282,7 +284,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                  */
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                    return AppConstants.setHeaders(AppConstants.API_VERSION_TWO);
                 }
             };
 

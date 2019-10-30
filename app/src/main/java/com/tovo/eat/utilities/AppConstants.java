@@ -122,6 +122,7 @@ public class AppConstants {
 
     public static final String API_VERSION_ONE = "1.0.0";
     public static final String API_VERSION_TWO = "2.0.0";
+    public static final String API_VERSION_TWO_ONE = "2.0.1";
     public static final String API_VERSION_THEREE = "3.0.0";
     public static final String API_VERSION_FOUR = "4.0.0";
     public static final String APP_TYPE_ANDROID= "1";// 1 means android
@@ -143,9 +144,24 @@ public class AppConstants {
     public static final String ANALYTICYS_REGION= "region_name";
     public static final String ANALYTICYS_SEARCH_TYPE= "search_type";
     public static final String ANALYTICYS_SEARCH_NAME= "search_name";
+    public static final String ANALYTICYS_SEARCH_SUGGESTION= "suggestion";
     public static final String ANALYTICYS_SEARCH_ID= "search_id";
 
 
+
+    public static final String ANALYTICYS_KITCHEN_NAME= "kitchen_name";
+    public static final String CLICK_KITCHEN_VIEW_CART= "kitchen_view_cart";
+    public static final String CLICK_FAV_VIEW_CART= "fav_view_cart";
+    public static final String CLICK_COLLECTION_VIEW_CART= "collection_view_cart";
+    public static final String CLICK_DIRECT_VIEW_CART= "direct_view_cart";
+
+
+    public static final String ANALYTICYS_HOME_KITCHEN= "home_kitchen";
+    public static final String ANALYTICYS_FAV_KITCHEN= "fav_kitchen";
+    public static final String ANALYTICYS_REGION_KITCHEN= "region_kitchen";
+    public static final String ANALYTICYS_COLLECTION_KITCHEN= "collection_kitchen";
+    public static final String ANALYTICYS_CART_KITCHEN= "cart_kitchen";
+    public static final String ANALYTICYS_SEARCH_KITCHEN= "search_kitchen";
 
 
 
@@ -160,6 +176,8 @@ public static final String ANALYTICYS_USER_LOGIN= "user_login";
 public static final String ANALYTICYS_STORY_VIEW= "story";
 public static final String ANALYTICYS_SEARCH_CLICKED= "search";
 public static final String ANALYTICYS_PROCEED_TO_PAY= "proceed_to_pay";
+public static final String ANALYTICYS_CHECKOUT= "checkout";
+public static final String ANALYTICYS_CREATE_ORDER= "create_order";
 public static final String ANALYTICYS_ORDER_PLACED= "order_placed";
 public static final String ANALYTICYS_REGION_SELECTED= "region_selected";
 public static final String ANALYTICYS_RATING= "rating";
@@ -214,7 +232,7 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
 
         public static final String SCREEN_GET_EMAIL=  "get_email";
         public static final String SCREEN_EXPLORE_COLLECTION=  "explore_collection";
-        public static final String SCREEN_SEARCH=  "search";
+        public static final String SCREEN_SEARCH=  "page_search";
 
         public static final String SCREEN_FAQS_AND_SUPPORT=  "faqs_support";
         public static final String SCREEN_FAQS=  "faqs";

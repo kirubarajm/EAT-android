@@ -139,6 +139,9 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
         mKitchenViewModel.saveMakeitId(kitchenId);
         // save kitchen click to analytics
         new Analytics().sendClickData(AppConstants.SCREEN_FAVOURITE_KITCHEN,AppConstants.CLICK_KITCHEN_CLICK);
+
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_FAV_KITCHEN,kitchenId);
+
         //Open kitchen details
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);

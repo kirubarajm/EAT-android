@@ -310,7 +310,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 mSearchViewModel.fetchDishes(result.getName());
 
 
-                new Analytics().search("DISH",result.getName());
+                new Analytics().search("DISH",searchText,result.getName());
 
 
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.VISIBLE);
@@ -330,17 +330,19 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 break;
             case 2:
 
-                new Analytics().search("HOME",result.getName());
+                new Analytics().search("HOME",searchText,result.getName());
+
+                new Analytics().selectKitchen(AppConstants.ANALYTICYS_SEARCH_KITCHEN,Long.valueOf(result.getId()));
+
 
                 Intent intent1 = KitchenDetailsActivity.newIntent(getContext());
-                intent1.putExtra("kitchenId", result.getId());
+                intent1.putExtra("kitchenId",Long.valueOf(result.getId()));
                 startActivity(intent1);
                 break;
 
-
             case 3:
 
-                new Analytics().search("REGION",result.getName());
+                new Analytics().search("REGION",searchText,result.getName());
 
                 mSearchViewModel.fetchRegionKitchens(result.getName(), result.getId());
 

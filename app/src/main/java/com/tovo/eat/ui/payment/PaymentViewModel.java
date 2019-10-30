@@ -206,7 +206,8 @@ public boolean paymentSuccessNotSent=false;
 
                                         if (cartPaymentResponse.getPrice() != null)
                                             new Analytics().orderPlaced(sorderId, Integer.parseInt(amount.get()));
-                                        new Analytics().proceedToPay(sorderId, Integer.parseInt(amount.get()));
+
+                                        new Analytics().createOrder(sorderId, Integer.parseInt(amount.get()));
 
 
                                         getDataManager().currentOrderId(sorderId);
@@ -357,7 +358,7 @@ public boolean paymentSuccessNotSent=false;
 
                                          getDataManager().setOrderId(sorderId);
 
-                                         new Analytics().proceedToPay(orderid, cartPaymentResponse.getPrice());
+                                         new Analytics().createOrder(orderid, cartPaymentResponse.getPrice());
                                      }
                                 }
                                 if (getDataManager().getRefundId() != 0) {

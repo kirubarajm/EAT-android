@@ -232,7 +232,7 @@
             android:value="rzp_live_bCMW6sG1GWp36Q" />
 
 
-        <meta-data
+        <!--<meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="@bool/FIREBASE_PERFORMANCE_ENABLED" />
 
@@ -248,7 +248,7 @@
 
         <meta-data
             android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/freshchat_file_provider_paths" />
+            android:resource="@xml/freshchat_file_provider_paths" />-->
 
         <meta-data android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
