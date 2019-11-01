@@ -156,7 +156,7 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomDatabase"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomDatabase"
 
-    //Glide image
+    /*//Glide image
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // Glide v3 (stable)
@@ -164,7 +164,39 @@ dependencies {
     // OkHttp3
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.6.0-SNAPSHOT'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'*/
+
+
+    //Glide image
+    //implementation 'com.github.bumptech.glide:glide:4.9.0'
+
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    // Glide v3 (stable)
+    implementation 'com.github.bumptech.glide:glide:4.9.0-SNAPSHOT'
+    // OkHttp3
+ //   implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.6.0-SNAPSHOT'
+
+
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+
+
+    /*//Glide image
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    // Glide v3 (stable)
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    // OkHttp3
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'*/
+
+   // implementation 'com.github.bumptech.glide:glide:4.9.0'
+
+
 
 
     /////VOLLEY
@@ -197,6 +229,7 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
 
+
     //video view
     //implementation 'com.linsea:universalvideoview:1.1.0@aar'
 
@@ -205,6 +238,9 @@ dependencies {
 
     // implementation 'com.github.freshdesk:freshchat-android:2.8.0'
 
+ //  implementation 'com.google.android.libraries.places:places-compat:1.0.0'
+
+   // implementation 'com.google.android.libraries.places:places:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

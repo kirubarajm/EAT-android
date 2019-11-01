@@ -23,6 +23,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -39,7 +40,9 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -75,7 +78,6 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
@@ -125,6 +127,7 @@ public final class BindingUtils {
             adapter.addItems(sales, recyclerView.getContext());
         }
     }
+
     @BindingAdapter({"adapter"})
     public static void addBillItems(RecyclerView recyclerView, List<CartPageResponse.Cartdetail> cartdetails) {
         BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();
@@ -150,15 +153,14 @@ public final class BindingUtils {
             adapter.addItems(results);
         }
     }
- @BindingAdapter({"hAdapter"})
+
+    @BindingAdapter({"hAdapter"})
     public static void addOfferListItems(RecyclerView recyclerView, List<CouponListResponse.Result> results) {
-       OffersAdapter adapter = (OffersAdapter) recyclerView.getAdapter();
+        OffersAdapter adapter = (OffersAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
         }
     }
-
-
 
 
     @BindingAdapter({"dishadapter"})
@@ -409,15 +411,12 @@ public final class BindingUtils {
         Context context = imageView.getContext();
 
 
-
-
-
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+                // .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(new DelayBitmapTransformation(0))
-                .listener(new LoggingListener<String, Bitmap>())
+                //  .listener(new LoggingListener<String, Bitmap>())
                 .into(imageView);
 
 
@@ -502,18 +501,38 @@ public final class BindingUtils {
     }
 
 
-
-
-    @BindingAdapter({"imageUrl","loader"})
+    @BindingAdapter({"imageUrl", "loader"})
     public static void setImageUrl(ImageView imageView, String url, ImageView loader) {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
         Glide.with(context).load(R.raw.img_loader).into(loader);
 
+
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+                // .asBitmap()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                loader.setVisibility(View.GONE);
+
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                loader.setVisibility(View.GONE);
+                return false;
+            }
+        }).error(R.drawable.imagenotavailable)
+                .into(imageView);
+
+
+       /* Glide.with(context)
+                .load(url)
+               // .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<String, Bitmap>() {
@@ -535,19 +554,19 @@ public final class BindingUtils {
 
                 })
                 .error(R.drawable.imagenotavailable)
-                .into(imageView);
+                .into(imageView);*/
 
 
     }
 
-    @BindingAdapter({"roundimageUrl","roundloader"})
+    @BindingAdapter({"roundimageUrl", "roundloader"})
     public static void setRoundImageUrl(RoundCornerImageView imageView, String url, ImageView loader) {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
 
 
-       // Glide.with(context).load(R.raw.plate_empty_loader).into(loader);
+        // Glide.with(context).load(R.raw.plate_empty_loader).into(loader);
 
 
         /*Glide.with(context)
@@ -577,47 +596,39 @@ public final class BindingUtils {
 
     }
 
-@BindingAdapter({"imageUrl","shimmer"})
+    @BindingAdapter({"imageUrl", "shimmer"})
     public static void setImageUrl(ImageView imageView, String url, ShimmerFrameLayout loader) {
         Context context = imageView.getContext();
 
         loader.setVisibility(View.VISIBLE);
         loader.startShimmerAnimation();
 
+
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+                // .asBitmap()
                 .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(new RequestListener<String, Bitmap>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
-                        loader.stopShimmerAnimation();
-                        return false;
+                .diskCacheStrategy(DiskCacheStrategy.ALL).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                loader.setVisibility(View.GONE);
 
-                    }
+                return false;
+            }
 
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
-                        loader.stopShimmerAnimation();
-                        return false;
-                    }
-
-
-
-                })
-                .error(R.drawable.imagenotavailable)
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                loader.setVisibility(View.GONE);
+                return false;
+            }
+        }).error(R.drawable.imagenotavailable)
                 .into(imageView);
 
 
     }
 
 
-
-
-        @BindingAdapter("imageUrl")
+    @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         Context context = imageView.getContext();
 
@@ -625,7 +636,8 @@ public final class BindingUtils {
                 .load(url)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .crossFade() .into(imageView);
+               // .crossFade()
+                .into(imageView);
 
 
 
@@ -725,15 +737,15 @@ public final class BindingUtils {
                 .into(imageView);*/
 
 
-       /* R.raw.loader*/
-    //    Glide.with(context).load(url).into(imageView);
+        /* R.raw.loader*/
+        //    Glide.with(context).load(url).into(imageView);
 
     }
 
-   public static Drawable getProgressBarIndeterminate() {
+    public static Drawable getProgressBarIndeterminate() {
         final int[] attrs = {android.R.attr.indeterminateDrawable};
         final int attrs_indeterminateDrawable_index = 0;
-        TypedArray a =MvvmApp.getInstance().obtainStyledAttributes(android.R.style.Widget_Material_ProgressBar_Small, attrs);
+        TypedArray a = MvvmApp.getInstance().obtainStyledAttributes(android.R.style.Widget_Material_ProgressBar_Small, attrs);
         try {
             return a.getDrawable(attrs_indeterminateDrawable_index);
         } finally {
@@ -741,29 +753,30 @@ public final class BindingUtils {
         }
     }
 
- @BindingAdapter("enter")
+    @BindingAdapter("enter")
     public static void closeKeyboaard(EditText editText, boolean status) {
         Context context = editText.getContext();
 
-     editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-         @Override
-         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-             if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
 
-                 InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
-                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
-             }
-             return false;
-         }
-     });
+                }
+                return false;
+            }
+        });
     }
-@BindingAdapter("closekey")
+
+    @BindingAdapter("closekey")
     public static void closeSoftKeyboaard(ImageView view, boolean status) {
         Context context = view.getContext();
 
-    InputMethodManager inputMethodManager = (InputMethodManager)context. getSystemService(INPUT_METHOD_SERVICE);
-    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
     }
 
@@ -774,10 +787,11 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+               // .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .crossFade().into(imageView);
+               // .crossFade()
+                .into(imageView);
 
 
 
@@ -897,7 +911,7 @@ public final class BindingUtils {
                     }
                 })
                 .into(imageView);*/
-       // Glide.with(context).load(url).into(imageView);
+        // Glide.with(context).load(url).into(imageView);
     }
 
     @BindingAdapter("setBitmap")

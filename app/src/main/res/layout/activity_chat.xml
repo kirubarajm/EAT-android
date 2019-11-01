@@ -150,8 +150,6 @@
                 android:textColor="@color/eat_color" />
         </RelativeLayout>
 
-
-
         <RelativeLayout
             android:layout_below="@+id/header"
             android:id="@+id/loader"

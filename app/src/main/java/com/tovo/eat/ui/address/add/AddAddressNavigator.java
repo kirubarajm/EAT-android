@@ -32,5 +32,6 @@ public interface AddAddressNavigator {
     void showToast(String msg);
 
     void goBack();
+    void searchAddress();
 
 }

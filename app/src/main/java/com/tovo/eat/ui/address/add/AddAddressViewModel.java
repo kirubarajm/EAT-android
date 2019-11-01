@@ -132,6 +132,13 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
     }
+ public void searchAddress() {
+
+
+        getNavigator().searchAddress();
+
+
+    }
 
     public void clickOther() {
 

@@ -262,13 +262,14 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
                 Glide.with(image.getContext())
                         .load(target.getModel())
-                        .asBitmap()
-                        .crossFade()
+                       //     .asBitmap()
+                      //  .crossFade()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
-                        .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);
+                        .transform(new CenterCrop(), new DelayBitmapTransformation(0))
+                       //.listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
+
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -320,13 +321,13 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
                 Glide.with(image.getContext())
                         .load(target.getModel())
-                        .asBitmap()
-                        .crossFade()
+                      //  .asBitmap()
+                     //   .crossFade()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
-                        .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);
+                        .transform(new CenterCrop(), new DelayBitmapTransformation(0))
+                     //   .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -373,13 +374,13 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
                 Glide.with(image.getContext())
                         .load(target.getModel())
-                        .asBitmap()
-                        .crossFade()
+                        //.asBitmap()
+                        //.crossFade()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
-                        .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);
+                        .transform(new CenterCrop(), new DelayBitmapTransformation(0))
+                       // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
