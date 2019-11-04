@@ -235,7 +235,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                   // startLocationTrackingForAddress();
 
-                    showAddressAler();
+                  //  showAddressAler();
 
                 }
             }

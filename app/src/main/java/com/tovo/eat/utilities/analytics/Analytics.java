@@ -319,13 +319,13 @@ public class Analytics {
     }
 
 
-    public void selectKitchen(String type, Long kitchenName) {
+    public void selectKitchen(String type, Long kitchenId) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_NAME, kitchenName);
+        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenId);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(type, bundle);
     }
@@ -337,7 +337,7 @@ public class Analytics {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_NAME, kitchenid);
+        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_ID, kitchenid);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(type, bundle);
     }

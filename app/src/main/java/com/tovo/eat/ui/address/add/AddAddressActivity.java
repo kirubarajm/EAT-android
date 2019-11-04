@@ -21,26 +21,11 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-
-
-/*
-import com.google.android.gms.common.api.Status;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-*/
-
-
-
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,7 +45,6 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -180,20 +164,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     @Override
-    public void searchAddress() {
-        // Set the fields to specify which types of place data to return.
-        /*List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-
-        // Start the autocomplete intent.
-        Intent intent = new Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, fields)
-                .build(this);
-        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);*/
-
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddAddressBinding = getViewDataBinding();
@@ -305,38 +275,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-
-
-
-
-
-
-
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-
-
-           /* if (resultCode == RESULT_OK) {
-                Place place = Autocomplete.getPlaceFromIntent(data);
-
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 16);
-                map.animateCamera(cameraUpdate);
-
-
-                Log.i("Place", "Place: " + place.getName() + ", " + place.getId());
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i("place", status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
-*/
-
-
-            /*if (resultCode == RESULT_OK) {
-                com.google.android.gms.location.places.Place place = PlaceAutocomplete.getPlace(this, data);
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
                 if (!place.getAddress().toString().contains(place.getName())) {
 
                 }
@@ -348,7 +289,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 printToast("Error in retrieving place info");
 
-            }*/
+            }
         } else if (requestCode == AppConstants.GPS_REQUEST) {
 
             if (resultCode == Activity.RESULT_OK) {
