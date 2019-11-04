@@ -150,6 +150,8 @@ public class AppConstants {
 
 
     public static final String ANALYTICYS_KITCHEN_NAME= "kitchen_name";
+
+    public static final String ANALYTICYS_KITCHEN_ID= "kitchen_id";
     public static final String CLICK_KITCHEN_VIEW_CART= "kitchen_view_cart";
     public static final String CLICK_FAV_VIEW_CART= "fav_view_cart";
     public static final String CLICK_COLLECTION_VIEW_CART= "collection_view_cart";

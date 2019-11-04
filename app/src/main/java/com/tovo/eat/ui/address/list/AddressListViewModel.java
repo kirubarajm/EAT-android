@@ -65,6 +65,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                         if (getDataManager().getAddressId().equals(aid)) {
 
                             getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0, null, null);
+
+
                             getDataManager().setCurrentAddress(null);
                         }
                         getNavigator().showToast(response.getMessage());
