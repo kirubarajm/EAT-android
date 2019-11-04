@@ -50,6 +50,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivit
 import com.tovo.eat.ui.address.select.SelectAddressListActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
+import com.tovo.eat.ui.cart.xfactoralert.XfactorListner;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
@@ -78,7 +79,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener, XfactorListner {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     protected LocationManager locationManager;
@@ -953,6 +954,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         clongitude = longitude;
         new AsyncTaskAddress().execute(latitude, longitude);
 
+    }
+
+    @Override
+    public void goHome() {
+        openHome();
     }
 
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {

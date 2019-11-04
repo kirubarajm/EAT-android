@@ -224,7 +224,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             }*/
 
 
-                                if (response.getResult().get(0).getMoveitdetail().getName() != null) {
+                                if (response.getResult().get(0).getMoveitdetail()!=null&& response.getResult().get(0).getMoveitdetail().getName() != null) {
                                     track.set(true);
                                     moveitName.set(response.getResult().get(0).getMoveitdetail().getName());
                                     moveitPhone.set(response.getResult().get(0).getMoveitdetail().getPhoneno());

@@ -70,12 +70,14 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private int payment_price;
     private int action = NO_ACTION;
 
+    public Long kitchenid=null;
+
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
         getDataManager().setIsFav(false);
         masterRequest();
         getDataManager().setIsFilterApplied(false);
-        getDataManager().appStartedAgain(true);
+        //getDataManager().appStartedAgain(true);
 
     }
 
@@ -90,6 +92,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void gotoCart() {
         if (!isCart.get()) {
+            new Analytics().kitchenViewcart(AppConstants.CLICK_DIRECT_VIEW_CART,kitchenid);
             getNavigator().openCart();
             isHome.set(false);
             isExplore.set(false);
@@ -459,6 +462,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 if (cartRequestPojo.getCartitems().size() == 0) {
                     cart.set(false);
                 } else {
+
+
+                  kitchenid=cartRequestPojo.getMakeitUserid();
+
+
 
                     for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 

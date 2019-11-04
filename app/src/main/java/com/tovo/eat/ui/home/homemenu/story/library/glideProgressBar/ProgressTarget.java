@@ -3,7 +3,7 @@ package com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar;
 import android.graphics.drawable.Drawable;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+
 import com.bumptech.glide.request.target.Target;
 
 
@@ -22,7 +22,8 @@ public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements 
         return model;
     }
     public final void setModel(T model) {
-        Glide.clear(this); // indirectly calls cleanup
+       // Glide.clear(this); // indirectly calls cleanup
+        cleanup();
         this.model = model;
     }
     /**
@@ -95,14 +96,14 @@ public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements 
         super.onLoadStarted(placeholder);
         start();
     }
-    @Override public void onResourceReady(Z resource, GlideAnimation<? super Z> animation) {
+   /* @Override public void onResourceReady(Z resource, GlideAnimation<? super Z> animation) {
         cleanup();
         super.onResourceReady(resource, animation);
-    }
-    @Override public void onLoadFailed(Exception e, Drawable errorDrawable) {
+    }*/
+  /*  @Override public void onLoadFailed(Exception e, Drawable errorDrawable) {
         cleanup();
         super.onLoadFailed(e, errorDrawable);
-    }
+    }*/
     @Override public void onLoadCleared(Drawable placeholder) {
         cleanup();
         super.onLoadCleared(placeholder);

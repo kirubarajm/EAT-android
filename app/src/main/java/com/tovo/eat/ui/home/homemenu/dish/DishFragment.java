@@ -66,7 +66,7 @@ public class DishFragment extends BaseFragment<FragmentDishBinding, DishViewMode
       //  ((TestActivity) getActivity()).setFilterListener(FavDishFragment.this);
 
 
-        //  StartFilter myInterface =getInterface(StartFilter.class, this);
+        //  XfactorListner myInterface =getInterface(XfactorListner.class, this);
 
 
     }

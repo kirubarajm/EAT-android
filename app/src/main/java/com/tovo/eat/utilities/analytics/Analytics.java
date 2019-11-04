@@ -19,19 +19,26 @@ public class Analytics {
     public Analytics() {
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         userid = appPreferencesHelper.getCurrentUserId();
+
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
     }
 
+
     public Analytics(Context context, String screen_name) {
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
         this.screen_name = screen_name;
 
         sendViewData(screen_name);
     }
 
     public Analytics(String screen_name) {
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
         this.screen_name = screen_name;
 
         sendViewData(screen_name);
@@ -55,8 +62,9 @@ public class Analytics {
 
     public Analytics(int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CURRENCY, "INR");
@@ -66,10 +74,10 @@ public class Analytics {
 
     }
 
-
     public Analytics(String screen_name, String click) {
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
 
        /* Bundle params = new Bundle();
@@ -82,6 +90,12 @@ public class Analytics {
         sendClickData(screen_name, click);
     }
 
+    public void addProperties() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        mFirebaseAnalytics.setUserId(String.valueOf(userid));
+        mFirebaseAnalytics.setUserProperty(AppConstants.ANALYTICYS_USER_ID, String.valueOf(userid));
+    }
+
     public void sendViewData(String screen_name) {
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
@@ -90,7 +104,7 @@ public class Analytics {
 
     public void sendClickData(String screen_name, String click) {
         if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+            addProperties();
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
         params.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
@@ -101,7 +115,7 @@ public class Analytics {
     public void sendClickDataWithoutUserid(String screen_name, String click) {
 
         if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+            addProperties();
 
         Bundle params = new Bundle();
         params.putString("screen_name", screen_name);
@@ -113,7 +127,7 @@ public class Analytics {
     public void addtoCart(int productid, String productName, int quantiy, int price) {
 
         if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+            addProperties();
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_CURRENCY_TYPE, AppConstants.ANALYTICYS_CURRENCY_TYPE);
@@ -129,8 +143,9 @@ public class Analytics {
 
     public void removeFromCart(int productid, String productName, int quantiy, int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_CURRENCY_TYPE, AppConstants.ANALYTICYS_CURRENCY_TYPE);
@@ -147,8 +162,9 @@ public class Analytics {
 
     public void userLogin(int user_id, String number) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_USER_ID, user_id);
@@ -159,69 +175,79 @@ public class Analytics {
 
     public void paymentFailed(Long order_id, int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_FAILED, bundle);
     }
 
     public void paymentSuccess(Long order_id, int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_SUCCESS, bundle);
     }
 
 
     public void orderPlaced(Long order_id, int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ORDER_PLACED, bundle);
     }
 
-    public void proceedToPay(Long order_id, int price) {
+    public void createOrder(Long order_id, int price) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
-
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PROCEED_TO_PAY, bundle);
+        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CREATE_ORDER, bundle);
     }
 
-    public void search(String type, String name) {
+    public void search(String type, String name, String suggestion) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_TYPE, type);
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_NAME, name);
+        bundle.putString(AppConstants.ANALYTICYS_SEARCH_SUGGESTION, suggestion);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_SEARCH_CLICKED, bundle);
     }
 
     public void story(int id, String title) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_STORY_ID, id);
@@ -232,8 +258,9 @@ public class Analytics {
 
     public void regionSelected(String title) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_REGION, title);
@@ -244,8 +271,9 @@ public class Analytics {
 
     public void appFeedback(int rating, String feedback) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_RATING, rating);
@@ -257,9 +285,9 @@ public class Analytics {
 
     public void queriesChat(String query, String message) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
-
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
         bundle.putString(AppConstants.ANALYTICYS_CHAT_MESSAGE, message);
@@ -269,9 +297,9 @@ public class Analytics {
 
     public void makeQuery(String query) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
-
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
@@ -280,13 +308,49 @@ public class Analytics {
 
     public void repeatOrder(String orderid) {
 
-        if (mFirebaseAnalytics == null)
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
 
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.ANALYTICYS_ORDER_ID, orderid);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REPEAT_ORDER, bundle);
+    }
+
+
+    public void selectKitchen(String type, Long kitchenName) {
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_NAME, kitchenName);
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        mFirebaseAnalytics.logEvent(type, bundle);
+    }
+
+
+    public void kitchenViewcart(String type, Long kitchenid) {
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_KITCHEN_NAME, kitchenid);
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        mFirebaseAnalytics.logEvent(type, bundle);
+    }
+
+    public void proceedToPay(int price) {
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CHECKOUT, bundle);
     }
 
 }

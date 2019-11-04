@@ -193,7 +193,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     public void onItemClickData(Long kitchenId) {
 
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_KITCHEN);
-
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_REGION_KITCHEN,kitchenId);
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);

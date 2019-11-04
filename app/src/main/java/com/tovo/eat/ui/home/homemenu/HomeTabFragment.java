@@ -288,7 +288,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         TextView title=myToolTipView.findViewById(R.id.activity_main_redtv);
 
 
-        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\n\nClick to change location!";
+        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\nClick to change location!";
 
         title.setText(sTitle);
 
@@ -573,6 +573,8 @@ showAddressAler();
     public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN,kitchenId);
+
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
@@ -787,6 +789,10 @@ showAddressAler();
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
+
+
+
+
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());

@@ -416,7 +416,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     if (getNavigator() != null)
                         getNavigator().loadError();
                 }
-            }, AppConstants.API_VERSION_TWO);
+            }, AppConstants.API_VERSION_TWO_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {
@@ -500,7 +500,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     if (getNavigator() != null)
                         getNavigator().dishListLoaded(null);
                 }
-            }, AppConstants.API_VERSION_TWO);
+            }, AppConstants.API_VERSION_TWO_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (Exception ee) {

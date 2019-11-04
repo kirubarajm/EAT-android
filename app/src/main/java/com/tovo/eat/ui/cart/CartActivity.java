@@ -20,10 +20,12 @@ import com.tovo.eat.ui.cart.funnel.FunnelActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
+import com.tovo.eat.ui.cart.xfactoralert.XFactorFragment;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -269,6 +271,17 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
+    public void showXFactorALert(String msg,String title) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("message", msg);
+        bundle.putString("title", title);
+        XFactorFragment bottomSheetFragment = new XFactorFragment();
+        bottomSheetFragment.setArguments(bundle);
+        bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+    @Override
     public void funnelAlert() {
 
         Intent intent = FunnelActivity.newIntent(getActivity());
@@ -278,6 +291,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void gotoKitchen(Long kitchenid) {
+
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_CART_KITCHEN,kitchenid);
+
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenid);
         startActivity(intent);

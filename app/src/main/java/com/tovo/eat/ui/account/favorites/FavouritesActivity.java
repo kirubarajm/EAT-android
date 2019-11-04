@@ -104,6 +104,9 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     @Override
     public void viewCart() {
         // Open Cart
+
+        new Analytics().kitchenViewcart(AppConstants.CLICK_FAV_VIEW_CART,mFavouritesViewModel.kitchenid);
+
         Intent intent = MainActivity.newIntent(FavouritesActivity.this);
         intent.putExtra("cart", true);
         startActivity(intent);

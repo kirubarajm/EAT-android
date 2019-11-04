@@ -356,6 +356,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void viewCart() {
 
+        new Analytics().kitchenViewcart(AppConstants.CLICK_KITCHEN_VIEW_CART,kitchenID);
+
         Intent intent = MainActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("cart", true);
         startActivity(intent);

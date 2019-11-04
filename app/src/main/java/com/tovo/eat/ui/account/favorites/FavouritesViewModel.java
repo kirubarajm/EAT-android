@@ -38,7 +38,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
     public ObservableBoolean isFavourite = new ObservableBoolean();
     int favId;
     int makeitId;
-
+    public Long kitchenid;
 
     public FavouritesViewModel(DataManager dataManager) {
         super(dataManager);
@@ -153,6 +153,11 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
             if (cartRequestPojo.getCartitems().size() == 0) {
                 cart.set(false);
             } else {
+
+
+                 kitchenid=cartRequestPojo.getMakeitUserid();
+
+
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
                     count = count + cartRequestPojo.getCartitems().get(i).getQuantity();
                     price = price + ((cartRequestPojo.getCartitems().get(i).getPrice()) * cartRequestPojo.getCartitems().get(i).getQuantity());

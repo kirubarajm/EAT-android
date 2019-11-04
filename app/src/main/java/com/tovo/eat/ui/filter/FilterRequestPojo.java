@@ -32,9 +32,6 @@ public class FilterRequestPojo {
     private String city;
 
 
-
-
-
     @SerializedName("eatuserid")
     @Expose
     private Long eatuserid;

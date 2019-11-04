@@ -58,7 +58,7 @@ public class LoginResponse {
         @SerializedName("referalcode")
         @Expose
         public String referalcode;
-        @SerializedName("Locality")
+        @SerializedName("locality")
         @Expose
         public String locality;
         @SerializedName("address")
