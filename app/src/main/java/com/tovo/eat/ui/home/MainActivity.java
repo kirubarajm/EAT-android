@@ -139,6 +139,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return new Intent(context, MainActivity.class);
     }
 
+    
     public void showLocationDialog() {
         locationDialog = new Dialog(this);
         locationDialog.setCancelable(false);
