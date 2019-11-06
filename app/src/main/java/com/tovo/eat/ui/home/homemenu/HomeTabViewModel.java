@@ -533,7 +533,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void currentLatLng(double lat, double lng) {
-        if (getDataManager().getAddressId() == 0) {
+        if (getDataManager().getAddressId() == 0L) {
             getDataManager().setCurrentAddressTitle("Current location");
             getDataManager().setCurrentLat(lat);
             getDataManager().setCurrentLng(lng);

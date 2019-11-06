@@ -257,7 +257,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         address.set(getDataManager().getCurrentAddressTitle());
         current_address.set(getDataManager().getCurrentAddress());
 
-        if (getDataManager().getAddressId() == 0) {
+        if (getDataManager().getAddressId() == 0L) {
             changeAddress.set("Add Address");
         } else {
 
@@ -596,7 +596,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 if (serviceable.get()) {
 
 
-                    if (getDataManager().getAddressId() == 0) {
+                    if (getDataManager().getAddressId() == 0L) {
 
                         getNavigator().showToast("Please complete the address");
 
@@ -702,7 +702,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             }*/
         } else {
 
-            if (getDataManager().getAddressId() == 0) {
+            if (getDataManager().getAddressId() == 0L) {
 
                 getNavigator().showToast("Please complete the address");
 
@@ -735,7 +735,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         if (getDataManager().getEmailStatus()) {
             try {
 
-                if (getDataManager().getAddressId() != 0) {
+                if (getDataManager().getAddressId() != 0L) {
 
 
                     if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -846,7 +846,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         try {
 
-            if (getDataManager().getAddressId() != 0) {
+            if (getDataManager().getAddressId() != 0L) {
 
                 if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
@@ -958,7 +958,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         try {
 
-            if (getDataManager().getAddressId() != 0) {
+            if (getDataManager().getAddressId() != 0L) {
 
                 if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

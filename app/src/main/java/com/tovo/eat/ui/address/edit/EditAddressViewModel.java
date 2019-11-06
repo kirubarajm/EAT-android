@@ -92,7 +92,13 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         getNavigator().myLocationn();
 
     }
+    public void searchAddress() {
 
+
+        getNavigator().searchAddress();
+
+
+    }
 
     public void clickHome() {
 

@@ -105,7 +105,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public void logOutSession() {
         getDataManager().setLogout();
         getDataManager().setCartDetails(null);
-        getDataManager().setAddressId(null);
+        getDataManager().setAddressId(0L);
         getDataManager().setCurrentAddress(null);
         getDataManager().setCurrentAddressArea(null);
         getDataManager().setCurrentAddressTitle(null);

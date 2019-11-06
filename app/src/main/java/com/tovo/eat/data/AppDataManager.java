@@ -69,7 +69,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setLogout() {
-        updateUserInformation(null, null, null, null, null);
+        updateUserInformation(	0L, null, null, null, null);
     }
 
     @Override

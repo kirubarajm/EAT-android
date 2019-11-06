@@ -9,6 +9,7 @@
 
     <string name="invalidEmail">Invalid Email</string>
 
+
     <!--Toolbar menus-->
     <string name="clear">Clear</string>
     <string name="cut">Cut</string>
@@ -502,7 +503,8 @@
     <string name="place_order">Place order</string>
 
 
-    <string name="map_key">AIzaSyCGk-5aSFINZH6-WNICf1fiVMEEIa4Hddo</string>
+    <string name="map_key">AIzaSyDHiPip3fSYDLIhyrHV3uavqH2nONtqEbw</string>
+
     <string name="select_pin">Select pin</string>
 
     <string name="card_number">Card Number</string>

@@ -23,7 +23,7 @@ public class UpdateViewModel extends BaseViewModel<UpdateNavigator> {
 
         new Analytics().sendClickData(AppConstants.SCREEN_FORCE_UPDATE, AppConstants.CLICK_NOT_NOW);
 
-        if (getDataManager().getCurrentUserId()!=null)
+        if (getDataManager().getCurrentUserId()!=0L)
         {
             long userId = getDataManager().getCurrentUserId();
             Log.e("userId", String.valueOf(userId));

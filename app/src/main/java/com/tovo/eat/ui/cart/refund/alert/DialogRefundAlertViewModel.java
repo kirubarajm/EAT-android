@@ -44,7 +44,7 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
     public void cashMode() {
         if (getDataManager().getEmailStatus()) {
             try {
-                if (getDataManager().getAddressId() != null) {
+                if (getDataManager().getAddressId() != 0L) {
 
                     if (!MvvmApp.getInstance().onCheckNetWork()) return;
 

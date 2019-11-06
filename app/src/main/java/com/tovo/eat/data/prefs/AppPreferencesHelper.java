@@ -133,7 +133,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
         // return userId == AppConstants.NULL_INDEX ? null : userId;
         //return mPrefs.getInt(PREF_KEY_CURRENT_USER_ID, null);
 
-        return mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, 0);
+        return mPrefs.getLong(PREF_KEY_CURRENT_USER_ID, 0L);
     }
 
     @Override
@@ -295,7 +295,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public Long getAddressId() {
-        return mPrefs.getLong(PREF_KEY_CURRENT_ADDRESS_ID, 0);
+        return mPrefs.getLong(PREF_KEY_CURRENT_ADDRESS_ID, 0L);
     }
 
     @Override

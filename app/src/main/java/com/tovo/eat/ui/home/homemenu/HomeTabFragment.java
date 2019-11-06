@@ -229,7 +229,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.isAddressAdded()) {
 
-            if (mHomeTabViewModel.getDataManager().getAddressId()!=0) {
+            if (mHomeTabViewModel.getDataManager().getAddressId()!=0L) {
 
                 if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
 

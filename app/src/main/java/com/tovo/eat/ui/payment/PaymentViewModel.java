@@ -138,7 +138,7 @@ public boolean paymentSuccessNotSent=false;
         try {
 
 
-            if (getDataManager().getAddressId() != 0) {
+            if (getDataManager().getAddressId() != 0L) {
 
 
                 if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -296,7 +296,7 @@ public boolean paymentSuccessNotSent=false;
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_ONLINE);
 
 
-        if (getDataManager().getAddressId() != 0) {
+        if (getDataManager().getAddressId() != 0L) {
 
 
             if (!MvvmApp.getInstance().onCheckNetWork()) return;

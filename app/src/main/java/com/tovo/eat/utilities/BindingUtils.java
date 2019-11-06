@@ -23,6 +23,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -39,7 +40,9 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -414,10 +417,10 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+             //   .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(new DelayBitmapTransformation(0))
-                .listener(new LoggingListener<String, Bitmap>())
+               // .listener(new LoggingListener<String, Bitmap>())
                 .into(imageView);
 
 
@@ -513,26 +516,21 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+              //  .asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(new RequestListener<String, Bitmap>() {
+                .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
-
-                        return false;
-
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         loader.setVisibility(View.GONE );
                         return false;
                     }
 
-
-
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        loader.setVisibility(View.GONE );
+                        return false;
+                    }
                 })
                 .error(R.drawable.imagenotavailable)
                 .into(imageView);
@@ -583,34 +581,26 @@ public final class BindingUtils {
 
         loader.setVisibility(View.VISIBLE);
         loader.startShimmerAnimation();
+    Glide.with(context)
+            .load(url)
+            //  .asBitmap()
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    loader.setVisibility(View.GONE );
+                    return false;
+                }
 
-        Glide.with(context)
-                .load(url)
-                .asBitmap()
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(new RequestListener<String, Bitmap>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
-                        loader.stopShimmerAnimation();
-                        return false;
-
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        loader.setVisibility(View.GONE );
-                        loader.stopShimmerAnimation();
-                        return false;
-                    }
-
-
-
-                })
-                .error(R.drawable.imagenotavailable)
-                .into(imageView);
-
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    loader.setVisibility(View.GONE );
+                    return false;
+                }
+            })
+            .error(R.drawable.imagenotavailable)
+            .into(imageView);
 
     }
 
@@ -625,7 +615,7 @@ public final class BindingUtils {
                 .load(url)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .crossFade() .into(imageView);
+                .into(imageView);
 
 
 
@@ -774,10 +764,11 @@ public final class BindingUtils {
 
         Glide.with(context)
                 .load(url)
-                .asBitmap()
+                //.asBitmap()
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .crossFade().into(imageView);
+                //.crossFade()
+                .into(imageView);
 
 
 

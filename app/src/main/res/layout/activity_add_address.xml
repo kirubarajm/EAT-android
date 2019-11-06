@@ -58,6 +58,25 @@
                     android:text="@string/add_new_address"
                     android:textSize="18sp" />
 
+
+
+                <RelativeLayout
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->addAddressViewModel.searchAddress()}"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_search_black_24dp" />
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
 

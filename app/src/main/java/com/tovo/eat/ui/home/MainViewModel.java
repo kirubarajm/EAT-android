@@ -2,7 +2,6 @@ package com.tovo.eat.ui.home;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -39,7 +38,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MainViewModel extends BaseViewModel<MainNavigator> {
@@ -65,12 +63,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public LiveOrderResponsePojo liveOrderResponsePojo;
+    public Long kitchenid = null;
     private long orderId;
     private long payment_orderId;
     private int payment_price;
     private int action = NO_ACTION;
-
-    public Long kitchenid=null;
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
@@ -92,7 +89,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public void gotoCart() {
         if (!isCart.get()) {
-            new Analytics().kitchenViewcart(AppConstants.CLICK_DIRECT_VIEW_CART,kitchenid);
+
+            if (kitchenid != null)
+                new Analytics().kitchenViewcart(AppConstants.CLICK_DIRECT_VIEW_CART, kitchenid);
+
             getNavigator().openCart();
             isHome.set(false);
             isExplore.set(false);
@@ -108,9 +108,9 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public boolean isAddressAdded() {
 
-        if (getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0")){
+        if (getDataManager().getCurrentLat() != null && !getDataManager().getCurrentLat().equals("0.0")) {
             return true;
-        }else {
+        } else {
             return false;
         }
 
@@ -464,8 +464,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                 } else {
 
 
-                  kitchenid=cartRequestPojo.getMakeitUserid();
-
+                    kitchenid = cartRequestPojo.getMakeitUserid();
 
 
                     for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
@@ -555,7 +554,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
-         //   getDataManager().setFilterSort(json);
+            //   getDataManager().setFilterSort(json);
         } else {
             filterRequestPojo = new FilterRequestPojo();
             filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
@@ -563,7 +562,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             filterRequestPojo.setLon(getDataManager().getCurrentLng());
             Gson gson = new Gson();
             String json = gson.toJson(filterRequestPojo);
-           // getDataManager().setFilterSort(json);
+            // getDataManager().setFilterSort(json);
         }
     }
 
@@ -572,7 +571,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         getDataManager().setCurrentLat(lat);
         getDataManager().setCurrentLng(lng);
         getNavigator().disConnectGPS();
-       // getNavigator().openHome();
+        // getNavigator().openHome();
     }
 
 

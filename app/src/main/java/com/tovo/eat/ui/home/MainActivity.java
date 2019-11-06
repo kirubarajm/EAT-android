@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -31,12 +32,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.razorpay.Checkout;
@@ -82,6 +91,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener, XfactorListner {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
+    private static final int RC_APP_UPDATE = 55669;
     protected LocationManager locationManager;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
@@ -95,7 +105,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     String pageName = AppConstants.SCREEN_HOME;
     double clatitude;
     double clongitude;
-
+    InstallStateUpdatedListener installStateUpdatedListener;
     int getAddressCount = 0;
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -139,7 +149,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         return new Intent(context, MainActivity.class);
     }
 
-    
+
     public void showLocationDialog() {
         locationDialog = new Dialog(this);
         locationDialog.setCancelable(false);
@@ -224,7 +234,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
+        //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
         transaction.commitAllowingStateLoss();
 
         mMainViewModel.toolbarTitle.set("Home");
@@ -244,7 +254,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(StoriesPagerFragment.class.getSimpleName());
+        //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
         transaction.commit();
 
 
@@ -433,6 +443,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         saveFcmToken();
 
+      //  updateUIalert();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(true);
@@ -513,6 +525,49 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         // Freshchat.showConversations(getApplicationContext());
     }
+
+
+    public void updateUIalert(){
+        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+
+        mAppUpdateManager.registerListener(installStateUpdatedListener);
+
+        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)){
+
+                try {
+                    mAppUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo, AppUpdateType.FLEXIBLE, MainActivity.this, RC_APP_UPDATE);
+
+
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED){
+                // popupSnackbarForCompleteUpdate();
+            } else {
+                /// Log.e(TAG, "checkForAppUpdateAvailability: something else");
+            }
+        });
+
+
+        installStateUpdatedListener = state -> {
+            if (state.installStatus() == InstallStatus.DOWNLOADED){
+                //    popupSnackbarForCompleteUpdate();
+            } else if (state.installStatus() == InstallStatus.INSTALLED){
+                if (mAppUpdateManager != null){
+                    mAppUpdateManager.unregisterListener(installStateUpdatedListener);
+                }
+
+            } else {
+                //  Log.i(TAG, "InstallStateUpdatedListener: state: " + state.installStatus());
+            }
+        };
+    }
+
 
     public void startLocationTracking() {
 

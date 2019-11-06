@@ -27,4 +27,5 @@ public interface EditAddressNavigator {
     void myLocationn();
     void setLatLng(double lat, double lng);
     void goBack();
+    void searchAddress();
 }

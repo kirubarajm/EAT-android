@@ -30,7 +30,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
 
     public void clearLatLng(){
         try {
-            if (getDataManager().getAddressId() == 0) {
+            if (getDataManager().getAddressId() == 0L) {
                 getDataManager().setCurrentLat(0.0);
                 getDataManager().setCurrentLng(0.0);
             }
@@ -55,7 +55,7 @@ public class SplashActivityViewModel extends BaseViewModel<SplashActivityNavigat
     public void checkIsUserLoggedInOrNot() {
 
         try {
-            if (getDataManager().getCurrentUserId() != 0) {
+            if (getDataManager().getCurrentUserId() != 0L) {
                 boolean genderStatus = getDataManager().getisGenderStatus();
                 if (genderStatus) {
                     if (getNavigator() != null)

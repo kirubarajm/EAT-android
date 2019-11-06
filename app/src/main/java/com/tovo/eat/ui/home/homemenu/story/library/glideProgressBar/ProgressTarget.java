@@ -1,10 +1,11 @@
 package com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 
 
 public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements OkHttpProgressGlideModule.UIProgressListener {
@@ -22,7 +23,7 @@ public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements 
         return model;
     }
     public final void setModel(T model) {
-        Glide.clear(this); // indirectly calls cleanup
+       // Glide.clear(this); // indirectly calls cleanup
         this.model = model;
     }
     /**
@@ -95,14 +96,20 @@ public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements 
         super.onLoadStarted(placeholder);
         start();
     }
-    @Override public void onResourceReady(Z resource, GlideAnimation<? super Z> animation) {
+
+
+    @Override
+    public void onResourceReady(@NonNull Z resource, @Nullable Transition<? super Z> transition) {
         cleanup();
-        super.onResourceReady(resource, animation);
+        super.onResourceReady(resource, transition);
     }
-    @Override public void onLoadFailed(Exception e, Drawable errorDrawable) {
+
+    @Override
+    public void onLoadFailed(@Nullable Drawable errorDrawable) {
         cleanup();
-        super.onLoadFailed(e, errorDrawable);
+        super.onLoadFailed(errorDrawable);
     }
+
     @Override public void onLoadCleared(Drawable placeholder) {
         cleanup();
         super.onLoadCleared(placeholder);

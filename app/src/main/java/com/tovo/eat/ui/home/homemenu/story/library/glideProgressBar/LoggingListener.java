@@ -4,21 +4,24 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.Locale;
 
-public class LoggingListener<A, B> implements RequestListener<A, B> {
+public class LoggingListener<A, B> implements RequestListener<A> {
     private final int level;
     private final String name;
-    private final RequestListener<A, B> delegate;
+    private final RequestListener<A> delegate;
 
     public LoggingListener() {
         this("");
@@ -32,34 +35,16 @@ public class LoggingListener<A, B> implements RequestListener<A, B> {
         this(level, name, null);
     }
 
-    public LoggingListener(RequestListener<A, B> delegate) {
+    public LoggingListener(RequestListener<A> delegate) {
         this(Log.VERBOSE, "", delegate);
     }
 
-    public LoggingListener(int level, @NonNull String name, RequestListener<A, B> delegate) {
+    public LoggingListener(int level, @NonNull String name, RequestListener<A> delegate) {
         this.level = level;
         this.name = name;
         this.delegate = delegate == null ? NoOpRequestListener.<A, B>get() : delegate;
     }
 
-    @Override
-    public boolean onException(Exception e, A model, Target<B> target, boolean isFirstResource) {
-        Log.println(level, "GLIDE", String.format(Locale.ROOT,
-                "%s.onException(%s, %s, %s, %s)\n%s",
-                name, e, model, strip(target), isFirst(isFirstResource), Log.getStackTraceString(e)));
-        return delegate.onException(e, model, target, isFirstResource);
-    }
-
-    @Override
-    public boolean onResourceReady(B resource, A model, Target<B> target, boolean isFromMemoryCache,
-                                   boolean isFirstResource) {
-        String resourceString = strip(getResourceDescription(resource));
-        String targetString = strip(getTargetDescription(target));
-        Log.println(level, "GLIDE", String.format(Locale.ROOT,
-                "%s.onResourceReady(%s, %s, %s, %s, %s)",
-                name, resourceString, model, targetString, isMem(isFromMemoryCache), isFirst(isFirstResource)));
-        return delegate.onResourceReady(resource, model, target, isFromMemoryCache, isFirstResource);
-    }
 
     private String isMem(boolean isFromMemoryCache) {
         return isFromMemoryCache ? "sync" : "async";
@@ -95,10 +80,6 @@ public class LoggingListener<A, B> implements RequestListener<A, B> {
             Bitmap bm = ((BitmapDrawable) resource).getBitmap();
             result = String.format(Locale.ROOT,
                     "%s(%dx%d@%s)", resource, bm.getWidth(), bm.getHeight(), bm.getConfig());
-        } else if (resource instanceof GlideBitmapDrawable) {
-            Bitmap bm = ((GlideBitmapDrawable) resource).getBitmap();
-            result = String.format(Locale.ROOT,
-                    "%s(%dx%d@%s)", resource, bm.getWidth(), bm.getHeight(), bm.getConfig());
         } else if (resource instanceof Drawable) {
             Drawable d = (Drawable) resource;
             result = String.format(Locale.ROOT,
@@ -111,5 +92,15 @@ public class LoggingListener<A, B> implements RequestListener<A, B> {
 
     private static String strip(Object text) {
         return String.valueOf(text).replaceAll("(com|android|net|org)(\\.[a-z]+)+\\.", "");
+    }
+
+    @Override
+    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<A> target, boolean isFirstResource) {
+        return delegate.onLoadFailed(e, model, target, isFirstResource);
+    }
+
+    @Override
+    public boolean onResourceReady(A resource, Object model, Target<A> target, DataSource dataSource, boolean isFirstResource) {
+        return delegate.onResourceReady(resource, model, target, dataSource, isFirstResource);
     }
 }

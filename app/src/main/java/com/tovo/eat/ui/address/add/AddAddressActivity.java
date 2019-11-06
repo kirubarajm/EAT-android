@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +32,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityAddAddressBinding;
@@ -45,6 +48,7 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,6 +58,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private static final int ADDRESS_SEARCH_CODE = 15545;
     public ActivityAddAddressBinding mActivityAddAddressBinding;
     @Inject
     public AddAddressViewModel mAddAddressViewModel;
@@ -164,6 +169,22 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     }
 
     @Override
+    public void searchAddress() {
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.map_key));
+        }
+
+        // Set the fields to specify which types of place data to return.
+        List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.ID, com.google.android.libraries.places.api.model.Place.Field.NAME, Place.Field.LAT_LNG);
+
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.FULLSCREEN, fields)
+                .build(this);
+        startActivityForResult(intent, ADDRESS_SEARCH_CODE);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddAddressBinding = getViewDataBinding();
@@ -232,7 +253,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                                 //LatLng latLng = new LatLng(12.99447060,80.25593567);
 
                                 LatLng latLng = new LatLng(location.latitude, location.longitude);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                                 initCameraIdle();
                             }
                     }
@@ -275,14 +296,13 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+        if (requestCode == ADDRESS_SEARCH_CODE) {
             if (resultCode == RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(this, data);
-                if (!place.getAddress().toString().contains(place.getName())) {
+             //   Place place = PlaceAutocomplete.getPlace(this, data);
 
-                }
+                com.google.android.libraries.places.api.model.Place place = Autocomplete.getPlaceFromIntent(data);
 
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 16);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
                 map.animateCamera(cameraUpdate);
 
 
@@ -327,7 +347,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 if (dialog.isShowing())
                     dialog.dismiss();
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 initCameraIdle();
                 if (locationManager != null)
                     locationManager.removeUpdates(this);

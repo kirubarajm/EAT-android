@@ -1,59 +1,61 @@
-package com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment;
+package com.tovo.eat.ui.home.homemenu.story.storiesactivity.ntest;
 
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.bolaware.viewstimerstory.Momentz;
+import com.bolaware.viewstimerstory.MomentzCallback;
+import com.bolaware.viewstimerstory.MomentzView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.gson.Gson;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSampleBinding;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.BitmapDrawableViewTarget;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, StoriesPagerFragmentViewModel>
-        implements StoriesPagerFragmentNavigator, StoryStatusView.UserInteractionListener {
+public class StoriesPagerFragment22 extends BaseFragment<FragmentSampleBinding, StoriesPagerFragmentViewModel2>
+        implements StoriesPagerFragmentNavigator2, MomentzCallback {
 
     private static boolean isTextEnabled = true;
     public StoryStatusView storyStatusView;
     @Inject
-    StoriesPagerFragmentViewModel mSplashActivityViewModel;
+    StoriesPagerFragmentViewModel2 mSplashActivityViewModel;
     StoriesResponse storiesFullResponse;
     int position;
     boolean isVisibleToUser;
@@ -71,11 +73,11 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     private long statusDuration = 3000L;
     private boolean isImmersive = true;
     private boolean isCaching = true;
-    private ProgressTarget<String, BitmapDrawable> target;
-
-    public static StoriesPagerFragment newInstance() {
+    private ProgressTarget<String, Bitmap> target;
+    Momentz momentz;
+    public static StoriesPagerFragment22 newInstance() {
         Bundle args = new Bundle();
-        StoriesPagerFragment fragment = new StoriesPagerFragment();
+        StoriesPagerFragment22 fragment = new StoriesPagerFragment22();
         fragment.setArguments(args);
         return fragment;
     }
@@ -106,7 +108,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     }
 
     @Override
-    public StoriesPagerFragmentViewModel getViewModel() {
+    public StoriesPagerFragmentViewModel2 getViewModel() {
         return mSplashActivityViewModel;
     }
 
@@ -130,63 +132,10 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             position = getArguments().getInt("position");
         }
 
-        image = view.findViewById(R.id.image_stories1);
-        View reverseClick = view.findViewById(R.id.view_reverse);
-        View skipClick = view.findViewById(R.id.view_skip);
-        LinearLayout actions = view.findViewById(R.id.linear_actions);
-        txtProgress = view.findViewById(R.id.textView);
-        storyStatusView = view.findViewById(R.id.storiesStatus);
-        imageProgressBar = view.findViewById(R.id.imageProgressBar);
-        videoView = view.findViewById(R.id.video_view);
 
-        reverseClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                storyStatusView.reverse();
-            }
-        });
-
-        skipClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                storyStatusView.skip();
-
-            }
-        });
-
-        actions.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    storyStatusView.pause();
-                    if (videoView != null) {
-                        videoView.pause();
-
-                        new Analytics().sendClickData(pageName, AppConstants.CLICK_HOLD);
-
-                    }
-                } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-                    storyStatusView.resume();
-                    if (videoView != null) {
-                        videoView.start();
-                    }
-                }
-                return true;
-            }
-        });
-
-        counter = 0;
-        isoNcREATRE = true;
         mSplashActivityViewModel.getData();
         ((StoriesTabActivity) getActivity()).methodDDD(position);
-        Log.e("position", "" + position);
-/*
-        if (position == 0 && position == tempPosition) {
-            isVisibleToUser = true;
-            storyStatusView.playStories();
-            videoView.start();
-        }
-*/
+
     }
 
     @Override
@@ -196,31 +145,6 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
     }
 
-    public void onPlayStory(int position) {
-
-        if (!isoNcREATRE) return;
-        if (isVisibleToUser) {
-            storyStatusView.resume();
-            videoView.start();
-        } else if (position != 0) {
-            isVisibleToUser = true;
-            // mSplashActivityViewModel.getData();
-            storyStatusView.playStories();
-            videoView.start();
-        } else if (isoNcREATRE) {
-            isVisibleToUser = true;
-            //mSplashActivityViewModel.getData();
-            storyStatusView.playStories();
-            videoView.start();
-        }
-    }
-
-    public void onPasue(int position) {
-        if (!isoNcREATRE) return;
-        storyStatusView.pause();
-        videoView.pause();
-
-    }
 
     @Override
     public void getStoriesDataFromLocal(StoriesResponse storiesResponseFull) {
@@ -234,21 +158,65 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         isCaching = true;
         isTextEnabled = false;
 
-        int count = storiesResponse.getStories().size();
-        if (count > 0) {
-            storyStatusView.setStoriesCount(count);
-        }
-        storyStatusView.setUserInteractionListener(this);
-        //  storyStatusView.playStories();
-        /*storyStatusView.pause();*/
-        target = new MyProgressTarget<>(new BitmapDrawableViewTarget(image), imageProgressBar, txtProgress);
 
-        if (counter == 0) {
+        View imageView = new ImageView(getContext());
+        View videoView = new VideoView(getContext());
+
+
+        int count = storiesResponse.getStories().size();
+
+
+       /* if (counter == 0) {
             mSplashActivityViewModel.aBooleanImg.set(true);
-        }
+        }*/
+
+
+        List<MomentzView> momentzViews=new ArrayList<>();
 
         if (storiesResponse.getStories().size() > 0) {
-            if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
+
+
+            for (int i = 1; i < count; i++) {
+
+                if (storiesResponse.getStories().get(i).getMediatype() == 1 || storiesResponse.getStories().get(i).getMediatype() == 0) {
+
+                    momentzViews.add(
+
+                    new MomentzView(
+                            imageView,
+                            5,
+                            storiesResponse.getStories().get(i).getTitle(),
+                            storiesResponse.getStories().get(i).getSubtitle(),
+                            storiesResponse.getStories().get(i).getMediatype(),
+                            storiesResponse.getStories().get(i).getCatIds(),
+                            storiesResponse.getStories().get(i).getUrl()
+                    ));
+
+
+                } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
+
+                    momentzViews.add( new MomentzView(
+                            videoView,
+                          5,
+                            storiesResponse.getStories().get(i).getTitle(),
+                            storiesResponse.getStories().get(i).getSubtitle(),
+                            storiesResponse.getStories().get(i).getMediatype(),
+                            storiesResponse.getStories().get(i).getCatIds(),
+                            storiesResponse.getStories().get(i).getUrl()
+                    ));
+
+                }
+
+
+            }
+
+
+//new Momentz(getContext(),momentzViews,mFragmentSampleBinding.container,this,R.drawable.green_lightgrey_drawable).start();
+
+
+           /* if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
+
+
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
 
@@ -264,31 +232,15 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 storyStatusView.pause();
                 videoView.stopPlayback();
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
-
-
-               /* Glide.with(image.getContext())
+                Glide.with(image.getContext())
                         .load(target.getModel())
+                        .asBitmap()
+                        .crossFade()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
                         .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);*/
-
-
-
-               Glide.with(image.getContext())
-                        .load(target.getModel())
-                        .skipMemoryCache(!isCaching)
-                       .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .listener(new LoggingListener())
                         .into(target);
-
-
-
-
-
-
-
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -304,7 +256,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 image.setVisibility(View.GONE);
                 videoView.setVideoPath(storiesResponse.getStories().get(counter).getUrl());
                 videoView.start();
-            }
+            }*/
         }
     }
 
@@ -317,13 +269,13 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         });
     }
 
-    @Override
+    /*@Override
     public void onNext() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_NEXT);
 
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
-        if (storiesResponse.getStories().size() > 0&&storiesResponse.getStories().size() > counter) {
+        if (storiesResponse.getStories().size() > 0 && storiesResponse.getStories().size() > counter) {
             //target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
             if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
@@ -338,7 +290,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 storyStatusView.pause();
                 videoView.stopPlayback();
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
-               /* Glide.with(image.getContext())
+                Glide.with(image.getContext())
                         .load(target.getModel())
                         .asBitmap()
                         .crossFade()
@@ -346,16 +298,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
                         .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);*/
-
-                Glide.with(image.getContext())
-                        .load(target.getModel())
-                        .skipMemoryCache(!isCaching)
-                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .listener(new LoggingListener())
                         .into(target);
-
-
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -400,7 +343,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 storyStatusView.pause();
                 videoView.stopPlayback();
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
-                /*Glide.with(image.getContext())
+                Glide.with(image.getContext())
                         .load(target.getModel())
                         .asBitmap()
                         .crossFade()
@@ -408,17 +351,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
                         .listener(new LoggingListener<String, Bitmap>())
-                        .into(target);*/
-
-
-                Glide.with(image.getContext())
-                        .load(target.getModel())
-                        .skipMemoryCache(!isCaching)
-                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
-                        .listener(new LoggingListener())
                         .into(target);
-
-
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -437,7 +370,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         } else {
             onPreviousComplete();
         }
-    }
+    }*/
 
     public void onPreviousComplete() {
         counter = 0;
@@ -446,7 +379,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         ((StoriesTabActivity) getActivity()).moveToPrevious();
     }
 
-    @Override
+    /*@Override
     public void onComplete() {
         try {
             isVisibleToUser = false;
@@ -471,11 +404,29 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void resetMethod() {
         counter = 0;
         mainFunction();
+    }
+
+
+
+    public void onPlayStory(int position) {
+        if (!isoNcREATRE) return;
+        if (isVisibleToUser) {
+            momentz.resume();
+
+        } else if (position != 0) {
+            isVisibleToUser = true;
+           momentz.start();
+            videoView.start();
+        } else if (isoNcREATRE) {
+            isVisibleToUser = true;
+            momentz.start();
+        }
+
     }
 
     private void onCompletePrev() {
@@ -500,6 +451,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     @Override
     public void onResume() {
         super.onResume();
+        momentz.resume();
     }
 
     @Override
@@ -516,7 +468,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     public void onDestroy() {
         // Very important !
         super.onDestroy();
-        storyStatusView.destroy();
+
     }
 
     @Override
@@ -532,85 +484,41 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     @Override
     public void onPause() {
         super.onPause();
+        momentz.pause(false);
     }
 
-    /**
-     * Demonstrates 3 different ways of showing the txtProgress:
-     * <ul>
-     * <li>Update a full fledged txtProgress bar</li>
-     * <li>Update a text view to display size/percentage</li>
-     * <li>Update the placeholder via Drawable.level</li>
-     * </ul>
-     * This last one is tricky: the placeholder that Glide sets can be used as a txtProgress drawable
-     * without any extra Views in the view hierarchy if it supports levels via <code>usesLevel="true"</code>
-     * or <code>level-list</code>.
-     *
-     * @param <Z> automatically match any real Glide target so it can be used flexibly without reimplementing.
-     */
-    @SuppressLint("SetTextI18n") // text set only for debugging
-    private class MyProgressTarget<Z> extends ProgressTarget<String, Z> {
-        private final TextView text;
-        private final ProgressBar progress;
+    @Override
+    public void done() {
 
-        public MyProgressTarget(Target<Z> target, ProgressBar progress, TextView text) {
-            super(target);
-            this.progress = progress;
-            this.text = text;
-        }
+    }
 
-        @Override
-        public float getGranualityPercentage() {
-            return 0.1f; // this matches the format string for #text below
-        }
+    @Override
+    public void onNextCalled(@NotNull View view, @NotNull Momentz momentz, int index, @NotNull List<MomentzView> momentzViewList) {
+this.momentz=momentz;
+        momentz.pause(true);
+        Picasso.get()
+                //.load("https://i.pinimg.com/564x/14/90/af/1490afa115fe062b12925c594d93a96c.jpg")
+                .load(momentzViewList.get(index).getUrl())
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into((ImageView) view, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        momentz.resume();
+                    }
 
-        @Override
-        protected void onConnecting() {
-            //storyStatusView.pause();
-            pauseView();
-            progress.setIndeterminate(true);
-            progress.setVisibility(View.VISIBLE);
+                    @Override
+                    public void onError(Exception e) {
 
-            if (isTextEnabled) {
-                text.setVisibility(View.VISIBLE);
-                text.setText("connecting");
-            } else {
-                text.setVisibility(View.INVISIBLE);
-            }
-        }
+                    }
+                });
 
-        @Override
-        protected void onDownloading(long bytesRead, long expectedLength) {
-            storyStatusView.pause();
-            progress.setIndeterminate(false);
-            progress.setProgress((int) (100 * bytesRead / expectedLength));
 
-            if (isTextEnabled) {
-                text.setVisibility(View.VISIBLE);
-                text.setText(String.format(Locale.ROOT, "downloading %.2f/%.2f MB %.1f%%",
-                        bytesRead / 1e6, expectedLength / 1e6, 100f * bytesRead / expectedLength));
-            } else {
-                text.setVisibility(View.INVISIBLE);
-            }
-
-        }
-
-        @Override
-        protected void onDownloaded() {
-            storyStatusView.pause();
-            progress.setIndeterminate(true);
-            if (isTextEnabled) {
-                text.setVisibility(View.VISIBLE);
-                text.setText("decoding and transforming");
-            } else {
-                text.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        @Override
-        protected void onDelivered() {
-            progress.setVisibility(View.INVISIBLE);
-            text.setVisibility(View.INVISIBLE);
-            storyStatusView.resume();
+        mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
+        mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
+        if (storiesResponse.getStories().get(counter).getCatType() != null) {
+            mSplashActivityViewModel.category_type.set((storiesResponse.getStories().get(counter).getCatType()));
+            mSplashActivityViewModel.category_id.set((storiesResponse.getStories().get(counter).getCatIds()));
         }
     }
+
 }
