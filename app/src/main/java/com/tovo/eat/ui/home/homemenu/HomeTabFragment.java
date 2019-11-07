@@ -4,12 +4,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -28,7 +27,6 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
-import com.tovo.eat.ui.address.add.AddAddressActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
@@ -54,10 +52,6 @@ import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -194,6 +188,16 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
+    public void closeAddressAlert() {
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            myToolTipView = null;
+            mHomeTabViewModel.getDataManager().appStartedAgain(false);
+        }
+
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHomeTabViewModel.setNavigator(this);
@@ -229,13 +233,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.isAddressAdded()) {
 
-            if (mHomeTabViewModel.getDataManager().getAddressId()!=0L) {
+            if (mHomeTabViewModel.getDataManager().getAddressId() != 0L) {
 
                 if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
 
-                  // startLocationTrackingForAddress();
+                    // startLocationTrackingForAddress();
 
-                  //  showAddressAler();
+                    showAddressAler();
 
                 }
             }
@@ -248,6 +252,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             ((MainActivity) getActivity()).startLocationTracking();
         }
 
+
+     mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                closeAddressAlert();
+
+            }
+        });
 
     }
 
@@ -274,21 +287,21 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
-    public void showAddressAler(){
+    public void showAddressAler() {
 
         ToolTip toolTip = new ToolTip()
                 .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_address, null))
-               // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
+                // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
                 .withColor(getResources().getColor(R.color.tracking_back))
                 .withShadow()
                 .withTextColor(Color.BLACK)
                 .withAnimationType(ToolTip.AnimationType.FROM_TOP);
         myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mFragmentHomeBinding.delAddress);
 
-        TextView title=myToolTipView.findViewById(R.id.activity_main_redtv);
+        TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
 
 
-        String sTitle="Now showing kitchens around "+mHomeTabViewModel.getDataManager().getCurrentAddressArea()+".\nClick to change location!";
+        String sTitle = "Now showing kitchens around " + mHomeTabViewModel.getDataManager().getCurrentAddressArea() + ".\nClick to change location!";
 
         title.setText(sTitle);
 
@@ -299,9 +312,24 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 myToolTipView = null;
                 mHomeTabViewModel.getDataManager().appStartedAgain(false);
 
-               // selectAddress();
+                // selectAddress();
             }
         });
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (myToolTipView!=null) {
+
+                    myToolTipView.remove();
+                    myToolTipView = null;
+                    mHomeTabViewModel.getDataManager().appStartedAgain(false);
+                }
+            }
+        }, 10000);
+
+
     }
 
 
@@ -317,7 +345,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
 
 
-showAddressAler();
+                                showAddressAler();
 
 
                             }
@@ -573,7 +601,7 @@ showAddressAler();
     public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
-        new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN,kitchenId);
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN, kitchenId);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
@@ -789,8 +817,6 @@ showAddressAler();
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
-
-
 
 
         Intent intent = SearchDishActivity.newIntent(getContext());

@@ -545,6 +545,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     }
 
+    public void closeAddressAlert(){
+        getNavigator().closeAddressAlert();
+    }
+
     public void fetchKitchen() throws NullPointerException {
 
         String json="";

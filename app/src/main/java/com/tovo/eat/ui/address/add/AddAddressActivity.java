@@ -179,7 +179,7 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
         // Start the autocomplete intent.
         Intent intent = new Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, fields)
+                AutocompleteActivityMode.OVERLAY, fields)
                 .build(this);
         startActivityForResult(intent, ADDRESS_SEARCH_CODE);
     }

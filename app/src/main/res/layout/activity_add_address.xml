@@ -25,7 +25,7 @@
             app:cardMaxElevation="0dp"
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="50dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:onClick="@{()->addAddressViewModel.goBack()}"
@@ -56,25 +56,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:text="@string/add_new_address"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
 
 
-                <RelativeLayout
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:onClick="@{()->addAddressViewModel.searchAddress()}"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_search_black_24dp" />
-                </RelativeLayout>
 
 
             </RelativeLayout>
@@ -121,6 +106,7 @@
             android:layout_alignParentBottom="true">
 
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
@@ -134,7 +120,15 @@
                     android:layout_margin="5dp"
                     android:orientation="vertical">
 
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/set_delivery_address"
@@ -143,6 +137,25 @@
 
 
 
+
+                        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                            android:onClick="@{()->addAddressViewModel.searchAddress()}"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/curve_stroke_gray"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/dark_gray"
+                            android:text="@string/change"
+                            android:textSize="10sp"
+                            android:visibility="visible" />
+
+
+                    </RelativeLayout>
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
@@ -398,7 +411,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-
+                        android:visibility="gone"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -37,4 +37,5 @@ public class StoriesTabAdapter extends FragmentStatePagerAdapter {
         this.storiesFullResponse = storiesFullResponse;
     }
 
+
 }

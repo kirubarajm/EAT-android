@@ -26,4 +26,7 @@ public interface HomeTabNavigator {
     void getFullStories(StoriesResponse storiesResponse);
     void trackLiveOrder(long orderId);
 
+    void closeAddressAlert();
+
+
 }

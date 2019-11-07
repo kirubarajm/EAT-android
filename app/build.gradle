@@ -12,8 +12,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.0.8"
+        versionCode 16
+        versionName "1.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -24,10 +24,10 @@ android {
            // buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.0.200:3000"'
-            buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:3000"'//praveen
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:3000"'//praveen
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-           // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
 
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")

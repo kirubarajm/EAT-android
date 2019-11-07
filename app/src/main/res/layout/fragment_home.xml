@@ -454,6 +454,7 @@
 
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/fullScroll"
             android:visibility="@{homeTabViewModel.fullEmpty?View.GONE:View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -712,6 +713,7 @@
 
 
                     <LinearLayout
+                        android:onClick="@{()->homeTabViewModel.closeAddressAlert()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

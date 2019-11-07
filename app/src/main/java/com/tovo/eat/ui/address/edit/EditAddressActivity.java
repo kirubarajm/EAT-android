@@ -130,7 +130,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         if (map != null) {
             LatLng latLng = new LatLng(lat, lng);
             lastPosition = latLng;
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
         }
     }
 
@@ -145,7 +145,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
         // Start the autocomplete intent.
         Intent intent = new Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, fields)
+                AutocompleteActivityMode.OVERLAY, fields)
                 .build(this);
         startActivityForResult(intent, ADDRESS_SEARCH_CODE);
     }
@@ -291,15 +291,16 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+        if (requestCode == ADDRESS_SEARCH_CODE) {
             if (resultCode == RESULT_OK) {
                 //   Place place = PlaceAutocomplete.getPlace(this, data);
 
                 com.google.android.libraries.places.api.model.Place place = Autocomplete.getPlaceFromIntent(data);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20));
+                initCameraIdle();
 
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
-                map.animateCamera(cameraUpdate);
-
+            /*    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                initCameraIdle();*/
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 printToast("Error in retrieving place info");
@@ -337,7 +338,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Override
     protected void onResume() {
         super.onResume();
-        mEditAddressViewModel.fetchAddress(aid);
+       // mEditAddressViewModel.fetchAddress(aid);
         registerWifiReceiver();
     }
 

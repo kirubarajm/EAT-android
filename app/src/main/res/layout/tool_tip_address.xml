@@ -18,6 +18,7 @@
         android:layout_centerInParent="true" />
 
     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        android:visibility="gone"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:paddingTop="4dp"
