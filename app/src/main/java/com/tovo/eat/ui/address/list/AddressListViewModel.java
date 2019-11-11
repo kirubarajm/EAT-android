@@ -32,7 +32,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     public AddressListViewModel(DataManager dataManager) {
         super(dataManager);
         addrressListItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+      //  fetchRepos();
     }
     public ObservableList<AddressListResponse.Result> getAddrressListItemViewModels() {
         return addrressListItemViewModels;
@@ -64,7 +64,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         if (getDataManager().getAddressId().equals(aid)) {
 
-                            getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0, null, null);
+                            getDataManager().updateCurrentAddress("Current location", null, 0.0, 0.0, null, 0L);
 
 
                             getDataManager().setCurrentAddress(null);
@@ -125,6 +125,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+
+                    if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);

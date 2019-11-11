@@ -128,6 +128,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         turnOnGps();
     }
 
+
+
+
     @Override
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -302,8 +305,10 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
                 com.google.android.libraries.places.api.model.Place place = Autocomplete.getPlaceFromIntent(data);
 
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
-                map.animateCamera(cameraUpdate);
+                if (place. getLatLng()!=null) {
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
+                    map.animateCamera(cameraUpdate);
+                }
 
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {

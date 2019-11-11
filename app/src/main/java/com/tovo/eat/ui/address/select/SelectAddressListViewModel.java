@@ -27,7 +27,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     public SelectAddressListViewModel(DataManager dataManager) {
         super(dataManager);
         selectAddrressListItemsLiveData = new MutableLiveData<>();
-        fetchRepos();
+      //  fetchRepos();
     }
 
     public ObservableList<SelectAddressListResponse.Result> getSelectAddrressListItemViewModels() {
@@ -88,8 +88,6 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
         getDataManager().setCurrentAddress(address);
 
         defaultAddress(aid);
-
-
     }
 
 
@@ -120,7 +118,8 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
 

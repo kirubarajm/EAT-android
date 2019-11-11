@@ -244,7 +244,8 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                     public void onResponse(AddressResponse response) {
 
                         if (!response.getStatus())
-                            getNavigator().showToast(response.getMessage());
+                            if (getNavigator() != null)
+                                getNavigator().showToast(response.getMessage());
 
 
                         if (response.getAid() != null) {

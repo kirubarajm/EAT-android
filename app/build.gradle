@@ -24,10 +24,10 @@ android {
            // buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.100:3000"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.0.200:3000"'
-            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:3000"'//praveen
+            buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:3000"'//praveen
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
 
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
@@ -73,7 +73,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':momentz')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

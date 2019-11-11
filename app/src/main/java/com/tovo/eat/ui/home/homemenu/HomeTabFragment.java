@@ -253,7 +253,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
 
-     mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
@@ -300,17 +300,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
 
+        String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea()==null?"Current location":mHomeTabViewModel.getDataManager().getCurrentAddressArea();
 
-        String sTitle = "Now showing kitchens around " + mHomeTabViewModel.getDataManager().getCurrentAddressArea() + ".\nClick to change location!";
+
+        String sTitle = "Now showing kitchens around " + aTitle + ".\nClick to change location!";
 
         title.setText(sTitle);
 
         myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
             @Override
             public void onToolTipViewClicked(ToolTipView toolTipView) {
-                myToolTipView.remove();
-                myToolTipView = null;
-                mHomeTabViewModel.getDataManager().appStartedAgain(false);
+
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                    myToolTipView = null;
+                    mHomeTabViewModel.getDataManager().appStartedAgain(false);
+                }
 
                 // selectAddress();
             }
@@ -320,7 +325,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (myToolTipView!=null) {
+                if (myToolTipView != null) {
 
                     myToolTipView.remove();
                     myToolTipView = null;

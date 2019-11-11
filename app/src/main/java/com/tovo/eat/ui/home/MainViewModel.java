@@ -63,7 +63,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public LiveOrderResponsePojo liveOrderResponsePojo;
-    public Long kitchenid = null;
+    public Long kitchenid = 0L;
     private long orderId;
     private long payment_orderId;
     private int payment_price;
@@ -90,7 +90,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     public void gotoCart() {
         if (!isCart.get()) {
 
-            if (kitchenid != null)
+            if (kitchenid != 0L)
                 new Analytics().kitchenViewcart(AppConstants.CLICK_DIRECT_VIEW_CART, kitchenid);
 
             getNavigator().openCart();

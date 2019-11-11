@@ -30,7 +30,6 @@ import com.tovo.eat.utilities.MvvmApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +54,7 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
     private MutableLiveData<List<SearchResponse.Result>> searchItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
     private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
+
     public SearchViewModel(DataManager dataManager) {
         super(dataManager);
         searchItemsLiveData = new MutableLiveData<>();
@@ -154,7 +154,8 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
 
                     searchItemsLiveData.setValue(response.getResult());
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
 
                 }
             }, new Response.ErrorListener() {

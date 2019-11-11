@@ -48,6 +48,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().setIsFav(true);
         getNavigator().favourites();
     }
+
     public void referrals() {
         getNavigator().referrals();
     }
@@ -64,10 +65,9 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_LOG_OUT, GetUserDetailsResponse.class, new CouponCheckRequest(getDataManager().getCurrentUserId()), new Response.Listener<GetUserDetailsResponse>() {
                 @Override
                 public void onResponse(GetUserDetailsResponse response) {
-
-                    getNavigator().logout();
                     logOutSession();
-
+                    if (getNavigator() != null)
+                        getNavigator().logout();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -106,6 +106,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().setLogout();
         getDataManager().setCartDetails(null);
         getDataManager().setAddressId(0L);
+        getDataManager().setCurrentUserId(0L);
         getDataManager().setCurrentAddress(null);
         getDataManager().setCurrentAddressArea(null);
         getDataManager().setCurrentAddressTitle(null);

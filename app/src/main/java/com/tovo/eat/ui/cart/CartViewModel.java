@@ -310,6 +310,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             if (cartRequestPojo.getCartitems().size() == 0) {
                 getDataManager().setCartDetails(null);
                 emptyCart.set(true);
+                return null;
             } else {
                 emptyCart.set(false);
             }
@@ -330,16 +331,17 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onResponse(RefundListResponse response) {
                     if (response != null) {
 
-                        if (response.getResult().size() == 0) {
+                        if (response.getResult() != null)
+                            if (response.getResult().size() == 0) {
 
-                            refunds.set(false);
+                                refunds.set(false);
 
-                        } else {
-                            refunds.set(true);
-                            refundListItemsLiveData.setValue(response.getResult());
+                            } else {
+                                refunds.set(true);
+                                refundListItemsLiveData.setValue(response.getResult());
 
 
-                        }
+                            }
                     }
                 }
             }, new Response.ErrorListener() {
@@ -1082,7 +1084,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 } else {
 
-                                    getNavigator().showXFactorALert(response.getString("message"), response.getString("title"));
+                                    if (getNavigator() != null)
+                                        getNavigator().showXFactorALert(response.getString("message"), response.getString("title"));
 
                                 }
 

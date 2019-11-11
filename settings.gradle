@@ -1,1 +1,1 @@
-include ':app', ':statusstories', ':momentz'
+include ':app'

@@ -111,14 +111,12 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         new Analytics().sendClickData(pageName, AppConstants.CLICK_ADD_NEW_ADDRESS);
         Intent intent = AddAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
-        finish();
     }
 
     @Override
     public void editAddress() {
         Intent intent = EditAddressActivity.newIntent(SelectAddressListActivity.this);
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -154,6 +152,8 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     public void onResume() {
         super.onResume();
         registerWifiReceiver();
+        mSelectAddressListViewModel.fetchRepos();
+
     }
 
     @Override
@@ -178,7 +178,6 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
         intent.putExtra("aid", address.getAid());
         intent.putExtra("type", address.getAddressType());
         startActivity(intent);
-        finish();
     }
 
     @Override

@@ -191,8 +191,6 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
 
 
 
-
-
 //analytics screen name
     public static final String SCREEN_EDIT_MYACCOUNT=  "edit_my_account";
     public static final String SCREEN_FAVOURITE_DISH=  "favourite_dish";

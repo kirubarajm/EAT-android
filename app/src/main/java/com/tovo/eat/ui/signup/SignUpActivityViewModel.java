@@ -77,7 +77,9 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
                             getDataManager().updateUserPasswordStatus(passwordstatus);
                             if (response.getOid() != null) {
                                 OtpId = response.getOid();
-                                getNavigator().otpScreenFalse(OtpId);
+
+                                if (getNavigator() != null)
+                                    getNavigator().otpScreenFalse(OtpId);
                             }
                         }
                     }

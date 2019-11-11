@@ -899,110 +899,130 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         //getDataManager().setStoriesList(null);
                         //storiesResponseList.add(response.getResult());
+                        if (response.getResult() != null) {
 
-                        for (int i = 0; i < response.getResult().size(); i++) {
+                            for (int i = 0; i < response.getResult().size(); i++) {
 
-                            if (response.getResult().get(i).getStories().size() > 0) {
-                                StoriesResponse.Result.Story result = new StoriesResponse.Result.Story();
-                                result.setTitle(response.getResult().get(i).getTitle());
-                                result.setSubtitle(response.getResult().get(i).getDescription());
-                                result.setUrl(response.getResult().get(i).getStoryImg());
-                                result.setDuration(response.getResult().get(i).getDuration());
-                                result.setMediatype(0);
+                                if (response.getResult().get(i).getStories().size() > 0) {
+                                    StoriesResponse.Result.Story result = new StoriesResponse.Result.Story();
+                                    result.setTitle(response.getResult().get(i).getTitle());
+                                    result.setSubtitle(response.getResult().get(i).getDescription());
+                                    result.setUrl(response.getResult().get(i).getStoryImg());
+                                    result.setDuration(response.getResult().get(i).getDuration());
+                                    result.setMediatype(0);
 
-                                response.getResult().get(i).getStories().add(0, result);
+                                    response.getResult().get(i).getStories().add(0, result);
+                                }
                             }
-                        }
 
 
-                        StoriesResponse localStoriesResponse = new StoriesResponse();
+                            StoriesResponse localStoriesResponse = new StoriesResponse();
 
-                        Gson sGson = new GsonBuilder().create();
-                        localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
+                            Gson sGson = new GsonBuilder().create();
+                            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
 
 
-                        if (localStoriesResponse != null) {
-                            if (localStoriesResponse.getResult().size() > 0) {
+                            if (localStoriesResponse != null) {
+                                if (localStoriesResponse.getResult().size() > 0) {
 
-                                for (int i = 0; i < response.getResult().size(); i++) {
+                                    for (int i = 0; i < response.getResult().size(); i++) {
 
-                                    int sid = response.getResult().get(i).getStoryid();
+                                        int sid = response.getResult().get(i).getStoryid();
 
-                                    for (int j = 0; j < localStoriesResponse.getResult().size(); j++) {
+                                        for (int j = 0; j < localStoriesResponse.getResult().size(); j++) {
 
-                                        if (sid == localStoriesResponse.getResult().get(j).getStoryid()) {
+                                            if (sid == localStoriesResponse.getResult().get(j).getStoryid()) {
 
-                                            for (int l = 0; l < response.getResult().get(i).getStories().size(); l++) {
+                                                for (int l = 0; l < response.getResult().get(i).getStories().size(); l++) {
 
-                                                int id = response.getResult().get(i).getStories().get(l).getId();
+                                                    int id = response.getResult().get(i).getStories().get(l).getId();
 
-                                                for (int k = 0; k < localStoriesResponse.getResult().get(j).getStories().size(); k++) {
-                                                    Log.i("Seen_Sid_" + sid, "" + localStoriesResponse.getResult().get(j).getStories().get(k).getId());
-                                                    if (id == (localStoriesResponse.getResult().get(j).getStories().get(k).getId())) {
-                                                        Log.i("Seen_Sid_" + sid + "_id_" + id, "" + localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
-                                                        response.getResult().get(i).getStories().get(k).setSeen(localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
+                                                    for (int k = 0; k < localStoriesResponse.getResult().get(j).getStories().size(); k++) {
+                                                        Log.i("Seen_Sid_" + sid, "" + localStoriesResponse.getResult().get(j).getStories().get(k).getId());
+                                                        if (id == (localStoriesResponse.getResult().get(j).getStories().get(k).getId())) {
+                                                            Log.i("Seen_Sid_" + sid + "_id_" + id, "" + localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
+                                                            response.getResult().get(i).getStories().get(k).setSeen(localStoriesResponse.getResult().get(j).getStories().get(k).isSeen());
+
+                                                        }
 
                                                     }
-
                                                 }
+
                                             }
 
                                         }
+                                    }
+
+
+                                    List<StoriesResponse.Result> newStories = new ArrayList<>();
+                                    List<StoriesResponse.Result> oldStories = new ArrayList<>();
+
+
+                                    for (int i = 0; i < response.getResult().size(); i++) {
+
+                                        if (response.getResult().get(i).getStories().size() > 0)
+
+                                            if (!response.getResult().get(i).getStories().get(response.getResult().get(i).getStories().size() - 1).isSeen()) {
+
+                                                newStories.add(response.getResult().get(i));
+
+                                            } else {
+
+                                                oldStories.add(response.getResult().get(i));
+                                            }
+
 
                                     }
-                                }
+                                    StoriesResponse completeStories = new StoriesResponse();
+                                    if (newStories.size() == 0) {
+                                        completeStories.setResult(response.getResult());
+                                    } else {
+                                        newStories.addAll(oldStories);
+                                        completeStories.setResult(newStories);
+                                    }
 
 
-                                List<StoriesResponse.Result> newStories = new ArrayList<>();
-                                List<StoriesResponse.Result> oldStories = new ArrayList<>();
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(completeStories);
+                                    getDataManager().setStoriesList(null);
+                                    getDataManager().setStoriesList(json);
+
+                                    storiesItemsLiveData.setValue(completeStories.getResult());
+
+                                    try {
+                                        getNavigator().getFullStories(completeStories);
+
+                                    } catch (NullPointerException e) {
+                                        e.printStackTrace();
+                                    }
 
 
-                                for (int i = 0; i < response.getResult().size(); i++) {
-
-                                    if (response.getResult().get(i).getStories().size() > 0)
-
-                                        if (!response.getResult().get(i).getStories().get(response.getResult().get(i).getStories().size() - 1).isSeen()) {
-
-                                            newStories.add(response.getResult().get(i));
-
-                                        } else {
-
-                                            oldStories.add(response.getResult().get(i));
-                                        }
-
-
-                                }
-                                StoriesResponse completeStories = new StoriesResponse();
-                                if (newStories.size() == 0) {
-                                    completeStories.setResult(response.getResult());
                                 } else {
-                                    newStories.addAll(oldStories);
-                                    completeStories.setResult(newStories);
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(response);
+                                    getDataManager().setStoriesList(null);
+                                    getDataManager().setStoriesList(json);
+
+                                    storiesItemsLiveData.setValue(response.getResult());
+                                    try {
+                                        getNavigator().getFullStories(response);
+
+                                    } catch (NullPointerException e) {
+                                        e.printStackTrace();
+                                    }
+
                                 }
-
-
-                                Gson gson = new Gson();
-                                String json = gson.toJson(completeStories);
-                                getDataManager().setStoriesList(null);
-                                getDataManager().setStoriesList(json);
-
-                                storiesItemsLiveData.setValue(completeStories.getResult());
-
-                                try {
-                                    getNavigator().getFullStories(completeStories);
-
-                                } catch (NullPointerException e) {
-                                    e.printStackTrace();
-                                }
-
 
                             } else {
+
                                 Gson gson = new Gson();
                                 String json = gson.toJson(response);
                                 getDataManager().setStoriesList(null);
                                 getDataManager().setStoriesList(json);
 
-                                storiesItemsLiveData.setValue(response.getResult());
+
+                                if (null != response.getResult())
+                                    storiesItemsLiveData.setValue(response.getResult());
                                 try {
                                     getNavigator().getFullStories(response);
 
@@ -1010,23 +1030,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     e.printStackTrace();
                                 }
 
-                            }
-
-                        } else {
-
-                            Gson gson = new Gson();
-                            String json = gson.toJson(response);
-                            getDataManager().setStoriesList(null);
-                            getDataManager().setStoriesList(json);
-
-
-                            if (null != response.getResult())
-                                storiesItemsLiveData.setValue(response.getResult());
-                            try {
-                                getNavigator().getFullStories(response);
-
-                            } catch (NullPointerException e) {
-                                e.printStackTrace();
                             }
 
                         }

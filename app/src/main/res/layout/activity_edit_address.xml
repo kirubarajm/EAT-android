@@ -130,6 +130,20 @@
                             android:visibility="visible" />
 
 
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_search_black_24dp"
+                            android:onClick="@{()->editAddressViewModel.searchAddress()}"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/curve_stroke_lightgray2"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/dark_gray"
+                            android:text="@string/change"
+                            android:padding="5dp"
+                            android:textSize="10sp"
+                            android:tint="@color/eat_color"
+                            android:visibility="visible"/>
 
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
@@ -146,7 +160,7 @@
                             android:textColor="@color/dark_gray"
                             android:text="@string/change"
                             android:textSize="10sp"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>
@@ -155,6 +169,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:onClick="@{()->editAddressViewModel.searchAddress()}"
                         android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

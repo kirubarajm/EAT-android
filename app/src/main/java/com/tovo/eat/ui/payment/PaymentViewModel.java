@@ -39,7 +39,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +57,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> brandname = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
 
-    public Long orderid ;
+    public Long orderid;
     public int refundBalance = 0;
     public int price = 0;
     public String razorpayCustomerId = null;
@@ -66,11 +65,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public String transactionId = null;
     public int paymentStatus = 0;
-public boolean paymentSuccessNotSent=false;
-
-
-
-
+    public boolean paymentSuccessNotSent = false;
 
 
     public PaymentViewModel(DataManager dataManager) {
@@ -200,8 +195,8 @@ public boolean paymentSuccessNotSent=false;
                                     if (cartPaymentResponse.getStatus()) {
 
                                         long sorderId = cartPaymentResponse.getOrderid();
-                                        if (sorderId!=0)
-                                        getDataManager().setOrderId(sorderId);
+                                        if (sorderId != 0)
+                                            getDataManager().setOrderId(sorderId);
 
 
                                         if (cartPaymentResponse.getPrice() != null)
@@ -344,58 +339,58 @@ public boolean paymentSuccessNotSent=false;
                     public void onResponse(JSONObject response) {
 
                         Long sorderId = null;
-                        if (response!=null) {
+                        if (response != null) {
 
                             Gson gson = new Gson();
                             CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
 
-                            if (cartPaymentResponse!=null)
-                            if (cartPaymentResponse.getStatus()) {
-                                if (cartPaymentResponse.getOrderid()!=null) {
-                                     sorderId = cartPaymentResponse.getOrderid();
-                                     if (sorderId!=null) {
-                                         orderid = sorderId;
+                            if (cartPaymentResponse != null)
+                                if (cartPaymentResponse.getStatus()) {
+                                    if (cartPaymentResponse.getOrderid() != null) {
+                                        sorderId = cartPaymentResponse.getOrderid();
+                                        if (sorderId != null) {
+                                            orderid = sorderId;
 
-                                         getDataManager().setOrderId(sorderId);
+                                            getDataManager().setOrderId(sorderId);
 
-                                         new Analytics().createOrder(orderid, cartPaymentResponse.getPrice());
-                                     }
-                                }
-                                if (getDataManager().getRefundId() != 0) {
-                                    if (cartPaymentResponse.getRefundBalance()!=null) {
-                                        refundBalance = cartPaymentResponse.getRefundBalance();
+                                            new Analytics().createOrder(orderid, cartPaymentResponse.getPrice());
+                                        }
+                                    }
+                                    if (getDataManager().getRefundId() != 0) {
+                                        if (cartPaymentResponse.getRefundBalance() != null) {
+                                            refundBalance = cartPaymentResponse.getRefundBalance();
 
-                                        getDataManager().saveRefundBalance(refundBalance);
+                                            getDataManager().saveRefundBalance(refundBalance);
+                                        }
+
+                                    }
+                                    if (cartPaymentResponse.getRazerCustomerid() != null) {
+                                        razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
+
+                                        getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
+
+                                        price = cartPaymentResponse.getPrice();
+                                        getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
+                                    }
+
+                                } else {
+
+                                    if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
+                                        Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                        if (orderId != null)
+                                            getDataManager().setOrderId(orderId);
+                                        price = cartPaymentResponse.getResult().get(0).getPrice();
+
+                                        if (getNavigator() != null)
+                                            getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+
+
+                                    } else {
+                                        if (cartPaymentResponse.getMessage() != null)
+                                            getNavigator().showToast(cartPaymentResponse.getMessage());
                                     }
 
                                 }
-                                if (cartPaymentResponse.getRazerCustomerid()!=null) {
-                                    razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
-
-                                    getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
-
-                                    price = cartPaymentResponse.getPrice();
-                                    getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
-                                }
-
-                            } else {
-
-                                if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
-                                    Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                    if (orderId!=null)
-                                    getDataManager().setOrderId(orderId);
-                                    price = cartPaymentResponse.getResult().get(0).getPrice();
-
-
-                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
-
-
-                                } else {
-                                    if (cartPaymentResponse.getMessage()!=null)
-                                    getNavigator().showToast(cartPaymentResponse.getMessage());
-                                }
-
-                            }
                         }
 
                     }
@@ -425,19 +420,17 @@ public boolean paymentSuccessNotSent=false;
         }
     }
 
-    public void paymentSuccessData(String paymentId, Integer status,boolean success){
+    public void paymentSuccessData(String paymentId, Integer status, boolean success) {
 
-       paymentStatus=status;
-       transactionId=paymentId;
-       paymentSuccessNotSent=success;
+        paymentStatus = status;
+        transactionId = paymentId;
+        paymentSuccessNotSent = success;
     }
 
 
     public void paymentSuccess(String paymentId, Integer status) {
 
-        paymentSuccessData(paymentId,status,true);
-
-
+        paymentSuccessData(paymentId, status, true);
 
 
         if (status == 1) {
@@ -474,21 +467,22 @@ public boolean paymentSuccessNotSent=false;
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        if (response!=null)
-                        if (response.getBoolean("status")) {
+                        if (response != null)
+                            if (response.getBoolean("status")) {
 
-                            new Analytics().orderPlaced(orderid, price);
+                                new Analytics().orderPlaced(orderid, price);
 
-                            paymentSuccessData(null,0,false);
+                                paymentSuccessData(null, 0, false);
+                                if (getNavigator() != null)
+                                    getNavigator().paymentSuccessed(true);
+                                getDataManager().setCartDetails(null);
+                                getDataManager().saveRefundId(0);
+                                getDataManager().saveCouponId(0);
+                            } else {
+                                if (getNavigator() != null)
+                                    getNavigator().paymentSuccessed(false);
 
-                            getNavigator().paymentSuccessed(true);
-                            getDataManager().setCartDetails(null);
-                            getDataManager().saveRefundId(0);
-                            getDataManager().saveCouponId(0);
-                        } else {
-                            getNavigator().paymentSuccessed(false);
-
-                        }
+                            }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

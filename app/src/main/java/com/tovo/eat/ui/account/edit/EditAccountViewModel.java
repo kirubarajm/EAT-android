@@ -47,7 +47,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
         gender = male.get() ? AppConstants.TYPE_MALE : AppConstants.TYPE_FEMALE;
 
-        if (email.isEmpty()) email=null;
+        if (email.isEmpty()) email = null;
 
 
         Long userIdMain = getDataManager().getCurrentUserId();
@@ -58,10 +58,11 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 @Override
                 public void onResponse(EditAccountResponse response) {
                     if (response != null) {
-                        if (response.getStatus()!=null&&response.getStatus()) {
+                        if (response.getStatus() != null && response.getStatus()) {
                             getDataManager().updateUserGender(true);
                             if (response.getMessage() != null)
-                                getNavigator().genderSuccess(response.getMessage());
+                                if (getNavigator() != null)
+                                    getNavigator().genderSuccess(response.getMessage());
                             getDataManager().saveRegionId(regionId);
                         }
                     }
