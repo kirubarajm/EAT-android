@@ -113,6 +113,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                         }
 
                     }
+                    if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {

@@ -154,7 +154,7 @@ public class OrderRatingActivity extends BaseBottomSheetFragment<ActivityOrderRa
 
 
         if (getArguments() != null) {
-            mLoginViewModelMain.order.set("Order #" + getArguments().getInt("orderid"));
+            mLoginViewModelMain.order.set("Order #" + getArguments().getLong("orderid"));
             mLoginViewModelMain.kitchen.set(getArguments().getString("brandname"));
             mLoginViewModelMain.orderID = getArguments().getInt("orderid");
 

@@ -57,7 +57,7 @@ public class LiveOrderResponsePojo {
 
         @SerializedName("orderid")
         @Expose
-        private Integer orderid;
+        private Long orderid;
         @SerializedName("ordertime")
         @Expose
         private String ordertime;
@@ -118,11 +118,11 @@ public class LiveOrderResponsePojo {
             this.onlinePaymentStatus = onlinePaymentStatus;
         }
 
-        public Integer getOrderid() {
+        public Long getOrderid() {
             return orderid;
         }
 
-        public void setOrderid(Integer orderid) {
+        public void setOrderid(Long orderid) {
             this.orderid = orderid;
         }
 
@@ -279,7 +279,7 @@ public class LiveOrderResponsePojo {
 
         @SerializedName("orderid")
         @Expose
-        private Integer orderid;
+        private Long orderid;
         @SerializedName("userid")
         @Expose
         private Integer userid;
@@ -396,11 +396,11 @@ public class LiveOrderResponsePojo {
             this.brandname = brandname;
         }
 
-        public Integer getOrderid() {
+        public Long getOrderid() {
             return orderid;
         }
 
-        public void setOrderid(Integer orderid) {
+        public void setOrderid(Long orderid) {
             this.orderid = orderid;
         }
 

@@ -128,7 +128,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Override
     public void gotoSupport() {
         Intent intent = SupportActivity.newIntent(OrderHistoryActivityView.this);
-        intent.putExtra("orderid",Integer.parseInt(strOrderId));
+        intent.putExtra("orderid",Long.parseLong(strOrderId));
         intent.putExtra("type",AppConstants.QUERY_TYPE_ORDER_HISTORY);
         startActivity(intent);
     }

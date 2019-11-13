@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
 public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
@@ -57,6 +59,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> brandname = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
 
+    public final ObservableBoolean clickable=new ObservableBoolean();
+
+
+
     public Long orderid;
     public int refundBalance = 0;
     public int price = 0;
@@ -67,9 +73,12 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public int paymentStatus = 0;
     public boolean paymentSuccessNotSent = false;
 
+   // public boolean clickable = true;
+
 
     public PaymentViewModel(DataManager dataManager) {
         super(dataManager);
+        clickable.set(true);
     }
 
 
@@ -184,31 +193,24 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-
+                            clickable.set(true);
                             if (response != null) {
-
                                 Gson gson = new Gson();
                                 CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
 
                                 if (cartPaymentResponse != null) {
-
                                     if (cartPaymentResponse.getStatus()) {
-
                                         long sorderId = cartPaymentResponse.getOrderid();
                                         if (sorderId != 0)
                                             getDataManager().setOrderId(sorderId);
-
-
                                         if (cartPaymentResponse.getPrice() != null)
                                             new Analytics().orderPlaced(sorderId, Integer.parseInt(amount.get()));
 
                                         new Analytics().createOrder(sorderId, Integer.parseInt(amount.get()));
 
-
                                         getDataManager().currentOrderId(sorderId);
                                         getDataManager().setCartDetails(null);
                                         getNavigator().orderCompleted();
-
 
                                     } else {
                                         getNavigator().showToast(cartPaymentResponse.getMessage());
@@ -216,10 +218,11 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
                                             if (cartPaymentResponse.getResult().size() > 0) {
                                                 Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                                if (orderId != null)
+                                                if (orderId != null) {
                                                     getDataManager().setOrderId(orderId);
-                                                price = cartPaymentResponse.getResult().get(0).getPrice();
-                                                getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+                                                    price = cartPaymentResponse.getResult().get(0).getPrice();
+                                                    getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+                                                }
 
                                             }
                                         }
@@ -232,6 +235,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            clickable.set(true);
                         }
                     }) {
                         @Override
@@ -247,9 +251,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
             } else {
                 //  getNavigator().showToast("Please select the address...");
+                clickable.set(true);
             }
         } catch (Exception ee) {
-
+            clickable.set(true);
             ee.printStackTrace();
 
         }
@@ -259,27 +264,35 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashMode() {
 
-        if (getDataManager().getTotalOrders() == 0) {
+        if (clickable.get()) {
+            clickable.set(false);
+            if (getDataManager().getTotalOrders() == 0) {
 
-            cashOnDelivery();
-        } else {
-            if (getDataManager().getEmailStatus()) {
                 cashOnDelivery();
             } else {
-                getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
+                if (getDataManager().getEmailStatus()) {
+                    cashOnDelivery();
+                } else {
+                    clickable.set(true);
+                    getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
+                }
             }
         }
     }
 
 
     public void paymentModeCheck() {
+        if (clickable.get()) {
+            clickable.set(false);
 
-        if (getDataManager().getEmailStatus()) {
+            if (getDataManager().getEmailStatus()) {
 
-            payOnline();
+                payOnline();
 
-        } else {
-            getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
+            } else {
+                clickable.set(true);
+                getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
+            }
         }
 
     }
@@ -337,7 +350,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        clickable.set(true);
                         Long sorderId = null;
                         if (response != null) {
 
@@ -397,6 +410,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        clickable.set(true);
                         //  Log.e("test", error.getMessage());
                         //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                     }
@@ -408,9 +422,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     }
                 };
             } catch (JSONException e) {
+                clickable.set(true);
                 e.printStackTrace();
             } catch (Exception ee) {
-
+                clickable.set(true);
                 ee.printStackTrace();
 
             }

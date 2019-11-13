@@ -34,7 +34,7 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
     Analytics analytics;
     String pageName = AppConstants.SCREEN_SUPPORT;
 
-    Long orderid=null;
+    Long orderid=0L;
 
     int type=AppConstants.QUERY_TYPE_GENERAL;
 
@@ -107,6 +107,10 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         strQueries = mActivityQueriesBinding.edtQueries.getText().toString();
         if (!strQueries.equals("")) {
+
+            if (orderid==null ||orderid==0L )
+                orderid=mQueriesViewModel.getDataManager().getOrderId();
+
             mQueriesViewModel.insertQueriesServiceCall(strQueries,type,orderid);
 
             new Analytics().makeQuery(strQueries);
@@ -171,11 +175,11 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            orderid = intent.getExtras().getLong("orderid",0);
+            orderid = intent.getExtras().getLong("orderid",0L);
             type = intent.getExtras().getInt("type",AppConstants.QUERY_TYPE_GENERAL);
+        }else {
+            orderid=mQueriesViewModel.getDataManager().getOrderId();
         }
-
-
 
 
     }

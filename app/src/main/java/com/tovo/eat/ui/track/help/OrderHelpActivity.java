@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderHelpBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
+import com.tovo.eat.ui.alerts.ordercanceled.CancelListener;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -32,7 +34,11 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
 
-public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener {
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector, CancelListener {
 
     @Inject
     OrderHelpViewModel mOrderHelpViewModel;
@@ -40,6 +46,10 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     String strOrderId;
     String message = null;
     ProgressDialog dialog;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+
+
 
 
     Analytics analytics;
@@ -63,7 +73,10 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
             }
         }
     };
-
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
     public static Intent newIntent(Context context) {
 
         return new Intent(context, OrderHelpActivity.class);
@@ -117,7 +130,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     public void orderCanceled() {
 
         if (dialog.isShowing()) dialog.show();
-
 
         Intent intent = MainActivity.newIntent(OrderHelpActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -315,5 +327,9 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+        finish();
+    }
 }
 

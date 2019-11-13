@@ -19,9 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -52,6 +50,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private static final int ADDRESS_SEARCH_CODE = 15545;
     public ActivityEditAddressBinding mActivityEditAddressBinding;
     @Inject
     public EditAddressViewModel mEditAddressViewModel;
@@ -67,7 +66,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     boolean isGPS;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_EDIT_ADDRESS;
-    private static final int ADDRESS_SEARCH_CODE = 15545;
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -107,7 +105,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Override
     public void addressSaved() {
         hideKeyboard();
-        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Updated successfully", Toast.LENGTH_SHORT).show();
         finish();
 
     }
@@ -338,7 +336,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
     @Override
     protected void onResume() {
         super.onResume();
-       // mEditAddressViewModel.fetchAddress(aid);
+        // mEditAddressViewModel.fetchAddress(aid);
         registerWifiReceiver();
     }
 
@@ -433,7 +431,9 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 }
 
             } else {
-                printToast("Unable to find your address please mark your location on map..");
+
+                if (mEditAddressViewModel.locationAddress.get() == null && mEditAddressViewModel.locationAddress.get().isEmpty())
+                    printToast("Unable to find your address please mark your location on map..");
             }
         }
     }

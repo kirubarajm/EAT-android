@@ -21,7 +21,7 @@ public class PendingPaymentAlert extends BaseBottomSheetFragment<AlertPendingPay
         implements PendingPaymentNavigator {
 
 
-    int orderId = 0;
+    Long orderId = 0L;
     int price = 0;
 
     PaymentListener paymentListener;

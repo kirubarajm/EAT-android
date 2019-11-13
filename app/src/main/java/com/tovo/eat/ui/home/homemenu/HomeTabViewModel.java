@@ -294,6 +294,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     kitchenImage.set(response.getResult().get(0).getMakeitimage());
 
                                     kitchenName.set(response.getResult().get(0).getMakeitbrandname());
+
                                     orderId = response.getResult().get(0).getOrderid();
 
                                     getDataManager().setOrderId(orderId);

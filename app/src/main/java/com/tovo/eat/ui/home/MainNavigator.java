@@ -30,7 +30,7 @@ public interface MainNavigator {
 
     void paymentStausChanged();
 
-    void paymentPending(int orderid, String brandname, int price, String products);
+    void paymentPending(Long orderid, String brandname, int price, String products);
 
     void openAccount();
 
@@ -38,6 +38,6 @@ public interface MainNavigator {
 
     void trackLiveOrder(long orderId);
 
-    void showOrderRating(Integer orderId, String brandname);
+    void showOrderRating(Long orderId, String brandname);
 
 }

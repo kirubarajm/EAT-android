@@ -660,6 +660,11 @@
 
 
 
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:visibility="@{cartViewModel.xfactorClick?View.GONE:View.VISIBLE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 
     </RelativeLayout>

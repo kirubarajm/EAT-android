@@ -209,10 +209,8 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                 request.setAddressTitle(title);
 
                 if (title.isEmpty()) {
-
                     Toast.makeText(MvvmApp.getInstance(), "Please select address pin", Toast.LENGTH_SHORT).show();
                     return;
-
                 }
 
                 request.setAddressType(3);
@@ -228,17 +226,27 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        if (response != null &&response.getStatus()!=null&& response.getStatus()) {
+                        if (getDataManager().getAddressId().equals(mAid)){
+                            getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
+                        }
+
+                        getNavigator().addressSaved();
+
+
+
+
+
+                       /* if (response != null &&response.getStatus()!=null&& response.getStatus()) {
 
                             try {
-                                getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
-                                defaultAddress(request.getAid());
+                              //  getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
+                              //  defaultAddress(request.getAid());
                                 getNavigator().addressSaved();
                             } catch (Exception dd) {
                                 dd.printStackTrace();
                             }
 
-                        }
+                        }*/
 
 
 

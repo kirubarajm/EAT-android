@@ -228,7 +228,11 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     @Override
     public void confirmClick(boolean status) {
 
-        //   mSearchDishViewModel.fetchRepos(collectionId);
+         //  mSearchDishViewModel.fetchKitchens(collectionId);
+
+
+           adapter.notifyDataSetChanged();
+
         mSearchDishViewModel.totalCart();
 
         if (status) {

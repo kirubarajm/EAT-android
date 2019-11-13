@@ -78,8 +78,8 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                         e.printStackTrace();
                     }
 
-
-                    getNavigator().onRefreshSuccess();
+                    if (getNavigator() != null)
+                        getNavigator().onRefreshSuccess();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -93,7 +93,8 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
-                    getNavigator().onRefreshFailure();
+                    if (getNavigator() != null)
+                        getNavigator().onRefreshFailure();
                 }
             }, AppConstants.API_VERSION_ONE);
 

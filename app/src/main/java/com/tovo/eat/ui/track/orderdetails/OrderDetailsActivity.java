@@ -21,6 +21,7 @@ import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAda
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
+import com.tovo.eat.ui.alerts.ordercanceled.CancelListener;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
@@ -32,7 +33,7 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import javax.inject.Inject;
 
 public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBinding, OrderDetailsViewModel> implements OrderDetailsNavigator,
-        OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener{
+        OrdersHistoryActivityItemAdapter.OrdersHistoryAdapterListener, CancelListener {
 
     @Inject
     OrderDetailsViewModel mOrderDetailsViewModel;
@@ -242,4 +243,8 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+        finish();
+    }
 }

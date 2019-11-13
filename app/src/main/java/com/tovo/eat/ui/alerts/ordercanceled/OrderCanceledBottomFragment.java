@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.alerts.ordercanceled;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.AlertOrderCanceledBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
+import com.tovo.eat.ui.home.kitchendish.dialog.AddKitchenDishListener;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
@@ -22,6 +24,9 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
 
     @Inject
     OrderCanceledViewModel mLoginViewModelMain;
+
+    CancelListener cancelListener;
+
     private AlertOrderCanceledBinding mAlertOrderCanceledBinding;
 
     public static OrderCanceledBottomFragment newInstance() {
@@ -29,6 +34,16 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
         OrderCanceledBottomFragment fragment = new OrderCanceledBottomFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+
+    @Override
+    public void onAttach(Context context) {
+
+        cancelListener =(CancelListener)context;
+
+        super.onAttach(context);
     }
 
     @Override
@@ -40,8 +55,8 @@ public class OrderCanceledBottomFragment extends BaseBottomSheetFragment<AlertOr
     public void submit() {
 
         new Analytics().sendClickData(pageName, AppConstants.CLICK_CLOSE);
-
         dismiss();
+        cancelListener.canceled();
     }
 
     @Override

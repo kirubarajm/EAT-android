@@ -71,6 +71,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean refundChecked = new ObservableBoolean();
 
 
+    public final ObservableBoolean xfactorClick = new ObservableBoolean();
+
+
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
 
@@ -78,6 +81,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
     public ObservableList<CartPageResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
     public int funnelStatus = 0;
+
+
     int favId;
     Long makeitId;
     int totalAmount;
@@ -89,6 +94,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public CartViewModel(DataManager dataManager) {
         super(dataManager);
+
+        xfactorClick.set(true);
+
+
         dishItemsLiveData = new MutableLiveData<>();
         refundListItemsLiveData = new MutableLiveData<>();
         cartBillLiveData = new MutableLiveData<>();
@@ -604,7 +613,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                     } else {
 
-                        xfactor();
+
+                        if (xfactorClick.get())
+                            xfactor();
                     }
 
                 } else {
@@ -958,6 +969,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void xfactor() {
 
+        xfactorClick.set(false);
         try {
 
             if (getDataManager().getAddressId() != 0L) {
@@ -1007,6 +1019,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_X_FACTOR, new JSONObject(json), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+
+
+                            xfactorClick.set(true);
+
                             try {
 
 
@@ -1028,9 +1044,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                             if (getDataManager().getRefundId() != 0) {
 
                                                 if (refundBalance.get() > 0) {
-                                                    getNavigator().refundAlert();
+                                                    if (getNavigator() != null)
+                                                        getNavigator().refundAlert();
                                                 } else {
-                                                    getNavigator().paymentGateway(grand_total.get());
+                                                    if (getNavigator() != null)
+                                                        getNavigator().paymentGateway(grand_total.get());
                                                 }
 
                                             } else {
@@ -1040,12 +1058,15 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                             if (getDataManager().getRefundId() != 0) {
 
                                                 if (refundBalance.get() > 0) {
-                                                    getNavigator().refundAlert();
+                                                    if (getNavigator() != null)
+                                                        getNavigator().refundAlert();
                                                 } else {
-                                                    getNavigator().paymentGateway(grand_total.get());
+                                                    if (getNavigator() != null)
+                                                        getNavigator().paymentGateway(grand_total.get());
                                                 }
                                             } else {
-                                                getNavigator().paymentGateway(grand_total.get());
+                                                if (getNavigator() != null)
+                                                    getNavigator().paymentGateway(grand_total.get());
                                             }
 
                                         }
@@ -1056,9 +1077,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                                 if (getDataManager().getRefundId() != 0) {
 
                                                     if (refundBalance.get() > 0) {
-                                                        getNavigator().refundAlert();
+                                                        if (getNavigator() != null)
+                                                            getNavigator().refundAlert();
                                                     } else {
-                                                        getNavigator().paymentGateway(grand_total.get());
+                                                        if (getNavigator() != null)
+                                                            getNavigator().paymentGateway(grand_total.get());
                                                     }
                                                 } else {
                                                     cashMode();
@@ -1067,16 +1090,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                                 if (getDataManager().getRefundId() != 0) {
 
                                                     if (refundBalance.get() > 0) {
-                                                        getNavigator().refundAlert();
+                                                        if (getNavigator() != null)
+                                                            getNavigator().refundAlert();
                                                     } else {
-                                                        getNavigator().paymentGateway(grand_total.get());
+                                                        if (getNavigator() != null)
+                                                            getNavigator().paymentGateway(grand_total.get());
                                                     }
                                                 } else {
-                                                    getNavigator().paymentGateway(grand_total.get());
+                                                    if (getNavigator() != null)
+                                                        getNavigator().paymentGateway(grand_total.get());
                                                 }
                                             }
                                         } else {
-                                            getNavigator().postRegistration("cart", grand_total.get());
+                                            if (getNavigator() != null)
+                                                getNavigator().postRegistration("cart", grand_total.get());
 
                                         }
 
@@ -1091,12 +1118,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                xfactorClick.set(true);
                             }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            xfactorClick.set(true);
 
                             //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
                         }
@@ -1111,6 +1139,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     };
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    xfactorClick.set(true);
                 }
                 assert jsonObjectRequest != null;
                 jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -1122,7 +1151,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 //  getNavigator().showToast("Please select the address...");
             }
         } catch (Exception ee) {
-
+            xfactorClick.set(true);
             ee.printStackTrace();
 
         }

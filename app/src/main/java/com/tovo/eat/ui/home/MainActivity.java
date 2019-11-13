@@ -276,10 +276,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void paymentPending(int orderid, String brandname, int price, String products) {
+    public void paymentPending(Long orderid, String brandname, int price, String products) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("orderid", orderid);
+        bundle.putLong("orderid", orderid);
         bundle.putString("brandname", brandname);
         bundle.putString("products", products);
         bundle.putInt("price", price);
@@ -335,10 +335,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void showOrderRating(Integer orderId, String brandname) {
+    public void showOrderRating(Long orderId, String brandname) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_RATING);
         Bundle bundle = new Bundle();
-        bundle.putInt("orderid", orderId);
+        bundle.putLong("orderid", orderId);
         bundle.putString("brandname", brandname);
         OrderRatingActivity bottomSheetFragment = new OrderRatingActivity();
         bottomSheetFragment.setArguments(bundle);
@@ -824,7 +824,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void paymentRetry() {
         int price = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getPrice();
-        int orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
+        Long orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
 
 
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_PAYMENT_RETRY);

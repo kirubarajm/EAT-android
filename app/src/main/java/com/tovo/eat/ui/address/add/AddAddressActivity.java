@@ -74,6 +74,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ADD_ADDRESS;
 
+    String address = null;
+
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -127,8 +129,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         new Analytics().sendClickData(pageName, AppConstants.CLICK_ADDRESS_CURRENT_LOCATION);
         turnOnGps();
     }
-
-
 
 
     @Override
@@ -287,7 +287,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
             public void onCameraIdle() {
                 center = map.getCameraPosition().target;
 
-                getAddressFromLocation(center.latitude, center.longitude);
+                if (center.latitude != 0.0)
+                    getAddressFromLocation(center.latitude, center.longitude);
                 //getAddressFromLocation(12.99447060,80.25593567);
             }
         });
@@ -301,11 +302,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADDRESS_SEARCH_CODE) {
             if (resultCode == RESULT_OK) {
-             //   Place place = PlaceAutocomplete.getPlace(this, data);
+                //   Place place = PlaceAutocomplete.getPlace(this, data);
 
                 com.google.android.libraries.places.api.model.Place place = Autocomplete.getPlaceFromIntent(data);
 
-                if (place. getLatLng()!=null) {
+                if (place.getLatLng() != null) {
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
                     map.animateCamera(cameraUpdate);
                 }
@@ -479,26 +480,17 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
 
 
-
-
-
-
-
                /* String address = fetchedAddress.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 String city = fetchedAddress.getLocality();
                 String state = fetchedAddress.getAdminArea();
                 String country = fetchedAddress.getCountryName();
                 String postalCode = fetchedAddress.getPostalCode();
                 String knownName = fetchedAddress.getFeatureName();
-
-
                 Toast.makeText(AddAddressActivity.this, address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+knownName, Toast.LENGTH_LONG).show();*/
 
 
-
-
-
-                mAddAddressViewModel.locationAddress.set(fetchedAddress.getAddressLine(0));
+                address = fetchedAddress.getAddressLine(0);
+                mAddAddressViewModel.locationAddress.set(address);
 
                 mAddAddressViewModel.area.set(fetchedAddress.getSubLocality());
                 //    mAddAddressViewModel.house.set(fetchedAddress.getFeatureName());
@@ -514,7 +506,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 }
 
             } else {
-                printToast("Unable to find your address please mark your location on map..");
+                if (address == null)
+                    printToast("Unable to find your address please mark your location on map..");
             }
 
         }

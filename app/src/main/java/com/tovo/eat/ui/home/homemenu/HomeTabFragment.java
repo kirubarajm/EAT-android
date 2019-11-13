@@ -300,7 +300,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
 
-        String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea()==null?"Current location":mHomeTabViewModel.getDataManager().getCurrentAddressArea();
+        String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea()==null?"your location":mHomeTabViewModel.getDataManager().getCurrentAddressArea();
 
 
         String sTitle = "Now showing kitchens around " + aTitle + ".\nClick to change location!";
@@ -561,6 +561,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void onResume() {
         super.onResume();
+
+
+        mHomeTabViewModel.updateAddressTitle();
+
 
         if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
             mHomeTabViewModel.fetchKitchenFilter();
