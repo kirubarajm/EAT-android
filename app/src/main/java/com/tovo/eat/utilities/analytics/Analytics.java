@@ -205,7 +205,7 @@ public class Analytics {
             bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
             bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
             bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-            bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+            bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_FAILED, bundle);
         }
     }
@@ -220,7 +220,7 @@ public class Analytics {
             bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
             bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
             bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-            bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+            bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
             mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_PAYMENT_SUCCESS, bundle);
         }
     }
@@ -236,7 +236,7 @@ public class Analytics {
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+        bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ORDER_PLACED, bundle);
     }
 
@@ -249,7 +249,7 @@ public class Analytics {
         bundle.putLong(AppConstants.ANALYTICYS_ORDER_ID, order_id);
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+        bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CREATE_ORDER, bundle);
     }
 
@@ -373,7 +373,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.ANALYTICYS_PRICE, price);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putLong(FirebaseAnalytics.Param.VALUE, price);
+        bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_CHECKOUT, bundle);
     }
 

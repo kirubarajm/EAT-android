@@ -75,6 +75,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableBoolean fullEmpty = new ObservableBoolean();
     public ObservableBoolean regionTitleLoaded = new ObservableBoolean();
+    public ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModelstemp = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Collection> collectionItemViewModels = new ObservableArrayList<>();
@@ -109,6 +110,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         showFunnel.set(getDataManager().getFunnelStatus());
 
+        kitchenListLoading.set(true);
+
     }
 
 
@@ -139,7 +142,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-            kitchenItemViewModels.clear();
+         //   kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 
@@ -552,6 +555,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchKitchen() throws NullPointerException {
 
+
+        kitchenListLoading.set(true);
+
+
+
         String json="";
         if (getDataManager().getCurrentLat() == null) {
 
@@ -590,7 +598,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
+                                kitchenListLoading.set(false);
                                 if (response != null) {
 
                                     KitchenResponse kitchenResponse;
@@ -640,7 +648,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                         //  kitchenItemsLiveData.setValue(null);
 
-                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                     //   kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+                                        kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+
 
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
@@ -678,6 +689,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
+
+                                kitchenListLoading.set(false);
+
                                 try {
 
                                     getNavigator().kitchenLoaded();
@@ -718,6 +732,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void fetchKitchenFilter() throws NullPointerException {
+
+        kitchenListLoading.set(true);
+
 
         if (getDataManager().getCurrentLat() == null) {
         } else {
@@ -768,6 +785,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(getDataManager().getFilterSort()), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                kitchenListLoading.set(false);
                                 if (response != null) {
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
@@ -849,6 +867,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
+                                kitchenListLoading.set(false);
                                 try {
 
                                     getNavigator().kitchenLoaded();
