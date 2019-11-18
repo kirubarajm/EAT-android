@@ -522,7 +522,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 super.onScrolled(recyclerView, dx, dy);
               //  Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
 
-
             }
         });*/
 
