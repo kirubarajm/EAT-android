@@ -572,11 +572,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     return;
 
                 } else {
-
                     FilterRequestPojo filterRequestPojo;
-                    {
                         filterRequestPojo = new FilterRequestPojo();
-
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
@@ -590,7 +587,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         Gson gson = new Gson();
                          json = gson.toJson(filterRequestPojo);
                       //  getDataManager().setFilterSort(json);
-                    }
 
 
                     try {

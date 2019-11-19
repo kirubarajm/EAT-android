@@ -42,8 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
-
 public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
@@ -59,11 +57,10 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> brandname = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
 
-    public final ObservableBoolean clickable=new ObservableBoolean();
+    public final ObservableBoolean clickable = new ObservableBoolean();
 
 
-
-    public Long orderid;
+    public Long orderid = 0L;
     public int refundBalance = 0;
     public int price = 0;
     public String razorpayCustomerId = null;
@@ -73,7 +70,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public int paymentStatus = 0;
     public boolean paymentSuccessNotSent = false;
 
-   // public boolean clickable = true;
+    // public boolean clickable = true;
 
 
     public PaymentViewModel(DataManager dataManager) {
@@ -320,118 +317,121 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
             Gson sGson = new GsonBuilder().create();
             CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
-            cartitems.addAll(cartRequestPojo.getCartitems());
+
+            if (cartRequestPojo != null && cartRequestPojo.getCartitems().size() > 0) {
+
+                cartitems.addAll(cartRequestPojo.getCartitems());
+
+                for (int i = 0; i < cartitems.size(); i++) {
+
+                    orderitem = new PlaceOrderRequestPojo.Orderitem();
+                    orderitem.setProductid(cartitems.get(i).getProductid());
+                    orderitem.setQuantity(cartitems.get(i).getQuantity());
+                    orderitems.add(orderitem);
+                }
+
+                placeOrderRequestPojo.setOrderitems(orderitems);
+
+                placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+
+                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
 
 
-            for (int i = 0; i < cartitems.size(); i++) {
+                Gson gson = new Gson();
+                String json = gson.toJson(placeOrderRequestPojo1);
 
-                orderitem = new PlaceOrderRequestPojo.Orderitem();
-                orderitem.setProductid(cartitems.get(i).getProductid());
-                orderitem.setQuantity(cartitems.get(i).getQuantity());
-                orderitems.add(orderitem);
-            }
+                Log.e("sfsdfd", json);
 
-            placeOrderRequestPojo.setOrderitems(orderitems);
+                setIsLoading(true);
 
-            placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
+                JsonObjectRequest jsonObjectRequest = null;
+                try {
+                    jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            clickable.set(true);
+                            Long sorderId = null;
+                            if (response != null) {
 
-            PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 1, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), orderitems);
+                                Gson gson = new Gson();
+                                CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
 
+                                if (cartPaymentResponse != null)
+                                    if (cartPaymentResponse.getStatus()) {
+                                        if (cartPaymentResponse.getOrderid() != null) {
+                                            sorderId = cartPaymentResponse.getOrderid();
+                                            if (sorderId != null) {
+                                                orderid = sorderId;
 
-            Gson gson = new Gson();
-            String json = gson.toJson(placeOrderRequestPojo1);
+                                                getDataManager().setOrderId(sorderId);
 
-            Log.e("sfsdfd", json);
-
-            setIsLoading(true);
-
-            JsonObjectRequest jsonObjectRequest = null;
-            try {
-                jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_CREATE_ORDER_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        clickable.set(true);
-                        Long sorderId = null;
-                        if (response != null) {
-
-                            Gson gson = new Gson();
-                            CartPaymentResponse cartPaymentResponse = gson.fromJson(response.toString(), CartPaymentResponse.class);
-
-                            if (cartPaymentResponse != null)
-                                if (cartPaymentResponse.getStatus()) {
-                                    if (cartPaymentResponse.getOrderid() != null) {
-                                        sorderId = cartPaymentResponse.getOrderid();
-                                        if (sorderId != null) {
-                                            orderid = sorderId;
-
-                                            getDataManager().setOrderId(sorderId);
-
-                                            new Analytics().createOrder(orderid, cartPaymentResponse.getPrice());
+                                                new Analytics().createOrder(orderid, cartPaymentResponse.getPrice());
+                                            }
                                         }
-                                    }
-                                    if (getDataManager().getRefundId() != 0) {
-                                        if (cartPaymentResponse.getRefundBalance() != null) {
-                                            refundBalance = cartPaymentResponse.getRefundBalance();
+                                        if (getDataManager().getRefundId() != 0) {
+                                            if (cartPaymentResponse.getRefundBalance() != null) {
+                                                refundBalance = cartPaymentResponse.getRefundBalance();
 
-                                            getDataManager().saveRefundBalance(refundBalance);
+                                                getDataManager().saveRefundBalance(refundBalance);
+                                            }
+
                                         }
+                                        if (cartPaymentResponse.getRazerCustomerid() != null) {
+                                            razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
 
-                                    }
-                                    if (cartPaymentResponse.getRazerCustomerid() != null) {
-                                        razorpayCustomerId = cartPaymentResponse.getRazerCustomerid();
+                                            getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
 
-                                        getDataManager().saveRazorpayCustomerId(razorpayCustomerId);
-
-                                        price = cartPaymentResponse.getPrice();
-                                        getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
-                                    }
-
-                                } else {
-
-                                    if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
-                                        Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
-                                        if (orderId != null)
-                                            getDataManager().setOrderId(orderId);
-                                        price = cartPaymentResponse.getResult().get(0).getPrice();
-
-                                        if (getNavigator() != null)
-                                            getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
-
+                                            price = cartPaymentResponse.getPrice();
+                                            getNavigator().orderGenerated(sorderId, razorpayCustomerId, price);
+                                        }
 
                                     } else {
-                                        if (cartPaymentResponse.getMessage() != null)
-                                            getNavigator().showToast(cartPaymentResponse.getMessage());
+
+                                        if (null != cartPaymentResponse.getResult() && cartPaymentResponse.getResult().size() > 0) {
+                                            Long orderId = cartPaymentResponse.getResult().get(0).getOrderid();
+                                            if (orderId != null)
+                                                getDataManager().setOrderId(orderId);
+                                            if (cartPaymentResponse.getResult().get(0).getPrice() != null)
+                                                price = cartPaymentResponse.getResult().get(0).getPrice();
+
+                                            if (getNavigator() != null)
+                                                getNavigator().orderGenerated(orderId, getDataManager().getRazorpayCustomerId(), price);
+
+
+                                        } else {
+                                            if (cartPaymentResponse.getMessage() != null)
+                                                getNavigator().showToast(cartPaymentResponse.getMessage());
+                                        }
+
                                     }
+                            }
 
-                                }
                         }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            clickable.set(true);
+                            //  Log.e("test", error.getMessage());
+                            //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
+                        }
+                    }) {
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        clickable.set(true);
-                        //  Log.e("test", error.getMessage());
-                        //   getNavigator().showToast("Unable to place your order, due to technical issue. Please try again later...");
-                    }
-                }) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
+                        }
+                    };
+                } catch (JSONException e) {
+                    clickable.set(true);
+                    e.printStackTrace();
+                } catch (Exception ee) {
+                    clickable.set(true);
+                    ee.printStackTrace();
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        return AppConstants.setHeaders(AppConstants.API_VERSION_ONE);
-                    }
-                };
-            } catch (JSONException e) {
-                clickable.set(true);
-                e.printStackTrace();
-            } catch (Exception ee) {
-                clickable.set(true);
-                ee.printStackTrace();
+                }
 
+                MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
             }
-
-            MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
-
         }
     }
 
