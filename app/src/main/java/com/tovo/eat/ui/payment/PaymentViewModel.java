@@ -281,7 +281,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public void paymentModeCheck() {
         if (clickable.get()) {
             clickable.set(false);
-
             if (getDataManager().getEmailStatus()) {
 
                 payOnline();

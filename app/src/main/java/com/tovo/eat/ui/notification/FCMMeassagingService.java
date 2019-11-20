@@ -79,10 +79,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_eat_query_replay:9,
                 Pageid_eat_rating:10*/
 
-
         Bundle bundle = new Bundle();
         Intent intent;
-
         String pageId = data.get("pageid");
         String title = data.get("title");
         String message = data.get("message");
@@ -91,36 +89,22 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         if (pageId == null) pageId = "0";
 
         switch (pageId) {
-
-            case "1":
-                intent = new Intent(this, MainActivity.class);
-
-                break;
             case "2":
-                intent = new Intent(this, OrderTrackingActivity.class);
-                break;
             case "3":
-                intent = new Intent(this, OrderTrackingActivity.class);
-                break;
             case "4":
-                intent = new Intent(this, OrderTrackingActivity.class);
-                break;
             case "5":
-                intent = new Intent(this, OrderTrackingActivity.class);
-                break;
             case "6":
                 intent = new Intent(this, OrderTrackingActivity.class);
                 break;
             case "7":
                 intent = new Intent(this, OrderHistoryActivity.class);
                 break;
-            case "8":
-                intent = new Intent(this, MainActivity.class);
-                break;
             case "9":
                 intent = new Intent(this, RepliesActivity.class);
                 intent.putExtra("notification",true);
                 break;
+            case "8":
+            case "1":
             default:
                 intent = new Intent(this, MainActivity.class);
         }

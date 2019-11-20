@@ -34,9 +34,11 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
                         strMessage = response.getMessage();
                         boolean booleanSucces = response.getSuccess();
                         if (booleanSucces) {
-                            getNavigator().feedBackSucess(strMessage);
+                            if (getNavigator() != null)
+                                getNavigator().feedBackSucess(strMessage);
                         } else {
-                            getNavigator().feedBackFailure(strMessage);
+                            if (getNavigator() != null)
+                                getNavigator().feedBackFailure(strMessage);
                         }
                     }
                 }
@@ -44,7 +46,8 @@ public class FeedbackActivityViewModel extends BaseViewModel<FeedbackActivityNav
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().feedBackFailure(strMessage);
+                    /*if (getNavigator() != null)
+                        getNavigator().feedBackFailure(strMessage);*/
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
