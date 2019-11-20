@@ -638,9 +638,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                             //  kitchenItemsLiveData.setValue(null);
 
-                                            //   kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                            kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                          //  kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());

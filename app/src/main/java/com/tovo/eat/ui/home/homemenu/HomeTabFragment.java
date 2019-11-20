@@ -456,109 +456,40 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
-        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
 
-                int size2=mHomeTabViewModel.kitchenItemViewModels.size();
-
-
-                int visibleItemCount = mLayoutManager.getChildCount();
-                int totalItemCount = mLayoutManager.getItemCount();
-                int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-
-
-
-
-                final int visibleItemsCount = mLayoutManager.getChildCount();
-                final int totalItemsCount = mLayoutManager.getItemCount();
-                final int pastVisibleItemsCount = mLayoutManager.findFirstVisibleItemPosition();
-                final boolean lastItemShown = visibleItemsCount + pastVisibleItemsCount >= totalItemsCount;
-
-                if (!mHomeTabViewModel.kitchenListLoading.get()) {
-
-
-
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        int itemPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
-                        if ((visibleItemCount + firstVisibleItemPosition) >= (mHomeTabViewModel.kitchenItemViewModels.size())) {
-                            // here you can fetch new data from server.
-                            Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-
-
-
-
-
-                 *//*
-                    if (lastItemShown) {
-                        mHomeTabViewModel.kitchenListLoading.set(true);
-                        mHomeTabViewModel.fetchKitchen();
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    }*//*
-
-                }
-
-                *//*if (!mHomeTabViewModel.kitchenListLoading.get()) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >=mHomeTabViewModel.kitchenItemViewModels.size()) {
-                        // loadMoreItems();
-                        mHomeTabViewModel.kitchenListLoading.set(true);
-                        mHomeTabViewModel.fetchKitchen();
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }*//*
-
-
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-              //  Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                   /* if(v.getChildAt(v.getChildCount() - 1) != null) {
+                   *//* if(v.getChildAt(v.getChildCount() - 1) != null) {
                         if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
                                 scrollY > oldScrollY) {
                             //code to fetch more data for endless scrolling
                         }
-                    }*/
+                    }*//*
 
-                   /*int hh= v.getMeasuredHeight();
+                   *//*int hh= v.getMeasuredHeight();
                    int ff=mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == ( v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight() )) {
                         Log.i(TAG, "BOTTOM SCROLL");
                         Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    }*/
+                    }*//*
 
 
-                    if ((scrollY >= ( mFragmentHomeBinding.fullScroll.getChildAt( mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() -  mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
+                   *//* if ((scrollY >= ( mFragmentHomeBinding.fullScroll.getChildAt( mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() -  mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
                             scrollY > oldScrollY) {
                     //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
 
                         Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
                         mHomeTabViewModel.fetchKitchen();
 
-                    }
+                    }*//*
 
 
                 }
             });
-        }
+        }*/
 
 
         LinearLayoutManager mLayoutManagerTitle
@@ -614,136 +545,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-    //    mFragmentHomeBinding.recyclerviewOrders.setItemAnimator(new DefaultItemAnimator());
-
-
-      /*  mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new PaginationListener(mLayoutManager) {
-            @Override
-            protected void loadMoreItems() {
-              //  isLoading = true;
-
-                mHomeTabViewModel.kitchenListLoading.set(true);
-
-                currentPage++;
-                doApiCall();
-
-                Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return false;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return  false;
-            }
-        });*/
-
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mFragmentHomeBinding.recyclerviewOrders.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    int visibleItemCount = mLayoutManager.getChildCount();
-                    int totalItemCount = mLayoutManager.getItemCount();
-                    int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-
-                    if (!mHomeTabViewModel.kitchenListLoading.get()) {
-                        if ((visibleItemCount + firstVisibleItemPosition) >= 10) {
-                            // loadMoreItems();
-                            mHomeTabViewModel.kitchenListLoading.set(true);
-                            Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-
-                        }
-                    }
-
-                }
-            });
-        }*/
-
-
-       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int visibleItemCount = mLayoutManager.getChildCount();
-                int totalItemCount = mLayoutManager.getItemCount();
-                int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-
-
-                if (!mHomeTabViewModel.kitchenListLoading.get()) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= 1000) {
-                       // loadMoreItems();
-                        mHomeTabViewModel.kitchenListLoading.set(true);
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }
-            }
-        });*/
-
-
-       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new MyScroll(mLayoutManager) {
-            @Override
-            public void onScrolledToEnd() {
-                Log.e("Position", "Last item reached");
-                Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-
-*//*
-                if (loadMore == true) {
-                    // put your Load more code
-                    // add 10 by 10 to tempList then notify changing in data
-                }*//*
-            }
-        });*/
-
-
-
-
-
-        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-            }
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (!mHomeTabViewModel.kitchenListLoading.get()){
-                  *//*  if (mLayoutManager. getItemCount()>0&& mLayoutManager. getItemCount()-1==mLayoutManager.findLastCompletelyVisibleItemPosition()){*//*
-                      //  mHomeTabViewModel.fetchKitchen();
-
-                   // if (mLayoutManager. getItemCount()>0&& mLayoutManager. getItemCount()-1==mLayoutManager.findLastCompletelyVisibleItemPosition()){
-                    if (mLayoutManager. getItemCount()>0&& mHomeTabViewModel.kitchenItemViewModels.size()-1==mLayoutManager.findLastCompletelyVisibleItemPosition()){
-                        mHomeTabViewModel.kitchenListLoading.set(true);
-                        mHomeTabViewModel.fetchKitchen();
-
-                       *//* ProgressDialog dialog=new ProgressDialog(getBaseActivity());
-                        dialog.show();*//*
-
-
-                        Toast.makeText(getContext(), "loading...", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }
-            }
-        });*/
-
-
-    //    mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(createInfiniteScrollListener());
-
-
-
-
-
+        
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
