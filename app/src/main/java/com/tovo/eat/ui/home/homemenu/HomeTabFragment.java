@@ -545,7 +545,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-        
+
         mFragmentHomeBinding.recyclerViewRegion.setAdapter(regionListAdapter);
         mFragmentHomeBinding.recyclerViewRegion.setHasFixedSize(true);
 
