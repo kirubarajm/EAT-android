@@ -11,12 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -54,18 +52,11 @@ import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
-import com.tovo.eat.utilities.scroll.EndlessRecyclerOnScrollListener;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
-import com.tovo.eat.utilities.scroll.MyScroll;
-import com.tovo.eat.utilities.scroll.PaginationListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
-import static android.app.Activity.RESULT_OK;
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 import static com.tovo.eat.utilities.scroll.PaginationListener.PAGE_START;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator,
@@ -73,7 +64,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
-
+    private static final int MAX_ITEMS_PER_REQUEST = 10;
+    private static final int NUMBER_OF_ITEMS = 100;
+    private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
     @Inject
     HomeTabViewModel mHomeTabViewModel;
     @Inject
@@ -94,24 +87,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     Analytics analytics;
     String pageName = AppConstants.SCREEN_HOME;
     ToolTipView myToolTipView;
+    LinearLayoutManager mLayoutManager;
+    int page = 1;
+    int itemCount = 0;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
-    LinearLayoutManager mLayoutManager;
-
-    private static final int MAX_ITEMS_PER_REQUEST = 10;
-    private static final int NUMBER_OF_ITEMS = 100;
-    private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
-    int page =1;
-
-
-
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
     private int totalPage = 10;
     private boolean isLoading = false;
-    int itemCount = 0;
-
-
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -327,7 +311,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
 
-        String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea()==null?"your location":mHomeTabViewModel.getDataManager().getCurrentAddressArea();
+        String aTitle = mHomeTabViewModel.getDataManager().getCurrentAddressArea() == null ? "your location" : mHomeTabViewModel.getDataManager().getCurrentAddressArea();
 
 
         String sTitle = "Now showing kitchens around " + aTitle + ".\nClick to change location!";
@@ -448,9 +432,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private void setUp() {
 
 
-        int size=1;
+        int size = 1;
 
-         mLayoutManager
+        mLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -469,7 +453,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         }
                     }*//*
 
-                   *//*int hh= v.getMeasuredHeight();
+         *//*int hh= v.getMeasuredHeight();
                    int ff=mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == ( v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight() )) {
                         Log.i(TAG, "BOTTOM SCROLL");
@@ -477,7 +461,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                     }*//*
 
 
-                   *//* if ((scrollY >= ( mFragmentHomeBinding.fullScroll.getChildAt( mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() -  mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
+         *//* if ((scrollY >= ( mFragmentHomeBinding.fullScroll.getChildAt( mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() -  mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
                             scrollY > oldScrollY) {
                     //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
 
@@ -628,12 +612,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
 
-    @NonNull private InfiniteScrollListener createInfiniteScrollListener() {
+    @NonNull
+    private InfiniteScrollListener createInfiniteScrollListener() {
         return new InfiniteScrollListener(MAX_ITEMS_PER_REQUEST, mLayoutManager) {
-            @Override public void onScrolledToEnd(final int firstVisibleItemPosition) {
+            @Override
+            public void onScrolledToEnd(final int firstVisibleItemPosition) {
                 Toast.makeText(getContext(), "loading...", Toast.LENGTH_SHORT).show();
 
-            //    mHomeTabViewModel.fetchKitchen();
+                //    mHomeTabViewModel.fetchKitchen();
 
 
                /* int start = ++page * MAX_ITEMS_PER_REQUEST;
@@ -959,12 +945,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == AppConstants.SELECT_ADDRESS_LIST_CODE) {
-
-            if (resultCode == RESULT_OK) {
-                mHomeTabViewModel.updateAddressTitle();
-                mHomeTabViewModel.fetchRepos(0);
-                mHomeTabViewModel.fetchKitchen();
-            }
+            startRegionLoader();
+            startKitchenLoader();
+            //  if (resultCode == RESULT_OK) {
+            mHomeTabViewModel.updateAddressTitle();
+            mHomeTabViewModel.fetchRepos(0);
+            mHomeTabViewModel.fetchKitchen();
+            //   }
 
         } else if (requestCode == AppConstants.GPS_REQUEST) {
 

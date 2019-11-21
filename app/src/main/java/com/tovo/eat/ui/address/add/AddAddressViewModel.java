@@ -29,7 +29,6 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.address.DefaultAddressRequest;
 import com.tovo.eat.ui.base.BaseViewModel;
-import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -47,6 +46,7 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
     public final ObservableBoolean typeHome = new ObservableBoolean();
     public final ObservableBoolean typeOffice = new ObservableBoolean();
     public final ObservableBoolean typeOther = new ObservableBoolean();
+    public final ObservableBoolean SAVEcLICKED = new ObservableBoolean();
 
 
     public final ObservableBoolean home = new ObservableBoolean();
@@ -239,20 +239,28 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
             try {
                 setIsLoading(true);
-                GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ADD_ADDRESS_URL, AddressResponse.class, request, new Response.Listener<AddressResponse>() {
-                    @Override
-                    public void onResponse(AddressResponse response) {
+                if (!SAVEcLICKED.get()) {
+                    GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ADD_ADDRESS_URL, AddressResponse.class, request, new Response.Listener<AddressResponse>() {
+                        @Override
+                        public void onResponse(AddressResponse response) {
 
-                        if (!response.getStatus())
-                            if (getNavigator() != null)
-                                getNavigator().showToast(response.getMessage());
+                            if (response.getStatus()) {
+                                SAVEcLICKED.set(true);
+                                if (getNavigator() != null)
+                                    getNavigator().showToast(response.getMessage());
 
 
-                        if (response.getAid() != null) {
-                            getNavigator().addressSaved();
-                            defaultAddress(response.getAid());
-                            getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
-                            FilterRequestPojo filterRequestPojo;
+                                if (response.getAid() != null) {
+                                    getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
+                                    getDataManager().setCurrentAddressTitle(request.getAddressTitle());
+                                    getDataManager().setCurrentLat( Double.parseDouble(request.getLat()));
+                                    getDataManager().setCurrentLng( Double.parseDouble(request.getLon()));
+                                    getDataManager().setCurrentAddress(request.getAddress());
+                                    getDataManager().setCurrentAddressArea(request.getLocality());
+                                    getDataManager().setAddressId(response.getAid());
+                                    defaultAddress(response.getAid());
+                                    getNavigator().addressSaved();
+
 
                            /* Gson sGson = new GsonBuilder().create();
                             filterRequestPojo = sGson.fromJson(getDataManager().getFilterSort(), FilterRequestPojo.class);
@@ -264,20 +272,20 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                             Gson gson = new Gson();
                             String json = gson.toJson(filterRequestPojo);
                             getDataManager().setFilterSort(json);*/
+                                }
+                            }
+
                         }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            SAVEcLICKED.set(true);
+                        }
+                    }, AppConstants.API_VERSION_ONE);
 
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-
-                    }
-                }, AppConstants.API_VERSION_ONE);
-
-
-                MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                    MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+                }
             } catch (NullPointerException e) {
                 e.printStackTrace();
             } catch (Exception ee) {

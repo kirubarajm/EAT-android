@@ -32,7 +32,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +40,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallState;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
@@ -388,7 +386,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             }
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
 
-            if (resultCode == RESULT_OK) openHome();
+            //if (resultCode == RESULT_OK)
+                openHome();
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
         }
     }
