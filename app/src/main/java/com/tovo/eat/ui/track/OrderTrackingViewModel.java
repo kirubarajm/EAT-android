@@ -676,6 +676,47 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
         }
 
+    }
+
+
+
+
+    public void getDunzoLatLng(String taskid) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_ETA, DunzoResponse.class, new Response.Listener<DunzoResponse>() {
+                @Override
+                public void onResponse(DunzoResponse response) {
+
+                    if (response != null) {
+                        if (response.getRunner()!=null&&response.getRunner().getLocation()!=null&&response.getRunner().getLocation().getLat()!=null){
+                            getNavigator().DunzoTracking(response.getRunner().getLocation().getLat(),response.getRunner().getLocation().getLng());
+                        }
+
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
 
     }
+
 }

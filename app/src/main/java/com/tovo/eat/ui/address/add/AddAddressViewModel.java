@@ -81,8 +81,8 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
     public void locateMe() {
-
-        getNavigator().myLocationn();
+        if (getNavigator() != null)
+            getNavigator().myLocationn();
 
     }
 
@@ -126,17 +126,17 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
     public void goBack() {
+        if (getNavigator() != null)
 
-
-        getNavigator().goBack();
+            getNavigator().goBack();
 
 
     }
 
     public void searchAddress() {
 
-
-        getNavigator().searchAddress();
+        if (getNavigator() != null)
+            getNavigator().searchAddress();
 
 
     }
@@ -253,13 +253,14 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
                                 if (response.getAid() != null) {
                                     getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), response.getAid());
                                     getDataManager().setCurrentAddressTitle(request.getAddressTitle());
-                                    getDataManager().setCurrentLat( Double.parseDouble(request.getLat()));
-                                    getDataManager().setCurrentLng( Double.parseDouble(request.getLon()));
+                                    getDataManager().setCurrentLat(Double.parseDouble(request.getLat()));
+                                    getDataManager().setCurrentLng(Double.parseDouble(request.getLon()));
                                     getDataManager().setCurrentAddress(request.getAddress());
                                     getDataManager().setCurrentAddressArea(request.getLocality());
                                     getDataManager().setAddressId(response.getAid());
                                     defaultAddress(response.getAid());
-                                    getNavigator().addressSaved();
+                                    if (getNavigator() != null)
+                                        getNavigator().addressSaved();
 
 
                            /* Gson sGson = new GsonBuilder().create();
@@ -296,8 +297,8 @@ public class AddAddressViewModel extends BaseViewModel<AddAddressNavigator> {
 
 
         } else {
-
-            getNavigator().emptyFields();
+            if (getNavigator() != null)
+                getNavigator().emptyFields();
 
         }
 

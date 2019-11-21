@@ -72,13 +72,15 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
                             emptyReplies.set(true);
                         }
 
-                    getNavigator().onRefreshSuccess();
+                    if (getNavigator() != null)
+                        getNavigator().onRefreshSuccess();
 
                 }
             }, errorListener = new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    if (getNavigator() != null)
                     getNavigator().onRefreshFailure();
                 }
             }, AppConstants.API_VERSION_ONE);

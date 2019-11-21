@@ -141,7 +141,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-            //   kitchenItemViewModels.clear();
+              kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 

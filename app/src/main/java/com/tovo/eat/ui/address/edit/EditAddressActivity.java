@@ -432,7 +432,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
             } else {
 
-                if (mEditAddressViewModel.locationAddress.get() == null && mEditAddressViewModel.locationAddress.get().isEmpty())
+                if (mEditAddressViewModel.locationAddress.get() == null || mEditAddressViewModel.locationAddress.get().isEmpty())
                     printToast("Unable to find your address please mark your location on map..");
             }
         }

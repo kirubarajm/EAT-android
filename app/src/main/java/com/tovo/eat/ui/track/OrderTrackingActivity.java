@@ -612,6 +612,18 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
     @Override
+    public void DunzoTracking(double runnerLat, double runnerLng) {
+
+        moveitLatLng = new LatLng(runnerLat, runnerLng);
+        if (moveitLocationMarker == null) {
+            if (mMap != null)
+                moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+        }
+        showMarker1(moveitLatLng);
+
+    }
+
+    @Override
     public void orderPickedUp(Integer moveitId) {
         loadPreviousStatuses(moveitId);
     }

@@ -92,6 +92,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                     if (val == 1) {
                         setIsLoading(false);
                     }
+                    if (getNavigator() != null)
                     getNavigator().onRefreshSuccess();
                 }
             }, AppConstants.API_VERSION_ONE);
@@ -114,6 +115,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                         success.set(response.getSuccess());
                         message = response.getMessage();
                         if (!message.equals("")) {
+                            if (getNavigator() != null)
                             getNavigator().success(String.valueOf(message));
                         }
                         setIsLoading(false);
@@ -124,6 +126,7 @@ public class SupportActivityViewModel extends BaseViewModel<SupportActivityNavig
                 public void onErrorResponse(VolleyError error) {
                     //getNavigator().loginError(error.getMessage());
                     setIsLoading(false);
+                    if (getNavigator() != null)
                     getNavigator().failure("Failed to insert");
                 }
             }, AppConstants.API_VERSION_ONE);

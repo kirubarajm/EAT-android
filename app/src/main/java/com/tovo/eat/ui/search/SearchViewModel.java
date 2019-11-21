@@ -130,8 +130,11 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
 
     public void addSearchItemsToList(List<SearchResponse.Result> ordersItems) {
-        searchItemViewModels.clear();
-        searchItemViewModels.addAll(ordersItems);
+
+        if (ordersItems != null) {
+            searchItemViewModels.clear();
+            searchItemViewModels.addAll(ordersItems);
+        }
 
     }
 
@@ -346,7 +349,8 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                         if (KitchenDishResponse.getResult() != null)
                             dishItemsLiveData.setValue(KitchenDishResponse.getResult());
                         Log.e("----response:---------", response.toString());
-                        getNavigator().listLoaded();
+                        if (getNavigator() != null)
+                            getNavigator().listLoaded();
 
 
                     }
@@ -407,14 +411,14 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
                             totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
                             kitchenResponse = response;
 
-                            getNavigator().listLoaded();
-
                         } else {
-                            getNavigator().noResults();
+                            if (getNavigator() != null)
+                                getNavigator().noResults();
                         }
 
                     }
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override

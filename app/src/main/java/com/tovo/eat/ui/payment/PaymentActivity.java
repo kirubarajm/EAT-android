@@ -66,7 +66,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     };
 
     public static Intent newIntent(Context context) {
-
         return new Intent(context, PaymentActivity.class);
     }
 

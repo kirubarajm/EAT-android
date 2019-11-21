@@ -105,16 +105,19 @@ public class OrderHistoryActivityViewModel extends BaseViewModel<OrderHistoryAct
     }
 
     public void onRefreshLayout() {
+        if ( getNavigator()!=null)
         getNavigator().onRefreshLayout();
     }
 
 
     public void goBack() {
+        if ( getNavigator()!=null)
         getNavigator().goBack();
 
     }
 
     public void goHome() {
+        if ( getNavigator()!=null)
         getNavigator().goHome();
 
     }

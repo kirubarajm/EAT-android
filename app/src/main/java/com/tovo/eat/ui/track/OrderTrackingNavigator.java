@@ -6,6 +6,7 @@ public interface OrderTrackingNavigator {
     void callDeliveryMan(String number);
 
     void tracking(String cusLat, String cusLng, double moveitLat, double moveitLng);
+    void DunzoTracking(double runnerLat, double runnerLng);
 
     void orderPickedUp(Integer MoveitId);
 

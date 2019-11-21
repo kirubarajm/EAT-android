@@ -69,7 +69,9 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                             getDataManager().setCurrentAddress(null);
                         }
+                        if (getNavigator()!=null)
                         getNavigator().showToast(response.getMessage());
+                        if (getNavigator()!=null)
                         getNavigator().addresDeleted();
                     }
                 }
@@ -120,6 +122,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         }
                     }
+                    if (getNavigator()!=null)
                     getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
