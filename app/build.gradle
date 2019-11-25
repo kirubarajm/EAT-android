@@ -39,7 +39,7 @@ android {
         release {
             buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
-            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'`
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
             resValue("bool", "FIREBASE_PERFORMANCE_ENABLED", "true")

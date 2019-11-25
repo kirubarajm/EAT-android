@@ -169,6 +169,8 @@ public class FaqActivity extends BaseActivity<ActivityFaqsBinding, FaqFragmentVi
     }
 
 
+    @Override
+    public void canceled() {
 
-
+    }
 }

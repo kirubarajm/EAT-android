@@ -266,5 +266,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     }
 
 
+    @Override
+    public void canceled() {
 
+    }
 }

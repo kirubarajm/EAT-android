@@ -219,5 +219,9 @@ public class SelectAddressListActivity extends BaseActivity<ActivityAddressSelec
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

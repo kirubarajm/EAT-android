@@ -167,4 +167,8 @@ public class FeedbackActivity extends BaseActivity<ActivityFeedbackBinding, Feed
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

@@ -311,4 +311,8 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

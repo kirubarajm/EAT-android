@@ -209,4 +209,8 @@ boolean fromNotification=false;
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

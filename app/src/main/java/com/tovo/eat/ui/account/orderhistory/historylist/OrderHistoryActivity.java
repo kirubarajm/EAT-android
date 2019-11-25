@@ -217,4 +217,8 @@ public class OrderHistoryActivity extends BaseActivity<ActivityOrdersHistoryList
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

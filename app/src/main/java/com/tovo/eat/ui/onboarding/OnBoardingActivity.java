@@ -258,6 +258,11 @@ public class OnBoardingActivity extends BaseActivity<ActivityOnboardingBinding, 
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
+
     /**
      * View pager adapter
      */

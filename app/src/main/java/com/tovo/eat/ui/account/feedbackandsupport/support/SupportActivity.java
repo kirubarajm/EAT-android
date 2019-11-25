@@ -239,4 +239,8 @@ public class SupportActivity extends BaseActivity<ActivityQueriesBinding, Suppor
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

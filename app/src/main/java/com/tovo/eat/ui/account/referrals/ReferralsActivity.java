@@ -152,4 +152,8 @@ public class ReferralsActivity extends BaseActivity<ActivityReferralsBinding, Re
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

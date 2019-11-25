@@ -1157,5 +1157,9 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

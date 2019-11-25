@@ -245,5 +245,8 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
     }
 
 
+    @Override
+    public void canceled() {
 
+    }
 }

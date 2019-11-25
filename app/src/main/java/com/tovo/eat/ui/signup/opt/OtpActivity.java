@@ -538,6 +538,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
+
     public class PinOnKeyListener implements View.OnKeyListener {
 
         private int currentIndex;

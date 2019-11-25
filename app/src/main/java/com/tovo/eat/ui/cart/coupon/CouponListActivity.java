@@ -230,5 +230,9 @@ public class CouponListActivity extends BaseActivity<ActivityCouponListBinding, 
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

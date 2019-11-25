@@ -292,4 +292,8 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpAc
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

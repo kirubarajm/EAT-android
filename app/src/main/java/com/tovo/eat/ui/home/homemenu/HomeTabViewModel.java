@@ -141,7 +141,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-              kitchenItemViewModels.clear();
+            kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 
@@ -302,13 +302,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     getDataManager().setOrderId(orderId);
 
 
-                                    if (response.getResult().get(0).getOrderstatus() > 4) {
-                                        singleTime = true;
-                                        getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
-
-
-                                    }
-
 
                                     StringBuilder itemsBuilder = new StringBuilder();
 
@@ -338,6 +331,16 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         e.printStackTrace();
 
                                     }
+
+
+                                    if (response.getResult().get(0).getDeliveryVendor() != null && response.getResult().get(0).getDeliveryVendor() == 0) {
+                                        if (response.getResult().get(0).getOrderstatus() > 4) {
+                                            singleTime = true;
+                                            getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
+                                        }
+                                    }
+
+
 
                                     ////////////
                                 } else {
@@ -640,7 +643,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                          //  kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                            //  kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());

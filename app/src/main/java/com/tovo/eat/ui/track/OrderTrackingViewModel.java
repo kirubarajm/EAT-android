@@ -3,12 +3,15 @@ package com.tovo.eat.ui.track;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.firebase.geofire.GeoFire;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
@@ -23,11 +27,15 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator> {
 
@@ -58,6 +66,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     public final ObservableBoolean dataLoaded = new ObservableBoolean();
 
+    public final ObservableBoolean dunzoTrackingTimer = new ObservableBoolean();
+
     public final ObservableBoolean iconReeceived = new ObservableBoolean();
     public final ObservableBoolean iconPrepared = new ObservableBoolean();
     public final ObservableBoolean iconDeliverd = new ObservableBoolean();
@@ -73,16 +83,23 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     public OrderTrackingResponse orderTrackingResponse;
 
+    public CountDownTimer countDownTimer;
 
-    public boolean singleTime=false;
+
+    public boolean singleTime = false;
 
     String deliveryManNumber;
+    String dunzoTaskid;
+
+    String dunzoClientId = "c6c3acd5-e254-4404-ad06-c0c1d2aafd1e";
+    String dunzoAuth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkIjp7InJvbGUiOjEwMCwidWlkIjoiZTRiNDU5ZTktODIxOS00M2Q2LWEyYWQtZDJlODhkOTBlYmI1In0sIm1lcmNoYW50X3R5cGUiOm51bGwsImNsaWVudF9pZCI6ImM2YzNhY2Q1LWUyNTQtNDQwNC1hZDA2LWMwYzFkMmFhZmQxZSIsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwibmFtZSI6IkFQSVVTRVIiLCJ1dWlkIjoiZTRiNDU5ZTktODIxOS00M2Q2LWEyYWQtZDJlODhkOTBlYmI1Iiwicm9sZSI6MTAwLCJkdW56b19rZXkiOiIwNmRkZGU1Yy1jODlkLTRiZjgtYjBhMi0wY2Q3NWE2NTVkYWQiLCJleHAiOjE3MjkzNDA1NTYsInYiOjAsImlhdCI6MTU3MzgyMDU1Niwic2VjcmV0X2tleSI6Ik5vbmUifQ.HsPdmLdbiTyUonH6oJ07WivrgytvFBiJOgxsIhNMvGE";
 
 
     public OrderTrackingViewModel(DataManager dataManager) {
         super(dataManager);
         // getOrderDetails();
         orderId.set("order #" + String.valueOf(getDataManager().getOrderId()));
+        dunzoTrackingTimer.set(false);
     }
 
     public void callDeliveryMan() {
@@ -128,16 +145,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                         if (response.getStatus()) {
 
 
-                            if (response.getResult()!=null&&response.getResult().size()>0) {
-
-
-
-                                if (response.getResult().get(0).getOrderstatus()>4) {
-                                    singleTime=true;
-                                    getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
-
-                                }
-
+                            if (response.getResult() != null && response.getResult().size() > 0) {
 
 
                                 // getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
@@ -193,6 +201,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 }
 
 
+                                if (response.getResult().get(0).getDeliveryVendor() == 0) {
+                                    if (response.getResult().get(0).getOrderstatus() > 4) {
+                                        singleTime = true;
+                                        getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
+
+                                    }
+                                }
 
 
                           /*  Date dDate= null;
@@ -224,13 +239,15 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             }*/
 
 
-                                if (response.getResult().get(0).getMoveitdetail()!=null&& response.getResult().get(0).getMoveitdetail().getName() != null) {
+                                if (response.getResult().get(0).getMoveitdetail() != null && response.getResult().get(0).getMoveitdetail().getName() != null) {
                                     track.set(true);
                                     moveitName.set(response.getResult().get(0).getMoveitdetail().getName());
                                     moveitPhone.set(response.getResult().get(0).getMoveitdetail().getPhoneno());
                                     deliveryManNumber = response.getResult().get(0).getMoveitdetail().getPhoneno();
 
                                 }
+
+
                                 if (getNavigator() != null)
                                     getNavigator().tracking(response.getResult().get(0).getCusLat(), response.getResult().get(0).getCusLon(), response.getResult().get(0).getMakeitdetail().getLat(), response.getResult().get(0).getMakeitdetail().getLon());
 
@@ -323,8 +340,15 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                     iconPrepared.set(true);
                                     iconDeliverd.set(false);
                                     orderAccepted.set(true);
-                                    if (getNavigator() != null)
-                                        getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+
+                                    if (response.getResult().get(0).getDeliveryVendor() == 0) {
+                                        if (getNavigator() != null)
+                                            getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                                    } else if (response.getResult().get(0).getDeliveryVendor() == 1) {
+                                        if (response.getResult().get(0).getDunzoTaskid() != null) {
+                                            getDunzoLatLng(response.getResult().get(0).getDunzoTaskid());
+                                        }
+                                    }
 
                                 } else if (response.getResult().get(0).getOrderstatus() == 6) {
                                     isReeceived.set(false);
@@ -342,9 +366,12 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                     iconDeliveredORcancel.set(MvvmApp.getInstance().getString(R.string.icon_selected));
 
                                     delivered.set(true);
-                                    if (getNavigator() != null)
-                                        getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
-                                } else if (response.getResult().get(0).getOrderstatus() == 7) {
+
+                                    if (countDownTimer != null)
+                                        countDownTimer.cancel();
+
+
+                                } else if (response.getResult().get(0).getOrderstatus() >= 7) {
                                     isReeceived.set(false);
                                     isPrepared.set(false);
                                     isDeliverd.set(true);
@@ -360,14 +387,16 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                     orderAccepted.set(false);
                                     delivered.set(true);
 
-                                    if (getNavigator() != null)
-                                        getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                                    if (countDownTimer != null)
+                                        countDownTimer.cancel();
+
+
                                 }
                             }
 
                         } else {
                             if (getNavigator() != null)
-                            getNavigator().showToast(response.getMessage());
+                                getNavigator().showToast(response.getMessage());
 
                         }
                     }
@@ -393,23 +422,22 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     }
 
 
-    public void getMoveitlatlng(int moveitId){
+    public void getMoveitlatlng(int moveitId) {
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
         Query locationDataQuery = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location").child(String.valueOf(moveitId));
-
 
 
         locationDataQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.child("l").getValue()!=null) {
+                if (dataSnapshot.child("l").getValue() != null) {
 
-                    if ( singleTime) {
+                    if (singleTime) {
                         List<Double> gg = (List<Double>) dataSnapshot.child("l").getValue();
                         getOrderETA(String.valueOf(gg.get(0)), String.valueOf(gg.get(1)));
-                        singleTime=false;
+                        singleTime = false;
                     }
                 }
 
@@ -421,7 +449,6 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
             }
         });
     }
-
 
 
     public void getOrderETA(String lat, String lng) {
@@ -504,10 +531,16 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                     if (response != null) {
 
 
-                        if (response.getResult()!=null&&response.getResult().size()>0) {
+                        if (response.getResult() != null && response.getResult().size() > 0) {
 
 
                             orderTrackingResponse = response;
+
+                            if (response.getResult().get(0).getDeliveryVendor() == 1) {
+                                dunzoAuth = response.getResult().get(0).getAuthorization();
+                                dunzoClientId = response.getResult().get(0).getDunzoClientId();
+
+                            }
 
 
                             try {
@@ -529,11 +562,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                             }
 
 
-                            if (response.getResult().get(0).getOrderstatus() > 4) {
-                                singleTime=true;
-                                getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
-
+                            if (response.getResult().get(0).getDeliveryVendor() == 0) {
+                                if (response.getResult().get(0).getOrderstatus() > 4) {
+                                    singleTime = true;
+                                    getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
+                                }
                             }
+
 
                             if (response.getResult().get(0).getMoveitdetail().getName() != null) {
                                 track.set(true);
@@ -610,8 +645,17 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 iconDeliverd.set(false);
                                 orderAccepted.set(true);
 
-                                if (getNavigator() != null)
-                                    getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+
+                                if (response.getResult().get(0).getDeliveryVendor() == 0) {
+                                    if (getNavigator() != null)
+                                        getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                                } else if (response.getResult().get(0).getDeliveryVendor() == 1) {
+                                    if (response.getResult().get(0).getDunzoTaskid() != null)
+                                        getDunzoLatLng(response.getResult().get(0).getDunzoTaskid());
+
+
+                                }
+
 
                             } else if (response.getResult().get(0).getOrderstatus() == 6) {
                                 isReeceived.set(false);
@@ -630,9 +674,11 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
                                 orderAccepted.set(false);
                                 delivered.set(true);
-                                if (getNavigator() != null)
-                                    getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
-                            } else if (response.getResult().get(0).getOrderstatus() == 7) {
+
+                                if (countDownTimer != null)
+                                    countDownTimer.cancel();
+
+                            } else if (response.getResult().get(0).getOrderstatus() >= 7) {
                                 isReeceived.set(false);
                                 isPrepared.set(false);
                                 isDeliverd.set(true);
@@ -648,13 +694,15 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 orderAccepted.set(false);
                                 delivered.set(true);
 
-                                if (getNavigator() != null)
-                                    getNavigator().orderPickedUp(response.getResult().get(0).getMoveitUserId());
+                                if (countDownTimer != null)
+                                    countDownTimer.cancel();
+
+
                             }
                         }
                     } else {
                         if (getNavigator() != null)
-                        getNavigator().showToast(response.getMessage());
+                            getNavigator().showToast(response.getMessage());
 
                     }
 
@@ -679,21 +727,107 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     }
 
 
+    public void dunzoTimer() {
+        dunzoTrackingTimer.set(true);
+        countDownTimer = new CountDownTimer(5000, 20) {
 
+            @Override
+            public void onTick(long millisUntilFinished) {
+                getDunzoLatLng(dunzoTaskid);
+            }
+
+            @Override
+            public void onFinish() {
+                try {
+                    dunzoTimer();
+                    if (getNavigator() == null)
+                        countDownTimer.cancel();
+                } catch (Exception e) {
+                    Log.e("Error", "Error: ");
+                }
+            }
+        }.start();
+
+
+    }
 
     public void getDunzoLatLng(String taskid) {
 
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
-        try {
+        dunzoTaskid = taskid;
+
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                AppConstants.DUNZO_URL + taskid + "/status?test=true", null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                if (response != null) {
+                    Gson gson = new Gson();
+                    DunzoResponse dunzoResponse = gson.fromJson(response.toString(), DunzoResponse.class);
+
+                    if (dunzoResponse.getRunner() != null && dunzoResponse.getRunner().getLocation() != null && dunzoResponse.getRunner().getLocation().getLat() != null) {
+
+                        if (getNavigator() != null)
+                            getNavigator().DunzoTracking(dunzoResponse.getRunner().getLocation().getLat(), dunzoResponse.getRunner().getLocation().getLng());
+
+
+                        if (!dunzoTrackingTimer.get()) {
+                            dunzoTimer();
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", dunzoAuth);
+                headers.put("client-id", dunzoClientId);
+                headers.put("Accept-Language", "en_US");
+                return headers;
+
+            }
+        };
+
+        // Adding request to request queue
+        MvvmApp.getInstance().addToRequestQueue(jsonObjReq);
+
+
+
+
+
+
+
+
+
+
+      /*  try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_ETA, DunzoResponse.class, new Response.Listener<DunzoResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.DUNZO_URL+taskid+"/status?test=true", DunzoResponse.class, new Response.Listener<DunzoResponse>() {
                 @Override
                 public void onResponse(DunzoResponse response) {
 
                     if (response != null) {
-                        if (response.getRunner()!=null&&response.getRunner().getLocation()!=null&&response.getRunner().getLocation().getLat()!=null){
-                            getNavigator().DunzoTracking(response.getRunner().getLocation().getLat(),response.getRunner().getLocation().getLng());
+                        if (response.getRunner() != null && response.getRunner().getLocation() != null && response.getRunner().getLocation().getLat() != null) {
+                            getNavigator().DunzoTracking(response.getRunner().getLocation().getLat(), response.getRunner().getLocation().getLng());
                         }
 
 
@@ -714,7 +848,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
             ee.printStackTrace();
 
-        }
+        }*/
 
 
     }

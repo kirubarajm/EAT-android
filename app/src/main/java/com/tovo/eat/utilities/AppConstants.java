@@ -511,7 +511,15 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
     public static final String EAT_EXPLORE_SEARCH = URL_SERVER_IP_PORT + "/eat/quicksearch";
     public static final String EAT_STORIES_LIST = URL_SERVER_IP_PORT + "/eat/stories";
     public static final String EAT_COLLECTION_LIST = URL_SERVER_IP_PORT + "/eat/collection";
+
   //  public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
+
+
+    public static final String DUNZO_URL = "https://apis-staging.dunzo.in/api/v1/tasks/";
+
+
+
+
 
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;

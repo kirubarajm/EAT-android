@@ -125,4 +125,8 @@ public class UpdateActivity extends BaseActivity<ActivityUpdateBinding, UpdateVi
 
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

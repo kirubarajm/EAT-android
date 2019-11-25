@@ -126,6 +126,12 @@ public class TermsAndConditionActivity extends BaseActivity<ActivityTermsAndCond
         super.onResume();
         mActivityTermsAndConditionBinding.webview.loadUrl("http://www.eatalltime.co.in/eat_terms.html");
     }
+
+    @Override
+    public void canceled() {
+
+    }
+
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

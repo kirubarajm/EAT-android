@@ -255,4 +255,9 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
+
+    @Override
+    public void canceled() {
+
+    }
 }

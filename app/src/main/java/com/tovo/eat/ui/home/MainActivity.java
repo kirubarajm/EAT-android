@@ -1016,6 +1016,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         openHome();
     }
 
+    @Override
+    public void canceled() {
+
+    }
+
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
 
 

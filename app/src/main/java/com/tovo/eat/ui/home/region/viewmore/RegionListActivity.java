@@ -190,5 +190,9 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

@@ -379,6 +379,11 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
+
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
 
 

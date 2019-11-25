@@ -226,5 +226,9 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

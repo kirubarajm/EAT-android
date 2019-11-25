@@ -545,5 +545,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

@@ -65,4 +65,9 @@ public class OrderPlacedActivity extends BaseActivity<OrderPlacedBinding, OrderP
             finish();
         },1000);
     }
+
+    @Override
+    public void canceled() {
+
+    }
 }

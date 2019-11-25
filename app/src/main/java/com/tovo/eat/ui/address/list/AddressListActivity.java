@@ -304,5 +304,9 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

@@ -231,4 +231,8 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

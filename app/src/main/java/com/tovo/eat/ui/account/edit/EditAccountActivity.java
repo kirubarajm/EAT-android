@@ -323,4 +323,8 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

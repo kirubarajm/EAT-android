@@ -188,4 +188,8 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

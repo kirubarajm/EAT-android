@@ -407,4 +407,8 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

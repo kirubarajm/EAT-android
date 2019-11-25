@@ -288,4 +288,8 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

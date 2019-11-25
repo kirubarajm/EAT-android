@@ -91,6 +91,12 @@ public class LiveOrderResponsePojo {
         @SerializedName("distance")
         @Expose
         private String distance;
+
+
+        @SerializedName("delivery_vendor")
+        @Expose
+        private Integer deliveryVendor;
+
         @SerializedName("items")
         @Expose
         private List<Item> items = null;
@@ -101,6 +107,13 @@ public class LiveOrderResponsePojo {
         @Expose
         private String eta;
 
+        public Integer getDeliveryVendor() {
+            return deliveryVendor;
+        }
+
+        public void setDeliveryVendor(Integer deliveryVendor) {
+            this.deliveryVendor = deliveryVendor;
+        }
 
         public Integer getMoveitUserId() {
             return moveitUserId;

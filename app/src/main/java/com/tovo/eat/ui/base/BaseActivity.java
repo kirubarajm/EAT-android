@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.tovo.eat.ui.alerts.ordercanceled.CancelListener;
 import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.utilities.ActiveActivitiesTracker;
@@ -26,7 +27,7 @@ import com.tovo.eat.utilities.NetworkUtils;
 import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
-        BaseFragment.Callback {
+        BaseFragment.Callback , CancelListener {
 
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 

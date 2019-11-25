@@ -439,6 +439,11 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
+    @Override
+    public void canceled() {
+
+    }
+
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {
 
 

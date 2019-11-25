@@ -183,4 +183,9 @@ public class InternetErrorFragment extends BaseActivity<FragmentNoInternetBindin
         }, 2000);
 
     }
+
+    @Override
+    public void canceled() {
+
+    }
 }

@@ -155,4 +155,8 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

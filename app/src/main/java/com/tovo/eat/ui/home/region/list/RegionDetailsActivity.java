@@ -254,5 +254,9 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }
 

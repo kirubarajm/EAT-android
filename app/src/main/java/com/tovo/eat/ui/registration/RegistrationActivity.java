@@ -348,4 +348,8 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
     }
 
 
+    @Override
+    public void canceled() {
+
+    }
 }

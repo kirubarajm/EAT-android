@@ -77,4 +77,9 @@ public class FunnelActivity extends BaseActivity<ActivityFunnelBinding, FunnelVi
             finish();
         },1000);*/
     }
+
+    @Override
+    public void canceled() {
+
+    }
 }

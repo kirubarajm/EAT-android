@@ -162,4 +162,8 @@ public class PrivacyActivity extends BaseActivity<ActivityPrivacyBinding, Privac
         unregisterReceiver(mWifiReceiver);
     }
 
+    @Override
+    public void canceled() {
+
+    }
 }

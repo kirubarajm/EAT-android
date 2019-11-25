@@ -24,7 +24,9 @@ public class OrderTrackingResponse {
     @SerializedName("deliverytime")
     @Expose
     private String deliverytime;
-
+    @SerializedName("result")
+    @Expose
+    private List<Result> result = null;
 
     public String getDeliverytime() {
         return deliverytime;
@@ -49,10 +51,6 @@ public class OrderTrackingResponse {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
-    @SerializedName("result")
-    @Expose
-    private List<Result> result = null;
 
     public Boolean getSuccess() {
         return success;
@@ -346,6 +344,23 @@ public class OrderTrackingResponse {
         @SerializedName("moveit_user_id")
         @Expose
         private Integer moveitUserId;
+
+        @SerializedName("delivery_vendor")
+        @Expose
+        private Integer deliveryVendor;
+
+        @SerializedName("dunzo_taskid")
+        @Expose
+        private String dunzoTaskid;
+
+        @SerializedName("dunzo_client_id")
+        @Expose
+        private String dunzoClientId;
+
+        @SerializedName("Authorization")
+        @Expose
+        private String Authorization;
+
         @SerializedName("cus_lat")
         @Expose
         private String cusLat;
@@ -419,12 +434,50 @@ public class OrderTrackingResponse {
         @SerializedName("trackingstatus")
         @Expose
         private Trackingstatus trackingstatus;
+        @SerializedName("items")
+        @Expose
+        private List<Item> items = null;
 
+        public Integer getDeliveryVendor() {
+            return deliveryVendor;
+        }
+
+
+        public String getDunzoClientId() {
+            return dunzoClientId;
+        }
+
+        public void setDunzoClientId(String dunzoClientId) {
+            this.dunzoClientId = dunzoClientId;
+        }
+
+        public String getAuthorization() {
+            return Authorization;
+        }
+
+        public void setAuthorization(String authorization) {
+            Authorization = authorization;
+        }
+
+        public void setDeliveryVendor(Integer deliveryVendor) {
+            this.deliveryVendor = deliveryVendor;
+        }
+
+        public String getDunzoTaskid() {
+            return dunzoTaskid;
+        }
+
+        public void setDunzoTaskid(String dunzoTaskid) {
+            this.dunzoTaskid = dunzoTaskid;
+        }
 
         public Integer getServiceCharge() {
             return serviceCharge;
         }
 
+        public void setServiceCharge(Integer serviceCharge) {
+            this.serviceCharge = serviceCharge;
+        }
 
         public String getCancellationMessage() {
             return cancellationMessage;
@@ -432,10 +485,6 @@ public class OrderTrackingResponse {
 
         public void setCancellationMessage(String cancellationMessage) {
             this.cancellationMessage = cancellationMessage;
-        }
-
-        public void setServiceCharge(Integer serviceCharge) {
-            this.serviceCharge = serviceCharge;
         }
 
         public Trackingstatus getTrackingstatus() {
@@ -461,10 +510,6 @@ public class OrderTrackingResponse {
         public void setEta(String eta) {
             this.eta = eta;
         }
-
-        @SerializedName("items")
-        @Expose
-        private List<Item> items = null;
 
         public Integer getOrderid() {
             return orderid;
@@ -723,6 +768,7 @@ public class OrderTrackingResponse {
         }
 
     }
+
     public class Trackingstatus {
 
         @SerializedName("message1")
