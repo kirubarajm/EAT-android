@@ -87,6 +87,7 @@ public class SignUpActivityViewModel extends BaseViewModel<SignUpActivityNavigat
             }, errorListener = new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    if (getNavigator() != null)
                     getNavigator().loginError(false);
                     setIsLoading(false);
                 }

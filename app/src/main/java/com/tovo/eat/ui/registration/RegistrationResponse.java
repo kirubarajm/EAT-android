@@ -11,7 +11,7 @@ public class RegistrationResponse {
     public Boolean success;
     @SerializedName("status")
     @Expose
-    public Boolean status;
+    public Boolean status=false;
     @SerializedName("message")
     @Expose
     public String message;

@@ -27,7 +27,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
     public SelectAddressListViewModel(DataManager dataManager) {
         super(dataManager);
         selectAddrressListItemsLiveData = new MutableLiveData<>();
-      //  fetchRepos();
+        //  fetchRepos();
     }
 
     public ObservableList<SelectAddressListResponse.Result> getSelectAddrressListItemViewModels() {
@@ -99,22 +99,22 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
                 @Override
                 public void onResponse(SelectAddressListResponse response) {
                     if (response != null) {
+                        if (response.getResult() != null)
+                            if (response.getResult().size() == 0) {
+                                if (getNavigator() != null)
+                                    getNavigator().listLoaded();
 
-                        if (response.getResult().size() == 0) {
+                                emptyAddress.set(true);
 
-                            getNavigator().listLoaded();
+                            } else {
+                                emptyAddress.set(false);
+                                selectAddrressListItemsLiveData.setValue(response.getResult());
 
-                            emptyAddress.set(true);
-
-                        } else {
-                            emptyAddress.set(false);
-                            selectAddrressListItemsLiveData.setValue(response.getResult());
-
-                        }
+                            }
 
                     }
-                    if (getNavigator()!=null)
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -128,6 +128,7 @@ public class SelectAddressListViewModel extends BaseViewModel<SelectAddressListN
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
+            if (getNavigator() != null)
             getNavigator().listLoaded();
         }
     }

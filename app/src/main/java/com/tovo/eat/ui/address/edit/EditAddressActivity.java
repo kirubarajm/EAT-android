@@ -432,7 +432,6 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
                 StringBuilder strAddress = new StringBuilder();
                 for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
                     strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
-
                 }
 
             } else {

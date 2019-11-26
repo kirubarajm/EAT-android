@@ -302,7 +302,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     getDataManager().setOrderId(orderId);
 
 
-
                                     StringBuilder itemsBuilder = new StringBuilder();
 
                                     for (int i = 0; i < response.getResult().get(0).getItems().size(); i++) {
@@ -339,7 +338,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
                                         }
                                     }
-
 
 
                                     ////////////
@@ -444,8 +442,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             } else {
                                 emptyRegion.set(true);
 
-
-                                getNavigator().dataLoaded();
+                                if (getNavigator() != null)
+                                    getNavigator().dataLoaded();
 
 
                             }
@@ -479,7 +477,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     // Log.e("", error.getMessage());
                     emptyRegion.set(true);
                     try {
-                        getNavigator().regionsLoaded(null);
+                        if (getNavigator() != null)
+                            getNavigator().regionsLoaded(null);
 
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -649,16 +648,16 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                             //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                             try {
-
-                                                getNavigator().kitchenLoaded();
+                                                if (getNavigator() != null)
+                                                    getNavigator().kitchenLoaded();
                                             } catch (Exception ee) {
                                                 ee.printStackTrace();
                                             }
                                         } else {
                                             fullEmpty.set(true);
                                             try {
-
-                                                getNavigator().kitchenLoaded();
+                                                if (getNavigator() != null)
+                                                    getNavigator().kitchenLoaded();
                                             } catch (Exception ee) {
                                                 ee.printStackTrace();
                                             }
@@ -669,8 +668,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } else {
                                     fullEmpty.set(true);
                                     try {
-
-                                        getNavigator().kitchenLoaded();
+                                        if (getNavigator() != null)
+                                            getNavigator().kitchenLoaded();
                                     } catch (Exception ee) {
                                         ee.printStackTrace();
                                     }
@@ -686,8 +685,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 kitchenListLoading.set(false);
 
                                 try {
-
-                                    getNavigator().kitchenLoaded();
+                                    if (getNavigator() != null)
+                                        getNavigator().kitchenLoaded();
                                 } catch (Exception ee) {
                                     ee.printStackTrace();
                                 }
@@ -1087,8 +1086,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             String json = gson.toJson(completeStories);
             getDataManager().setStoriesList(null);
             getDataManager().setStoriesList(json);
-
-            storiesItemsLiveData.setValue(completeStories.getResult());
+            if (completeStories.getResult() != null)
+                storiesItemsLiveData.setValue(completeStories.getResult());
         }
     }
 
@@ -1103,7 +1102,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         if (response.getCollection().size() > 0) {
                             collectionItemLiveData.setValue(response.getCollection());
                             try {
-                                getNavigator().collectionLoaded();
+                                if (getNavigator() != null)
+                                    getNavigator().collectionLoaded();
 
                             } catch (NullPointerException e) {
                                 e.printStackTrace();

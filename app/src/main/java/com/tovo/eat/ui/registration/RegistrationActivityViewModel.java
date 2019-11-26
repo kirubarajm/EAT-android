@@ -36,14 +36,13 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
     }
 
 
-
     public MutableLiveData<List<RegionResponse.Result>> getRegions() {
         return regionItemsLiveData;
     }
 
     public void userProceed() {
         new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL, AppConstants.CLICK_SAVE);
-
+        if (getNavigator() != null)
         getNavigator().usersRegistrationMain();
     }
 
@@ -60,13 +59,15 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                         if (response.getStatus()) {
                             getDataManager().updateUserPasswordStatus(true);
                             getDataManager().updateEmailStatus(true);
-                            getNavigator().regSuccess(response.getMessage());
+                            if (getNavigator() != null)
+                                getNavigator().regSuccess(response.getMessage());
                         } else {
                             Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
 
                             getDataManager().updateUserPasswordStatus(false);
-                            getNavigator().regFailure();
+                            if (getNavigator() != null)
+                                getNavigator().regFailure();
                         }
 
                     }
@@ -75,7 +76,8 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().regFailure();
+                    if (getNavigator() != null)
+                        getNavigator().regFailure();
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -95,6 +97,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                 public void onResponse(RegionResponse response) {
                     if (response != null) {
                         regionList = response.getResult();
+                        if (getNavigator() != null)
                         getNavigator().regionList(regionList);
                     }
                 }

@@ -90,8 +90,10 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
                         if (getNavigator() != null)
-                            getNavigator().genderSuccess(response.getMessage());
+                            if (getNavigator() != null)
+                                getNavigator().genderSuccess(response.getMessage());
                         if (response.getStatus()) {
+
                             getDataManager().updateUserGender(true);
                         }
                     }
@@ -100,7 +102,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().genderFailure("Failed to update");
+                    if (getNavigator() != null)
+                        getNavigator().genderFailure("Failed to update");
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -120,8 +123,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                 @Override
                 public void onResponse(RegionSearchModel response) {
 
-
-                    getNavigator().regionListLoaded(response.getResult());
+                    if (getNavigator() != null)
+                        getNavigator().regionListLoaded(response.getResult());
 
 
                 }

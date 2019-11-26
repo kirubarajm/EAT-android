@@ -20,13 +20,10 @@ import java.util.List;
 public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator> {
 
 
-
-
     public final ObservableField<String> regionName = new ObservableField<>();
     public final ObservableField<String> totalKitchens = new ObservableField<>();
     public final ObservableField<String> tagline = new ObservableField<>();
     public final ObservableField<String> detailImageUrl = new ObservableField<>();
-
 
 
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
@@ -37,7 +34,6 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
         kitchenListItemsLiveData = new MutableLiveData<>();
 
     }
-
 
 
     public MutableLiveData<List<KitchenResponse.Result>> getkitchenListItemsLiveData() {
@@ -63,46 +59,45 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class,new RegionDetailsRequest(getDataManager().getCurrentLat(),getDataManager().getCurrentLng(),getDataManager().getCurrentUserId(),regionId,getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
                 @Override
                 public void onResponse(KitchenResponse response) {
                     if (response != null) {
 
+                        if (response.getResult() != null)
+                            if (response.getResult().size() > 0) {
 
-                        if (response.getResult().size()>0) {
+                                kitchenListItemsLiveData.setValue(response.getResult());
 
+                                regionName.set(response.getResult().get(0).getRegionname());
 
-                            kitchenListItemsLiveData.setValue(response.getResult());
+                                totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
-                            regionName.set(response.getResult().get(0).getRegionname());
-
-                            totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
-
-                            if (getNavigator()!=null)
-                            getNavigator().listLoaded();
-                        }
+                                if (getNavigator() != null)
+                                    getNavigator().listLoaded();
+                            }
 
                     }
-                    if (getNavigator()!=null)
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if (getNavigator()!=null)
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
-            },AppConstants.API_VERSION_TWO);
+            }, AppConstants.API_VERSION_TWO);
 
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception ee){
+        } catch (Exception ee) {
 
-        ee.printStackTrace();
+            ee.printStackTrace();
 
-    }
+        }
     }
 
 

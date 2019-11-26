@@ -12,7 +12,7 @@ public class LiveOrderResponsePojo {
     private Boolean success;
     @SerializedName("status")
     @Expose
-    private Boolean status;
+    private Boolean status=false;
     @SerializedName("orderdetails")
     @Expose
     private List<Orderdetail> orderdetails = null;
@@ -95,7 +95,7 @@ public class LiveOrderResponsePojo {
 
         @SerializedName("delivery_vendor")
         @Expose
-        private Integer deliveryVendor;
+        private Integer deliveryVendor=0;
 
         @SerializedName("items")
         @Expose

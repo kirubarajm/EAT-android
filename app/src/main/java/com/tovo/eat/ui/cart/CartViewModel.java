@@ -306,8 +306,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public String getCartPojoDetails() {
-
-
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
@@ -316,12 +314,16 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
             return null;
 
         } else {
-            if (cartRequestPojo.getCartitems().size() == 0) {
-                getDataManager().setCartDetails(null);
+            if (cartRequestPojo.getCartitems() != null) {
+                if (cartRequestPojo.getCartitems().size() == 0) {
+                    getDataManager().setCartDetails(null);
+                    emptyCart.set(true);
+                    return null;
+                } else {
+                    emptyCart.set(false);
+                }
+            }else {
                 emptyCart.set(true);
-                return null;
-            } else {
-                emptyCart.set(false);
             }
         }
 
@@ -439,7 +441,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (cartPageResponse.getResult() != null) {
 
                                 if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
-
+                                    if (getNavigator()!=null)
                                     getNavigator().emptyCart();
 
                                     getDataManager().setCartDetails(null);
@@ -608,7 +610,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                     if (getDataManager().getAddressId() == 0L) {
-
+                        if (getNavigator()!=null)
                         getNavigator().showToast("Please complete the address");
 
                     } else {
@@ -619,11 +621,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     }
 
                 } else {
+                    if (getNavigator()!=null)
                     getNavigator().notServicable();
                 }
             } else {
                 Toast.makeText(MvvmApp.getInstance(), statusMessage.get(), Toast.LENGTH_SHORT).show();
                 if (!serviceable.get()) {
+                    if (getNavigator()!=null)
                     getNavigator().notServicable();
                 }
             }
@@ -716,7 +720,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         } else {
 
             if (getDataManager().getAddressId() == 0L) {
-
+                if (getNavigator()!=null)
                 getNavigator().showToast("Please complete the address");
 
             } else {
@@ -808,7 +812,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         getDataManager().saveRefundId(0);
 
                                     } else {
-
+                                        if (getNavigator()!=null)
                                         getNavigator().showToast(response.getString("message"));
 
                                     }
@@ -917,11 +921,12 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         getDataManager().saveRefundId(0);*/
                                     getDataManager().setFunnelStatus(true);
                                     getDataManager().setCartDetails(null);
+                                    if (getNavigator()!=null)
                                     getNavigator().funnelAlert();
 
 
                                 } else {
-
+                                    if (getNavigator()!=null)
                                     getNavigator().showToast(response.getString("message"));
 
                                 }

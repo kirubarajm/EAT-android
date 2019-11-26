@@ -126,8 +126,10 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         SharedPreferences settings = getActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         settings.edit().clear().apply();
 
-        startActivity(SignUpActivity.newIntent(getActivity()));
-        getActivity().finish();
+        Intent intent = SignUpActivity.newIntent(getActivity());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+       // getActivity().finish();
     }
 
     @Override

@@ -347,7 +347,7 @@ public class OrderTrackingResponse {
 
         @SerializedName("delivery_vendor")
         @Expose
-        private Integer deliveryVendor;
+        private Integer deliveryVendor=0;
 
         @SerializedName("dunzo_taskid")
         @Expose

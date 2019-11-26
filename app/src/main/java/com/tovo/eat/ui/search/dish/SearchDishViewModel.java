@@ -45,9 +45,9 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
     public ObservableBoolean cart = new ObservableBoolean();
     public ObservableBoolean noData = new ObservableBoolean();
     public ObservableField<String> searched = new ObservableField<>();
+    public Long kitchenid;
     private MutableLiveData<List<KitchenDishResponse.Result>> dishItemsLiveData;
 
-    public Long kitchenid;
     public SearchDishViewModel(DataManager dataManager) {
         super(dataManager);
         dishItemsLiveData = new MutableLiveData<>();
@@ -110,7 +110,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
 
             } else {
 
-                  kitchenid=cartRequestPojo.getMakeitUserid();
+                kitchenid = cartRequestPojo.getMakeitUserid();
 
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
@@ -250,22 +250,18 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
 
+                        if (KitchenDishResponse != null)
+                            if (KitchenDishResponse.getResult() != null)
+                                if (KitchenDishResponse.getResult().size() > 0) {
+                                    dishItemsLiveData.setValue(KitchenDishResponse.getResult());
+                                    Log.e("----response:---------", response.toString());
+                                    getNavigator().listLoaded();
+                                    noData.set(false);
+                                } else {
+                                    noData.set(true);
+                                }
 
-
-
-                        if (KitchenDishResponse.getResult().size()>0){
-                            dishItemsLiveData.setValue(KitchenDishResponse.getResult());
-                            Log.e("----response:---------", response.toString());
-                            getNavigator().listLoaded();
-                            noData.set(false);
-                        }else {
-
-                            noData.set(true);
-                        }
-
-
-
-                    }else {
+                    } else {
                         noData.set(true);
                     }
 
@@ -301,16 +297,6 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -344,13 +330,13 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                         KitchenDishResponse KitchenDishResponse;
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
-                        if (KitchenDishResponse.getResult().size()>0) {
+                        if (KitchenDishResponse.getResult().size() > 0) {
                             dishItemsLiveData.setValue(KitchenDishResponse.getResult());
                             Log.e("----response:---------", response.toString());
                             getNavigator().listLoaded();
                             noData.set(false);
 
-                        }else {
+                        } else {
 
                             noData.set(true);
                         }
@@ -365,7 +351,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                     //  SearchDishViewModel.this.getNavigator().dishListLoaded();
                     noData.set(true);
                 }
-            }){
+            }) {
 
                 /**
                  * Passing some request headers
@@ -377,7 +363,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                     headers.put("accept-version", AppConstants.API_VERSION_ONE);
                     //  headers.put("Authorization","Bearer");
                     headers.put("Authorization", "Bearer " + getDataManager().getApiToken());
-                    headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
+                    headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
                     return headers;
                 }
             };

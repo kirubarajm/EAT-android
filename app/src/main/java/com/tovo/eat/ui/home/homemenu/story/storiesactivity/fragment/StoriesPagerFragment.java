@@ -4,9 +4,7 @@ package com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,10 +21,7 @@ import android.widget.VideoView;
 import com.android.databinding.library.baseAdapters.BR;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.gson.Gson;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSampleBinding;
@@ -34,7 +29,6 @@ import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.BitmapDrawableViewTarget;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
@@ -275,18 +269,12 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .into(target);*/
 
 
-
-               Glide.with(image.getContext())
+                Glide.with(image.getContext())
                         .load(target.getModel())
                         .skipMemoryCache(!isCaching)
-                       .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .listener(new LoggingListener())
                         .into(target);
-
-
-
-
-
 
 
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
@@ -323,7 +311,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
 
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
-        if (storiesResponse.getStories().size() > 0&&storiesResponse.getStories().size() > counter) {
+        if (storiesResponse.getStories().size() > 0 && storiesResponse.getStories().size() > counter) {
             //target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
             if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
@@ -451,8 +439,15 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         try {
             isVisibleToUser = false;
             StoriesResponse response = mSplashActivityViewModel.storiesResponse;
-            response.getResult().get(position).getStories().get(counter).setSeen(true);
-            response.getResult().get(position).setSeen(true);
+
+            if (response.getResult() != null)
+                if (response.getResult().size() > position)
+                    if (response.getResult().get(position).getStories().size() > counter) {
+
+                        response.getResult().get(position).getStories().get(counter).setSeen(true);
+                        response.getResult().get(position).setSeen(true);
+                    }
+
 
             Gson gson = new Gson();
             String json = gson.toJson(response);
