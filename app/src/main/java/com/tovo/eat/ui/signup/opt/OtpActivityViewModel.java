@@ -41,6 +41,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
     }
 
     public void continueClick() {
+        if (getNavigator()!=null)
         getNavigator().continueClick();
     }
 
@@ -130,9 +131,10 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
     public void userContinueClick(String phoneNumber, int otp) {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+
+
         try {
-
-
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.URL_OTP_VERIFICATION, OtpResponse.class, new OtpRequest(phoneNumber, otp, OtpId), new Response.Listener<OtpResponse>() {
                 @Override

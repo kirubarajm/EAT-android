@@ -51,19 +51,20 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         setIsLoading(true);
         try {
-
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_REGISTRATION, RegistrationResponse.class, new RegistrationRequest(userId, strEmail), new Response.Listener<RegistrationResponse>() {
                 @Override
                 public void onResponse(RegistrationResponse response) {
                     if (response != null) {
                         if (response.getStatus()) {
+
                             getDataManager().updateUserPasswordStatus(true);
                             getDataManager().updateEmailStatus(true);
                             if (getNavigator() != null)
                                 getNavigator().regSuccess(response.getMessage());
-                        } else {
-                            Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
+                        } else {
+
+                            Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
                             getDataManager().updateUserPasswordStatus(false);
                             if (getNavigator() != null)
