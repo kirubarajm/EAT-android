@@ -5,15 +5,11 @@
     tools:context=".ui.main.MainActivity">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="favTodaysMenuItemViewModel"
             type="com.tovo.eat.ui.kitchendetails.FavTodaysMenuItemViewModel" />
-
     </data>
-
 
     <!--<LinearLayout
         android:background="@color/white"
@@ -153,7 +149,6 @@
                             android:layout_toStartOf="@+id/plus"
                             android:background="@color/dark_gray" />
 
-
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:id="@+id/plus"
                             android:layout_width="20dp"
@@ -165,12 +160,8 @@
                             android:textAlignment="center"
                             android:textColor="@color/eat_color"
                             android:textSize="18sp" />
-
                     </RelativeLayout>
-
-
                 </RelativeLayout>
-
 
 
  </RelativeLayout>
@@ -348,7 +339,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -621,6 +611,7 @@
                                 android:textColor="@color/medium_gray"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
                     </RelativeLayout>
 
                 </LinearLayout>
