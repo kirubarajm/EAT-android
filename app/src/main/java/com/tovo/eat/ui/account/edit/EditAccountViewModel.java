@@ -71,7 +71,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
-                    getNavigator().genderFailure("Failed to update");
+                    if (getNavigator() != null)
+                        getNavigator().genderFailure("Failed to update");
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
@@ -95,7 +96,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                 public void onResponse(RegionSearchModel response) {
                     if (response != null)
                         if (response.getResult() != null && response.getResult().size() > 0)
-                            getNavigator().regionListLoaded(response.getResult());
+                            if (getNavigator() != null)
+                                getNavigator().regionListLoaded(response.getResult());
 
 
                 }

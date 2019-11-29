@@ -1,10 +1,7 @@
 package com.tovo.eat.ui.account.favorites;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,14 +12,10 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
 
@@ -36,16 +29,16 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
     public ObservableBoolean optionmenu = new ObservableBoolean();
 
     public ObservableBoolean isFavourite = new ObservableBoolean();
+    public Long kitchenid;
     int favId;
     int makeitId;
-    public Long kitchenid;
 
     public FavouritesViewModel(DataManager dataManager) {
         super(dataManager);
         optionmenu.set(true);
     }
 
-    public void goBack(){
+    public void goBack() {
         getNavigator().goBack();
     }
 
@@ -87,7 +80,8 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-                        getNavigator().toastMessage(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().toastMessage(response.getMessage());
 
                     }
                 }
@@ -97,7 +91,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
 
 
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -119,7 +113,8 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-                        getNavigator().toastMessage(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().toastMessage(response.getMessage());
                         if (response.getFavid() != null)
                             favId = response.getFavid();
                     }
@@ -128,7 +123,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
@@ -155,7 +150,7 @@ public class FavouritesViewModel extends BaseViewModel<FavouritesNavigator> {
             } else {
 
 
-                 kitchenid=cartRequestPojo.getMakeitUserid();
+                kitchenid = cartRequestPojo.getMakeitUserid();
 
 
                 for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {

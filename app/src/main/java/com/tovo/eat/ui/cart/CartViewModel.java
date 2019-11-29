@@ -177,8 +177,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
-
-                        getNavigator().toastMessage(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().toastMessage(response.getMessage()!=null? response.getMessage():"");
 
 
                     }
@@ -227,8 +227,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
 
-
-                        getNavigator().toastMessage(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().toastMessage(response.getMessage()!=null ?response.getMessage():"");
 
 
                         if (response.getFavid() != null)
@@ -322,7 +322,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 } else {
                     emptyCart.set(false);
                 }
-            }else {
+            } else {
                 emptyCart.set(true);
             }
         }
@@ -441,8 +441,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (cartPageResponse.getResult() != null) {
 
                                 if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
-                                    if (getNavigator()!=null)
-                                    getNavigator().emptyCart();
+                                    if (getNavigator() != null)
+                                        getNavigator().emptyCart();
 
                                     getDataManager().setCartDetails(null);
 
@@ -610,8 +610,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
                     if (getDataManager().getAddressId() == 0L) {
-                        if (getNavigator()!=null)
-                        getNavigator().showToast("Please complete the address");
+                        if (getNavigator() != null)
+                            getNavigator().showToast("Please complete the address");
 
                     } else {
 
@@ -621,14 +621,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     }
 
                 } else {
-                    if (getNavigator()!=null)
-                    getNavigator().notServicable();
+                    if (getNavigator() != null)
+                        getNavigator().notServicable();
                 }
             } else {
                 Toast.makeText(MvvmApp.getInstance(), statusMessage.get(), Toast.LENGTH_SHORT).show();
                 if (!serviceable.get()) {
-                    if (getNavigator()!=null)
-                    getNavigator().notServicable();
+                    if (getNavigator() != null)
+                        getNavigator().notServicable();
                 }
             }
 
@@ -720,8 +720,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         } else {
 
             if (getDataManager().getAddressId() == 0L) {
-                if (getNavigator()!=null)
-                getNavigator().showToast("Please complete the address");
+                if (getNavigator() != null)
+                    getNavigator().showToast("Please complete the address");
 
             } else {
 
@@ -812,8 +812,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         getDataManager().saveRefundId(0);
 
                                     } else {
-                                        if (getNavigator()!=null)
-                                        getNavigator().showToast(response.getString("message"));
+                                        if (getNavigator() != null)
+                                            getNavigator().showToast(response.getString("message"));
 
                                     }
 
@@ -921,13 +921,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         getDataManager().saveRefundId(0);*/
                                     getDataManager().setFunnelStatus(true);
                                     getDataManager().setCartDetails(null);
-                                    if (getNavigator()!=null)
-                                    getNavigator().funnelAlert();
+                                    if (getNavigator() != null)
+                                        getNavigator().funnelAlert();
 
 
                                 } else {
-                                    if (getNavigator()!=null)
-                                    getNavigator().showToast(response.getString("message"));
+                                    if (getNavigator() != null)
+                                        getNavigator().showToast(response.getString("message"));
 
                                 }
 

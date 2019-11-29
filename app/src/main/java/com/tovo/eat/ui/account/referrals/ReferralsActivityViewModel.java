@@ -49,7 +49,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                             referalcode.set(response.getResult().get(0).getReferalcode());
                             referallink = response.getResult().get(0).getApplink();
                             referalMessage.set(response.getResult().get(0).getApplink());
-
+                            if (getNavigator() != null)
                             getNavigator().success(String.valueOf(referallink));
                         }
                     } catch (NullPointerException e) {
@@ -65,6 +65,7 @@ public class ReferralsActivityViewModel extends BaseViewModel<ReferralsActivityN
                 public void onErrorResponse(VolleyError error) {
                     try {
                         setIsLoading(false);
+                        if (getNavigator() != null)
                         getNavigator().failure("failed");
                     } catch (NullPointerException e) {
                         e.printStackTrace();

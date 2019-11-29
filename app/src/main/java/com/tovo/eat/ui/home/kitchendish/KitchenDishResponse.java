@@ -41,7 +41,7 @@ public class KitchenDishResponse {
         public String makeitbrandname;
         @SerializedName("rating")
         @Expose
-        public Float  rating;
+        public Float rating;
         @SerializedName("regionid")
         @Expose
         public Integer regionid;
@@ -57,9 +57,6 @@ public class KitchenDishResponse {
         @SerializedName("costfortwo")
         @Expose
         public Integer costfortwo;
-        @SerializedName("rating_count")
-        @Expose
-        private Integer ratingCount;
         @SerializedName("makeitimg")
         @Expose
         public String makeitimg;
@@ -102,15 +99,15 @@ public class KitchenDishResponse {
         @SerializedName("kitchenmenuimage")
         @Expose
         public List<Kitchenmenuimage> kitchenmenuimage = null;
-
         @SerializedName("kitchensignature")
         @Expose
         public String kitchensignature;
-
         @SerializedName("foodbadge")
         @Expose
         public List<Foodbadge> foodbadge = null;
-
+        @SerializedName("rating_count")
+        @Expose
+        private Integer ratingCount;
 
         public String getMemberTypeIcon() {
             return memberTypeIcon;
@@ -126,10 +123,6 @@ public class KitchenDishResponse {
 
         public void setMemberTypeName(String memberTypeName) {
             this.memberTypeName = memberTypeName;
-        }
-
-        public void setMakeituserid(Long makeituserid) {
-            this.makeituserid = makeituserid;
         }
 
         public boolean isServiceableStatus() {
@@ -150,6 +143,10 @@ public class KitchenDishResponse {
 
         public Long getMakeituserid() {
             return makeituserid;
+        }
+
+        public void setMakeituserid(Long makeituserid) {
+            this.makeituserid = makeituserid;
         }
 
         public String getMakeitusername() {
@@ -237,6 +234,57 @@ public class KitchenDishResponse {
         }
     }
 
+    public static class Kitchenmenuimage {
+
+        @SerializedName("img_url")
+        @Expose
+        public String imgUrl;
+        @SerializedName("type")
+        @Expose
+        public Integer type;
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+
+        public void setType(Integer type) {
+            this.type = type;
+        }
+    }
+
+    public static class Foodbadge {
+
+        @SerializedName("url")
+        @Expose
+        public String badges;
+        @SerializedName("id")
+        @Expose
+        public Integer id;
+
+        public String getBadges() {
+            return badges;
+        }
+
+        public void setBadges(String badges) {
+            this.badges = badges;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+    }
 
     public class Productlist {
 
@@ -270,16 +318,16 @@ public class KitchenDishResponse {
         @SerializedName("productimage")
         @Expose
         public String productimage;
- @SerializedName("next_available_time")
+        @SerializedName("next_available_time")
         @Expose
         public String nextAvailableTime;
 
         @SerializedName("makeit_userid")
         @Expose
         public Long makeitUserid;
- @SerializedName("next_available")
+        @SerializedName("next_available")
         @Expose
-        public Integer nextAvailable=0;
+        public Integer nextAvailable = 0;
 
 
         public String getNextAvailableTime() {
@@ -292,23 +340,16 @@ public class KitchenDishResponse {
 
         public Boolean getNextAvailable() {
 
-            if (nextAvailable!=null){
+            if (nextAvailable != null) {
 
-            if (nextAvailable==1){
-                return true;
-            }else {
-                return false;
-            }}
+                return nextAvailable == 1;
+            }
             return false;
 
         }
 
         public void setNextAvailable(Integer nextAvailable) {
             this.nextAvailable = nextAvailable;
-        }
-
-        public void setFavid(Integer favid) {
-            this.favid = favid;
         }
 
         public String getProdDesc() {
@@ -325,6 +366,10 @@ public class KitchenDishResponse {
 
         public Integer getFavid() {
             return favid;
+        }
+
+        public void setFavid(Integer favid) {
+            this.favid = favid;
         }
 
         public Integer getIsfav() {
@@ -357,58 +402,6 @@ public class KitchenDishResponse {
 
         public String getProductimage() {
             return productimage;
-        }
-    }
-
-
-    public static class Kitchenmenuimage {
-
-        @SerializedName("img_url")
-        @Expose
-        public String imgUrl;
-        @SerializedName("type")
-        @Expose
-        public Integer type;
-
-        public String getImgUrl() {
-            return imgUrl;
-        }
-
-        public void setImgUrl(String imgUrl) {
-            this.imgUrl = imgUrl;
-        }
-
-        public Integer getType() {
-            return type;
-        }
-
-        public void setType(Integer type) {
-            this.type = type;
-        }
-    }
-    public static class Foodbadge {
-
-        @SerializedName("url")
-        @Expose
-        public String badges;
-        @SerializedName("id")
-        @Expose
-        public Integer id;
-
-        public String getBadges() {
-            return badges;
-        }
-
-        public void setBadges(String badges) {
-            this.badges = badges;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
         }
     }
 

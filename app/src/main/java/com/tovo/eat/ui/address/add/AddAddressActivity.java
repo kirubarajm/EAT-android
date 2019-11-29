@@ -203,7 +203,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
         dialog.setTitle("Please Wait!");
         // dialog.show();
 
-
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -215,8 +214,6 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                 initCameraIdle();
             }
         });
-
-
     }
 
     public void turnOnGps() {

@@ -98,7 +98,8 @@ public class DialogRefundAlertViewModel extends BaseViewModel<DialogRefundAlertC
 
                                         getDataManager().currentOrderId(response.getLong("orderid"));
                                         getDataManager().setCartDetails("");
-                                        getNavigator().orderCompleted();
+                                        if (getNavigator() != null)
+                                            getNavigator().orderCompleted();
                                         getDataManager().saveRefundId(0);
                                         getDataManager().saveCouponId(0);
                                         getDataManager().saveCouponCode(null);

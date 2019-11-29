@@ -92,6 +92,7 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
         getNavigator().myLocationn();
 
     }
+
     public void searchAddress() {
 
 
@@ -226,11 +227,11 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                     @Override
                     public void onResponse(AddressResponse response) {
 
-                        if (getDataManager().getAddressId().equals(mAid)){
+                        if (getDataManager().getAddressId().equals(mAid)) {
                             getDataManager().updateCurrentAddress(request.getAddressTitle(), request.getAddress(), Double.parseDouble(request.getLat()), Double.parseDouble(request.getLon()), request.getLocality(), request.getAid());
                         }
-
-                        getNavigator().addressSaved();
+                        if (getNavigator() != null)
+                            getNavigator().addressSaved();
 
 
 
@@ -320,8 +321,8 @@ public class EditAddressViewModel extends BaseViewModel<EditAddressNavigator> {
                         typeOther.set(true);
 
                     }
-
-                    getNavigator().setLatLng(response.getResult().get(0).getLat(), response.getResult().get(0).getLon());
+                    if (getNavigator() != null)
+                        getNavigator().setLatLng(response.getResult().get(0).getLat(), response.getResult().get(0).getLon());
 
                     request.setLat(String.valueOf(response.getResult().get(0).getLat()));
                     request.setLon(String.valueOf(response.getResult().get(0).getLon()));

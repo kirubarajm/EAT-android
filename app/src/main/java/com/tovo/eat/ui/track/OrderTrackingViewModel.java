@@ -759,7 +759,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                AppConstants.DUNZO_URL + taskid + "/status?test=true", null, new Response.Listener<JSONObject>() {
+                AppConstants.DUNZO_URL + taskid + "/status?", null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

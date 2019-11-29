@@ -515,7 +515,8 @@ public static final String ANALYTICYS_REPEAT_ORDER= "repeat_order";
   //  public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
 
 
-    public static final String DUNZO_URL = "https://apis-staging.dunzo.in/api/v1/tasks/";
+  //  public static final String DUNZO_URL = "https://apis-staging.dunzo.in/api/v1/tasks/";
+  public static final String DUNZO_URL = "https://api.dunzo.in/api/v1/tasks/";
 
 
 

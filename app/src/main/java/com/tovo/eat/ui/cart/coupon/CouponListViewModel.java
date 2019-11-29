@@ -41,6 +41,7 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
     public MutableLiveData<List<CouponListResponse.Result>> getcouponListItemsLiveData() {
         return couponListItemsLiveData;
     }
+
     public void addDishItemsToList(List<CouponListResponse.Result> ordersItems) {
         couponListItemViewModels.clear();
         couponListItemViewModels.addAll(ordersItems);
@@ -63,20 +64,23 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
 
                         if (response.getResult().size() == 0) {
                             emptyCoupon.set(true);
-                            getNavigator().noList();
+                            if (getNavigator() != null)
+                                getNavigator().noList();
 
                         } else {
                             emptyCoupon.set(false);
                             couponListItemsLiveData.setValue(response.getResult());
                         }
                     }
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     //   Log.e("", error.getMessage());
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                     emptyCoupon.set(true);
                 }
             }, AppConstants.API_VERSION_ONE);
@@ -107,14 +111,16 @@ public class CouponListViewModel extends BaseViewModel<CouponListNavigator> {
                         if (response.getStatus()) {
 
                             if (response.getResult().size() != 0) {
-                                getNavigator().couponValid(response.getResult().get(0).getCid());
+                                if (getNavigator() != null)
+                                    getNavigator().couponValid(response.getResult().get(0).getCid());
 
                                 saveCouponId(response.getResult().get(0).getCid(), response.getResult().get(0).getCouponName());
 
 
                             }
                         } else {
-                            getNavigator().showToast(response.getMessage());
+                            if (getNavigator() != null)
+                                getNavigator().showToast(response.getMessage());
                         }
                     }
                 }
