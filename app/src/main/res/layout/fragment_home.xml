@@ -45,16 +45,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-
-                    <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/deliver_now"
@@ -66,8 +63,6 @@
                         android:id="@+id/delAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <com.tovo.eat.utilities.fonts.poppins.TitleTextView
@@ -474,15 +469,22 @@
                     android:orientation="vertical"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <!--  <FrameLayout
-                          android:id="@+id/contentRegion"
-                          android:layout_width="match_parent"
-                          android:layout_height="300dp"
-                          android:orientation="vertical"
-                          app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+
+                    <TextView
+                        android:id="@+id/welcomeText"
+                        android:layout_marginTop="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="18sp"/>
+
+
+
 
                     <LinearLayout
-                        android:visibility="visible"
+                        android:visibility="gone"
                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
@@ -693,18 +695,11 @@
 
 
 
-
-
-
-
                     <RelativeLayout
                         android:background="@color/white"
                         android:layout_alignParentTop="true"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
-
-
 
 
 
@@ -819,15 +814,6 @@
 
                         </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-
-
-
-
-
-
-
-
                         <LinearLayout
                             android:visibility="@{homeTabViewModel.emptyRegion?View.GONE:View.VISIBLE}"
                             android:id="@+id/region_layout"
@@ -902,7 +888,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerHorizontal="true"
-                                        android:layout_gravity="center_vertical|center_horizontal"
                                         android:gravity="center"
                                         android:text="@{homeTabViewModel.slogan2}"
                                         android:textColor="@color/medium_gray"
@@ -938,7 +923,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="350dp"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginBottom="10dp"
                                 android:background="@color/white"
                                 android:visibility="visible"
                                 app:cardadapter="@{homeTabViewModel.regionItemViewModels}"
@@ -949,6 +933,17 @@
 
 
                     </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_filter_collection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        app:adapter="@{homeTabViewModel.collectionItemViewModels}"
+                        tools:listitem="@layout/list_item_filter_collections" />
+
 
 
                     <!-- <FrameLayout

@@ -111,9 +111,8 @@
         android:layout_width="230dp"
         app:cardUseCompatPadding="true"
         android:layout_height="340dp"
-        android:layout_gravity="center_horizontal"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="7dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
@@ -144,7 +143,8 @@
                 android:layout_marginEnd="3dp"
                 android:layout_marginTop="3dp" />-->
 
-            <com.tovo.eat.utilities.RoundCornerImageView
+            <com.tovo.eat.utilities.ExtraRoundCornerImageView
+                android:layout_centerHorizontal="true"
                 imageUrl="@{regionItemViewModel.imageUrl}"
                 loader="@{rcardloader}"
                 android:id="@+id/rcardimage"
@@ -152,8 +152,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="3dp"
                 android:scaleType="fitXY" />
 

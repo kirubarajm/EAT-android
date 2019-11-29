@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -34,6 +39,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
@@ -47,6 +53,7 @@ import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CustomTypefaceSpan;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -60,7 +67,7 @@ import javax.inject.Inject;
 import static com.tovo.eat.utilities.scroll.PaginationListener.PAGE_START;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator,
-        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener {
+        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener,FilterCollectionAdapter.FilterCollectionAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -73,6 +80,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     KitchenAdapter adapter;
     @Inject
     RegionsCardAdapter regionListAdapter;
+    @Inject
+    FilterCollectionAdapter filterCollectionAdapter;
     @Inject
     RegionsCardTitleAdapter regionsCardTitleAdapter;
     @Inject
@@ -216,6 +225,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         adapter.setListener(this);
         regionListAdapter.setListener(this);
         storiesCardAdapter.setListener(this);
+        filterCollectionAdapter.setListener(this);
         subscribeToLiveData();
 
 
@@ -273,6 +283,27 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });
+
+
+
+
+
+
+        String name="Hi! "+ mHomeTabViewModel.getDataManager().getCurrentUserName()+",";
+        String welcomeMessage=" pick \nyour home to eat!";
+
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");
+        Typeface font2 = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Regular.otf");
+        SpannableStringBuilder SS = new SpannableStringBuilder(name+welcomeMessage);
+
+        SS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, name.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        SS.setSpan (new CustomTypefaceSpan("", font), 0, name.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        SS.setSpan (new CustomTypefaceSpan("", font2), name.length()+1,  name.length()+welcomeMessage.length(),Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        mFragmentHomeBinding.welcomeText.setText(SS);
+
+
 
     }
 
@@ -493,6 +524,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewStory.setLayoutManager(mLayoutManager3);
         mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
 
+
         mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -514,6 +546,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });
+
+
+
+
+
+        LinearLayoutManager collectionLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        collectionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mFragmentHomeBinding.recyclerViewFilterCollection.setLayoutManager(collectionLayoutManager);
+        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);
+
+
 
 
         mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -1012,4 +1057,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.kitchenLoader.stopShimmerAnimation();
     }
 
+    @Override
+    public void filterCollectionItemClick(KitchenResponse.Collection collection) {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
+        Intent intent = SearchDishActivity.newIntent(getContext());
+        intent.putExtra("cid", collection.getCid());
+        intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
+        startActivity(intent);
+    }
 }

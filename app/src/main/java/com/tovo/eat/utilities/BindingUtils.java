@@ -71,6 +71,8 @@ import com.tovo.eat.ui.filter.FilterAdapter;
 import com.tovo.eat.ui.filter.FilterItems;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.RegionsCardAdapter;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
+import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
@@ -136,14 +138,14 @@ public final class BindingUtils {
             adapter.addItems(cartdetails);
         }
     }
- /*@BindingAdapter({"adapter"})
-    public static void addCollectionItems(RecyclerView recyclerView, List<KitchenResponse.Collection> sales) {
-        CollectionAdapter adapter = (CollectionAdapter) recyclerView.getAdapter();
+ @BindingAdapter({"adapter"})
+    public static void addCollectionItems(RecyclerView recyclerView, List<KitchenResponse.Collection> collections) {
+        FilterCollectionAdapter adapter = (FilterCollectionAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(sales, recyclerView.getContext());
+            adapter.addItems(collections);
         }
-    }*/
+    }
 
     @BindingAdapter({"adapter"})
     public static void addCouponListItems(RecyclerView recyclerView, List<CouponListResponse.Result> results) {
