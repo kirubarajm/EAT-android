@@ -61,7 +61,8 @@ public class ChatActivityViewModel extends BaseViewModel<ChatActivityNavigator> 
                                 chatListUserReadFinal.add(aidlist);
                             }
                         }
-                        getNavigator().onRefreshSuccess(chatListUserReadFinal);
+                        if (getNavigator() != null)
+                            getNavigator().onRefreshSuccess(chatListUserReadFinal);
                     }
                     if (getNavigator() != null)
                         getNavigator().apiLoaded();

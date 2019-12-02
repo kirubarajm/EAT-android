@@ -630,7 +630,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             }
 
-
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
@@ -1090,7 +1089,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 storiesItemsLiveData.setValue(completeStories.getResult());
         }
     }
-
 
     public void fetchCollections() throws NullPointerException {
         try {

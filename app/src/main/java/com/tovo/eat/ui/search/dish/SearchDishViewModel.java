@@ -5,7 +5,6 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -254,8 +253,8 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                             if (KitchenDishResponse.getResult() != null)
                                 if (KitchenDishResponse.getResult().size() > 0) {
                                     dishItemsLiveData.setValue(KitchenDishResponse.getResult());
-                                    Log.e("----response:---------", response.toString());
-                                    getNavigator().listLoaded();
+                                    if (getNavigator() != null)
+                                        getNavigator().listLoaded();
                                     noData.set(false);
                                 } else {
                                     noData.set(true);
@@ -330,10 +329,10 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                         KitchenDishResponse KitchenDishResponse;
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
-                        if (KitchenDishResponse.getResult().size() > 0) {
+                        if (KitchenDishResponse.getResult() != null && KitchenDishResponse.getResult().size() > 0) {
                             dishItemsLiveData.setValue(KitchenDishResponse.getResult());
-                            Log.e("----response:---------", response.toString());
-                            getNavigator().listLoaded();
+                            if (getNavigator() != null)
+                                getNavigator().listLoaded();
                             noData.set(false);
 
                         } else {

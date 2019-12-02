@@ -32,11 +32,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -144,6 +145,9 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
         Crashlytics.getInstance();
 
+        FacebookSdk.fullyInitialize();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         //AppLogger.init();
 
@@ -164,21 +168,21 @@ public class MvvmApp extends Application implements HasActivityInjector {
     }
 
 
- public Map<String, String>  setHeaders(String version) {
+    public Map<String, String> setHeaders(String version) {
 
-     HashMap<String, String> headers = new HashMap<>();
-     headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-     //  headers.put("Content-Type", "application/json; charset=utf-8");
-     headers.put("accept-version",version);
-     headers.put("apptype",AppConstants.APP_TYPE_ANDROID);
-     //  headers.put("Authorization","Bearer");
-     AppPreferencesHelper preferencesHelper=new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
-     headers.put("Authorization","Bearer "+preferencesHelper.getApiToken());
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+        //  headers.put("Content-Type", "application/json; charset=utf-8");
+        headers.put("accept-version", version);
+        headers.put("apptype", AppConstants.APP_TYPE_ANDROID);
+        //  headers.put("Authorization","Bearer");
+        AppPreferencesHelper preferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+        headers.put("Authorization", "Bearer " + preferencesHelper.getApiToken());
 
-     // headers.put("token",preferencesHelper.getApiToken());
+        // headers.put("token",preferencesHelper.getApiToken());
 
 
-     return  headers;
+        return headers;
 
 
     }
