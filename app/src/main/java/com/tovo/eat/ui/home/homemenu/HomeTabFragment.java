@@ -1,9 +1,7 @@
 package com.tovo.eat.ui.home.homemenu;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,7 +20,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -102,15 +99,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     LinearLayoutManager mLayoutManager;
     int page = 1;
     int itemCount = 0;
+    FilterListener filterListener;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
     private int currentPage = PAGE_START;
     private boolean isLastPage = false;
     private int totalPage = 10;
     private boolean isLoading = false;
-
-
-    FilterListener filterListener;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -509,8 +504,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                     int hh = v.getMeasuredHeight();
                     int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == (v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight())) {
-                     //   Log.i(TAG, "BOTTOM SCROLL");
-                     //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                        //   Log.i(TAG, "BOTTOM SCROLL");
+                        //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -519,7 +514,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
 
                         Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                      //  mHomeTabViewModel.fetchKitchen();
+                        //  mHomeTabViewModel.fetchKitchen();
 
                         if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
                             mHomeTabViewModel.fetchKitchenFilter();
@@ -764,9 +759,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void applyFilter() {
-
-        Toast.makeText(getActivity(), "filterApplied", Toast.LENGTH_SHORT).show();
-
+        mHomeTabViewModel.pageid.set(0);
+        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+            mHomeTabViewModel.fetchKitchenFilter();
+        } else {
+            mHomeTabViewModel.fetchKitchen();
+        }
     }
 
     @Override
