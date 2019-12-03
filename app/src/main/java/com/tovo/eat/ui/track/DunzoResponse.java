@@ -13,7 +13,7 @@ public class DunzoResponse {
         private String state;
         @SerializedName("event_timestamp")
         @Expose
-        private Integer eventTimestamp;
+        private Long eventTimestamp;
         @SerializedName("eta")
         @Expose
         private Eta eta;
@@ -22,7 +22,7 @@ public class DunzoResponse {
         private Runner runner;
         @SerializedName("request_timestamp")
         @Expose
-        private Integer requestTimestamp;
+        private Long requestTimestamp;
 
         public String getTaskId() {
             return taskId;
@@ -40,13 +40,6 @@ public class DunzoResponse {
             this.state = state;
         }
 
-        public Integer getEventTimestamp() {
-            return eventTimestamp;
-        }
-
-        public void setEventTimestamp(Integer eventTimestamp) {
-            this.eventTimestamp = eventTimestamp;
-        }
 
         public Eta getEta() {
             return eta;
@@ -64,13 +57,21 @@ public class DunzoResponse {
             this.runner = runner;
         }
 
-        public Integer getRequestTimestamp() {
-            return requestTimestamp;
-        }
+    public Long getEventTimestamp() {
+        return eventTimestamp;
+    }
 
-        public void setRequestTimestamp(Integer requestTimestamp) {
-            this.requestTimestamp = requestTimestamp;
-        }
+    public void setEventTimestamp(Long eventTimestamp) {
+        this.eventTimestamp = eventTimestamp;
+    }
+
+    public Long getRequestTimestamp() {
+        return requestTimestamp;
+    }
+
+    public void setRequestTimestamp(Long requestTimestamp) {
+        this.requestTimestamp = requestTimestamp;
+    }
 
     public class Location {
 
