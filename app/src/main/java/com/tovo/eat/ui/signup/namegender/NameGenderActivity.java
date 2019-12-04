@@ -78,9 +78,10 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
     public void proceedClick() {
         String name = mActivityNameGenderBinding.edtName.getText().toString();
         String referral = mActivityNameGenderBinding.referral.getText().toString();
+        String otherregion = mActivityNameGenderBinding.otherRegionname.getText().toString();
 
         if (validForProceed()) {
-            mLoginViewModelMain.insertNameGenderServiceCall(name, Integer.parseInt(regionId), referral);
+            mLoginViewModelMain.insertNameGenderServiceCall(name, Integer.parseInt(regionId), referral,otherregion);
             new Analytics().sendClickData(AppConstants.SCREEN_USER_REGISTRATION, AppConstants.CLICK_PROCEED);
         }
     }
@@ -200,9 +201,11 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
                     regionId = "0";
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(false);
+                    mLoginViewModelMain.regionotherClicked.set(true);
                 } else {
                     regionId = "";
                     mActivityNameGenderBinding.region.setEnabled(true);
+                    mLoginViewModelMain.regionotherClicked.set(false);
                 }
             }
         });

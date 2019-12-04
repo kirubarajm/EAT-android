@@ -199,6 +199,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <RelativeLayout
+                    android:id="@+id/other_reg"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -222,6 +223,32 @@
                         android:text="@string/others" />
 
                 </RelativeLayout>
+
+
+
+                <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/other_reg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:visibility="@{nameGenderViewModel.regionotherClicked?View.VISIBLE:View.GONE}">
+
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/other_regionname"
+                        enter="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="YOUR HOMETOWN"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLength="30"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                </android.support.design.widget.TextInputLayout>
 
             </RelativeLayout>
 

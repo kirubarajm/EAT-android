@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.signup.namegender;
 
 import android.databinding.ObservableBoolean;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,6 +19,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     public ObservableBoolean male = new ObservableBoolean();
     public ObservableBoolean haveReferral = new ObservableBoolean();
     public ObservableBoolean referral = new ObservableBoolean();
+    public ObservableBoolean regionotherClicked = new ObservableBoolean();
+
     public ObservableBoolean flagRegion = new ObservableBoolean();
     Response.ErrorListener errorListener;
     int gender = 0;
@@ -60,7 +63,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
-    public void insertNameGenderServiceCall(String name, int regionId, String referral) {
+    public void insertNameGenderServiceCall(String name, int regionId, String referral,String otherRegion) {
 
 
         if (male.get()) {
@@ -78,6 +81,15 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
             nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral);
         }
+
+
+        if (regionId==0){
+            if (otherRegion.isEmpty()){
+                Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
