@@ -67,7 +67,7 @@ import javax.inject.Inject;
 import static com.tovo.eat.utilities.scroll.PaginationListener.PAGE_START;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator,
-        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener,FilterCollectionAdapter.FilterCollectionAdapterListener {
+        StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener, FilterCollectionAdapter.FilterCollectionAdapterListener {
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
@@ -99,6 +99,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     LinearLayoutManager mLayoutManager;
     int page = 1;
     int itemCount = 0;
+    FilterListener filterListener;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
     private int currentPage = PAGE_START;
@@ -112,6 +113,27 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         fragment.setArguments(args);
         return fragment;
     }
+
+
+    /*@Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Activity a;
+
+        if (context instanceof Activity){
+            a=(Activity) context;
+
+            try {
+                filterListener = (FilterListener ) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(a.toString()
+                        + " must implement MyInterface ");
+            }
+
+        }
+
+    }*/
 
     @Override
     public int getBindingVariable() {
@@ -141,7 +163,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void filter() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FILTER);
         FilterFragment bottomSheetFragment = new FilterFragment();
-        bottomSheetFragment.show(getBaseActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+        bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override
@@ -243,6 +265,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentHomeBinding = getViewDataBinding();
 
+
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(true);
@@ -284,25 +307,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-
-
-
-
-
-        String name="Hi! "+ mHomeTabViewModel.getDataManager().getCurrentUserName()+",";
-        String welcomeMessage=" pick \nyour home to eat!";
+        String name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
+        String welcomeMessage = " pick \nyour home to eat!";
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");
         Typeface font2 = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Regular.otf");
-        SpannableStringBuilder SS = new SpannableStringBuilder(name+welcomeMessage);
+        SpannableStringBuilder SS = new SpannableStringBuilder(name + welcomeMessage);
 
         SS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, name.length(),
                 Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-        SS.setSpan (new CustomTypefaceSpan("", font), 0, name.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        SS.setSpan (new CustomTypefaceSpan("", font2), name.length()+1,  name.length()+welcomeMessage.length(),Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        SS.setSpan(new CustomTypefaceSpan("", font), 0, name.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        SS.setSpan(new CustomTypefaceSpan("", font2), name.length() + 1, name.length() + welcomeMessage.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         mFragmentHomeBinding.welcomeText.setText(SS);
-
 
 
     }
@@ -472,39 +489,46 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                   *//* if(v.getChildAt(v.getChildCount() - 1) != null) {
+                   /* if (v.getChildAt(v.getChildCount() - 1) != null) {
                         if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
                                 scrollY > oldScrollY) {
                             //code to fetch more data for endless scrolling
                         }
-                    }*//*
+                    }*/
 
-         *//*int hh= v.getMeasuredHeight();
-                   int ff=mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
-                    if (scrollY == ( v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight() )) {
-                        Log.i(TAG, "BOTTOM SCROLL");
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    }*//*
+                    int hh = v.getMeasuredHeight();
+                    int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
+                    if (scrollY == (v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight())) {
+                        //   Log.i(TAG, "BOTTOM SCROLL");
+                        //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                    }
 
 
-         *//* if ((scrollY >= ( mFragmentHomeBinding.fullScroll.getChildAt( mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() -  mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
+                    if ((scrollY >= (mFragmentHomeBinding.fullScroll.getChildAt(mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() - mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
                             scrollY > oldScrollY) {
-                    //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
+                        //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
 
                         Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                        mHomeTabViewModel.fetchKitchen();
+                        //  mHomeTabViewModel.fetchKitchen();
 
-                    }*//*
+                        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                            mHomeTabViewModel.fetchKitchenFilter();
+                        } else {
+                            mHomeTabViewModel.fetchKitchen();
+                        }
+
+
+                    }
 
 
                 }
             });
-        }*/
+        }
 
 
         LinearLayoutManager mLayoutManagerTitle
@@ -548,17 +572,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-
-
-
         LinearLayoutManager collectionLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         collectionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFragmentHomeBinding.recyclerViewFilterCollection.setLayoutManager(collectionLayoutManager);
         mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);
-
-
 
 
         mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -707,12 +726,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mHomeTabViewModel.updateAddressTitle();
 
 
-        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+       /* if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
             mHomeTabViewModel.fetchKitchenFilter();
         } else {
             mHomeTabViewModel.fetchKitchen();
         }
-
+*/
         mHomeTabViewModel.liveOrders();
         mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
@@ -740,7 +759,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void applyFilter() {
-
+        mHomeTabViewModel.pageid.set(0);
+        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+            mHomeTabViewModel.fetchKitchenFilter();
+        } else {
+            mHomeTabViewModel.fetchKitchen();
+        }
     }
 
     @Override

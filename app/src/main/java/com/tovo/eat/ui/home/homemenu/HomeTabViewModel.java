@@ -68,6 +68,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchenImage = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
+    public final ObservableField<Integer> pageid = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public final ObservableBoolean showFunnel = new ObservableBoolean();
     public ObservableBoolean isVeg = new ObservableBoolean();
@@ -104,7 +105,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         storiesItemsLiveData = new MutableLiveData<>();
         collectionItemLiveData = new MutableLiveData<>();
         couponListItemsLiveData = new MutableLiveData<>();
-
+        getDataManager().saveIsFilterApplied(false);
+        pageid.set(0);
         fullEmpty.set(false);
 
         showFunnel.set(getDataManager().getFunnelStatus());
@@ -118,7 +120,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         fetchStories();
         fetchCoupons();
         fetchCollections();
-        // fetchKitchen();
+        fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
 
@@ -141,7 +143,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-            kitchenItemViewModels.clear();
+            if (pageid.get() == 0)
+                kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 
@@ -553,10 +556,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchKitchen() throws NullPointerException {
 
+        pageid.set(pageid.get() + 1);
 
         kitchenListLoading.set(true);
-
-
         String json = "";
         if (getDataManager().getCurrentLat() == null) {
 
@@ -639,9 +641,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                             //  kitchenItemsLiveData.setValue(null);
 
-                                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                            //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                            //  kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                            kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
@@ -680,7 +682,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
-
+                                pageid.set(pageid.get() -1);
                                 kitchenListLoading.set(false);
 
                                 try {
@@ -724,9 +726,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
     public void fetchKitchenFilter() throws NullPointerException {
 
+        pageid.set(pageid.get() + 1);
+
         kitchenListLoading.set(true);
-
-
         if (getDataManager().getCurrentLat() == null) {
         } else {
 
@@ -820,7 +822,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                         //  kitchenItemsLiveData.setValue(null);
 
-                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+
+
+                                       // kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                        kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
@@ -856,6 +861,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
+
+                                pageid.set(pageid.get() -1);
+
                                 kitchenListLoading.set(false);
                                 try {
 

@@ -232,6 +232,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
+
         //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
         transaction.commitAllowingStateLoss();
 
@@ -627,8 +628,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void applyFilter() {
+    //    openHome();
 
-        openHome();
+        HomeTabFragment homeTabFragment = (HomeTabFragment)
+                getSupportFragmentManager()
+                        .findFragmentById(R.id.content_main);
+
+        homeTabFragment.applyFilter();
+
+
     }
 
     @Override
