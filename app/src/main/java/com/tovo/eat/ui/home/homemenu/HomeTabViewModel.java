@@ -143,8 +143,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-            if (pageid.get() == 0)
-                kitchenItemViewModels.clear();
+            // if (pageid.get() == 0)
+            kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 
@@ -641,9 +641,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                             //  kitchenItemsLiveData.setValue(null);
 
-                                            //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                            kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                            // kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
@@ -682,7 +682,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
-                                pageid.set(pageid.get() -1);
+                                pageid.set(pageid.get() - 1);
                                 kitchenListLoading.set(false);
 
                                 try {
@@ -823,9 +823,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         //  kitchenItemsLiveData.setValue(null);
 
 
-
-                                       // kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-                                        kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                        //kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
@@ -862,7 +861,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
 
-                                pageid.set(pageid.get() -1);
+                                pageid.set(pageid.get() - 1);
 
                                 kitchenListLoading.set(false);
                                 try {

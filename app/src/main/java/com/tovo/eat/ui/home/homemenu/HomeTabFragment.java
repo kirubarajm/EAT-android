@@ -494,14 +494,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                   /* if (v.getChildAt(v.getChildCount() - 1) != null) {
-                        if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
-                                scrollY > oldScrollY) {
-                            //code to fetch more data for endless scrolling
-                        }
-                    }*/
 
-                    int hh = v.getMeasuredHeight();
+
+                    /*int hh = v.getMeasuredHeight();
                     int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == (v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight())) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
@@ -511,10 +506,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                     if ((scrollY >= (mFragmentHomeBinding.fullScroll.getChildAt(mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() - mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
                             scrollY > oldScrollY) {
-                        //    LogsUtils.INSTANCE.makeLogD(">onScrollChange>", ">>BOTTOm");
+
 
                         Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                        //  mHomeTabViewModel.fetchKitchen();
 
                         if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
                             mHomeTabViewModel.fetchKitchenFilter();
@@ -523,7 +517,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                         }
 
 
-                    }
+                    }*/
 
 
                 }
@@ -572,12 +566,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-        LinearLayoutManager collectionLayoutManager
+       /* LinearLayoutManager collectionLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         collectionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFragmentHomeBinding.recyclerViewFilterCollection.setLayoutManager(collectionLayoutManager);
-        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);
+        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);*/
 
 
         mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {

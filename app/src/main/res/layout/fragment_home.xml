@@ -472,6 +472,7 @@
 
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/welcomeText"
                         android:layout_marginTop="25dp"
                         android:layout_width="match_parent"
@@ -484,7 +485,7 @@
 
 
                     <LinearLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
@@ -935,14 +936,15 @@
                     </LinearLayout>
 
 
-                    <android.support.v7.widget.RecyclerView
+                    <!--<android.support.v7.widget.RecyclerView
+                        android:visibility="gone"
                         android:id="@+id/recycler_view_filter_collection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_gravity="center_vertical|center_horizontal"
                         app:adapter="@{homeTabViewModel.collectionItemViewModels}"
-                        tools:listitem="@layout/list_item_filter_collections" />
+                        tools:listitem="@layout/list_item_filter_collections" />-->
 
 
 

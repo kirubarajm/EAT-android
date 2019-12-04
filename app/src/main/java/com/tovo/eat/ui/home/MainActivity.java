@@ -388,7 +388,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
 
             //if (resultCode == RESULT_OK)
-                openHome();
+             //   openHome();
+
+            HomeTabFragment homeTabFragment = (HomeTabFragment)
+                    getSupportFragmentManager()
+                            .findFragmentById(R.id.content_main);
+
+            homeTabFragment.applyFilter();
+
+
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
         }
     }
