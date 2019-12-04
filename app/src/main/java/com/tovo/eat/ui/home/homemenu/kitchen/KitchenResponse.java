@@ -10,9 +10,36 @@ public class KitchenResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
+
+    @SerializedName("kitchencount")
+    @Expose
+    private int kitchenCount;
+
+    @SerializedName("pagecount")
+    @Expose
+    private int pageCount;
+
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
+    public int getKitchenCount() {
+        return kitchenCount;
+    }
+
+    public void setKitchenCount(int kitchenCount) {
+        this.kitchenCount = kitchenCount;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -72,7 +99,7 @@ public class KitchenResponse {
         private Integer favid;
         @SerializedName("serviceablestatus")
         @Expose
-        private boolean serviceableStatus=true;
+        private boolean serviceableStatus = true;
         @SerializedName("isfav")
         @Expose
         private String isfav;

@@ -39,6 +39,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.MainViewModel;
 import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -496,7 +497,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
 
-                    /*int hh = v.getMeasuredHeight();
+                    int hh = v.getMeasuredHeight();
                     int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == (v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight())) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
@@ -508,16 +509,23 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             scrollY > oldScrollY) {
 
 
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
 
-                        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                            mHomeTabViewModel.fetchKitchenFilter();
-                        } else {
-                            mHomeTabViewModel.fetchKitchen();
+                        if (mHomeTabViewModel.pageid.get()+1>mHomeTabViewModel.pageCount){
+
+                        }else {
+                            Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+
+                            if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                                mHomeTabViewModel.fetchKitchenFilter();
+                            } else {
+                                mHomeTabViewModel.fetchKitchen();
+                            }
                         }
 
 
-                    }*/
+
+
+                    }
 
 
                 }
@@ -566,12 +574,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-       /* LinearLayoutManager collectionLayoutManager
+        LinearLayoutManager collectionLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         collectionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFragmentHomeBinding.recyclerViewFilterCollection.setLayoutManager(collectionLayoutManager);
-        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);*/
+        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);
 
 
         mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
