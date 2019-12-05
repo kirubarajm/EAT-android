@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.tovo.eat.BuildConfig;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
@@ -18,6 +19,9 @@ public class Analytics {
     private String screen_name, screen_id, click;
 
     public Analytics() {
+
+        if(BuildConfig.DEBUG) return;
+
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
 
         try {
@@ -46,6 +50,8 @@ public class Analytics {
 
 
     public Analytics(Context context, String screen_name) {
+        if(BuildConfig.DEBUG) return;
+
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -55,6 +61,8 @@ public class Analytics {
     }
 
     public Analytics(String screen_name) {
+        if(BuildConfig.DEBUG) return;
+
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -64,7 +72,7 @@ public class Analytics {
     }
 
     public Analytics(int productid, String productname, int price, int quantity, String kitchenName) {
-
+        if(BuildConfig.DEBUG) return;
      /*   if (mFirebaseAnalytics == null)
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
 
@@ -80,7 +88,7 @@ public class Analytics {
     }
 
     public Analytics(int price) {
-
+        if(BuildConfig.DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -94,6 +102,7 @@ public class Analytics {
     }
 
     public Analytics(String screen_name, String click) {
+        if(BuildConfig.DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }

@@ -36,6 +36,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -51,6 +52,7 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -135,7 +137,13 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .build()
                 .inject(this);
 
-        FirebaseAnalytics.getInstance(this);
+        //   FirebaseAnalytics.getInstance(this);
+
+
+        if (!BuildConfig.DEBUG) {
+            FirebaseAnalytics.getInstance(this);
+        }
+
 
         HttpsTrustManager.allowAllSSL();
 
@@ -143,7 +151,16 @@ public class MvvmApp extends Application implements HasActivityInjector {
         appPreferencesHelper.setRatingAppStatus(true);
 
 
-        Crashlytics.getInstance();
+//        Crashlytics.getInstance();
+
+
+//TODO: Disable debug crashes
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+        // Initialize Fabric with the debug-disabled crashlytics.
+        Fabric.with(this, crashlyticsKit);
+
 
         FacebookSdk.fullyInitialize();
         FacebookSdk.sdkInitialize(getApplicationContext());

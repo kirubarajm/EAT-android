@@ -10,7 +10,7 @@
     <string name="invalidEmail">Invalid Email</string>
 
     <string name="facebook_app_id">2316860041912281</string>
-    <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+    <!--<string name="fb_login_protocol_scheme">fb[APP_ID]</string>-->
 
 
     <!--Toolbar menus-->
