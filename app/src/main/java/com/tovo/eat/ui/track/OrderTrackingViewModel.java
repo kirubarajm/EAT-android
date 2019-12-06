@@ -98,6 +98,7 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
     public OrderTrackingViewModel(DataManager dataManager) {
         super(dataManager);
         // getOrderDetails();
+        track.set(false);
         orderId.set("order #" + String.valueOf(getDataManager().getOrderId()));
         dunzoTrackingTimer.set(false);
     }
@@ -244,7 +245,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                     moveitName.set(response.getResult().get(0).getMoveitdetail().getName());
                                     moveitPhone.set(response.getResult().get(0).getMoveitdetail().getPhoneno());
                                     deliveryManNumber = response.getResult().get(0).getMoveitdetail().getPhoneno();
-
+                                }else {
+                                    track.set(false);
                                 }
 
 
@@ -561,7 +563,6 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 e.printStackTrace();
                             }
 
-
                             if (response.getResult().get(0).getDeliveryVendor() == 0) {
                                 if (response.getResult().get(0).getOrderstatus() > 4) {
                                     singleTime = true;
@@ -569,15 +570,13 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 }
                             }
 
-
-                            if (response.getResult().get(0).getMoveitdetail().getName() != null) {
+                            if (response.getResult().get(0).getMoveitdetail()!=null&&response.getResult().get(0).getMoveitdetail().getName() != null) {
                                 track.set(true);
                                 moveitName.set(response.getResult().get(0).getMoveitdetail().getName());
                                 moveitPhone.set(response.getResult().get(0).getMoveitdetail().getPhoneno());
                                 deliveryManNumber = response.getResult().get(0).getMoveitdetail().getPhoneno();
 
                             }
-
 
                             orderReceivedStatus.set(response.getResult().get(0).getTrackingstatus().getMessage1());
                             orderPreparedStatus.set(response.getResult().get(0).getTrackingstatus().getMessage2());

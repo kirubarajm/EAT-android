@@ -590,11 +590,10 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
                 int width = mActivityDirectionBinding.mapSize.getMeasuredWidth();
                 int height = mActivityDirectionBinding.mapSize.getMeasuredHeight();
-                int padding = (int) (width * 0.10);
+                int padding = (int) (width * 0.30);
 
 
                 try {
-
                     CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
                     mMap.moveCamera(cu);
 

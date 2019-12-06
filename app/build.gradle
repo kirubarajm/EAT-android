@@ -13,7 +13,7 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 17
+        versionCode 18
         versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

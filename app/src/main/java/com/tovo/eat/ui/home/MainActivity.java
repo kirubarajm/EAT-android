@@ -106,6 +106,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     InstallStateUpdatedListener installStateUpdatedListener;
     int getAddressCount = 0;
 
+
+    AppUpdateManager mAppUpdateManager;
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -374,6 +377,52 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+
+    public void inAppUpdate() {
+
+
+        mAppUpdateManager = AppUpdateManagerFactory.create(this);
+
+         installStateUpdatedListener = state -> {
+            if (state.installStatus() == InstallStatus.DOWNLOADED) {
+                popupSnackbarForCompleteUpdate();
+            } else if (state.installStatus() == InstallStatus.INSTALLED) {
+                if (mAppUpdateManager != null) {
+                    mAppUpdateManager.unregisterListener(installStateUpdatedListener);
+                }
+
+            } else {
+
+            }
+        };
+
+
+        mAppUpdateManager.registerListener(installStateUpdatedListener);
+
+        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+
+                try {
+                    mAppUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo, AppUpdateType.FLEXIBLE, MainActivity.this, RC_APP_UPDATE);
+
+
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                popupSnackbarForCompleteUpdate();
+            } else {
+                // Log.e(TAG, "checkForAppUpdateAvailability: something else");
+            }
+        });
+
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -388,7 +437,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
 
             //if (resultCode == RESULT_OK)
-             //   openHome();
+            //   openHome();
 
             HomeTabFragment homeTabFragment = (HomeTabFragment)
                     getSupportFragmentManager()
@@ -398,7 +447,29 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         } else if (requestCode == AppConstants.INTERNET_ERROR_REQUEST_CODE) {
+        } else if (requestCode == RC_APP_UPDATE) {
+            if (resultCode != RESULT_OK) {
+                //  Log.e(TAG, "onActivityResult: app download failed");
+            }
         }
+    }
+
+    private void popupSnackbarForCompleteUpdate() {
+
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.root),
+                        "New app is ready!",
+                        Snackbar.LENGTH_INDEFINITE);
+
+        snackbar.setAction("Install", view -> {
+            if (mAppUpdateManager != null) {
+                mAppUpdateManager.completeUpdate();
+            }
+        });
+
+        // snackbar.setActionTextColor(getResources().getColor(R.color.install_color));
+        snackbar.show();
     }
 
 
@@ -446,12 +517,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
+        inAppUpdate();
 
         analytics = new Analytics(this, pageName);
 
         saveFcmToken();
 
-      //  updateUIalert();
+        //  updateUIalert();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
@@ -535,7 +607,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-    public void updateUIalert(){
+    public void updateUIalert() {
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
 
         mAppUpdateManager.registerListener(installStateUpdatedListener);
@@ -543,7 +615,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
 
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)){
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
 
                 try {
                     mAppUpdateManager.startUpdateFlowForResult(
@@ -554,7 +626,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     e.printStackTrace();
                 }
 
-            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED){
+            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
                 // popupSnackbarForCompleteUpdate();
             } else {
                 /// Log.e(TAG, "checkForAppUpdateAvailability: something else");
@@ -563,10 +635,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
         installStateUpdatedListener = state -> {
-            if (state.installStatus() == InstallStatus.DOWNLOADED){
+            if (state.installStatus() == InstallStatus.DOWNLOADED) {
                 //    popupSnackbarForCompleteUpdate();
-            } else if (state.installStatus() == InstallStatus.INSTALLED){
-                if (mAppUpdateManager != null){
+            } else if (state.installStatus() == InstallStatus.INSTALLED) {
+                if (mAppUpdateManager != null) {
                     mAppUpdateManager.unregisterListener(installStateUpdatedListener);
                 }
 
@@ -636,7 +708,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void applyFilter() {
-    //    openHome();
+        //    openHome();
 
         HomeTabFragment homeTabFragment = (HomeTabFragment)
                 getSupportFragmentManager()
@@ -1000,6 +1072,26 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         }
 
+       /* mAppUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                try {
+                                    mAppUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            AppUpdateType.IMMEDIATE,
+                                            this,
+                                            RC_APP_UPDATE);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });*/
+
     }
 
     @Override
@@ -1084,7 +1176,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 getAddressCount++;
                 if (getAddressCount < 3) {
                     new AsyncTaskAddress().execute(clatitude, clatitude);
-                }else {
+                } else {
                     openHome();
                 }
             }
