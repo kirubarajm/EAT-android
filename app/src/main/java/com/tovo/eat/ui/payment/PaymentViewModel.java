@@ -27,11 +27,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.PlaceOrderRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 
@@ -523,6 +525,51 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
         }
 
         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+    }
+
+
+    public void retry(){
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PAYMENT_RETRY_URL, CommonResponse.class, new PaymentRetryRequestPojo(getDataManager().getCurrentUserId(),getDataManager().getOrderId()),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.isStatus()){
+                            new Analytics().orderPlaced(orderid, price);
+
+                            paymentSuccessData(null, 0, false);
+                            if (getNavigator() != null)
+                                getNavigator().paymentSuccessed(true);
+                            getDataManager().setCartDetails(null);
+                            getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
+
+                        }else {
+                            if (getNavigator()!=null)
+                                getNavigator().retryPaymentForSamePrderID();
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
 
     }
 

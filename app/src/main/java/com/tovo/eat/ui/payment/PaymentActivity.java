@@ -249,6 +249,23 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     }
 
     @Override
+    public void retryPaymentForSamePrderID() {
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+        co.setFullScreenDisable(true);
+        try {
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityPaymentBinding = getViewDataBinding();
@@ -385,20 +402,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void paymentRetry() {
-        final Activity activity = this;
-
-        final Checkout co = new Checkout();
-
-        co.setFullScreenDisable(true);
-        try {
-            co.open(activity, options);
-
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-
+       mPaymentViewModel.retry();
     }
 
     @Override

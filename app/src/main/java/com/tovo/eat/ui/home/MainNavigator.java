@@ -37,6 +37,7 @@ public interface MainNavigator {
     void selectAddress();
 
     void trackLiveOrder(long orderId);
+    void retryPaymentForSamePrderID();
 
     void showOrderRating(Long orderId, String brandname);
 

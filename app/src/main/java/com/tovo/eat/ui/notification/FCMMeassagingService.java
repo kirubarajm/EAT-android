@@ -77,7 +77,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_eat_order_delivered:7,
                 Pageid_eat_order_cancel:8,
                 Pageid_eat_query_replay:9,
-                Pageid_eat_rating:10*/
+                Pageid_eat_rating:10
+                Pageid_order_placed:11*/
 
         Bundle bundle = new Bundle();
         Intent intent;

@@ -43,4 +43,6 @@ public interface PaymentNavigator {
 
     void showToast(String msg);
 
+    void retryPaymentForSamePrderID();
+
 }
