@@ -118,9 +118,9 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements CollectionCardItemViewModel.CollectionItemViewModelListener {
+    public class LiveProductsViewHolder extends BaseViewHolder implements FilterCollectionCardItemViewModel.CollectionItemViewModelListener {
         ListItemFilterCollectionsBinding mListItemLiveProductsBinding;
-        CollectionCardItemViewModel mLiveProductsItemViewModel;
+        FilterCollectionCardItemViewModel mLiveProductsItemViewModel;
 
         public LiveProductsViewHolder(ListItemFilterCollectionsBinding binding) {
             super(binding.getRoot());
@@ -132,7 +132,7 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
             if (item_list.isEmpty()) return;
             final KitchenResponse.Collection blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new CollectionCardItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new FilterCollectionCardItemViewModel(this, blog);
             mListItemLiveProductsBinding.setCollectionCardItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding

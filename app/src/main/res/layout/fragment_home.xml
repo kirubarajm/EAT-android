@@ -931,8 +931,7 @@
 
 
                         </LinearLayout>
-
-
+                        
                     </LinearLayout>
 
 
@@ -942,11 +941,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
                         app:adapter="@{homeTabViewModel.collectionItemViewModels}"
                         tools:listitem="@layout/list_item_filter_collections" />
-
-
 
                     <!-- <FrameLayout
                          app:layout_behavior="@string/appbar_scrolling_view_behavior"
