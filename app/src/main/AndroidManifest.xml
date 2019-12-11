@@ -256,7 +256,7 @@
             android:name="com.razorpay.ApiKey"
             android:value="${RAZORPAY_KEY}"
             />-->
-          <!--<meta-data
+         <!-- <meta-data
                     android:name="com.razorpay.ApiKey"
                     android:value="rzp_test_3cduMl5T89iR9G"
                     />-->
