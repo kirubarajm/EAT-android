@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.razorpay.Checkout;
+import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultListener;
+import com.razorpay.PaymentResultWithDataListener;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityPaymentBinding;
@@ -160,7 +163,9 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             ReadOnly.put("email", "true");
             ReadOnly.put("contact", "true");
             options.put("readonly", ReadOnly);
+            
             co.open(activity, options);
+
 
         } catch (Exception e) {
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
@@ -253,7 +258,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         super.onCreate(savedInstanceState);
         mActivityPaymentBinding = getViewDataBinding();
         mPaymentViewModel.setNavigator(this);
-
 
         analytics = new Analytics(this, pageName);
 
