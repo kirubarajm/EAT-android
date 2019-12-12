@@ -228,12 +228,12 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void paymentSuccessed(boolean status) {
 
-        if (status) {
-            Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(newIntent);
-            finish();
-        }
+            if (status) {
+                Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(newIntent);
+                finish();
+            }
 
     }
 
@@ -250,6 +250,23 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     public void showToast(String msg) {
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void retryPaymentForSamePrderID() {
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+        co.setFullScreenDisable(true);
+        try {
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
 
     }
 
@@ -291,7 +308,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-        if (paymentRetry) showRetry();
+        if (paymentRetry) mPaymentViewModel.retryCheck();
+
+
+
         if (mPaymentViewModel.paymentSuccessNotSent) {
             mPaymentViewModel.paymentSuccess(mPaymentViewModel.transactionId, mPaymentViewModel.paymentStatus);
         }
@@ -326,6 +346,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     }
 
+    @Override
     public void showRetry() {
 
         try {
@@ -341,7 +362,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showRetry();
+                    mPaymentViewModel.retryCheck();
                 }
             }, 1000);
         }
@@ -389,20 +410,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     @Override
     public void paymentRetry() {
-        final Activity activity = this;
-
-        final Checkout co = new Checkout();
-
-        co.setFullScreenDisable(true);
-        try {
-            co.open(activity, options);
-
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-
+       mPaymentViewModel.retry();
     }
 
     @Override

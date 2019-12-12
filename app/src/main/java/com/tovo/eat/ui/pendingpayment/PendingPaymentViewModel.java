@@ -11,8 +11,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.payment.PaymentRetryRequestPojo;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,4 +130,43 @@ public class PendingPaymentViewModel extends BaseViewModel<PendingPaymentNavigat
 
     }
 
+
+    public void retry(Long orderid,int price){
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PAYMENT_RETRY_URL, CommonResponse.class, new PaymentRetryRequestPojo(getDataManager().getCurrentUserId(),orderid),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.isStatus()){
+                            new Analytics().orderPlaced(orderid, price);
+                            if (getNavigator() != null)
+                                getNavigator().paymentSuccessed(true);
+                            getDataManager().setCartDetails(null);
+                            getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
 }

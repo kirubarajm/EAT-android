@@ -77,7 +77,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_eat_order_delivered:7,
                 Pageid_eat_order_cancel:8,
                 Pageid_eat_query_replay:9,
-                Pageid_eat_rating:10*/
+                Pageid_eat_rating:10
+                Pageid_order_placed:11*/
 
         Bundle bundle = new Bundle();
         Intent intent;
@@ -101,7 +102,12 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 break;
             case "9":
                 intent = new Intent(this, RepliesActivity.class);
-                intent.putExtra("notification",true);
+                intent.putExtra("notification", true);
+                break;
+            case "11":
+                AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
+                appPreferencesHelper.setCartDetails(null);
+                intent = new Intent(this, MainActivity.class);
                 break;
             case "8":
             case "1":
@@ -125,10 +131,10 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
                 .setContentInfo("Hello")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_eat))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages);
-                //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+        //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
 
 
         try {
@@ -183,7 +189,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
                 .setContentIntent(pendingIntent)
                 /*  .setContentInfo("Hello")*/
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_eat))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages)
                 .setSmallIcon(R.drawable.ic_eat);
@@ -227,7 +233,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         long userIdMain = appPreferencesHelper.getCurrentUserId();
 
-       // if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        // if (!MvvmApp.getInstance().onCheckNetWork()) return;
         if (userIdMain == 0) return;
         GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.EAT_FCM_TOKEN_URL, CommonResponse.class, new TokenRequest(userIdMain, token), new Response.Listener<CommonResponse>() {
             @Override

@@ -21,6 +21,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.payment.PaymentRetryRequestPojo;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.ui.track.DeliveryTimeRequest;
 import com.tovo.eat.ui.track.OrderTrackingResponse;
@@ -649,6 +650,50 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         }
 
         MvvmApp.getInstance().addToRequestQueue(jsonObjectRequest);
+
+    }
+
+
+    public void retry(){
+        int price = liveOrderResponsePojo.getResult().get(0).getPrice();
+        Long orderId =liveOrderResponsePojo.getResult().get(0).getOrderid();
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PAYMENT_RETRY_URL, CommonResponse.class, new PaymentRetryRequestPojo(getDataManager().getCurrentUserId(),orderId),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.isStatus()){
+
+                            new Analytics().orderPlaced(orderId, price);
+
+                            getDataManager().setCartDetails(null);
+                            getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
+
+                        }else {
+                            if (getNavigator()!=null)
+                                getNavigator().retryPaymentForSamePrderID();
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
 
     }
 }

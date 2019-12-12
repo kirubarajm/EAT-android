@@ -19,7 +19,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.tovo.eat.ui.alerts.ordercanceled.CancelListener;
 import com.tovo.eat.ui.alerts.ordercanceled.OrderCanceledBottomFragment;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.utilities.ActiveActivitiesTracker;
 import com.tovo.eat.utilities.CommonUtils;
 import com.tovo.eat.utilities.NetworkUtils;
@@ -27,7 +29,7 @@ import com.tovo.eat.utilities.NetworkUtils;
 import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity implements
-        BaseFragment.Callback , CancelListener {
+        BaseFragment.Callback, CancelListener {
 
     FirebaseDataReceiver dataReceiver = new FirebaseDataReceiver() {
 
@@ -38,7 +40,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 Bundle bundle = intent.getExtras();
                 if (bundle == null) return;
                 String pageid = bundle.getString("pageid");
-                if (pageid != null)
+                if (pageid != null) {
                     if (pageid.equals("8")) {
                         Bundle bundle1 = new Bundle();
                         bundle1.putString("message", bundle.getString("message"));
@@ -47,8 +49,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                         bottomSheetFragment.setArguments(bundle);
                         bottomSheetFragment.setCancelable(false);
                         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+                    } else if (pageid.equals("11")) {
+                        mViewModel.getDataManager().setCartDetails(null);
+                        Intent orderIntent= MainActivity.newIntent(getApplicationContext());
+                        orderIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(orderIntent);
+                        finish();
                     }
-
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,13 +155,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        try {
+            unregisterReceiver(dataReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         ActiveActivitiesTracker.activityStopped();
 
     }
@@ -163,17 +175,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         super.onPause();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        try {
-            unregisterReceiver(dataReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver, intentFilter);
         ActiveActivitiesTracker.activityStarted();
     }
 

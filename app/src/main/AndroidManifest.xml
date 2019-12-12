@@ -224,9 +224,7 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_bCMW6sG1GWp36Q" />
+
 
 
         <meta-data
@@ -250,21 +248,20 @@
         <meta-data android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
 
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_bCMW6sG1GWp36Q" />
 
-        <!--
-          <meta-data
+       <!-- <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="${RAZORPAY_KEY}"
+            />-->
+         <!-- <meta-data
                     android:name="com.razorpay.ApiKey"
                     android:value="rzp_test_3cduMl5T89iR9G"
-                    />
-        -->
+                    />-->
 
-        <!--
-                <receiver android:name="com.tovo.eat.ui.signup.opt.OTPReceiver">
-                    <intent-filter>
-                        <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                    </intent-filter>
-                </receiver>
-        -->
+
 
     </application>
 

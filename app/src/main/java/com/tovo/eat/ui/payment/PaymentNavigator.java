@@ -30,6 +30,7 @@ public interface PaymentNavigator {
     void clickUPI();
 
     void clickCOD();
+    void showRetry();
 
     void clickwallet();
 
@@ -42,5 +43,7 @@ public interface PaymentNavigator {
     void postRegistration(Integer code);
 
     void showToast(String msg);
+
+    void retryPaymentForSamePrderID();
 
 }

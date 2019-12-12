@@ -337,6 +337,45 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
+    public void retryPaymentForSamePrderID() {
+
+        int price = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getPrice();
+        Long orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
+
+
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_PAYMENT_RETRY);
+
+
+        final Activity activity = this;
+
+        final Checkout co = new Checkout();
+
+        // co.setImage(R.mipmap.ic_launcher);
+
+        co.setFullScreenDisable(true);
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", getString(R.string.app_name));
+            options.put("description", getString(R.string.orderid) + orderId);
+            options.put("currency", "INR");
+            options.put("amount", price * 100);
+            options.put("customer_id", mMainViewModel.getDataManager().getRazorpayCustomerId());
+            JSONObject ReadOnly = new JSONObject();
+            ReadOnly.put("email", "true");
+            ReadOnly.put("contact", "true");
+            options.put("readonly", ReadOnly);
+
+            co.open(activity, options);
+
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+
+    }
+
+    @Override
     public void showOrderRating(Long orderId, String brandname) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_RATING);
         Bundle bundle = new Bundle();
@@ -910,39 +949,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void paymentRetry() {
-        int price = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getPrice();
-        Long orderId = mMainViewModel.liveOrderResponsePojo.getResult().get(0).getOrderid();
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_PAYMENT_RETRY);
-
-
-        final Activity activity = this;
-
-        final Checkout co = new Checkout();
-
-        // co.setImage(R.mipmap.ic_launcher);
-
-        co.setFullScreenDisable(true);
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", getString(R.string.app_name));
-            options.put("description", getString(R.string.orderid) + orderId);
-            options.put("currency", "INR");
-            options.put("amount", price * 100);
-            options.put("customer_id", mMainViewModel.getDataManager().getRazorpayCustomerId());
-            JSONObject ReadOnly = new JSONObject();
-            ReadOnly.put("email", "true");
-            ReadOnly.put("contact", "true");
-            options.put("readonly", ReadOnly);
-
-            co.open(activity, options);
-
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
+        mMainViewModel.retry();
 
     }
 

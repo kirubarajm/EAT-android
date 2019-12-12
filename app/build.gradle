@@ -29,11 +29,15 @@ android {
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:3000"'//praveen
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
+            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
+
+
+            buildConfigField "String", 'RAZORPAY_KEY', '"rzp_test_3cduMl5T89iR9G"'
 
 
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "true")
@@ -44,7 +48,7 @@ android {
 
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
-
+            buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
             buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
@@ -169,7 +173,6 @@ dependencies {
     // database
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomDatabase"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomDatabase"
-
 
     //Glide image
     implementation "com.github.bumptech.glide:glide:4.9.0"

@@ -2,6 +2,7 @@ package com.tovo.eat.ui.pendingpayment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrderRatingBinding;
 import com.tovo.eat.databinding.AlertPendingPaymentBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
@@ -99,6 +102,14 @@ public class PendingPaymentAlert extends BaseBottomSheetFragment<AlertPendingPay
     @Override
     public void paymentSuccessed(boolean status) {
 
+        dismiss();
+
+        if (status) {
+            Intent newIntent = OrderPlacedActivity.newIntent(getBaseActivity());
+            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(newIntent);
+        }
+
     }
 
 
@@ -140,7 +151,11 @@ public class PendingPaymentAlert extends BaseBottomSheetFragment<AlertPendingPay
             mLoginViewModelMain.amount.set(String.valueOf(getArguments().getInt("price")));
             mLoginViewModelMain.products.set(getArguments().getString("products"));
 
+            mLoginViewModelMain.retry(getArguments().getLong("orderid"),getArguments().getInt("price"));
+
         }
+
+
 
 
     }
