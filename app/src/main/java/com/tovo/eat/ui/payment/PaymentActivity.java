@@ -223,12 +223,12 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void paymentSuccessed(boolean status) {
 
-        if (status) {
-            Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
-            newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(newIntent);
-            finish();
-        }
+            if (status) {
+                Intent newIntent = OrderPlacedActivity.newIntent(PaymentActivity.this);
+                newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(newIntent);
+                finish();
+            }
 
     }
 
