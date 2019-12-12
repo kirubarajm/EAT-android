@@ -572,5 +572,48 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     }
+  public void retryCheck(){
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PAYMENT_RETRY_URL, CommonResponse.class, new PaymentRetryRequestPojo(getDataManager().getCurrentUserId(),getDataManager().getOrderId()),new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.isStatus()){
+                            new Analytics().orderPlaced(orderid, price);
+
+                            paymentSuccessData(null, 0, false);
+                            if (getNavigator() != null)
+                                getNavigator().paymentSuccessed(true);
+                            getDataManager().setCartDetails(null);
+                            getDataManager().saveRefundId(0);
+                            getDataManager().saveCouponId(0);
+
+                        }else {
+                            if (getNavigator()!=null)
+                                getNavigator().showRetry();
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
 
 }

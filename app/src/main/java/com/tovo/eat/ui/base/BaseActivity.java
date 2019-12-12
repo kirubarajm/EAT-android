@@ -155,13 +155,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
-        registerReceiver(dataReceiver, intentFilter);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        try {
+            unregisterReceiver(dataReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         ActiveActivitiesTracker.activityStopped();
 
     }
@@ -171,17 +175,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         super.onPause();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        try {
-            unregisterReceiver(dataReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
+        registerReceiver(dataReceiver, intentFilter);
         ActiveActivitiesTracker.activityStarted();
     }
 

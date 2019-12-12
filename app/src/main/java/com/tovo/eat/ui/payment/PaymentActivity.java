@@ -304,7 +304,10 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-        if (paymentRetry) showRetry();
+        if (paymentRetry) mPaymentViewModel.retryCheck();
+
+
+
         if (mPaymentViewModel.paymentSuccessNotSent) {
             mPaymentViewModel.paymentSuccess(mPaymentViewModel.transactionId, mPaymentViewModel.paymentStatus);
         }
@@ -339,6 +342,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     }
 
+    @Override
     public void showRetry() {
 
         try {
@@ -354,7 +358,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showRetry();
+                    mPaymentViewModel.retryCheck();
                 }
             }, 1000);
         }

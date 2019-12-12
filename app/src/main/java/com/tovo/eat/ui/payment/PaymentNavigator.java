@@ -30,6 +30,7 @@ public interface PaymentNavigator {
     void clickUPI();
 
     void clickCOD();
+    void showRetry();
 
     void clickwallet();
 
