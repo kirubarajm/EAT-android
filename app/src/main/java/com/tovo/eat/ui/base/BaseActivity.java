@@ -50,6 +50,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                         bottomSheetFragment.setCancelable(false);
                         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
                     } else if (pageid.equals("11")) {
+                        mViewModel.getDataManager().setCartDetails(null);
                         Intent orderIntent= MainActivity.newIntent(getApplicationContext());
                         orderIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(orderIntent);
