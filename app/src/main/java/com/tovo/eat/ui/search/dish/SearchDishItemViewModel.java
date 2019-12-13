@@ -142,7 +142,6 @@ serviceableKitchen.set(mKitchenList.isServiceableStatus());
             isFavourite.set(false);
         }*/
 
-
     }
 
     public void onItemClick() {

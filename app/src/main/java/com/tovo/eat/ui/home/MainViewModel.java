@@ -594,7 +594,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
             JSONObject json = new JSONObject();
             json.put("transactionid", paymentId);
             json.put("payment_status", status);
-            json.put("orderid", getDataManager().getOrderId());
+            json.put("orderid",payment_orderId);
 
 
             if (getDataManager().getCouponId() != 0) {
