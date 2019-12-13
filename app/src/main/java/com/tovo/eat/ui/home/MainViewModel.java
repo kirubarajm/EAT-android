@@ -230,7 +230,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
                                 if (!response.getResult().get(0).isOnlinePaymentStatus()) {
                                     isLiveOrder.set(false);
-
+                                    payment_orderId = response.getResult().get(0).getOrderid();
 
                                     StringBuilder itemsBuilder = new StringBuilder();
 

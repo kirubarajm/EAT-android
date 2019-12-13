@@ -556,7 +556,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
-        inAppUpdate();
+        //inAppUpdate();
+        updateUIalert();
 
         analytics = new Analytics(this, pageName);
 
