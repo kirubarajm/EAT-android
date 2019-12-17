@@ -17,18 +17,28 @@ public class EditAccountRequest {
     @SerializedName("gender")
     @Expose
     public Integer gender;
-
     @SerializedName("regionid")
     @Expose
     public Integer regionId;
+    @SerializedName("other_region")
+    @Expose
+    public String otherRegion;
 
-
-    public EditAccountRequest(Long userid, String name, String email, Integer gender, Integer regionId) {
+    public EditAccountRequest(Long userid, String name, String email, Integer gender, Integer regionId,String otherRegion) {
         this.userid = userid;
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.regionId = regionId;
+        this.otherRegion = otherRegion;
+    }
+
+    public String getOtherRegion() {
+        return otherRegion;
+    }
+
+    public void setOtherRegion(String otherRegion) {
+        this.otherRegion = otherRegion;
     }
 
     public String getEmail() {

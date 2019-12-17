@@ -22,6 +22,9 @@ public class NameGenderRequest {
     @SerializedName("referredby")
     @Expose
     public String  referredby;
+    @SerializedName("other_region")
+    @Expose
+    public String otherRegion;
 
     public String getReferredby() {
         return referredby;
@@ -45,19 +48,30 @@ public class NameGenderRequest {
         this.gender = gender;
     }
 
-    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String referredby) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String referredby,String otherRegion) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
         this.regionId = regionId;
         this.referredby=referredby;
+        this.otherRegion=otherRegion;
     }
 
-    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String otherRegion) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
         this.regionId = regionId;
+        this.otherRegion=otherRegion;
+    }
+
+
+    public String getOtherRegion() {
+        return otherRegion;
+    }
+
+    public void setOtherRegion(String otherRegion) {
+        this.otherRegion = otherRegion;
     }
 
     public Long getUserid() {

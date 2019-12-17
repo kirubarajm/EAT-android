@@ -369,7 +369,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         if (requestCode == CART_REQUESTCODE) {
             boolean status = data.getBooleanExtra("status", false);
             if (status) {
-                mCartViewModel.paymentModeCheck();
+            //    mCartViewModel.paymentModeCheck();
 
             }
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {

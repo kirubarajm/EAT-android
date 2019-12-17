@@ -69,7 +69,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setLogout() {
-        updateUserInformation(	0L, null, null, null, null);
+        updateUserInformation(0L, null, null, null, null);
     }
 
     @Override
@@ -246,6 +246,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void saveSupportNumber(String number) {
         setSupportNumber(number);
+    }
+
+    @Override
+    public void orderInstruction(String instruction) {
+        setorderInstruction(instruction);
     }
 
     @Override
@@ -673,7 +678,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setSupportNumber(String number) {
-mPreferencesHelper.setSupportNumber(number);
+        mPreferencesHelper.setSupportNumber(number);
     }
 
     @Override
@@ -693,7 +698,7 @@ mPreferencesHelper.setSupportNumber(number);
 
     @Override
     public void setIsFilterApplied(boolean filter) {
-mPreferencesHelper.setIsFilterApplied(filter);
+        mPreferencesHelper.setIsFilterApplied(filter);
     }
 
     @Override
@@ -703,7 +708,7 @@ mPreferencesHelper.setIsFilterApplied(filter);
 
     @Override
     public void setFunnelStatus(boolean status) {
-mPreferencesHelper.setFunnelStatus(status);
+        mPreferencesHelper.setFunnelStatus(status);
     }
 
     @Override
@@ -713,7 +718,7 @@ mPreferencesHelper.setFunnelStatus(status);
 
     @Override
     public void setAppStartedAgain(boolean status) {
-mPreferencesHelper.setAppStartedAgain(status);
+        mPreferencesHelper.setAppStartedAgain(status);
     }
 
     @Override
@@ -743,7 +748,7 @@ mPreferencesHelper.setAppStartedAgain(status);
 
     @Override
     public void setFirstAddress(String address) {
-mPreferencesHelper.setFirstAddress(address);
+        mPreferencesHelper.setFirstAddress(address);
     }
 
     @Override
@@ -753,7 +758,7 @@ mPreferencesHelper.setFirstAddress(address);
 
     @Override
     public void setFirstLocality(String locality) {
-mPreferencesHelper.setFirstLocality(locality);
+        mPreferencesHelper.setFirstLocality(locality);
     }
 
     @Override
@@ -763,7 +768,7 @@ mPreferencesHelper.setFirstLocality(locality);
 
     @Override
     public void setFirstCity(String city) {
-mPreferencesHelper.setFirstCity(city);
+        mPreferencesHelper.setFirstCity(city);
     }
 
 
@@ -775,5 +780,15 @@ mPreferencesHelper.setFirstCity(city);
     @Override
     public void setCartDetails(String jsonCart) {
         mPreferencesHelper.setCartDetails(jsonCart);
+    }
+
+    @Override
+    public String getOrderInstruction() {
+        return mPreferencesHelper.getOrderInstruction();
+    }
+
+    @Override
+    public void setorderInstruction(String instruction) {
+        mPreferencesHelper.setorderInstruction(instruction);
     }
 }

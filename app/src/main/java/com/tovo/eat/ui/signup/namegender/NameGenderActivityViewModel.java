@@ -76,10 +76,10 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         NameGenderRequest nameGenderRequest;
 
         if (referral.isEmpty()) {
-            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId);
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId,otherRegion);
         } else {
 
-            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral);
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral,otherRegion);
         }
 
 

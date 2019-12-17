@@ -91,6 +91,8 @@ public interface DataManager extends PreferencesHelper {
 
     void saveSupportNumber(String number);
 
+        void orderInstruction(String instruction);
+
 
 
     void currentOrderId(Long orderId);

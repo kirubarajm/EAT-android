@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.di.PreferenceInfo;
-import com.tovo.eat.utilities.AppConstants;
 
 import javax.inject.Inject;
 
@@ -46,6 +45,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_FUNNEL_STATUS = "FUNNEL_STATUS";
 
     private static final String PREF_KEY_APP_STARTED_AGAIN = "APP_STARTED_AGAIN";
+    private static final String PREF_KEY_ORDER_INSTRUCTION = "ORDER_INSTRUCTION";
 
     private static final String PREF_KEY_SUPPORT_NUMBER = "SUPPORT_NUMBER";
 
@@ -58,9 +58,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_REFUND_BALANCE = "PREF_KEY_REFUND_BALANCE";
     private static final String PREF_KEY_COUPON_ID = "PREF_KEY_COUPON_ID";
     private static final String PREF_KEY_COUPON_CODE = "COUPON_CODE";
-  private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
-  private static final String PREF_KEY_RATING_DATE = "PREF_KEY_RATING_DATE";
-  private static final String PREF_KEY_RATING_APP_STATUS = "RATING_APP_STATUS";
+    private static final String PREF_KEY_RATING_SKIPS = "PREF_KEY_RATING_SKIPS";
+    private static final String PREF_KEY_RATING_DATE = "PREF_KEY_RATING_DATE";
+    private static final String PREF_KEY_RATING_APP_STATUS = "RATING_APP_STATUS";
 
     private static final String PREF_KEY_REGION_ID = "REGION_ID";
     private static final String PREF_KEY_RATING_ORDER_ID = "RATING_ORDER_ID";
@@ -144,7 +144,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
         }
         mPrefs.edit().putInt(PREF_KEY_CURRENT_USER_ID, userId).apply();*/
 
-       // Long id = userId == null ? AppConstants.NULL_INDEX : userId;
+        // Long id = userId == null ? AppConstants.NULL_INDEX : userId;
         mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, userId).apply();
     }
 
@@ -248,9 +248,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setCurrentLat(double lat) {
-        if (lat==0.0) {
+        if (lat == 0.0) {
             mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, null).apply();
-        }else {
+        } else {
             mPrefs.edit().putString(PREF_KEY_CURRENT_LAT, String.valueOf(lat)).apply();
         }
     }
@@ -263,12 +263,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentLng(double lng) {
 
-        if (lng==0.0){
+        if (lng == 0.0) {
             mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, null).apply();
-        }else {
+        } else {
             mPrefs.edit().putString(PREF_KEY_CURRENT_LNG, String.valueOf(lng)).apply();
         }
-
 
 
     }
@@ -568,7 +567,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getCouponCode() {
-        return  mPrefs.getString(PREF_KEY_COUPON_CODE, null);
+        return mPrefs.getString(PREF_KEY_COUPON_CODE, null);
     }
 
     @Override
@@ -578,7 +577,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getFirstAddress() {
-        return  mPrefs.getString(PREF_KEY_FIRST_ADDRESS, null);
+        return mPrefs.getString(PREF_KEY_FIRST_ADDRESS, null);
     }
 
     @Override
@@ -588,7 +587,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getFirstLocatity() {
-        return  mPrefs.getString(PREF_KEY_FIRST_LOCALLITY, null);
+        return mPrefs.getString(PREF_KEY_FIRST_LOCALLITY, null);
     }
 
     @Override
@@ -598,7 +597,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getFirstCity() {
-        return  mPrefs.getString(PREF_KEY_FIRST_CITY, null);
+        return mPrefs.getString(PREF_KEY_FIRST_CITY, null);
     }
 
     @Override
@@ -614,6 +613,17 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCartDetails(String jsonCart) {
         mPrefs.edit().putString(PREF_KEY_CART, jsonCart).apply();
+    }
+
+    @Override
+    public String getOrderInstruction() {
+        return mPrefs.getString(PREF_KEY_ORDER_INSTRUCTION, null);
+    }
+
+    @Override
+    public void setorderInstruction(String instruction) {
+        mPrefs.edit().putString(PREF_KEY_ORDER_INSTRUCTION, instruction).apply();
+
     }
 
     public boolean getPrefKeyIsUserLoggedIn() {

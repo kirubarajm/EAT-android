@@ -70,10 +70,10 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     public void proceedClick() {
         String name = mActivityNameGenderBinding.edtName.getText().toString();
         String email = mActivityNameGenderBinding.edtEmail.getText().toString();
+        String otherRegion = mActivityNameGenderBinding.otherRegionname.getText().toString();
 
         if (validForProceed()) {
-            mLoginViewModelMain. insertNameGenderServiceCall(name, email, regionId);
-
+            mLoginViewModelMain. insertNameGenderServiceCall(name, email, regionId,otherRegion);
             new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_APPLY_CHANGES);
 
         }
@@ -218,12 +218,13 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                     mActivityNameGenderBinding.region.setEnabled(false);
                     mActivityNameGenderBinding.chkOthers.setChecked(true);
                     new Analytics().sendClickData(AppConstants.SCREEN_EDIT_MYACCOUNT,AppConstants.CLICK_REGION_OTHER);
-
+                    mLoginViewModelMain.regionotherClicked.set(true);
                 } else {
 
                     mActivityNameGenderBinding.region.setText("");
                     mActivityNameGenderBinding.region.setEnabled(true);
                     mActivityNameGenderBinding.chkOthers.setChecked(false);
+                    mLoginViewModelMain.regionotherClicked.set(false);
                 }
             }
         });

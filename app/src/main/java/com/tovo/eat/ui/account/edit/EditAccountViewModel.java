@@ -1,6 +1,7 @@
 package com.tovo.eat.ui.account.edit;
 
 import android.databinding.ObservableBoolean;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,6 +18,8 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
     public ObservableBoolean male = new ObservableBoolean();
     public ObservableBoolean female = new ObservableBoolean();
+    public ObservableBoolean regionotherClicked = new ObservableBoolean();
+
     Response.ErrorListener errorListener;
     int gender = 0;
 
@@ -42,7 +45,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
     }
 
 
-    public void insertNameGenderServiceCall(String name, String email, int regionId) {
+    public void insertNameGenderServiceCall(String name, String email, int regionId,String otherRegion) {
 
 
         gender = male.get() ? AppConstants.TYPE_MALE : AppConstants.TYPE_FEMALE;
@@ -50,11 +53,19 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         if (email.isEmpty()) email = null;
 
 
+        if (regionId==0){
+            if (otherRegion.isEmpty()){
+                Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+
         Long userIdMain = getDataManager().getCurrentUserId();
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId), new Response.Listener<EditAccountResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId,otherRegion), new Response.Listener<EditAccountResponse>() {
                 @Override
                 public void onResponse(EditAccountResponse response) {
                     if (response != null) {

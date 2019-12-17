@@ -56,6 +56,13 @@ public interface PreferencesHelper {
 
     void setCartDetails(String jsonCart);
 
+
+    String getOrderInstruction();
+    void setorderInstruction(String instruction);
+
+
+
+
     String getCurrentAddressTitle();
 
     void setCurrentAddressTitle(String title);
