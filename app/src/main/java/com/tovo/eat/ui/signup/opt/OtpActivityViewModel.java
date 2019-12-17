@@ -164,6 +164,15 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
 
+                                    long cuserid = response.getResult().get(0).getUserid();
+                                    String UserName = response.getResult().get(0).getName();
+                                    String UserEmail = response.getResult().get(0).getEmail();
+                                    String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                    String userReferralCode = response.getResult().get(0).getReferalcode();
+                                    getDataManager().updateUserInformation(cuserid, UserName, UserEmail, userPhoneNumber, userReferralCode);
+
+
+
 
                                   /*  FreshchatUser freshUser= Freshchat.getInstance(MvvmApp.getInstance()).getUser();
                                     freshUser.setPhone("+91", String.valueOf(phoneNumber));

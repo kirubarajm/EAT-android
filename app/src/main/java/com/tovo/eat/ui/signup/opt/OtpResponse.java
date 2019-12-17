@@ -178,6 +178,84 @@ public class OtpResponse {
         @Expose
         private String updatedAt;
 
+        @SerializedName("name")
+        @Expose
+        private String name;
+        @SerializedName("email")
+        @Expose
+        private String email;
+        @SerializedName("phoneno")
+        @Expose
+        private String phoneno;
+        @SerializedName("referalcode")
+        @Expose
+        private String referalcode;
+        @SerializedName("gender")
+        @Expose
+        private Integer gender;
+        @SerializedName("virtualkey")
+        @Expose
+        private Integer virtualkey;
+        @SerializedName("regionid")
+        @Expose
+        private Integer regionid;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPhoneno() {
+            return phoneno;
+        }
+
+        public void setPhoneno(String phoneno) {
+            this.phoneno = phoneno;
+        }
+
+        public String getReferalcode() {
+            return referalcode;
+        }
+
+        public void setReferalcode(String referalcode) {
+            this.referalcode = referalcode;
+        }
+
+        public Integer getGender() {
+            return gender;
+        }
+
+        public void setGender(Integer gender) {
+            this.gender = gender;
+        }
+
+        public Integer getVirtualkey() {
+            return virtualkey;
+        }
+
+        public void setVirtualkey(Integer virtualkey) {
+            this.virtualkey = virtualkey;
+        }
+
+        public Integer getRegionid() {
+            return regionid;
+        }
+
+        public void setRegionid(Integer regionid) {
+            this.regionid = regionid;
+        }
+
         public Integer getUserid() {
             return userid;
         }

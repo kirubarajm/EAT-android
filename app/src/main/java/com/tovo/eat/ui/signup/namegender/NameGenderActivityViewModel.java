@@ -63,7 +63,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
-    public void insertNameGenderServiceCall(String name, int regionId, String referral,String otherRegion) {
+    public void insertNameGenderServiceCall(String name, int regionId, String referral, String otherRegion) {
 
 
         if (male.get()) {
@@ -83,13 +83,12 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         }
 
 
-        if (regionId==0){
-            if (otherRegion.isEmpty()){
+        if (regionId == 0) {
+            if (otherRegion.isEmpty()) {
                 Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -102,11 +101,17 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
                         if (getNavigator() != null)
-                            if (getNavigator() != null)
-                                getNavigator().genderSuccess(response.getMessage());
+                            getNavigator().genderSuccess(response.getMessage());
                         if (response.getStatus()) {
-
                             getDataManager().updateUserGender(true);
+
+                            long userId = response.getResult().get(0).getUserid();
+                            String UserName = response.getResult().get(0).getName();
+                            String UserEmail = response.getResult().get(0).getEmail();
+                            String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                            String userReferralCode = response.getResult().get(0).getReferalcode();
+                            getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+
                         }
                     }
                 }

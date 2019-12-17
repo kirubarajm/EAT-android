@@ -323,9 +323,6 @@ public class KitchenResponse {
         @SerializedName("img_url")
         @Expose
         private String imgUrl;
-        @SerializedName("icon")
-        @Expose
-        private String icon;
         @SerializedName("heading")
         @Expose
         private String heading;
@@ -338,7 +335,9 @@ public class KitchenResponse {
         @SerializedName("updated_at")
         @Expose
         private String updatedAt;
-
+        @SerializedName("icon")
+        @Expose
+        private String icon;
 
         public String getIcon() {
             return icon;
