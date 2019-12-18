@@ -621,6 +621,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:id="@+id/notes"
                         android:layout_width="match_parent"
@@ -635,8 +636,10 @@
                         android:textStyle="bold" />
 
 
+                   <!-- @{cartViewModel.instructionClicked?View.VISIBLE:View.GONE}-->
+
                     <android.support.design.widget.TextInputEditText
-                        android:visibility="@{cartViewModel.instructionClicked?View.VISIBLE:View.GONE}"
+                        android:visibility="gone"
                         android:id="@+id/edt_instructions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -651,7 +654,7 @@
                         android:minLines="2"
                         android:padding="5dp"
                         android:scrollbarStyle="insideInset"
-                        android:scrollHorizontally="false" />
+                       android:scrollHorizontally="false" />
 
 
 
