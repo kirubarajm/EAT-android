@@ -17,10 +17,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lgray"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:visibility="gone"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
         <View
+            android:visibility="gone"
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="0.7dp"

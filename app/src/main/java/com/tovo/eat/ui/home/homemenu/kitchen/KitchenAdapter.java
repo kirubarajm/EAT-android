@@ -210,6 +210,38 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     }
 
 
+    /*public class CollectionViewHolder extends BaseViewHolder {
+        ListItemCollectionsBinding mListItemLiveProductsBinding;
+
+
+        public CollectionViewHolder(ListItemCollectionsBinding binding) {
+            super(binding.getRoot());
+            this.mListItemLiveProductsBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            if (item_list.get(position).getCollection().isEmpty()) return;
+
+            mListItemLiveProductsBinding.executePendingBindings();
+
+
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+            mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            CollectionAdapter collectionAdapter = new CollectionAdapter(item_list.get(position).getCollection());
+            mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(mLayoutManager);
+            mListItemLiveProductsBinding.recyclerCollection.setAdapter(collectionAdapter);
+
+            collectionAdapter.setListener(KitchenAdapter.this);
+
+
+        }
+
+
+    }*/
+
+
     public class CollectionViewHolder extends BaseViewHolder {
         ListItemCollectionsBinding mListItemLiveProductsBinding;
 
@@ -240,6 +272,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
 
     }
+
 
     public class OffernViewHolder extends BaseViewHolder {
         ListItemHomeOffersBinding mListItemLiveProductsBinding;
