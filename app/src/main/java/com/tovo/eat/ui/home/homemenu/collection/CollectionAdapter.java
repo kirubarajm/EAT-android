@@ -24,7 +24,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public CollectionAdapter(List<KitchenResponse.Collection> item_list) {
         for (int i = 0; i < item_list.size(); i++) {
 
-            if (!item_list.get(i).isCollectionStatus()) {
+            if (!item_list.get(i).getCollectionstatus()) {
                 item_list.remove(i);
             }
 

@@ -131,7 +131,7 @@ public class FavKitchenFragment extends BaseFragment<FragmentFavKitchenBinding, 
     public void collectionItemClick(KitchenResponse.Collection collection) {
     }
     @Override
-    public void offersItemClick(CouponListResponse.Result offers) {
+    public void offersItemClick(KitchenResponse.Coupon offers) {
     }
 
     @Override

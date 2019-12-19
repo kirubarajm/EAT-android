@@ -21,14 +21,14 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
-    private List<CouponListResponse.Result> item_list;
-    private List<CouponListResponse.Result> temp_item_list=new ArrayList<>();
+    private List<KitchenResponse.Coupon> item_list;
+    private List<KitchenResponse.Coupon> temp_item_list=new ArrayList<>();
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-    public OffersAdapter(List<CouponListResponse.Result> item_list) {
+    public OffersAdapter(List<KitchenResponse.Coupon> item_list) {
         for (int i=0;i<item_list.size();i++){
-            if ( item_list.get(i).isCouponStatus()){
+            if ( item_list.get(i).getCouponstatus()){
                 temp_item_list.add(item_list.get(i));
             }
         }
@@ -88,7 +88,7 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface LiveProductsAdapterListener {
 
-        void offerItemClick(CouponListResponse.Result collection);
+        void offerItemClick(KitchenResponse.Coupon collection);
 
     }
 
@@ -125,7 +125,7 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBind(int position) {
             if (item_list.isEmpty()) return;
-            final CouponListResponse.Result blog = item_list.get(position);
+            final KitchenResponse.Coupon blog = item_list.get(position);
 
             mLiveProductsItemViewModel = new OfferListItemViewModel(this, blog);
             mListItemLiveProductsBinding.setOfferListItemViewModel(mLiveProductsItemViewModel);
@@ -139,7 +139,7 @@ public class OffersAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         @Override
-        public void onItemClick(CouponListResponse.Result collection) {
+        public void onItemClick(KitchenResponse.Coupon collection) {
             mLiveProductsAdapterListener.offerItemClick(collection);
         }
     }

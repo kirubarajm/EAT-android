@@ -379,7 +379,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void fetchCoupons() throws NullPointerException {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+       /* if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class, new CollectionRequest(getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
@@ -419,7 +419,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
             ee.printStackTrace();
 
-        }
+        }*/
     }
 
 
@@ -598,7 +598,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                     try {
                         setIsLoading(true);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
+                      //  JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+
                             @Override
                             public void onResponse(JSONObject response) {
                                 kitchenListLoading.set(false);
@@ -607,12 +609,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
-                                    pageCount=kitchenResponse.getPageCount();
+                                    pageCount=kitchenResponse.getPagecount();
                                     if (kitchenResponse != null)
                                         if (kitchenResponse.getResult() != null && kitchenResponse.getResult().size() > 0) {
                                             fullEmpty.set(false);
 
-                                            if (kitchenResponse.getResult().get(0).isServiceableStatus()) {
+                                            if (kitchenResponse.getResult().get(0).getServiceablestatus()) {
                                                 getDataManager().setFunnelStatus(false);
                                                 showFunnel.set(false);
                                             }
@@ -623,7 +625,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                 kitchenResponse1.setCollection(collectionItemViewModels);
                                                 kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
                                                 collectionAdded = true;
-
                                             }
                                             if (couponListItemViewModels.size() > 0) {
 
@@ -801,7 +802,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
 
-                                    pageCount=kitchenResponse.getPageCount();
+                                    pageCount=kitchenResponse.getPagecount();
 
                                     if (kitchenResponse.getResult().size() > 0) {
 

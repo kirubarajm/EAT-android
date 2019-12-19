@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.home.homemenu.kitchen;
+package com.tovo.eat.ui.home.infinityviewmodels;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -11,6 +11,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -21,7 +23,7 @@ import org.json.JSONObject;
 import java.util.Map;
 
 
-public class KitchenItemViewModel {
+public class InfinityCollectionKitchenItemViewModel {
 
 
     public final ObservableField<String> ratings = new ObservableField<>();
@@ -41,17 +43,18 @@ public class KitchenItemViewModel {
 
 
     public final KitchenItemViewModelListener mListener;
-    public final KitchenResponse.Result mKitchenList;
+    public final KitchenResponse.CollectionDetail mKitchenList;
 
 
     int favID = 0;
 
 
-    public KitchenItemViewModel(KitchenItemViewModelListener mListener, KitchenResponse.Result mKitchenList) {
+    public InfinityCollectionKitchenItemViewModel(KitchenItemViewModelListener mListener, KitchenResponse.CollectionDetail mKitchenList) {
         this.mListener = mListener;
         this.mKitchenList = mKitchenList;
 
-        this.kitchen_image.set(mKitchenList.getMakeitimg());
+        if (mKitchenList.getMakeitimg() != null)
+            this.kitchen_image.set(mKitchenList.getMakeitimg());
 
         if (seriviceable != null && mKitchenList.getServiceablestatus() != null)
             seriviceable.set(mKitchenList.getServiceablestatus());
@@ -79,7 +82,7 @@ public class KitchenItemViewModel {
         }
 
 
-        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from ");
+        cuisines.set("by " + mKitchenList.getMakeitusername() + ", from "+mKitchenList.getRegionname());
 
 
         this.offer.set(String.valueOf(mKitchenList.getCostfortwo()));
@@ -193,11 +196,11 @@ public class KitchenItemViewModel {
     }
 
     public void onItemClick() {
-        mListener.onItemClick(mKitchenList.getMakeituserid());
+        mListener.onItemClick(mKitchenList);
     }
 
     public interface KitchenItemViewModelListener {
-        void onItemClick(Long id);
+        void onItemClick(KitchenResponse.CollectionDetail mKitchenList);
 
         void addFavourites(Long id, String fav);
 

@@ -8,7 +8,7 @@
 
         <variable
             name="kitchenItemViewModel"
-            type="com.tovo.eat.ui.home.homemenu.kitchen.KitchenItemViewModel" />
+            type="com.tovo.eat.ui.home.infinityviewmodels.InfinityCollectionKitchenItemViewModel" />
 
     </data>
 
@@ -20,15 +20,16 @@
 
 
             <LinearLayout
+                android:minHeight="120dp"
                 android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="120dp"
                     android:orientation="vertical">
 
                     <com.tovo.eat.utilities.fonts.poppins.TitleTextView
@@ -40,20 +41,22 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp">
+                            android:layout_height="wrap_content">
 
                             <ImageView
                                 imageUrl="@{kitchenItemViewModel.kitchen_image}"
                                 loader="@{loader}"
-                                android:layout_width="120dp"
+                                android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:scaleType="centerInside" />
+                                android:scaleType="centerCrop" />
                             <ImageView
                                 android:foregroundGravity="center"
                                 android:id="@+id/loader"
@@ -107,7 +110,6 @@
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:singleLine="true"
                                     android:text="@{kitchenItemViewModel.cuisines}"
                                     android:textColor="@color/medium_gray"
                                     android:textSize="12sp" />
@@ -224,37 +226,6 @@
                         android:background="@color/gray" />
 
                 </LinearLayout>
-
-                <FrameLayout
-
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent">
-
-                    <!-- Put your menu items here. The first one will be shown at the horizontal start. -->
-
-
-                    <FrameLayout
-                        android:onClick="@{()->kitchenItemViewModel.fav()}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@{kitchenItemViewModel.isFavourite?@color/red:@color/light_gray}">
-
-
-                        <com.tovo.eat.utilities.fonts.TovoTextView
-                            android:id="@+id/fav"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:text="@string/icon_fav"
-                            android:textSize="25dp"
-                            android:textColor="@{kitchenItemViewModel.isFavourite?@color/white:@color/red}"
-                            android:gravity="center" />
-
-
-                    </FrameLayout>
-
-
-                </FrameLayout>
-
 
 
             </LinearLayout>

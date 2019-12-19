@@ -2,8 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<!--
-    <data>
+<!--    <data>
 
         <import type="android.view.View" />
 
@@ -17,27 +16,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lgray"
+        android:background="@color/white"
         android:orientation="vertical">
 
-        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+            android:id="@+id/title"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:text="@string/top_eat_suggestions"
             android:textColor="@color/black"
             android:textSize="18sp" />
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+            android:id="@+id/subTitle"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:text="Meet our newly onboarded homemakers and kitchens"
             android:textColor="@color/black"
             android:textSize="12sp" />
         <View
@@ -51,7 +50,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:background="@color/white"
-            android:id="@+id/recycler_collection"
+            android:id="@+id/recycler_story"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
