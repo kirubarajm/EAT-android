@@ -23,7 +23,19 @@ public class FilterCollectionCardItemViewModel {
         this.collection = collection;
 
         String[] separated = collection.getHeading().split(" ");
-        title.set( separated[0]+"\n"+ separated[1]);
+        //title.set( separated[0]+"\n"+ separated[1]);
+
+        StringBuilder sTitle= new StringBuilder();
+
+        for (int i=0;i<separated.length;i++){
+            sTitle.append(separated[i]);
+            if (i!=separated.length-1){
+                sTitle.append("\n");
+            }
+
+        }
+        title.set(sTitle.toString());
+
        // title.set(collection.getHeading());
         content.set(collection.getName());
         imageUrl.set(collection.getIcon());
