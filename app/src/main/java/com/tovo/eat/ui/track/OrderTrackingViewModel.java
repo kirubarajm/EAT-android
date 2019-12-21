@@ -66,6 +66,8 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     public final ObservableBoolean dataLoaded = new ObservableBoolean();
 
+    public final ObservableBoolean dunzoOrder = new ObservableBoolean();
+
     public final ObservableBoolean dunzoTrackingTimer = new ObservableBoolean();
 
     public final ObservableBoolean iconReeceived = new ObservableBoolean();
@@ -202,11 +204,17 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 }
 
 
-                                if (response.getResult().get(0).getDeliveryVendor() == 0) {
+                                if (response.getResult().get(0).getDeliveryVendor()!=null&&response.getResult().get(0).getDeliveryVendor() == 0) {
+                                    dunzoOrder.set(false);
                                     if (response.getResult().get(0).getOrderstatus() > 4) {
                                         singleTime = true;
                                         getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
-
+                                    }
+                                }else {
+                                    if (response.getResult().get(0).getOrderstatus() > 4) {
+                                        if (response.getResult().get(0).getOrdertype()==0){
+                                            dunzoOrder.set(true);
+                                        }
                                     }
                                 }
 
@@ -563,12 +571,23 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
                                 e.printStackTrace();
                             }
 
-                            if (response.getResult().get(0).getDeliveryVendor() == 0) {
+
+                            if (response.getResult().get(0).getDeliveryVendor()!=null&&response.getResult().get(0).getDeliveryVendor() == 0) {
+                                dunzoOrder.set(false);
                                 if (response.getResult().get(0).getOrderstatus() > 4) {
                                     singleTime = true;
                                     getMoveitlatlng(response.getResult().get(0).getMoveitUserId());
                                 }
+                            }else {
+                                if (response.getResult().get(0).getOrderstatus() > 4) {
+                                    if (response.getResult().get(0).getOrdertype()==0){
+                                        dunzoOrder.set(true);
+                                    }
+                                }
                             }
+
+
+
 
                             if (response.getResult().get(0).getMoveitdetail()!=null&&response.getResult().get(0).getMoveitdetail().getName() != null) {
                                 track.set(true);
