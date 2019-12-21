@@ -35,11 +35,9 @@ import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
-import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.home.MainViewModel;
 import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -238,6 +236,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.getDataManager().appStartedAgain(false);
         }
 
+    }
+
+    @Override
+    public void scrollToTop() {
+
+
+        mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
     }
 
     @Override
@@ -496,12 +501,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
 
-
                     //int hh = v.getMeasuredHeight();
-                  //  int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
-                    if (scrollY == (v.getMeasuredHeight() - 150)) {
+                    //  int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
+                   /* if (scrollY == (v.getMeasuredHeight() - 150)) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
                         //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                    }*/
+                    if (scrollY > 2000) {
+                        //   Log.i(TAG, "BOTTOM SCROLL");
+                        //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                        mHomeTabViewModel.backToTop.set(true);
+
+                    }else {
+                        mHomeTabViewModel.backToTop.set(false);
                     }
 
 
@@ -509,20 +521,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             scrollY > oldScrollY) {
 
 
+                        if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
 
-                        if (mHomeTabViewModel.pageid.get()+1>mHomeTabViewModel.pageCount){
+                        } else {
 
-                        }else {
-                            Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                           if ( !mHomeTabViewModel.paginationLoading.get()){
+                               mHomeTabViewModel.paginationLoading.set(true);
+                               Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                               if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                                   mHomeTabViewModel.fetchKitchenFilter();
+                               } else {
+                                   mHomeTabViewModel.fetchKitchen();
+                               }
+                           }
 
-                            if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                                mHomeTabViewModel.fetchKitchenFilter();
-                            } else {
-                                mHomeTabViewModel.fetchKitchen();
-                            }
+
                         }
-
-
 
 
                     }
@@ -798,7 +812,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story,int position) {
+    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
 
         if (story.getStories().size() > 0) {
 

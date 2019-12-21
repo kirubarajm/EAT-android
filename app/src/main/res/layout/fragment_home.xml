@@ -18,6 +18,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
+
+       <!-- <android.support.design.widget.FloatingActionButton
+            android:onClick="@{()->homeTabViewModel.scrollToTop()}"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="@{homeTabViewModel.backToTop?View.VISIBLE:View.GONE}"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tooltip_arrow_up"
+            android:layout_gravity="bottom|end"
+            app:elevation="6dp"
+            app:pressedTranslationZ="12dp"/>-->
+
+
+
     <LinearLayout
         android:layout_above="@+id/bottom"
         android:layout_alignParentTop="true"
@@ -1319,5 +1339,26 @@
             android:id="@+id/activity_main_tooltipframelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
+
+      <!--  <ImageView
+            android:onClick="@{homeTabViewModel.scrollToTop()}"
+            android:visibility="@{homeTabViewModel.backToTop?View.VISIBLE:View.GONE}"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/fab"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="10dp"
+            android:tint="@color/eat_color"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/tooltip_arrow_up"/>-->
+
+
+
+
+
+
     </RelativeLayout>
 </layout>

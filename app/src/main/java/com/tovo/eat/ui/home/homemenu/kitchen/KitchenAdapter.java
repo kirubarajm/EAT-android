@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemCollectionsBinding;
+import com.tovo.eat.databinding.ListItemEmptyArrayBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemHomeOffersBinding;
 import com.tovo.eat.databinding.ListItemKitchenCollectionsHolderBinding;
@@ -32,6 +33,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     private static final int VIEW_TYPE_REGION = 3;
     private static final int VIEW_TYPE_COLLECTION_DETAILS = 4;
     private static final int VIEW_TYPE_COUPON = 5;
+    private static final int VIEW_TYPE_EMPTY_ARRAY = 100;
     public boolean serviceablekitchen = true;
     Context context;
     private List<KitchenResponse.Result> item_list;
@@ -72,6 +74,11 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
                         parent, false);
                 return new KitchenCollectionViewHolder(listItemKitchenCollectionsHolderBinding);
 
+            case VIEW_TYPE_EMPTY_ARRAY:
+                ListItemEmptyArrayBinding listItemEmptyArrayBinding = ListItemEmptyArrayBinding.inflate(LayoutInflater.from(parent.getContext()),
+                        parent, false);
+                return new EmptyArrayViewHolder(listItemEmptyArrayBinding);
+
             case VIEW_TYPE_NORMAL:
             default:
                 ListItemKitchensBinding blogViewBinding1 = ListItemKitchensBinding.inflate(LayoutInflater.from(parent.getContext()),
@@ -105,24 +112,23 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
         if (item_list != null &&item_list.get(position).getType()!=null&& !item_list.isEmpty()) {
 
             if (item_list.get(position).getType()!=null&&item_list.get(position).getType() == 0) {
-
                 return VIEW_TYPE_NORMAL;
-            } else if (item_list.get(position).getType() == 1) {
+            } else if (item_list.get(position).getType() == 1&&item_list.get(position).getCollection()!=null&&item_list.get(position).getCollection().size()>0) {
                 return VIEW_TYPE_COLLECTION;
-            } else if (item_list.get(position).getType() == 2) {
+            } else if (item_list.get(position).getType() == 2&&item_list.get(position).getStory()!=null&&item_list.get(position).getStory().size()>0) {
                 return VIEW_TYPE_STORY;
-            } else if (item_list.get(position).getType() == 3) {
+            } else if (item_list.get(position).getType() == 3&&item_list.get(position).getRegions()!=null&&item_list.get(position).getRegions().size()>0) {
                 return VIEW_TYPE_REGION;
-            } else if (item_list.get(position).getType() == 4) {
+            } else if (item_list.get(position).getType() == 4&&item_list.get(position).getCollectionDetails()!=null&&item_list.get(position).getCollectionDetails().size()>0) {
                 return VIEW_TYPE_COLLECTION_DETAILS;
-            } else if (item_list.get(position).getType() == 5) {
+            } else if (item_list.get(position).getType() == 5&&item_list.get(position).getCoupon()!=null&&item_list.get(position).getCoupon() .size()>0) {
                 return VIEW_TYPE_COUPON;
             } else {
-                return VIEW_TYPE_NORMAL;
+                return VIEW_TYPE_EMPTY_ARRAY;
             }
 
         } else {
-            return VIEW_TYPE_NORMAL;
+            return VIEW_TYPE_EMPTY_ARRAY;
         }
 
 
@@ -462,6 +468,21 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             offersAdapter.setListener(KitchenAdapter.this);
 
 
+        }
+
+    }
+
+    public class EmptyArrayViewHolder extends BaseViewHolder {
+        ListItemEmptyArrayBinding mListItemLiveProductsBinding;
+
+        public EmptyArrayViewHolder(ListItemEmptyArrayBinding binding) {
+            super(binding.getRoot());
+            this.mListItemLiveProductsBinding = binding;
+        }
+
+        @Override
+        public void onBind(int position) {
+            mListItemLiveProductsBinding.executePendingBindings();
         }
 
     }

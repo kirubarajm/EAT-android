@@ -75,6 +75,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableBoolean fullEmpty = new ObservableBoolean();
+    public ObservableBoolean backToTop = new ObservableBoolean();
+    public ObservableBoolean paginationLoading = new ObservableBoolean();
     public ObservableBoolean regionTitleLoaded = new ObservableBoolean();
     public ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
@@ -119,6 +121,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
+    public void scrollToTop() {
+        backToTop.set(false);
+        getNavigator().scrollToTop();
+    }
     public void loadAllApis() {
         fetchStories();
         fetchCoupons();
@@ -598,8 +604,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                     try {
                         setIsLoading(true);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
-                      //  JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+                        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {
@@ -613,6 +619,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     if (kitchenResponse != null)
                                         if (kitchenResponse.getResult() != null && kitchenResponse.getResult().size() > 0) {
                                             fullEmpty.set(false);
+
+                                            if (pageid.get()>1){
+                                                backToTop.set(true);
+                                            }else {
+                                                backToTop.set(false);
+                                            }
+
+
 
                                             if (kitchenResponse.getResult().get(0).getServiceablestatus()) {
                                                 getDataManager().setFunnelStatus(false);
@@ -655,7 +669,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
-
+                                            paginationLoading.set(false);
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                             //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                             try {
@@ -806,6 +820,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                     if (kitchenResponse.getResult().size() > 0) {
 
+                                        if (pageid.get()>1){
+                                            backToTop.set(true);
+                                        }else {
+                                            backToTop.set(false);
+                                        }
+
 
                                         emptyKitchen.set(false);
 
@@ -847,7 +867,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
                                         kitchenItemsLiveData.postValue(kitchenResponse.getResult());
-
+                                        paginationLoading.set(false);
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                         try {
