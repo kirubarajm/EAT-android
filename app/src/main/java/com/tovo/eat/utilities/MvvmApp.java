@@ -37,8 +37,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -162,9 +160,9 @@ public class MvvmApp extends Application implements HasActivityInjector {
         Fabric.with(this, crashlyticsKit);
 
 
-        FacebookSdk.fullyInitialize();
+     /*   FacebookSdk.fullyInitialize();
         FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        AppEventsLogger.activateApp(this);*/
 
         //AppLogger.init();
 

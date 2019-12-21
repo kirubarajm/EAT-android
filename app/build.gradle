@@ -196,10 +196,10 @@ dependencies {
     //Razorpay
     implementation 'com.razorpay:checkout:1.5.2'
 
-    //Facebook sdk
+   /* //Facebook sdk
     implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
     implementation 'com.facebook.android:facebook-core:5.8.0'
-    implementation 'com.facebook.android:facebook-marketing:5.8.0'
+    implementation 'com.facebook.android:facebook-marketing:5.8.0'*/
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
 
