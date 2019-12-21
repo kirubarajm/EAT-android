@@ -420,10 +420,10 @@
                             </LinearLayout>
 
 
-
+                            <!--android:visibility="@{orderTrackingViewModel.dunzoOrder?View.VISIBLE:View.GONE}"-->
                             <LinearLayout
                                 android:layout_margin="2dp"
-                                android:visibility="@{orderTrackingViewModel.dunzoOrder?View.VISIBLE:View.GONE}"
+                                android:visibility="gone"
                                 android:layout_below="@+id/s3"
                                 android:layout_marginTop="10dp"
                                 android:layout_alignParentBottom="true"
