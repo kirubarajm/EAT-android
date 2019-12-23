@@ -556,7 +556,17 @@ public class OrdersHistoryListResponse {
         @SerializedName("localityid")
         @Expose
         public Integer localityid;
+        @SerializedName("locality")
+        @Expose
+        public String locality;
 
+        public String getLocality() {
+            return locality;
+        }
+
+        public void setLocality(String locality) {
+            this.locality = locality;
+        }
 
         public Float getLat() {
             return lat;

@@ -117,7 +117,12 @@ public class OrdersHistoryListItemModel {
 
         this.makeitName.set(mOrderList.getMakeitdetail().getBrandName());
         String strPrice = String.valueOf(orders.getPrice()==null?"":orders.getPrice());
-        this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()==null?"":mOrderList.getMakeitdetail().getAddress()+" | "+"Rs."+strPrice);
+
+     //   this.makeitLocality.set(mOrderList.getMakeitdetail().getAddress()==null?"":mOrderList.getMakeitdetail().getAddress()+" | "+"Rs."+strPrice);
+
+
+        this.makeitLocality.set(mOrderList.getMakeitdetail().getLocality()==null?"Rs."+strPrice:mOrderList.getMakeitdetail().getLocality()+" | Rs."+strPrice);
+
         this.price.set("Rs."+strPrice);
         if (orders.getItems() != null && orders.getItems().size() > 0) {
             StringBuilder strItems = new StringBuilder();
