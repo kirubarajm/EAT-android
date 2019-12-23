@@ -183,7 +183,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story,int position) {
+    public void infinityStoryItemClick(List<KitchenResponse.Story>  story,int position) {
         mLiveProductsAdapterListener.infinityStoryItemClick(story,position);
     }
 
@@ -211,7 +211,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
         void addFav(long id, String fav);
 
-        void infinityStoryItemClick(KitchenResponse.Story story,int position);
+        void infinityStoryItemClick(List<KitchenResponse.Story>  story,int position);
         void regionCollectionItemClick(KitchenResponse.Region collection);
         void infinityCollectionDetailItemClick(KitchenResponse.CollectionDetail collection);
     }

@@ -5,12 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesPagerFragment;
 
 public class StoriesTabAdapter extends FragmentStatePagerAdapter {
 
-    StoriesResponse storiesFullResponse;
+    KitchenResponse storiesFullResponse;
     private int mTabCount;
 
     public StoriesTabAdapter(FragmentManager fm) {
@@ -31,9 +32,9 @@ public class StoriesTabAdapter extends FragmentStatePagerAdapter {
         return mTabCount;
     }
 
-    public void setCount(StoriesResponse storiesFullResponse) {
-        if (storiesFullResponse != null && storiesFullResponse.getResult() != null && storiesFullResponse.getResult().size() > 0)
-            this.mTabCount = storiesFullResponse.getResult().size();
+    public void setCount(KitchenResponse storiesFullResponse) {
+        if (storiesFullResponse != null && storiesFullResponse.getResult() != null && storiesFullResponse.getResult().size() > 0&& storiesFullResponse.getResult().get(0).getStory() != null&& storiesFullResponse.getResult().get(0).getStory().size()  >0)
+            this.mTabCount = storiesFullResponse.getResult().get(0).getStory().size();
         this.storiesFullResponse = storiesFullResponse;
     }
 

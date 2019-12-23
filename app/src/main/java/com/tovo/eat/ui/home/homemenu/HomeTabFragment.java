@@ -61,6 +61,11 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
 
+import org.checkerframework.checker.units.qual.K;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import static com.tovo.eat.utilities.scroll.PaginationListener.PAGE_START;
@@ -313,19 +318,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
-        String name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
-        String welcomeMessage = " pick \nyour home to eat!";
 
-        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");
-        Typeface font2 = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Regular.otf");
-        SpannableStringBuilder SS = new SpannableStringBuilder(name + welcomeMessage);
-
-        SS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, name.length(),
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-        SS.setSpan(new CustomTypefaceSpan("", font), 0, name.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        SS.setSpan(new CustomTypefaceSpan("", font2), name.length() + 1, name.length() + welcomeMessage.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        mFragmentHomeBinding.welcomeText.setText(SS);
 
 
     }
@@ -565,7 +558,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerViewStory.setAdapter(storiesCardAdapter);
 
 
-        mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*mFragmentHomeBinding.recyclerViewStory.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -585,7 +578,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 }
 
             }
-        });
+        });*/
 
 
         LinearLayoutManager collectionLayoutManager
@@ -738,18 +731,32 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
 
+        String name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
+        String welcomeMessage = " pick \nyour home to eat!";
+
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");
+        Typeface font2 = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Regular.otf");
+        SpannableStringBuilder SS = new SpannableStringBuilder(name + welcomeMessage);
+
+        SS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, name.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        SS.setSpan(new CustomTypefaceSpan("", font), 0, name.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        SS.setSpan(new CustomTypefaceSpan("", font2), name.length() + 1, name.length() + welcomeMessage.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        mFragmentHomeBinding.welcomeText.setText(SS);
+
 
         mHomeTabViewModel.updateAddressTitle();
 
 
        /* if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
             mHomeTabViewModel.fetchKitchenFilter();
-        } else {
+        } else {0
             mHomeTabViewModel.fetchKitchen();
         }
 */
         mHomeTabViewModel.liveOrders();
-        mHomeTabViewModel.storiesRefresh();
+   //     mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
 
     }
@@ -758,8 +765,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private void subscribeToLiveData() {
         mHomeTabViewModel.getregionItemsLiveData().observe(this,
                 regionItemViewModel -> mHomeTabViewModel.addRegionItemsToList(regionItemViewModel));
-        mHomeTabViewModel.getStoriesItemsImages().observe(this,
-                regionItemViewModel -> mHomeTabViewModel.addStoriesImagesList(regionItemViewModel));
+       /* mHomeTabViewModel.getStoriesItemsImages().observe(this,
+                regionItemViewModel -> mHomeTabViewModel.addStoriesImagesList(regionItemViewModel));*/
         mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
                 kitchenItemViewModel -> mHomeTabViewModel.addKitchenItemsToList(kitchenItemViewModel));
 
@@ -812,18 +819,29 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
+    public void infinityStoryItemClick(List<KitchenResponse.Story> story, int position) {
 
-        if (story.getStories().size() > 0) {
 
-            new Analytics().story(story.getStoryid(), story.getThumbTitle());
+        List<KitchenResponse.Result> result=new ArrayList<>();
+        KitchenResponse.Result kl=new KitchenResponse.Result();
+        kl.setStory(story);
+        KitchenResponse kitchenResponse=new KitchenResponse();
+        result.add(kl);
+        kitchenResponse.setResult(result);
 
+        mHomeTabViewModel.saveStory(kitchenResponse);
+
+        if (story.get(position).getStories().size() > 0) {
+
+            new Analytics().story(story.get(position).getStoryid(), story.get(position).getThumbTitle());
 
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_STORY);
             Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", position);
-            intent.putExtra("fullStories", storiesFullResponse);
+            intent.putExtra("fullStories", kitchenResponse);
             startActivity(intent);
+
+
         }
     }
 

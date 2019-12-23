@@ -68,6 +68,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public final ObservableField<String> eta = new ObservableField<>();
     public final ObservableField<String> kitchenImage = new ObservableField<>();
     public final ObservableField<String> products = new ObservableField<>();
+    public final ObservableField<String> customerName = new ObservableField<>();
     public final ObservableField<Integer> pageid = new ObservableField<>();
     public final ObservableBoolean isLiveOrder = new ObservableBoolean();
     public final ObservableBoolean showFunnel = new ObservableBoolean();
@@ -95,7 +96,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     boolean couponAdded = false;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
-    private MutableLiveData<List<StoriesResponse.Result>> storiesItemsLiveData;
+    private MutableLiveData<List<KitchenResponse.Story>> storiesItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
     private long orderId;
@@ -118,6 +119,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         kitchenListLoading.set(true);
 
+        customerName.set(getDataManager().getCurrentUserName());
+        customerName.get();
     }
 
 
@@ -126,9 +129,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         getNavigator().scrollToTop();
     }
     public void loadAllApis() {
-   //     fetchStories();
+    //    fetchStories();
    //     fetchCoupons();
-  //      fetchCollections();
+       fetchCollections();
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
@@ -673,6 +676,16 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
+
+
+
+
+
+
+
+
+
+
                                             paginationLoading.set(false);
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                             //   addKitchenItemsToList(kitchenItemViewModelstemp);
@@ -958,7 +971,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void fetchStories() throws NullPointerException {
-        try {
+       /* try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_STORIES_LIST, StoriesResponse.class, new Response.Listener<StoriesResponse>() {
                 @Override
@@ -1119,37 +1132,61 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
-    public void storiesRefresh() {
-        StoriesResponse localStoriesResponse;
+
+    public void saveStory(KitchenResponse response){
+        Gson gson = new Gson();
+        String json = gson.toJson(response);
+        getDataManager().setStoriesList(null);
+        getDataManager().setStoriesList(json);
+    }
+
+
+
+    /*public void storiesRefresh() {
+        KitchenResponse localStoriesResponse;
         if (getDataManager().getStoriesList() != null) {
             Gson sGson = new GsonBuilder().create();
-            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
-            List<StoriesResponse.Result> newStories = new ArrayList<>();
-            List<StoriesResponse.Result> oldStories = new ArrayList<>();
+            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), KitchenResponse.class);
+            List<KitchenResponse.Story> newStories = new ArrayList<>();
+            List<KitchenResponse.Story> oldStories = new ArrayList<>();
             for (int i = 0; i < localStoriesResponse.getResult().size(); i++) {
-                if (localStoriesResponse.getResult().get(i).getStories().size() > 0)
-                    if (!localStoriesResponse.getResult().get(i).getStories().get(localStoriesResponse.getResult().get(i).getStories().size() - 1).isSeen()) {
-                        newStories.add(localStoriesResponse.getResult().get(i));
+                if (localStoriesResponse.getResult().get(0).getStory().get(i).getStories().size() > 0)
+                    if (!localStoriesResponse.getResult().get(0).getStory().get(i).getStories().get(localStoriesResponse.getResult().get(0).getStory().get(i).getStories().size() - 1).isSeen()) {
+                        newStories.add(localStoriesResponse.getResult().get(0).getStory().get(i));
                     } else {
-                        oldStories.add(localStoriesResponse.getResult().get(i));
+                        oldStories.add(localStoriesResponse.getResult().get(0).getStory().get(i));
                     }
             }
-            StoriesResponse completeStories = new StoriesResponse();
+            KitchenResponse completeStories = new KitchenResponse();
             newStories.addAll(oldStories);
-            completeStories.setResult(newStories);
+
+
+
+            List<KitchenResponse.Result> result=new ArrayList<>();
+            KitchenResponse.Result kl=new KitchenResponse.Result();
+            kl.setStory(newStories);
+            KitchenResponse kitchenResponse=new KitchenResponse();
+            result.add(kl);
+            kitchenResponse.setResult(result);
+
+
+            completeStories.setResult(result);
+
+
+
 
             Gson gson = new Gson();
             String json = gson.toJson(completeStories);
             getDataManager().setStoriesList(null);
             getDataManager().setStoriesList(json);
             if (completeStories.getResult() != null)
-                storiesItemsLiveData.setValue(completeStories.getResult());
+                storiesItemsLiveData.setValue(completeStories.getResult().get(0).getStory());
         }
-    }
+    }*/
 
     public void fetchCollections() throws NullPointerException {
         try {
@@ -1196,9 +1233,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         return storiesItemViewModels;
     }
 
-    public MutableLiveData<List<StoriesResponse.Result>> getStoriesItemsImages() {
+    /*public MutableLiveData<List<StoriesResponse.Result>> getStoriesItemsImages() {
         return storiesItemsLiveData;
-    }
+    }*/
 
 
     public void getMoveitlatlng(int moveitId) {

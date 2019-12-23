@@ -26,6 +26,8 @@ import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.analytics.Analytics;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
@@ -448,7 +450,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
+    public void infinityStoryItemClick(List<KitchenResponse.Story> story, int position) {
 
     }
 

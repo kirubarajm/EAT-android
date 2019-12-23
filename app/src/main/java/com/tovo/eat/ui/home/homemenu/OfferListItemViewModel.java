@@ -2,7 +2,6 @@ package com.tovo.eat.ui.home.homemenu;
 
 import android.databinding.ObservableField;
 
-import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 
 
@@ -13,18 +12,22 @@ public class OfferListItemViewModel {
 
 
     public final RefundListItemViewModelListener mListener;
-    private final KitchenResponse.Coupon refundList;
+    private final KitchenResponse.Coupon coupon;
 
 
-    public OfferListItemViewModel(RefundListItemViewModelListener mListener, KitchenResponse.Coupon refundList) {
+    public OfferListItemViewModel(RefundListItemViewModelListener mListener, KitchenResponse.Coupon coupon) {
         this.mListener = mListener;
-        this.refundList = refundList;
-        offerImage.set(refundList.getImgUrl());
+        this.coupon = coupon;
+        offerImage.set(coupon.getImgUrl());
     }
 
 
     public void onItemClick() {
-        mListener.onItemClick(refundList);
+        if (coupon.getClickable()==null) {
+            mListener.onItemClick(coupon);
+        }else if (coupon.getClickable()){
+            mListener.onItemClick(coupon);
+        }
     }
 
 

@@ -112,6 +112,8 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                             String userReferralCode = response.getResult().get(0).getReferalcode();
                             getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
+                            getDataManager().setRegionId(response.getResult().get(0).getRegionid());
+
                         }
                     }
                 }

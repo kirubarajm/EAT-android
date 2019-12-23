@@ -128,7 +128,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         userPhoneNo.set(getDataManager().getCurrentUserPhNo());
 
 
-      /*  if (!MvvmApp.getInstance().onCheckNetWork()) return;
+     /*   if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             Long userId = getDataManager().getCurrentUserId();
             setIsLoading(true);

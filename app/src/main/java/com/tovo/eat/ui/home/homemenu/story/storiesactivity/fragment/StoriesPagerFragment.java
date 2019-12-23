@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSampleBinding;
 import com.tovo.eat.ui.base.BaseFragment;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.BitmapDrawableViewTarget;
@@ -48,11 +49,14 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     public StoryStatusView storyStatusView;
     @Inject
     StoriesPagerFragmentViewModel mSplashActivityViewModel;
-    StoriesResponse storiesFullResponse;
+    KitchenResponse storiesFullResponse;
     int position;
     boolean isVisibleToUser;
     boolean isoNcREATRE;
-    StoriesResponse.Result storiesResponse;
+    KitchenResponse.Story storiesResponse;
+
+
+
     VideoView videoView;
     ProgressBar imageProgressBar;
     TextView txtProgress;
@@ -217,9 +221,9 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     }
 
     @Override
-    public void getStoriesDataFromLocal(StoriesResponse storiesResponseFull) {
+    public void getStoriesDataFromLocal(KitchenResponse storiesResponseFull) {
         this.storiesFullResponse = storiesResponseFull;
-        storiesResponse = storiesFullResponse.getResult().get(position);
+        storiesResponse = storiesFullResponse.getResult().get(0).getStory().get(position);
         mainFunction();
     }
 
@@ -438,9 +442,9 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
     public void onComplete() {
         try {
             isVisibleToUser = false;
-            StoriesResponse response = mSplashActivityViewModel.storiesResponse;
+         //   StoriesResponse response = mSplashActivityViewModel.storiesResponse;
 
-            if (response.getResult() != null)
+           /* if (response.getResult() != null)
                 if (response.getResult().size() > position)
                     if (response.getResult().get(position).getStories().size() > counter) {
 
@@ -457,7 +461,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             if (position + 1 >= response.getResult().size()) {
                 Objects.requireNonNull(getActivity()).finish();
                 return;
-            }
+            }*/
 
             counter = 0;
             storyStatusView.clear();

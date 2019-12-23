@@ -16,21 +16,22 @@ public class InfinityStoryCardItemViewModel {
     public final InfinityStoryItemViewModelListener mListener;
 
     KitchenResponse.Story stories;
+    int position=0;
 
-
-    public InfinityStoryCardItemViewModel(InfinityStoryItemViewModelListener mListener, KitchenResponse.Story stories) {
+    public InfinityStoryCardItemViewModel(InfinityStoryItemViewModelListener mListener, KitchenResponse.Story stories,int position) {
         this.mListener = mListener;
         this.stories = stories;
+        this.position=position;
         imageUrl.set(stories.getStoryBigImg());
 
     }
 
     public void onItemClick() {
-        mListener.onItemClick(stories);
+        mListener.onItemClick(stories,position);
     }
 
     public interface InfinityStoryItemViewModelListener {
-        void onItemClick(KitchenResponse.Story stories);
+        void onItemClick(KitchenResponse.Story stories,int position);
     }
 
 }

@@ -8,11 +8,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 
 public class StoriesPagerFragmentViewModel extends BaseViewModel<StoriesPagerFragmentNavigator> {
 
-    StoriesResponse storiesResponse;
+    KitchenResponse storiesResponse;
 
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> subTitle = new ObservableField<>();
@@ -24,7 +25,7 @@ public class StoriesPagerFragmentViewModel extends BaseViewModel<StoriesPagerFra
     public StoriesPagerFragmentViewModel(DataManager dataManager) {
         super(dataManager);
         Gson sGson = new GsonBuilder().create();
-        storiesResponse = sGson.fromJson(getDataManager().getStoriesList(), StoriesResponse.class);
+        storiesResponse = sGson.fromJson(getDataManager().getStoriesList(), KitchenResponse.class);
     }
 
     public void getData(){

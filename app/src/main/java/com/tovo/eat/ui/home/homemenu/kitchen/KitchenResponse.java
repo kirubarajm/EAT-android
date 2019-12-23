@@ -3,10 +3,11 @@ package com.tovo.eat.ui.home.homemenu.kitchen;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class KitchenResponse {
+public class KitchenResponse  implements Serializable {
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -24,7 +25,7 @@ public class KitchenResponse {
     private Integer kitchencount;
     @SerializedName("pagecount")
     @Expose
-    private Integer pagecount=0;
+    private Integer pagecount = 0;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
@@ -85,7 +86,7 @@ public class KitchenResponse {
         this.result = result;
     }
 
-    public class CollectionDetail {
+    public class CollectionDetail implements Serializable{
 
         @SerializedName("zone")
         @Expose
@@ -116,7 +117,7 @@ public class KitchenResponse {
         private Integer costfortwo;
         @SerializedName("makeitimg")
         @Expose
-        private String makeitimg="";
+        private String makeitimg = "";
         @SerializedName("unservicable")
         @Expose
         private Integer unservicable;
@@ -343,7 +344,7 @@ public class KitchenResponse {
 
     }
 
-    public class Coupon {
+    public class Coupon implements Serializable{
 
         @SerializedName("cid")
         @Expose
@@ -384,6 +385,17 @@ public class KitchenResponse {
         @SerializedName("couponstatus")
         @Expose
         private Boolean couponstatus;
+        @SerializedName("clickable")
+        @Expose
+        private Boolean clickable=true;
+
+        public Boolean getClickable() {
+            return clickable;
+        }
+
+        public void setClickable(Boolean clickable) {
+            this.clickable = clickable;
+        }
 
         public Integer getCid() {
             return cid;
@@ -491,7 +503,7 @@ public class KitchenResponse {
 
     }
 
-    public class Cuisine {
+    public class Cuisine implements Serializable{
 
         @SerializedName("cuisineid")
         @Expose
@@ -518,7 +530,7 @@ public class KitchenResponse {
 
     }
 
-    public class Region {
+    public class Region implements Serializable{
 
         @SerializedName("regionid")
         @Expose
@@ -733,7 +745,7 @@ public class KitchenResponse {
 
     }
 
-    public class Collection {
+    public class Collection implements Serializable{
 
         @SerializedName("cid")
         @Expose
@@ -860,7 +872,7 @@ public class KitchenResponse {
     }
 
 
-    public class Story {
+    public class Story implements Serializable{
 
         @SerializedName("storyid")
         @Expose
@@ -987,7 +999,7 @@ public class KitchenResponse {
 
     }
 
-    public class Stories {
+    public class Stories implements Serializable{
 
         @SerializedName("id")
         @Expose
@@ -1015,7 +1027,7 @@ public class KitchenResponse {
         private Integer catType;
         @SerializedName("cat_ids")
         @Expose
-        private Integer catIds;
+        private Long catIds;
         @SerializedName("duration")
         @Expose
         private Integer duration;
@@ -1090,16 +1102,16 @@ public class KitchenResponse {
             this.catType = catType;
         }
 
-        public Integer getCatIds() {
+        public Long getCatIds() {
             return catIds;
         }
 
-        public void setCatIds(Integer catIds) {
+        public void setCatIds(Long catIds) {
             this.catIds = catIds;
         }
 
         public Integer getDuration() {
-            return duration;
+            return duration*1000;
         }
 
         public void setDuration(Integer duration) {
@@ -1125,7 +1137,7 @@ public class KitchenResponse {
     }
 
 
-    public class Result {
+    public static class Result implements Serializable{
 
         @SerializedName("title")
         @Expose
@@ -1135,7 +1147,7 @@ public class KitchenResponse {
         private String subtitle;
         @SerializedName("type")
         @Expose
-        private Integer type=0;
+        private Integer type = 0;
         @SerializedName("zone")
         @Expose
         private Integer zone;
@@ -1153,7 +1165,7 @@ public class KitchenResponse {
         private Integer memberType;
         @SerializedName("rating")
         @Expose
-        private double rating=0.0;
+        private double rating = 0.0;
         @SerializedName("regionid")
         @Expose
         private Integer regionid;
@@ -1192,7 +1204,7 @@ public class KitchenResponse {
         private String eta;
         @SerializedName("serviceablestatus")
         @Expose
-        private Boolean serviceablestatus=true;
+        private Boolean serviceablestatus = true;
         @SerializedName("kitchenstatus")
         @Expose
         private Integer kitchenstatus;

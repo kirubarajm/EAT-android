@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment;
 
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 
 public interface StoriesPagerFragmentNavigator {
@@ -8,5 +9,5 @@ public interface StoriesPagerFragmentNavigator {
 
     void onSeeMore();
 
-    void getStoriesDataFromLocal(StoriesResponse storiesResponse);
+    void getStoriesDataFromLocal(KitchenResponse storiesResponse);
 }

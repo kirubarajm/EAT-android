@@ -90,7 +90,7 @@ this.position=position;
 
     public interface LiveProductsAdapterListener {
 
-        void infinityStoryItemClick(KitchenResponse.Story collection,int position);
+        void infinityStoryItemClick(List<KitchenResponse.Story> stories,int position);
 
     }
 
@@ -129,7 +129,7 @@ this.position=position;
             if (item_list.isEmpty()) return;
             final KitchenResponse.Story blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new InfinityStoryCardItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new InfinityStoryCardItemViewModel(this, blog,position);
             mListItemLiveProductsBinding.setInfinityStoryCardItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -141,8 +141,8 @@ this.position=position;
 
 
         @Override
-        public void onItemClick(KitchenResponse.Story collection) {
-            mLiveProductsAdapterListener.infinityStoryItemClick(collection,position);
+        public void onItemClick(KitchenResponse.Story collection,int sPosition) {
+            mLiveProductsAdapterListener.infinityStoryItemClick(item_list,sPosition);
         }
     }
 

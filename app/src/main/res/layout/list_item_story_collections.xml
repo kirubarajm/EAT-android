@@ -14,6 +14,8 @@
 
 
     <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -21,7 +23,6 @@
 
         <com.tovo.eat.utilities.fonts.poppins.TitleTextView
             android:id="@+id/title"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -53,7 +54,7 @@
             android:id="@+id/recycler_story"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             tools:listitem="@layout/list_item_story_collection_card" />

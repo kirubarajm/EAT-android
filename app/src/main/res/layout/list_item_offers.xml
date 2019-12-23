@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <data>
@@ -14,41 +15,48 @@
     </data>
 
 
-    <RelativeLayout
-        android:layout_width="150dp"
-        android:layout_height="203dp"
-        android:background="@color/white"
-        android:onClick="@{()->offerListItemViewModel.onItemClick()}">
+    <android.support.v7.widget.CardView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="3dp"
+        app:cardUseCompatPadding="true">
 
-        <ImageView
-            imageUrl="@{offerListItemViewModel.offerImage}"
-            loader="@{loader}"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:scaleType="fitCenter" />
-<!--
-        <ImageView
-            android:src="@drawable/offer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            android:scaleType="fitCenter" />-->
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="210dp"
+            android:background="@color/white"
+            android:onClick="@{()->offerListItemViewModel.onItemClick()}">
 
-        <ImageView
-            android:foregroundGravity="center"
-            android:id="@+id/loader"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal|center_vertical" />
-    </RelativeLayout>
+            <ImageView
+                imageUrl="@{offerListItemViewModel.offerImage}"
+                loader="@{loader}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:scaleType="fitCenter" />
+            <!--
+                    <ImageView
+                        android:src="@drawable/offer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:scaleType="fitCenter" />-->
 
+            <ImageView
+                android:id="@+id/loader"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:foregroundGravity="center" />
+        </RelativeLayout>
 
+    </android.support.v7.widget.CardView>
     <!--<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">

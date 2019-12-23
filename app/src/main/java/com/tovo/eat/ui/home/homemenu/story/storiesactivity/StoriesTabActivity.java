@@ -17,6 +17,7 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySampleBinding;
 import com.tovo.eat.ui.base.BaseActivity;
+import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.CubeTransformer;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment.StoriesPagerFragment;
@@ -44,7 +45,7 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     int position=0,crPosition=0;
-    StoriesResponse storiesFullResponse;
+    KitchenResponse storiesFullResponse;
 
     public static Intent newIntent(Context context) {
 
@@ -104,7 +105,7 @@ public class StoriesTabActivity extends BaseActivity<ActivitySampleBinding, Stor
     private void setUp() {
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
-            storiesFullResponse = (StoriesResponse) bundle.getSerializable("fullStories");
+            storiesFullResponse = (KitchenResponse) bundle.getSerializable("fullStories");
             position = bundle.getInt("position");
         }
 

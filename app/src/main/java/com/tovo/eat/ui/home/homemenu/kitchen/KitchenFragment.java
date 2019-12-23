@@ -22,6 +22,8 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.utilities.analytics.Analytics;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, KitchenViewModel> implements KitchenNavigator, KitchenAdapter.LiveProductsAdapterListener, StartFilter {
@@ -215,7 +217,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story,int position) {
+    public void infinityStoryItemClick(List<KitchenResponse.Story> story, int position) {
 
     }
 

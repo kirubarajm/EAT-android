@@ -29,6 +29,8 @@ import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBinding, RegionDetailsViewModel> implements RegionDetailsNavigator, KitchenAdapter.LiveProductsAdapterListener {
@@ -215,7 +217,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     }
 
     @Override
-    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
+    public void infinityStoryItemClick(List<KitchenResponse.Story> story, int position) {
 
     }
 
