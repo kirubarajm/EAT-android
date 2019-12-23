@@ -378,7 +378,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
     @Override
-    public void offersItemClick(CouponListResponse.Result offers) {
+    public void offersItemClick(KitchenResponse.Coupon offers) {
 
     }
 
@@ -444,6 +444,21 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void addFav(long id, String fav) {
+
+    }
+
+    @Override
+    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
+
+    }
+
+    @Override
+    public void regionCollectionItemClick(KitchenResponse.Region collection) {
+
+    }
+
+    @Override
+    public void infinityCollectionDetailItemClick(KitchenResponse.CollectionDetail collection) {
 
     }
 

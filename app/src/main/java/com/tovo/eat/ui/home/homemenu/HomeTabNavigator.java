@@ -28,5 +28,7 @@ public interface HomeTabNavigator {
 
     void closeAddressAlert();
 
+    void scrollToTop();
+
 
 }

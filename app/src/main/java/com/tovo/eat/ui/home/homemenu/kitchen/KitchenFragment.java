@@ -187,7 +187,7 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     }
 
     @Override
-    public void offersItemClick(CouponListResponse.Result offers) {
+    public void offersItemClick(KitchenResponse.Coupon offers) {
 
     }
 
@@ -212,6 +212,21 @@ public class KitchenFragment extends BaseFragment<FragmentKitchenBinding, Kitche
     public void addFav(long id, String fav) {
 
         mKitchenViewModel.addFavourite(id, fav);
+    }
+
+    @Override
+    public void infinityStoryItemClick(KitchenResponse.Story story,int position) {
+
+    }
+
+    @Override
+    public void regionCollectionItemClick(KitchenResponse.Region collection) {
+
+    }
+
+    @Override
+    public void infinityCollectionDetailItemClick(KitchenResponse.CollectionDetail collection) {
+
     }
 
 

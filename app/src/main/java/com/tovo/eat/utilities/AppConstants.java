@@ -96,6 +96,7 @@ public class AppConstants {
     public static final String API_VERSION_ONE = "1.0.0";
     public static final String API_VERSION_TWO = "2.0.0";
     public static final String API_VERSION_TWO_ONE = "2.0.1";
+    public static final String API_VERSION_TWO_TWO = "2.0.2";
     public static final String API_VERSION_THEREE = "3.0.0";
     public static final String API_VERSION_FOUR = "4.0.0";
     public static final String APP_TYPE_ANDROID = "1";// 1 means android
@@ -412,9 +413,12 @@ public class AppConstants {
     public static final String EAT_COLLECTION_LIST = URL_SERVER_IP_PORT + "/eat/collection";
     public static final String EAT_PAYMENT_RETRY_URL = URL_SERVER_IP_PORT + "/eat/payment/retry";
 
+
     public static final String DUNZO_URL = BuildConfig.DUNZO_URL;
     public static final String DUNZO_STATUS = BuildConfig.DUNZO_STATUS;
 
+
+  //  public static final String EAT_REGION_LIST=  "http://192.168.1.102/tovo/regions.json";
 
     public static final int ADMIN = 0;
     public static final int MAKEIT = 1;

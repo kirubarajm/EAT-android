@@ -84,7 +84,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
             if (item_list.get(position).getCollection() != null && item_list.get(position).getCollection().size() > 0) {
 
                 return VIEW_TYPE_COLLECTION;
-            } else if (item_list.get(position).getCoupons() != null && item_list.get(position).getCoupons().size() > 0) {
+            } else if (item_list.get(position).getCoupon() != null && item_list.get(position).getCoupon().size() > 0) {
 
                 return VIEW_TYPE_COUPON;
 
@@ -123,7 +123,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
     }
 
     @Override
-    public void offerItemClick(CouponListResponse.Result offers) {
+    public void offerItemClick(KitchenResponse.Coupon offers) {
         mLiveProductsAdapterListener.offersItemClick(offers);
     }
 
@@ -131,7 +131,7 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         void collectionItemClick(KitchenResponse.Collection collection);
 
-        void offersItemClick(CouponListResponse.Result offers);
+        void offersItemClick(KitchenResponse.Coupon offers);
 
         void onItemClickData(Long kitchenId);
 
@@ -239,11 +239,11 @@ public class FavKitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
 
         @Override
         public void onBind(int position) {
-            if (item_list.get(position).getCoupons().isEmpty()) return;
+            if (item_list.get(position).getCoupon().isEmpty()) return;
             mListItemLiveProductsBinding.executePendingBindings();
             LinearLayoutManager offerLayputManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerCollection.getContext(), LinearLayoutManager.HORIZONTAL, false);
             offerLayputManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            OffersAdapter offersAdapter = new OffersAdapter(item_list.get(position).getCoupons());
+            OffersAdapter offersAdapter = new OffersAdapter(item_list.get(position).getCoupon());
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(offerLayputManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(offersAdapter);
             offersAdapter.setListener(FavKitchenAdapter.this);

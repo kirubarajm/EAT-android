@@ -15,28 +15,32 @@
 
 
     <LinearLayout
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+        <com.tovo.eat.utilities.fonts.poppins.TitleTextView
             android:id="@+id/title"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="70dp"
+            android:layout_height="2dp"
+            android:background="@color/eat_color" />
+
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
             android:id="@+id/subTitle"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -50,14 +54,12 @@
             android:background="@drawable/gradient_view_kitchen_gray" />
 
         <android.support.v7.widget.RecyclerView
-            android:background="@color/white"
-            android:id="@+id/recycler_region"
+            android:background="@color/gray"
+            android:id="@+id/recyclerview_kitchens"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            tools:listitem="@layout/list_item_region_collection_card" />
+            tools:listitem="@layout/list_item_collection_kitchens" />
 
 
         <View

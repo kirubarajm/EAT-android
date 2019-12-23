@@ -35,7 +35,6 @@ import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
 import com.tovo.eat.ui.base.BaseFragment;
 import com.tovo.eat.ui.cart.coupon.CouponListActivity;
-import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
@@ -237,6 +236,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.getDataManager().appStartedAgain(false);
         }
 
+    }
+
+    @Override
+    public void scrollToTop() {
+
+
+        mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
     }
 
     @Override
@@ -495,12 +501,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
 
-
-                    /*int hh = v.getMeasuredHeight();
-                    int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
-                    if (scrollY == (v.getMeasuredHeight() - mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight())) {
+                    //int hh = v.getMeasuredHeight();
+                    //  int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
+                   /* if (scrollY == (v.getMeasuredHeight() - 150)) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
                         //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                    }*/
+                    if (scrollY > 2000) {
+                        //   Log.i(TAG, "BOTTOM SCROLL");
+                        //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                        mHomeTabViewModel.backToTop.set(true);
+
+                    }else {
+                        mHomeTabViewModel.backToTop.set(false);
                     }
 
 
@@ -508,16 +521,25 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             scrollY > oldScrollY) {
 
 
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                        if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
 
-                        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                            mHomeTabViewModel.fetchKitchenFilter();
                         } else {
-                            mHomeTabViewModel.fetchKitchen();
+
+                           if ( !mHomeTabViewModel.paginationLoading.get()){
+                               mHomeTabViewModel.paginationLoading.set(true);
+                               Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                               if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                                   mHomeTabViewModel.fetchKitchenFilter();
+                               } else {
+                                   mHomeTabViewModel.fetchKitchen();
+                               }
+                           }
+
+
                         }
 
 
-                    }*/
+                    }
 
 
                 }
@@ -566,12 +588,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-       /* LinearLayoutManager collectionLayoutManager
+        LinearLayoutManager collectionLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         collectionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mFragmentHomeBinding.recyclerViewFilterCollection.setLayoutManager(collectionLayoutManager);
-        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);*/
+        mFragmentHomeBinding.recyclerViewFilterCollection.setAdapter(filterCollectionAdapter);
 
 
         mFragmentHomeBinding.recyclerViewRegionTitle.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -789,6 +811,43 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+    @Override
+    public void infinityStoryItemClick(KitchenResponse.Story story, int position) {
+
+        if (story.getStories().size() > 0) {
+
+            new Analytics().story(story.getStoryid(), story.getThumbTitle());
+
+
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_STORY);
+            Intent intent = StoriesTabActivity.newIntent(getContext());
+            intent.putExtra("position", position);
+            intent.putExtra("fullStories", storiesFullResponse);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void regionCollectionItemClick(KitchenResponse.Region region) {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_CARD);
+        Intent intent = RegionDetailsActivity.newIntent(getContext());
+        intent.putExtra("image", region.getRegionDetailImage());
+        intent.putExtra("id", region.getRegionid());
+        intent.putExtra("tagline", region.getTagline());
+        startActivity(intent);
+    }
+
+    @Override
+    public void infinityCollectionDetailItemClick(KitchenResponse.CollectionDetail collection) {
+        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
+
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN, collection.getMakeituserid());
+
+        Intent intent = KitchenDetailsActivity.newIntent(getContext());
+        intent.putExtra("kitchenId", collection.getMakeituserid());
+        startActivity(intent);
+    }
+
     private void initCountryText() {
 
 
@@ -995,7 +1054,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void offersItemClick(CouponListResponse.Result offers) {
+    public void offersItemClick(KitchenResponse.Coupon offers) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COUPON);
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);

@@ -75,6 +75,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean emptyRegion = new ObservableBoolean();
     public ObservableBoolean emptyKitchen = new ObservableBoolean();
     public ObservableBoolean fullEmpty = new ObservableBoolean();
+    public ObservableBoolean backToTop = new ObservableBoolean();
+    public ObservableBoolean paginationLoading = new ObservableBoolean();
     public ObservableBoolean regionTitleLoaded = new ObservableBoolean();
     public ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
@@ -98,6 +100,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
     private long orderId;
 
+
+  public int pageCount=1;
+
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
@@ -116,10 +121,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
+    public void scrollToTop() {
+        backToTop.set(false);
+        getNavigator().scrollToTop();
+    }
     public void loadAllApis() {
-        fetchStories();
-        fetchCoupons();
-        fetchCollections();
+   //     fetchStories();
+   //     fetchCoupons();
+  //      fetchCollections();
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
@@ -143,8 +152,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         if (ordersItems != null) {
-            // if (pageid.get() == 0)
-            kitchenItemViewModels.clear();
+            if (pageid.get() == 1)
+                kitchenItemViewModels.clear();
             kitchenItemViewModels.addAll(ordersItems);
         }
 
@@ -376,7 +385,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void fetchCoupons() throws NullPointerException {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+       /* if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COUPON_LIST_URL, CouponListResponse.class, new CollectionRequest(getDataManager().getCurrentUserId()), new Response.Listener<CouponListResponse>() {
@@ -416,7 +425,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
             ee.printStackTrace();
 
-        }
+        }*/
     }
 
 
@@ -558,6 +567,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         pageid.set(pageid.get() + 1);
 
+
+        if (pageid.get()>pageCount) return;
+
+
         kitchenListLoading.set(true);
         String json = "";
         if (getDataManager().getCurrentLat() == null) {
@@ -576,6 +589,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                     filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                     filterRequestPojo.setLat(getDataManager().getCurrentLat());
                     filterRequestPojo.setLon(getDataManager().getCurrentLng());
+                    filterRequestPojo.setPageid(pageid.get());
 
                     if (getDataManager().getFirstAddress() != null) {
                         filterRequestPojo.setAddress(getDataManager().getFirstAddress());
@@ -590,7 +604,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                     try {
                         setIsLoading(true);
+                        //JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,"http://192.168.1.102/tovo/infinity_kitchen.json", new JSONObject(json), new Response.Listener<JSONObject>() {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_LIST_URL, new JSONObject(json), new Response.Listener<JSONObject>() {
+
                             @Override
                             public void onResponse(JSONObject response) {
                                 kitchenListLoading.set(false);
@@ -599,32 +615,33 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
+                                    pageCount=kitchenResponse.getPagecount();
                                     if (kitchenResponse != null)
                                         if (kitchenResponse.getResult() != null && kitchenResponse.getResult().size() > 0) {
                                             fullEmpty.set(false);
 
-                                            if (kitchenResponse.getResult().get(0).isServiceableStatus()) {
+                                            if (pageid.get()>1){
+                                                backToTop.set(true);
+                                            }else {
+                                                backToTop.set(false);
+                                            }
+
+
+
+                                            if (kitchenResponse.getResult().get(0).getServiceablestatus()) {
                                                 getDataManager().setFunnelStatus(false);
                                                 showFunnel.set(false);
                                             }
 
 
-                                            if (collectionItemViewModels.size() > 0) {
-                                                if (kitchenResponse.getResult().size() > 6) {
-                                                    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                                    kitchenResponse1.setCollection(collectionItemViewModels);
-                                                    //  kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                                    kitchenResponse.getResult().add(6, kitchenResponse1);
-                                                    collectionAdded = true;
-                                                }else  if (kitchenResponse.getResult().size() > 2) {
 
-                                                    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                                    kitchenResponse1.setCollection(collectionItemViewModels);
-                                                    kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                                    // kitchenResponse.getResult().add(6, kitchenResponse1);
-                                                    collectionAdded = true;
 
-                                                }
+                                          /*  if (collectionItemViewModels.size() > 0) {
+                                                KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                                kitchenResponse1.setCollection(collectionItemViewModels);
+                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
+                                                collectionAdded = true;
+>>>>>>> infinity_screen
                                             }
 
                                             if (couponListItemViewModels.size() > 0) {
@@ -641,7 +658,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                     couponAdded = true;
                                                 }
 
-                                            }
+                                            }*/
 
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -652,11 +669,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 */
                                             //  kitchenItemsLiveData.setValue(null);
 
-                                            kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                            //  kitchenItemsLiveData.setValue(kitchenResponse.getResult());
 
-                                            // kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                            kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
-
+                                            paginationLoading.set(false);
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                             //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                             try {
@@ -666,6 +683,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                 ee.printStackTrace();
                                             }
                                         } else {
+                                            if (pageid.get() == 1)
                                             fullEmpty.set(true);
                                             try {
                                                 if (getNavigator() != null)
@@ -678,6 +696,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     //    getNavigator().kitchenListLoaded();
 
                                 } else {
+                                    if (pageid.get() == 1)
                                     fullEmpty.set(true);
                                     try {
                                         if (getNavigator() != null)
@@ -702,6 +721,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } catch (Exception ee) {
                                     ee.printStackTrace();
                                 }
+                                if (pageid.get() == 1)
                                 fullEmpty.set(true);
                             }
                         }) {
@@ -711,7 +731,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_ONE);
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_TWO);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -739,6 +759,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         pageid.set(pageid.get() + 1);
 
+        if (pageid.get()>pageCount) return;
+
         kitchenListLoading.set(true);
         if (getDataManager().getCurrentLat() == null) {
         } else {
@@ -761,6 +783,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         filterRequestPojo.setEatuserid(getDataManager().getCurrentUserId());
                         filterRequestPojo.setLat(getDataManager().getCurrentLat());
                         filterRequestPojo.setLon(getDataManager().getCurrentLng());
+                        filterRequestPojo.setPageid(pageid.get());
+
                         if (filterRequestPojo.getCusinelist() != null) {
                             if (filterRequestPojo.getCusinelist().size() == 0)
                                 filterRequestPojo.setCusinelist(null);
@@ -795,26 +819,28 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
+
+                                    pageCount=kitchenResponse.getPagecount();
+
                                     if (kitchenResponse.getResult().size() > 0) {
+
+                                        if (pageid.get()>1){
+                                            backToTop.set(true);
+                                        }else {
+                                            backToTop.set(false);
+                                        }
+
+
                                         emptyKitchen.set(false);
 
 
-                                        if (collectionItemViewModels.size() > 0) {
-                                            if (kitchenResponse.getResult().size() > 6) {
-                                                KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                                kitchenResponse1.setCollection(collectionItemViewModels);
-                                                //  kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                                kitchenResponse.getResult().add(6, kitchenResponse1);
-                                                collectionAdded = true;
-                                            }else  if (kitchenResponse.getResult().size() > 2) {
 
-                                                KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                                kitchenResponse1.setCollection(collectionItemViewModels);
-                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                                // kitchenResponse.getResult().add(6, kitchenResponse1);
-                                                collectionAdded = true;
-
-                                            }
+                                      /*  if (collectionItemViewModels.size() > 0) {
+                                            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                            kitchenResponse1.setCollection(collectionItemViewModels);
+                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
+                                            collectionAdded = true;
+>>>>>>> infinity_screen
                                         }
 
 
@@ -834,7 +860,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             }
 
 
-                                        }
+                                        }*/
 
 
                                     /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
@@ -847,9 +873,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         //  kitchenItemsLiveData.setValue(null);
 
 
-                                        kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-                                        //kitchenItemsLiveData.postValue(kitchenResponse.getResult());
-
+                                        //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
+                                        kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                        paginationLoading.set(false);
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                         try {
@@ -859,7 +885,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             ee.printStackTrace();
                                         }
                                     } else {
-                                        emptyKitchen.set(true);
+
+                                        if (pageid.get() == 1)
+                                            emptyKitchen.set(true);
                                         try {
 
                                             getNavigator().kitchenLoaded();
@@ -871,7 +899,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     //    getNavigator().kitchenListLoaded();
 
                                 } else {
-                                    emptyKitchen.set(true);
+                                    if (pageid.get() == 1)
+                                        emptyKitchen.set(true);
                                     try {
                                         getNavigator().kitchenLoaded();
                                     } catch (Exception ee) {
@@ -894,7 +923,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } catch (Exception ee) {
                                     ee.printStackTrace();
                                 }
-                                emptyKitchen.set(true);
+                                if (pageid.get() == 1)
+                                    emptyKitchen.set(true);
                             }
                         }) {
                             /**
@@ -902,7 +932,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                              */
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
-                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_ONE);
+                                return AppConstants.setHeaders(AppConstants.API_VERSION_TWO_TWO);
                             }
                         };
                         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
@@ -1137,25 +1167,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
-
-                            if (!collectionAdded) {
-                                if (kitchenItemViewModels.size() > 6) {
-                                    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                    kitchenResponse1.setCollection(collectionItemViewModels);
-                                  //  kitchenItemViewModels.add(Math.round(kitchenItemViewModels.size() / 2), kitchenResponse1);
-                                    kitchenItemViewModels.add(6, kitchenResponse1);
-                                    collectionAdded = true;
-                                    // kitchenItemsLiveData.setValue(kitchenItemViewModels);
-                                }else  if (kitchenItemViewModels.size() > 2) {
-                                    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
-                                    kitchenResponse1.setCollection(collectionItemViewModels);
-                                    kitchenItemViewModels.add(Math.round(kitchenItemViewModels.size() / 2), kitchenResponse1);
-                                    collectionAdded = true;
-                                    // kitchenItemsLiveData.setValue(kitchenItemViewModels);
-                                }
-
-                            }
-
 
                         }
 

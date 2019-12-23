@@ -19,7 +19,7 @@ public class FilterRequestPojo {
     private String lon;
 
 
-     @SerializedName("address")
+    @SerializedName("address")
     @Expose
     private String address;
 
@@ -27,12 +27,9 @@ public class FilterRequestPojo {
     @Expose
     private String locality;
 
-       @SerializedName("city")
+    @SerializedName("city")
     @Expose
     private String city;
-
-
-
 
 
     @SerializedName("eatuserid")
@@ -42,6 +39,11 @@ public class FilterRequestPojo {
     @SerializedName("sortid")
     @Expose
     private Integer sortid = 0;
+
+    @SerializedName("page")
+    @Expose
+    private Integer page = 0;
+
     @SerializedName("cid")
     @Expose
     private Integer cid;
@@ -59,6 +61,13 @@ public class FilterRequestPojo {
     @Expose
     private Integer vegtype;
 
+    public Integer getPageid() {
+        return page;
+    }
+
+    public void setPageid(Integer pageid) {
+        this.page = pageid;
+    }
 
     public String getAddress() {
         return address;

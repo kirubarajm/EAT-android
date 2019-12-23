@@ -1,6 +1,5 @@
-package com.tovo.eat.ui.home.homemenu.collection;
+package com.tovo.eat.ui.home.infinityadapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,24 +7,22 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.databinding.ListItemCollectionCardBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemFilterCollectionsBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
+import com.tovo.eat.ui.home.homemenu.collection.CollectionCardItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
-import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
-import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 
 import java.util.List;
 
-public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class InfinityCollectionDetailsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
     private List<KitchenResponse.Collection> item_list;
-    private FilterCollectionAdapterListener mFilterCollectionAdapterListener;
+    private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-    public FilterCollectionAdapter(List<KitchenResponse.Collection> item_list) {
+    public InfinityCollectionDetailsAdapter(List<KitchenResponse.Collection> item_list) {
         for (int i = 0; i < item_list.size(); i++) {
 
             if (!item_list.get(i).getCollectionstatus()) {
@@ -39,19 +36,11 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
     }
 
 
-    public void addItems(List<KitchenResponse.Collection> blogList) {
-        item_list.addAll(blogList);
-        notifyDataSetChanged();
-    }
-    public void setListener(FilterCollectionAdapterListener listener) {
-        this.mFilterCollectionAdapterListener = listener;
-    }
-
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
             case VIEW_TYPE_NORMAL:
-                ListItemFilterCollectionsBinding blogViewBinding = ListItemFilterCollectionsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                ListItemCollectionCardBinding blogViewBinding = ListItemCollectionCardBinding.inflate(LayoutInflater.from(parent.getContext()),
                         parent, false);
                 return new LiveProductsViewHolder(blogViewBinding);
             case VIEW_TYPE_EMPTY:
@@ -73,7 +62,7 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
         if (item_list != null && item_list.size() > 0) {
             return item_list.size();
         } else {
-            return 0;
+            return 1;
         }
     }
 
@@ -91,9 +80,14 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
     }
 
 
-    public interface FilterCollectionAdapterListener {
+    public void setListener(LiveProductsAdapterListener listener) {
+        this.mLiveProductsAdapterListener = listener;
+    }
 
-        void filterCollectionItemClick(KitchenResponse.Collection collection);
+
+    public interface LiveProductsAdapterListener {
+
+        void collectionItemClick(KitchenResponse.Collection collection);
 
     }
 
@@ -118,11 +112,11 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     }
 
-    public class LiveProductsViewHolder extends BaseViewHolder implements FilterCollectionCardItemViewModel.CollectionItemViewModelListener {
-        ListItemFilterCollectionsBinding mListItemLiveProductsBinding;
-        FilterCollectionCardItemViewModel mLiveProductsItemViewModel;
+    public class LiveProductsViewHolder extends BaseViewHolder implements CollectionCardItemViewModel.CollectionItemViewModelListener {
+        ListItemCollectionCardBinding mListItemLiveProductsBinding;
+        CollectionCardItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemFilterCollectionsBinding binding) {
+        public LiveProductsViewHolder(ListItemCollectionCardBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
         }
@@ -132,7 +126,7 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
             if (item_list.isEmpty()) return;
             final KitchenResponse.Collection blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new FilterCollectionCardItemViewModel(this, blog);
+            mLiveProductsItemViewModel = new CollectionCardItemViewModel(this, blog);
             mListItemLiveProductsBinding.setCollectionCardItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -145,7 +139,7 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
         @Override
         public void onItemClick(KitchenResponse.Collection collection) {
-            mFilterCollectionAdapterListener.filterCollectionItemClick(collection);
+            mLiveProductsAdapterListener.collectionItemClick(collection);
         }
     }
 
