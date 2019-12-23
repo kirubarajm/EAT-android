@@ -109,7 +109,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     @Override
     public int getItemViewType(int position) {
 
-        if (item_list != null &&item_list.get(position).getType()!=null&& !item_list.isEmpty()) {
+        if (item_list != null &&item_list.get(position).getType()!=null&& item_list.size()>0) {
 
             if (item_list.get(position).getType()!=null&&item_list.get(position).getType() == 0) {
                 return VIEW_TYPE_NORMAL;
@@ -127,6 +127,8 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
                 return VIEW_TYPE_EMPTY_ARRAY;
             }
 
+        } else  if (item_list != null &&item_list.size()>0&& item_list.get(position).getType()==null){
+            return VIEW_TYPE_NORMAL;
         } else {
             return VIEW_TYPE_EMPTY_ARRAY;
         }

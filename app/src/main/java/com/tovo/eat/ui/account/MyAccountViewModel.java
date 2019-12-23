@@ -32,6 +32,13 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
         fetchUserDetails();
+
+        userName.set(getDataManager().getCurrentUserName());
+        userEmail.set(getDataManager().getCurrentUserEmail());
+        userPhoneNo.set(getDataManager().getCurrentUserPhNo());
+
+
+
     }
 
     public void manageAddress() {
@@ -115,7 +122,13 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
     }
 
     public void fetchUserDetails() {
-        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        userName.set(getDataManager().getCurrentUserName());
+        userEmail.set(getDataManager().getCurrentUserEmail());
+        userPhoneNo.set(getDataManager().getCurrentUserPhNo());
+
+
+      /*  if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             Long userId = getDataManager().getCurrentUserId();
             setIsLoading(true);
@@ -170,7 +183,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
             ee.printStackTrace();
 
-        }
+        }*/
     }
 
 }
