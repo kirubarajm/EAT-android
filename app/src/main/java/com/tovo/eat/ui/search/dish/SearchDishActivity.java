@@ -153,7 +153,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
     protected void onResume() {
         super.onResume();
         registerWifiReceiver();
-
+        mSearchDishViewModel.totalCart();
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             if (intent.getExtras().getInt("cid") != 0) {
