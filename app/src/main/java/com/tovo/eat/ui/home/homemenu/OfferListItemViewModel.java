@@ -18,7 +18,7 @@ public class OfferListItemViewModel {
     public OfferListItemViewModel(RefundListItemViewModelListener mListener, KitchenResponse.Coupon coupon) {
         this.mListener = mListener;
         this.coupon = coupon;
-        offerImage.set(coupon.getImgUrl());
+        offerImage.set(coupon.getCouponCollectionImg());
     }
 
 

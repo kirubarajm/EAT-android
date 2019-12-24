@@ -21,7 +21,7 @@ public class InfinityRegionCardItemViewModel {
     public InfinityRegionCardItemViewModel(InfinityRegionItemViewModelListener mListener, KitchenResponse.Region region) {
         this.mListener = mListener;
         this.region = region;
-        imageUrl.set(region.getRegionImage());
+        imageUrl.set(region.getCollectionImage());
         content.set(region.getSliderContent());
 
     }

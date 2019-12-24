@@ -81,7 +81,7 @@ public class RepliesActivityViewModel extends BaseViewModel<RepliesActivityNavig
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
                     if (getNavigator() != null)
-                    getNavigator().onRefreshFailure();
+                        getNavigator().onRefreshFailure();
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

@@ -22,7 +22,7 @@ public class InfinityStoryCardItemViewModel {
         this.mListener = mListener;
         this.stories = stories;
         this.position=position;
-        imageUrl.set(stories.getStoryBigImg());
+        imageUrl.set(stories.getStoryCollectionImg());
 
     }
 

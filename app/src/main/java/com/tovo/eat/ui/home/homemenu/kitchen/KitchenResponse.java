@@ -373,6 +373,9 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("img_url")
         @Expose
         private String imgUrl;
+        @SerializedName("coupon_collection_img")
+        @Expose
+        private String couponCollectionImg;
         @SerializedName("updated_at")
         @Expose
         private Object updatedAt;
@@ -388,6 +391,14 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("clickable")
         @Expose
         private Boolean clickable=true;
+
+        public String getCouponCollectionImg() {
+            return couponCollectionImg;
+        }
+
+        public void setCouponCollectionImg(String couponCollectionImg) {
+            this.couponCollectionImg = couponCollectionImg;
+        }
 
         public Boolean getClickable() {
             return clickable;
@@ -565,6 +576,9 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("region_detail_image")
         @Expose
         private String regionDetailImage;
+        @SerializedName("region_collection_img")
+        @Expose
+        private String collectionImage;
         @SerializedName("special_dish_img")
         @Expose
         private String specialDishImg;
@@ -589,6 +603,15 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("kitchencount")
         @Expose
         private Integer kitchencount;
+
+
+        public String getCollectionImage() {
+            return collectionImage;
+        }
+
+        public void setCollectionImage(String collectionImage) {
+            this.collectionImage = collectionImage;
+        }
 
         public Integer getRegionid() {
             return regionid;
@@ -892,9 +915,9 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("story_img")
         @Expose
         private String storyImg;
-        @SerializedName("story_big_img")
+        @SerializedName("story_collection_img")
         @Expose
-        private String storyBigImg;
+        private String storyCollectionImg;
         @SerializedName("first_story_duration")
         @Expose
         private Integer firstStoryDuration;
@@ -956,12 +979,12 @@ public class KitchenResponse  implements Serializable {
             this.storyImg = storyImg;
         }
 
-        public String getStoryBigImg() {
-            return storyBigImg;
+        public String getStoryCollectionImg() {
+            return storyCollectionImg;
         }
 
-        public void setStoryBigImg(String storyBigImg) {
-            this.storyBigImg = storyBigImg;
+        public void setStoryCollectionImg(String storyCollectionImg) {
+            this.storyCollectionImg = storyCollectionImg;
         }
 
         public Integer getFirstStoryDuration() {

@@ -426,7 +426,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (state.installStatus() == InstallStatus.DOWNLOADED) {
                 popupSnackbarForCompleteUpdate();
             } else if (state.installStatus() == InstallStatus.INSTALLED) {
-                if (mAppUpdateManager != null) {
+                if (mAppUpdateManager != null && installStateUpdatedListener!=null) {
                     mAppUpdateManager.unregisterListener(installStateUpdatedListener);
                 }
 
@@ -495,7 +495,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     private void popupSnackbarForCompleteUpdate() {
 
-        Snackbar snackbar =
+        if (mAppUpdateManager != null) {
+            mAppUpdateManager.completeUpdate();
+        }
+
+        /*Snackbar snackbar =
                 Snackbar.make(
                         findViewById(R.id.root),
                         "New app is ready!",
@@ -508,7 +512,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
 
         // snackbar.setActionTextColor(getResources().getColor(R.color.install_color));
-        snackbar.show();
+        snackbar.show();*/
     }
 
 
@@ -556,8 +560,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
-        //inAppUpdate();
-        updateUIalert();
+        inAppUpdate();
+      //  updateUIalert();
 
         analytics = new Analytics(this, pageName);
 

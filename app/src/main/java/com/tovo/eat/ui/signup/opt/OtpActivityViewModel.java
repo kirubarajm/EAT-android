@@ -180,9 +180,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
 
-
-
-
                                   /*  FreshchatUser freshUser= Freshchat.getInstance(MvvmApp.getInstance()).getUser();
                                     freshUser.setPhone("+91", String.valueOf(phoneNumber));
                                     Freshchat.getInstance(MvvmApp.getInstance()).setUser(freshUser);*/
