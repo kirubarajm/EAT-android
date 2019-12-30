@@ -171,10 +171,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
-
-
         mLiveProductsAdapterListener.collectionItemClick(collection);
-
     }
 
     @Override

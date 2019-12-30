@@ -488,6 +488,33 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
 
+
+
+
+        mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+              int  totalItemCount = mLayoutManager.getItemCount();
+
+               int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                if (!mHomeTabViewModel.paginationLoading.get() && totalItemCount!=0&& totalItemCount <= (lastVisibleItem + 6)) {
+
+                    if ( !mHomeTabViewModel.paginationLoading.get()){
+                        mHomeTabViewModel.paginationLoading.set(true);
+                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                            mHomeTabViewModel.fetchKitchenFilter();
+                        } else {
+                            mHomeTabViewModel.fetchKitchen();
+                        }
+                    }
+                }
+            }
+        });
+
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
@@ -496,10 +523,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                     //int hh = v.getMeasuredHeight();
                     //  int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
-                   /* if (scrollY == (v.getMeasuredHeight() - 150)) {
+                    if (scrollY == (v.getMeasuredHeight() - 150)) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
                         //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    }*/
+                    }
                     if (scrollY > 2000) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
                         //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
@@ -514,13 +541,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             scrollY > oldScrollY) {
 
 
-                        if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
+                     //   if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
 
-                        } else {
+                      //  } else {
 
                            if ( !mHomeTabViewModel.paginationLoading.get()){
                                mHomeTabViewModel.paginationLoading.set(true);
-                               Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                            //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
                                if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
                                    mHomeTabViewModel.fetchKitchenFilter();
                                } else {
@@ -529,7 +556,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                            }
 
 
-                        }
+                      //  }
 
 
                     }

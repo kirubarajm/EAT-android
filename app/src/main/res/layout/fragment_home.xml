@@ -1117,8 +1117,35 @@
 
 
 
-                
-                
+                <RelativeLayout
+                    android:background="@color/eat_color"
+                    android:id="@+id/moreitems"
+                    android:visibility="@{homeTabViewModel.paginationLoading?View.VISIBLE:View.GONE}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                   <!-- <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/tooltip_arrow_up"/>-->
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:text="@string/loading"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+
+
+                </RelativeLayout>
+
+
+
+
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

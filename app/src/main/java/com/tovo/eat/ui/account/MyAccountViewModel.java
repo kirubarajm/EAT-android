@@ -150,6 +150,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                           //  userEmail.set(getDataManager().getCurrentUserEmail());
                            // userPhoneNo.set(getDataManager().getCurrentUserPhNo());
                             regionname.set(response.getResult().get(0).getRegionname());
+
                             if (response.getResult().get(0).getGender() == 1) {
 
                                 gender.set("M");

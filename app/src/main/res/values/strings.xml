@@ -686,6 +686,7 @@
     <string name="quantity_not_availabe">Entered quantity not available now</string>
     <string name="any_other_instructions">Any other instructions?</string>
     <string name="type_special_instructions_for_your_order">Type special instructions for your order</string>
+    <string name="loading">Loading...</string>
 
 
 </resources>

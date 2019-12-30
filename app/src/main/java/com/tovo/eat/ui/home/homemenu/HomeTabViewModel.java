@@ -90,6 +90,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableList<StoriesResponse.Result> storiesItemViewModels = new ObservableArrayList<>();
     public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     public boolean singleTime = false;
+    public int pageCount = 1;
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
     boolean collectionAdded = false;
@@ -100,9 +101,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
     private long orderId;
-
-
-  public int pageCount=1;
 
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
@@ -128,10 +126,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         backToTop.set(false);
         getNavigator().scrollToTop();
     }
+
     public void loadAllApis() {
-    //    fetchStories();
-   //     fetchCoupons();
-       fetchCollections();
+        //    fetchStories();
+        //     fetchCoupons();
+        fetchCollections();
         fetchKitchen();
         fetchRepos(getDataManager().getRegionId());
     }
@@ -571,7 +570,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         pageid.set(pageid.get() + 1);
 
 
-        if (pageid.get()>pageCount) return;
+        // if (pageid.get()>pageCount) return;
 
 
         kitchenListLoading.set(true);
@@ -618,17 +617,16 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
-                                    pageCount=kitchenResponse.getPagecount();
+                                    //   pageCount=kitchenResponse.getPagecount();
                                     if (kitchenResponse != null)
                                         if (kitchenResponse.getResult() != null && kitchenResponse.getResult().size() > 0) {
                                             fullEmpty.set(false);
 
-                                            if (pageid.get()>1){
+                                            if (pageid.get() > 1) {
                                                 backToTop.set(true);
-                                            }else {
+                                            } else {
                                                 backToTop.set(false);
                                             }
-
 
 
                                             if (kitchenResponse.getResult().get(0).getServiceablestatus()) {
@@ -677,16 +675,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
-
-
-
-
-
-
-
-
-
-                                            paginationLoading.set(false);
                                             //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                             //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                             try {
@@ -697,7 +685,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             }
                                         } else {
                                             if (pageid.get() == 1)
-                                            fullEmpty.set(true);
+                                                fullEmpty.set(true);
+                                            pageid.set(pageid.get() - 1);
                                             try {
                                                 if (getNavigator() != null)
                                                     getNavigator().kitchenLoaded();
@@ -710,7 +699,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                 } else {
                                     if (pageid.get() == 1)
-                                    fullEmpty.set(true);
+                                        fullEmpty.set(true);
+                                    pageid.set(pageid.get() - 1);
+
                                     try {
                                         if (getNavigator() != null)
                                             getNavigator().kitchenLoaded();
@@ -719,23 +710,25 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     }
                                 }
 
+                                paginationLoading.set(false);
 
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
+                                if (pageid.get() == 1)
+                                    fullEmpty.set(true);
                                 pageid.set(pageid.get() - 1);
                                 kitchenListLoading.set(false);
-
+                                paginationLoading.set(false);
                                 try {
                                     if (getNavigator() != null)
                                         getNavigator().kitchenLoaded();
                                 } catch (Exception ee) {
                                     ee.printStackTrace();
                                 }
-                                if (pageid.get() == 1)
-                                fullEmpty.set(true);
+
                             }
                         }) {
 
@@ -772,7 +765,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
         pageid.set(pageid.get() + 1);
 
-        if (pageid.get()>pageCount) return;
+        //if (pageid.get()>pageCount) return;
 
         kitchenListLoading.set(true);
         if (getDataManager().getCurrentLat() == null) {
@@ -827,19 +820,20 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onResponse(JSONObject response) {
                                 kitchenListLoading.set(false);
+
                                 if (response != null) {
                                     KitchenResponse kitchenResponse;
                                     Gson sGson = new GsonBuilder().create();
                                     kitchenResponse = sGson.fromJson(response.toString(), KitchenResponse.class);
 
 
-                                    pageCount=kitchenResponse.getPagecount();
+                                    //     pageCount=kitchenResponse.getPagecount();
 
                                     if (kitchenResponse.getResult().size() > 0) {
 
-                                        if (pageid.get()>1){
+                                        if (pageid.get() > 1) {
                                             backToTop.set(true);
-                                        }else {
+                                        } else {
                                             backToTop.set(false);
                                         }
 
@@ -888,7 +882,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
                                         kitchenItemsLiveData.postValue(kitchenResponse.getResult());
-                                        paginationLoading.set(false);
+
                                         //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
                                         //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                         try {
@@ -901,6 +895,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                         if (pageid.get() == 1)
                                             emptyKitchen.set(true);
+                                        pageid.set(pageid.get() - 1);
                                         try {
 
                                             getNavigator().kitchenLoaded();
@@ -912,23 +907,26 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     //    getNavigator().kitchenListLoaded();
 
                                 } else {
+
                                     if (pageid.get() == 1)
                                         emptyKitchen.set(true);
+                                    pageid.set(pageid.get() - 1);
                                     try {
                                         getNavigator().kitchenLoaded();
                                     } catch (Exception ee) {
                                         ee.printStackTrace();
                                     }
                                 }
-
+                                paginationLoading.set(false);
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
-
+                                if (pageid.get() == 1)
+                                    emptyKitchen.set(true);
                                 pageid.set(pageid.get() - 1);
-
+                                paginationLoading.set(false);
                                 kitchenListLoading.set(false);
                                 try {
 
@@ -936,8 +934,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } catch (Exception ee) {
                                     ee.printStackTrace();
                                 }
-                                if (pageid.get() == 1)
-                                    emptyKitchen.set(true);
+
                             }
                         }) {
                             /**
@@ -1136,8 +1133,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-
-    public void saveStory(KitchenResponse response){
+    public void saveStory(KitchenResponse response) {
         Gson gson = new Gson();
         String json = gson.toJson(response);
         getDataManager().setStoriesList(null);
