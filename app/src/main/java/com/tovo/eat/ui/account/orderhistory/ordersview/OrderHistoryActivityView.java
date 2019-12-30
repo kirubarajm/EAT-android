@@ -116,6 +116,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
         new Analytics().repeatOrder(strOrderId);
         Intent intent = MainActivity.newIntent(OrderHistoryActivityView.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("cart", true);
         startActivity(intent);
     }

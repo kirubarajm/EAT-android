@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -24,7 +24,6 @@
 
         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
             android:id="@+id/title"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

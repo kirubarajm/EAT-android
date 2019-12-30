@@ -896,6 +896,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         if (pageid.get() == 1)
                                             emptyKitchen.set(true);
                                         pageid.set(pageid.get() - 1);
+
+
                                         try {
 
                                             getNavigator().kitchenLoaded();

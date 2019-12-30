@@ -170,13 +170,6 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
 
-                                    long cuserid = response.getResult().get(0).getUserid();
-                                    String UserName = response.getResult().get(0).getName();
-                                    String UserEmail = response.getResult().get(0).getEmail();
-                                    String userPhoneNumber = response.getResult().get(0).getPhoneno();
-                                    String userReferralCode = response.getResult().get(0).getReferalcode();
-                                    getDataManager().updateUserInformation(cuserid, UserName, UserEmail, userPhoneNumber, userReferralCode);
-                                    getDataManager().setRegionId(response.getResult().get(0).getRegionid());
 
 
 
@@ -197,7 +190,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     }
 
 
-                                    if (response.getResult().size() > 0) {
+                                    if (response.getResult()!=null&& response.getResult().size() > 0) {
                                         getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
                                         getDataManager().setCurrentLat(response.getResult().get(0).getLat());
                                         getDataManager().setCurrentLng(response.getResult().get(0).getLon());
@@ -205,7 +198,22 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
                                         getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
 
+
+
+                                        long cuserid = response.getResult().get(0).getUserid();
+                                        String UserName = response.getResult().get(0).getName();
+                                        String UserEmail = response.getResult().get(0).getEmail();
+                                        String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                        String userReferralCode = response.getResult().get(0).getReferalcode();
+                                        getDataManager().updateUserInformation(cuserid, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                        getDataManager().setRegionId(response.getResult().get(0).getRegionid());
+
+
                                     }
+
+
+
+
 
                             //        getDataManager().updateUserInformation(CurrentuserId, null, null, null, null);
 
