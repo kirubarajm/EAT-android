@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
 
 public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
@@ -110,6 +111,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         collectionItemLiveData = new MutableLiveData<>();
         couponListItemsLiveData = new MutableLiveData<>();
         getDataManager().saveIsFilterApplied(false);
+        getDataManager().saveFilterSort(null);
         pageid.set(0);
         fullEmpty.set(false);
 
@@ -710,7 +712,19 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                     }
                                 }
 
-                                paginationLoading.set(false);
+
+                               /* try {
+                                    Thread.sleep(5000);
+                                    paginationLoading.set(false);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }*/
+
+
+
+
+
+
 
                             }
                         }, new Response.ErrorListener() {
@@ -1189,7 +1203,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void fetchCollections() throws NullPointerException {
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_LIST, KitchenResponse.Result.class, new CollectionRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_ICON_LIST, KitchenResponse.Result.class, new CollectionRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {

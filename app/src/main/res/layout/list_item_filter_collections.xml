@@ -10,6 +10,7 @@
     </data>
 
     <LinearLayout
+        android:visibility="@{collectionCardItemViewModel.status?View.VISIBLE:View.GONE}"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_width="wrap_content"

@@ -10,6 +10,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.region.RegionSearchModel;
+import com.tovo.eat.ui.signup.namegender.NameGenderResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -65,9 +66,9 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, EditAccountResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId,otherRegion), new Response.Listener<EditAccountResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId,otherRegion), new Response.Listener<NameGenderResponse>() {
                 @Override
-                public void onResponse(EditAccountResponse response) {
+                public void onResponse(NameGenderResponse response) {
                     if (response != null) {
                         if (response.getStatus() != null && response.getStatus()) {
                             getDataManager().updateUserGender(true);
@@ -75,6 +76,17 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                                 if (getNavigator() != null)
                                     getNavigator().genderSuccess(response.getMessage());
                             getDataManager().saveRegionId(regionId);
+
+                            if (response.getResult()!=null&&response.getResult().size()>0) {
+                                long userId = response.getResult().get(0).getUserid();
+                                String UserName = response.getResult().get(0).getName();
+                                String UserEmail = response.getResult().get(0).getEmail();
+                                String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                String userReferralCode = response.getResult().get(0).getReferalcode();
+                                getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                getDataManager().setRegionId(response.getResult().get(0).getRegionid());
+                            }
+
                         }
                     }
                 }

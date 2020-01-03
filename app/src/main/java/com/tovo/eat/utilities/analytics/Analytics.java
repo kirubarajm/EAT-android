@@ -190,14 +190,14 @@ public class Analytics {
     }
 
 
-    public void userLogin(int user_id, String number) {
+    public void userLogin(Long user_id, String number) {
 
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
 
         Bundle bundle = new Bundle();
-        bundle.putInt(AppConstants.ANALYTICYS_USER_ID, user_id);
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, user_id);
         bundle.putString(AppConstants.ANALYTICYS_MOBILE_NUMBER, number);
         mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_USER_LOGIN, bundle);
     }

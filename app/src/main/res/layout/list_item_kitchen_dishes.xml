@@ -277,7 +277,7 @@
 
 
                 <RelativeLayout
-                    android:background="@{kitchenDishItemViewModel.serviceableKitchen?@color/white:@color/gray}"
+                    android:background="@{kitchenDishItemViewModel.serviceableKitchen?@color/white:@color/lgray}"
                     android:layout_marginStart="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

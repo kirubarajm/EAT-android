@@ -98,21 +98,23 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, nameGenderRequest, new Response.Listener<NameGenderResponse>() {
                 @Override
-                public void onResponse(NameGenderResponse response) {
+                        public void onResponse(NameGenderResponse response) {
                     if (response != null) {
                         if (getNavigator() != null)
                             getNavigator().genderSuccess(response.getMessage());
                         if (response.getStatus()) {
                             getDataManager().updateUserGender(true);
 
-                            long userId = response.getResult().get(0).getUserid();
-                            String UserName = response.getResult().get(0).getName();
-                            String UserEmail = response.getResult().get(0).getEmail();
-                            String userPhoneNumber = response.getResult().get(0).getPhoneno();
-                            String userReferralCode = response.getResult().get(0).getReferalcode();
-                            getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
 
-                            getDataManager().setRegionId(response.getResult().get(0).getRegionid());
+                            if (response.getResult()!=null&&response.getResult().size()>0) {
+                                long userId = response.getResult().get(0).getUserid();
+                                String UserName = response.getResult().get(0).getName();
+                                String UserEmail = response.getResult().get(0).getEmail();
+                                String userPhoneNumber = response.getResult().get(0).getPhoneno();
+                                String userReferralCode = response.getResult().get(0).getReferalcode();
+                                getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+                                getDataManager().setRegionId(response.getResult().get(0).getRegionid());
+                            }
 
                         }
                     }

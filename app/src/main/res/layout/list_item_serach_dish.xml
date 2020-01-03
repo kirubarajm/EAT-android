@@ -21,7 +21,7 @@
             android:id="@+id/kitchenTile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{searchDishItemViewModel.serviceableKitchen?@color/white:@color/gray}"
+            android:background="@{searchDishItemViewModel.serviceableKitchen?@color/white:@color/lgray}"
             android:onClick="@{()->searchDishItemViewModel.onItemClick()}"
             android:orientation="horizontal">
 
@@ -57,6 +57,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{searchDishItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}">
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:visibility="gone"
                     android:id="@+id/service1"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -152,6 +153,8 @@
 
 
                             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -173,13 +176,32 @@
 
 
                             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:visibility="@{searchDishItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginLeft="5dp"
                                 android:singleLine="true"
+                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center_vertical"
                                 android:text="@{searchDishItemViewModel.eta}"
                                 android:textColor="@color/medium_gray"
+                                android:textSize="12sp" />
+
+
+
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:visibility="@{searchDishItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:text="@string/unserviceable"
+                                android:textColor="@color/red"
                                 android:textSize="12sp" />
 
 
@@ -265,10 +287,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="1dp"
-                tools:itemCount="2"
                 android:animateLayoutChanges="false"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
+                tools:itemCount="2"
                 tools:listitem="@layout/list_item_cart_dishes" />
 
             <RelativeLayout

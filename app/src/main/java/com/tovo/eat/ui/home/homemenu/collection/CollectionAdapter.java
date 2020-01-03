@@ -2,14 +2,19 @@ package com.tovo.eat.ui.home.homemenu.collection;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tovo.eat.databinding.ListItemCollectionCardBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -21,15 +26,15 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
 
-    public CollectionAdapter(List<KitchenResponse.Collection> item_list) {
-        for (int i = 0; i < item_list.size(); i++) {
-
-            if (!item_list.get(i).getCollectionstatus()) {
-                item_list.remove(i);
+    public CollectionAdapter(List<KitchenResponse.Collection> item_listall) {
+        for (int i = 0; i < item_listall.size(); i++) {
+            if (!item_listall.get(i).getCollectionstatus()) {
+                item_listall.remove(i);
+                notifyDataSetChanged();
             }
-
         }
-        this.item_list = item_list;
+        this.item_list = item_listall;
+
 
 
     }
@@ -128,11 +133,25 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mLiveProductsItemViewModel = new CollectionCardItemViewModel(this, blog);
             mListItemLiveProductsBinding.setCollectionCardItemViewModel(mLiveProductsItemViewModel);
 
+
             // Immediate Binding
             // When a variable or observable changes, the binding will be scheduled to change before
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+
+
+            /*DisplayMetrics displayMetrics = MvvmApp.getInstance().getResources().getDisplayMetrics();
+            float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
+
+
+
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.round(screenWidthDp/2),Math.round(screenWidthDp/2));
+            mListItemLiveProductsBinding.im.setLayoutParams(params);*/
+
+
+
         }
 
 

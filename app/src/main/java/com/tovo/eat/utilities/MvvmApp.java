@@ -151,11 +151,12 @@ public class MvvmApp extends Application implements HasActivityInjector {
         appPreferencesHelper.setRatingAppStatus(true);
 
 
-//        Crashlytics.getInstance();
+if (!BuildConfig.DEBUG)
+      Crashlytics.getInstance();
 
 
 //TODO: Disable debug crashes
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+       /* Crashlytics crashlyticsKit = new Crashlytics.Builder()
                 .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
                 .build();
         // Initialize Fabric with the debug-disabled crashlytics.
@@ -164,7 +165,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
         FacebookSdk.fullyInitialize();
         FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        AppEventsLogger.activateApp(this);*/
 
         //AppLogger.init();
 

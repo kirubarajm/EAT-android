@@ -38,7 +38,6 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         userPhoneNo.set(getDataManager().getCurrentUserPhNo());
 
 
-
     }
 
     public void manageAddress() {
@@ -141,23 +140,25 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             getUserDetailsResponse = response;
 
                             setIsLoading(false);
-                          //  String strUserName = response.getResult().get(0).getName();
-                           // String strUserEmail = response.getResult().get(0).getEmail();
-                          //  String strUserPhNo = response.getResult().get(0).getPhoneno();
-                          //  getDataManager().updateUserInformation(userId, strUserName, strUserEmail, strUserPhNo, null);
+                            //  String strUserName = response.getResult().get(0).getName();
+                            // String strUserEmail = response.getResult().get(0).getEmail();
+                            //  String strUserPhNo = response.getResult().get(0).getPhoneno();
+                            //  getDataManager().updateUserInformation(userId, strUserName, strUserEmail, strUserPhNo, null);
 
-                          //  userName.set(getDataManager().getCurrentUserName());
-                          //  userEmail.set(getDataManager().getCurrentUserEmail());
-                           // userPhoneNo.set(getDataManager().getCurrentUserPhNo());
-                            regionname.set(response.getResult().get(0).getRegionname());
+                            //  userName.set(getDataManager().getCurrentUserName());
+                            //  userEmail.set(getDataManager().getCurrentUserEmail());
+                            // userPhoneNo.set(getDataManager().getCurrentUserPhNo());
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+                                regionname.set(response.getResult().get(0).getRegionname());
 
-                            if (response.getResult().get(0).getGender() == 1) {
+                                if (response.getResult().get(0).getGender() == 1) {
 
-                                gender.set("M");
-                            } else {
+                                    gender.set("M");
+                                } else {
 
-                                gender.set("F");
+                                    gender.set("F");
 
+                                }
                             }
 
                         }

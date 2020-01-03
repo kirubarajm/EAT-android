@@ -28,7 +28,7 @@ public class OtpResponse {
     private Boolean genderstatus;
     @SerializedName("userid")
     @Expose
-    private Integer userid;
+    private Long userid;
     @SerializedName("regionid")
     @Expose
     private Integer regionid;
@@ -107,11 +107,11 @@ public class OtpResponse {
         this.genderstatus = genderstatus;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

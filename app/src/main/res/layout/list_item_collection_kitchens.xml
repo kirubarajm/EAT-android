@@ -18,238 +18,265 @@
   -->
     <!--CENTER. app:gravity="center" - is default value -->
 
+    <android.support.v7.widget.CardView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:background="@{kitchenItemViewModel.seriviceable? @color/white: @color/gray}"
-                android:minHeight="120dp"
-                android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:minHeight="105dp"
+                android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="67dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp">
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        <!--
+                                                <android.support.v7.widget.CardView
+                                                    app:cardBackgroundColor="@color/white"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    app:cardCornerRadius="5dp"
+                                                    app:cardElevation="0dp"
+                                                    app:cardUseCompatPadding="false">-->
+
+                        <ImageView
+                            imageUrl="@{kitchenItemViewModel.kitchen_image}"
+                            loader="@{loader}"
+                            android:layout_width="100dp"
+                            android:layout_height="67dp"
+                            android:scaleType="centerCrop" />
+
+                        <!-- </android.support.v7.widget.CardView>-->
+                        <ImageView
+                            android:id="@+id/loader"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:foregroundGravity="center" />
+
 
                         <RelativeLayout
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_width="100dp"
+                            android:layout_height="67dp"
+                            android:background="#C4E9E8E8"
+                            android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}">
 
-                            <ImageView
-                                imageUrl="@{kitchenItemViewModel.kitchen_image}"
-                                loader="@{loader}"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:scaleType="centerCrop" />
-                            <ImageView
-                                android:foregroundGravity="center"
-                                android:id="@+id/loader"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+
+                          <!--  <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                                android:id="@+id/service1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:layout_gravity="center_horizontal|center_vertical" />
+                                android:background="@color/dark_gray"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:text="@string/unserviceable"
+                                android:textColor="@color/white"
+                                android:textSize="8sp" />-->
+                        </RelativeLayout>
 
 
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="67dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="10dp">
+
+
+                        <LinearLayout
+                            android:id="@+id/tt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
 
                             <RelativeLayout
-                                android:background="#C4E9E8E8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="80dp"
-                                android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}">
-
-
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
                                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                                    android:layout_centerVertical="true"
-                                    android:id="@+id/service1"
-                                    android:background="@color/dark_gray"
-                                    android:padding="5dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:ellipsize="end"
                                     android:singleLine="true"
-                                    android:text="@string/unserviceable"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp" />
+                                    android:text="@{kitchenItemViewModel.kitchen_name}"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
                             </RelativeLayout>
 
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@{kitchenItemViewModel.cuisines}"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="12sp" />
 
-                        </RelativeLayout>
 
+                        </LinearLayout>
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:layout_alignParentBottom="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp">
+                            android:orientation="horizontal"
+                            android:visibility="visible">
 
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_star_black_24dp"
+                                android:tint="@color/eat_color"
+                                android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
+
+
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:singleLine="true"
+                                android:text="@{kitchenItemViewModel.ratings}"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="10sp"
+                                android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                                        android:layout_width="wrap_content"
-                                        android:textStyle="bold"
-                                        android:layout_height="wrap_content"
-                                        android:text="@{kitchenItemViewModel.kitchen_name}"
-                                        android:textColor="@color/black"
-                                        android:textSize="18sp"/>
-                                    <!--
-                                                        <ImageView
-                                                            android:onClick="@{()->kitchenItemViewModel.fav()}"
-                                                            android:layout_width="20dp"
-                                                            android:layout_height="20dp"
-                                                            android:layout_marginLeft="20dp"
-                                                            android:layout_alignParentEnd="true"
-                                                            android:layout_alignParentRight="true"
-                                                            android:src="@{kitchenItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
-                                                            android:layout_marginStart="20dp" />-->
-
-                                </RelativeLayout>
-
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@{kitchenItemViewModel.cuisines}"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="12sp" />
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_brightness_1_black_24dp"
+                                android:tint="@color/medium_gray"
+                                android:visibility="@{kitchenItemViewModel.isEta?View.VISIBLE:View.GONE}" />
 
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:visibility="@{kitchenItemViewModel.seriviceable?View.VISIBLE:View.GONE}"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginTop="15dp"
-                                android:orientation="horizontal">
-
-
-                                <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_margin="2dp"
-                                    android:src="@drawable/ic_star_black_24dp"
-                                    android:tint="@color/eat_color"
-                                    android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:singleLine="true"
+                                android:layout_marginTop="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:text="@{kitchenItemViewModel.eta}"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="10sp" />
 
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{kitchenItemViewModel.ratings}"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="10sp"
-                                    android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
-
-
-                                <ImageView
-                                    android:layout_width="3dp"
-                                    android:layout_height="3dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:src="@drawable/ic_brightness_1_black_24dp"
-                                    android:tint="@color/medium_gray"
-                                    android:visibility="@{kitchenItemViewModel.isEta?View.VISIBLE:View.GONE}" />
-
-
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                    android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginLeft="5dp"
                                     android:singleLine="true"
-                                    android:text="@{kitchenItemViewModel.eta}"
-                                    android:textColor="@color/medium_gray"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/unserviceable"
+                                    android:textColor="@color/red"
                                     android:textSize="10sp" />
 
 
-                                <ImageView
-                                    android:visibility="gone"
-                                    android:layout_width="3dp"
-                                    android:layout_height="3dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:src="@drawable/ic_brightness_1_black_24dp"
-                                    android:tint="@color/medium_gray" />
+                            <ImageView
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_brightness_1_black_24dp"
+                                android:tint="@color/medium_gray"
+                                android:visibility="gone" />
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:visibility="gone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:singleLine="true"
-                                    android:text="@string/icon_inr"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="7sp" />
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:singleLine="true"
+                                android:text="@string/icon_inr"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="7sp"
+                                android:visibility="gone" />
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:visibility="gone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{kitchenItemViewModel.offer}"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="10sp" />
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:text="@{kitchenItemViewModel.offer}"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
 
 
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:visibility="gone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginLeft="2dp"
-                                    android:singleLine="true"
-                                    android:text="@string/for_two"
-                                    android:textColor="@color/medium_gray"
-                                    android:textSize="10sp" />
+                            <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:singleLine="true"
+                                android:text="@string/for_two"
+                                android:textColor="@color/medium_gray"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
 
 
-                            </LinearLayout>
+                        </LinearLayout>
 
 
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/gray" />
+                    </RelativeLayout>
 
                 </LinearLayout>
-
 
             </LinearLayout>
 
 
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </layout>

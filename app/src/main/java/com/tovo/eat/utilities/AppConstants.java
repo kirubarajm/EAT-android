@@ -411,6 +411,7 @@ public class AppConstants {
     public static final String EAT_EXPLORE_SEARCH = URL_SERVER_IP_PORT + "/eat/quicksearch";
     public static final String EAT_STORIES_LIST = URL_SERVER_IP_PORT + "/eat/stories";
     public static final String EAT_COLLECTION_LIST = URL_SERVER_IP_PORT + "/eat/collection";
+    public static final String EAT_COLLECTION_ICON_LIST = URL_SERVER_IP_PORT + "/eat/collectionicons";
     public static final String EAT_PAYMENT_RETRY_URL = URL_SERVER_IP_PORT + "/eat/payment/retry";
 
 

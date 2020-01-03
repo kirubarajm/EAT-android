@@ -94,7 +94,7 @@ public class CartRequestPojo {
         private Integer productid;
         @SerializedName("quantity")
         @Expose
-        private Integer quantity;
+        private Integer quantity=0;
 
         @SerializedName("price")
         @Expose

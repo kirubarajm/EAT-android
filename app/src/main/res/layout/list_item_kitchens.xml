@@ -17,12 +17,12 @@
   -->
     <!--CENTER. app:gravity="center" - is default value -->
 
-
+    <!--android:background="@{kitchenItemViewModel.seriviceable? @color/white: @color/gray}"-->
     <LinearLayout
         android:id="@+id/kitchen_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{kitchenItemViewModel.seriviceable? @color/white: @color/gray}"
+        android:background="@color/white"
         android:onClick="@{()->kitchenItemViewModel.onItemClick()}"
         android:orientation="horizontal">
 
@@ -85,7 +85,7 @@
 
 
 
-                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                  <!--  <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                         android:id="@+id/service1"
                         android:background="@color/dark_gray"
                         android:layout_centerInParent="true"
@@ -96,7 +96,7 @@
                         android:singleLine="true"
                         android:text="@string/unserviceable"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="12sp" />-->
                 </RelativeLayout>
                <!-- </RelativeLayout>-->
 
@@ -127,8 +127,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
+                                android:ellipsize="end"
                                 android:text="@{kitchenItemViewModel.kitchen_name}"
-                                android:textColor="@{kitchenItemViewModel.seriviceable?@color/black: @color/medium_gray}"
+                                android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -144,6 +145,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
+                                android:ellipsize="end"
+                                android:maxLines="2"
                                 android:text="@{kitchenItemViewModel.cuisines}"
                                 android:textColor="@color/medium_gray"
                                 android:textSize="12sp" />
@@ -154,8 +157,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
+                                android:ellipsize="end"
                                 android:text="@{kitchenItemViewModel.region}"
-                                android:textColor="@{kitchenItemViewModel.seriviceable?@color/black: @color/medium_gray}"
+                                android:textColor="@color/medium_gray"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
@@ -174,6 +178,7 @@
 
 
                     <LinearLayout
+                        android:gravity="center_vertical"
                         android:id="@+id/rating"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -186,16 +191,17 @@
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="2dp"
                             android:src="@drawable/ic_star_black_24dp"
                             android:tint="@color/eat_color"
                             android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
                             android:singleLine="true"
                             android:text="@{kitchenItemViewModel.ratings}"
                             android:textColor="@color/medium_gray"
@@ -214,15 +220,32 @@
 
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_marginTop="2dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="@{kitchenItemViewModel.seriviceable?View.VISIBLE:View.GONE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
                             android:layout_marginStart="5dp"
                             android:singleLine="true"
                             android:text="@{kitchenItemViewModel.eta}"
                             android:textColor="@color/medium_gray"
                             android:textSize="10sp" />
 
+
+
+                        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                            android:layout_marginTop="2dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:padding="5dp"
+                            android:singleLine="true"
+                            android:text="@string/unserviceable"
+                            android:textColor="@color/red"
+                            android:textSize="10sp" />
 
                         <ImageView
                             android:layout_width="3dp"

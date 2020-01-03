@@ -30,6 +30,7 @@ public class FilterCollectionAdapter extends RecyclerView.Adapter<BaseViewHolder
 
             if (!item_list.get(i).getCollectionstatus()) {
                 item_list.remove(i);
+                notifyDataSetChanged();
             }
 
         }

@@ -99,12 +99,13 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                         getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
 
                                     }
-                                    getNavigator().loginSuccess();
 
                                 } catch (NumberFormatException e) {
                                     e.printStackTrace();
                                 }
                             }
+
+                            getNavigator().loginSuccess();
                         } else {
                             getNavigator().loginFailure();
                         }
@@ -163,14 +164,7 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
                                     getDataManager().updateEmailStatus(response.getEmailstatus());
 
 
-
-
-
-
-
-
-
-
+                                    getDataManager().setCurrentUserId(response.getUserid());
 
 
                                   /*  FreshchatUser freshUser= Freshchat.getInstance(MvvmApp.getInstance()).getUser();

@@ -53,12 +53,14 @@ import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CustomTypefaceSpan;
+import com.tovo.eat.utilities.EndlessRecyclerOnScrollListener;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
+import com.tovo.eat.utilities.scroll.PaginationListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
 
 import org.checkerframework.checker.units.qual.K;
@@ -75,7 +77,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
-    private static final int MAX_ITEMS_PER_REQUEST = 10;
+    private static final int MAX_ITEMS_PER_REQUEST =6;
     private static final int NUMBER_OF_ITEMS = 100;
     private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
     @Inject
@@ -216,6 +218,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void kitchenLoaded() {
         stopKitchenLoader();
+        mHomeTabViewModel.paginationLoading.set(false);
+       /* new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHomeTabViewModel.paginationLoading.set(false);
+            }
+        },2000);*/
+
     }
 
     @Override
@@ -488,14 +498,62 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerviewOrders.setLayoutManager(mLayoutManager);
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
 
+        mFragmentHomeBinding.recyclerviewOrders.setNestedScrollingEnabled(false);
 
 
 
-       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new com.tovo.eat.utilities.scroll.EndlessRecyclerOnScrollListener(mLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+
+                if ( !mHomeTabViewModel.paginationLoading.get()){
+                    mHomeTabViewModel.paginationLoading.set(true);
+                    Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                    if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                        mHomeTabViewModel.fetchKitchenFilter();
+                    } else {
+                        mHomeTabViewModel.fetchKitchen();
+                    }
+                }
+
+            }
+        });*/
+     //   createInfiniteScrollListener();
+
+
+       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new PaginationListener(mLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                if ( !mHomeTabViewModel.paginationLoading.get()){
+                    mHomeTabViewModel.paginationLoading.set(true);
+                    Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                    if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                        mHomeTabViewModel.fetchKitchenFilter();
+                    } else {
+                        mHomeTabViewModel.fetchKitchen();
+                    }
+                }
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return false;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return false;
+            }
+
+        });*/
+
+
+
+        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-              int  totalItemCount = mLayoutManager.getItemCount();
+              int  totalItemCount = 100;
 
                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
                 if (!mHomeTabViewModel.paginationLoading.get() && totalItemCount!=0&& totalItemCount <= (lastVisibleItem + 6)) {
@@ -514,6 +572,37 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });*/
 
 
+       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                if ( !mHomeTabViewModel.paginationLoading.get()) {
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mHomeTabViewModel.kitchenItemViewModels.size() - 1) {
+
+                        if ( !mHomeTabViewModel.paginationLoading.get()){
+                            mHomeTabViewModel.paginationLoading.set(true);
+                               Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
+                            if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                                mHomeTabViewModel.fetchKitchenFilter();
+                            } else {
+                                mHomeTabViewModel.fetchKitchen();
+                            }
+                        }
+
+                    }
+                }
+            }
+        });*/
+
+        mFragmentHomeBinding.fullScroll.setNestedScrollingEnabled(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -521,7 +610,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
 
-                    //int hh = v.getMeasuredHeight();
+                    /*//int hh = v.getMeasuredHeight();
                     //  int ff = mFragmentHomeBinding.recyclerviewOrders.getChildAt(0).getMeasuredHeight();
                     if (scrollY == (v.getMeasuredHeight() - 150)) {
                         //   Log.i(TAG, "BOTTOM SCROLL");
@@ -534,7 +623,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
                     }else {
                         mHomeTabViewModel.backToTop.set(false);
-                    }
+                    }*/
 
 
                     if ((scrollY >= (mFragmentHomeBinding.fullScroll.getChildAt(mFragmentHomeBinding.fullScroll.getChildCount() - 1).getMeasuredHeight() - mFragmentHomeBinding.fullScroll.getMeasuredHeight())) &&
@@ -1093,7 +1182,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
-        intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
+        intent.putExtra("title", collection.getName());
         startActivity(intent);
 
     }
@@ -1184,7 +1273,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
-        intent.putExtra("title", collection.getHeading() + " " + collection.getSubheading());
+        intent.putExtra("title", collection.getName() );
         startActivity(intent);
     }
 }

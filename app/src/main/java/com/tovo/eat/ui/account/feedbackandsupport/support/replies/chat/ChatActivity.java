@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
@@ -127,18 +128,28 @@ public class ChatActivity extends BaseActivity<ActivityChatBinding, ChatActivity
     @Override
     public void apiLoaded() {
         mActivityChatBinding.loader.setVisibility(View.GONE);
+        mActivityChatBinding.recyclerChat.smoothScrollToPosition(mChatAdapter.getItemCount());
+        mChatAdapter.notifyDataSetChanged();
+      //  int ii = mChatAdapter.getItemCount();
+      /*  int ii = mChatActivityViewModel.chatItemViewModels.size();
+        if (ii > 1) {
+            mActivityChatBinding.recyclerChat.smoothScrollToPosition(mChatAdapter.getItemCount());
+            mChatAdapter.notifyDataSetChanged();
+        }*/
+      //  mActivityChatBinding.scrollRecycle.smoothScrollTo(0,  mActivityChatBinding.scrollRecycle.getBottom());
+        mActivityChatBinding.scrollRecycle.fullScroll(ScrollView.FOCUS_DOWN);
     }
 
     @Override
     public void onRefreshSuccess(List<ChatRepliesReadRequest.Aidlist> aidlist) {
-        mActivityChatBinding.swipeChat.setRefreshing(false);
+        //  mActivityChatBinding.swipeChat.setRefreshing(false);
         mActivityChatBinding.edtMessage.setText("");
         mChatActivityViewModel.readMessageServiceCall(aidlist);
     }
 
     @Override
     public void onRefreshFailure(String strFailure) {
-        mActivityChatBinding.swipeChat.setRefreshing(false);
+        //   mActivityChatBinding.swipeChat.setRefreshing(false);
         mActivityChatBinding.loader.setVisibility(View.GONE);
     }
 

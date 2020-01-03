@@ -290,22 +290,25 @@ public class FilterViewModel extends BaseViewModel<FilterNavigator> {
 
        // cuisinelists = masterPojo.getResult().get(1).getCuisinelist();
 
-        regionlists = masterPojo.getResult().get(0).getRegionlist();
-        sorts = masterPojo.getResult().get(2).getSort();
 
-        for (int i = 0; i < sorts.size(); i++) {
-            filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
+        if (masterPojo!=null&&masterPojo.getResult()!=null) {
+
+            regionlists = masterPojo.getResult().get(0).getRegionlist();
+            sorts = masterPojo.getResult().get(2).getSort();
+
+            for (int i = 0; i < sorts.size(); i++) {
+                filterItemList.add(new FilterItems(sorts.get(i).getSortid(), sorts.get(i).getSortname()));
+            }
+
+            if (getDataManager().getCurrentFragment() == 1) {
+                filterItemList.remove(1);
+            }
+
+
+            filterItems.addAll(filterItemList);
+
+            isSortClicked.set(true);
         }
-
-        if (getDataManager().getCurrentFragment() == 1) {
-            filterItemList.remove(1);
-        }
-
-
-        filterItems.addAll(filterItemList);
-
-        isSortClicked.set(true);
-
     }
 
 
