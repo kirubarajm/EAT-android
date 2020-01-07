@@ -36,9 +36,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -52,7 +49,6 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -140,7 +136,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
         //   FirebaseAnalytics.getInstance(this);
 
 
-        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.ENABLE_DEBUG) {
             FirebaseAnalytics.getInstance(this);
         }
 
@@ -151,8 +147,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
         appPreferencesHelper.setRatingAppStatus(true);
 
 
-if (!BuildConfig.DEBUG)
-      Crashlytics.getInstance();
+        if (!BuildConfig.ENABLE_DEBUG)
+            Crashlytics.getInstance();
 
 
 //TODO: Disable debug crashes

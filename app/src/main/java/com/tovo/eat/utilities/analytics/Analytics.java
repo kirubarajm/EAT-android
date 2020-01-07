@@ -20,7 +20,7 @@ public class Analytics {
 
     public Analytics() {
 
-        if(BuildConfig.DEBUG) return;
+        if(BuildConfig.ENABLE_DEBUG) return;
 
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
 
@@ -50,7 +50,8 @@ public class Analytics {
 
 
     public Analytics(Context context, String screen_name) {
-        if(BuildConfig.DEBUG) return;
+
+        if(BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -61,7 +62,7 @@ public class Analytics {
     }
 
     public Analytics(String screen_name) {
-        if(BuildConfig.DEBUG) return;
+        if(BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -72,7 +73,7 @@ public class Analytics {
     }
 
     public Analytics(int productid, String productname, int price, int quantity, String kitchenName) {
-        if(BuildConfig.DEBUG) return;
+        if(BuildConfig.ENABLE_DEBUG) return;
      /*   if (mFirebaseAnalytics == null)
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(MvvmApp.getInstance());
 
@@ -88,7 +89,7 @@ public class Analytics {
     }
 
     public Analytics(int price) {
-        if(BuildConfig.DEBUG) return;
+        if(BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -102,7 +103,7 @@ public class Analytics {
     }
 
     public Analytics(String screen_name, String click) {
-        if(BuildConfig.DEBUG) return;
+        if(BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }

@@ -79,7 +79,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
                 return item_list.size();
             }
 
-            
+
         } else {
             return 0;
         }
