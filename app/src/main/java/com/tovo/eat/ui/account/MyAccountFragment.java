@@ -78,6 +78,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
     public void onResume() {
         super.onResume();
         mMyAccountViewModel.fetchUserDetails();
+        mMyAccountViewModel.loadUserDetails();
 
     }
 
@@ -149,6 +150,7 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
             intent.putExtra("gender", getUserDetailsResponse.getResult().get(0).getGender());
             intent.putExtra("region", getUserDetailsResponse.getResult().get(0).getRegionname());
             intent.putExtra("regionid", getUserDetailsResponse.getResult().get(0).getRegionid());
+            intent.putExtra("other_region", getUserDetailsResponse.getResult().get(0).getOtherRegion());
             startActivity(intent);
         }
     }

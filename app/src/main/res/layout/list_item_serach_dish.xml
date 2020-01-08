@@ -52,7 +52,7 @@
 
 
             <RelativeLayout
-                android:background="#B7FFFFFF"
+                android:background="#4B050505"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="@{searchDishItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}">
@@ -148,7 +148,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="2dp"
                                 android:src="@drawable/ic_star_black_24dp"
-                                android:tint="@color/eat_color"
+                                android:tint="@{searchDishItemViewModel.serviceableKitchen?@color/eat_color:@color/dark_gray}"
                                 android:visibility="@{searchDishItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 
@@ -282,13 +282,13 @@
             android:visibility="visible">
 
             <android.support.v7.widget.RecyclerView
+                android:background="@{searchDishItemViewModel.serviceableKitchen?@color/white:@color/lgray}"
                 android:id="@+id/recyclerview_kitchens"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="1dp"
                 android:animateLayoutChanges="false"
-                android:background="@android:color/white"
                 android:nestedScrollingEnabled="true"
                 tools:itemCount="2"
                 tools:listitem="@layout/list_item_cart_dishes" />

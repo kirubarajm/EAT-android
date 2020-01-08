@@ -31,13 +31,18 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
 
     public MyAccountViewModel(DataManager dataManager) {
         super(dataManager);
-        fetchUserDetails();
+        //fetchUserDetails();
 
+
+
+
+    }
+
+
+    public void loadUserDetails(){
         userName.set(getDataManager().getCurrentUserName());
         userEmail.set(getDataManager().getCurrentUserEmail());
         userPhoneNo.set(getDataManager().getCurrentUserPhNo());
-
-
     }
 
     public void manageAddress() {
@@ -149,7 +154,16 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             //  userEmail.set(getDataManager().getCurrentUserEmail());
                             // userPhoneNo.set(getDataManager().getCurrentUserPhNo());
                             if (response.getResult() != null && response.getResult().size() > 0) {
-                                regionname.set(response.getResult().get(0).getRegionname());
+
+                                if (response.getResult().get(0).getRegionid()==0){
+                                    regionname.set(response.getResult().get(0).getOtherRegion());
+                                }else {
+                                    regionname.set(response.getResult().get(0).getRegionname());
+
+                                }
+
+
+                             //   regionname.set(response.getResult().get(0).getRegionname());
 
                                 if (response.getResult().get(0).getGender() == 1) {
 

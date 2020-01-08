@@ -86,7 +86,7 @@
                         <RelativeLayout
                             android:layout_width="100dp"
                             android:layout_height="67dp"
-                            android:background="#C4E9E8E8"
+                            android:background="#4B050505"
                             android:visibility="@{kitchenItemViewModel.seriviceable?View.GONE:View.VISIBLE}">
 
 
@@ -164,7 +164,7 @@
                                 android:layout_height="8dp"
                                 android:layout_gravity="center_vertical"
                                 android:src="@drawable/ic_star_black_24dp"
-                                android:tint="@color/eat_color"
+                                android:tint="@{kitchenItemViewModel.seriviceable?@color/eat_color:@color/dark_gray}"
                                 android:visibility="@{kitchenItemViewModel.isRated?View.VISIBLE:View.GONE}" />
 
 

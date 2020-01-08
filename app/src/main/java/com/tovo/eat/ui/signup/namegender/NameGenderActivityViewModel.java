@@ -28,10 +28,11 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     public NameGenderActivityViewModel(DataManager dataManager) {
         super(dataManager);
         male.set(true);
+        regionotherClicked.set(false);
 
-        if (getDataManager().getRegionId()==0){
+        /*if (getDataManager().getRegionId()==0){
             regionotherClicked.set(true);
-        }
+        }*/
     }
 
     public void proceed() {
@@ -82,7 +83,6 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         if (referral.isEmpty()) {
             nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId,otherRegion);
         } else {
-
             nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral,otherRegion);
         }
 
