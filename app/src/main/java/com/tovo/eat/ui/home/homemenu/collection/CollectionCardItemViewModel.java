@@ -25,7 +25,7 @@ public class CollectionCardItemViewModel {
         this.mListener = mListener;
         this.collection = collection;
         title.set(collection.getHeading());
-        content.set(collection.getName());
+        content.set(collection.getSubheading());
         imageUrl.set(collection.getImgUrl());
         status.set(collection.getCollectionstatus());
 

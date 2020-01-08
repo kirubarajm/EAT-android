@@ -28,6 +28,10 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     public NameGenderActivityViewModel(DataManager dataManager) {
         super(dataManager);
         male.set(true);
+
+        if (getDataManager().getRegionId()==0){
+            regionotherClicked.set(true);
+        }
     }
 
     public void proceed() {
@@ -84,10 +88,10 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
 
         if (regionId == 0) {
-            if (otherRegion.isEmpty()) {
+           /* if (otherRegion.isEmpty()) {
                 Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            }*/
         }
 
 

@@ -72,13 +72,13 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
     @Override
     public int getItemCount() {
         if (item_list != null && item_list.size() > 0) {
+            return item_list.size();
 
-            if (item_list.size()>2){
+            /*if (item_list.size()>2){
                 return 3;
             }else {
                 return item_list.size();
-            }
-
+            }*/
 
         } else {
             return 0;

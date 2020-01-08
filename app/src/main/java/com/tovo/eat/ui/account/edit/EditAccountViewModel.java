@@ -27,6 +27,11 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
     public EditAccountViewModel(DataManager dataManager) {
         super(dataManager);
+
+        if (getDataManager().getRegionId()==0){
+            regionotherClicked.set(true);
+        }
+
     }
 
     public void proceed() {
@@ -55,10 +60,10 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
 
         if (regionId==0){
-            if (otherRegion.isEmpty()){
+           /* if (otherRegion.isEmpty()){
                 Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
                 return;
-            }
+            }*/
         }
 
 
