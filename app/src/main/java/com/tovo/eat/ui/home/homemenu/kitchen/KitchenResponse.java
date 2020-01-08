@@ -14,12 +14,6 @@ public class KitchenResponse  implements Serializable {
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("zoneId")
-    @Expose
-    private Integer zoneId;
-    @SerializedName("zoneName")
-    @Expose
-    private String zoneName;
     @SerializedName("kitchencount")
     @Expose
     private Integer kitchencount;
@@ -44,22 +38,6 @@ public class KitchenResponse  implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public Integer getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(Integer zoneId) {
-        this.zoneId = zoneId;
-    }
-
-    public String getZoneName() {
-        return zoneName;
-    }
-
-    public void setZoneName(String zoneName) {
-        this.zoneName = zoneName;
     }
 
     public Integer getKitchencount() {
@@ -88,9 +66,6 @@ public class KitchenResponse  implements Serializable {
 
     public class CollectionDetail implements Serializable{
 
-        @SerializedName("zone")
-        @Expose
-        private Integer zone;
         @SerializedName("makeituserid")
         @Expose
         private Long makeituserid;
@@ -158,13 +133,7 @@ public class KitchenResponse  implements Serializable {
         @Expose
         private String memberTypeIcon;
 
-        public Integer getZone() {
-            return zone;
-        }
 
-        public void setZone(Integer zone) {
-            this.zone = zone;
-        }
 
         public Long getMakeituserid() {
             return makeituserid;
@@ -1171,9 +1140,6 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("type")
         @Expose
         private Integer type = 0;
-        @SerializedName("zone")
-        @Expose
-        private Integer zone;
         @SerializedName("makeituserid")
         @Expose
         private Long makeituserid;
@@ -1280,13 +1246,6 @@ public class KitchenResponse  implements Serializable {
             this.type = type;
         }
 
-        public Integer getZone() {
-            return zone;
-        }
-
-        public void setZone(Integer zone) {
-            this.zone = zone;
-        }
 
         public Long getMakeituserid() {
             return makeituserid;

@@ -177,6 +177,7 @@
                 android:layout_below="@+id/input_name">
 
                 <android.support.design.widget.TextInputLayout
+                    android:visibility="@{nameGenderViewModel.regionotherClicked?View.GONE:View.VISIBLE}"
                     android:id="@+id/region_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

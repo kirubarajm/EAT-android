@@ -143,6 +143,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             String name = intent.getExtras().getString("name");
             String email = intent.getExtras().getString("email");
             String regionName = intent.getExtras().getString("region");
+            String otherRegionName = intent.getExtras().getString("other_region");
             gender = intent.getExtras().getInt("gender");
             regionId = intent.getExtras().getInt("regionid");
 
@@ -159,11 +160,15 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
                 mActivityNameGenderBinding.edtEmail.setText(email);
 
             if (regionId==0) {
+                mLoginViewModelMain.regionotherClicked.set(true);
                 mActivityNameGenderBinding.region.setText("");
+                mActivityNameGenderBinding.otherRegionname.setText(otherRegionName);
                 mActivityNameGenderBinding.region.setEnabled(false);
                 mActivityNameGenderBinding.chkOthers.setChecked(true);
             } else {
+                mLoginViewModelMain.regionotherClicked.set(false);
                 mActivityNameGenderBinding.region.setText(regionName);
+                mActivityNameGenderBinding.otherRegionname.setText("");
                 mActivityNameGenderBinding.region.setEnabled(true);
                 mActivityNameGenderBinding.chkOthers.setChecked(false);
             }

@@ -69,6 +69,9 @@ public class NameGenderResponse {
         @SerializedName("referalcode")
         @Expose
         private String referalcode;
+        @SerializedName("other_region")
+        @Expose
+        private String otherRegion;
         @SerializedName("Locality")
         @Expose
         private Object locality;
@@ -81,6 +84,15 @@ public class NameGenderResponse {
         @SerializedName("regionid")
         @Expose
         private Integer regionid;
+
+
+        public String getOtherRegion() {
+            return otherRegion;
+        }
+
+        public void setOtherRegion(String otherRegion) {
+            this.otherRegion = otherRegion;
+        }
 
         public Integer getUserid() {
             return userid;

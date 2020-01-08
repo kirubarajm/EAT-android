@@ -63,6 +63,18 @@ public class GetUserDetailsResponse {
         @Expose
         private String regionname;
 
+  @SerializedName("other_region")
+        @Expose
+        private String otherRegion;
+
+
+        public String getOtherRegion() {
+            return otherRegion;
+        }
+
+        public void setOtherRegion(String otherRegion) {
+            this.otherRegion = otherRegion;
+        }
 
         public Integer getRegionid() {
             return regionid;
