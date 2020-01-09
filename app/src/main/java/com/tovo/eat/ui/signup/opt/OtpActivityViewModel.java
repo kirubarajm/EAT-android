@@ -185,13 +185,18 @@ public class OtpActivityViewModel extends BaseViewModel<OtpActivityNavigator> {
 
 
                                     if (response.getResult()!=null&& response.getResult().size() > 0) {
-                                        getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
-                                        getDataManager().setCurrentLat(response.getResult().get(0).getLat());
-                                        getDataManager().setCurrentLng(response.getResult().get(0).getLon());
-                                        getDataManager().setAddressId(response.getResult().get(0).getAid());
-                                        getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
-                                        getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
 
+
+                                        if (response.getResult().get(0).getAid()!=null&&response.getResult().get(0).getAid()!=0) {
+
+                                            getDataManager().setCurrentAddressTitle(response.getResult().get(0).getAddressTitle());
+                                            getDataManager().setCurrentLat(response.getResult().get(0).getLat());
+                                            getDataManager().setCurrentLng(response.getResult().get(0).getLon());
+                                            getDataManager().setAddressId(response.getResult().get(0).getAid());
+                                            getDataManager().setCurrentAddress(response.getResult().get(0).getAddress());
+                                            getDataManager().setCurrentAddressArea(response.getResult().get(0).getLocality());
+
+                                        }
 
 
                                         long cuserid = response.getResult().get(0).getUserid();

@@ -13,8 +13,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 22
-        versionName "1.1.3"
+        versionCode 24
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -24,7 +24,7 @@ android {
             minifyEnabled false
 
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
-           //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+           buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
            //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
            //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
@@ -33,7 +33,7 @@ android {
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
           //  buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
-           buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
+         //  buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
            //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'

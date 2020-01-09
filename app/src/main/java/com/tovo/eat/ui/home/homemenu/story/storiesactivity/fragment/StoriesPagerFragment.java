@@ -30,6 +30,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.StoryStatusView;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.BitmapDrawableViewTarget;
+import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.ProgressTarget;
 import com.tovo.eat.ui.home.homemenu.story.storiesactivity.StoriesTabActivity;
@@ -273,12 +274,25 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .into(target);*/
 
 
-                Glide.with(image.getContext())
+               /* Glide.with(image.getContext())
                         .load(target.getModel())
+                        .fitCenter()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .listener(new LoggingListener())
-                        .into(target);
+                        .into(target);*/
+
+
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //   .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new DelayBitmapTransformation(0))
+                        // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
+
+
+
 
 
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
@@ -340,12 +354,24 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .listener(new LoggingListener<String, Bitmap>())
                         .into(target);*/
 
-                Glide.with(image.getContext())
+                /*Glide.with(image.getContext())
                         .load(target.getModel())
+                        .fitCenter()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .listener(new LoggingListener())
-                        .into(target);
+                        .into(target);*/
+
+
+
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //   .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new DelayBitmapTransformation(0))
+                        // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
+
 
 
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {
@@ -403,12 +429,25 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .into(target);*/
 
 
-                Glide.with(image.getContext())
+                /*Glide.with(image.getContext())
                         .load(target.getModel())
+                        .fitCenter()
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .listener(new LoggingListener())
                         .into(target);
+*/
+
+
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //   .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new DelayBitmapTransformation(0))
+                        // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);
+
+
 
 
             } else if (storiesResponse.getStories().get(counter).getMediatype() == 2) {

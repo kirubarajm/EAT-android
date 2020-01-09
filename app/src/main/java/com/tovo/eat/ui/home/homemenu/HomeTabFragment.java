@@ -847,7 +847,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
 
-        String name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
+        String ss=mHomeTabViewModel.getDataManager().getCurrentUserName();
+        String name;
+       /* name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName()==null?"":mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";*/
+        if (ss==null){
+             name = "Hi! ";
+
+        }else {
+            name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
+        }
+
+
+
         String welcomeMessage = " pick \nyour home to eat!";
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");

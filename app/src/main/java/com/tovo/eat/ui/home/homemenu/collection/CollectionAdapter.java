@@ -27,16 +27,13 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     public CollectionAdapter(List<KitchenResponse.Collection> item_listall) {
-        for (int i = 0; i < item_listall.size(); i++) {
+        /*for (int i = 0; i < item_listall.size(); i++) {
             if (!item_listall.get(i).getCollectionstatus()) {
                 item_listall.remove(i);
                 notifyDataSetChanged();
             }
-        }
+        }*/
         this.item_list = item_listall;
-
-
-
     }
 
 
@@ -63,11 +60,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (item_list != null && item_list.size() > 0) {
+       // if (item_list != null && item_list.size() > 0) {
             return item_list.size();
-        } else {
-            return 1;
-        }
+       // } else {
+        //    return 1;
+        //}
     }
 
     @Override

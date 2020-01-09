@@ -27,7 +27,7 @@ public class CollectionCardItemViewModel {
         title.set(collection.getHeading());
         content.set(collection.getSubheading());
         imageUrl.set(collection.getImgUrl());
-        status.set(collection.getCollectionstatus());
+    //    status.set(collection.getCollectionstatus());
 
     }
 
