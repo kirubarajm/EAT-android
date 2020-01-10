@@ -4,7 +4,9 @@ package com.tovo.eat.ui.home.homemenu.story.storiesactivity.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -20,7 +22,12 @@ import android.widget.VideoView;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.tovo.eat.R;
@@ -274,7 +281,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .into(target);*/
 
 
-               /* Glide.with(image.getContext())
+                /*Glide.with(image.getContext())
                         .load(target.getModel())
                         .fitCenter()
                         .skipMemoryCache(!isCaching)
@@ -283,13 +290,45 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .into(target);*/
 
 
+
+
+
                 Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //  .asBitmap()
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                              //  loader.setVisibility(View.GONE );
+                                storyStatusView.pause();
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                              //  loader.setVisibility(View.GONE );
+                                storyStatusView.resume();
+
+                                return false;
+                            }
+                        })
+                        .error(R.drawable.imagenotavailable)
+                        .into(mFragmentSampleBinding.imageStories1);
+
+
+
+
+
+
+               /* Glide.with(image.getContext())
                         .load(target.getModel())
                         //   .asBitmap()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .transform(new DelayBitmapTransformation(0))
                         // .listener(new LoggingListener<String, Bitmap>())
-                        .into(mFragmentSampleBinding.imageStories1);
+                        .into(mFragmentSampleBinding.imageStories1);*/
 
 
 
@@ -330,7 +369,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
         ++counter;
         mSplashActivityViewModel.aBooleanImg.set(false);
         if (storiesResponse.getStories().size() > 0 && storiesResponse.getStories().size() > counter) {
-            //target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+            target = new MyProgressTarget(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
             if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
@@ -381,6 +420,73 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                     mSplashActivityViewModel.category_type.set((storiesResponse.getStories().get(counter).getCatType()));
                     mSplashActivityViewModel.category_id.set((storiesResponse.getStories().get(counter).getCatIds()));
                 }
+
+                storyStatusView.setStoryDuration(storiesResponse.getStories().get(counter).getDuration());
+                videoView.setVisibility(View.GONE);
+                image.setVisibility(View.VISIBLE);
+                storyStatusView.pause();
+                videoView.stopPlayback();
+                target.setModel(storiesResponse.getStories().get(counter).getUrl());
+               /* Glide.with(image.getContext())
+                        .load(target.getModel())
+                        .asBitmap()
+                        .crossFade()
+                        .skipMemoryCache(!isCaching)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .transform(new CenterCrop(image.getContext()), new DelayBitmapTransformation(0))
+                        .listener(new LoggingListener<String, Bitmap>())
+                        .into(target);*/
+
+
+                /*Glide.with(image.getContext())
+                        .load(target.getModel())
+                        .fitCenter()
+                        .skipMemoryCache(!isCaching)
+                        .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
+                        .listener(new LoggingListener())
+                        .into(target);*/
+
+
+
+
+                Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //  .asBitmap()
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                //  loader.setVisibility(View.GONE );
+                                storyStatusView.pause();
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                //  loader.setVisibility(View.GONE );
+                                storyStatusView.resume();
+
+                                return false;
+                            }
+                        })
+                        .error(R.drawable.imagenotavailable)
+                        .into(mFragmentSampleBinding.imageStories1);
+
+
+              /*  Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //   .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new DelayBitmapTransformation(0))
+                        // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentSampleBinding.imageStories1);*/
+
+
+
+
+
+
                 storyStatusView.setStoryDuration(storiesResponse.getStories().get(counter).getDuration());
                 storyStatusView.pause();
                 videoView.setVisibility(View.VISIBLE);
@@ -404,7 +510,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
             }
 
             if (storiesResponse.getStories().get(counter).getMediatype() == 1 || storiesResponse.getStories().get(counter).getMediatype() == 0) {
-                //target = new MyProgressTarget<>(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
+                target = new MyProgressTarget(new BitmapImageViewTarget(image), imageProgressBar, txtProgress);
                 mSplashActivityViewModel.title.set(String.valueOf(storiesResponse.getStories().get(counter).getTitle()));
                 mSplashActivityViewModel.subTitle.set(String.valueOf(storiesResponse.getStories().get(counter).getSubtitle()));
                 if (storiesResponse.getStories().get(counter).getCatType() != null) {
@@ -418,7 +524,7 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                 storyStatusView.pause();
                 videoView.stopPlayback();
                 target.setModel(storiesResponse.getStories().get(counter).getUrl());
-                /*Glide.with(image.getContext())
+               /* Glide.with(image.getContext())
                         .load(target.getModel())
                         .asBitmap()
                         .crossFade()
@@ -435,17 +541,43 @@ public class StoriesPagerFragment extends BaseFragment<FragmentSampleBinding, St
                         .skipMemoryCache(!isCaching)
                         .diskCacheStrategy(isCaching ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE)
                         .listener(new LoggingListener())
-                        .into(target);
-*/
+                        .into(target);*/
+
+
 
 
                 Glide.with(image.getContext())
+                        .load(target.getModel())
+                        //  .asBitmap()
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                //  loader.setVisibility(View.GONE );
+                                storyStatusView.pause();
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                //  loader.setVisibility(View.GONE );
+                                storyStatusView.resume();
+
+                                return false;
+                            }
+                        })
+                        .error(R.drawable.imagenotavailable)
+                        .into(mFragmentSampleBinding.imageStories1);
+
+
+              /*  Glide.with(image.getContext())
                         .load(target.getModel())
                         //   .asBitmap()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .transform(new DelayBitmapTransformation(0))
                         // .listener(new LoggingListener<String, Bitmap>())
-                        .into(mFragmentSampleBinding.imageStories1);
+                        .into(mFragmentSampleBinding.imageStories1);*/
 
 
 
