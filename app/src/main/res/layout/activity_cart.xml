@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -48,16 +47,6 @@
         </android.support.v7.widget.CardView>
 
 
-
-
-
-
-
-
-
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,28 +57,28 @@
             android:visibility="@{cartViewModel.emptyCart?View.VISIBLE:View.GONE}">
 
             <LinearLayout
-                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:orientation="vertical">
 
 
                 <ImageView
-                    android:layout_gravity="center_horizontal"
                     android:id="@+id/img1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/empty_cart" />
 
 
                 <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                    android:layout_gravity="center_horizontal"
                     android:id="@+id/tt1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img1"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:text="@string/cart_empty_title"
                     android:textAlignment="center"
@@ -98,10 +87,10 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tt1"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="@string/cart_empty_sub_title"
                     android:textAlignment="center"
@@ -110,11 +99,11 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
                     android:background="@drawable/curve_stroke"
@@ -150,9 +139,9 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:onClick="@{()->cartViewModel.openKitchen()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="@{()->cartViewModel.openKitchen()}"
                         android:orientation="horizontal">
 
 
@@ -188,26 +177,27 @@
 
 
                                 <LinearLayout
-                                    android:layout_below="@+id/name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_below="@+id/name"
                                     android:orientation="horizontal">
-                                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:id="@+id/subTitle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{cartViewModel.cuisines}"
-                                    android:textColor="@color/dark_gray"
-                                    android:textSize="12sp" />
 
                                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@{cartViewModel.region}"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
+                                        android:id="@+id/subTitle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:singleLine="true"
+                                        android:text="@{cartViewModel.cuisines}"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="12sp" />
+
+                                    <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:singleLine="true"
+                                        android:text="@{cartViewModel.region}"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
 
                                 </LinearLayout>
                                 <!-- <ImageView
@@ -219,7 +209,6 @@
                                      android:tint="@color/eat_color" />-->
 
                                 <com.tovo.eat.utilities.fonts.TovoTextView
-                                    android:visibility="gone"
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
                                     android:layout_alignParentTop="true"
@@ -229,7 +218,8 @@
                                     android:layout_marginBottom="10dp"
                                     android:onClick="@{()->cartViewModel.fav()}"
                                     android:text="@string/icon_fav_heart_selected"
-                                    android:textColor="@{cartViewModel.isFavourite?@color/red :@color/dark_gray}" />
+                                    android:textColor="@{cartViewModel.isFavourite?@color/red :@color/dark_gray}"
+                                    android:visibility="gone" />
 
 
                             </RelativeLayout>
@@ -279,18 +269,45 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/kitchen_details"
                     android:layout_marginTop="2dp"
-                    tools:itemCount="1"
                     android:background="@android:color/white"
                     android:visibility="visible"
                     app:adapter="@{cartViewModel.cartDishItemViewModels}"
+                    tools:itemCount="1"
                     tools:listitem="@layout/list_item_cart_dishes" />
+
+
+                <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                    android:id="@+id/suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recyclerview_orders"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:singleLine="true"
+                    android:text="People also ordered"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:visibility="@{cartViewModel.serviceable?View.VISIBLE:View.GONE}" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_product_suggestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/suggestion"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/white"
+                    android:visibility="@{cartViewModel.serviceable?View.VISIBLE:View.GONE}"
+                    app:suggestionadapter="@{cartViewModel.suggestionViewModels}"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/list_item_suggestion_product" />
 
 
                 <LinearLayout
                     android:id="@+id/promo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recyclerview_orders"
+                    android:layout_below="@+id/recyclerview_product_suggestion"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
@@ -397,10 +414,10 @@
                             android:id="@+id/recyclerview_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:itemCount="1"
                             android:background="@android:color/white"
                             android:visibility="@{cartViewModel.refundChecked?View.VISIBLE:View.GONE}"
                             app:adapter="@{cartViewModel.refundListItemViewModels}"
+                            tools:itemCount="1"
                             tools:listitem="@layout/list_item_refund" />
 
                     </LinearLayout>
@@ -435,14 +452,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
-                            tools:itemCount="3"
                             android:background="@android:color/white"
                             android:visibility="visible"
                             app:adapter="@{cartViewModel.cartdetails}"
+                            tools:itemCount="3"
                             tools:listitem="@layout/list_item_cart_bill" />
 
                     </LinearLayout>
-
 
 
                     <View
@@ -618,28 +634,25 @@
                     </RadioGroup>
 
 
-
-
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                        android:visibility="gone"
-                        android:layout_marginTop="10dp"
                         android:id="@+id/notes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
                         android:layout_alignParentEnd="true"
-                        android:onClick="@{()->cartViewModel.instructions()}"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@{()->cartViewModel.instructions()}"
                         android:text="@string/any_other_instructions"
+                        android:textAlignment="center"
                         android:textColor="@color/dark_gray"
                         android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
 
-                   <!-- @{cartViewModel.instructionClicked?View.VISIBLE:View.GONE}-->
+                    <!-- @{cartViewModel.instructionClicked?View.VISIBLE:View.GONE}-->
 
                     <android.support.design.widget.TextInputEditText
-                        android:visibility="gone"
                         android:id="@+id/edt_instructions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -654,8 +667,8 @@
                         android:minLines="2"
                         android:padding="5dp"
                         android:scrollbarStyle="insideInset"
-                       android:scrollHorizontally="false" />
-
+                        android:scrollHorizontally="false"
+                        android:visibility="gone" />
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
@@ -685,26 +698,23 @@
         </android.support.v4.widget.NestedScrollView>
 
 
-
-
         <RelativeLayout
-            android:visibility="gone"
-            android:layout_below="@+id/header"
             android:id="@+id/cartLoader"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <include
-                layout="@layout/page_loader"/>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:visibility="gone">
+
+            <include layout="@layout/page_loader" />
 
         </RelativeLayout>
 
 
-
         <ProgressBar
-            android:layout_centerInParent="true"
-            android:visibility="@{cartViewModel.xfactorClick?View.GONE:View.VISIBLE}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{cartViewModel.xfactorClick?View.GONE:View.VISIBLE}" />
 
 
     </RelativeLayout>

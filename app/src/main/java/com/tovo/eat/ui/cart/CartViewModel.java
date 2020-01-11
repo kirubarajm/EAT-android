@@ -23,6 +23,8 @@ import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsListRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -72,6 +74,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean instructionClicked = new ObservableBoolean();
 
 
+    public List<KitchenDishResponse.Productlist> suggestionProductlists = new ArrayList<>();
+    public List<KitchenDishResponse.Productlist> suggestionProductlistsTemp = new ArrayList<>();
+    public ObservableList<KitchenDishResponse.Productlist> suggestionViewModels = new ObservableArrayList<>();
+
+
+    public MutableLiveData<List<KitchenDishResponse.Productlist>> suggestionViewLiveData;
+
     public final ObservableBoolean xfactorClick = new ObservableBoolean();
 
 
@@ -98,6 +107,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         grand_total.set("0");
         xfactorClick.set(true);
 
+        suggestionViewLiveData = new MutableLiveData<>();
 
         dishItemsLiveData = new MutableLiveData<>();
         refundListItemsLiveData = new MutableLiveData<>();
@@ -123,6 +133,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public MutableLiveData<List<RefundListResponse.Result>> getRefundListItemsLiveData() {
         return refundListItemsLiveData;
     }
+
+
+
+
+    public void addSuggestionProductItems(List<KitchenDishResponse.Productlist> productlists) {
+        suggestionViewModels.clear();
+        suggestionViewModels.addAll(productlists);
+    }
+
+    public MutableLiveData<List<KitchenDishResponse.Productlist>> getSuggestionViewLiveData() {
+        return suggestionViewLiveData;
+    }
+
+
 
 
     public void promoCoupon() {
@@ -426,6 +450,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 cartRequestPojo.setCid(getDataManager().getCouponId());
             }
 
+
+            fetchSuggestionProducts(cartRequestPojo.getMakeitUserid());
 
             Gson gson = new Gson();
             String carts = gson.toJson(cartRequestPojo);
@@ -1176,5 +1202,80 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
 
     }
+    public void fetchSuggestionProducts(Long kitchenId) {
 
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDishResponse.class,
+                    new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
+                            kitchenId, getDataManager().getCurrentUserId(), 0), new Response.Listener<KitchenDishResponse>() {
+                @Override
+                public void onResponse(KitchenDishResponse response) {
+                    if (response != null) {
+                        setIsLoading(false);
+
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+
+
+                            if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
+
+                                CartRequestPojo cartRequestPojo = new CartRequestPojo();
+
+                                Gson sGson = new GsonBuilder().create();
+                                cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+
+                                suggestionProductlists.clear();
+                                suggestionProductlists.addAll(response.getResult().get(0).getProductlist());
+                                suggestionProductlistsTemp.addAll(response.getResult().get(0).getProductlist());
+
+
+
+                                if (cartRequestPojo!=null&&cartRequestPojo.getCartitems() != null) {
+
+                                    if (cartRequestPojo.getMakeitUserid().equals(makeitId)) {
+
+                                        for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
+
+                                          for (int j = 0; j < suggestionProductlists.size(); j++) {
+
+                                              if (cartRequestPojo.getCartitems().get(i).getProductid().equals(suggestionProductlists.get(j).getProductid())) {
+                                                 suggestionProductlists.remove(j);
+                                              }else if (suggestionProductlists.get(j).getNextAvailable()){
+                                                  suggestionProductlists.remove(j);
+                                              }
+                                          }
+
+                                        }
+                                    }
+                                }
+
+                                suggestionViewLiveData.setValue(suggestionProductlists);
+
+                            } else {
+                                suggestionProductlists.clear();
+                                suggestionViewModels.clear();
+                             //   suggestionViewLiveData.setValue(suggestionProductlists);
+                                suggestionViewLiveData.setValue(response.getResult().get(0).getProductlist());
+                            }
+
+                        }
+
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_TWO_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
 }

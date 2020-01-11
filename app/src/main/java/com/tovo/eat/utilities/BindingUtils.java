@@ -67,6 +67,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListAdapter;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
+import com.tovo.eat.ui.cart.suggestion.SuggestionProductAdapter;
 import com.tovo.eat.ui.filter.FilterAdapter;
 import com.tovo.eat.ui.filter.FilterItems;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
@@ -221,6 +222,18 @@ public final class BindingUtils {
             adapter.addItems(dishes);
         }
     }
+
+     @BindingAdapter({"suggestionadapter"})
+    public static void addSuggestionMenuItems(RecyclerView recyclerView, List<KitchenDishResponse.Productlist> dishes) {
+        SuggestionProductAdapter adapter = (SuggestionProductAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(dishes);
+        }
+    }
+
+
+
 
     @BindingAdapter({"adapter"})
     public static void addRefundItems(RecyclerView recyclerView, List<RefundListResponse.Result> results) {

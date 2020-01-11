@@ -20,9 +20,11 @@ import com.tovo.eat.ui.cart.funnel.FunnelActivity;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
 import com.tovo.eat.ui.cart.refund.RefundListResponse;
 import com.tovo.eat.ui.cart.refund.alert.DialogRefundAlert;
+import com.tovo.eat.ui.cart.suggestion.SuggestionProductAdapter;
 import com.tovo.eat.ui.cart.xfactoralert.XFactorFragment;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
@@ -37,10 +39,14 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener,SuggestionProductAdapter.LiveProductsAdapterListener {
 
     @Inject
     CartDishAdapter adapter;
+
+    @Inject
+    SuggestionProductAdapter suggestionProductAdapter;
+
     @Inject
     CartViewModel mCartViewModel;
     CartListener cartListener;
@@ -94,6 +100,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         super.onCreate(savedInstanceState);
         mCartViewModel.setNavigator(this);
         adapter.setListener(this);
+        suggestionProductAdapter.setListener(this);
         refundListAdapter.setListener(this);
 
         analytics = new Analytics(getActivity(), pageName);
@@ -127,6 +134,17 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mActivityCartBinding.recyclerviewBill.setLayoutManager(billLayoutManager);
         mActivityCartBinding.recyclerviewBill.setAdapter(billListAdapter);
+
+
+         LinearLayoutManager suggestionLayoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mActivityCartBinding.recyclerviewProductSuggestion.setLayoutManager(suggestionLayoutManager);
+        mActivityCartBinding.recyclerviewProductSuggestion.setAdapter(suggestionProductAdapter);
+
+
+
+
+
 
         subscribeToLiveData();
     }
@@ -179,6 +197,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void showToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
+
     }
 
     @Override
@@ -310,6 +333,10 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 cartdetails -> mCartViewModel.addBillItemsToList(cartdetails));
 
 
+        mCartViewModel.getSuggestionViewLiveData().observe(this,
+               products -> mCartViewModel.addSuggestionProductItems(products));
+
+
     }
 
 
@@ -331,8 +358,33 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
+    public void onItemClickData(KitchenDishResponse.Productlist blogUrl, View view) {
+
+    }
+
+    @Override
     public void sendCart() {
         cartListener.checkCart();
+    }
+
+    @Override
+    public void dishRefresh() {
+        mCartViewModel.fetchRepos();
+    }
+
+    @Override
+    public void addDishFavourite(Integer dishId, String fav) {
+
+    }
+
+    @Override
+    public void productNotAvailable(int quantity, String productname) {
+
+    }
+
+    @Override
+    public void removeDishFavourite(Integer favId) {
+
     }
 
     @Override

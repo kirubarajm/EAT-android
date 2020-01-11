@@ -20,6 +20,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.cart.refund.RefundListAdapter;
+import com.tovo.eat.ui.cart.suggestion.SuggestionProductAdapter;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,13 @@ public class CartModule {
     @Provides
     BillListAdapter provideBillListAdapter() {
         return new BillListAdapter(new ArrayList<>());
+    }
+
+
+
+    @Provides
+    SuggestionProductAdapter provideSuggestionProductAdapter() {
+        return new SuggestionProductAdapter(new ArrayList<>(),dataManager);
     }
 
 }
