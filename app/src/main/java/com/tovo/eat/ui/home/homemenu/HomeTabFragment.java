@@ -858,7 +858,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
 
-
         String welcomeMessage = " pick \nyour home to eat!";
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Poppins-Medium.otf");

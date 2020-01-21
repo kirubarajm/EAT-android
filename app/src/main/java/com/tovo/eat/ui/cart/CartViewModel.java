@@ -57,33 +57,30 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableField<String> localityname = new ObservableField<>();
     public final ObservableField<String> promocode = new ObservableField<>();
     public final ObservableField<String> grandTotalTitle = new ObservableField<>();
+    public final ObservableField<String> lowCost = new ObservableField<>();
+    public final ObservableField<String> lowCostShort = new ObservableField<>();
     public final ObservableField<Integer> refundBalance = new ObservableField<>();
     public final ObservableField<String> statusMessage = new ObservableField<>();
     public final ObservableField<String> cuisines = new ObservableField<>();
     public final ObservableField<String> region = new ObservableField<>();
     public final ObservableField<String> changeAddress = new ObservableField<>();
     public final ObservableBoolean payment = new ObservableBoolean();
+    public final ObservableBoolean lowCostStatus = new ObservableBoolean();
     public final ObservableBoolean isFavourite = new ObservableBoolean();
     public final ObservableBoolean emptyCart = new ObservableBoolean();
     public final ObservableBoolean serviceable = new ObservableBoolean();
+    public final ObservableBoolean suggestedProduct = new ObservableBoolean();
     public final ObservableBoolean available = new ObservableBoolean();
     public final ObservableBoolean refunds = new ObservableBoolean();
     public final ObservableBoolean refundSelected = new ObservableBoolean();
     public final ObservableBoolean couponSelected = new ObservableBoolean();
     public final ObservableBoolean refundChecked = new ObservableBoolean();
     public final ObservableBoolean instructionClicked = new ObservableBoolean();
-
-
+    public final ObservableBoolean xfactorClick = new ObservableBoolean();
     public List<KitchenDishResponse.Productlist> suggestionProductlists = new ArrayList<>();
     public List<KitchenDishResponse.Productlist> suggestionProductlistsTemp = new ArrayList<>();
     public ObservableList<KitchenDishResponse.Productlist> suggestionViewModels = new ObservableArrayList<>();
-
-
     public MutableLiveData<List<KitchenDishResponse.Productlist>> suggestionViewLiveData;
-
-    public final ObservableBoolean xfactorClick = new ObservableBoolean();
-
-
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
 
@@ -106,7 +103,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         super(dataManager);
         grand_total.set("0");
         xfactorClick.set(true);
-
+        lowCostStatus.set(true);
         suggestionViewLiveData = new MutableLiveData<>();
 
         dishItemsLiveData = new MutableLiveData<>();
@@ -135,18 +132,19 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
 
-
-
     public void addSuggestionProductItems(List<KitchenDishResponse.Productlist> productlists) {
-        suggestionViewModels.clear();
-        suggestionViewModels.addAll(productlists);
+
+        if (productlists != null) {
+
+            suggestionViewModels.clear();
+            suggestionViewModels.addAll(productlists);
+        }
+
     }
 
     public MutableLiveData<List<KitchenDishResponse.Productlist>> getSuggestionViewLiveData() {
         return suggestionViewLiveData;
     }
-
-
 
 
     public void promoCoupon() {
@@ -166,9 +164,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void instructions() {
 
-        if (instructionClicked.get()){
+        if (instructionClicked.get()) {
             instructionClicked.set(false);
-        }else {
+        } else {
             instructionClicked.set(true);
         }
 
@@ -343,6 +341,11 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public String getCartPojoDetails() {
+
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
+
+
         Gson sGson = new GsonBuilder().create();
         CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
 
@@ -421,7 +424,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void fetchRepos() {
-
+        if (getNavigator()!=null)
+        getNavigator().clearToolTips();
 
         promocode.set(getDataManager().getCouponCode());
 
@@ -480,9 +484,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                             if (cartPageResponse.getResult() != null) {
 
                                 if (cartPageResponse.getResult().get(0).getItem().size() == 0) {
-                                    if (getNavigator() != null)
+                                    if (getNavigator() != null) {
                                         getNavigator().emptyCart();
-
+                                        getNavigator().clearToolTips();
+                                    }
                                     getDataManager().setCartDetails(null);
 
                                     emptyCart.set(true);
@@ -548,6 +553,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         favId = cartPageResponse.getResult().get(0).getFavid();
 
 
+                                    if (cartPageResponse.getResult().get(0).getAmountdetails()!=null){
+                                        lowCostStatus.set(cartPageResponse.getResult().get(0).getAmountdetails().isProductCostLimitStatus());
+                                        lowCost.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitMessage());
+                                        lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
+                                    }
+
+
                                     if (cartPageResponse.getResult().get(0).getAmountdetails().getRefundcouponstatus()) {
                                         refundSelected.set(true);
                                         refundFare.set(String.valueOf(cartPageResponse.getResult().get(0).getAmountdetails().getRefundCouponAdjustment()));
@@ -589,10 +601,14 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 }
                             }
                         }
+
+                        xfactorClick.set(true);
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        xfactorClick.set(true);
                         emptyCart.set(true);
                         if (getNavigator() != null)
                             getNavigator().cartLoaded();
@@ -607,7 +623,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                     }
                 };
 
-                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(500000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
@@ -636,7 +652,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public void paymentModeCheck(String instructions) {
 
-
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
         new Analytics().sendClickData(AppConstants.SCREEN_CART_PAGE, AppConstants.CLICK_PROCEED_TO_PAY);
 
         new Analytics().proceedToPay(Integer.parseInt(grand_total.get()));
@@ -788,6 +805,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void cashMode() {
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
         if (getDataManager().getEmailStatus()) {
             try {
 
@@ -824,7 +843,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                     placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(),getDataManager().getOrderInstruction(), orderitems);
+                    PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), getDataManager().getOrderInstruction(), orderitems);
 
 
                     Gson gson = new Gson();
@@ -899,7 +918,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void funnelMode() {
-
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
         try {
 
             if (getDataManager().getAddressId() != 0L) {
@@ -934,7 +954,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                 placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(),getDataManager().getOrderInstruction(), orderitems);
+                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), getDataManager().getOrderInstruction(), orderitems);
 
 
                 Gson gson = new Gson();
@@ -1012,7 +1032,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void xfactor(String instructions) {
-
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
         xfactorClick.set(false);
         try {
 
@@ -1048,7 +1069,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                 placeOrderRequestPojo.setMakeitUserId(cartRequestPojo.getMakeitUserid());
 
-                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(),getDataManager().getOrderInstruction(), orderitems);
+                PlaceOrderRequestPojo placeOrderRequestPojo1 = new PlaceOrderRequestPojo(getDataManager().getCurrentUserId(), cartRequestPojo.getMakeitUserid(), 0, getDataManager().getAddressId(), getDataManager().getRefundId(), getDataManager().getCouponId(), getDataManager().getOrderInstruction(), orderitems);
 
 
                 Gson gson = new Gson();
@@ -1202,8 +1223,10 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
         }
 
     }
-    public void fetchSuggestionProducts(Long kitchenId) {
 
+    public void fetchSuggestionProducts(Long kitchenId) {
+        if (getNavigator()!=null)
+            getNavigator().clearToolTips();
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
@@ -1221,6 +1244,13 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
 
+                                if (response.getResult().get(0).getProductlist().size() > 1){
+                                    suggestedProduct.set(true);
+                                }else {
+                                    suggestedProduct.set(false);
+                                }
+
+
                                 CartRequestPojo cartRequestPojo = new CartRequestPojo();
 
                                 Gson sGson = new GsonBuilder().create();
@@ -1231,21 +1261,20 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                 suggestionProductlistsTemp.addAll(response.getResult().get(0).getProductlist());
 
 
-
-                                if (cartRequestPojo!=null&&cartRequestPojo.getCartitems() != null) {
+                                if (cartRequestPojo != null && cartRequestPojo.getCartitems() != null) {
 
                                     if (cartRequestPojo.getMakeitUserid().equals(makeitId)) {
 
                                         for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
 
-                                          for (int j = 0; j < suggestionProductlists.size(); j++) {
+                                            for (int j = 0; j < suggestionProductlists.size(); j++) {
 
-                                              if (cartRequestPojo.getCartitems().get(i).getProductid().equals(suggestionProductlists.get(j).getProductid())) {
-                                                 suggestionProductlists.remove(j);
-                                              }else if (suggestionProductlists.get(j).getNextAvailable()){
-                                                  suggestionProductlists.remove(j);
-                                              }
-                                          }
+                                                if (cartRequestPojo.getCartitems().get(i).getProductid().equals(suggestionProductlists.get(j).getProductid())) {
+                                                    suggestionProductlists.remove(j);
+                                                } else if (suggestionProductlists.get(j).getNextAvailable()) {
+                                                    suggestionProductlists.remove(j);
+                                                }
+                                            }
 
                                         }
                                     }
@@ -1253,13 +1282,23 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 suggestionViewLiveData.setValue(suggestionProductlists);
 
+                                if (suggestionProductlists.size()<1){
+                                    suggestedProduct.set(false);
+                                }
+
+
                             } else {
+
+                                suggestedProduct.set(false);
+
                                 suggestionProductlists.clear();
                                 suggestionViewModels.clear();
-                             //   suggestionViewLiveData.setValue(suggestionProductlists);
+                                //   suggestionViewLiveData.setValue(suggestionProductlists);
                                 suggestionViewLiveData.setValue(response.getResult().get(0).getProductlist());
                             }
 
+                        } else {
+                            suggestedProduct.set(false);
                         }
 
                     }
@@ -1269,6 +1308,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    suggestedProduct.set(false);
 
                 }
             }, AppConstants.API_VERSION_TWO_ONE);

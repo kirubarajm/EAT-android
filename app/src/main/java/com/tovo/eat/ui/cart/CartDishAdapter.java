@@ -1,10 +1,17 @@
 package com.tovo.eat.ui.cart;
 
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemCartDishesBinding;
 import com.tovo.eat.databinding.ListItemDishesBinding;
@@ -12,6 +19,8 @@ import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.utilities.CartRequestPojo;
+import com.tovo.eat.utilities.CustomTypefaceSpan;
+import com.tovo.eat.utilities.MvvmApp;
 
 import java.util.List;
 
@@ -153,6 +162,21 @@ public class CartDishAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             // the next frame. There are times, however, when binding must be executed immediately.
             // To force execution, use the executePendingBindings() method.
             mListItemLiveProductsBinding.executePendingBindings();
+            Typeface font = Typeface.createFromAsset(MvvmApp.getInstance(). getAssets(), "Poppins-Medium.otf");
+            Typeface font2 = Typeface.createFromAsset(MvvmApp.getInstance().getAssets(), "icomoon.ttf");
+            String vegIcon=MvvmApp.getInstance().getResources().getString(R.string.icon_veg);
+            SpannableStringBuilder SS = new SpannableStringBuilder(blog.getProductName() +" "+ vegIcon+" ");
+            SS.setSpan(new CustomTypefaceSpan("", font), 0, blog.getProductName().length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            SS.setSpan(new CustomTypefaceSpan("", font2), blog.getProductName().length()+ 1, blog.getProductName().length()+ 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+            SS.setSpan(new RelativeSizeSpan(0.6f), blog.getProductName().length()+ 1, blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            if (blog.getVegtype().equals("0")){
+                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.green)), blog.getProductName().length()+ 1,  blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }else {
+                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.red)), blog.getProductName().length()+ 1,  blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            mListItemLiveProductsBinding.pName.setText(SS);
         }
 
         @Override

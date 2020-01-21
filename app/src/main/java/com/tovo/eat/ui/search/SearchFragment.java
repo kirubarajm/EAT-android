@@ -280,7 +280,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onResume() {
         super.onResume();
-
+        cartListener.checkCart();
        /* mFragmentSearchBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
         mFragmentSearchBinding.shimmerViewContainer.startShimmerAnimation();*/
 
@@ -515,5 +515,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         super.onPause();
         mFragmentSearchBinding.searchh.clearFocus();
     }
+
+
+
 }
 

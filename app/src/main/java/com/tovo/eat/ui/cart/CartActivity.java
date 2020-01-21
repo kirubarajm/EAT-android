@@ -3,13 +3,22 @@ package com.tovo.eat.ui.cart;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipView;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityCartBinding;
@@ -27,10 +36,10 @@ import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
 import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
-import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.ui.registration.RegistrationActivity;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 
@@ -39,7 +48,7 @@ import javax.inject.Inject;
 import static android.app.Activity.RESULT_OK;
 import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
-public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener,SuggestionProductAdapter.LiveProductsAdapterListener {
+public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener, SuggestionProductAdapter.LiveProductsAdapterListener, BillListAdapter.BilldetailsInfoListener {
 
     @Inject
     CartDishAdapter adapter;
@@ -57,6 +66,8 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     Dialog dialog;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_CART_PAGE;
+    boolean infoClicked = false;
+   public ToolTipView myToolTipView;
     private ActivityCartBinding mActivityCartBinding;
 
     public static CartActivity newInstance() {
@@ -102,6 +113,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         adapter.setListener(this);
         suggestionProductAdapter.setListener(this);
         refundListAdapter.setListener(this);
+        billListAdapter.setListener(this);
 
         analytics = new Analytics(getActivity(), pageName);
     }
@@ -136,17 +148,42 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         mActivityCartBinding.recyclerviewBill.setAdapter(billListAdapter);
 
 
-         LinearLayoutManager suggestionLayoutManager
+        LinearLayoutManager suggestionLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mActivityCartBinding.recyclerviewProductSuggestion.setLayoutManager(suggestionLayoutManager);
         mActivityCartBinding.recyclerviewProductSuggestion.setAdapter(suggestionProductAdapter);
 
 
-
-
-
-
         subscribeToLiveData();
+
+
+       /* mActivityCartBinding.cartScroll.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+        });*/
+
+
+
+
+        mActivityCartBinding.cartScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                    infoClicked = false;
+                }
+            }
+        });
+
     }
 
 
@@ -294,7 +331,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     }
 
     @Override
-    public void showXFactorALert(String msg,String title) {
+    public void showXFactorALert(String msg, String title) {
 
         Bundle bundle = new Bundle();
         bundle.putString("message", msg);
@@ -315,11 +352,20 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     @Override
     public void gotoKitchen(Long kitchenid) {
 
-        new Analytics().selectKitchen(AppConstants.ANALYTICYS_CART_KITCHEN,kitchenid);
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_CART_KITCHEN, kitchenid);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenid);
         startActivity(intent);
+    }
+
+    @Override
+    public void clearToolTips() {
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            infoClicked = false;
+            myToolTipView = null;
+        }
     }
 
     private void subscribeToLiveData() {
@@ -334,7 +380,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
 
         mCartViewModel.getSuggestionViewLiveData().observe(this,
-               products -> mCartViewModel.addSuggestionProductItems(products));
+                products -> mCartViewModel.addSuggestionProductItems(products));
 
 
     }
@@ -349,7 +395,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             startCartLoader();
             mCartViewModel.fetchRepos();
         }
-
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            infoClicked = false;
+            myToolTipView = null;
+        }
     }
 
     @Override
@@ -369,7 +419,16 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void dishRefresh() {
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            infoClicked = false;
+            myToolTipView = null;
+        }
+        mCartViewModel.xfactorClick.set(false);
+        cartListener.checkCart();
         mCartViewModel.fetchRepos();
+
+
     }
 
     @Override
@@ -406,12 +465,20 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void reloadCart() {
+        if (myToolTipView != null) {
+            myToolTipView.remove();
+            infoClicked = false;
+            myToolTipView = null;
+        }
         if (mCartViewModel.getCartPojoDetails() != null) {
+            mCartViewModel.xfactorClick.set(false);
             mCartViewModel.fetchRepos();
             mCartViewModel.emptyCart.set(false);
         } else {
             mCartViewModel.emptyCart.set(true);
         }
+
+
     }
 
     @Override
@@ -421,7 +488,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         if (requestCode == CART_REQUESTCODE) {
             boolean status = data.getBooleanExtra("status", false);
             if (status) {
-            //    mCartViewModel.paymentModeCheck();
+                //    mCartViewModel.paymentModeCheck();
 
             }
         } else if (requestCode == AppConstants.REFUND_LIST_CODE) {
@@ -490,4 +557,60 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     public void stopCartLoader() {
         mActivityCartBinding.cartLoader.setVisibility(View.GONE);
     }
+
+    @Override
+    public void infoClick(CartPageResponse.Cartdetail cartdetail, ImageView imageView) {
+
+
+        if (!infoClicked) {
+            if (cartdetail.getInfostatus()) {
+                infoClicked = true;
+                ToolTip toolTip = new ToolTip()
+                        .withContentView(LayoutInflater.from(MvvmApp.getInstance()).inflate(R.layout.tool_tip_cart_info, null))
+                        // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
+                        .withColor(MvvmApp.getInstance().getResources().getColor(R.color.light_gray))
+                        .withShadow()
+                        .withTextColor(Color.BLACK)
+                        .withAnimationType(ToolTip.AnimationType.FROM_MASTER_VIEW);
+                myToolTipView = mActivityCartBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, imageView);
+                TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
+                StringBuilder sTitle = new StringBuilder();
+                for (int i = 0; i < cartdetail.getInfodetails().size(); i++) {
+                    sTitle.append("\n"). append(cartdetail.getInfodetails().get(i).getName()).append("    ").append("Rs.").append(cartdetail.getInfodetails().get(i).getPrice()  );
+                }
+                title.setText(sTitle.toString());
+
+                myToolTipView.setOnToolTipViewClickedListener(new ToolTipView.OnToolTipViewClickedListener() {
+                    @Override
+                    public void onToolTipViewClicked(ToolTipView toolTipView) {
+
+                        if (myToolTipView != null) {
+                            myToolTipView.remove();
+                            infoClicked = false;
+                        }
+                    }
+                });
+            }
+        } else {
+            if (myToolTipView != null) {
+                myToolTipView.remove();
+                infoClicked = false;
+                myToolTipView = null;
+            }
+        }
+
+
+        mActivityCartBinding.cart.setOnTouchListener((v, event) -> {
+            if (myToolTipView != null) {
+                myToolTipView.remove();
+                infoClicked = false;
+                myToolTipView = null;
+            }
+            return true;
+        });
+
+    }
+
+
+
 }

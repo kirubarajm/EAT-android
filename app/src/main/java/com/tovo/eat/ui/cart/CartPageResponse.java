@@ -92,6 +92,48 @@ public class CartPageResponse {
         @Expose
         private Integer couponDiscountAmount;
 
+         @SerializedName("product_cost_limit_status")
+        @Expose
+        private boolean productCostLimitStatus;
+
+
+         @SerializedName("product_cost_limit_message")
+        @Expose
+        private String productCostLimitMessage;
+
+   @SerializedName("product_cost_limit_short_message")
+        @Expose
+        private String productCostLimitShortMessage;
+
+
+        public String getProductCostLimitShortMessage() {
+            return productCostLimitShortMessage;
+        }
+
+        public void setProductCostLimitShortMessage(String productCostLimitShortMessage) {
+            this.productCostLimitShortMessage = productCostLimitShortMessage;
+        }
+
+        public void setGrandtotal(Integer grandtotal) {
+            this.grandtotal = grandtotal;
+        }
+
+        public boolean isProductCostLimitStatus() {
+            return productCostLimitStatus;
+        }
+
+        public void setProductCostLimitStatus(boolean productCostLimitStatus) {
+            this.productCostLimitStatus = productCostLimitStatus;
+        }
+
+        public String getProductCostLimitMessage() {
+            return productCostLimitMessage;
+        }
+
+        public void setProductCostLimitMessage(String productCostLimitMessage) {
+            this.productCostLimitMessage = productCostLimitMessage;
+        }
+
         public String getGrandTotalTitle() {
             return grandTotalTitle;
         }
@@ -732,6 +774,27 @@ public class CartPageResponse {
         @SerializedName("status")
         @Expose
         private Boolean status;
+        @SerializedName("infostatus")
+        @Expose
+        private Boolean infostatus=false;
+        @SerializedName("color_code")
+        @Expose
+        private String colorCode="#ff444444";
+        @SerializedName("low_cost_status")
+        @Expose
+        private Boolean lowCostStatus=false;
+        @SerializedName("low_cost_note")
+        @Expose
+        private String lowCostNote;
+        @SerializedName("default_cost")
+        @Expose
+        private Integer defaultCost=0;
+        @SerializedName("default_cost_status")
+        @Expose
+        private Boolean defaultCostStatus=false;
+        @SerializedName("infodetails")
+        @Expose
+        private List<Infodetail> infodetails = null;
 
         public String getTitle() {
             return title;
@@ -757,5 +820,87 @@ public class CartPageResponse {
             this.status = status;
         }
 
+        public Boolean getInfostatus() {
+            return infostatus;
+        }
+
+        public void setInfostatus(Boolean infostatus) {
+            this.infostatus = infostatus;
+        }
+
+        public String getColorCode() {
+            return colorCode;
+        }
+
+        public void setColorCode(String colorCode) {
+            this.colorCode = colorCode;
+        }
+
+        public Boolean getLowCostStatus() {
+            return lowCostStatus;
+        }
+
+        public void setLowCostStatus(Boolean lowCostStatus) {
+            this.lowCostStatus = lowCostStatus;
+        }
+
+        public String getLowCostNote() {
+            return lowCostNote;
+        }
+
+        public void setLowCostNote(String lowCostNote) {
+            this.lowCostNote = lowCostNote;
+        }
+
+        public Integer getDefaultCost() {
+            return defaultCost;
+        }
+
+        public void setDefaultCost(Integer defaultCost) {
+            this.defaultCost = defaultCost;
+        }
+
+        public Boolean getDefaultCostStatus() {
+            return defaultCostStatus;
+        }
+
+        public void setDefaultCostStatus(Boolean defaultCostStatus) {
+            this.defaultCostStatus = defaultCostStatus;
+        }
+
+        public List<Infodetail> getInfodetails() {
+            return infodetails;
+        }
+
+        public void setInfodetails(List<Infodetail> infodetails) {
+            this.infodetails = infodetails;
+        }
+
     }
+    public class Infodetail {
+
+        @SerializedName("name")
+        @Expose
+        private String name;
+        @SerializedName("price")
+        @Expose
+        private Integer price;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+    }
+
 }

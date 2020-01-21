@@ -8,8 +8,10 @@
 
     <color name="eat_color">#faba15</color>
     <color name="light_eat_color">#FDF0CF</color>
+    <color name="light_color">#FAD26B</color>
 
     <color name="light_gray">#ECEBEB</color>
+    <color name="medium_light_gray">#DBDBDB</color>
     <color name="gray">#F7F7F7</color>
     <color name="lgray">#FDFDFD</color>
     <color name="semi_gray">#979797</color>
@@ -25,6 +27,8 @@
     <color name="extra_light_gray">#DADADA</color>
     <color name="bg_color">#f7f7f7</color>
     <color name="black">#ff444444</color>
+    <color name="green">#129612</color>
+    <color name="red">#d32f2f</color>
     <color name="white">#ffffff</color>
     <color name="black_effective">#2a2a2a</color>
     <color name="shadow">#d0d8dc</color>
@@ -58,9 +62,9 @@
 
     <color name="light_red">#FD9797</color>
     <color name="light_green">#DFF8E4</color>
-    <color name="red">#d32f2f</color>
 
-    <color name="green">#129612</color>
+
+
 
 
 

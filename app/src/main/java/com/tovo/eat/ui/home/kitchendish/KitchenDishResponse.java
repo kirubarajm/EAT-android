@@ -329,7 +329,6 @@ public class KitchenDishResponse {
         @Expose
         public Integer nextAvailable = 0;
 
-
         public String getNextAvailableTime() {
             return nextAvailableTime;
         }
@@ -364,6 +363,10 @@ public class KitchenDishResponse {
             return makeitUserid;
         }
 
+        public void setMakeitUserid(Long makeitUserid) {
+            this.makeitUserid = makeitUserid;
+        }
+
         public Integer getFavid() {
             return favid;
         }
@@ -376,32 +379,64 @@ public class KitchenDishResponse {
             return isfav;
         }
 
+        public void setIsfav(Integer isfav) {
+            this.isfav = isfav;
+        }
+
         public Integer getPrice() {
             return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
         }
 
         public String getVegtype() {
             return vegtype;
         }
 
+        public void setVegtype(String vegtype) {
+            this.vegtype = vegtype;
+        }
+
         public Integer getQuantity() {
             return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
         }
 
         public Integer getProductid() {
             return productid;
         }
 
+        public void setProductid(Integer productid) {
+            this.productid = productid;
+        }
+
         public String getCuisinename() {
             return cuisinename;
+        }
+
+        public void setCuisinename(String cuisinename) {
+            this.cuisinename = cuisinename;
         }
 
         public String getProductName() {
             return productName;
         }
 
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
         public String getProductimage() {
             return productimage;
+        }
+
+        public void setProductimage(String productimage) {
+            this.productimage = productimage;
         }
     }
 

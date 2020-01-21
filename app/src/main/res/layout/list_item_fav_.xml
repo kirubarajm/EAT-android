@@ -423,6 +423,7 @@
                             android:textStyle="bold" />
 
                         <com.tovo.eat.utilities.fonts.TovoTextView
+                            android:visibility="gone"
                             android:layout_marginStart="3dp"
                             android:layout_gravity="top"
                             android:id="@+id/n"

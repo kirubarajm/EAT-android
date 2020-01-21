@@ -64,6 +64,15 @@ public class TodaysMenuItemViewModel {
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
+        if (dishList.getIsfav() == 1) {
+            this.isFavourite.set(true);
+        } else {
+            this.isFavourite.set(false);
+        }
+
+        if (dishList.getFavid() != null)
+            favID = dishList.getFavid();
+
         if (dishList.getVegtype().equals("1")) {
             this.producttype.set(dishList.getCuisinename());
             this.isVeg.set(false);
@@ -153,11 +162,6 @@ public class TodaysMenuItemViewModel {
                 isAddClicked.set(false);
             }
 
-        if (dishList.getIsfav() == 1) {
-            this.isFavourite.set(true);
-        } else {
-            this.isFavourite.set(false);
-        }
 
     }
 

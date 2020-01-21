@@ -38,4 +38,6 @@ public interface CartNavigator {
     void showXFactorALert(String msg,String title);
     void funnelAlert();
     void gotoKitchen(Long kitchenid);
+
+    void clearToolTips();
 }
