@@ -295,7 +295,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:singleLine="true"
-                        android:text="Complete your order with :"
+                        android:text="Other dishes from this kitchen :"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="italic"

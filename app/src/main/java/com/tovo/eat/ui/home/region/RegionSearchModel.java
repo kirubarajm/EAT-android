@@ -48,6 +48,17 @@ public class RegionSearchModel {
         @Expose
         private String regionname;
 
+        @SerializedName("hometownid")
+        @Expose
+        private Integer hometownid;
+        @SerializedName("hometownname")
+        @Expose
+        private String hometown;
+
+        @Override
+        public String toString() {
+            return hometown ;
+        }
 
         public Result() {
         }
@@ -58,10 +69,22 @@ public class RegionSearchModel {
             this.regionname = regionname;
         }
 
-        @Override
-        public String toString() {
-            return regionname;
+        public Integer getHometownid() {
+            return hometownid;
         }
+
+        public void setHometownid(Integer hometownid) {
+            this.hometownid = hometownid;
+        }
+
+        public String getHometown() {
+            return hometown;
+        }
+
+        public void setHometown(String hometown) {
+            this.hometown = hometown;
+        }
+
 
         public Integer getRegionid() {
             return regionid;

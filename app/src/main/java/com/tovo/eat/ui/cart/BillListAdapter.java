@@ -96,9 +96,13 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             mListItemLiveProductsBinding.setBillItemViewModel(mLiveProductsItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
 
-           /* int color = Color.parseColor(blog.getColorCode());
-            mListItemLiveProductsBinding.name.setTextColor(color);*/
 
+            if (blog.getColorCode()!=null) {
+                int color = Color.parseColor(blog.getColorCode());
+                mListItemLiveProductsBinding.name.setTextColor(color);
+            }else {
+                mListItemLiveProductsBinding.name.setTextColor(MvvmApp.getInstance().getResources().getColor(R.color.dark_gray));
+            }
 
 /*
             ToolTip toolTip = new ToolTip()

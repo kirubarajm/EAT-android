@@ -68,6 +68,43 @@ public class GetUserDetailsResponse {
         private String otherRegion;
 
 
+        @SerializedName("hometownid")
+        @Expose
+        public Integer hometownId=0;
+
+        @SerializedName("other_hometown")
+        @Expose
+        public String otherHometown;
+
+   @SerializedName("hometownname")
+        @Expose
+        public String hometownName;
+
+
+        public Integer getHometownId() {
+            return hometownId;
+        }
+
+        public void setHometownId(Integer hometownId) {
+            this.hometownId = hometownId;
+        }
+
+        public String getHometownName() {
+            return hometownName;
+        }
+
+        public void setHometownName(String hometownName) {
+            this.hometownName = hometownName;
+        }
+
+        public String getOtherHometown() {
+            return otherHometown;
+        }
+
+        public void setOtherHometown(String otherHometown) {
+            this.otherHometown = otherHometown;
+        }
+
         public String getOtherRegion() {
             return otherRegion;
         }

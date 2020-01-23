@@ -148,7 +148,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
 
-                regionId = String.valueOf(result.getRegionid());
+                regionId = String.valueOf(result.getHometownid());
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
@@ -235,7 +235,7 @@ public class NameGenderActivity extends BaseActivity<ActivityNameGenderBinding, 
             }
 
             if (regionId.equals("")) {
-                mActivityNameGenderBinding.regionList.setError("Enter your region");
+                mActivityNameGenderBinding.regionList.setError("Enter your hometown");
             }
 
             // Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();

@@ -68,7 +68,7 @@ public class RegionListAdapter extends ArrayAdapter<RegionSearchModel.Result> im
                 ArrayList<RegionSearchModel.Result> list = new ArrayList<>();
 
                 for (int i = 0; i < baseSuggestion.size(); i++) {
-                    if ((baseSuggestion.get(i).getRegionname().toUpperCase(Locale.getDefault()))
+                    if ((baseSuggestion.get(i).getHometown().toUpperCase(Locale.getDefault()))
                             .contains(prefix.toString().toUpperCase(Locale.getDefault()))) {
                         list.add(baseSuggestion.get(i));
                     }

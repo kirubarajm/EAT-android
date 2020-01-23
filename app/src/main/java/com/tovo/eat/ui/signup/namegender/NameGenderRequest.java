@@ -26,6 +26,16 @@ public class NameGenderRequest {
     @Expose
     public String otherRegion;
 
+    @SerializedName("hometownid")
+    @Expose
+    public Integer hometownId;
+
+    @SerializedName("other_hometown")
+    @Expose
+    public String otherHometown;
+
+
+
     public String getReferredby() {
         return referredby;
     }
@@ -48,23 +58,38 @@ public class NameGenderRequest {
         this.gender = gender;
     }
 
-    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String referredby,String otherRegion) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer hometownId,String referredby,String otherHometown) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
-        this.regionId = regionId;
+        this.hometownId = hometownId;
         this.referredby=referredby;
-        this.otherRegion=otherRegion;
+        this.otherHometown=otherHometown;
     }
 
-    public NameGenderRequest(Long userid, String name, Integer gender, Integer regionId,String otherRegion) {
+    public NameGenderRequest(Long userid, String name, Integer gender, Integer hometownId,String otherHometown) {
         this.userid = userid;
         this.name = name;
         this.gender = gender;
-        this.regionId = regionId;
-        this.otherRegion=otherRegion;
+        this.hometownId = hometownId;
+        this.otherHometown=otherHometown;
     }
 
+    public Integer getHometownId() {
+        return hometownId;
+    }
+
+    public void setHometownId(Integer hometownId) {
+        this.hometownId = hometownId;
+    }
+
+    public String getOtherHometown() {
+        return otherHometown;
+    }
+
+    public void setOtherHometown(String otherHometown) {
+        this.otherHometown = otherHometown;
+    }
 
     public String getOtherRegion() {
         return otherRegion;

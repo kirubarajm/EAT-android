@@ -68,7 +68,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
     }
 
 
-    public void insertNameGenderServiceCall(String name, int regionId, String referral, String otherRegion) {
+    public void insertNameGenderServiceCall(String name, int hometownId, String referral, String otherHometown) {
 
 
         if (male.get()) {
@@ -80,19 +80,25 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
         long userIdMain = getDataManager().getCurrentUserId();
         NameGenderRequest nameGenderRequest;
 
-        if (referral.isEmpty()) {
-            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId,otherRegion);
-        } else {
-            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, regionId, referral,otherRegion);
-        }
 
-
-        if (regionId == 0) {
-           /* if (otherRegion.isEmpty()) {
-                Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
+        if (hometownId == 0) {
+            if (otherHometown.isEmpty()) {
+                Toast.makeText(MvvmApp.getInstance(), "Please enter your hometown", Toast.LENGTH_SHORT).show();
                 return;
-            }*/
+            }
+        }else {
+            if (otherHometown.isEmpty())otherHometown=null;
         }
+
+
+        if (referral.isEmpty()) {
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, hometownId,otherHometown);
+        } else {
+            nameGenderRequest = new NameGenderRequest(userIdMain, name, gender, hometownId, referral,otherHometown);
+        }
+
+
+
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -144,7 +150,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_REGION_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_HOMETOWN_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
                 @Override
                 public void onResponse(RegionSearchModel response) {
 

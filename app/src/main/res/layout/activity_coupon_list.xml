@@ -123,7 +123,6 @@
 
 
         <RelativeLayout
-            android:visibility="@{couponListViewModel.emptyCoupon?View.GONE:View.VISIBLE}"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:id="@+id/enterCoupon"
@@ -133,7 +132,6 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:visibility="@{couponListViewModel.notClickable?View.GONE:View.VISIBLE}"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/apply"
                 android:layout_alignParentTop="true"
@@ -152,7 +150,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
-                android:visibility="@{couponListViewModel.notClickable?View.GONE:View.VISIBLE}"
                 android:onClick="@{()->couponListViewModel.checkCoupon(code.getText().toString)}"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"

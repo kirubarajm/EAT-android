@@ -142,10 +142,10 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
 
             String name = intent.getExtras().getString("name");
             String email = intent.getExtras().getString("email");
-            String regionName = intent.getExtras().getString("region");
-            String otherRegionName = intent.getExtras().getString("other_region");
+            String regionName = intent.getExtras().getString("hometown");
+            String otherRegionName = intent.getExtras().getString("other_hometown");
             gender = intent.getExtras().getInt("gender");
-            regionId = intent.getExtras().getInt("regionid");
+            regionId = intent.getExtras().getInt("hometownid");
 
             if (gender == 1) {
                 mLoginViewModelMain.male.set(true);
@@ -184,11 +184,11 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //get selected region name and id
                 result = ((RegionListAdapter) mActivityNameGenderBinding.region.getAdapter()).getFilterList().get(position);
-                regionId =result.getRegionid();
+                regionId =result.getHometownid();
 
                 mActivityNameGenderBinding.regionList.setErrorEnabled(false);
 
-                new Analytics().regionSelected(result.getRegionname());
+                new Analytics().regionSelected(result.getHometown());
 
             }
         });

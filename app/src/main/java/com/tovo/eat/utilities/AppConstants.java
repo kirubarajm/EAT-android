@@ -93,6 +93,8 @@ public class AppConstants {
     public static final int ONLINE_REQUESTCODE = 333;
     public static final int INTERNET_ERROR_REQUEST_CODE = 4404;
     public static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 501;
+
+
     public static final String API_VERSION_ONE = "1.0.0";
     public static final String API_VERSION_TWO = "2.0.0";
     public static final String API_VERSION_TWO_ONE = "2.0.1";
@@ -378,6 +380,7 @@ public class AppConstants {
     public static final String EAT_X_FACTOR = URL_SERVER_IP_PORT + "/eat/getXfactors";
     public static final String EAT_REGION_LIST = URL_SERVER_IP_PORT + "/eat/regionlist";
     public static final String EAT_MASTER_REGION_LIST = URL_SERVER_IP_PORT + "/masters/regionlist";
+    public static final String EAT_MASTER_HOMETOWN_LIST = URL_SERVER_IP_PORT + "/masters/homedownlist";
     public static final String EAT_REGION_KITCHEN_LIST = URL_SERVER_IP_PORT + "/eat/kitche/showmore";
     public static final String EAT_EXPLORE_SEARCH = URL_SERVER_IP_PORT + "/eat/quicksearch";
     public static final String EAT_STORIES_LIST = URL_SERVER_IP_PORT + "/eat/stories";

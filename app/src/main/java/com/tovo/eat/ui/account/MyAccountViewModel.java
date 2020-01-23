@@ -156,7 +156,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             if (response.getResult() != null && response.getResult().size() > 0) {
 
                                 if (response.getResult().get(0).getRegionid()==0){
-                                    regionname.set(response.getResult().get(0).getOtherRegion());
+                                    regionname.set(response.getResult().get(0).getOtherHometown());
                                 }else {
                                     regionname.set(response.getResult().get(0).getRegionname());
 

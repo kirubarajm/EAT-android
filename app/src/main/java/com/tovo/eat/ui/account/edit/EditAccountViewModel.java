@@ -51,7 +51,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
     }
 
 
-    public void insertNameGenderServiceCall(String name, String email, int regionId,String otherRegion) {
+    public void insertNameGenderServiceCall(String name, String email, int hometownId,String otherHometown) {
 
 
         gender = male.get() ? AppConstants.TYPE_MALE : AppConstants.TYPE_FEMALE;
@@ -59,11 +59,13 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         if (email.isEmpty()) email = null;
 
 
-        if (regionId==0){
-           /* if (otherRegion.isEmpty()){
-                Toast.makeText(MvvmApp.getInstance(), "Please enter your region", Toast.LENGTH_SHORT).show();
+        if (hometownId==0){
+            if (otherHometown.isEmpty()){
+                Toast.makeText(MvvmApp.getInstance(), "Please enter your hometown", Toast.LENGTH_SHORT).show();
                 return;
-            }*/
+            }
+        }else {
+            if (otherHometown.isEmpty()) otherHometown=null;
         }
 
 
@@ -71,7 +73,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new EditAccountRequest(userIdMain, name, email, gender, regionId,otherRegion), new Response.Listener<NameGenderResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.PUT, AppConstants.URL_NAME_GENDER_INSERT, NameGenderResponse.class, new EditAccountRequest(userIdMain, name, email, gender, hometownId,otherHometown), new Response.Listener<NameGenderResponse>() {
                 @Override
                 public void onResponse(NameGenderResponse response) {
                     if (response != null) {
@@ -80,7 +82,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
                             if (response.getMessage() != null)
                                 if (getNavigator() != null)
                                     getNavigator().genderSuccess(response.getMessage());
-                            getDataManager().saveRegionId(regionId);
+
 
                             if (response.getResult()!=null&&response.getResult().size()>0) {
                                 long userId = response.getResult().get(0).getUserid();
@@ -119,7 +121,7 @@ public class EditAccountViewModel extends BaseViewModel<EditAccountNavigator> {
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_REGION_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_MASTER_HOMETOWN_LIST, RegionSearchModel.class, new Response.Listener<RegionSearchModel>() {
                 @Override
                 public void onResponse(RegionSearchModel response) {
                     if (response != null)

@@ -148,9 +148,9 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
             intent.putExtra("name", getUserDetailsResponse.getResult().get(0).getName());
             intent.putExtra("email", getUserDetailsResponse.getResult().get(0).getEmail());
             intent.putExtra("gender", getUserDetailsResponse.getResult().get(0).getGender());
-            intent.putExtra("region", getUserDetailsResponse.getResult().get(0).getRegionname());
-            intent.putExtra("regionid", getUserDetailsResponse.getResult().get(0).getRegionid());
-            intent.putExtra("other_region", getUserDetailsResponse.getResult().get(0).getOtherRegion());
+            intent.putExtra("hometown", getUserDetailsResponse.getResult().get(0).getHometownName());
+            intent.putExtra("hometownid", getUserDetailsResponse.getResult().get(0).getHometownId());
+            intent.putExtra("other_hometown", getUserDetailsResponse.getResult().get(0).getOtherHometown());
             startActivity(intent);
         }
     }

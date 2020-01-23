@@ -20,17 +20,42 @@ public class EditAccountRequest {
     @SerializedName("regionid")
     @Expose
     public Integer regionId;
+
+    @SerializedName("hometownid")
+    @Expose
+    public Integer hometownId;
+
     @SerializedName("other_region")
     @Expose
     public String otherRegion;
+    @SerializedName("other_hometown")
+    @Expose
+    public String otherHometown;
 
-    public EditAccountRequest(Long userid, String name, String email, Integer gender, Integer regionId,String otherRegion) {
+    public EditAccountRequest(Long userid, String name, String email, Integer gender, Integer hometownId,String otherHometown) {
         this.userid = userid;
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.regionId = regionId;
-        this.otherRegion = otherRegion;
+        this.hometownId = hometownId;
+        this.otherHometown = otherHometown;
+    }
+
+
+    public Integer getHometownId() {
+        return hometownId;
+    }
+
+    public void setHometownId(Integer hometownId) {
+        this.hometownId = hometownId;
+    }
+
+    public String getOtherHometown() {
+        return otherHometown;
+    }
+
+    public void setOtherHometown(String otherHometown) {
+        this.otherHometown = otherHometown;
     }
 
     public String getOtherRegion() {
