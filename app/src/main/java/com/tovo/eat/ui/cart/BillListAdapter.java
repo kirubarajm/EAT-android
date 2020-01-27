@@ -72,12 +72,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     }
 
-
-
-
-
-
-
     public class LiveProductsViewHolder extends BaseViewHolder implements BillItemViewModel.BilldetailsInfoViewModelListener {
 
         ListItemCartBillBinding mListItemLiveProductsBinding;
@@ -143,7 +137,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     }
                 }
             }, 10000);*/
-
 
         }
 

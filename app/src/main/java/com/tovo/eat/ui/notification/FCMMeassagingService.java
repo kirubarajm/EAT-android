@@ -13,7 +13,6 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -49,11 +48,12 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         RemoteMessage.Notification notification = remoteMessage.getNotification();
 
         Map<String, String> data = remoteMessage.getData();
-        Log.d("FROM", remoteMessage.getFrom());
+        //   Log.d("FROM", remoteMessage.getFrom());
 
 
         if (data == null) {
-            sendNotification(notification);
+            if (notification != null)
+                sendNotification(notification);
         } else {
             sendNotification(data);
         }

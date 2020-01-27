@@ -306,7 +306,8 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
 
                 if (place.getLatLng() != null) {
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 20);
-                    map.animateCamera(cameraUpdate);
+                    if (map != null)
+                        map.animateCamera(cameraUpdate);
                 }
 
 

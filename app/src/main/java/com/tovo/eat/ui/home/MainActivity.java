@@ -38,12 +38,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.razorpay.Checkout;
@@ -86,10 +89,11 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener, XfactorListner {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener, XfactorListner, InstallStateUpdatedListener, OnSuccessListener<AppUpdateInfo> {
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1001;
     private static final int RC_APP_UPDATE = 55669;
+    public static String FLEXIBLE_UPDATE = "flexible_update";
     protected LocationManager locationManager;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
@@ -105,9 +109,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     double clongitude;
     InstallStateUpdatedListener installStateUpdatedListener;
     int getAddressCount = 0;
+    AppUpdateManager appUpdateManager;
+    AppUpdateInfo appUpdateInfo;
 
+    Snackbar snackbar;
 
-    AppUpdateManager mAppUpdateManager;
+    boolean downloading;
+
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -389,6 +397,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     }
 
+
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
@@ -417,7 +426,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
 
-    public void inAppUpdate() {
+   /* public void inAppUpdate() {
 
 
         mAppUpdateManager = AppUpdateManagerFactory.create(this);
@@ -460,7 +469,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
 
 
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -493,13 +502,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
     }
 
-    private void popupSnackbarForCompleteUpdate() {
+    /*private void popupSnackbarForCompleteUpdate() {
 
         if (mAppUpdateManager != null) {
             mAppUpdateManager.completeUpdate();
         }
 
-        /*Snackbar snackbar =
+        *//*Snackbar snackbar =
                 Snackbar.make(
                         findViewById(R.id.root),
                         "New app is ready!",
@@ -512,8 +521,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
 
         // snackbar.setActionTextColor(getResources().getColor(R.color.install_color));
-        snackbar.show();*/
-    }
+        snackbar.show();*//*
+    }*/
 
 
     public void selectHomeAddress() {
@@ -560,8 +569,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
 
-       // inAppUpdate();
-      //  updateUIalert();
+
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        //   updatePopup(getString(R.string.update_available), getString(R.string.update), false, true);
+        // inAppUpdate();
+        //  updateUIalert();
 
         analytics = new Analytics(this, pageName);
 
@@ -1050,6 +1063,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     protected void onResume() {
         super.onResume();
 
+        appUpdateManager.registerListener(this);
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(this);
+
+
         statusUpdate();
 
         IntentFilter intentFilter = new IntentFilter("com.google.android.c2dm.intent.RECEIVE");
@@ -1141,6 +1158,272 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void canceled() {
 
+    }
+
+    @Override
+    public void onStateUpdate(InstallState installState) {
+        int installStatus = installState.installStatus();
+        switch (installStatus) {
+            case InstallStatus.DOWNLOADING:
+                // updateTextView.setText(R.string.downloading_text);
+                //  updateButton.setVisibility(View.INVISIBLE);
+                if (downloading) {
+                    updatePopup("Downloading...", "", false, false,false);
+                    downloading = false;
+                }
+
+
+                break;
+            case InstallStatus.DOWNLOADED:
+                //   updateTextView.setText(R.string.downloaded_text);
+                //  updateButton.setVisibility(View.INVISIBLE);
+                //   aboutUsText.setText(R.string.success_text);
+                //  placeholderText.setText(R.string.flexible_update_downloaded);
+                //  popupSnackbarForCompleteUpdate();
+                downloading = false;
+                updatePopup(getString(R.string.download_completed), getString(R.string.install), false, true,false);
+
+                break;
+            case InstallStatus.FAILED:
+                //   updateTextView.setText(R.string.download_failed_text);
+                updatePopup(getString(R.string.download_failed), getString(R.string.retry), true, true,false);
+                break;
+            case InstallStatus.CANCELED:
+                //  updateTextView.setText(R.string.download_canceled_text);
+
+                break;
+        }
+    }
+
+    @Override
+    public void onSuccess(AppUpdateInfo appUpdateInfo) {
+        this.appUpdateInfo = appUpdateInfo;
+        if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+            // If the update is downloaded but not installed,
+            // notify the user to complete the update.
+            //   popupSnackbarForCompleteUpdate();
+
+            //  updatePopup(getString(R.string.download_completed),getString(R.string.install),false);
+
+        } else if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+
+            /*if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)){
+
+                Toast.makeText(this, "flexible", Toast.LENGTH_SHORT).show();
+
+            }else {
+                Toast.makeText(this, "update available", Toast.LENGTH_SHORT).show();
+            }*/
+
+            /* && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)*/
+            //show flexible update available UI and on response from that, start flexible update
+
+            //   updatePopup(getString(R.string.update_available), getString(R.string.update), false, true);
+            this.appUpdateInfo = appUpdateInfo;
+        } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADING) {
+
+
+        }
+    }
+
+    private void startUpdate(AppUpdateInfo appUpdateInfo, int appUpdateType) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(appUpdateInfo,
+                    appUpdateType,
+                    MainActivity.this,
+                    RC_APP_UPDATE);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
+    /* Displays the snackbar notification and call to action. */
+    private void popupSnackbarForCompleteUpdate() {
+       /* Snackbar snackbar =
+                Snackbar.make(
+                       mActivityMainBinding.root,
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                appUpdateManager.completeUpdate();
+            }
+        });
+        snackbar.setActionTextColor(getResources().getColor(R.color.eat_color));
+        snackbar.show();*/
+
+
+    }
+
+
+    @Override
+    public void update(boolean update, boolean forceupdate) {
+        if (update)
+            updatePopup(getString(R.string.update_available), getString(R.string.update), false, true,forceupdate);
+    }
+
+
+    public void updatePopup(String message, String action, boolean error, boolean isUpdate,boolean forceUpdate) {
+
+        mActivityMainBinding.update.startShimmerAnimation();
+
+        if (!mMainViewModel.isLiveOrder.get()) {
+            mMainViewModel.updateAvailable.set(true);
+            mMainViewModel.updateTitle.set(message);
+            mMainViewModel.updateAction.set(action);
+            mMainViewModel.enableLater.set(forceUpdate);
+            mMainViewModel.update.set(isUpdate);
+
+        }
+
+        if (error) {
+            mActivityMainBinding.action.setTextColor(getResources().getColor(R.color.red));
+        }else {
+            mActivityMainBinding.action.setTextColor(getResources().getColor(R.color.green));
+        }
+
+        mActivityMainBinding.action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (action.equals(getString(R.string.install))) {
+
+                    appUpdateManager.completeUpdate();
+
+                } else if (action.equals(getString(R.string.update))) {
+
+                    if (appUpdateInfo != null && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                        startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+                        downloading = true;
+                        mMainViewModel.updateAvailable.set(false);
+                    } else {
+                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                        finish();
+
+                    }
+
+
+                   /* if (snackbar != null)
+                        if (snackbar.isShown())
+                            snackbar.dismiss();*/
+
+                    //  updatePopup("Downloading...", "", false);
+                } else if (action.isEmpty()) {
+                    //  startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+                } else if (action.equals(getString(R.string.retry))) {
+                    if (appUpdateInfo != null && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                        startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+                        downloading = true;
+                        mMainViewModel.updateAvailable.set(false);
+                    } else {
+                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                        finish();
+
+                    }
+
+                } else {
+                    return;
+                }
+
+            }
+        });
+        mActivityMainBinding.later.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainViewModel.updateAvailable.set(false);
+
+            }
+        });
+
+
+
+
+
+      /*  if (snackbar != null)
+            if (snackbar.isShown())
+                snackbar.dismiss();
+
+        LayoutInflater mInflater = LayoutInflater.from(MainActivity.this);
+        snackbar = Snackbar.make(mActivityMainBinding.root, "", Snackbar.LENGTH_INDEFINITE);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setVisibility(View.INVISIBLE);
+
+        View snackView = mInflater.inflate(R.layout.update_snackbar, null);
+        TextView textViewTop = (TextView) snackView.findViewById(R.id.name);
+        textViewTop.setText(message);
+
+        TextView textViewAction = (TextView) snackView.findViewById(R.id.action);
+        textViewAction.setText(action);
+
+        TextView textViewLater = (TextView) snackView.findViewById(R.id.later);
+
+        if (isUpdate) {
+            textViewLater.setVisibility(View.VISIBLE);
+        }
+
+        if (error) {
+            textViewAction.setTextColor(getResources().getColor(R.color.red));
+        }
+
+
+        textViewAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (action.equals(getString(R.string.install))) {
+
+                    appUpdateManager.completeUpdate();
+
+                } else if (action.equals(getString(R.string.update))) {
+                    startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+                    downloading = true;
+                    if (snackbar != null)
+                        if (snackbar.isShown())
+                            snackbar.dismiss();
+
+                    //  updatePopup("Downloading...", "", false);
+                } else if (action.isEmpty()) {
+                    //  startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+                } else if (action.equals(getString(R.string.retry))) {
+                    startUpdate(appUpdateInfo, AppUpdateType.FLEXIBLE);
+
+                } else {
+                    return;
+                }
+
+            }
+        });
+        textViewLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (snackbar != null)
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
+
+            }
+        });
+
+
+
+
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(snackView, 0);
+        snackbar.show();*/
     }
 
     private class AsyncTaskAddress extends AsyncTask<Double, Address, Address> {

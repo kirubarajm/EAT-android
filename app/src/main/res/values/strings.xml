@@ -604,6 +604,8 @@
     <string name="unable_to_process_order">UNABLE TO PROCESS ORDER</string>
     <string name="any_deducted_amount_will_be_refunded_to_you_within_2_4_working_days">Any deducted amount will be refunded to you within 2-4 working days</string>
     <string name="update">Update</string>
+    <string name="restart">Restart</string>
+    <string name="install">Install now</string>
     <string name="not_now">Not now</string>
 
 
@@ -687,6 +689,9 @@
     <string name="any_other_instructions">Any other instructions?</string>
     <string name="type_special_instructions_for_your_order">Type special instructions for your order</string>
     <string name="loading">Loading...</string>
+    <string name="update_available">New update available!</string>
+    <string name="download_completed">Update downloaded</string>
+    <string name="download_failed">Install failed</string>
 
 
 </resources>

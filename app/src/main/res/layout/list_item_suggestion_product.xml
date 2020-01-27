@@ -42,6 +42,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="top"
                     android:maxLines="2"
+                    android:ellipsize="end"
                     android:text="@{suggestionproductsItemViewModel.product_name}"
                     android:textColor="@color/black"
                     android:textSize="13sp"

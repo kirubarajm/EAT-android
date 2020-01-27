@@ -1207,7 +1207,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {
-                        if (response.getCollection().size() > 0) {
+
+                        if (response.getCollection()!=null&&response.getCollection().size() > 0) {
                             collectionItemLiveData.setValue(response.getCollection());
                             try {
                                 if (getNavigator() != null)

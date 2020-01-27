@@ -194,7 +194,7 @@
                         android:hint="ENTER YOUR HOMETOWN"
                         android:imeOptions="actionDone"
                         android:textSize="14sp"
-                        android:theme="@style/EditTextHint" />
+                        android:textColorHint="@color/gray" />
 
                 </android.support.design.widget.TextInputLayout>
 

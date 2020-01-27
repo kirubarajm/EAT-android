@@ -25,6 +25,8 @@ import com.tovo.eat.ui.payment.PaymentRetryRequestPojo;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.ui.track.DeliveryTimeRequest;
 import com.tovo.eat.ui.track.OrderTrackingResponse;
+import com.tovo.eat.ui.update.UpdateRequest;
+import com.tovo.eat.ui.update.UpdateResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -63,6 +65,11 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userProfilePicUrl = new ObservableField<>();
     private final ObservableField<String> numOfCarts = new ObservableField<>();
+    public final ObservableField<String> updateTitle = new ObservableField<>();
+    public final ObservableField<String> updateAction = new ObservableField<>();
+    public final ObservableBoolean updateAvailable = new ObservableBoolean();
+    public final ObservableBoolean enableLater = new ObservableBoolean();
+    public final ObservableBoolean update = new ObservableBoolean();
     public LiveOrderResponsePojo liveOrderResponsePojo;
     public Long kitchenid = 0L;
     private long orderId;
@@ -74,6 +81,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         super(dataManager);
         getDataManager().setIsFav(false);
         masterRequest();
+        checkUpdate();
         getDataManager().setIsFilterApplied(false);
         //getDataManager().appStartedAgain(true);
 
@@ -696,4 +704,33 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
     }
+
+    public void checkUpdate() {
+        /*   MvvmApp.getInstance().getVersionCode()*/
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+        GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FCM_FORCE_UPDATE, UpdateResponse.class, new UpdateRequest(MvvmApp.getInstance().getVersionCode()), new Response.Listener<UpdateResponse>() {
+            @Override
+            public void onResponse(UpdateResponse response) {
+
+                if (response != null)
+                    if (response.getResult() != null && response.getStatus()) {
+                        if (getNavigator() != null)
+                            getNavigator().update(response.getResult().getVersionstatus(), response.getResult().getEatforceupdate());
+                    }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }, AppConstants.API_VERSION_ONE);
+        MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+
+    }
+
+
 }

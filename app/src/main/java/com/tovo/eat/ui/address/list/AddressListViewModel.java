@@ -32,8 +32,9 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     public AddressListViewModel(DataManager dataManager) {
         super(dataManager);
         addrressListItemsLiveData = new MutableLiveData<>();
-      //  fetchRepos();
+        //  fetchRepos();
     }
+
     public ObservableList<AddressListResponse.Result> getAddrressListItemViewModels() {
         return addrressListItemViewModels;
     }
@@ -41,6 +42,7 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
     public MutableLiveData<List<AddressListResponse.Result>> getAddrressListItemsLiveData() {
         return addrressListItemsLiveData;
     }
+
     public void addDishItemsToList(List<AddressListResponse.Result> ordersItems) {
         addrressListItemViewModels.clear();
         addrressListItemViewModels.addAll(ordersItems);
@@ -69,10 +71,10 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                             getDataManager().setCurrentAddress(null);
                         }
-                        if (getNavigator()!=null)
-                        getNavigator().showToast(response.getMessage());
-                        if (getNavigator()!=null)
-                        getNavigator().addresDeleted();
+                        if (getNavigator() != null)
+                            getNavigator().showToast(response.getMessage());
+                        if (getNavigator() != null)
+                            getNavigator().addresDeleted();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -109,7 +111,8 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
                         if (response.getResult().size() == 0) {
 
                             haveAddress = false;
-                            getNavigator().noAddress();
+                            if (getNavigator() != null)
+                                getNavigator().noAddress();
                             emptyAddress.set(true);
                             getDataManager().setHomeAddressAdded(false);
                             getDataManager().setOfficeAddressAdded(false);
@@ -122,15 +125,15 @@ public class AddressListViewModel extends BaseViewModel<AddressListNavigator> {
 
                         }
                     }
-                    if (getNavigator()!=null)
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
-                    if (getNavigator()!=null)
-                    getNavigator().listLoaded();
+                    if (getNavigator() != null)
+                        getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_ONE);
 

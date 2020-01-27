@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:shimmer="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -33,43 +34,6 @@
 
                     <!-- android:stateListAnimator="@animator/always_elevate"
                      android:theme="@style/AppTheme.Overlay"-->
-                    <FrameLayout
-                        android:id="@+id/content_main"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal|center_vertical">
-
-                            <com.facebook.shimmer.ShimmerFrameLayout
-                                android:id="@+id/loading"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:orientation="vertical"
-                                android:visibility="visible"
-                                shimmer:duration="800">
-
-                                <!-- Adding 7 rows of placeholders -->
-
-
-                                <ImageView
-                                    android:layout_width="150dp"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_eatlogo_01" />
-
-
-                            </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-                        </RelativeLayout>
-
-
-                    </FrameLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -195,6 +159,46 @@
 
 
                 </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/content_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@+id/activityMain"
+                    app:layout_anchorGravity="center">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical">
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/loading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="visible"
+                            shimmer:duration="800">
+
+                            <!-- Adding 7 rows of placeholders -->
+
+
+                            <ImageView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_eatlogo_01" />
+
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+                    </RelativeLayout>
+
+
+                </FrameLayout>
 
 
             </android.support.design.widget.CoordinatorLayout>
@@ -525,6 +529,98 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
+
+
+        <LinearLayout
+            android:visibility="@{viewModel.updateAvailable?View.VISIBLE:View.GONE}"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_eat_color"
+            android:orientation="vertical">
+
+            <!--android:background="#9E9E9E"-->
+
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/medium_gray"/>-->
+
+            <RelativeLayout
+                android:visibility="@{viewModel.isLiveOrder?View.GONE:View.VISIBLE}"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="8dp">
+
+
+
+                <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.updateTitle}"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_marginEnd="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_vertical">
+
+                    <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:visibility="@{viewModel.enableLater?View.VISIBLE:View.GONE}"
+                        android:id="@+id/later"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/later"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:layout_marginStart="20dp"
+                        android:id="@+id/update"
+                        app:duration="1000"
+                        app:repeat_mode="reverse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                    <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                        android:visibility="@{viewModel.update?View.VISIBLE:View.GONE}"
+                        android:id="@+id/action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@{viewModel.updateAction}"
+                        android:textAllCaps="true"
+                        android:textColor="@color/green"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <data>

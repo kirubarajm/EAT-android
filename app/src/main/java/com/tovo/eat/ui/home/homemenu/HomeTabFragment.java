@@ -328,10 +328,31 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             }
         });
 
+       /* new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollToView(   mFragmentHomeBinding.fullScroll,mFragmentHomeBinding.recyclerviewOrders);
+            }
+        },10000);*/
+
 
 
 
     }
+
+
+    public static void scrollToView(final NestedScrollView nestedScrollView, final View viewToScrollTo) {
+        final int[] xYPos = new int[2];
+        viewToScrollTo.getLocationOnScreen(xYPos);
+        final int[] scrollxYPos = new int[2];
+        nestedScrollView.getLocationOnScreen(scrollxYPos);
+        int yPosition = xYPos[1];
+        if (yPosition < 0) {
+            yPosition = 0;
+        }
+        nestedScrollView.scrollTo(0, (nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1).getMeasuredHeight() - nestedScrollView.getMeasuredHeight()));
+    }
+
 
 
     public void startLocationTrackingForAddress() {

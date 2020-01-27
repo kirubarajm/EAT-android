@@ -41,4 +41,6 @@ public interface MainNavigator {
 
     void showOrderRating(Long orderId, String brandname);
 
+    void update(boolean update,boolean forceupdate);
+
 }

@@ -13,8 +13,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 24
-        versionName "1.1.5"
+        versionCode 23
+        versionName "1.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -32,9 +32,9 @@ android {
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.110:4000"'//praveen
             //buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
           //  buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4000"'
-           // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
-           buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
-          // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
+           //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+           //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
+          buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -51,7 +51,8 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+          //  buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             minifyEnabled false
@@ -169,7 +170,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:16.0.0'
 
     //update ui
-    implementation 'com.google.android.play:core:1.6.3'
+    implementation 'com.google.android.play:core:1.6.4'
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
