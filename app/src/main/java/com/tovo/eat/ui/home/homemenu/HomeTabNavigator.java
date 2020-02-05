@@ -30,5 +30,7 @@ public interface HomeTabNavigator {
 
     void scrollToTop();
 
+    void showPromotions(String url,boolean fullScreen, int type);
+
 
 }

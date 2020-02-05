@@ -338,13 +338,14 @@ public class KitchenDishResponse {
         }
 
         public Boolean getNextAvailable() {
-
             if (nextAvailable != null) {
-
-                return nextAvailable == 1;
+                if (nextAvailable==1){
+                    return true;
+                }else {
+                    return false;
+                }
             }
             return false;
-
         }
 
         public void setNextAvailable(Integer nextAvailable) {

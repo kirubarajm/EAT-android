@@ -307,6 +307,18 @@ public class RegionsResponse {
         @SerializedName("kitchenlist")
         @Expose
         private List<Kitchenlist> kitchenlist = null;
+        @SerializedName("clickable")
+        @Expose
+        private boolean clickable=true;
+
+        public boolean isClickable() {
+            return clickable;
+        }
+
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
+
 
         public Integer getRegionid() {
             return regionid;

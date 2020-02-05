@@ -83,7 +83,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 
 public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBinding, OrderTrackingViewModel> implements
-        OrderTrackingNavigator, OnMapReadyCallback, HasSupportFragmentInjector {
+            OrderTrackingNavigator, OnMapReadyCallback, HasSupportFragmentInjector {
 
 
     private static final String TAG = OrderTrackingActivity.class.getSimpleName();

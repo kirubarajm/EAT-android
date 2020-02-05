@@ -21,6 +21,8 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
+import com.tovo.eat.ui.home.ad.bottom.PromotionRequest;
+import com.tovo.eat.ui.home.ad.bottom.PromotionResponse;
 import com.tovo.eat.ui.payment.PaymentRetryRequestPojo;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
 import com.tovo.eat.ui.track.DeliveryTimeRequest;
@@ -732,5 +734,47 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     }
 
+    public void getPromotions() {
 
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_ORDER_ETA, PromotionResponse.class,new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<PromotionResponse>() {
+                @Override
+                public void onResponse(PromotionResponse response) {
+
+                    if (response != null) {
+
+                        if (response.getStatus()) {
+
+
+                            if (response.getResult().getShowStatus()){
+                                getNavigator().showPromotions(response.getResult().getUrl(),response.getResult().getFullScreen(),response.getResult().getContentType());
+
+                            }
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
 }

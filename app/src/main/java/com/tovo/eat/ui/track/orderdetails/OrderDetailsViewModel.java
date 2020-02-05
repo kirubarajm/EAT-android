@@ -45,8 +45,8 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
     public final ObservableField<String> locality = new ObservableField<>();
 
     public final ObservableBoolean zeroBalance=new ObservableBoolean();
-    public ObservableList<CartPageResponse.Cartdetail> billdetails = new ObservableArrayList<>();
-    public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
+    public ObservableList<OrdersHistoryActivityResponse.Cartdetail> billdetails = new ObservableArrayList<>();
+    public MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> cartBillLiveData;
 
 
 
@@ -68,15 +68,15 @@ public class OrderDetailsViewModel extends BaseViewModel<OrderDetailsNavigator> 
        // fetchRepos();
     }
 
-    public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
+    public MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> getCartBillLiveData() {
         return cartBillLiveData;
     }
 
-    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
+    public void setCartBillLiveData(MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> cartBillLiveData) {
         this.cartBillLiveData = cartBillLiveData;
     }
 
-    public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+    public void addBillItemsToList(List<OrdersHistoryActivityResponse.Cartdetail> results) {
         billdetails.clear();
         billdetails.addAll(results);
 

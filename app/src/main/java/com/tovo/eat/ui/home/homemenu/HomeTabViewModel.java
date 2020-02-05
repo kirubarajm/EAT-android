@@ -30,6 +30,8 @@ import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.LiveOrderResponsePojo;
+import com.tovo.eat.ui.home.ad.bottom.PromotionRequest;
+import com.tovo.eat.ui.home.ad.bottom.PromotionResponse;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -53,7 +55,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Handler;
 
 public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
@@ -315,6 +316,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                     orderId = response.getResult().get(0).getOrderid();
 
+
                                     getDataManager().setOrderId(orderId);
 
 
@@ -440,7 +442,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
-
 
                     if (response != null) {
 
@@ -685,6 +686,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             } catch (Exception ee) {
                                                 ee.printStackTrace();
                                             }
+
+                                            if (pageid.get() == 1)
+                                                getPromotions();
+
+
                                         } else {
                                             if (pageid.get() == 1)
                                                 fullEmpty.set(true);
@@ -719,11 +725,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }*/
-
-
-
-
-
 
 
                             }
@@ -1208,7 +1209,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 public void onResponse(KitchenResponse.Result response) {
                     if (response != null) {
 
-                        if (response.getCollection()!=null&&response.getCollection().size() > 0) {
+                        if (response.getCollection() != null && response.getCollection().size() > 0) {
                             collectionItemLiveData.setValue(response.getCollection());
                             try {
                                 if (getNavigator() != null)
@@ -1315,6 +1316,50 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 e.printStackTrace();
                             } catch (Exception e) {
                                 e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //  Log.e("", error.getMessage());
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+    public void getPromotions() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+
+
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PROMOTION_URL, PromotionResponse.class, new PromotionRequest(getDataManager().getCurrentUserId()), new Response.Listener<PromotionResponse>() {
+                @Override
+                public void onResponse(PromotionResponse response) {
+
+                    if (response != null) {
+
+                        if (response.getStatus()) {
+
+
+                            if (response.getResult().getShowStatus()) {
+                                getNavigator().showPromotions(response.getResult().getUrl(), response.getResult().getFullScreen(), response.getResult().getContentType());
+
                             }
 
                         }

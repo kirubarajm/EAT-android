@@ -1,5 +1,6 @@
 package com.tovo.eat.ui.signup.faqs;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 public class FaqsItemViewModel {
@@ -13,6 +14,9 @@ public class FaqsItemViewModel {
     public final ObservableField<String> faqid = new ObservableField<>();
 
     public final ObservableField<String> created_at = new ObservableField<>();
+
+    public final ObservableBoolean expandClicked = new ObservableBoolean();
+
 
     public final FaqItemViewModelListener mListener;
 
@@ -33,6 +37,15 @@ public class FaqsItemViewModel {
 
     public void onItemClick() {
         mListener.onItemClick(mBlog.getType());
+    }
+
+    public void expandClick() {
+        if (expandClicked.get()) {
+            expandClicked.set(false);
+        }else {
+            expandClicked.set(true);
+        }
+
     }
 
 

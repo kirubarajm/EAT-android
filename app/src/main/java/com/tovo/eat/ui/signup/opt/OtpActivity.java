@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -52,12 +51,12 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
     OtpActivityViewModel mLoginViewModelMain;
     String strPhoneNumber = "";
     String strOtpId = "";
-    String strOtp = "";
+    String strOtp = "0";
     String UserId = "";
 
 
     Analytics analytics;
-    String  pageName=AppConstants.SCREEN_OTP;
+    String pageName = AppConstants.SCREEN_OTP;
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -136,7 +135,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
 
         if (mActivityOtpBinding.otpText.getText() != null && mActivityOtpBinding.otpText.getText().length() == 5) {
-            mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtp));
+            if (strOtp != null)
+                mLoginViewModelMain.userContinueClick(strPhoneNumber, Integer.parseInt(strOtp));
         }
     }
 
@@ -324,8 +324,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
         startTimer();
 
 
-
-        analytics=new Analytics(this,pageName);
+        analytics = new Analytics(this, pageName);
 
         /*AppSignatureHashHelper appSignatureHashHelper = new AppSignatureHashHelper(this);
 
@@ -335,7 +334,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpActivityVie
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-          //  String booleanOtp = bundle.getString("booleanOpt");
+            //  String booleanOtp = bundle.getString("booleanOpt");
             strOtpId = bundle.getString("optId");
             mLoginViewModelMain.OtpId = Integer.parseInt(strOtpId);
 

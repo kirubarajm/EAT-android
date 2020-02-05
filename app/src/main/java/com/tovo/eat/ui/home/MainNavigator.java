@@ -43,4 +43,5 @@ public interface MainNavigator {
 
     void update(boolean update,boolean forceupdate);
 
+    void showPromotions(String url,boolean fullScreen, int type);
 }

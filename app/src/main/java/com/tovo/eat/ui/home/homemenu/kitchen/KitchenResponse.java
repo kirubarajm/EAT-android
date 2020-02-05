@@ -132,8 +132,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("member_type_icon")
         @Expose
         private String memberTypeIcon;
+        @SerializedName("clickable")
+        @Expose
+        private boolean clickable=true;
 
+        public boolean isClickable() {
+            return clickable;
+        }
 
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
 
         public Long getMakeituserid() {
             return makeituserid;
@@ -359,7 +368,15 @@ public class KitchenResponse  implements Serializable {
         private Boolean couponstatus;
         @SerializedName("clickable")
         @Expose
-        private Boolean clickable=true;
+        private boolean clickable=true;
+
+        public boolean isClickable() {
+            return clickable;
+        }
+
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
 
         public String getCouponCollectionImg() {
             return couponCollectionImg;
@@ -369,13 +386,6 @@ public class KitchenResponse  implements Serializable {
             this.couponCollectionImg = couponCollectionImg;
         }
 
-        public Boolean getClickable() {
-            return clickable;
-        }
-
-        public void setClickable(Boolean clickable) {
-            this.clickable = clickable;
-        }
 
         public Integer getCid() {
             return cid;
@@ -572,7 +582,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("kitchencount")
         @Expose
         private Integer kitchencount;
+        @SerializedName("clickable")
+        @Expose
+        private boolean clickable=true;
 
+        public boolean isClickable() {
+            return clickable;
+        }
+
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
 
         public String getCollectionImage() {
             return collectionImage;
@@ -773,6 +793,18 @@ public class KitchenResponse  implements Serializable {
         @Expose
         private Boolean collectionstatus;
 
+        @SerializedName("clickable")
+        @Expose
+        private boolean clickable=true;
+
+        public boolean isClickable() {
+            return clickable;
+        }
+
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
+
         public Integer getCid() {
             return cid;
         }
@@ -899,7 +931,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("stories")
         @Expose
         private List<Stories> stories = null;
+        @SerializedName("clickable")
+        @Expose
+        private boolean clickable=true;
 
+        public boolean isClickable() {
+            return clickable;
+        }
+
+        public void setClickable(boolean clickable) {
+            this.clickable = clickable;
+        }
         public Integer getStoryid() {
             return storyid;
         }

@@ -27,7 +27,8 @@ public class InfinityRegionCardItemViewModel {
     }
 
     public void onItemClick() {
-        mListener.onItemClick(region);
+        if (region.isClickable())
+            mListener.onItemClick(region);
     }
 
     public interface InfinityRegionItemViewModelListener {

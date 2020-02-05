@@ -23,11 +23,9 @@ public class OfferListItemViewModel {
 
 
     public void onItemClick() {
-        if (coupon.getClickable()==null) {
+       if (coupon.isClickable())
             mListener.onItemClick(coupon);
-        }else if (coupon.getClickable()){
-            mListener.onItemClick(coupon);
-        }
+
     }
 
 

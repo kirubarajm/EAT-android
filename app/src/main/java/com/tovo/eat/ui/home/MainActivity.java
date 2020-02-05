@@ -62,6 +62,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.cart.CartActivity;
 import com.tovo.eat.ui.cart.xfactoralert.XfactorListner;
 import com.tovo.eat.ui.filter.StartFilter;
+import com.tovo.eat.ui.home.ad.bottom.PromotionFragment;
 import com.tovo.eat.ui.home.homemenu.HomeTabFragment;
 import com.tovo.eat.ui.notification.FirebaseDataReceiver;
 import com.tovo.eat.ui.orderrating.OrderRatingActivity;
@@ -214,12 +215,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCart() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
         stopLoader();
+        try{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CartActivity fragment = new CartActivity();
         transaction.replace(R.id.content_main, fragment);
         //  transaction.addToBackStack(CartActivity.class.getSimpleName());
         transaction.commit();
-
+        }catch (Exception ee){
+            ee.printStackTrace();
+        }
         mMainViewModel.toolbarTitle.set("Cart");
         mMainViewModel.titleVisible.set(true);
 
@@ -227,7 +231,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isExplore.set(false);
         mMainViewModel.isCart.set(true);
         mMainViewModel.isMyAccount.set(false);
-
+        mMainViewModel.updateAvailable.set(false);
     }
 
     @Override
@@ -240,13 +244,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openHome() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
         stopLoader();
+        try{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabFragment fragment = new HomeTabFragment();
         transaction.replace(R.id.content_main, fragment);
 
         //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
         transaction.commitAllowingStateLoss();
-
+    }catch (Exception ee){
+        ee.printStackTrace();
+    }
         mMainViewModel.toolbarTitle.set("Home");
         mMainViewModel.titleVisible.set(false);
 
@@ -255,18 +262,28 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
 
+
+        if (mMainViewModel.update.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(true);
+            }
+        }
+
     }
 
     @Override
     public void openExplore() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
         stopLoader();
+        try{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SearchFragment fragment = new SearchFragment();
         transaction.replace(R.id.content_main, fragment);
         //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
         transaction.commit();
-
+    }catch (Exception ee){
+        ee.printStackTrace();
+    }
 
         mMainViewModel.toolbarTitle.set("Explore");
 
@@ -276,6 +293,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.isExplore.set(true);
         mMainViewModel.isCart.set(false);
         mMainViewModel.isMyAccount.set(false);
+
+        mMainViewModel.updateAvailable.set(false);
 
 
     }
@@ -316,14 +335,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     public void openAccount() {
         stopLoader();
-        new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        MyAccountFragment fragment = new MyAccountFragment();
-        transaction.replace(R.id.content_main, fragment);
-        // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
-        transaction.commit();
+        try {
+            new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_MY_ACCOUNT);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            MyAccountFragment fragment = new MyAccountFragment();
+            transaction.replace(R.id.content_main, fragment);
+            // transaction.addToBackStack(MyAccountFragment.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
         mMainViewModel.toolbarTitle.set("My Account");
         mMainViewModel.titleVisible.set(true);
+        mMainViewModel.updateAvailable.set(false);
     }
 
     @Override
@@ -1168,7 +1192,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 // updateTextView.setText(R.string.downloading_text);
                 //  updateButton.setVisibility(View.INVISIBLE);
                 if (downloading) {
-                    updatePopup("Downloading...", "", false, false,false);
+                    updatePopup("Downloading...", "", false, false, false);
                     downloading = false;
                 }
 
@@ -1181,12 +1205,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 //  placeholderText.setText(R.string.flexible_update_downloaded);
                 //  popupSnackbarForCompleteUpdate();
                 downloading = false;
-                updatePopup(getString(R.string.download_completed), getString(R.string.install), false, true,false);
+                updatePopup(getString(R.string.download_completed), getString(R.string.install), false, true, false);
 
                 break;
             case InstallStatus.FAILED:
                 //   updateTextView.setText(R.string.download_failed_text);
-                updatePopup(getString(R.string.download_failed), getString(R.string.retry), true, true,false);
+                updatePopup(getString(R.string.download_failed), getString(R.string.retry), true, true, false);
                 break;
             case InstallStatus.CANCELED:
                 //  updateTextView.setText(R.string.download_canceled_text);
@@ -1256,33 +1280,42 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         snackbar.setActionTextColor(getResources().getColor(R.color.eat_color));
         snackbar.show();*/
 
-
     }
 
 
     @Override
     public void update(boolean update, boolean forceupdate) {
         if (update)
-            updatePopup(getString(R.string.update_available), getString(R.string.update), false, true,forceupdate);
+            updatePopup(getString(R.string.update_available), getString(R.string.update), false, update, forceupdate);
+    }
+
+    @Override
+    public void showPromotions(String url, boolean fullScreen, int type) {
+        PromotionFragment bottomSheetFragment = new PromotionFragment();
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
 
-    public void updatePopup(String message, String action, boolean error, boolean isUpdate,boolean forceUpdate) {
+    public void updatePopup(String message, String action, boolean error, boolean isUpdate, boolean forceUpdate) {
 
         mActivityMainBinding.update.startShimmerAnimation();
 
-        if (!mMainViewModel.isLiveOrder.get()) {
-            mMainViewModel.updateAvailable.set(true);
-            mMainViewModel.updateTitle.set(message);
-            mMainViewModel.updateAction.set(action);
-            mMainViewModel.enableLater.set(forceUpdate);
-            mMainViewModel.update.set(isUpdate);
 
+        if (mMainViewModel.isHome.get()) {
+            if (!mMainViewModel.isLiveOrder.get()) {
+                mMainViewModel.updateAvailable.set(isUpdate);
+                mMainViewModel.updateTitle.set(message);
+                mMainViewModel.updateAction.set(action);
+                mMainViewModel.enableLater.set(forceUpdate);
+                mMainViewModel.update.set(isUpdate);
+            }
+        } else {
+            mMainViewModel.updateAvailable.set(false);
         }
 
         if (error) {
             mActivityMainBinding.action.setTextColor(getResources().getColor(R.color.red));
-        }else {
+        } else {
             mActivityMainBinding.action.setTextColor(getResources().getColor(R.color.green));
         }
 
@@ -1345,7 +1378,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             @Override
             public void onClick(View v) {
                 mMainViewModel.updateAvailable.set(false);
-
+                mMainViewModel.update.set(false);
             }
         });
 

@@ -47,7 +47,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
     @Inject
-    BillListAdapter billListAdapter;
+    OrderBillListAdapter billListAdapter;
     Dialog dialog;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_ORDER_DETAILS;

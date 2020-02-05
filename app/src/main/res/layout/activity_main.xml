@@ -582,7 +582,7 @@
                     android:layout_gravity="center_vertical">
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
-                        android:visibility="@{viewModel.enableLater?View.VISIBLE:View.GONE}"
+                        android:visibility="@{viewModel.enableLater?View.GONE:View.VISIBLE}"
                         android:id="@+id/later"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

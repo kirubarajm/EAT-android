@@ -54,6 +54,7 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatAdapt
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.chat.ChatResponse;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryListResponse;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrderBillListAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.address.list.AddressListAdapter;
@@ -134,6 +135,14 @@ public final class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void addBillItems(RecyclerView recyclerView, List<CartPageResponse.Cartdetail> cartdetails) {
         BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(cartdetails);
+        }
+    }
+    @BindingAdapter({"adapter"})
+    public static void addOrderBillItems(RecyclerView recyclerView, List<OrdersHistoryActivityResponse.Cartdetail> cartdetails) {
+        OrderBillListAdapter adapter = (OrderBillListAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(cartdetails);

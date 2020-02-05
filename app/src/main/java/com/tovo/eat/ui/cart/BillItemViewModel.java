@@ -22,16 +22,21 @@ public class BillItemViewModel {
         this.mListener = mListener;
 
         title.set(cartdetail.getTitle());
-
-
-        if (cartdetail.getCharges()!=null&&cartdetail.getCharges()>0){
+        //charges.set(String.valueOf(cartdetail.getCharges()));
+        aboveCost.set(cartdetail.getDefaultCostStatus());
+        if (cartdetail.getDefaultCostStatus()){
+            charges.set(String.valueOf(cartdetail.getDefaultCost()));
+        }else {
             charges.set(String.valueOf(cartdetail.getCharges()));
-            aboveCost.set(false);
+        }
+
+        /*if (cartdetail.getCharges()!=null&&cartdetail.getCharges()>0){
+            charges.set(String.valueOf(cartdetail.getCharges()));
+            aboveCost.set(cartdetail.getDefaultCostStatus());
         }else {
             charges.set(String.valueOf(cartdetail.getDefaultCost()));
             aboveCost.set(true);
-        }
-
+        }*/
 
 
 

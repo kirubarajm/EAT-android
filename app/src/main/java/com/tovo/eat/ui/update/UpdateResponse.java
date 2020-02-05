@@ -44,10 +44,10 @@ public class UpdateResponse {
 
         @SerializedName("versionstatus")
         @Expose
-        private Boolean versionstatus;
+        private Boolean versionstatus=false;
         @SerializedName("eatforceupdate")
         @Expose
-        private Boolean eatforceupdate;
+        private Boolean eatforceupdate=false;
         @SerializedName("support")
         @Expose
         private String supportNumber="9790876528";

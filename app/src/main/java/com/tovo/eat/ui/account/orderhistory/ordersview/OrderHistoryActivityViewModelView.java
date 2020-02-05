@@ -44,8 +44,8 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
     public final ObservableField<String> locality = new ObservableField<>();
     public final ObservableField<String> orderStatus = new ObservableField<>();
     public final ObservableBoolean isOrderCanced = new ObservableBoolean();
-    public ObservableList<CartPageResponse.Cartdetail> billdetails = new ObservableArrayList<>();
-    public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
+    public ObservableList<OrdersHistoryActivityResponse.Cartdetail> billdetails = new ObservableArrayList<>();
+    public MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> cartBillLiveData;
 
     public ObservableList<OrdersHistoryActivityResponse.Result.Item> ordersItemViewModels = new ObservableArrayList<>();
     CartRequestPojo cartRequestPojo;
@@ -61,11 +61,11 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         orderitems = new ArrayList<>();
     }
 
-    public MutableLiveData<List<CartPageResponse.Cartdetail>> getCartBillLiveData() {
+    public MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> getCartBillLiveData() {
         return cartBillLiveData;
     }
 
-    public void setCartBillLiveData(MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData) {
+    public void setCartBillLiveData(MutableLiveData<List<OrdersHistoryActivityResponse.Cartdetail>> cartBillLiveData) {
         this.cartBillLiveData = cartBillLiveData;
     }
 
@@ -86,7 +86,7 @@ public class OrderHistoryActivityViewModelView extends BaseViewModel<OrderHistor
         return ordersItemsLiveData;
     }
 
-    public void addBillItemsToList(List<CartPageResponse.Cartdetail> results) {
+    public void addBillItemsToList(List<OrdersHistoryActivityResponse.Cartdetail> results) {
         billdetails.clear();
         billdetails.addAll(results);
 

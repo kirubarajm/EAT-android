@@ -29,7 +29,7 @@ public class OrderHistoryActivityViewModule {
     }
 
     @Provides
-    BillListAdapter provideHistoryBillListAdapter() {
-        return new BillListAdapter(new ArrayList<>());
+    OrderBillListAdapter provideHistoryBillListAdapter() {
+        return new OrderBillListAdapter(new ArrayList<>());
     }
 }

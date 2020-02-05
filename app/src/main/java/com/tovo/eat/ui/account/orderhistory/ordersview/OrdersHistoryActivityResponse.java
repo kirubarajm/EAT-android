@@ -138,13 +138,13 @@ public class OrdersHistoryActivityResponse {
         public List<Item> items = null;
         @SerializedName("cartdetails")
         @Expose
-        private List<CartPageResponse.Cartdetail> cartDetails = null;
+        private List<Cartdetail> cartDetails = null;
 
-        public List<CartPageResponse.Cartdetail> getCartDetails() {
+        public List<Cartdetail> getCartDetails() {
             return cartDetails;
         }
 
-        public void setCartDetails(List<CartPageResponse.Cartdetail> cartDetails) {
+        public void setCartDetails(List<Cartdetail> cartDetails) {
             this.cartDetails = cartDetails;
         }
 
@@ -733,5 +733,35 @@ public class OrdersHistoryActivityResponse {
                 this.productName = productName;
             }
         }
+    }
+
+
+    public class Cartdetail {
+
+        @SerializedName("title")
+        @Expose
+        private String title;
+        @SerializedName("charges")
+        @Expose
+        private Integer charges;
+
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public Integer getCharges() {
+            return charges;
+        }
+
+        public void setCharges(Integer charges) {
+            this.charges = charges;
+        }
+
+
     }
 }

@@ -692,6 +692,11 @@
     <string name="update_available">New update available!</string>
     <string name="download_completed">Update downloaded</string>
     <string name="download_failed">Install failed</string>
+    <string name="back">back</string>
+    <string name="f">F</string>
+    <string name="m">M</string>
+    <string name="your_hometown">YOUR HOMETOWN</string>
+    <string name="save_as">Save as</string>
 
 
 </resources>

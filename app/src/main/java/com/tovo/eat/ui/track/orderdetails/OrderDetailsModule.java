@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.account.orderhistory.historylist.OrdersHistoryActivityAdapter;
+import com.tovo.eat.ui.account.orderhistory.ordersview.OrderBillListAdapter;
 import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.ui.cart.BillListAdapter;
 
@@ -31,7 +32,7 @@ public class OrderDetailsModule {
         return new LinearLayoutManager(activity);
     }
     @Provides
-    BillListAdapter provideHistoryDBillListAdapter() {
-        return new BillListAdapter(new ArrayList<>());
+    OrderBillListAdapter provideHistoryDBillListAdapter() {
+        return new OrderBillListAdapter(new ArrayList<>());
     }
 }

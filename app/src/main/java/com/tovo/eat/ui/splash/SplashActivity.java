@@ -71,16 +71,15 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
     @Override
     public void update(boolean updateStatus, boolean forceUpdateStatus) {
 
-        mSplashActivityViewModel.checkIsUserLoggedInOrNot();
-       /* if (updateStatus) {
+      //  mSplashActivityViewModel.checkIsUserLoggedInOrNot();
+        if (forceUpdateStatus) {
             Intent intent = UpdateActivity.newIntent(SplashActivity.this);
             intent.putExtra("forceUpdate", forceUpdateStatus);
             startActivity(intent);
             finish();
         } else {
-
             mSplashActivityViewModel.checkIsUserLoggedInOrNot();
-        }*/
+        }
 
     }
 

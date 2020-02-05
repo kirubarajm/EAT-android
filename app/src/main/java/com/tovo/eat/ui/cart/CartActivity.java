@@ -233,7 +233,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     @Override
     public void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

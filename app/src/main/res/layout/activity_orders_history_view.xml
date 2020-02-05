@@ -294,7 +294,7 @@
                         android:background="@android:color/white"
                         android:visibility="visible"
                         app:adapter="@{OrdersHistryViewModel.billdetails}"
-                        tools:listitem="@layout/list_item_cart_bill" />
+                        tools:listitem="@layout/list_item_order_bill" />
 
 
 

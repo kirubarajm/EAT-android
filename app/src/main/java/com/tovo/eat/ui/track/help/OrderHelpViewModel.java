@@ -55,10 +55,10 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
     public void deliveryDetails() {
         if (deliveryAssigned.get()) {
 
-            if (deliveryClicked.get()){
+            if (deliveryClicked.get()) {
                 deliveryClicked.set(false);
 
-            }else {
+            } else {
                 cancelClicked.set(false);
                 deliveryClicked.set(true);
             }
@@ -66,7 +66,6 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
 
             cancelClicked.set(false);
             deliveryClicked.set(true);
-
 
 
         } else {
@@ -77,28 +76,26 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
     }
 
     public void contactCare() {
-
-        getNavigator().gotoSupport();
+        if (getNavigator() != null)
+            getNavigator().gotoSupport();
 
     }
 
     public void supportQuery() {
-
-        getNavigator().gotoSupport();
+        if (getNavigator() != null)
+            getNavigator().gotoSupport();
     }
 
     public void calldelivery() {
-
-        getNavigator().callDelivery();
+        if (getNavigator() != null)
+            getNavigator().callDelivery();
     }
 
 
     public void cancelOrderButton() {
-
-        getNavigator().orderCancelClicked();
+        if (getNavigator() != null)
+            getNavigator().orderCancelClicked();
     }
-
-
 
 
     public void cancelOrder1() {
@@ -134,14 +131,17 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                         Toast.makeText(MvvmApp.getInstance(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
                         if (response.isStatus()) {
-                            getNavigator().orderCanceled();
-                        }else {
-                            getNavigator().orderCancelFailed();
+                            if (getNavigator() != null)
+                                getNavigator().orderCanceled();
+                        } else {
+                            if (getNavigator() != null)
+                                getNavigator().orderCancelFailed();
                         }
 
 
-                    }else {
-                        getNavigator().orderCancelFailed();
+                    } else {
+                        if (getNavigator() != null)
+                            getNavigator().orderCancelFailed();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -149,9 +149,10 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                 public void onErrorResponse(VolleyError error) {
 
                     setIsLoading(false);
-                    getNavigator().orderCancelFailed();
+                    if (getNavigator() != null)
+                        getNavigator().orderCancelFailed();
                 }
-            },AppConstants.API_VERSION_ONE);
+            }, AppConstants.API_VERSION_ONE);
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
 

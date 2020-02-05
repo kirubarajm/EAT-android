@@ -58,6 +58,7 @@ import com.tovo.eat.ui.cart.xfactoralert.XFactorProvider;
 import com.tovo.eat.ui.filter.FilterProvider;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.MainActivityModule;
+import com.tovo.eat.ui.home.ad.bottom.PromotionProvider;
 import com.tovo.eat.ui.home.dialog.DialogSelectAddressProvider;
 import com.tovo.eat.ui.home.homemenu.HomeTabProvider;
 import com.tovo.eat.ui.home.homemenu.dish.DishProvider;
@@ -131,6 +132,7 @@ public abstract class ActivityBuilder {
             MyAccountProvider.class,
             CartProvider.class,
             FilterProvider.class,
+            PromotionProvider.class,
             OrderRatingProvider.class,
             OrderCanceledProvider.class,
             DialogSelectAddressProvider.class,

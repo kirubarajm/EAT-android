@@ -93,7 +93,7 @@ public class EditAccountActivity extends BaseActivity<ActivityAccEditBinding, Ed
     @Override
     public void regionListLoaded(List<RegionSearchModel.Result> regionList) {
 
-        regionListAdapter = new RegionListAdapter(this, android.R.layout.simple_dropdown_item_1line);
+        regionListAdapter = new RegionListAdapter(this, android.R.layout.simple_list_item_1);
         mActivityNameGenderBinding.region.setThreshold(1);
         mActivityNameGenderBinding.region.setAdapter(regionListAdapter);
         regionListAdapter.setData(regionList);

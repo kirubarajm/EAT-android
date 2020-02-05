@@ -185,7 +185,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp">
 
-                    <AutoCompleteTextView
+                    <android.support.v7.widget.AppCompatAutoCompleteTextView
                         android:id="@+id/region"
                         enter="true"
                         android:layout_width="match_parent"

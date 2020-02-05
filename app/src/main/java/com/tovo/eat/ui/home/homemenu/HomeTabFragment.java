@@ -38,6 +38,7 @@ import com.tovo.eat.ui.cart.coupon.CouponListActivity;
 import com.tovo.eat.ui.filter.FilterFragment;
 import com.tovo.eat.ui.filter.StartFilter;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.home.ad.bottom.PromotionFragment;
 import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
@@ -53,17 +54,13 @@ import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CustomTypefaceSpan;
-import com.tovo.eat.utilities.EndlessRecyclerOnScrollListener;
 import com.tovo.eat.utilities.GpsUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
-import com.tovo.eat.utilities.scroll.PaginationListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
-
-import org.checkerframework.checker.units.qual.K;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +74,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
     public static final String TAG = HomeTabFragment.class.getSimpleName();
-    private static final int MAX_ITEMS_PER_REQUEST =6;
+    private static final int MAX_ITEMS_PER_REQUEST = 6;
     private static final int NUMBER_OF_ITEMS = 100;
     private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
     @Inject
@@ -140,6 +137,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 
     }*/
+
+    public static void scrollToView(final NestedScrollView nestedScrollView, final View viewToScrollTo) {
+        final int[] xYPos = new int[2];
+        viewToScrollTo.getLocationOnScreen(xYPos);
+        final int[] scrollxYPos = new int[2];
+        nestedScrollView.getLocationOnScreen(scrollxYPos);
+        int yPosition = xYPos[1];
+        if (yPosition < 0) {
+            yPosition = 0;
+        }
+        nestedScrollView.scrollTo(0, (nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1).getMeasuredHeight() - nestedScrollView.getMeasuredHeight()));
+    }
 
     @Override
     public int getBindingVariable() {
@@ -219,6 +228,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void kitchenLoaded() {
         stopKitchenLoader();
         mHomeTabViewModel.paginationLoading.set(false);
+
+
+
        /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -258,6 +270,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
         mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
+    }
+
+    @Override
+    public void showPromotions(String url, boolean fullScreen, int type) {
+
+        PromotionFragment bottomSheetFragment = new PromotionFragment();
+        bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override
@@ -331,29 +350,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
        /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                scrollToView(   mFragmentHomeBinding.fullScroll,mFragmentHomeBinding.recyclerviewOrders);
+               // scrollToView(   mFragmentHomeBinding.fullScroll,mFragmentHomeBinding.recyclerviewOrders);
+                mFragmentHomeBinding.fullScroll.scrollTo(0,mFragmentHomeBinding.recyclerViewFilterCollection.getTop());
+
             }
         },10000);*/
 
 
-
-
     }
-
-
-    public static void scrollToView(final NestedScrollView nestedScrollView, final View viewToScrollTo) {
-        final int[] xYPos = new int[2];
-        viewToScrollTo.getLocationOnScreen(xYPos);
-        final int[] scrollxYPos = new int[2];
-        nestedScrollView.getLocationOnScreen(scrollxYPos);
-        int yPosition = xYPos[1];
-        if (yPosition < 0) {
-            yPosition = 0;
-        }
-        nestedScrollView.scrollTo(0, (nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1).getMeasuredHeight() - nestedScrollView.getMeasuredHeight()));
-    }
-
-
 
     public void startLocationTrackingForAddress() {
 
@@ -539,7 +543,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             }
         });*/
-     //   createInfiniteScrollListener();
+        //   createInfiniteScrollListener();
 
 
        /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new PaginationListener(mLayoutManager) {
@@ -651,22 +655,22 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                             scrollY > oldScrollY) {
 
 
-                     //   if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
+                        //   if (mHomeTabViewModel.pageid.get() + 1 > mHomeTabViewModel.pageCount) {
 
-                      //  } else {
+                        //  } else {
 
-                           if ( !mHomeTabViewModel.paginationLoading.get()){
-                               mHomeTabViewModel.paginationLoading.set(true);
+                        if (!mHomeTabViewModel.paginationLoading.get()) {
+                            mHomeTabViewModel.paginationLoading.set(true);
                             //   Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                               if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                                   mHomeTabViewModel.fetchKitchenFilter();
-                               } else {
-                                   mHomeTabViewModel.fetchKitchen();
-                               }
-                           }
+                            if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
+                                mHomeTabViewModel.fetchKitchenFilter();
+                            } else {
+                                mHomeTabViewModel.fetchKitchen();
+                            }
+                        }
 
 
-                      //  }
+                        //  }
 
 
                     }
@@ -868,13 +872,13 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onResume() {
         super.onResume();
 
-        String ss=mHomeTabViewModel.getDataManager().getCurrentUserName();
+        String ss = mHomeTabViewModel.getDataManager().getCurrentUserName();
         String name;
-       /* name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName()==null?"":mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";*/
-        if (ss==null){
-             name = "Hi! ";
+        /* name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName()==null?"":mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";*/
+        if (ss == null) {
+            name = "Hi! ";
 
-        }else {
+        } else {
             name = "Hi! " + mHomeTabViewModel.getDataManager().getCurrentUserName() + ",";
         }
 
@@ -903,7 +907,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         }
 */
         mHomeTabViewModel.liveOrders();
-   //     mHomeTabViewModel.storiesRefresh();
+        //     mHomeTabViewModel.storiesRefresh();
         regionCardClicked = false;
 
     }
@@ -969,10 +973,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void infinityStoryItemClick(List<KitchenResponse.Story> story, int position) {
 
 
-        List<KitchenResponse.Result> result=new ArrayList<>();
-        KitchenResponse.Result kl=new KitchenResponse.Result();
+        List<KitchenResponse.Result> result = new ArrayList<>();
+        KitchenResponse.Result kl = new KitchenResponse.Result();
         kl.setStory(story);
-        KitchenResponse kitchenResponse=new KitchenResponse();
+        KitchenResponse kitchenResponse = new KitchenResponse();
         result.add(kl);
         kitchenResponse.setResult(result);
 
@@ -1304,7 +1308,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
-        intent.putExtra("title", collection.getName() );
+        intent.putExtra("title", collection.getName());
         startActivity(intent);
     }
 }

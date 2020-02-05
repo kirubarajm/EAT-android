@@ -388,6 +388,8 @@ public class AppConstants {
     public static final String EAT_COLLECTION_ICON_LIST = URL_SERVER_IP_PORT + "/eat/collectionicons";
     public static final String EAT_PAYMENT_RETRY_URL = URL_SERVER_IP_PORT + "/eat/payment/retry";
 
+    public static final String EAT_PROMOTION_URL = URL_SERVER_IP_PORT + "/eat/promotion/homescreen";
+
 
     public static final String DUNZO_URL = BuildConfig.DUNZO_URL;
     public static final String DUNZO_STATUS = BuildConfig.DUNZO_STATUS;

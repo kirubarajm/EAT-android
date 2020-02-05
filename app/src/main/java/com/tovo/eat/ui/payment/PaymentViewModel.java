@@ -530,7 +530,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     public void retry(){
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_PAYMENT_RETRY_URL, CommonResponse.class, new PaymentRetryRequestPojo(getDataManager().getCurrentUserId(),getDataManager().getOrderId()),new Response.Listener<CommonResponse>() {
@@ -539,7 +538,6 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     if (response != null) {
                         if (response.isStatus()){
                             new Analytics().orderPlaced(orderid, price);
-
                             paymentSuccessData(null, 0, false);
                             if (getNavigator() != null)
                                 getNavigator().paymentSuccessed(true);

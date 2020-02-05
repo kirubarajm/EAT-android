@@ -57,7 +57,7 @@ public class LiveOrderResponsePojo {
 
         @SerializedName("orderid")
         @Expose
-        private Long orderid;
+        private Long orderid=0L;
         @SerializedName("ordertime")
         @Expose
         private String ordertime;

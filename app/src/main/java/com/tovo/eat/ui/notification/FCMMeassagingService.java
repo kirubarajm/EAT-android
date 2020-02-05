@@ -133,7 +133,11 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setContentInfo("Hello")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+               // .setFullScreenIntent(pendingIntent,true)
                 .setNumber(++numMessages);
+
         //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
 
 
@@ -192,6 +196,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setNumber(++numMessages)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setSmallIcon(R.drawable.ic_eat);
 
        /* try {
