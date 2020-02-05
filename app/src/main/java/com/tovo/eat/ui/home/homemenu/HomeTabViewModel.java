@@ -687,8 +687,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                 ee.printStackTrace();
                                             }
 
-                                            if (pageid.get() == 1)
-                                                getPromotions();
+                                          /*  if (pageid.get() == 1)
+                                                getPromotions();*/
 
 
                                         } else {
