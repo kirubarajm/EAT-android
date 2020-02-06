@@ -52,6 +52,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -687,8 +688,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                 ee.printStackTrace();
                                             }
 
-                                          /*  if (pageid.get() == 1)
-                                                getPromotions();*/
+                                            if (pageid.get() == 1)
+                                                getPromotions();
 
 
                                         } else {
@@ -1356,9 +1357,36 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         if (response.getStatus()) {
 
+                      //      getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(),response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
-                            if (response.getResult().getShowStatus()) {
-                                getNavigator().showPromotions(response.getResult().getUrl(), response.getResult().getFullScreen(), response.getResult().getContentType());
+                            if (response.getResult() != null && response.getResult().size() > 0) {
+                                if (response.getResult().get(0).getShowStatus()) {
+
+                                    if (getDataManager().getPromotionId()==response.getResult().get(0).getPid()) {
+
+                                        Date c = Calendar.getInstance().getTime();
+                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                        String currentdate = df.format(c);
+
+                                        if (getDataManager().getPromotionShowedDate() == null || !getDataManager().getPromotionShowedDate().equals(currentdate)) {
+
+                                            if (!getDataManager().getPromotionSeen()) {
+
+                                                if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
+                                                    getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+
+                                                }
+
+                                            }
+
+                                        }
+                                    }else {
+                                        getDataManager().savePromotionDisplayedCount(0);
+                                        getDataManager().savePromotionSeen(false);
+                                        getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+
+                                    }
+                                }
 
                             }
 

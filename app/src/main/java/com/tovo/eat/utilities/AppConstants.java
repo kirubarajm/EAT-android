@@ -72,6 +72,12 @@ public class AppConstants {
 
 
 
+    //Promotion
+    public static final String PROMOTION_URL= "PROMOTION_URL";
+    public static final String PROMOTION_ID= "PROMOTION_ID";
+    public static final String PROMOTION_TYPE= "PROMOTION_TYPE";
+
+
     public static final int TYPE_MALE = 1;
     public static final int TYPE_FEMALE = 2;
     public static final String ADDRESS_TYPE_HOME = "1";

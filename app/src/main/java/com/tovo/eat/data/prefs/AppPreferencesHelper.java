@@ -99,6 +99,12 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_API_TOKEN = "API_TOKEN";
 
 
+    private static final String PREF_KEY_PROMOTION_SEEN = "PROMOTION_SEEN";
+    private static final String PREF_KEY_PROMOTION_ID = "PROMOTION_ID";
+    private static final String PREF_KEY_PROMOTION_SEEN_COUNT= "PROMOTION_SEEN_COUNT";
+    private static final String PREF_KEY_PROMOTION_SEEN_DATE = "PROMOTION_SEEN_DATE";
+
+
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
 
     private final SharedPreferences mPrefs;
@@ -603,6 +609,46 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFirstCity(String city) {
         mPrefs.edit().putString(PREF_KEY_FIRST_CITY, city).apply();
+    }
+
+    @Override
+    public String getPromotionShowedDate() {
+        return  mPrefs.getString(PREF_KEY_PROMOTION_SEEN_DATE, null);
+    }
+
+    @Override
+    public void setPromotionShowedDate(String date) {
+        mPrefs.edit().putString(PREF_KEY_PROMOTION_SEEN_DATE, date).apply();
+    }
+
+    @Override
+    public boolean getPromotionSeen() {
+        return mPrefs.getBoolean(PREF_KEY_PROMOTION_SEEN, false);
+    }
+
+    @Override
+    public void setPromotionSeen(boolean seen) {
+        mPrefs.edit().putBoolean(PREF_KEY_PROMOTION_SEEN, seen).apply();
+    }
+
+    @Override
+    public Integer getPromotionId() {
+        return mPrefs.getInt(PREF_KEY_PROMOTION_ID, 0);
+    }
+
+    @Override
+    public void setPromotionId(Integer promotionid) {
+        mPrefs.edit().putInt(PREF_KEY_PROMOTION_ID, promotionid).apply();
+    }
+
+    @Override
+    public Integer getPromotionDisplayedCount() {
+        return mPrefs.getInt(PREF_KEY_PROMOTION_SEEN_COUNT, 0);
+    }
+
+    @Override
+    public void setPromotionDisplayedCount(Integer count) {
+        mPrefs.edit().putInt(PREF_KEY_PROMOTION_SEEN_COUNT, count).apply();
     }
 
     @Override

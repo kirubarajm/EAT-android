@@ -188,6 +188,26 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void savePromotionId(int promotionid) {
+        setPromotionId(promotionid);
+    }
+
+    @Override
+    public void savePromotionDisplayedCount(int count) {
+        setPromotionDisplayedCount(count);
+    }
+
+    @Override
+    public void savePromotionShowedDate(String date) {
+        setPromotionShowedDate(date);
+    }
+
+    @Override
+    public void savePromotionSeen(boolean seen) {
+        setPromotionSeen(seen);
+    }
+
+    @Override
     public void saveRazorpayCustomerId(String razorpayCustomerId) {
         setRazorpayCustomerId(razorpayCustomerId);
     }
@@ -769,6 +789,46 @@ public class AppDataManager implements DataManager {
     @Override
     public void setFirstCity(String city) {
         mPreferencesHelper.setFirstCity(city);
+    }
+
+    @Override
+    public String getPromotionShowedDate() {
+        return null;
+    }
+
+    @Override
+    public void setPromotionShowedDate(String date) {
+        mPreferencesHelper.setPromotionShowedDate(date);
+    }
+
+    @Override
+    public boolean getPromotionSeen() {
+        return mPreferencesHelper.getPromotionSeen();
+    }
+
+    @Override
+    public void setPromotionSeen(boolean seen) {
+        mPreferencesHelper.setPromotionSeen(seen);
+    }
+
+    @Override
+    public Integer getPromotionId() {
+        return mPreferencesHelper.getPromotionId();
+    }
+
+    @Override
+    public void setPromotionId(Integer promotionid) {
+        mPreferencesHelper.setPromotionId(promotionid);
+    }
+
+    @Override
+    public Integer getPromotionDisplayedCount() {
+        return mPreferencesHelper.getPromotionDisplayedCount();
+    }
+
+    @Override
+    public void setPromotionDisplayedCount(Integer count) {
+        mPreferencesHelper.setPromotionDisplayedCount(count);
     }
 
 

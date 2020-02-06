@@ -750,10 +750,10 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
                         if (response.getStatus()) {
 
 
-                            if (response.getResult().getShowStatus()){
+                           /* if (response.getResult().getShowStatus()){
                                 getNavigator().showPromotions(response.getResult().getUrl(),response.getResult().getFullScreen(),response.getResult().getContentType());
 
-                            }
+                            }*/
 
                         }
                     }

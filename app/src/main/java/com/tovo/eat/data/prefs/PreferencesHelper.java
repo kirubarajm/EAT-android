@@ -58,15 +58,15 @@ public interface PreferencesHelper {
 
 
     String getOrderInstruction();
+
     void setorderInstruction(String instruction);
-
-
 
 
     String getCurrentAddressTitle();
 
     void setCurrentAddressTitle(String title);
-   int getRefundBalance();
+
+    int getRefundBalance();
 
     void setRefundBalance(int refundBalance);
 
@@ -210,7 +210,8 @@ public interface PreferencesHelper {
 
     void setRatingDate(String date);
 
- String getSupportNumber();
+    String getSupportNumber();
+
     void setSupportNumber(String number);
 
 
@@ -218,15 +219,15 @@ public interface PreferencesHelper {
 
     void setRatingAppStatus(boolean status);
 
-boolean isFilterApplied();
+    boolean isFilterApplied();
 
     void setIsFilterApplied(boolean filter);
 
-boolean getFunnelStatus();
+    boolean getFunnelStatus();
 
     void setFunnelStatus(boolean status);
 
-boolean getAppStartedAgain();
+    boolean getAppStartedAgain();
 
     void setAppStartedAgain(boolean status);
 
@@ -236,17 +237,37 @@ boolean getAppStartedAgain();
     void setApiToken(String token);
 
     String getCouponCode();
+
     void setCouponCode(String coupon);
 
     String getFirstAddress();
+
     void setFirstAddress(String address);
 
-     String getFirstLocatity();
+    String getFirstLocatity();
+
     void setFirstLocality(String locality);
 
-     String getFirstCity();
+    String getFirstCity();
+
     void setFirstCity(String city);
 
+
+    String getPromotionShowedDate();
+
+    void setPromotionShowedDate(String date);
+
+    boolean getPromotionSeen();
+
+    void setPromotionSeen(boolean seen);
+
+    Integer getPromotionId();
+
+    void setPromotionId(Integer promotionid);
+
+    Integer getPromotionDisplayedCount();
+
+    void setPromotionDisplayedCount(Integer count);
 
 
 }

@@ -50,6 +50,7 @@ import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
+import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -273,9 +274,15 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void showPromotions(String url, boolean fullScreen, int type) {
+    public void showPromotions(String url, boolean fullScreen, int type,int promotionid) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstants.PROMOTION_TYPE, type);
+        bundle.putInt(AppConstants.PROMOTION_ID, promotionid);
+        bundle.putString(AppConstants.PROMOTION_URL, url);
 
         PromotionFragment bottomSheetFragment = new PromotionFragment();
+        bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
     }
 

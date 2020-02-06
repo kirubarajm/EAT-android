@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.WebSettings;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -13,6 +14,7 @@ import com.tovo.eat.databinding.FragmentPromotionBinding;
 import com.tovo.eat.ui.base.BaseBottomSheetFragment;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
 import com.tovo.eat.utilities.AppConstants;
+import com.tovo.eat.utilities.WebViewClientImpl;
 import com.tovo.eat.utilities.analytics.Analytics;
 
 import javax.inject.Inject;
@@ -73,15 +75,43 @@ public class PromotionFragment extends BaseBottomSheetFragment<FragmentPromotion
         //      mPromotionViewModel.url.set("https://eattovo.s3.amazonaws.com/upload/admin/makeit/product/1578500485888-Infinity%20regions-40.jpg");
 
 
-        Glide.with(getBaseActivity())
-                .load("https://eattovo.s3.ap-south-1.amazonaws.com/upload/admin/makeit/product/1580808257672-Infinity%20regions-%20free%20delivery-04.png")
-                //   .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transform(new DelayBitmapTransformation(0))
-                // .listener(new LoggingListener<String, Bitmap>())
-                .into(mFragmentPromotionBinding.imageView);
+        if (getArguments() != null) {
+
+            if (getArguments().getInt(AppConstants.PROMOTION_TYPE)==1) {
+                mPromotionViewModel.isImage.set(false);
+
+                mFragmentPromotionBinding.imageView.setVisibility(View.GONE);
+                mFragmentPromotionBinding.webview.setVisibility(View.VISIBLE);
 
 
+
+                WebSettings webSettings = mFragmentPromotionBinding.webview.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+
+                WebViewClientImpl webViewClient = new WebViewClientImpl(getBaseActivity());
+                mFragmentPromotionBinding.webview.setWebViewClient(webViewClient);
+                mFragmentPromotionBinding.webview.loadUrl(getArguments().getString(AppConstants.PROMOTION_URL));
+
+
+            }else {
+                mPromotionViewModel.isImage.set(true);
+
+
+                mFragmentPromotionBinding.imageView.setVisibility(View.VISIBLE);
+                mFragmentPromotionBinding.webview.setVisibility(View.GONE);
+
+
+                Glide.with(getBaseActivity())
+                        .load(getArguments().getString(AppConstants.PROMOTION_URL))
+                        //   .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transform(new DelayBitmapTransformation(0))
+                        // .listener(new LoggingListener<String, Bitmap>())
+                        .into(mFragmentPromotionBinding.imageView);
+            }
+
+            mPromotionViewModel.saveSeen(getArguments().getInt(AppConstants.PROMOTION_ID));
+        }
         mFragmentPromotionBinding.close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
