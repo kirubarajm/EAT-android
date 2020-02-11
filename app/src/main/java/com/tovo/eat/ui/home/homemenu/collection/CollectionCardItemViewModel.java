@@ -32,7 +32,7 @@ public class CollectionCardItemViewModel {
     }
 
     public void onItemClick() {
-        if (collection.isClickable())
+       // if (collection.isClickable())
         mListener.onItemClick(collection);
     }
 

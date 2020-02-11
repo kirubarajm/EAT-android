@@ -27,7 +27,7 @@ public class InfinityStoryCardItemViewModel {
     }
 
     public void onItemClick() {
-        if (stories.isClickable())
+      //  if (stories.isClickable())
         mListener.onItemClick(stories,position);
     }
 

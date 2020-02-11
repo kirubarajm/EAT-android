@@ -44,6 +44,10 @@ public class PromotionViewModel extends BaseViewModel<PromotionNavigator> {
         getDataManager().savePromotionSeen(true);
         getDataManager().savePromotionId(promotionid);
 
+
+        getDataManager().savePromotionCustomerId(getDataManager().getCurrentUserId());
+
+
     }
 
 

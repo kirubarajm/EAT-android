@@ -23,7 +23,7 @@ public class OfferListItemViewModel {
 
 
     public void onItemClick() {
-       if (coupon.isClickable())
+      // if (coupon.isClickable())
             mListener.onItemClick(coupon);
 
     }

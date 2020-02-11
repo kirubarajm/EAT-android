@@ -124,8 +124,8 @@ public class MyAccountFragment extends BaseBottomSheetFragment<FragmentMyAccount
         new Analytics().sendClickData(pageName, AppConstants.CLICK_LOGOUT);
 
 
-        SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
-        settings.edit().clear().apply();
+      /*  SharedPreferences settings = getBaseActivity().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+        settings.edit().clear().apply();*/
 
         Intent intent = SignUpActivity.newIntent(getActivity());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -40,7 +40,7 @@ public class RegionCardItemViewModel {
 
     public void onItemClick() {
 
-        if (mRegionList.isClickable())
+    //    if (mRegionList.isClickable())
             mListener.onItemClick(mRegionList, position);
     }
 

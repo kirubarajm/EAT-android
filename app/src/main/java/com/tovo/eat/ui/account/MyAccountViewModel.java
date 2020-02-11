@@ -123,6 +123,42 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().setCurrentAddressTitle(null);
         getDataManager().setCurrentLat(0.0);
         getDataManager().setCurrentLng(0.0);
+
+
+        getDataManager().updateCurrentAddress(null,null,0.0,0.0,null,0L);
+        getDataManager().updateUserGender(false);
+        getDataManager().updateEmailStatus(false);
+        getDataManager().updateUserPasswordStatus(false);
+        getDataManager().showFunnel(false);
+        getDataManager().saveMaster(null);
+        getDataManager().saveFilterSort(null);
+        getDataManager().saveStoriesList(null);
+        getDataManager().saveVegType(0);
+        getDataManager().currentFragment(0);
+        getDataManager().kitchenId(0L);
+        getDataManager().totalOrders(0);
+        getDataManager().saveRefundId(0);
+        getDataManager().saveRazorpayCustomerId(null);
+        getDataManager().saveRefundBalance(0);
+        getDataManager().saveRegionId(0);
+        getDataManager().saveCouponId(0);
+        getDataManager().saveRatingOrderId(0L);
+        getDataManager().saveRatingSkipDate(null,0);
+        getDataManager().saveRatingSkipDate(0);
+        getDataManager().saveRatingAppStatus(false);
+        getDataManager().saveIsFilterApplied(false);
+        getDataManager().saveApiToken(null);
+        getDataManager().saveCouponCode(null);
+        getDataManager().saveSupportNumber(null);
+        getDataManager().orderInstruction(null);
+        getDataManager().currentOrderId(0L);
+        getDataManager().homeAddressadded(false);
+        getDataManager().officeAddressadded(false);
+        getDataManager().isFavClicked(false);
+        getDataManager().appStartedAgain(false);
+        getDataManager().saveFirstLocation(null,null,null);
+
+
     }
 
     public void fetchUserDetails() {

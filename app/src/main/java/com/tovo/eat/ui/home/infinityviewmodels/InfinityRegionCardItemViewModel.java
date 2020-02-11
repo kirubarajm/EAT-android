@@ -27,7 +27,7 @@ public class InfinityRegionCardItemViewModel {
     }
 
     public void onItemClick() {
-        if (region.isClickable())
+     //   if (region.isClickable())
             mListener.onItemClick(region);
     }
 

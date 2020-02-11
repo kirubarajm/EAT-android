@@ -68,7 +68,10 @@ public interface DataManager extends PreferencesHelper {
 
     void saveRefundId(int rcid);
 
+
+
     void savePromotionId(int promotionid);
+    void savePromotionCustomerId(Long customerid);
     void savePromotionDisplayedCount(int count);
     void savePromotionShowedDate(String date);
     void savePromotionSeen(boolean seen);

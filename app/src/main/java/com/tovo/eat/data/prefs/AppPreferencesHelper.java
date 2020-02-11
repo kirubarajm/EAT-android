@@ -32,6 +32,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_EMAIL = "PREF_KEY_CURRENT_USER_EMAIL";
 
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
+    private static final String PREF_KEY_CURRENT_PROMOTION_USER_ID = "PREF_KEY_CURRENT_PROMOTION_USER_ID";
 
     private static final String PREF_KEY_RAZORPAY_CUSTOMER_ID = "RAZORPAY_CUSTOMER_ID";
 
@@ -152,6 +153,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
         // Long id = userId == null ? AppConstants.NULL_INDEX : userId;
         mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_ID, userId).apply();
+    }
+
+    @Override
+    public Long getCurrentPromotionUserId() {
+        return mPrefs.getLong(PREF_KEY_CURRENT_PROMOTION_USER_ID, 0L);
+    }
+
+    @Override
+    public void setCurrentPromotionUserId(Long userId) {
+        mPrefs.edit().putLong(PREF_KEY_CURRENT_PROMOTION_USER_ID, userId).apply();
     }
 
     @Override

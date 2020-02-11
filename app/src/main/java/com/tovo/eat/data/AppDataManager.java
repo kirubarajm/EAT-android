@@ -193,6 +193,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void savePromotionCustomerId(Long customerid) {
+        setCurrentPromotionUserId(customerid);
+    }
+
+    @Override
     public void savePromotionDisplayedCount(int count) {
         setPromotionDisplayedCount(count);
     }
@@ -344,6 +349,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentUserId(Long userId) {
         mPreferencesHelper.setCurrentUserId(userId);
+    }
+
+    @Override
+    public Long getCurrentPromotionUserId() {
+        return mPreferencesHelper.getCurrentPromotionUserId();
+    }
+
+    @Override
+    public void setCurrentPromotionUserId(Long userId) {
+mPreferencesHelper.setCurrentPromotionUserId(userId);
     }
 
     @Override

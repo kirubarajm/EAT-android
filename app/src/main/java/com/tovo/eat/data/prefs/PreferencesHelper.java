@@ -37,6 +37,10 @@ public interface PreferencesHelper {
 
     void setCurrentUserId(Long userId);
 
+  Long getCurrentPromotionUserId();
+
+    void setCurrentPromotionUserId(Long userId);
+
     int getCurrentUserLoggedInMode();
 
     void setCurrentUserLoggedInMode(DataManager.LoggedInMode mode);

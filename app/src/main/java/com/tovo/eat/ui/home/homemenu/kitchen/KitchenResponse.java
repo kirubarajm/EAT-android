@@ -132,17 +132,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("member_type_icon")
         @Expose
         private String memberTypeIcon;
-        @SerializedName("clickable")
+       /* @SerializedName("clickable")
         @Expose
-        private boolean clickable=true;
-
+        private boolean clickable=true;*/
+/*
         public boolean isClickable() {
             return clickable;
         }
 
         public void setClickable(boolean clickable) {
             this.clickable = clickable;
-        }
+        }*/
 
         public Long getMakeituserid() {
             return makeituserid;
@@ -366,17 +366,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("couponstatus")
         @Expose
         private Boolean couponstatus;
-        @SerializedName("clickable")
+       /* @SerializedName("clickable")
         @Expose
-        private boolean clickable=true;
+        private boolean clickable=true;*/
 
-        public boolean isClickable() {
+      /*  public boolean isClickable() {
             return clickable;
         }
 
         public void setClickable(boolean clickable) {
             this.clickable = clickable;
-        }
+        }*/
 
         public String getCouponCollectionImg() {
             return couponCollectionImg;
@@ -582,17 +582,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("kitchencount")
         @Expose
         private Integer kitchencount;
-        @SerializedName("clickable")
+      /*  @SerializedName("clickable")
         @Expose
-        private boolean clickable=true;
+        private boolean clickable=true;*/
 
-        public boolean isClickable() {
+     /*   public boolean isClickable() {
             return clickable;
         }
 
         public void setClickable(boolean clickable) {
             this.clickable = clickable;
-        }
+        }*/
 
         public String getCollectionImage() {
             return collectionImage;
@@ -793,17 +793,17 @@ public class KitchenResponse  implements Serializable {
         @Expose
         private Boolean collectionstatus;
 
-        @SerializedName("clickable")
+  /*      @SerializedName("clickable")
         @Expose
-        private boolean clickable=true;
+        private boolean clickable=true;*/
 
-        public boolean isClickable() {
+      /*  public boolean isClickable() {
             return clickable;
         }
 
         public void setClickable(boolean clickable) {
             this.clickable = clickable;
-        }
+        }*/
 
         public Integer getCid() {
             return cid;
@@ -931,17 +931,17 @@ public class KitchenResponse  implements Serializable {
         @SerializedName("stories")
         @Expose
         private List<Stories> stories = null;
-        @SerializedName("clickable")
+       /* @SerializedName("clickable")
         @Expose
-        private boolean clickable=true;
+        private boolean clickable=true;*/
 
-        public boolean isClickable() {
+     /*   public boolean isClickable() {
             return clickable;
         }
 
         public void setClickable(boolean clickable) {
             this.clickable = clickable;
-        }
+        }*/
         public Integer getStoryid() {
             return storyid;
         }

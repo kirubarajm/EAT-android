@@ -1357,30 +1357,39 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                         if (response.getStatus()) {
 
-                      //      getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(),response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+                            //      getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(),response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
                             if (response.getResult() != null && response.getResult().size() > 0) {
                                 if (response.getResult().get(0).getShowStatus()) {
 
-                                    if (getDataManager().getPromotionId()==response.getResult().get(0).getPid()) {
 
-                                        Date c = Calendar.getInstance().getTime();
-                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                                        String currentdate = df.format(c);
+                                    if (getDataManager().getCurrentUserId().equals(getDataManager().getCurrentPromotionUserId())) {
 
-                                        if (getDataManager().getPromotionShowedDate() == null || !getDataManager().getPromotionShowedDate().equals(currentdate)) {
+                                        if (getDataManager().getPromotionId().equals(response.getResult().get(0).getPid())) {
 
-                                            if (!getDataManager().getPromotionSeen()) {
+                                            Date c = Calendar.getInstance().getTime();
+                                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                            String currentdate = df.format(c);
 
-                                                if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
-                                                    getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+                                            if (getDataManager().getPromotionShowedDate() == null || !getDataManager().getPromotionShowedDate().equals(currentdate)) {
+
+                                                if (!getDataManager().getPromotionSeen()) {
+
+                                                    if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
+                                                        getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+
+                                                    }
 
                                                 }
 
                                             }
+                                        } else {
+                                            getDataManager().savePromotionDisplayedCount(0);
+                                            getDataManager().savePromotionSeen(false);
+                                            getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
                                         }
-                                    }else {
+                                    } else {
                                         getDataManager().savePromotionDisplayedCount(0);
                                         getDataManager().savePromotionSeen(false);
                                         getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
