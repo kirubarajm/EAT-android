@@ -123,6 +123,7 @@ public class NameGenderActivityViewModel extends BaseViewModel<NameGenderActivit
                                 String userPhoneNumber = response.getResult().get(0).getPhoneno();
                                 String userReferralCode = response.getResult().get(0).getReferalcode();
                                 getDataManager().updateUserInformation(userId, UserName, UserEmail, userPhoneNumber, userReferralCode);
+
                                 getDataManager().setRegionId(response.getResult().get(0).getRegionid());
                             }
 

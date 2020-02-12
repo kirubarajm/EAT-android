@@ -246,8 +246,9 @@ public class AddAddressActivity extends BaseActivity<ActivityAddAddressBinding, 
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
 
-                        if (dialog.isShowing())
-                            dialog.dismiss();
+                        if (dialog != null)
+                            if (dialog.isShowing())
+                                dialog.dismiss();
                         if (location != null)
                             if (map != null) {
 

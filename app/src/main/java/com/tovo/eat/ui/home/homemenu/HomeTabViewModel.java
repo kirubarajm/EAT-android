@@ -845,7 +845,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                     //     pageCount=kitchenResponse.getPagecount();
 
-                                    if (kitchenResponse.getResult().size() > 0) {
+                                    if (kitchenResponse != null && kitchenResponse.getResult() != null && kitchenResponse.getResult().size() > 0) {
 
                                         if (pageid.get() > 1) {
                                             backToTop.set(true);

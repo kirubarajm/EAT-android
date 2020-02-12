@@ -159,7 +159,8 @@ public class NameGenderResponse {
         }
 
         public Integer getRegionid() {
-            return regionid;
+            return regionid != null ? regionid : 0;
+
         }
 
         public void setRegionid(Integer regionid) {
