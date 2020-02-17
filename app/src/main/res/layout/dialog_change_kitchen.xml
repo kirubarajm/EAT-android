@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content">
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_alignParentStart="true"
                     android:id="@+id/cancel"
                     android:layout_width="wrap_content"
@@ -77,6 +78,7 @@
                     android:layout_alignParentLeft="true" />
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/add"
                     android:layout_width="wrap_content"

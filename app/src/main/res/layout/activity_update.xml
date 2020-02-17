@@ -74,6 +74,7 @@
 
 
         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{()->updateViewModel. update()}"
             android:id="@+id/buttonTextView"
             android:layout_width="wrap_content"
@@ -96,6 +97,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{()->updateViewModel. checkIsUserLoggedInOrNot()}"
             android:visibility="@{updateViewModel.forceUpdate?View.GONE:View.VISIBLE}"
             android:layout_width="wrap_content"

@@ -56,6 +56,7 @@
 
 
                 <com.tovo.eat.utilities.fonts.poppins.TitleTextView
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{()->filterViewModel.clearAll()}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -187,6 +188,7 @@
         </LinearLayout>
 
         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{()->filterViewModel.apply()}"
             android:layout_below="@+id/top"
           android:paddingBottom="5dp"

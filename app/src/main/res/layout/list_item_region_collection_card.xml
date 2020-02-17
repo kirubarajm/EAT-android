@@ -28,6 +28,7 @@
 
 
             <RelativeLayout
+                android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{()->infinityRegionCardItemViewModel.onItemClick()}"
                 android:layout_width="160dp"
                 android:layout_height="193dp">

@@ -31,6 +31,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal">
             <RelativeLayout
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:background="@color/white"

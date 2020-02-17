@@ -48,6 +48,7 @@
             android:layout_height="wrap_content">
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:layout_weight="1"
@@ -67,6 +68,7 @@
 
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/curve_stroke_gray"

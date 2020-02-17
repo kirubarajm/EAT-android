@@ -18,6 +18,7 @@
         android:background="@color/white"
         android:orientation="vertical">
             <LinearLayout
+                android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{()->collectionCardItemViewModel.onItemClick()}"
                 android:layout_margin="3dp"
                 android:gravity="center"

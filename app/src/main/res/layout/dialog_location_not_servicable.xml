@@ -71,7 +71,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/curve_stroke"
-
+                android:foreground="?android:attr/selectableItemBackground"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
@@ -83,6 +83,7 @@
                 android:textStyle="bold" />
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

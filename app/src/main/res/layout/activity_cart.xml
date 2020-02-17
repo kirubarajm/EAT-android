@@ -143,6 +143,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="@{()->cartViewModel.openKitchen()}"
@@ -327,6 +328,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -650,6 +652,7 @@
 
 
                         <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                            android:foreground="?android:attr/selectableItemBackground"
                             android:id="@+id/select"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -761,6 +764,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"

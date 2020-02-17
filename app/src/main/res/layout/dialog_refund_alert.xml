@@ -68,6 +68,7 @@
                 android:layout_marginTop="15dp">
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
            android:textAlignment="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -84,6 +85,7 @@
                     android:textStyle="bold" />
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:textAlignment="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"

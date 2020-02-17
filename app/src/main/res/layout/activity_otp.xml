@@ -295,6 +295,7 @@
                 android:gravity="center">
 
                 <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:visibility="visible"
                     android:id="@+id/btn_sign_in"

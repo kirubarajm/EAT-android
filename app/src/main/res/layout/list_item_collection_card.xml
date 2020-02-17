@@ -22,6 +22,7 @@
    <!-- android:visibility="@{collectionCardItemViewModel.status?View.VISIBLE:View.GONE}"-->
 
     <LinearLayout
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"

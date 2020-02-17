@@ -126,6 +126,7 @@
                 android:textSize="12sp" />
 
             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+                android:foreground="?android:attr/selectableItemBackground"
                 app:textAllCaps="true"
                 android:onClick="@{()->funnelViewModel.close()}"
                 android:layout_width="wrap_content"

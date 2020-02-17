@@ -310,6 +310,7 @@
             android:padding="10dp">
 
             <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/btn_sign_in"
                 android:layout_width="160dp"
                 android:layout_height="40dp"

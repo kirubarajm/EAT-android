@@ -19,6 +19,7 @@
 
     <!--android:background="@{kitchenItemViewModel.seriviceable? @color/white: @color/gray}"-->
     <LinearLayout
+        android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/kitchen_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

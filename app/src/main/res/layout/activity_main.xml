@@ -358,6 +358,7 @@
 
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/home"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -391,6 +392,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/explore"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -425,6 +427,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:id="@+id/cart"
                     android:layout_width="0dp"
@@ -483,6 +486,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:id="@+id/account"
                     android:layout_width="0dp"
@@ -582,6 +586,7 @@
                     android:layout_gravity="center_vertical">
 
                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:visibility="@{viewModel.enableLater?View.GONE:View.VISIBLE}"
                         android:id="@+id/later"
                         android:layout_width="wrap_content"
@@ -603,6 +608,7 @@
 
 
                     <com.tovo.eat.utilities.fonts.poppins.ButtonTextView
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:visibility="@{viewModel.update?View.VISIBLE:View.GONE}"
                         android:id="@+id/action"
                         android:layout_width="wrap_content"
