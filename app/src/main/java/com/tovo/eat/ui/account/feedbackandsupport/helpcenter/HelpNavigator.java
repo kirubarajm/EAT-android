@@ -1,6 +1,6 @@
-package com.tovo.eat.ui.track.help;
+package com.tovo.eat.ui.account.feedbackandsupport.helpcenter;
 
-public interface OrderHelpNavigator {
+public interface HelpNavigator {
 
     void handleError(Throwable throwable);
     void goBack();

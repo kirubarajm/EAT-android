@@ -17,11 +17,9 @@ import android.view.View;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityOrdersHistoryViewBinding;
-import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
+import com.tovo.eat.ui.account.chatsupport.HistoryHelpActivity;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.cart.BillListAdapter;
 import com.tovo.eat.ui.home.MainActivity;
-import com.tovo.eat.ui.track.help.OrderHelpActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -116,7 +114,7 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
         new Analytics().repeatOrder(strOrderId);
         Intent intent = MainActivity.newIntent(OrderHistoryActivityView.this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("cart", true);
         startActivity(intent);
     }
@@ -128,10 +126,17 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
 
     @Override
     public void gotoSupport() {
-        Intent intent = SupportActivity.newIntent(OrderHistoryActivityView.this);
+       /* Intent intent = SupportActivity.newIntent(OrderHistoryActivityView.this);
         intent.putExtra("orderid",Long.parseLong(strOrderId));
         intent.putExtra("type",AppConstants.QUERY_TYPE_ORDER_HISTORY);
+        startActivity(intent);*/
+
+
+        Intent intent = HistoryHelpActivity.newIntent(this);
+        intent.putExtra("orderid", Long.parseLong(strOrderId));
         startActivity(intent);
+
+
     }
 
     @Override

@@ -17,6 +17,8 @@
 package com.tovo.eat.di;
 
 import com.tovo.eat.ui.account.MyAccountProvider;
+import com.tovo.eat.ui.account.chatsupport.HistoryHelpActivity;
+import com.tovo.eat.ui.account.chatsupport.HistoryHelpModule;
 import com.tovo.eat.ui.account.edit.EditAccountActivity;
 import com.tovo.eat.ui.account.edit.EditAccountModule;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
@@ -27,6 +29,8 @@ import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.FeedbackAndSupportActivityModule;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivityModule;
+import com.tovo.eat.ui.account.feedbackandsupport.helpcenter.HelpActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.helpcenter.HelpModule;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivityModule;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
@@ -160,6 +164,19 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {SearchDishModule.class, DialogChangeKitchenDishProvider.class, OrderCanceledProvider.class})
     abstract SearchDishActivity bindSearchDishActivity();
+
+
+
+      @ContributesAndroidInjector(modules = {HelpModule.class})
+    abstract HelpActivity bindHelpActivity();
+
+
+      @ContributesAndroidInjector(modules = {HistoryHelpModule.class})
+    abstract HistoryHelpActivity bindHistoryHelpActivity();
+
+
+
+
 
 
     @ContributesAndroidInjector(modules = {RegionDetailsModule.class, OrderCanceledProvider.class})

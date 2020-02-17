@@ -13,7 +13,9 @@ import android.support.annotation.Nullable;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFeedbackSupportBinding;
+import com.tovo.eat.ui.account.chatsupport.HistoryHelpActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
+import com.tovo.eat.ui.account.feedbackandsupport.helpcenter.HelpActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
@@ -64,8 +66,14 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     @Override
     public void supportClick() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_SUPPORT);
-        Intent intent = SupportActivity.newIntent(this);
+       /* Intent intent = SupportActivity.newIntent(this);
+        startActivity(intent);*/
+
+
+        Intent intent = HelpActivity.newIntent(this);
         startActivity(intent);
+
+
     }
 
     @Override

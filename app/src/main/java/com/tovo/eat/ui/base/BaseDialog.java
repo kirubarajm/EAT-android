@@ -30,9 +30,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-/**
- * Created by amitshekhar on 10/07/17.
- */
+
 
 public abstract class BaseDialog extends DialogFragment {
 

@@ -84,7 +84,7 @@ public class OrderDetailsActivity extends BaseActivity<ActivityOrderDetailsBindi
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                       /* Intent intent= TestActivity.newIntent(OrderHelpActivity.this);
+                       /* Intent intent= TestActivity.newIntent(HistoryHelpActivity.this);
                         intent.putExtra("cart",true);
                         startActivity(intent);*/
 

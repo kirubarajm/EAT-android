@@ -406,7 +406,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                 if (!couponAdded) {
                                     if (kitchenItemViewModels.size() > 0) {
-                                        KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                        IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
                                         kitchenResponse1.setCoupons(response.getResult());
                                         kitchenItemViewModels.add(Math.round(kitchenItemViewModels.size() / 2) + 1, kitchenResponse1);
                                         couponAdded = true;
@@ -642,7 +642,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                                           /*  if (collectionItemViewModels.size() > 0) {
-                                                KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                                IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
                                                 kitchenResponse1.setCollection(collectionItemViewModels);
                                                 kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
                                                 collectionAdded = true;
@@ -652,12 +652,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             if (couponListItemViewModels.size() > 0) {
 
                                                 if (kitchenResponse.getResult().size() > 4) {
-                                                    KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                    IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
                                                     kitchenResponse2.setCoupons(couponListItemViewModels);
                                                     kitchenResponse.getResult().add(2, kitchenResponse2);
                                                     couponAdded = true;
                                                 } else {
-                                                    KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                    IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
                                                     kitchenResponse2.setCoupons(couponListItemViewModels);
                                                     kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
                                                     couponAdded = true;
@@ -665,7 +665,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             }*/
 
-                                    /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                    /*    IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
                                         kitchenItemViewModels.clear();
@@ -859,7 +859,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                                       /*  if (collectionItemViewModels.size() > 0) {
-                                            KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                            IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
                                             kitchenResponse1.setCollection(collectionItemViewModels);
                                             kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
                                             collectionAdded = true;
@@ -871,12 +871,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
                                             if (kitchenResponse.getResult().size() > 4) {
-                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
                                                 kitchenResponse2.setCoupons(couponListItemViewModels);
                                                 kitchenResponse.getResult().add(2, kitchenResponse2);
                                                 couponAdded = true;
                                             } else {
-                                                KitchenResponse.Result kitchenResponse2 = new KitchenResponse.Result();
+                                                IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
                                                 kitchenResponse2.setCoupons(couponListItemViewModels);
                                                 kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
                                                 couponAdded = true;
@@ -886,7 +886,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         }*/
 
 
-                                    /*    KitchenResponse.Result kitchenResponse1 = new KitchenResponse.Result();
+                                    /*    IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
                                         kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
                                         kitchenItemViewModels.clear();
@@ -1161,12 +1161,12 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     /*public void storiesRefresh() {
-        KitchenResponse localStoriesResponse;
+        IssuesListResponse localStoriesResponse;
         if (getDataManager().getStoriesList() != null) {
             Gson sGson = new GsonBuilder().create();
-            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), KitchenResponse.class);
-            List<KitchenResponse.Story> newStories = new ArrayList<>();
-            List<KitchenResponse.Story> oldStories = new ArrayList<>();
+            localStoriesResponse = sGson.fromJson(getDataManager().getStoriesList(), IssuesListResponse.class);
+            List<IssuesListResponse.Story> newStories = new ArrayList<>();
+            List<IssuesListResponse.Story> oldStories = new ArrayList<>();
             for (int i = 0; i < localStoriesResponse.getResult().size(); i++) {
                 if (localStoriesResponse.getResult().get(0).getStory().get(i).getStories().size() > 0)
                     if (!localStoriesResponse.getResult().get(0).getStory().get(i).getStories().get(localStoriesResponse.getResult().get(0).getStory().get(i).getStories().size() - 1).isSeen()) {
@@ -1175,15 +1175,15 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         oldStories.add(localStoriesResponse.getResult().get(0).getStory().get(i));
                     }
             }
-            KitchenResponse completeStories = new KitchenResponse();
+            IssuesListResponse completeStories = new IssuesListResponse();
             newStories.addAll(oldStories);
 
 
 
-            List<KitchenResponse.Result> result=new ArrayList<>();
-            KitchenResponse.Result kl=new KitchenResponse.Result();
+            List<IssuesListResponse.Result> result=new ArrayList<>();
+            IssuesListResponse.Result kl=new IssuesListResponse.Result();
             kl.setStory(newStories);
-            KitchenResponse kitchenResponse=new KitchenResponse();
+            IssuesListResponse kitchenResponse=new IssuesListResponse();
             result.add(kl);
             kitchenResponse.setResult(result);
 

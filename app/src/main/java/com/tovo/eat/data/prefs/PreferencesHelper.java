@@ -19,9 +19,6 @@ package com.tovo.eat.data.prefs;
 
 import com.tovo.eat.data.DataManager;
 
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public interface PreferencesHelper {
 

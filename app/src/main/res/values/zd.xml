@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zd_url">https://tovogroup.zendesk.com</string>
+    <string name="zd_appid">7ad10b6e70ab6ea7c6a7558f0554e44a54bfac6dd0327563</string>
+    <string name="zd_oauth">mobile_sdk_client_3edc29c759dbb2960120</string>
+
+    <string name="zopim_account_id">p08JyjxmM4qGJXRuKGUqNoKeTQtm3OKO</string>
+</resources>
+
+
+<!--<resources>
+    <string name="zd_url">https://tovotest.zendesk.com</string>
+    <string name="zd_appid">1ee22710eab2267e5dde0d94da84e7477cb528870ec0b247</string>
+    <string name="zd_oauth">mobile_sdk_client_b356853630a906d679a7</string>
+
+    <string name="zopim_account_id">0pcDdTu852gNcoYuR3BydNf5BARLCXsa</string>
+</resources>-->

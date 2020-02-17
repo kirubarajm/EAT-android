@@ -99,6 +99,8 @@ import com.tovo.eat.ui.search.SearchResponse;
 import com.tovo.eat.ui.search.dish.SearchDishAdapter;
 import com.tovo.eat.ui.signup.faqs.FaqResponse;
 import com.tovo.eat.ui.signup.faqs.FaqsAdapter;
+import com.tovo.eat.utilities.chat.IssuesAdapter;
+import com.tovo.eat.utilities.chat.IssuesListResponse;
 
 import java.util.List;
 
@@ -132,6 +134,17 @@ public final class BindingUtils {
             adapter.addItems(sales, recyclerView.getContext());
         }
     }
+
+    @BindingAdapter({"adapter"})
+    public static void addIssuesItems(RecyclerView recyclerView, List<IssuesListResponse.Result> issues) {
+        IssuesAdapter adapter = (IssuesAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(issues);
+        }
+    }
+
+
     @BindingAdapter({"adapter"})
     public static void addBillItems(RecyclerView recyclerView, List<CartPageResponse.Cartdetail> cartdetails) {
         BillListAdapter adapter = (BillListAdapter) recyclerView.getAdapter();

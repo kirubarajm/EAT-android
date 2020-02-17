@@ -32,6 +32,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -215,13 +216,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openCart() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
         stopLoader();
-        try{
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        CartActivity fragment = new CartActivity();
-        transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(CartActivity.class.getSimpleName());
-        transaction.commit();
-        }catch (Exception ee){
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            CartActivity fragment = new CartActivity();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(CartActivity.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
             ee.printStackTrace();
         }
         mMainViewModel.toolbarTitle.set("Cart");
@@ -244,16 +245,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openHome() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GO_HOME);
         stopLoader();
-        try{
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabFragment fragment = new HomeTabFragment();
-        transaction.replace(R.id.content_main, fragment);
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            HomeTabFragment fragment = new HomeTabFragment();
+            transaction.replace(R.id.content_main, fragment);
 
-        //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
-        transaction.commitAllowingStateLoss();
-    }catch (Exception ee){
-        ee.printStackTrace();
-    }
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commitAllowingStateLoss();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
         mMainViewModel.toolbarTitle.set("Home");
         mMainViewModel.titleVisible.set(false);
 
@@ -275,15 +276,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public void openExplore() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_SEARCH);
         stopLoader();
-        try{
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        SearchFragment fragment = new SearchFragment();
-        transaction.replace(R.id.content_main, fragment);
-        //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
-        transaction.commit();
-    }catch (Exception ee){
-        ee.printStackTrace();
-    }
+        try {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            SearchFragment fragment = new SearchFragment();
+            transaction.replace(R.id.content_main, fragment);
+            //  transaction.addToBackStack(StoriesPagerFragment22.class.getSimpleName());
+            transaction.commit();
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
 
         mMainViewModel.toolbarTitle.set("Explore");
 
@@ -592,6 +593,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         super.onCreate(savedInstanceState);
         mActivityMainBinding = getViewDataBinding();
         mMainViewModel.setNavigator(this);
+
+
+       /* String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        telephonyManager.getDeviceId();*/
 
 
         appUpdateManager = AppUpdateManagerFactory.create(this);

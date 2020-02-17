@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.track.help;
+package com.tovo.eat.ui.account.feedbackandsupport.helpcenter;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
@@ -12,8 +12,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
+import com.tovo.eat.ui.track.help.OrderCancelRequest;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
@@ -22,33 +22,32 @@ import com.tovo.eat.utilities.chat.IssuesRequest;
 
 import java.util.List;
 
-public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
+public class HelpViewModel extends BaseViewModel<HelpNavigator> {
 
     public final ObservableField<String> deliveryName = new ObservableField<>();
     public final ObservableField<String> deliveryNumber = new ObservableField<>();
     public final ObservableField<String> serviceCharges = new ObservableField<>();
     public final ObservableField<String> cancelationMessage = new ObservableField<>();
-    public final ObservableField<String> orderId = new ObservableField<>();
+
 
 
     public ObservableBoolean cancelClicked = new ObservableBoolean();
     public ObservableBoolean deliveryClicked = new ObservableBoolean();
     public ObservableBoolean deliveryAssigned = new ObservableBoolean();
     public ObservableBoolean otherReason = new ObservableBoolean();
-    public ObservableBoolean showCancel = new ObservableBoolean();
 
 
     public ObservableList<IssuesListResponse.Result> issuesObservableList = new ObservableArrayList<>();
     public MutableLiveData<List<IssuesListResponse.Result>> issuesLiveData;
 
+public Long orderid=0L;
 
-
-    public OrderHelpViewModel(DataManager dataManager) {
+    public HelpViewModel(DataManager dataManager) {
         super(dataManager);
         otherReason.set(false);
         issuesLiveData = new MutableLiveData<>();
 
-        getIssuesList(1);
+        getIssuesList(3);
     }
 
     public void goBack() {
@@ -207,17 +206,14 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
                     if (response != null) {
                         if (response.getResult()!=null&&response.getResult().size()>0) {
                             issuesLiveData.setValue(response.getResult());
-
                         }
 
                     }
-                    showCancel.set(true);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
-                    showCancel.set(true);
                     setIsLoading(false);
                     if (getNavigator() != null)
                         getNavigator().orderCancelFailed();
@@ -236,13 +232,57 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
     }
 
 
+
+public void getChatDetails(int type) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_URL, IssuesListResponse.class, new IssuesRequest(type,getDataManager().getCurrentUserId()), new Response.Listener<IssuesListResponse>() {
+                @Override
+                public void onResponse(IssuesListResponse response) {
+                    if (response != null) {
+                        if (response.getResult()!=null&&response.getResult().size()>0) {
+                            issuesLiveData.setValue(response.getResult());
+
+                            if (getNavigator()!=null){
+                                //getNavigator().createChat();
+                            }
+
+
+                        }
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+                    if (getNavigator() != null)
+                        getNavigator().orderCancelFailed();
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
     public void getIssuesNote(int type,int issueid) {
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(issueid,getDataManager().getCurrentUserId(),getDataManager().getOrderId()), new Response.Listener<IssuesListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(issueid,getDataManager().getCurrentUserId()), new Response.Listener<IssuesListResponse>() {
                 @Override
                 public void onResponse(IssuesListResponse response) {
                     if (response != null) {

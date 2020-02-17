@@ -302,7 +302,7 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
             mListItemLiveProductsBinding.recyclerCollection.setLayoutManager(mLayoutManager);
             mListItemLiveProductsBinding.recyclerCollection.setAdapter(collectionAdapter);
 
-            collectionAdapter.setListener(KitchenAdapter.this);
+            collectionAdapter.setListener(IssuesAdapter.this);
 
 
         }

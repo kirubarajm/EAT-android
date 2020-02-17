@@ -62,6 +62,10 @@ import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
+import com.zopim.android.sdk.prechat.PreChatForm;
+import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,6 +191,34 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FAVOURITES);
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
+/*
+        ZopimChat.init(getString(R.string.zopim_account_id));
+
+        final VisitorInfo.Builder build = new VisitorInfo.Builder().email("test@tovogroup.com");
+        build.name("TestUser");
+        build.note("This is order related issue. Order id : 2222222");
+        build.phoneNumber("9751795821");
+        ZopimChat.setVisitorInfo(build.build());
+
+// build pre chat form config
+        PreChatForm preChatForm = new PreChatForm.Builder()
+                .name(PreChatForm.Field.OPTIONAL)
+                .email(PreChatForm.Field.OPTIONAL)
+                .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
+                .department(PreChatForm.Field.REQUIRED)
+                .message(PreChatForm.Field.NOT_REQUIRED)
+                .build();
+
+// build session config
+        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+                .preChatForm(preChatForm)
+                .department("A department")
+                .tags("Order history");
+
+// start chat activity with config
+        ZopimChatActivity.startActivity(getActivity(), config);*/
+
+
     }
 
     @Override

@@ -1,9 +1,8 @@
-package com.tovo.eat.ui.track.help;
+package com.tovo.eat.ui.account.feedbackandsupport.helpcenter;
 
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.ui.account.orderhistory.ordersview.OrdersHistoryActivityItemAdapter;
 import com.tovo.eat.utilities.chat.IssuesAdapter;
 
 import java.util.ArrayList;
@@ -12,14 +11,14 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class OrderHelpModule {
+public class HelpModule {
 
     @Provides
-    OrderHelpViewModel provideOrdersCancelViewModel(DataManager dataManager) {
-        return new OrderHelpViewModel(dataManager);
+    HelpViewModel provideOrdersCancelViewModel(DataManager dataManager) {
+        return new HelpViewModel(dataManager);
     }
     @Provides
-    LinearLayoutManager provideLinearLayoutManager(OrderHelpActivity activity) {
+    LinearLayoutManager provideLinearLayoutManager(HelpActivity activity) {
         return new LinearLayoutManager(activity);
     }
     @Provides

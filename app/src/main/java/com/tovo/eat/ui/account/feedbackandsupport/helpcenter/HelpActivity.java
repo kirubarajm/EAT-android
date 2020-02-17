@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.track.help;
+package com.tovo.eat.ui.account.feedbackandsupport.helpcenter;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -15,16 +15,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityOrderHelpBinding;
+import com.tovo.eat.databinding.ActivityHelpCenterBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
@@ -45,11 +42,11 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector,IssuesAdapter.IssuesAdapterListener{
+public class HelpActivity extends BaseActivity<ActivityHelpCenterBinding, HelpViewModel> implements HelpNavigator, View.OnTouchListener, HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
 
     @Inject
-    OrderHelpViewModel mOrderHelpViewModel;
-    ActivityOrderHelpBinding mActivityOrderHelpBinding;
+    HelpViewModel mHelpViewModel;
+    ActivityHelpCenterBinding mActivityOrderHelpBinding;
     String strOrderId;
     String message = null;
     ProgressDialog dialog;
@@ -87,7 +84,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, OrderHelpActivity.class);
+        return new Intent(context, HelpActivity.class);
     }
 
     @Override
@@ -116,13 +113,13 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     public void callDelivery() {
 
       /*  Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+        callIntent.setData(Uri.parse("tel:" + Uri.encode(mHelpViewModel.deliveryNumber.get().trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(callIntent);*/
         new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_CALL_DELIVERY_EXECUTIVE);
 
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:" + Uri.encode(mOrderHelpViewModel.deliveryNumber.get().trim())));
+        callIntent.setData(Uri.parse("tel:" + Uri.encode(mHelpViewModel.deliveryNumber.get().trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(callIntent);
 
@@ -131,8 +128,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void gotoSupport() {
         new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_CONTACT_SUPPORT);
-        Intent intent = SupportActivity.newIntent(OrderHelpActivity.this);
-        intent.putExtra("orderid", mOrderHelpViewModel.getDataManager().getOrderId());
+        Intent intent = SupportActivity.newIntent(HelpActivity.this);
+        intent.putExtra("orderid", mHelpViewModel.getDataManager().getOrderId());
         intent.putExtra("type", AppConstants.QUERY_TYPE_ORDER);
         startActivity(intent);
 
@@ -144,7 +141,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
         if (dialog.isShowing()) dialog.show();
 
-        Intent intent = MainActivity.newIntent(OrderHelpActivity.this);
+        Intent intent = MainActivity.newIntent(HelpActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -156,24 +153,6 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
         new Analytics().sendClickData(AppConstants.SCREEN_ORDER_HELP, AppConstants.CLICK_ORDER_CANCEL);
 
-        if (mOrderHelpViewModel.otherReason.get()) {
-
-            message = mActivityOrderHelpBinding.otherReason.getText().toString();
-
-            if (message != null && !message.isEmpty()) {
-                showAlert();
-            } else {
-                Toast.makeText(OrderHelpActivity.this, "Please enter the reason for order cancel.", Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-
-            if (message != null && !message.isEmpty()) {
-                showAlert();
-            } else {
-                Toast.makeText(OrderHelpActivity.this, "Please select the reason for order cancel.", Toast.LENGTH_SHORT).show();
-            }
-        }
 
     }
 
@@ -188,53 +167,53 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     }
 
     @Override
-    public void createChat( String department, String tag,String note) {
+    public void createChat(String department, String tag, String note) {
 
         ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
-                .email(mOrderHelpViewModel.getDataManager().getCurrentUserEmail())
-                .name(mOrderHelpViewModel.getDataManager().getCurrentUserName())
+                .email(mHelpViewModel.getDataManager().getCurrentUserEmail())
+                .name(mHelpViewModel.getDataManager().getCurrentUserName())
                 .note(note)
-                .phoneNumber(mOrderHelpViewModel.getDataManager().getCurrentUserPhNo());
+                .phoneNumber(mHelpViewModel.getDataManager().getCurrentUserPhNo());
         ZopimChat.setVisitorInfo(build.build());
 
 // build pre chat form config
         PreChatForm preChatForm = new PreChatForm.Builder()
                 .name(PreChatForm.Field.OPTIONAL)
                 .email(PreChatForm.Field.OPTIONAL)
-                .phoneNumber(PreChatForm.Field.REQUIRED)
-                .department(PreChatForm.Field.OPTIONAL)
+                .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
+                .department(PreChatForm.Field.REQUIRED)
                 .message(PreChatForm.Field.NOT_REQUIRED)
                 .build();
 // build session config
         ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm)
                 .department(department)
-                .tags("Current Order", tag);
+                .tags("Queries", tag);
 // start chat activity with config
         ZopimChatActivity.startActivity(this, config);
     }
 
     @Override
     public int getBindingVariable() {
-        return BR.orderHelpViewModel;
+        return BR.helpViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_order_help;
+        return R.layout.activity_help_center;
     }
 
     @Override
-    public OrderHelpViewModel getViewModel() {
-        return mOrderHelpViewModel;
+    public HelpViewModel getViewModel() {
+        return mHelpViewModel;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityOrderHelpBinding = getViewDataBinding();
-        mOrderHelpViewModel.setNavigator(this);
+        mHelpViewModel.setNavigator(this);
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Please wait...");
@@ -242,31 +221,12 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
         issuesAdapter.setListener(this);
 
         analytics = new Analytics(this, pageName);
-        mActivityOrderHelpBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb = (RadioButton) group.findViewById(checkedId);
-                // mOrderHelpViewModel.cancelOrder(rb.getText().toString());
 
-                if (checkedId == R.id.radioButton4) {
-                    mOrderHelpViewModel.otherReason.set(true);
-                } else {
-                    message = rb.getText().toString();
-                    mOrderHelpViewModel.otherReason.set(false);
-                }
-
-
-                //   Toast.makeText(MainActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        Bundle bundle = getIntent().getExtras();
+       /* Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            mOrderHelpViewModel.deliveryName.set(getIntent().getExtras().getString("name"));
-            mOrderHelpViewModel.deliveryNumber.set(getIntent().getExtras().getString("number"));
-            mOrderHelpViewModel.deliveryAssigned.set(getIntent().getExtras().getBoolean("status"));
-            mOrderHelpViewModel.serviceCharges.set(getIntent().getExtras().getString("charge"));
-            mOrderHelpViewModel.cancelationMessage.set(getIntent().getExtras().getString("message"));
-        }
+          mHelpViewModel.orderid=getIntent().getExtras().getLong("orderid");
+
+        }*/
 
      /*   mActivityOrderHelpBinding.cancelReason1.setOnTouchListener(this);
         mActivityOrderHelpBinding.cancelReason2.setOnTouchListener(this);
@@ -282,8 +242,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     }
 
     private void subscribeToLiveData() {
-        mOrderHelpViewModel.getIssuesLiveData().observe(this,
-                issuesItemViewModel -> mOrderHelpViewModel.addIssuesListItemsToList(issuesItemViewModel));
+        mHelpViewModel.getIssuesLiveData().observe(this,
+                issuesItemViewModel -> mHelpViewModel.addIssuesListItemsToList(issuesItemViewModel));
 
     }
 
@@ -310,8 +270,8 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 
     public void showAlert() {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(OrderHelpActivity.this).create();
-        alertDialog.setMessage(mOrderHelpViewModel.cancelationMessage.get());
+        AlertDialog alertDialog = new AlertDialog.Builder(HelpActivity.this).create();
+        alertDialog.setMessage(mHelpViewModel.cancelationMessage.get());
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -322,7 +282,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         startProgresDialog();
-                        mOrderHelpViewModel.cancelOrder(message);
+                        mHelpViewModel.cancelOrder(message);
                         dialog.dismiss();
                     }
                 });
@@ -387,8 +347,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
 
-        mOrderHelpViewModel.getIssuesNote(issues.getType(),issues.getId());
-
+        mHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
     }
 }
 

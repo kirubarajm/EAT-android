@@ -551,7 +551,7 @@
     <string name="your_order_will_arrive_by">Your order will arrive by</string>
     <string name="check_order_details">Check order details</string>
     <string name="credit_debit_cards">Credit/Debit Cards</string>
-    <string name="keep_change">Please keep the extra change handly to help us serve you better</string>
+    <string name="keep_change">Please keep the exact change handy to help us serve you better</string>
     <string name="veg_only">Veg only</string>
 
     <string name="today_s_menu">Today\'s Menu</string>
@@ -697,6 +697,7 @@
     <string name="m">M</string>
     <string name="your_hometown">YOUR HOMETOWN</string>
     <string name="save_as">Save as</string>
+    <string name="help_support">How can we help you?</string>
 
 
 </resources>

@@ -17,6 +17,7 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
+ <!--   <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <application
         android:name=".utilities.MvvmApp"
         android:allowBackup="false"
@@ -203,6 +204,8 @@
             android:name=".utilities.nointernet.InternetErrorFragment"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.cart.funnel.FunnelActivity" />
+        <activity android:name=".ui.account.chatsupport.HistoryHelpActivity" />
+        <activity android:name=".ui.account.feedbackandsupport.helpcenter.HelpActivity" />
 
 
         <meta-data
@@ -260,6 +263,8 @@
                     android:name="com.razorpay.ApiKey"
                     android:value="rzp_test_3cduMl5T89iR9G"
                     />-->
+
+
 
 
 

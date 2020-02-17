@@ -31,9 +31,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 
-/**
- * Created by amitshekhar on 09/07/17.
- */
+
 
 public class RoundedImageView extends AppCompatImageView {
 

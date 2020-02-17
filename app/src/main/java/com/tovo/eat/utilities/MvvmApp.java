@@ -27,6 +27,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.telecom.PhoneAccount;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -38,22 +39,21 @@ import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
+import com.tovo.eat.R;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.di.component.DaggerAppComponent;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ZopimChat;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-
-
-/**
- * Created by amitshekhar on 07/07/17.
- */
 
 public class MvvmApp extends Application implements HasActivityInjector {
 
@@ -64,6 +64,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
     private static MvvmApp mInstance;
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -99,6 +101,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
         return activityDispatchingAndroidInjector;
     }
 
+
     private void unregisterWifiReceiver() {
         unregisterReceiver(mWifiReceiver);
     }
@@ -124,17 +127,36 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 && networkInfo.isConnected();
     }
 
+
+
+  /*  private class DaggerAppComponent extends AndroidInjector<MvvmApp>{
+
+
+    }*/
+
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+
+        /*DaggerAppComponent
+                .builder()
+                .create(this);*/
+
+
         DaggerAppComponent.builder()
                 .application(this)
                 .build()
                 .inject(this);
 
+
+
         //   FirebaseAnalytics.getInstance(this);
 
+
+        //ZenDesk
+           zendeskInit();
 
         if (!BuildConfig.ENABLE_DEBUG) {
             FirebaseAnalytics.getInstance(this);
@@ -158,7 +180,6 @@ public class MvvmApp extends Application implements HasActivityInjector {
         // Initialize Fabric with the debug-disabled crashlytics.
         Fabric.with(this, crashlyticsKit);
 
-
         FacebookSdk.fullyInitialize();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);*/
@@ -172,6 +193,7 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
         //CalligraphyConfig.initDefault(mCalligraphyConfig);
     }
+
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
@@ -295,6 +317,20 @@ public class MvvmApp extends Application implements HasActivityInjector {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         view.requestFocus();
         inputMethodManager.showSoftInput(view, 0);
+    }
+
+
+    public void zendeskInit() {
+        // Enable logging in Support and Chat SDK
+       /* Logger.setLoggable(true);
+        // Init Support SDK
+        Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
+                getResources().getString(R.string.zd_appid),
+                getResources().getString(R.string.zd_oauth));
+        Support.INSTANCE.init(Zendesk.INSTANCE);*/
+      //  AnswerBot.INSTANCE.init(Zendesk.INSTANCE, Support.INSTANCE);
+
+     //  ZopimChat.init(getString(R.string.zopim_account_id));
     }
 
 }
