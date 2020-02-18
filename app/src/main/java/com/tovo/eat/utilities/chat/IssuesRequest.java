@@ -24,6 +24,11 @@ public class IssuesRequest {
         this.userid = userid;
     }
 
+    public IssuesRequest(Long userid,Integer issueid) {
+        this.id = issueid;
+        this.userid = userid;
+    }
+
     public IssuesRequest(Integer id, Long userid, Long orderid) {
         this.id = id;
         this.userid = userid;

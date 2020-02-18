@@ -25,6 +25,10 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
+import com.zopim.android.sdk.prechat.PreChatForm;
+import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import javax.inject.Inject;
 
@@ -61,8 +65,29 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     public void supportClick() {
         new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_SUPPORT);
 
-        Intent intent = SupportActivity.newIntent(this);
-        startActivity(intent);
+        /*Intent intent = SupportActivity.newIntent(this);
+        startActivity(intent);*/
+
+        ZopimChat.init(getString(R.string.zopim_account_id));
+        final VisitorInfo.Builder build = new VisitorInfo.Builder();
+        ZopimChat.setVisitorInfo(build.build());
+
+// build pre chat form config
+        PreChatForm preChatForm = new PreChatForm.Builder()
+                .name(PreChatForm.Field.REQUIRED)
+                .email(PreChatForm.Field.NOT_REQUIRED)
+                .phoneNumber(PreChatForm.Field.REQUIRED)
+                .department(PreChatForm.Field.REQUIRED)
+                .message(PreChatForm.Field.NOT_REQUIRED)
+                .build();
+// build session config
+        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+                .preChatForm(preChatForm)
+                .department("EAT")
+                .tags("New user" );
+// start chat activity with config
+        ZopimChatActivity.startActivity(this, config);
+
     }
 
     @Override

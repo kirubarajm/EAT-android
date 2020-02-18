@@ -179,10 +179,10 @@ public class HelpActivity extends BaseActivity<ActivityHelpCenterBinding, HelpVi
 
 // build pre chat form config
         PreChatForm preChatForm = new PreChatForm.Builder()
-                .name(PreChatForm.Field.OPTIONAL)
-                .email(PreChatForm.Field.OPTIONAL)
-                .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
-                .department(PreChatForm.Field.REQUIRED)
+                .name(PreChatForm.Field.REQUIRED)
+                .email(PreChatForm.Field.NOT_REQUIRED)
+                .phoneNumber(PreChatForm.Field.REQUIRED)
+                .department(PreChatForm.Field.NOT_REQUIRED)
                 .message(PreChatForm.Field.NOT_REQUIRED)
                 .build();
 // build session config

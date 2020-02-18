@@ -129,10 +129,10 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
 
 // build pre chat form config
         PreChatForm preChatForm = new PreChatForm.Builder()
-                .name(PreChatForm.Field.OPTIONAL)
-                .email(PreChatForm.Field.OPTIONAL)
+                .name(PreChatForm.Field.REQUIRED)
+                .email(PreChatForm.Field.NOT_REQUIRED)
                 .phoneNumber(PreChatForm.Field.REQUIRED)
-                .department(PreChatForm.Field.REQUIRED)
+                .department(PreChatForm.Field.OPTIONAL)
                 .message(PreChatForm.Field.NOT_REQUIRED)
                 .build();
 // build session config

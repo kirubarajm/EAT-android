@@ -48,13 +48,13 @@ public class FaqsAndSupportViewModel extends BaseViewModel<FaqsAndSupportNavigat
     }
 
     public void supportClick() {
-        //   getNavigator().supportClick();
+           getNavigator().supportClick();
 
-        if (contact.get()) {
+        /*if (contact.get()) {
             contact.set(false);
         } else {
             contact.set(true);
-        }
+        }*/
 
     }
 

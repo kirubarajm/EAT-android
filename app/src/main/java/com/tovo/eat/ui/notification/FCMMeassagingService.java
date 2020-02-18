@@ -26,20 +26,30 @@ import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivit
 import com.tovo.eat.ui.account.orderhistory.historylist.OrderHistoryActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.signup.namegender.TokenRequest;
+import com.tovo.eat.ui.splash.SplashActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.PushUtils;
+import com.zendesk.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
+import zendesk.support.request.RequestActivity;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
 
     public static final String FCM_PARAM = "picture";
     private static final String CHANNEL_NAME = "FCM";
     private static final String CHANNEL_DESC = "Firebase Cloud Messaging";
+    private static final int NOTIFICATION_ID = 134345;
+    private static final String ZD_REQUEST_ID_KEY = "zendesk_sdk_request_id";
+    private static final String ZD_MESSAGE_KEY = "message";
     private int numMessages = 0;
 
     @Override
@@ -48,18 +58,33 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         RemoteMessage.Notification notification = remoteMessage.getNotification();
 
 
-
         Map<String, String> data = remoteMessage.getData();
         //   Log.d("FROM", remoteMessage.getFrom());
 
+        final String requestId = remoteMessage.getData().get(ZD_REQUEST_ID_KEY);
+        final String message = remoteMessage.getData().get(ZD_MESSAGE_KEY);
 
-        if (data == null) {
+
+        final String pageId = remoteMessage.getData().get("pageid");
+
+        if (data != null) {
+            if (pageId != null) {
+                if (pageId.equals("13")) {
+                    if (StringUtils.hasLengthMany(requestId)) {
+                        handleZendeskSdkPush(requestId, data);
+                    }
+                } else {
+                    sendNotification(data);
+                }
+            }else {
+                sendNotification(data);
+            }
+        } else {
+
             if (notification != null)
                 sendNotification(notification);
-        } else {
-            sendNotification(data);
-        }
 
+        }
 
     }
 
@@ -67,6 +92,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         saveToken(s);
+        PushUtils.registerWithZendesk();
     }
 
     private void sendNotification(Map<String, String> data) {
@@ -80,14 +106,14 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_eat_order_cancel:8,
                 Pageid_eat_query_replay:9,
                 Pageid_eat_rating:10
-                Pageid_order_placed:11*/
+                Pageid_order_placed:11
+                Pageid_promotion:12*/
 
         Bundle bundle = new Bundle();
         Intent intent;
         String pageId = data.get("pageid");
         String title = data.get("title");
         String message = data.get("message");
-
 
         if (pageId == null) pageId = "0";
 
@@ -114,7 +140,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             case "8":
             case "1":
             default:
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, SplashActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
 
@@ -137,7 +164,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-               // .setFullScreenIntent(pendingIntent,true)
+                // .setFullScreenIntent(pendingIntent,true)
                 .setNumber(++numMessages);
 
         //  .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
@@ -203,7 +230,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_eat);
 
         try {
-            if (notification.getImageUrl()!=null) {
+            if (notification.getImageUrl() != null) {
                 String picture = notification.getImageUrl().getPath();
                 if (picture != null && !"".equals(picture)) {
                     URL url = new URL(picture);
@@ -262,6 +289,91 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             }
         }, AppConstants.API_VERSION_ONE);
         MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+    }
+
+
+    private void handleZendeskSdkPush(String requestId, Map<String, String> data) {
+        // Initialise the SDK
+        // This IntentService could be called and any point. So, if the main app was killed,
+        // there won't be any Zendesk login information. Moreover, we presume at this point, that
+        // an valid identity was set.
+        if (!Zendesk.INSTANCE.isInitialized()) {
+            Context context = getApplicationContext();
+            Zendesk.INSTANCE.init(context, context.getString(R.string.zd_url), context.getString(R.string.zd_appid), context.getString(R.string.zd_oauth));
+            Support.INSTANCE.init(Zendesk.INSTANCE);
+        }
+
+        // If the Fragment with the pushed request id is visible,
+        // this will cause a reload of the screen.
+        // #refreshRequest(id) will return true if it was successful.
+        if (Support.INSTANCE.refreshRequest(requestId, getApplicationContext())) {
+            return;
+        }
+
+        showNotification(requestId, data);
+    }
+
+    private void showNotification(String requestId, Map<String, String> data) {
+
+        String title = data.get("title");
+        String message = data.get("message");
+
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final String channelId = getApplicationContext().getResources().getString(R.string.app_name);
+        createNotificationChannel(notificationManager, channelId);
+
+        final Intent requestIntent = getDeepLinkIntent(requestId);
+        final PendingIntent contentIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, requestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final Notification notification = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                .setSmallIcon(R.drawable.ic_eat)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setContentIntent(contentIntent)
+                .build();
+
+        notificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    private void createNotificationChannel(NotificationManager notificationManager, String channelId) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // Create the notification channel. As per the documentation, "Attempting to create an
+            // existing notification channel with its original values performs no operation, so it's safe
+            // to perform the above sequence of steps when starting an app."
+            // The user-visible name of the channel.
+            CharSequence name = getString(R.string.app_name);
+            // The user-visible description of the channel.
+            String description = getString(R.string.push_notification_fallback_title);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+            // Configure the notification channel.
+            channel.setDescription(description);
+            channel.enableLights(true);
+            // Sets the notification light color for notifications posted to this
+            // channel, if the device supports this feature.
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 100, 200});
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private Intent getDeepLinkIntent(String requestId) {
+
+        // Utilize SDK's deep linking functionality to get an Intent which opens a specified request.
+        // We'd like to achieve a certain behaviour, if the user navigates back from the request activity.
+        // Expected: [Request] --> [Request list] -> [MainActivity | HelpFragment]
+
+
+        // ZendeskDeepLinking.INSTANCE.getRequestIntent automatically pushed the request list activity into
+        // backstack. So we just have to add MainActivity.
+
+        final Intent mainActivity = new Intent(getApplicationContext(), SplashActivity.class);
+        // mainActivity.putExtra(MainActivity.EXTRA_VIEWPAGER_POSITION, MainActivity.POS_HELP);
+        return RequestActivity.builder()
+                .withRequestId(requestId)
+                .deepLinkIntent(getApplicationContext(), mainActivity);
     }
 
 }

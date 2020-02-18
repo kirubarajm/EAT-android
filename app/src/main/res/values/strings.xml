@@ -385,7 +385,7 @@
 
     <string name="verify">Verify</string>
     <string name="otp_continue">Continue</string>
-    <string name="enter_phone_num">Enter you mobile number</string>
+    <string name="enter_phone_num">Enter your mobile number</string>
     <string name="login_message">We will send you a one time OTP. Carrier charges might apply</string>
     <string name="enter_pass">Enter Password</string>
     <string name="enter_name">ENTER YOUR NAME</string>
@@ -700,5 +700,6 @@
     <string name="help_support">How can we help you?</string>
     <string name="delayed">My order is getting delayed</string>
 
-
+    <string name="push_error_device_not_compatible">Your device doesn\'t support push notifications</string>
+    <string name="push_notification_fallback_title">Someone replied to your ticket</string>
 </resources>

@@ -282,7 +282,7 @@ public void getChatDetails(int type) {
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(issueid,getDataManager().getCurrentUserId()), new Response.Listener<IssuesListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(getDataManager().getCurrentUserId(),issueid), new Response.Listener<IssuesListResponse>() {
                 @Override
                 public void onResponse(IssuesListResponse response) {
                     if (response != null) {

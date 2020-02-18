@@ -27,7 +27,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.telecom.PhoneAccount;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -37,12 +36,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
 import com.tovo.eat.di.component.DaggerAppComponent;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zendesk.util.StringUtils;
 import com.zopim.android.sdk.api.ZopimChat;
 
 import java.util.HashMap;
@@ -50,8 +52,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 
@@ -151,12 +151,12 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .inject(this);
 
 
-
         //   FirebaseAnalytics.getInstance(this);
 
+        ZopimChat.init(getString(R.string.zopim_account_id));
+        initialiseFcm();
+        PushUtils.registerWithZendesk();
 
-        //ZenDesk
-           zendeskInit();
 
         if (!BuildConfig.ENABLE_DEBUG) {
             FirebaseAnalytics.getInstance(this);
@@ -320,17 +320,22 @@ public class MvvmApp extends Application implements HasActivityInjector {
     }
 
 
-    public void zendeskInit() {
-        // Enable logging in Support and Chat SDK
-       /* Logger.setLoggable(true);
-        // Init Support SDK
-        Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
-                getResources().getString(R.string.zd_appid),
-                getResources().getString(R.string.zd_oauth));
-        Support.INSTANCE.init(Zendesk.INSTANCE);*/
-      //  AnswerBot.INSTANCE.init(Zendesk.INSTANCE, Support.INSTANCE);
+    private void initialiseFcm() {
+        String googleApiKey = getString(R.string.google_api_key);
+        //  String fcmApplicationId = getString(R.string.fcm_application_id);
+        String fcmApplicationId = getString(R.string.google_app_id);
 
-     //  ZopimChat.init(getString(R.string.zopim_account_id));
+        if (StringUtils.isEmpty(googleApiKey) || StringUtils.isEmpty(fcmApplicationId)) {
+           /* Log.w(LOG_TAG, "============================================================================================================");
+            Log.w(LOG_TAG, "Google API key and FCM application ID are not configured. If you wish to use push notifications, please add ");
+            Log.w(LOG_TAG, "values for 'zdGoogleApiKey' and 'zdFcmApplicationId' to your 'gradle.properties'.");
+            Log.w(LOG_TAG, "============================================================================================================");*/
+        } else {
+            FirebaseApp.initializeApp(this, new FirebaseOptions.Builder()
+                    .setApiKey(googleApiKey)
+                    .setApplicationId(fcmApplicationId)
+                    .build());
+        }
     }
 
 }
