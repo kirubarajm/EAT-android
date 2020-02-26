@@ -48,7 +48,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
     private static final String CHANNEL_NAME = "FCM";
     private static final String CHANNEL_DESC = "Firebase Cloud Messaging";
     private static final int NOTIFICATION_ID = 134345;
-    private static final String ZD_REQUEST_ID_KEY = "zendesk_sdk_request_id";
+    private static final String ZD_REQUEST_ID_KEY = "ticket_id";
     private static final String ZD_MESSAGE_KEY = "message";
     private int numMessages = 0;
 
@@ -63,10 +63,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
         final String requestId = remoteMessage.getData().get(ZD_REQUEST_ID_KEY);
         final String message = remoteMessage.getData().get(ZD_MESSAGE_KEY);
-
-
         final String pageId = remoteMessage.getData().get("pageid");
 
+     //   sendNotification(data);
         if (data != null) {
             if (pageId != null) {
                 if (pageId.equals("13")) {
@@ -364,7 +363,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         // Utilize SDK's deep linking functionality to get an Intent which opens a specified request.
         // We'd like to achieve a certain behaviour, if the user navigates back from the request activity.
         // Expected: [Request] --> [Request list] -> [MainActivity | HelpFragment]
-
 
         // ZendeskDeepLinking.INSTANCE.getRequestIntent automatically pushed the request list activity into
         // backstack. So we just have to add MainActivity.

@@ -30,6 +30,7 @@ import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.PushUtils;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.chat.IssuesAdapter;
 import com.tovo.eat.utilities.chat.IssuesListResponse;
@@ -190,13 +191,15 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void createChat( String department, String tag,String note) {
 
-        ZopimChat.init(getString(R.string.zopim_account_id));
+     //   ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mOrderHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mOrderHelpViewModel.getDataManager().getCurrentUserName())
                 .note(note)
                 .phoneNumber(mOrderHelpViewModel.getDataManager().getCurrentUserPhNo());
         ZopimChat.setVisitorInfo(build.build());
+
+        PushUtils.registerWithZendesk();
 
 // build pre chat form config
         PreChatForm preChatForm = new PreChatForm.Builder()

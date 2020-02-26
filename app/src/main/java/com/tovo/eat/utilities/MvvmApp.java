@@ -54,6 +54,10 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
 
 public class MvvmApp extends Application implements HasActivityInjector {
 
@@ -76,16 +80,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
             } else {
 
-
                 startActivity(new Intent(InternetErrorFragment.newIntent(MvvmApp.getInstance())));
 
-
-
-               /* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                InternetErrorFragment fragment = new InternetErrorFragment();
-                transaction.replace(R.id.content_main, fragment);
-                transaction.commit();
-                internetCheck = true;*/
             }
 
         }
@@ -139,22 +135,26 @@ public class MvvmApp extends Application implements HasActivityInjector {
         super.onCreate();
         mInstance = this;
 
-
-        /*DaggerAppComponent
-                .builder()
-                .create(this);*/
-
-
         DaggerAppComponent.builder()
                 .application(this)
                 .build()
                 .inject(this);
 
-
-        //   FirebaseAnalytics.getInstance(this);
-
+        Zendesk.INSTANCE.init(this, "https://tovogroup.zendesk.com",
+                "7ad10b6e70ab6ea7c6a7558f0554e44a54bfac6dd0327563",
+                "mobile_sdk_client_3edc29c759dbb2960120");
+        Support.INSTANCE.init(Zendesk.INSTANCE);
         ZopimChat.init(getString(R.string.zopim_account_id));
-        initialiseFcm();
+
+        Identity identity = new AnonymousIdentity.Builder()
+                .withNameIdentifier("Aravind")
+                .withEmailIdentifier("aravind@tovogroup.com")
+                .build();
+
+        // Update identity in Zendesk Support SDK
+        Zendesk.INSTANCE.setIdentity(identity);
+
+
         PushUtils.registerWithZendesk();
 
 
@@ -220,41 +220,11 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
         return headers;
 
-
     }
 
 
     public int getVersionCode() {
         return BuildConfig.VERSION_CODE;
-
-       /*
-        try {
-            PackageInfo pInfo =getPackageManager().getPackageInfo(getPackageName(), 0);
-            String version = pInfo.versionName;
-
-            return pInfo.getLongVersionCode();
-
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }*/
-
-    }
-
-    public String getVersionName() {
-        // return BuildConfig.VERSION_CODE;
-
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            String version = pInfo.versionName;
-
-            return version;
-
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 
@@ -302,40 +272,6 @@ public class MvvmApp extends Application implements HasActivityInjector {
             appPreferencesHelper.setCurrentLng(0.0);
         }
 
-    }
-    /*public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-    }*/
-
-    /**
-     * Shows the soft keyboard
-     */
-    public void showSoftKeyboard(View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        view.requestFocus();
-        inputMethodManager.showSoftInput(view, 0);
-    }
-
-
-    private void initialiseFcm() {
-        String googleApiKey = getString(R.string.google_api_key);
-        //  String fcmApplicationId = getString(R.string.fcm_application_id);
-        String fcmApplicationId = getString(R.string.google_app_id);
-
-        if (StringUtils.isEmpty(googleApiKey) || StringUtils.isEmpty(fcmApplicationId)) {
-           /* Log.w(LOG_TAG, "============================================================================================================");
-            Log.w(LOG_TAG, "Google API key and FCM application ID are not configured. If you wish to use push notifications, please add ");
-            Log.w(LOG_TAG, "values for 'zdGoogleApiKey' and 'zdFcmApplicationId' to your 'gradle.properties'.");
-            Log.w(LOG_TAG, "============================================================================================================");*/
-        } else {
-            FirebaseApp.initializeApp(this, new FirebaseOptions.Builder()
-                    .setApiKey(googleApiKey)
-                    .setApplicationId(fcmApplicationId)
-                    .build());
-        }
     }
 
 }

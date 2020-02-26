@@ -12,7 +12,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.tovo.eat.R;
+import com.zendesk.service.ErrorResponse;
+import com.zendesk.service.ZendeskCallback;
 import com.zendesk.util.StringUtils;
+import com.zopim.android.sdk.api.ZopimChat;
 
 import zendesk.core.ProviderStore;
 import zendesk.core.Zendesk;
@@ -53,7 +56,24 @@ public class PushUtils {
                         }
                         // Get new Instance ID token
 
-                        providerStore.pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), null);
+                        Zendesk.INSTANCE.provider().pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), new ZendeskCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+
+                               Log.e("ZendeskPush","success");
+
+                            }
+
+                            @Override
+                            public void onError(ErrorResponse errorResponse) {
+                                Log.e("ZendeskPush","success");
+                            }
+                        });
+
+
+                       providerStore.pushRegistrationProvider().registerWithDeviceIdentifier(task.getResult().getToken(), null);
+
+                        ZopimChat.setPushToken(task.getResult().getToken());
 
                     }
                 });
