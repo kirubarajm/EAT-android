@@ -118,10 +118,10 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         analytics = new Analytics(this, pageName);
 
-        TextJustification.justify(mFragmentDishBinding.aboutContent);
 
-        mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
-        mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
+      //  mFragmentDishBinding.toolbarLayout.setCollapsedTitleTextColor(Color.rgb(0, 0, 0));
+      //  mFragmentDishBinding.toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getLong("kitchenId");
@@ -145,127 +145,11 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mFragmentDishBinding.recyclerTodaysMenu.setLayoutManager(new LinearLayoutManager(this));
         mFragmentDishBinding.recyclerTodaysMenu.setAdapter(mTodaysMenuAdapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
-        mFragmentDishBinding.recyclerSpecialities.setLayoutManager(gridLayoutManager);
-        mFragmentDishBinding.recyclerSpecialities.setAdapter(specialitiesAdapter);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mFragmentDishBinding.recyclerKitchenCommonSlider.setLayoutManager(linearLayoutManager);
-        mFragmentDishBinding.recyclerKitchenCommonSlider.setAdapter(kitchenCommonAdapter);
-        SnapHelper snapHelper = new PagerSnapHelper();////for single slider in recycler while swiping
-        snapHelper.attachToRecyclerView(mFragmentDishBinding.recyclerKitchenCommonSlider);
-
-        GridLayoutManager gridLayoutManager2 = new GridLayoutManager(getApplicationContext(), 3);
-        mFragmentDishBinding.recyclerviewFoodBadges.setLayoutManager(gridLayoutManager2);
-        mFragmentDishBinding.recyclerviewFoodBadges.setAdapter(foodBadgesImageAdapter);
-
-
-        mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-
-
     }
 
     @Override
     public void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList) {
 
-
-        if (kitchenmenuimageArrayList != null) {
-            totalCount = kitchenmenuimageArrayList.size();
-            kitchenCommonAdapter.addItems(kitchenmenuimageArrayList);
-
-
-            if (kitchenmenuimageArrayList.size() == 1) {
-                mFragmentDishBinding.left.setVisibility(View.GONE);
-                mFragmentDishBinding.right.setVisibility(View.GONE);
-            } else if (kitchenmenuimageArrayList.size() == 0) {
-                mFragmentDishBinding.left.setVisibility(View.GONE);
-                mFragmentDishBinding.right.setVisibility(View.GONE);
-            }
-            else {
-
-                mFragmentDishBinding.left.setVisibility(View.GONE);
-                mFragmentDishBinding.right.setVisibility(View.VISIBLE);
-            }
-
-
-        } else {
-            mFragmentDishBinding.left.setVisibility(View.GONE);
-            mFragmentDishBinding.right.setVisibility(View.GONE);
-            return;
-        }
-
-
-        mFragmentDishBinding.left.setVisibility(View.GONE);
-
-
-        mFragmentDishBinding.right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-                int currentFirstVisible = ll.findFirstVisibleItemPosition();
-
-                mFragmentDishBinding.left.setVisibility(View.VISIBLE);
-                mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible + 1);
-
-
-                if (currentFirstVisible == totalCount - 1) {
-                    mFragmentDishBinding.right.setVisibility(View.GONE);
-                }
-
-                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_NEXT);
-            }
-        });
-
-        mFragmentDishBinding.left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Analytics().sendClickData(AppConstants.SCREEN_KITCHEN_DETAILS, AppConstants.CLICK_PREVIOUS);
-                LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-                int currentFirstVisible = ll.findFirstVisibleItemPosition();
-
-                if (currentFirstVisible == 0) {
-                    mFragmentDishBinding.left.setVisibility(View.GONE);
-                } else {
-
-                    mFragmentDishBinding.recyclerKitchenCommonSlider.smoothScrollToPosition(currentFirstVisible - 1);
-                }
-
-
-            }
-        });
-
-
-        mFragmentDishBinding.recyclerKitchenCommonSlider.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager ll = (LinearLayoutManager) mFragmentDishBinding.recyclerKitchenCommonSlider.getLayoutManager();
-                int currentFirstVisible = ll.findFirstCompletelyVisibleItemPosition();
-
-                if (currentFirstVisible == totalCount - 1) {
-                    mFragmentDishBinding.right.setVisibility(View.GONE);
-                } else if (currentFirstVisible == 0) {
-                    mFragmentDishBinding.left.setVisibility(View.GONE);
-                } else {
-
-                    if (totalCount == 1) {
-                        mFragmentDishBinding.right.setVisibility(View.GONE);
-                        mFragmentDishBinding.left.setVisibility(View.GONE);
-                    } else {
-                        mFragmentDishBinding.right.setVisibility(View.VISIBLE);
-                        mFragmentDishBinding.left.setVisibility(View.VISIBLE);
-                    }
-
-                }
-
-            }
-        });
 
 
     }
@@ -535,14 +419,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     }
 
     public void startKitchenLoader() {
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.VISIBLE);
-        mFragmentDishBinding.shimmerViewContainer.startShimmerAnimation();
+
     }
 
     public void stopKitchenLoader() {
 
-        mFragmentDishBinding.shimmerViewContainer.setVisibility(View.GONE);
-        mFragmentDishBinding.shimmerViewContainer.stopShimmerAnimation();
+
     }
 
     @Override

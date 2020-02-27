@@ -321,21 +321,21 @@ public class MvvmApp extends Application implements HasActivityInjector {
 
 
     private void initialiseFcm() {
-        String googleApiKey = getString(R.string.google_api_key);
+        /*String googleApiKey = getString(R.string.google_api_key);
         //  String fcmApplicationId = getString(R.string.fcm_application_id);
         String fcmApplicationId = getString(R.string.google_app_id);
 
         if (StringUtils.isEmpty(googleApiKey) || StringUtils.isEmpty(fcmApplicationId)) {
-           /* Log.w(LOG_TAG, "============================================================================================================");
+           *//* Log.w(LOG_TAG, "============================================================================================================");
             Log.w(LOG_TAG, "Google API key and FCM application ID are not configured. If you wish to use push notifications, please add ");
             Log.w(LOG_TAG, "values for 'zdGoogleApiKey' and 'zdFcmApplicationId' to your 'gradle.properties'.");
-            Log.w(LOG_TAG, "============================================================================================================");*/
+            Log.w(LOG_TAG, "============================================================================================================");*//*
         } else {
             FirebaseApp.initializeApp(this, new FirebaseOptions.Builder()
                     .setApiKey(googleApiKey)
                     .setApplicationId(fcmApplicationId)
                     .build());
-        }
+        }*/
     }
 
 }

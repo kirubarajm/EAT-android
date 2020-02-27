@@ -36,6 +36,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableList<KitchenDishResponse.Productlist> todaysMenuArrayViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Productlist>> todaysMenuArrayViewLiveData;
     public ObservableField<String> kitchenName = new ObservableField<>();
+    public ObservableField<String> homemakerName= new ObservableField<>();
     public ObservableField<String> kitchenImage = new ObservableField<>();
     public ObservableField<String> kitchenCategory = new ObservableField<>();
     public ObservableField<String> cartItems = new ObservableField<>();
@@ -288,6 +289,9 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             favoriteArrayViewModels.clear();
                             todaysMenuArrayViewModels.clear();
                             isProductAvailable.set(true);
+
+
+                            homemakerName.set("by "+ response.getResult().get(0).makeitusername);
 
                             serviceablestatus.set(response.getResult().get(0).isServiceableStatus());
 
