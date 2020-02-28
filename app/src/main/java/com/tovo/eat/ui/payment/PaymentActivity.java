@@ -101,6 +101,7 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_BACK_BUTTON);
+        analytics.paymentMethodPageMetrics(null,AppConstants.SCREEN_CART_PAGE);
 
         super.onBackPressed();
     }

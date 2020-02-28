@@ -15,6 +15,7 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator> {
@@ -25,6 +26,17 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
     public final ObservableField<String> tagline = new ObservableField<>();
     public final ObservableField<String> detailImageUrl = new ObservableField<>();
 
+    /**
+     * /////For analytics
+     */
+    public long analyticsRegionId ;
+    public String analyticsRegionName ;
+    ArrayList<String>  analyticsServiceableStringArray;
+    ArrayList<String>  analyticsUnServiceableStringArray;
+    public Integer serviceableCount,unServiceableCount;
+    /**
+     *
+     */
 
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
@@ -67,16 +79,31 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                         if (response.getResult() != null)
                             if (response.getResult().size() > 0) {
 
+                                /////For analytics
+                                analyticsRegionId = Long.valueOf(response.getResult().get(0).getRegionid());
+                                analyticsRegionName = response.getResult().get(0).getRegionname();
+                                ////
+
                                 kitchenListItemsLiveData.setValue(response.getResult());
-
                                 regionName.set(response.getResult().get(0).getRegionname());
-
                                 totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
 
                                 if (getNavigator() != null)
                                     getNavigator().listLoaded();
-                            }
 
+                                analyticsServiceableStringArray = new ArrayList<>();
+                                analyticsUnServiceableStringArray = new ArrayList<>();
+                                for (int i=0;i<response.getResult().size();i++){
+                                    if (response.getResult().get(i).getServiceablestatus()) {
+                                        analyticsServiceableStringArray.add(String.valueOf(response.getResult().get(i).getMakeituserid()));
+                                    }else {
+                                        analyticsUnServiceableStringArray.add(String.valueOf(response.getResult().get(i).getMakeituserid()));
+                                    }
+                                }
+
+                                serviceableCount = Integer.valueOf(String.valueOf(analyticsServiceableStringArray.size()));
+                                unServiceableCount = Integer.valueOf(String.valueOf( analyticsUnServiceableStringArray.size()));
+                            }
                     }
                     if (getNavigator() != null)
                         getNavigator().listLoaded();
@@ -88,7 +115,6 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                         getNavigator().listLoaded();
                 }
             }, AppConstants.API_VERSION_TWO);
-
 
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);
         } catch (NullPointerException e) {

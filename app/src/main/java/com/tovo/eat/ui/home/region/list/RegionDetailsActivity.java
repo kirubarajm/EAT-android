@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -45,6 +46,10 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     ActivityRegionDetailsBinding mActivityRegionListBinding;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_REGION_DETAILS;
+
+    String analyticsScreenName = null;
+
+
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -134,9 +139,8 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            onBackPressed();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -170,6 +174,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
             mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
             mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
+            analyticsScreenName = intent.getExtras().getString("next_page");
             mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
             subscribeToLiveData();
         }
@@ -178,8 +183,12 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_BACK_BUTTON);
+        analytics.regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.analyticsRegionName, mRegionDetailsViewModel.serviceableCount,
+                mRegionDetailsViewModel.unServiceableCount,analyticsScreenName,mRegionDetailsViewModel.analyticsServiceableStringArray,
+                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
         super.onBackPressed();
     }
+
 
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
@@ -199,6 +208,11 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
+
+        analyticsScreenName = AppConstants.SCREEN_KITCHEN_DETAILS;
+        analytics.regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.analyticsRegionName, mRegionDetailsViewModel.serviceableCount,
+                mRegionDetailsViewModel.unServiceableCount,analyticsScreenName,mRegionDetailsViewModel.analyticsServiceableStringArray,
+                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
     }
 
     @Override
@@ -270,10 +284,17 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         unregisterReceiver(mWifiReceiver);
     }
 
-
     @Override
     public void canceled() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        analytics.regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.analyticsRegionName, mRegionDetailsViewModel.serviceableCount,
+                mRegionDetailsViewModel.unServiceableCount,null,mRegionDetailsViewModel.analyticsServiceableStringArray,
+                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
     }
 }
 

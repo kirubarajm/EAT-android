@@ -60,6 +60,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
     public final ObservableField<String> products = new ObservableField<>();
 
     public final ObservableBoolean clickable = new ObservableBoolean();
+    Analytics analytics;
 
 
     public Long orderid = 0L;
@@ -135,6 +136,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
 
     public void cashOnDelivery() {
+
+        analytics.paymentMethodPageMetrics("cash",AppConstants.SCREEN_ORDER_PLACED);
 
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_COD);
 
@@ -273,6 +276,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     cashOnDelivery();
                 } else {
                     clickable.set(true);
+                    analytics.paymentMethodPageMetrics("cash",AppConstants.SCREEN_USER_REGISTRATION);
                     getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
                 }
             }
@@ -284,11 +288,11 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
         if (clickable.get()) {
             clickable.set(false);
             if (getDataManager().getEmailStatus()) {
-
+                analytics.paymentMethodPageMetrics("online",AppConstants.SCREEN_RAZOR_PAY);
                 payOnline();
-
             } else {
                 clickable.set(true);
+                analytics.paymentMethodPageMetrics("online",AppConstants.SCREEN_USER_REGISTRATION);
                 getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
             }
         }
