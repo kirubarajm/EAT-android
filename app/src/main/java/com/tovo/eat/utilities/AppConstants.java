@@ -213,6 +213,8 @@ public class AppConstants {
     public static final String CLICK_REGION_CHANGE = "change_region";
     public static final String CLICK_REGION_OTHER = "region_other";
     public static final String CLICK_APPLY_CHANGES = "profile_update";
+    public static final String SCREEN_RAZOR_PAY = "razor_pay";
+    public static final String SCREEN_DIAL = "dial";
 
 
 //analytics screen click
@@ -460,4 +462,87 @@ public class AppConstants {
         // headers.put("token",preferencesHelper.getApiToken());
         return headers;
     }
+
+    /**
+     * METRICS
+     */
+    /////METRICS FOR APP OPENS
+    public static final String METRICS_APP_OPENS = "met_ao";
+    public static final String APP_OPENS_SERVICEABLE_COUNT = "ao_servcount";
+    public static final String APP_OPENS_UNSERVICEABLE_COUNT = "ao_unservcount";
+    public static final String APP_OPENS_REGION_COUNT = "ao_regcount";
+    public static final String APP_OPENS_ADDRESS_TYPE = "ao_addtag";
+    public static final String APP_OPENS_NEXT_PAGE = "ao_nxtp";
+    public static final String APP_OPENS_SERVICEABLE_KITCHEN_LIST = "ao_servkid";
+    public static final String APP_OPENS_UNSERVICEABLE_KITCHEN_LIST = "ao_unservkid";
+    public static final String APP_OPENS_REGIONS_LIST = "ao_reglist";
+
+    /////METRICS FOR KITCHEN PAGE
+    public static final String METRICS_KITCHEN_PAGE = "met_kp";
+    public static final String KITCHEN_PAGE_MAKEIT_ID = "kp_kid";
+    public static final String KITCHEN_PAGE_ETA = "kp_eta";
+    public static final String KITCHEN_PAGE_RATING = "kp_rat";
+    public static final String KITCHEN_PAGE_PRODUCT_FAVORITE_SECTION_COUNT = "kp_favp";
+    public static final String KITCHEN_PAGE_PRODUCT_OTHER_COMBOS_SECTION_COUNT = "kp_comp";
+    public static final String KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_SECTION_COUNT = "kp_itemp";
+    public static final String KITCHEN_PAGE_NEXT_AVAILABLE_PRODUCT_COUNT = "kp_nap";
+    public static final String KITCHEN_PAGE_SERVICEABILITY = "kp_serv";
+    public static final String KITCHEN_PAGE_HOME_MAKER_BADGE = "kp_bdge";
+    public static final String KITCHEN_PAGE_FAVORITE_BY_USER = "kp_favst";
+    public static final String KITCHEN_PAGE_VEG_ONLY= "kp_vego";
+    public static final String KITCHEN_NEXT_PAGE = "kp_nxtp";
+
+    /////METRICS FOR REGION PAGE
+    public static final String METRICS_REGION_PAGE = "met_rp";
+    public static final String REGION_PAGE_REGION_ID = "rp_regid";
+    public static final String REGION_PAGE_REGION_NAME = "rp_regname";
+    public static final String REGION_PAGE_SERVICEABLE_COUNT = "rp_servcount";
+    public static final String REGION_PAGE_UNSERVICEABLE_COUNT = "rp_unservcount";
+    public static final String REGION_NEXT_PAGE = "rp_nxtp";
+    public static final String REGION_PAGE_SERVICEABLE_KITCHEN_LIST = "rp_serv_list";
+    public static final String REGION_PAGE_UNSERVICEABLE_KITCHEN_LIST = "rp_unserv_list";
+
+    /////METRICS FOR SEARCH EVENT
+    public static final String METRICS_SEARCH = "met_sr";
+    public static final String WORD_SEARCHED = "wrd_find";
+    public static final String REGION_SUGGESTION_COUNT = "sr_rg_sugc";
+    public static final String KITCHEN_SUGGESTION_COUNT = "sr_kt_sugc";
+    public static final String DISH_SUGGESTION_COUNT = "sr_dish_sugc";
+    public static final String TYPE = "sr_click_typ";
+    public static final String UNIQUE_ID = "sr_click_uid";
+    public static final String SEARCH_NEXT_PAGE = "sr_nxtp";
+    public static final String REGION_SUGGESTION_LIST = "sr_rg_sug_list";
+    public static final String KITCHEN_SUGGESTION_LIST = "sr_kt_sug_list";
+    public static final String dish_SUGGESTION_LIST = "sr_dish_sug_list";
+
+    /////METRICS FOR ADD TO CART PAGE
+    public static final String METRICS_ADD_TO_CART = "met_atc";
+    public static final String ADD_TO_CART_PRODUCT_ID = "atc_pid";
+    public static final String ADD_TO_CART_PRICE = "atc_pprice";
+    public static final String ADD_TO_CART_QUANTITY = "atc_pqty";
+    public static final String ADD_TO_CART_PRODUCT_TYPE = "atc_pcat";
+    public static final String ADD_TO_CART_IS_FAVORITE_PRODUCT = "atc_isfavp";
+    public static final String ADD_TO_CART_NEXT_PAGE = "add_to_cart_next_page";
+
+    /////METRICS FOR OPEN CART PAGE
+    public static final String METRICS_OPEN_CART_PAGE = "met_cartopen";
+    public static final String OPEN_CART_PAGE_MAKEIT_ID = "cart_kid";
+    public static final String OPEN_CART_PAGE_TOTAL_AMOUNT = "cart_amt";
+    public static final String OPEN_CART_PAGE_PROMO_CODE = "cart_promo";
+    public static final String OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE = "cart_addtag";
+    public static final String OPEN_CART_NEXT_PAGE = "cart_nxtp";
+    public static final String OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST = "cart_pid_qty_list";
+    public static final String OPEN_CART_PRODUCT_ID = "cart_pid_list";
+    public static final String OPEN_CART_QUANTITY = "cart_pqty_list";
+
+    /////METRICS FOR PAYMENT METHOD PAGE
+    public static final String METRICS_PAYMENT_METHOD_PAGE = "met_pay";
+    public static final String PAYMENT_METHOD_PAGE_COD_OR_ONLINE = "pay_type";
+    public static final String PAYMENT_METHOD_PAGE_NEXT_PAGE = "pay_nxtp";
+
+    /////METRICS FOR TRACK ORDER PAGE
+    public static final String METRICS_TRACK_ORDER_PAGE = "met_track";
+    public static final String TRACK_ORDER_PAGE_ORDER_ID = "track_ordid";
+    public static final String TRACK_ORDER_NEXT_PAGE = "track_nxtp";
+
 }

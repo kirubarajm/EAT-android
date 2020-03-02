@@ -154,6 +154,7 @@ public class RegionListActivity extends BaseActivity<ActivityRegionListBinding, 
         intent.putExtra("image", mRegionList.getRegionDetailImage());
         intent.putExtra("id", mRegionList.getRegionid());
         intent.putExtra("tagline", mRegionList.getTagline());
+        intent.putExtra("next_page", AppConstants.SCREEN_REGION_LIST);
         startActivity(intent);
     }
 

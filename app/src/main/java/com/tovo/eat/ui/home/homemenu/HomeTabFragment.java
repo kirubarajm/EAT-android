@@ -1042,6 +1042,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         intent.putExtra("image", region.getRegionDetailImage());
         intent.putExtra("id", region.getRegionid());
         intent.putExtra("tagline", region.getTagline());
+        intent.putExtra("next_page", AppConstants.SCREEN_HOME);
         startActivity(intent);
     }
 
@@ -1194,6 +1195,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 intent.putExtra("image", mRegionList.getRegionDetailImage());
                 intent.putExtra("id", mRegionList.getRegionid());
                 intent.putExtra("tagline", mRegionList.getTagline());
+                intent.putExtra("next_page", AppConstants.SCREEN_HOME);
                 startActivity(intent);
                 //   getActivity().overridePendingTransition(R.anim.rotate_out, R.anim.rotate_in);
             }
