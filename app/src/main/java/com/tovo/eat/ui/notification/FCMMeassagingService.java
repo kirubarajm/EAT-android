@@ -317,7 +317,7 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
 
     private void handleZendeskSdkPush(String requestId, Map<String, String> data) {
-        // Initialise the SDK
+        /*// Initialise the SDK
         // This IntentService could be called and any point. So, if the main app was killed,
         // there won't be any Zendesk login information. Moreover, we presume at this point, that
         // an valid identity was set.
@@ -334,7 +334,63 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             return;
         }
 
-        showNotification(requestId, data);
+        showNotification(requestId, data);*/
+
+
+
+        String pageId = data.get("pageid");
+        String title = data.get("title");
+        String message = data.get("message");
+
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("requestId", requestId);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("requestId", requestId);
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
+                .setContentIntent(pendingIntent)
+                /*  .setContentInfo("Hello")*/
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setNumber(++numMessages)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setSmallIcon(R.drawable.ic_eat);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    getString(R.string.notification_channel_id), CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription(CHANNEL_DESC);
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        assert notificationManager != null;
+        notificationManager.notify(0, notificationBuilder.build());
+
+
+
+
     }
 
     private void showNotification(String requestId, Map<String, String> data) {
@@ -462,11 +518,15 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         // ZendeskDeepLinking.INSTANCE.getRequestIntent automatically pushed the request list activity into
         // backstack. So we just have to add MainActivity.
 
-        final Intent mainActivity = new Intent(getApplicationContext(), SplashActivity.class);
+        final Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        mainActivity.putExtra("requestId", requestId);
+
+        return mainActivity;
+
         // mainActivity.putExtra(MainActivity.EXTRA_VIEWPAGER_POSITION, MainActivity.POS_HELP);
-        return RequestActivity.builder()
+      /*  return RequestActivity.builder()
                 .withRequestId(requestId)
-                .deepLinkIntent(getApplicationContext(), mainActivity);
+                .deepLinkIntent(getApplicationContext(), mainActivity);*/
     }
 
 }

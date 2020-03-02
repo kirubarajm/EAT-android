@@ -129,7 +129,7 @@ public Long orderid=0L;
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_MAP_ORDERID, CommonResponse.class, new MapOrderidChatRequest(getDataManager().getCurrentUserId(),getDataManager().getOrderId(),issueid,2), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_MAP_ORDERID, CommonResponse.class, new MapOrderidChatRequest(getDataManager().getCurrentUserId(),orderid,issueid,2), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {

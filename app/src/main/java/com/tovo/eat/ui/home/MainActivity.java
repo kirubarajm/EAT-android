@@ -32,7 +32,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,7 +79,6 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
@@ -95,6 +93,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import zendesk.support.request.RequestActivity;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements MainNavigator, HasSupportFragmentInjector, CartListener, StartFilter, InternetListener, LocationListener, PaymentListener, PaymentResultListener, XfactorListner, InstallStateUpdatedListener, OnSuccessListener<AppUpdateInfo> {
 
@@ -641,7 +640,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (null != intent.getExtras().getString("pageid")) {
                 pageid = intent.getExtras().getString("pageid");
             }
-            if (intent.getExtras().getBoolean("chat")){
+            if (intent.getExtras().getBoolean("chat")) {
 // build pre chat form config
                 PreChatForm preChatForm = new PreChatForm.Builder()
                         .name(PreChatForm.Field.NOT_REQUIRED)
@@ -656,6 +655,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 ZopimChatActivity.startActivity(this, config);
             }
 
+            if (intent.getExtras().getString("requestId") != null) {
+                RequestActivity.builder()
+                        .withRequestId(intent.getExtras().getString("requestId"))
+                        .show(this);
+
+            }
 
         }
 
