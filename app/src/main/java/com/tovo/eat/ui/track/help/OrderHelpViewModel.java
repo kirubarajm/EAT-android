@@ -19,6 +19,7 @@ import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.chat.IssuesListResponse;
 import com.tovo.eat.utilities.chat.IssuesRequest;
+import com.tovo.eat.utilities.chat.MapOrderidChatRequest;
 
 import java.util.List;
 
@@ -242,14 +243,52 @@ public class OrderHelpViewModel extends BaseViewModel<OrderHelpNavigator> {
         try {
 
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(issueid,getDataManager().getCurrentUserId(),getDataManager().getOrderId()), new Response.Listener<IssuesListResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_ISSUES_NOTE_URL, IssuesListResponse.class, new IssuesRequest(1,issueid,getDataManager().getCurrentUserId(),getDataManager().getOrderId()), new Response.Listener<IssuesListResponse>() {
                 @Override
                 public void onResponse(IssuesListResponse response) {
                     if (response != null) {
                         if (response.getResult()!=null&&response.getResult().size()>0) {
 
                             if (getNavigator()!=null)
-                                getNavigator().createChat(response.getResult().get(0).getDepartmentName(),response.getResult().get(0).getTagName(),response.getResult().get(0).getNote());
+                                getNavigator().mapChat(response.getResult().get(0).getDepartmentName(),response.getResult().get(0).getTagName(),response.getResult().get(0).getNote(),issueid,response.getResult().get(0).getTid());
+                        }
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    setIsLoading(false);
+
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+
+        } catch (Exception ee) {
+
+            ee.printStackTrace();
+
+        }
+
+
+    }
+
+
+public void mapTicketidToOrderid(int issueid,int tid,String tag,String department,String note) {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_CHAT_MAP_ORDERID, CommonResponse.class, new MapOrderidChatRequest(getDataManager().getCurrentUserId(),getDataManager().getOrderId(),issueid,1), new Response.Listener<CommonResponse>() {
+                @Override
+                public void onResponse(CommonResponse response) {
+                    if (response != null) {
+                        if (response.isStatus()){
+                            if (getNavigator()!=null)
+                                getNavigator().createChat(department,tag,note);
                         }
 
                     }

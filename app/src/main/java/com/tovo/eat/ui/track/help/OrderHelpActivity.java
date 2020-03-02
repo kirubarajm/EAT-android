@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RadioButton;
@@ -35,7 +34,9 @@ import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.chat.IssuesAdapter;
 import com.tovo.eat.utilities.chat.IssuesListResponse;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ChatApi;
 import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.api.ZopimChatApi;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
@@ -46,7 +47,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector,IssuesAdapter.IssuesAdapterListener{
+public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, OrderHelpViewModel> implements OrderHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
 
     @Inject
     OrderHelpViewModel mOrderHelpViewModel;
@@ -189,9 +190,50 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     }
 
     @Override
-    public void createChat( String department, String tag,String note) {
+    public void createChat(String department, String tag, String note) {
 
-     //   ZopimChat.init(getString(R.string.zopim_account_id));
+        /*ChatApi chatApi = ZopimChatApi.resume(this);
+        chatApi.endChat();
+        chatApi.endChat();
+        openChat(department, tag, note);*/
+
+        if (mOrderHelpViewModel.getDataManager().getChatOrderid() != null) {
+            if (mOrderHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mOrderHelpViewModel.getDataManager().getOrderId()))) {
+                openChat(department, tag, note);
+            } else {
+                ChatApi chatApi = ZopimChatApi.resume(this);
+                chatApi.endChat();
+                chatApi.endChat();
+                openChat(department, tag, note);
+            }
+        }else {
+            openChat(department, tag, note);
+        }
+
+    }
+
+    @Override
+    public void mapChat(String department, String tag, String note, int issueid, int tid) {
+
+        mOrderHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
+
+
+        /*if (mOrderHelpViewModel.getDataManager().getChatOrderid() != null) {
+            if (mOrderHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mOrderHelpViewModel.getDataManager().getOrderId()))) {
+                openChat(department, tag, note);
+            } else {
+                mOrderHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
+            }
+        }else {
+            openChat(department, tag, note);
+        }*/
+
+    }
+
+
+    public void openChat(String department, String tag, String note) {
+
+        ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mOrderHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mOrderHelpViewModel.getDataManager().getCurrentUserName())
@@ -212,11 +254,14 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
 // build session config
         ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm)
-                .department(department)
-                .tags("Current Order", tag);
+                .department(department);
 // start chat activity with config
+        mOrderHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mOrderHelpViewModel.getDataManager().getOrderId()));
         ZopimChatActivity.startActivity(this, config);
+
+
     }
+
 
     @Override
     public int getBindingVariable() {
@@ -390,7 +435,7 @@ public class OrderHelpActivity extends BaseActivity<ActivityOrderHelpBinding, Or
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
 
-        mOrderHelpViewModel.getIssuesNote(issues.getType(),issues.getId());
+        mOrderHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
 
     }
 }

@@ -13,10 +13,7 @@ import android.support.annotation.Nullable;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityFeedbackSupportBinding;
-import com.tovo.eat.ui.account.chatsupport.HistoryHelpActivity;
 import com.tovo.eat.ui.account.feedbackandsupport.feedback.FeedbackActivity;
-import com.tovo.eat.ui.account.feedbackandsupport.helpcenter.HelpActivity;
-import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.signup.faqs.FaqActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -25,6 +22,11 @@ import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 
 import javax.inject.Inject;
+
+import zendesk.configurations.Configuration;
+import zendesk.support.request.RequestActivity;
+import zendesk.support.requestlist.RequestListActivity;
+import zendesk.support.requestlist.RequestListConfiguration;
 
 public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSupportBinding, FeedbackAndSupportActivityViewModel> implements FeedbackAndSupportActivityNavigator {
 
@@ -70,11 +72,19 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
         startActivity(intent);*/
 
 
-        Intent intent = HelpActivity.newIntent(this);
-        startActivity(intent);
+        /*Intent intent = HelpActivity.newIntent(this);
+        startActivity(intent);*/
+
+        openRequestList();
 
 
     }
+
+    private void openRequestList() {
+        RequestListActivity.builder()
+                .show(FeedbackAndSupportActivity.this);
+    }
+
 
     @Override
     public void faqs() {

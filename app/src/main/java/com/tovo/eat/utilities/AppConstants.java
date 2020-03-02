@@ -397,6 +397,7 @@ public class AppConstants {
     public static final String EAT_PROMOTION_URL = URL_SERVER_IP_PORT + "/eat/promotion/homescreen";
     public static final String EAT_CHAT_ISSUES_URL = URL_SERVER_IP_PORT + "/eat/zendesk/issues";
     public static final String EAT_CHAT_ISSUES_NOTE_URL = URL_SERVER_IP_PORT + "/eat/zendesk/issuesdetails";
+    public static final String EAT_CHAT_MAP_ORDERID= URL_SERVER_IP_PORT + "/eat/zendesk/requestcreate ";
 
 
     public static final String DUNZO_URL = BuildConfig.DUNZO_URL;

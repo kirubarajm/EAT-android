@@ -28,6 +28,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -140,19 +141,15 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .build()
                 .inject(this);
 
-        Zendesk.INSTANCE.init(this, "https://tovogroup.zendesk.com",
-                "7ad10b6e70ab6ea7c6a7558f0554e44a54bfac6dd0327563",
-                "mobile_sdk_client_3edc29c759dbb2960120");
+
+
+        // Init Support SDK
+        Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
+                getResources().getString(R.string.zd_appid),
+                getResources().getString(R.string.zd_oauth));
         Support.INSTANCE.init(Zendesk.INSTANCE);
-        ZopimChat.init(getString(R.string.zopim_account_id));
 
-        Identity identity = new AnonymousIdentity.Builder()
-                .withNameIdentifier("Aravind")
-                .withEmailIdentifier("aravind@tovogroup.com")
-                .build();
-
-        // Update identity in Zendesk Support SDK
-        Zendesk.INSTANCE.setIdentity(identity);
+       // ZopimChat.init(getString(R.string.zopim_account_id));
 
 
         PushUtils.registerWithZendesk();

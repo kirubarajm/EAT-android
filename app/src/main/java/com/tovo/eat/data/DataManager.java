@@ -97,6 +97,8 @@ public interface DataManager extends PreferencesHelper {
     void saveApiToken(String token);
     void saveCouponCode(String coupon);
 
+    void saveChatOrderID(String orderid);
+
     void saveSupportNumber(String number);
 
         void orderInstruction(String instruction);

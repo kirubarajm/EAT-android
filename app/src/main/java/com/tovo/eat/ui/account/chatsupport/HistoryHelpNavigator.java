@@ -6,7 +6,8 @@ public interface HistoryHelpNavigator {
     void goBack();
     void showToast(String msg);
 
-void createChat(String department,String tag,String note);
+    void createChat(String department,String tag,String note);
+    void mapChat(String department,String tag,String note,int issueid,int tid);
 
 
 }

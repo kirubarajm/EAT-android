@@ -3,17 +3,14 @@ package com.tovo.eat.ui.account.chatsupport;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,16 +19,16 @@ import android.widget.Toast;
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityChatHelpBinding;
-import com.tovo.eat.ui.account.feedbackandsupport.support.SupportActivity;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.chat.IssuesAdapter;
 import com.tovo.eat.utilities.chat.IssuesListResponse;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ChatApi;
 import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.api.ZopimChatApi;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
@@ -42,7 +39,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, HistoryHelpViewModel> implements HistoryHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector,IssuesAdapter.IssuesAdapterListener{
+public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, HistoryHelpViewModel> implements HistoryHelpNavigator, View.OnTouchListener, HasSupportFragmentInjector, IssuesAdapter.IssuesAdapterListener {
 
     @Inject
     HistoryHelpViewModel mHistoryHelpViewModel;
@@ -110,7 +107,6 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
     }
 
 
-
     @Override
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -119,7 +115,65 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
     @Override
     public void createChat(String department, String tag, String note) {
 
+       /* ChatApi chatApi = ZopimChatApi.resume(this);
+        chatApi.endChat();
+        chatApi.endChat();
+
+        openChat(department, tag, note);*/
+
+        if (mHistoryHelpViewModel.getDataManager().getChatOrderid() != null) {
+
+            if (mHistoryHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mHistoryHelpViewModel.orderid))) {
+                openChat(department, tag, note);
+
+            } else {
+
+                ChatApi chatApi = ZopimChatApi.resume(this);
+                chatApi.endChat();
+               chatApi.endChat();
+                openChat(department, tag, note);
+            }
+
+        } else {
+            openChat(department, tag, note);
+        }
+    }
+
+    @Override
+    public void mapChat(String department, String tag, String note, int issueid, int tid) {
+
+        mHistoryHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
+
+        /*if (mHistoryHelpViewModel.getDataManager().getChatOrderid() != null) {
+            if (mHistoryHelpViewModel.getDataManager().getChatOrderid().equals(String.valueOf(mHistoryHelpViewModel.orderid))) {
+                openChat(department, tag, note);
+            } else {
+                mHistoryHelpViewModel.mapTicketidToOrderid(issueid,tid,tag,department,note);
+            }
+        } else {
+            openChat(department, tag, note);
+        }*/
+    }
+
+
+    public void openChat(String department, String tag, String note) {
+
+       /* ChatApi chatApi = ZopimChatApi.resume(this);
+        chatApi = new ZopimChatApi.SessionConfig()
+                .department("A department")
+                .tags("Old order", tag)
+                .build(HistoryHelpActivity.this);
+
+
+        chatApi.disconnect();
+
+        ZopimChat zopimChat= new ZopimChat();*/
+
+
+
+
         ZopimChat.init(getString(R.string.zopim_account_id));
+
         final VisitorInfo.Builder build = new VisitorInfo.Builder()
                 .email(mHistoryHelpViewModel.getDataManager().getCurrentUserEmail())
                 .name(mHistoryHelpViewModel.getDataManager().getCurrentUserName())
@@ -138,12 +192,13 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
 // build session config
         ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                 .preChatForm(preChatForm)
-                .department(department)
-                .tags("Old order",tag);
+                .department(department);
 // start chat activity with config
+        mHistoryHelpViewModel.getDataManager().saveChatOrderID(String.valueOf(mHistoryHelpViewModel.orderid));
         ZopimChatActivity.startActivity(this, config);
-    }
 
+
+    }
 
     @Override
     public int getBindingVariable() {
@@ -175,7 +230,7 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-          mHistoryHelpViewModel.orderid=getIntent().getExtras().getLong("orderid");
+            mHistoryHelpViewModel.orderid = getIntent().getExtras().getLong("orderid");
 
         }
 
@@ -276,7 +331,7 @@ public class HistoryHelpActivity extends BaseActivity<ActivityChatHelpBinding, H
 
     @Override
     public void issueItemClick(IssuesListResponse.Result issues) {
-        mHistoryHelpViewModel.getIssuesNote(issues.getType(),issues.getId());
+        mHistoryHelpViewModel.getIssuesNote(issues.getType(), issues.getId());
 
     }
 }

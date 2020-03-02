@@ -105,6 +105,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_PROMOTION_SEEN_COUNT= "PROMOTION_SEEN_COUNT";
     private static final String PREF_KEY_PROMOTION_SEEN_DATE = "PROMOTION_SEEN_DATE";
 
+    private static final String PREF_KEY_CHAT_ORDERID = "CHAT_ORDERID";
+
 
     private static final String PREF_KEY_CART = "PRODUCTS_IN_CART";
 
@@ -261,6 +263,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public String getCurrentLat() {
         return mPrefs.getString(PREF_KEY_CURRENT_LAT, null);
+    }
+
+    @Override
+    public void setChatOrderid(String orderid) {
+        mPrefs.edit().putString(PREF_KEY_CHAT_ORDERID, orderid).apply();
+    }
+
+    @Override
+    public String getChatOrderid() {
+        return mPrefs.getString(PREF_KEY_CHAT_ORDERID, null);
     }
 
     @Override

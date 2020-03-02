@@ -65,10 +65,10 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
     public void supportClick() {
         new Analytics().sendClickData(AppConstants.SCREEN_FAQS_AND_SUPPORT,AppConstants.CLICK_SUPPORT);
 
-        /*Intent intent = SupportActivity.newIntent(this);
-        startActivity(intent);*/
+        Intent intent = SupportActivity.newIntent(this);
+        startActivity(intent);
 
-        ZopimChat.init(getString(R.string.zopim_account_id));
+       /* ZopimChat.init(getString(R.string.zopim_account_id));
         final VisitorInfo.Builder build = new VisitorInfo.Builder();
         ZopimChat.setVisitorInfo(build.build());
 
@@ -86,7 +86,7 @@ public class FaqsAndSupportActivity extends BaseActivity<ActivityFaqsSupportBind
                 .department("EAT")
                 .tags("New user" );
 // start chat activity with config
-        ZopimChatActivity.startActivity(this, config);
+        ZopimChatActivity.startActivity(this, config);*/
 
     }
 

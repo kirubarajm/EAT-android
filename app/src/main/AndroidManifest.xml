@@ -264,9 +264,11 @@
                     android:value="rzp_test_3cduMl5T89iR9G"
                     />-->
 
+        <activity android:name="zendesk.support.request.RequestActivity"
+            android:theme="@style/ZendeskSupportTheme" />
 
-
-
+        <activity android:name="zendesk.support.requestlist.RequestListActivity"
+            android:theme="@style/ZendeskSupportTheme" />
 
     </application>
 

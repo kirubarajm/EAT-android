@@ -25,6 +25,8 @@ import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+import com.zopim.android.sdk.api.ChatApi;
+import com.zopim.android.sdk.api.ZopimChatApi;
 
 import javax.inject.Inject;
 
@@ -171,6 +173,10 @@ public class OrderHistoryActivityView extends BaseActivity<ActivityOrdersHistory
         analytics = new Analytics(this, pageName);
 
         dialog = new Dialog(this);
+
+
+
+
 
 
         mOrdersHistoryActivityItemAdapter.setListener(this);

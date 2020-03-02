@@ -34,6 +34,12 @@ public class IssuesRequest {
         this.userid = userid;
         this.orderid = orderid;
     }
+ public IssuesRequest(Integer type,Integer id, Long userid, Long orderid) {
+        this.id = id;
+        this.userid = userid;
+        this.orderid = orderid;
+     this.type = type;
+    }
 
     public Integer getType() {
         return type;

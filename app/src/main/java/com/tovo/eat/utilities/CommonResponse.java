@@ -8,6 +8,7 @@ public class CommonResponse {
     @SerializedName("success")
     @Expose
     private boolean success;
+
     @SerializedName("message")
     @Expose
     private String message;

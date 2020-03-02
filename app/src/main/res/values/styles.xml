@@ -166,4 +166,16 @@
     <!--Customize chat colors-->
     <color name="chat_bubble_visitor">@color/eat_color</color>
 
+
+    <!-- Support. -->
+    <style name="ZendeskSupportTheme" parent="ZendeskSdkTheme.Dark">
+        <!-- Customize chat theme here. -->
+        <item name="colorAccent">@color/eat_color</item>
+        <item name="colorPrimary">@color/eat_color</item>
+        <item name="colorPrimaryDark">@color/eat_color</item>
+    </style>
+
+
 </resources>
+
+

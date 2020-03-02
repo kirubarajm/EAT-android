@@ -13,12 +13,14 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.JsonObject;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -33,6 +35,9 @@ import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.PushUtils;
 import com.zendesk.util.StringUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,24 +70,44 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         final String message = remoteMessage.getData().get(ZD_MESSAGE_KEY);
         final String pageId = remoteMessage.getData().get("pageid");
 
-     //   sendNotification(data);
-        if (data != null) {
-            if (pageId != null) {
-                if (pageId.equals("13")) {
-                    if (StringUtils.hasLengthMany(requestId)) {
-                        handleZendeskSdkPush(requestId, data);
+
+        Log.e("Remote message data",data.toString());
+
+        String chatData=remoteMessage.getData().get("data");
+
+        String author=null;
+        String chatMessage=null;
+        if (chatData!=null) {
+            try {
+                JSONObject jsonObject = new JSONObject(chatData);
+                author = jsonObject.getString("author");
+                chatMessage = jsonObject.getString("message");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (author != null) {
+            showZendeskChatNotification(getString(R.string.app_name),chatMessage);
+        } else {
+            if (data != null) {
+                if (pageId != null) {
+                    if (pageId.equals("13")) {
+                        if (StringUtils.hasLengthMany(requestId)) {
+                            handleZendeskSdkPush(requestId, data);
+                        }
+                    } else {
+                        sendNotification(data);
                     }
                 } else {
                     sendNotification(data);
                 }
-            }else {
-                sendNotification(data);
+            } else {
+
+                if (notification != null)
+                    sendNotification(notification);
+
             }
-        } else {
-
-            if (notification != null)
-                sendNotification(notification);
-
         }
 
     }
@@ -333,6 +358,76 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 .build();
 
         notificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    private void showZendeskChatNotification(String title, String message) {
+
+
+       /* final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final String channelId = getApplicationContext().getResources().getString(R.string.app_name);
+        createNotificationChannel(notificationManager, channelId);
+
+        Intent requestIntent = new Intent(this, SplashActivity.class);
+        requestIntent.putExtra("chat", true);
+
+
+        final PendingIntent contentIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, requestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final Notification notification = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                .setSmallIcon(R.drawable.ic_eat)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setContentIntent(contentIntent)
+                .build();
+
+        notificationManager.notify(NOTIFICATION_ID, notification);*/
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("chat", true);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("chat", true);
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.notification_channel_id))
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                //.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.win))
+                .setContentIntent(pendingIntent)
+                /*  .setContentInfo("Hello")*/
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_eat))
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setNumber(++numMessages)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setSmallIcon(R.drawable.ic_eat);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    getString(R.string.notification_channel_id), CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription(CHANNEL_DESC);
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        assert notificationManager != null;
+        notificationManager.notify(0, notificationBuilder.build());
+
+
     }
 
     private void createNotificationChannel(NotificationManager notificationManager, String channelId) {

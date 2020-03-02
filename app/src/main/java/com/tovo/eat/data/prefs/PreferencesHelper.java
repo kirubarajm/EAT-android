@@ -84,9 +84,10 @@ public interface PreferencesHelper {
     String getCurrentAddress();
 
     void setCurrentAddress(String area);
-
-
     String getCurrentLat();
+
+ void setChatOrderid(String orderid);
+    String getChatOrderid();
 
 
     void setCurrentLat(double lat);

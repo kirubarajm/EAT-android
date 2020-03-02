@@ -269,6 +269,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void saveChatOrderID(String orderid) {
+        setChatOrderid(orderid);
+    }
+
+    @Override
     public void saveSupportNumber(String number) {
         setSupportNumber(number);
     }
@@ -455,6 +460,16 @@ mPreferencesHelper.setCurrentPromotionUserId(userId);
     @Override
     public String getCurrentLat() {
         return mPreferencesHelper.getCurrentLat();
+    }
+
+    @Override
+    public void setChatOrderid(String orderid) {
+mPreferencesHelper.setChatOrderid(orderid);
+    }
+
+    @Override
+    public String getChatOrderid() {
+        return mPreferencesHelper.getChatOrderid();
     }
 
     @Override

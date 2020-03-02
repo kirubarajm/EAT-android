@@ -45,6 +45,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+
 public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public static final int NO_ACTION = -1, ACTION_ADD_ALL = 0, ACTION_DELETE_SINGLE = 1;
@@ -86,6 +90,12 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
         checkUpdate();
         getDataManager().setIsFilterApplied(false);
         //getDataManager().appStartedAgain(true);
+
+        Identity identity = new AnonymousIdentity.Builder()
+                .withNameIdentifier(getDataManager().getCurrentUserName())
+                .withEmailIdentifier(getDataManager().getCurrentUserEmail())
+                .build();
+        Zendesk.INSTANCE.setIdentity(identity);
 
     }
 

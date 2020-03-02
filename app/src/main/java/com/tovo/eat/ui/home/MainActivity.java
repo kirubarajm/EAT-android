@@ -73,11 +73,16 @@ import com.tovo.eat.ui.search.SearchFragment;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.PushUtils;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
+import com.zopim.android.sdk.prechat.PreChatForm;
+import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import org.json.JSONObject;
 
@@ -595,6 +600,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mMainViewModel.setNavigator(this);
 
 
+        PushUtils.registerWithZendesk();
+
        /* String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -634,6 +641,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             if (null != intent.getExtras().getString("pageid")) {
                 pageid = intent.getExtras().getString("pageid");
             }
+            if (intent.getExtras().getBoolean("chat")){
+// build pre chat form config
+                PreChatForm preChatForm = new PreChatForm.Builder()
+                        .name(PreChatForm.Field.NOT_REQUIRED)
+                        .email(PreChatForm.Field.NOT_REQUIRED)
+                        .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
+                        .department(PreChatForm.Field.NOT_REQUIRED)
+                        .message(PreChatForm.Field.NOT_REQUIRED)
+                        .build();
+// build session config
+                ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
+                        .preChatForm(preChatForm);
+                ZopimChatActivity.startActivity(this, config);
+            }
+
+
         }
 
 
