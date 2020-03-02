@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 app/release/EAT-TEST-23.apk
+app/release/output.json
+app/release/app-release.apk

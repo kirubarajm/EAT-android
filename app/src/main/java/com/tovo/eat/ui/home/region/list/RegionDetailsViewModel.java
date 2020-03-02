@@ -30,7 +30,6 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
      * /////For analytics
      */
     public long analyticsRegionId ;
-    public String analyticsRegionName ;
     ArrayList<String>  analyticsServiceableStringArray;
     ArrayList<String>  analyticsUnServiceableStringArray;
     public Integer serviceableCount,unServiceableCount;
@@ -81,8 +80,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
                                 /////For analytics
                                 analyticsRegionId = Long.valueOf(response.getResult().get(0).getRegionid());
-                                analyticsRegionName = response.getResult().get(0).getRegionname();
-                                ////
+
 
                                 kitchenListItemsLiveData.setValue(response.getResult());
                                 regionName.set(response.getResult().get(0).getRegionname());

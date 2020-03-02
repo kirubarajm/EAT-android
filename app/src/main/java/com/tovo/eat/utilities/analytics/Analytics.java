@@ -500,7 +500,7 @@ public class Analytics {
     }
 
     /////OPEN CART PAGE
-    public void openCartPageMetrics(long makeitId, int totalAmt, String promoCode, String deliveryAddressType,String nextPage) {
+    public void openCartPageMetrics(long makeitId, int totalAmt, String promoCode, String deliveryAddressType,String nextPage,String cartProductIdQtyList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -511,7 +511,7 @@ public class Analytics {
         bundle.putString(AppConstants.OPEN_CART_PAGE_PROMO_CODE, promoCode);
         bundle.putString(AppConstants.OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE, deliveryAddressType);
         bundle.putString(AppConstants.OPEN_CART_NEXT_PAGE, nextPage);
-        bundle.putString(AppConstants.OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST, nextPage);
+        bundle.putString(AppConstants.OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST, cartProductIdQtyList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_OPEN_CART_PAGE, bundle);
     }
@@ -538,7 +538,6 @@ public class Analytics {
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.TRACK_ORDER_PAGE_ORDER_ID, orderId);
         bundle.putString(AppConstants.TRACK_ORDER_NEXT_PAGE, nextPage);
-
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_TRACK_ORDER_PAGE, bundle);
     }
