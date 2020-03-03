@@ -63,6 +63,11 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
     }
 
+    public ObservableList<SearchResponse.Result> getSearchListAnalytics()    {
+        return(searchItemViewModels);
+    }
+
+
     public ObservableList<KitchenResponse.Result> getkitchenListItemViewModels() {
         return kitchenListItemViewModels;
     }

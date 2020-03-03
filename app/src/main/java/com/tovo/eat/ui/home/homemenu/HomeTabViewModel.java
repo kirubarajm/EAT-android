@@ -125,6 +125,13 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         customerName.get();
     }
 
+    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics()    {
+        return(kitchenItemViewModels);
+    }
+
+    public ObservableList<RegionsResponse.Result> getRegionListAnalytics()    {
+        return(regionItemViewModels);
+    }
 
     public void scrollToTop() {
         backToTop.set(false);

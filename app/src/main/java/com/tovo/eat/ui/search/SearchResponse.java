@@ -31,7 +31,7 @@ public class SearchResponse {
         this.result = result;
     }
 
-    public class Result {
+    public static class Result {
 
         @SerializedName("searchid")
         @Expose

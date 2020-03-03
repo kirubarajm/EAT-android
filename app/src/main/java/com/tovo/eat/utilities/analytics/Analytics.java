@@ -395,7 +395,7 @@ public class Analytics {
      */
     /////APP OPENS
     public void appOpensMetrics(int serviceableCount, int unServiceableCount, int regionCount, String addressType, String nextPage,
-                                ArrayList<String> serviceableKitchens,ArrayList<String> unServiceableKitchens,ArrayList<String> regionList) {
+                                String serviceableKitchens,String unServiceableKitchens,String regionList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -406,9 +406,9 @@ public class Analytics {
         bundle.putInt(AppConstants.APP_OPENS_REGION_COUNT, regionCount);
         bundle.putString(AppConstants.APP_OPENS_ADDRESS_TYPE, addressType);
         bundle.putString(AppConstants.APP_OPENS_NEXT_PAGE, nextPage);
-        bundle.putStringArrayList(AppConstants.APP_OPENS_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
-        bundle.putStringArrayList(AppConstants.APP_OPENS_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
-        bundle.putStringArrayList(AppConstants.APP_OPENS_REGIONS_LIST, regionList);
+        bundle.putString(AppConstants.APP_OPENS_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
+        bundle.putString(AppConstants.APP_OPENS_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
+        bundle.putString(AppConstants.APP_OPENS_REGIONS_LIST, regionList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_OPENS, bundle);
     }
@@ -460,8 +460,8 @@ public class Analytics {
 
     /////SEARCH
     public void searchMetrics(String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
-                              int uniqueId,String nextPage,ArrayList<String> regionSuggestionList,ArrayList<String> kitchenSuggestionList,
-                              ArrayList<String> dishSuggestionList) {
+                              int uniqueId,String nextPage,String regionSuggestionList,String kitchenSuggestionList,
+                              String dishSuggestionList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -475,9 +475,9 @@ public class Analytics {
         bundle.putInt(AppConstants.TYPE, type);
         bundle.putInt(AppConstants.UNIQUE_ID, uniqueId);
         bundle.putString(AppConstants.SEARCH_NEXT_PAGE, nextPage);
-        bundle.putStringArrayList(AppConstants.REGION_SUGGESTION_LIST, regionSuggestionList);
-        bundle.putStringArrayList(AppConstants.KITCHEN_SUGGESTION_LIST, kitchenSuggestionList);
-        bundle.putStringArrayList(AppConstants.dish_SUGGESTION_LIST, dishSuggestionList);
+        bundle.putString(AppConstants.REGION_SUGGESTION_LIST, regionSuggestionList);
+        bundle.putString(AppConstants.KITCHEN_SUGGESTION_LIST, kitchenSuggestionList);
+        bundle.putString(AppConstants.dish_SUGGESTION_LIST, dishSuggestionList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH, bundle);
     }

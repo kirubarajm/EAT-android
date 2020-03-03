@@ -2,6 +2,8 @@ package com.tovo.eat.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,7 +16,6 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentSearchBinding;
 import com.tovo.eat.ui.base.BaseFragment;
-import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.CartListener;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
 import com.tovo.eat.ui.home.homemenu.dish.dialog.AddDishListener;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 
-public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements SearchNavigator, SearchAdapter.LiveProductsAdapterListener, SearchDishAdapter.LiveProductsAdapterListener, KitchenAdapter.LiveProductsAdapterListener , AddDishListener {
+public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchViewModel> implements SearchNavigator, SearchAdapter.LiveProductsAdapterListener, SearchDishAdapter.LiveProductsAdapterListener, KitchenAdapter.LiveProductsAdapterListener, AddDishListener {
 
     @Inject
     SearchViewModel mSearchViewModel;
@@ -53,23 +54,19 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     String searchText;
 
 
+
+    SearchResponse.Result searchClicked=new SearchResponse.Result();
+
+
     FragmentSearchBinding mFragmentSearchBinding;
 
     CartListener cartListener;
 
 
     Analytics analytics;
-    String  pageName= AppConstants.SCREEN_SEARCH;
+    String pageName = AppConstants.SCREEN_SEARCH;
 
-
-
-
-    @Override
-    public void onAttach(Context context) {
-        cartListener=(CartListener)context;
-        super.onAttach(context);
-    }
-
+    ObservableList<SearchResponse.Result> searchItemViewModels;
 
     public static SearchFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,6 +75,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        cartListener = (CartListener) context;
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         //  ((TestActivity) getActivity()).setFilterListener(FavDishFragment.this);
 
 
-        analytics=new Analytics(getActivity(), pageName);
+        analytics = new Analytics(getActivity(), pageName);
         //  XfactorListner myInterface =getInterface(XfactorListner.class, this);
 
 
@@ -113,11 +115,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.searchh.requestFocusFromTouch();
 
 
-
         mFragmentSearchBinding.searchh.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CLOSE);
+                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, AppConstants.CLICK_CLOSE);
 
 
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.GONE);
@@ -127,8 +128,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 return false;
             }
         });
-
-
 
 
         mFragmentSearchBinding.searchh.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -187,8 +186,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         mFragmentSearchBinding.recyclerviewDish.setAdapter(dishAdapter);
 
 
-
-
         // region search
         LinearLayoutManager rLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -200,8 +197,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
        /* ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
                 toggleSoftInput(InputMethodManager.SHOW_FORCED,
                         InputMethodManager.HIDE_NOT_ALWAYS);*/
-
-
 
 
     }
@@ -239,7 +234,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         //   mFragmentSearchBinding.refreshList.setRefreshing(false);
 
 
-      //  kitchenAdapter.serviceable(mSearchViewModel.kitchenResponse.getResult());
+        //  kitchenAdapter.serviceable(mSearchViewModel.kitchenResponse.getResult());
 
 
     }
@@ -295,31 +290,27 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void onItemClickData(SearchResponse.Result result) {
+        searchClicked=result;
 
 
 
-        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,result.getName());
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, result.getName());
 
 
         switch (result.getType()) {
 
-
             case 1:
 
-                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,result.getName());
-
-
+                new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, result.getName());
                 mSearchViewModel.fetchDishes(result.getName());
-
-
-                new Analytics().search("DISH",searchText,result.getName());
-
-
+                new Analytics().search("DISH", searchText, result.getName());
                 mFragmentSearchBinding.recyclerviewDish.setVisibility(View.VISIBLE);
                 mFragmentSearchBinding.recyclerviewSearch.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchRegion.setVisibility(View.GONE);
                 mFragmentSearchBinding.sear.setVisibility(View.GONE);
                 mFragmentSearchBinding.searchh.clearFocus();
+
+                saveMetrics(AppConstants.SCREEN_SEARCH);
 
               /*  mFragmentSearchBinding.searchh.clearFocus();
                 mFragmentSearchBinding.searchh.setQuery("",false);*/
@@ -332,19 +323,19 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 break;
             case 2:
 
-                new Analytics().search("HOME",searchText,result.getName());
+                new Analytics().search("HOME", searchText, result.getName());
 
-                new Analytics().selectKitchen(AppConstants.ANALYTICYS_SEARCH_KITCHEN,Long.valueOf(result.getId()));
+                new Analytics().selectKitchen(AppConstants.ANALYTICYS_SEARCH_KITCHEN, Long.valueOf(result.getId()));
 
-
+                saveMetrics(AppConstants.SCREEN_KITCHEN_DETAILS);
                 Intent intent1 = KitchenDetailsActivity.newIntent(getContext());
-                intent1.putExtra("kitchenId",Long.valueOf(result.getId()));
+                intent1.putExtra("kitchenId", Long.valueOf(result.getId()));
                 startActivity(intent1);
                 break;
 
             case 3:
 
-                new Analytics().search("REGION",searchText,result.getName());
+                new Analytics().search("REGION", searchText, result.getName());
 
                 mSearchViewModel.fetchRegionKitchens(result.getName(), result.getId());
 
@@ -354,6 +345,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                 mFragmentSearchBinding.searchRegion.setVisibility(View.VISIBLE);
                 mFragmentSearchBinding.searchh.clearFocus();
 
+                saveMetrics(AppConstants.SCREEN_SEARCH);
                /* mFragmentSearchBinding.searchh.clearFocus();
                 mFragmentSearchBinding.searchh.setQuery("",false);*/
 
@@ -374,6 +366,43 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     }
 
 
+    public void saveMetrics(String nextPage){
+
+        try {
+            searchItemViewModels = new ObservableArrayList<>();
+            searchItemViewModels = mSearchViewModel.getSearchListAnalytics();
+            StringBuilder dishSb = new StringBuilder();
+            StringBuilder kitchenSb = new StringBuilder();
+            StringBuilder regionSb = new StringBuilder();
+            int dishCount = 0, kitchenCount = 0, regionCount = 0;
+
+            for (int i = 0; i < searchItemViewModels.size(); i++) {
+                if (searchItemViewModels.get(i).getType() == 1) {
+                    dishCount++;
+                    dishSb.append(searchItemViewModels.get(i).getName()).append(",");
+                } else if (searchItemViewModels.get(i).getType() == 2) {
+                    kitchenCount++;
+                    kitchenSb.append(searchItemViewModels.get(i).getName()).append(",");
+                } else if (searchItemViewModels.get(i).getType() == 3) {
+                    regionCount++;
+                    regionSb.append(searchItemViewModels.get(i).getName()).append(",");
+                }
+            }
+
+            String strRegion = regionSb.toString();
+            String strKitchen = kitchenSb.toString();
+            String strDish = dishSb.toString();
+            new Analytics().searchMetrics(searchText, regionCount, kitchenCount, dishCount, searchClicked.getType(), searchClicked.getId(), nextPage, strRegion.substring(0, strRegion.length() - 1),
+                    strKitchen.substring(0, strKitchen.length() - 1), strDish.substring(0, strDish.length() - 1));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
     @Override
     public void collectionItemClick(KitchenResponse.Collection collection) {
 
@@ -387,9 +416,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
     @Override
     public void onItemClickData(Long kitchenId) {
 
-        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_KITCHEN);
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, AppConstants.CLICK_VIEW_KITCHEN);
 
-
+        saveMetrics(AppConstants.SCREEN_KITCHEN_DETAILS);
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
@@ -404,7 +433,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void showMore(Long regionId) {
-        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_VIEW_MENU);
+        new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, AppConstants.CLICK_VIEW_MENU);
+
+        saveMetrics(AppConstants.SCREEN_KITCHEN_DETAILS);
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", regionId);
         startActivity(intent);
@@ -418,7 +449,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
 
     @Override
     public void sendCart() {
-     //   mSearchViewModel.totalCart();
+        //   mSearchViewModel.totalCart();
 
         cartListener.checkCart();
 
@@ -476,7 +507,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         fragment.setTargetFragment(this, 0);
         fragment.setCancelable(false);
 
-        DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(),makeitId,productId,quantity,price);
+        DialogChangeKitchen.newInstance(fragment).show(getFragmentManager(), getBaseActivity(), makeitId, productId, quantity, price);
 
         mFragmentSearchBinding.searchh.clearFocus();
 
@@ -487,11 +518,10 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         subscribeToLiveData();
 
 
-
-        if (status){
-            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CHANGE_KITCHEN_YES);
-        }else {
-            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH,AppConstants.CLICK_CHANGE_KITCHEN_NO);
+        if (status) {
+            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, AppConstants.CLICK_CHANGE_KITCHEN_YES);
+        } else {
+            new Analytics().sendClickData(AppConstants.SCREEN_SEARCH, AppConstants.CLICK_CHANGE_KITCHEN_NO);
 
         }
 
@@ -515,7 +545,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
         super.onPause();
         mFragmentSearchBinding.searchh.clearFocus();
     }
-
 
 
 }

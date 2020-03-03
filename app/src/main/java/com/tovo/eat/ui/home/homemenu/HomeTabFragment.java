@@ -50,7 +50,6 @@ import com.tovo.eat.ui.home.region.list.RegionDetailsActivity;
 import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 import com.tovo.eat.ui.home.region.viewmore.RegionListActivity;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
-import com.tovo.eat.ui.orderrating.OrderRatingActivity;
 import com.tovo.eat.ui.search.dish.SearchDishActivity;
 import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
@@ -62,10 +61,6 @@ import com.tovo.eat.utilities.card.CardSliderLayoutManager;
 import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.scroll.InfiniteScrollListener;
 import com.tovo.eat.utilities.stack.StackLayoutManager;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.model.VisitorInfo;
-import com.zopim.android.sdk.prechat.PreChatForm;
-import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +103,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     int page = 1;
     int itemCount = 0;
     FilterListener filterListener;
+    List<KitchenResponse.Result> kicthenListAnalytics;
+    List<RegionsResponse.Result> regionListAnalytics;
+    ArrayList<String> serviceableKitchenListAnalytics;
+    ArrayList<String> unServiceableKitchenListAnalytics;
+    ArrayList<String> regionForListAnalytics;
     private FragmentHomeBinding mFragmentHomeBinding;
     private int currentPosition;
     private int currentPage = PAGE_START;
@@ -176,7 +176,57 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void selectAddress() {
+        analyticsAppOpens(AppConstants.SCREEN_ADDRESS_LIST);//////Metrics
         ((MainActivity) getActivity()).selectHomeAddress();
+    }
+
+    public void analyticsAppOpens(String screenName) {
+        try {
+            kicthenListAnalytics = new ArrayList<>();
+            regionListAnalytics = new ArrayList<>();
+            serviceableKitchenListAnalytics = new ArrayList<>();
+            unServiceableKitchenListAnalytics = new ArrayList<>();
+            regionForListAnalytics = new ArrayList<>();
+            int serviceableCount = 0, unServiceableCount = 0, regionCount = 0;
+            StringBuilder serviceableKitchenSb = new StringBuilder();
+            StringBuilder unServiceableKitchenSb = new StringBuilder();
+            StringBuilder regionSb = new StringBuilder();
+
+            kicthenListAnalytics = mHomeTabViewModel.getKitchenListAnalytics();
+            regionListAnalytics = mHomeTabViewModel.getRegionListAnalytics();
+
+            for (int i = 0; i < kicthenListAnalytics.size(); i++) {
+                if (kicthenListAnalytics.get(i).getType() == 0) {
+                    if (kicthenListAnalytics.get(i).getServiceablestatus()) {
+                        serviceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        serviceableCount = serviceableKitchenListAnalytics.size();
+                        serviceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    } else {
+                        unServiceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        unServiceableCount = unServiceableKitchenListAnalytics.size();
+                        unServiceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    }
+                }
+            }
+
+            for (int j = 0; j < regionListAnalytics.size(); j++) {
+                regionForListAnalytics.add(regionListAnalytics.get(j).getRegionname());
+                regionCount = regionForListAnalytics.size();
+                regionSb.append(regionListAnalytics.get(j).getRegionname()).append(",");
+            }
+
+            String regionList = regionSb.toString();
+            String strServiceableKitchenSb = serviceableKitchenSb.toString();
+            String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
+            String addressTitle = mHomeTabViewModel.getDataManager().getCurrentAddressTitle();
+
+            String strRegionList = regionList.substring(0, regionList.length() - 1);
+
+            new Analytics().appOpensMetrics(serviceableCount, unServiceableCount, regionCount, addressTitle, screenName,
+                    strServiceableKitchenSb, strUnServiceableKitchenSb, strRegionList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -189,6 +239,10 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void favourites() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FAVOURITES);
+
+        analyticsAppOpens(AppConstants.SCREEN_FAVOURITES);//////Metrics
+
+
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
 /*
@@ -239,6 +293,12 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         this.regionsResponse = regionResponse;
         stopRegioneLoader();
         initCountryText();
+
+
+
+
+
+
     }
 
     @Override
@@ -306,7 +366,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void showPromotions(String url, boolean fullScreen, int type,int promotionid) {
+    public void showPromotions(String url, boolean fullScreen, int type, int promotionid) {
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstants.PROMOTION_TYPE, type);
@@ -988,6 +1048,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
+        analyticsAppOpens(AppConstants.SCREEN_KITCHEN_DETAILS);//////Metrics
         new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN, kitchenId);
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
@@ -1038,6 +1099,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void regionCollectionItemClick(KitchenResponse.Region region) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_CARD);
+
+        analyticsAppOpens(AppConstants.SCREEN_REGION_DETAILS);//////Metrics
+
         Intent intent = RegionDetailsActivity.newIntent(getContext());
         intent.putExtra("image", region.getRegionDetailImage());
         intent.putExtra("id", region.getRegionid());
@@ -1051,6 +1115,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_KITCHEN);
 
         new Analytics().selectKitchen(AppConstants.ANALYTICYS_HOME_KITCHEN, collection.getMakeituserid());
+
+        analyticsAppOpens(AppConstants.SCREEN_KITCHEN_DETAILS);//////Metrics
+
 
         Intent intent = KitchenDetailsActivity.newIntent(getContext());
         intent.putExtra("kitchenId", collection.getMakeituserid());
@@ -1190,6 +1257,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             if (!regionCardClicked) {
                 regionCardClicked = true;
 
+                analyticsAppOpens(AppConstants.SCREEN_REGION_DETAILS);//////Metrics
+
                 new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_CARD);
                 Intent intent = RegionDetailsActivity.newIntent(getContext());
                 intent.putExtra("image", mRegionList.getRegionDetailImage());
@@ -1223,6 +1292,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         if (mHomeTabViewModel.regionResult.getResult().size() == activeCardPosition) {
 
+            analyticsAppOpens(AppConstants.SCREEN_REGION_LIST);//////Metrics
+
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_REGION_EXPLORE_ALL);
             Intent intent = RegionListActivity.newIntent(getContext());
             startActivity(intent);
@@ -1242,6 +1313,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
 
             new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_STORY);
+
+            analyticsAppOpens(AppConstants.SCREEN_STORIES);//////Metrics
+
             Intent intent = StoriesTabActivity.newIntent(getContext());
             intent.putExtra("position", pos);
             intent.putExtra("fullStories", storiesFullResponse);
@@ -1255,6 +1329,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void collectionItemClick(KitchenResponse.Collection collection) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
 
+        analyticsAppOpens(AppConstants.SCREEN_EXPLORE_COLLECTION);//////Metrics
 
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
@@ -1266,6 +1341,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void offersItemClick(KitchenResponse.Coupon offers) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COUPON);
+        analyticsAppOpens(AppConstants.SCREEN_COUPON_LIST);//////Metrics
+
         Intent intent = CouponListActivity.newIntent(getContext());
         intent.putExtra("clickable", true);
         startActivity(intent);
@@ -1347,6 +1424,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void filterCollectionItemClick(KitchenResponse.Collection collection) {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_COLLECTION);
+        analyticsAppOpens(AppConstants.SCREEN_EXPLORE_COLLECTION);//////Metrics
+
         Intent intent = SearchDishActivity.newIntent(getContext());
         intent.putExtra("cid", collection.getCid());
         intent.putExtra("title", collection.getName());
