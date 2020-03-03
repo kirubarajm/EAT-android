@@ -79,6 +79,8 @@ import com.tovo.eat.utilities.fonts.poppins.ButtonTextView;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import com.tovo.eat.utilities.nointernet.InternetListener;
 import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
+import com.zopim.android.sdk.prechat.EmailTranscript;
 import com.zopim.android.sdk.prechat.PreChatForm;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
@@ -641,6 +643,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 pageid = intent.getExtras().getString("pageid");
             }
             if (intent.getExtras().getBoolean("chat")) {
+
+
+                ZopimChat.init(getString(R.string.zopim_account_id));
+                final VisitorInfo.Builder build = new VisitorInfo.Builder()
+                        .email(mMainViewModel.getDataManager().getCurrentUserEmail())
+                        .name(mMainViewModel.getDataManager().getCurrentUserName())
+                        .phoneNumber(mMainViewModel.getDataManager().getCurrentUserPhNo());
+                ZopimChat.setVisitorInfo(build.build());
+
 // build pre chat form config
                 PreChatForm preChatForm = new PreChatForm.Builder()
                         .name(PreChatForm.Field.NOT_REQUIRED)
@@ -649,6 +660,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                         .department(PreChatForm.Field.NOT_REQUIRED)
                         .message(PreChatForm.Field.NOT_REQUIRED)
                         .build();
+
 // build session config
                 ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
                         .preChatForm(preChatForm);
