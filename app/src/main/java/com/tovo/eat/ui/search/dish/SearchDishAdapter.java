@@ -31,6 +31,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
     private List<KitchenDishResponse.Result> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
 
+    String screenName = "";
     public SearchDishAdapter(List<KitchenDishResponse.Result> item_list, DataManager dataManager) {
         this.item_list = item_list;
         this.dataManager = dataManager;
@@ -41,8 +42,9 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
         return mLiveProductsAdapterListener;
     }
 
-    public void setListener(LiveProductsAdapterListener listener) {
+    public void setListener(LiveProductsAdapterListener listener,String screenName) {
         this.mLiveProductsAdapterListener = listener;
+        this.screenName = screenName;
     }
 
     @Override
@@ -237,7 +239,7 @@ public class SearchDishAdapter extends RecyclerView.Adapter<BaseViewHolder> impl
                 mListItemLiveProductsBinding.recyclerviewKitchens.setAdapter(regionKitchenAdapter);
                 regionKitchenAdapter.serviceable(blog.isServiceableStatus());
 
-                regionKitchenAdapter.setListener(SearchDishAdapter.this);
+                regionKitchenAdapter.setListener(SearchDishAdapter.this,screenName);
             } else {
                 mListItemLiveProductsBinding.recyclerviewKitchens.setVisibility(View.GONE);
                 mListItemLiveProductsBinding.viewMenu.setVisibility(View.GONE);

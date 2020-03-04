@@ -119,6 +119,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         Intent intent = MainActivity.newIntent(SearchDishActivity.this);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("cart", true);
+        intent.putExtra("screenName", AppConstants.SCREEN_EXPLORE_COLLECTION);
         startActivity(intent);
         finish();
     }
@@ -133,7 +134,7 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         super.onCreate(savedInstanceState);
         mActivitySearchDishBinding = getViewDataBinding();
         mSearchDishViewModel.setNavigator(this);
-        adapter.setListener(this);
+        adapter.setListener(this,pageName);
 
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

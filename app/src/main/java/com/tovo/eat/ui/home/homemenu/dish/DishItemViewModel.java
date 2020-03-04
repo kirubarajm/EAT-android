@@ -238,6 +238,8 @@ public class DishItemViewModel {
 
             new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
 
+            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_FAVOURITE_DISH,dishList.getProductid(),dishList.getPrice(),quantity.get(), dishList.getIsfav());
+
 
         } else {
             Toast.makeText(MvvmApp.getInstance(), "Only " + dishList.getQuantity() + " Quantity of " + dishList.getProductName() + " Available", Toast.LENGTH_SHORT).show();
@@ -317,6 +319,8 @@ public class DishItemViewModel {
 
         new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
 
+        new Analytics().removeFromCartPageMetrics(AppConstants.SCREEN_FAVOURITE_DISH,dishList.getProductid(),dishList.getPrice(),quantity.get(), dishList.getIsfav());
+
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
@@ -387,6 +391,10 @@ public class DishItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_FAVOURITE_DISH,dishList.getProductid(),dishList.getPrice(),quantity.get(), dishList.getIsfav());
+
+
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 

@@ -73,6 +73,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final ObservableField<String> numOfCarts = new ObservableField<>();
     public final ObservableField<String> updateTitle = new ObservableField<>();
     public final ObservableField<String> updateAction = new ObservableField<>();
+    public final ObservableField<String> screenName = new ObservableField<>();
     public final ObservableBoolean updateAvailable = new ObservableBoolean();
     public final ObservableBoolean enableLater = new ObservableBoolean();
     public final ObservableBoolean update = new ObservableBoolean();
@@ -85,6 +86,7 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     public MainViewModel(DataManager dataManager) {
         super(dataManager);
+        screenName.set(AppConstants.SCREEN_HOME);
         getDataManager().setIsFav(false);
         masterRequest();
         checkUpdate();
@@ -108,13 +110,13 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
     }
 
-    public void gotoCart() {
+    public void gotoCart(String screenName) {
         if (!isCart.get()) {
 
             if (kitchenid != 0L)
                 new Analytics().kitchenViewcart(AppConstants.CLICK_DIRECT_VIEW_CART, kitchenid);
 
-            getNavigator().openCart();
+            getNavigator().openCart(screenName);
             isHome.set(false);
             isExplore.set(false);
             isCart.set(true);

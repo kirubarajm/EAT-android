@@ -101,8 +101,6 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_BACK_BUTTON);
-        new Analytics().paymentMethodPageMetrics("back click",AppConstants.SCREEN_CART_PAGE);
-
         super.onBackPressed();
     }
 
@@ -419,9 +417,12 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
         mPaymentViewModel.paymentSuccess("Canceled", 2);
     }
 
-
     @Override
     public void canceled() {
 
+    }
+
+    public void metricsPaymentPage(){
+        new Analytics().paymentMethodPageMetrics("","back click",AppConstants.SCREEN_CART_PAGE);
     }
 }

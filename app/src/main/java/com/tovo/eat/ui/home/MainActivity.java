@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     int getAddressCount = 0;
     AppUpdateManager appUpdateManager;
     AppUpdateInfo appUpdateInfo;
-
+    String screenName = "";
     Snackbar snackbar;
 
     boolean downloading;
@@ -219,12 +219,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void openCart() {
+    public void openCart(String screenName) {
+        mMainViewModel.screenName.set(AppConstants.SCREEN_HOME);
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_CART);
         stopLoader();
         try {
+            Bundle bundle = new Bundle();
+            bundle.putString("screenName",screenName);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartActivity fragment = new CartActivity();
+            fragment.setArguments(bundle);
             transaction.replace(R.id.content_main, fragment);
             //  transaction.addToBackStack(CartActivity.class.getSimpleName());
             transaction.commit();
@@ -639,6 +643,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             cart = intent.getExtras().getBoolean("cart");
+            screenName = intent.getExtras().getString("screenName");
             if (null != intent.getExtras().getString("pageid")) {
                 pageid = intent.getExtras().getString("pageid");
             }
@@ -1156,7 +1161,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         if (mMainViewModel.isAddressAdded()) {
             if (cart) {
-                mMainViewModel.gotoCart();
+                mMainViewModel.gotoCart(screenName);
             } else if (pageid.equals("") && pageid.equals("9")) {
 
                 Intent repliesIntent = RepliesActivity.newIntent(MainActivity.this);

@@ -137,7 +137,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashOnDelivery() {
 
-        new Analytics().paymentMethodPageMetrics("cash",AppConstants.SCREEN_ORDER_PLACED);
+        new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_ORDER_PLACED);
 
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_COD);
 
@@ -276,7 +276,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     cashOnDelivery();
                 } else {
                     clickable.set(true);
-                    new Analytics().paymentMethodPageMetrics("cash",AppConstants.SCREEN_USER_REGISTRATION);
+                    new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_USER_REGISTRATION);
                     getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
                 }
             }
@@ -288,11 +288,11 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
         if (clickable.get()) {
             clickable.set(false);
             if (getDataManager().getEmailStatus()) {
-                new Analytics().paymentMethodPageMetrics("online",AppConstants.SCREEN_RAZOR_PAY);
+                new Analytics().paymentMethodPageMetrics("","online",AppConstants.SCREEN_RAZOR_PAY);
                 payOnline();
             } else {
                 clickable.set(true);
-                new Analytics().paymentMethodPageMetrics("online",AppConstants.SCREEN_USER_REGISTRATION);
+                new Analytics().paymentMethodPageMetrics("","online",AppConstants.SCREEN_USER_REGISTRATION);
                 getNavigator().postRegistration(AppConstants.ONLINE_REQUESTCODE);
             }
         }

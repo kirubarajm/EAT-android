@@ -434,7 +434,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:onClick="@{()->viewModel.gotoCart()}"
+                    android:onClick="@{()->viewModel.gotoCart(viewModel.screenName)}"
                     android:orientation="vertical">
 
                     <RelativeLayout

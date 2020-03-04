@@ -604,6 +604,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         xfactorClick.set(true);
 
+                        if (getNavigator()!=null){
+                            getNavigator().metricsCartOpen();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -651,22 +654,6 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void paymentModeCheck(String instructions) {
-
-        /**
-         * Analytics start
-         */
-        if (getDataManager().getPromotionId()!=null && getDataManager().getCartDetails()!=null
-                && getDataManager().getCurrentAddressTitle()!=null) {
-            String promotionId = String.valueOf(getDataManager().getPromotionId());
-            String cartDetails = getDataManager().getCartDetails();
-            String addressType = getDataManager().getCurrentAddressTitle();
-            new Analytics().openCartPageMetrics(makeitId, totalAmount, promotionId,
-                    addressType, AppConstants.SCREEN_PAYMENT, cartDetails);
-        }
-        /**
-         * Analytics end
-         */
-
         if (getNavigator()!=null)
             getNavigator().clearToolTips();
         new Analytics().sendClickData(AppConstants.SCREEN_CART_PAGE, AppConstants.CLICK_PROCEED_TO_PAY);

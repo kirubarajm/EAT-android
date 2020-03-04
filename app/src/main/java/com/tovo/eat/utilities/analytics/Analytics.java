@@ -394,18 +394,19 @@ public class Analytics {
      * METRICS
      */
     /////APP OPENS
-    public void appOpensMetrics(int serviceableCount, int unServiceableCount, int regionCount, String addressType, String nextPage,
+    public void appOpensMetrics(String previousPage, int serviceableCount, int unServiceableCount, int regionCount, String addressType, /*String nextPage,*/
                                 String serviceableKitchens,String unServiceableKitchens,String regionList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.APP_OPENS_PREVIOUS_PAGE, previousPage);
         bundle.putInt(AppConstants.APP_OPENS_SERVICEABLE_COUNT, serviceableCount);
         bundle.putInt(AppConstants.APP_OPENS_UNSERVICEABLE_COUNT, unServiceableCount);
         bundle.putInt(AppConstants.APP_OPENS_REGION_COUNT, regionCount);
         bundle.putString(AppConstants.APP_OPENS_ADDRESS_TYPE, addressType);
-        bundle.putString(AppConstants.APP_OPENS_NEXT_PAGE, nextPage);
+        //bundle.putString(AppConstants.APP_OPENS_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.APP_OPENS_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
         bundle.putString(AppConstants.APP_OPENS_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
         bundle.putString(AppConstants.APP_OPENS_REGIONS_LIST, regionList);
@@ -440,18 +441,19 @@ public class Analytics {
     }
 
     /////REGION PAGE
-    public void regionPageMetrics(long regionId, String regionName, int serviceableCount, int unServiceableCount,String nextPage,ArrayList<String> serviceableKitchensList
+    public void regionPageMetrics(String previousPage, long regionId, String regionName, int serviceableCount, int unServiceableCount,/*String nextPage,*/ArrayList<String> serviceableKitchensList
             ,ArrayList<String> unserviceableKitchensList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.REGION_PREVIOUS_PAGE, previousPage);
         bundle.putLong(AppConstants.REGION_PAGE_REGION_ID, regionId);
         bundle.putString(AppConstants.REGION_PAGE_REGION_NAME, regionName);
         bundle.putInt(AppConstants.REGION_PAGE_SERVICEABLE_COUNT, serviceableCount);
         bundle.putInt(AppConstants.REGION_PAGE_UNSERVICEABLE_COUNT, unServiceableCount);
-        bundle.putString(AppConstants.REGION_NEXT_PAGE, nextPage);
+        //bundle.putString(AppConstants.REGION_NEXT_PAGE, nextPage);
         bundle.putStringArrayList(AppConstants.REGION_PAGE_SERVICEABLE_KITCHEN_LIST, serviceableKitchensList);
         bundle.putStringArrayList(AppConstants.REGION_PAGE_UNSERVICEABLE_KITCHEN_LIST, unserviceableKitchensList);
 
@@ -459,7 +461,7 @@ public class Analytics {
     }
 
     /////SEARCH
-    public void searchMetrics(String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
+    public void searchMetrics(String prevPage, String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
                               int uniqueId,String nextPage,String regionSuggestionList,String kitchenSuggestionList,
                               String dishSuggestionList) {
         if (mFirebaseAnalytics == null) {
@@ -468,6 +470,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.WORD_SEARCHED, wordSearched);
+        bundle.putString(AppConstants.SEARCH_PREVOIUS_PAGE, prevPage);
         bundle.putInt(AppConstants.REGION_SUGGESTION_COUNT, regionSuggestionCount);
         bundle.putInt(AppConstants.KITCHEN_SUGGESTION_COUNT, kitchenSuggestionCount);
         bundle.putInt(AppConstants.KITCHEN_SUGGESTION_COUNT, kitchenSuggestionCount);
@@ -483,30 +486,49 @@ public class Analytics {
     }
 
     /////ADD TO CART
-    public void addToCartPageMetrics(int productId, int price, int quantity, boolean isProductFavorite,String nextPage,String productType) {
+    public void addToCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(AppConstants.ADD_TO_CART_PRODUCT_ID, productId);
+        bundle.putString(AppConstants.ADD_TO_CART_CURRENT_PAGE, currentPage);
         bundle.putInt(AppConstants.ADD_TO_CART_PRICE, price);
         bundle.putInt(AppConstants.ADD_TO_CART_QUANTITY, quantity);
-        bundle.putString(AppConstants.ADD_TO_CART_PRODUCT_TYPE, productType);
-        bundle.putBoolean(AppConstants.ADD_TO_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
-        bundle.putString(AppConstants.ADD_TO_CART_NEXT_PAGE, nextPage);
+        //bundle.putString(AppConstants.ADD_TO_CART_PRODUCT_TYPE, productType);
+        bundle.putString(AppConstants.ADD_TO_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
+        //bundle.putString(AppConstants.ADD_TO_CART_NEXT_PAGE, nextPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_ADD_TO_CART, bundle);
     }
+    /////REMOVE FROM CART
+    public void removeFromCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite) {
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putInt(AppConstants.REMOVE_FROM_CART_PRODUCT_ID, productId);
+        bundle.putString(AppConstants.REMOVE_FROM_CART_CURRENT_PAGE, currentPage);
+        bundle.putInt(AppConstants.REMOVE_FROM_CART_PRICE, price);
+        bundle.putInt(AppConstants.REMOVE_FROM_CART_QUANTITY, quantity);
+        //bundle.putString(AppConstants.REMOVE_FROM_CART_PRODUCT_TYPE, productType);
+        bundle.putString(AppConstants.REMOVE_FROM_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
+        //bundle.putString(AppConstants.REMOVE_FROM_CART_NEXT_PAGE, nextPage);
+
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_REMOVE_FROM_CART, bundle);
+    }
 
     /////OPEN CART PAGE
-    public void openCartPageMetrics(long makeitId, int totalAmt, String promoCode, String deliveryAddressType,String nextPage,String cartProductIdQtyList) {
+    public void openCartPageMetrics(String previousScreen, long makeitId, int totalAmt, String promoCode, String deliveryAddressType,String nextPage,String cartProductIdQtyList) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putLong(AppConstants.OPEN_CART_PAGE_MAKEIT_ID, makeitId);
+        bundle.putString(AppConstants.OPEN_CART_PREVIOUS_PAGE, previousScreen);
         bundle.putInt(AppConstants.OPEN_CART_PAGE_TOTAL_AMOUNT, totalAmt);
         bundle.putString(AppConstants.OPEN_CART_PAGE_PROMO_CODE, promoCode);
         bundle.putString(AppConstants.OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE, deliveryAddressType);
@@ -517,26 +539,28 @@ public class Analytics {
     }
 
     /////PAYMENT METHOD PAGE
-    public void paymentMethodPageMetrics(String codOrOnline,String nextPage) {
+    public void paymentMethodPageMetrics(String prevPage, String codOrOnline,String nextPage) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.PAYMENT_METHOD_PAGE_COD_OR_ONLINE, codOrOnline);
+        bundle.putString(AppConstants.PAYMENT_METHOD_PREVIOUS_PAGE, prevPage);
         bundle.putString(AppConstants.PAYMENT_METHOD_PAGE_NEXT_PAGE, nextPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_PAYMENT_METHOD_PAGE, bundle);
     }
 
     /////TRACK ORDER PAGE
-    public void trackOrderPageMetrics(String orderId,String nextPage) {
+    public void trackOrderPageMetrics(String prevPage, String orderId,String nextPage) {
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
         Bundle bundle = new Bundle();
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.TRACK_ORDER_PAGE_ORDER_ID, orderId);
+        bundle.putString(AppConstants.TRACK_ORDER_PREVIOUS_PAGE, prevPage);
         bundle.putString(AppConstants.TRACK_ORDER_NEXT_PAGE, nextPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_TRACK_ORDER_PAGE, bundle);

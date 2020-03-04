@@ -9,9 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,12 +48,11 @@ import static com.tovo.eat.utilities.AppConstants.CART_REQUESTCODE;
 
 public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewModel> implements CartNavigator, CartDishAdapter.LiveProductsAdapterListener, RefundListAdapter.LiveProductsAdapterListener, SuggestionProductAdapter.LiveProductsAdapterListener, BillListAdapter.BilldetailsInfoListener {
 
+    public ToolTipView myToolTipView;
     @Inject
     CartDishAdapter adapter;
-
     @Inject
     SuggestionProductAdapter suggestionProductAdapter;
-
     @Inject
     CartViewModel mCartViewModel;
     CartListener cartListener;
@@ -67,8 +64,9 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
     Analytics analytics;
     String pageName = AppConstants.SCREEN_CART_PAGE;
     boolean infoClicked = false;
-   public ToolTipView myToolTipView;
     private ActivityCartBinding mActivityCartBinding;
+
+    String screenName = "";
 
     public static CartActivity newInstance() {
         Bundle args = new Bundle();
@@ -115,7 +113,26 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         refundListAdapter.setListener(this);
         billListAdapter.setListener(this);
 
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            screenName = bundle.getString("screenName");
+        }
         analytics = new Analytics(getActivity(), pageName);
+    }
+
+    public void metricsOpenCartPage() {
+        try {
+            if (mCartViewModel.getDataManager().getPromotionId() != null && mCartViewModel.getDataManager().getCartDetails() != null
+                    && mCartViewModel.getDataManager().getCurrentAddressTitle() != null) {
+                String promotionId = String.valueOf(mCartViewModel.getDataManager().getPromotionId());
+                String cartDetails = mCartViewModel.getDataManager().getCartDetails();
+                String addressType = mCartViewModel.getDataManager().getCurrentAddressTitle();
+                new Analytics().openCartPageMetrics(screenName, mCartViewModel.makeitId, mCartViewModel.totalAmount, promotionId,
+                        addressType, AppConstants.SCREEN_PAYMENT, cartDetails);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -169,8 +186,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
             }
         });*/
-
-
 
 
         mActivityCartBinding.cartScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -366,6 +381,11 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
             infoClicked = false;
             myToolTipView = null;
         }
+    }
+
+    @Override
+    public void metricsCartOpen() {
+        metricsOpenCartPage();
     }
 
     private void subscribeToLiveData() {
@@ -576,7 +596,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
                 TextView title = myToolTipView.findViewById(R.id.activity_main_redtv);
                 StringBuilder sTitle = new StringBuilder();
                 for (int i = 0; i < cartdetail.getInfodetails().size(); i++) {
-                    sTitle.append("\n"). append(cartdetail.getInfodetails().get(i).getName()).append("    ").append("Rs.").append(cartdetail.getInfodetails().get(i).getPrice()  );
+                    sTitle.append("\n").append(cartdetail.getInfodetails().get(i).getName()).append("    ").append("Rs.").append(cartdetail.getInfodetails().get(i).getPrice());
                 }
                 title.setText(sTitle.toString());
 
@@ -610,7 +630,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         });
 
     }
-
 
 
 }

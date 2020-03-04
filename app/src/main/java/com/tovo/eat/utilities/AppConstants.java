@@ -468,11 +468,12 @@ public class AppConstants {
      */
     /////METRICS FOR APP OPENS
     public static final String METRICS_APP_OPENS = "met_ao";
+    public static final String APP_OPENS_PREVIOUS_PAGE = "ao_prepg";
     public static final String APP_OPENS_SERVICEABLE_COUNT = "ao_servcount";
     public static final String APP_OPENS_UNSERVICEABLE_COUNT = "ao_unservcount";
     public static final String APP_OPENS_REGION_COUNT = "ao_regcount";
     public static final String APP_OPENS_ADDRESS_TYPE = "ao_addtag";
-    public static final String APP_OPENS_NEXT_PAGE = "ao_nxtp";
+    //public static final String APP_OPENS_NEXT_PAGE = "ao_nxtp";
     public static final String APP_OPENS_SERVICEABLE_KITCHEN_LIST = "ao_servkid";
     public static final String APP_OPENS_UNSERVICEABLE_KITCHEN_LIST = "ao_unservkid";
     public static final String APP_OPENS_REGIONS_LIST = "ao_reglist";
@@ -494,6 +495,7 @@ public class AppConstants {
 
     /////METRICS FOR REGION PAGE
     public static final String METRICS_REGION_PAGE = "met_rp";
+    public static final String REGION_PREVIOUS_PAGE = "rp_previouspg";
     public static final String REGION_PAGE_REGION_ID = "rp_regid";
     public static final String REGION_PAGE_REGION_NAME = "rp_regname";
     public static final String REGION_PAGE_SERVICEABLE_COUNT = "rp_servcount";
@@ -505,6 +507,7 @@ public class AppConstants {
     /////METRICS FOR SEARCH EVENT
     public static final String METRICS_SEARCH = "met_sr";
     public static final String WORD_SEARCHED = "wrd_find";
+    public static final String SEARCH_PREVOIUS_PAGE = "sr_prevpg";
     public static final String REGION_SUGGESTION_COUNT = "sr_rg_sugc";
     public static final String KITCHEN_SUGGESTION_COUNT = "sr_kt_sugc";
     public static final String DISH_SUGGESTION_COUNT = "sr_dish_sugc";
@@ -518,15 +521,27 @@ public class AppConstants {
     /////METRICS FOR ADD TO CART PAGE
     public static final String METRICS_ADD_TO_CART = "met_atc";
     public static final String ADD_TO_CART_PRODUCT_ID = "atc_pid";
+    public static final String ADD_TO_CART_CURRENT_PAGE = "atc_currentpg";
     public static final String ADD_TO_CART_PRICE = "atc_pprice";
     public static final String ADD_TO_CART_QUANTITY = "atc_pqty";
     public static final String ADD_TO_CART_PRODUCT_TYPE = "atc_pcat";
     public static final String ADD_TO_CART_IS_FAVORITE_PRODUCT = "atc_isfavp";
-    public static final String ADD_TO_CART_NEXT_PAGE = "add_to_cart_next_page";
+    public static final String ADD_TO_CART_NEXT_PAGE = "atc_next_page";
+
+    /////METRICS FOR REMOVE FROM CART PAGE
+    public static final String METRICS_REMOVE_FROM_CART = "met_rfc";
+    public static final String REMOVE_FROM_CART_PRODUCT_ID = "rfc_pid";
+    public static final String REMOVE_FROM_CART_CURRENT_PAGE = "rfc_currentpg";
+    public static final String REMOVE_FROM_CART_PRICE = "rfc_pprice";
+    public static final String REMOVE_FROM_CART_QUANTITY = "rfc_pqty";
+    public static final String REMOVE_FROM_CART_PRODUCT_TYPE = "rfc_pcat";
+    public static final String REMOVE_FROM_CART_IS_FAVORITE_PRODUCT = "rfc_isfavp";
+    public static final String REMOVE_FROM_CART_NEXT_PAGE = "rfc_nxtpg";
 
     /////METRICS FOR OPEN CART PAGE
     public static final String METRICS_OPEN_CART_PAGE = "met_cartopen";
     public static final String OPEN_CART_PAGE_MAKEIT_ID = "cart_kid";
+    public static final String OPEN_CART_PREVIOUS_PAGE = "cart_prevpg";
     public static final String OPEN_CART_PAGE_TOTAL_AMOUNT = "cart_amt";
     public static final String OPEN_CART_PAGE_PROMO_CODE = "cart_promo";
     public static final String OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE = "cart_addtag";
@@ -538,11 +553,13 @@ public class AppConstants {
     /////METRICS FOR PAYMENT METHOD PAGE
     public static final String METRICS_PAYMENT_METHOD_PAGE = "met_pay";
     public static final String PAYMENT_METHOD_PAGE_COD_OR_ONLINE = "pay_type";
+    public static final String PAYMENT_METHOD_PREVIOUS_PAGE = "pay_prevpg";
     public static final String PAYMENT_METHOD_PAGE_NEXT_PAGE = "pay_nxtp";
 
     /////METRICS FOR TRACK ORDER PAGE
     public static final String METRICS_TRACK_ORDER_PAGE = "met_track";
     public static final String TRACK_ORDER_PAGE_ORDER_ID = "track_ordid";
+    public static final String TRACK_ORDER_PREVIOUS_PAGE = "track_prevpg";
     public static final String TRACK_ORDER_NEXT_PAGE = "track_nxtp";
 
 }

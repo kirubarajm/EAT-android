@@ -47,7 +47,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     Analytics analytics;
     String pageName = AppConstants.SCREEN_REGION_DETAILS;
 
-    String analyticsScreenName = null;
+    String analyticsScreenName = "";
 
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
@@ -146,6 +146,8 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     @Override
     public void listLoaded() {
+
+        metricsRegionPage();
     }
 
     @Override
@@ -183,9 +185,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_BACK_BUTTON);
-        new Analytics().regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.regionName.get(), mRegionDetailsViewModel.serviceableCount,
-                mRegionDetailsViewModel.unServiceableCount,analyticsScreenName,mRegionDetailsViewModel.analyticsServiceableStringArray,
-                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
         super.onBackPressed();
     }
 
@@ -202,12 +201,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
     @Override
     public void onItemClickData(Long kitchenId) {
-
-        analyticsScreenName = AppConstants.SCREEN_KITCHEN_DETAILS;
-        new Analytics().regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.regionName.get(), mRegionDetailsViewModel.serviceableCount,
-                mRegionDetailsViewModel.unServiceableCount,analyticsScreenName,mRegionDetailsViewModel.analyticsServiceableStringArray,
-                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
-
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_KITCHEN);
         new Analytics().selectKitchen(AppConstants.ANALYTICYS_REGION_KITCHEN,kitchenId);
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
@@ -293,8 +286,11 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        new Analytics().regionPageMetrics(mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.regionName.get(), mRegionDetailsViewModel.serviceableCount,
-                mRegionDetailsViewModel.unServiceableCount,"null",mRegionDetailsViewModel.analyticsServiceableStringArray,
+    }
+
+    public void metricsRegionPage(){
+        new Analytics().regionPageMetrics(analyticsScreenName,mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.regionName.get(), mRegionDetailsViewModel.serviceableCount,
+                mRegionDetailsViewModel.unServiceableCount,mRegionDetailsViewModel.analyticsServiceableStringArray,
                 mRegionDetailsViewModel.analyticsUnServiceableStringArray);
     }
 }

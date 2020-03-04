@@ -20,7 +20,7 @@ public interface MainNavigator {
 
     void handleError(Throwable throwable);
 
-    void openCart();
+    void openCart(String screenName);
 
     void disConnectGPS();
 

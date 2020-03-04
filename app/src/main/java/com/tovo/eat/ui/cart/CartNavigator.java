@@ -40,4 +40,6 @@ public interface CartNavigator {
     void gotoKitchen(Long kitchenid);
 
     void clearToolTips();
+
+    void metricsCartOpen();
 }

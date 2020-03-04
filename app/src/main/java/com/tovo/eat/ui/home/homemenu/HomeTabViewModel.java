@@ -94,6 +94,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableList<CouponListResponse.Result> couponListItemViewModels = new ObservableArrayList<>();
     public boolean singleTime = false;
     public int pageCount = 1;
+    public boolean flagKitchen, flagRegion, flagCollocetion;
     RegionSearchModel regionSearchModel = new RegionSearchModel();
     List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
     boolean collectionAdded = false;
@@ -125,17 +126,25 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         customerName.get();
     }
 
-    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics()    {
-        return(kitchenItemViewModels);
+    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics() {
+        return (kitchenItemViewModels);
     }
 
-    public ObservableList<RegionsResponse.Result> getRegionListAnalytics()    {
-        return(regionItemViewModels);
+    public ObservableList<RegionsResponse.Result> getRegionListAnalytics() {
+        return (regionItemViewModels);
     }
 
     public void scrollToTop() {
         backToTop.set(false);
         getNavigator().scrollToTop();
+    }
+
+    public void checkApiSuccess() {
+       if (flagCollocetion&&flagKitchen&&flagRegion){
+           if (getNavigator()!=null){
+               getNavigator().checkApiSuccessMetrics();
+           }
+       }
     }
 
     public void loadAllApis() {
@@ -450,7 +459,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
-
+                    flagRegion = true;
+                    checkApiSuccess();
                     if (response != null) {
 
                         try {
@@ -500,6 +510,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // Log.e("", error.getMessage());
+                    flagRegion = true;
+                    checkApiSuccess();
                     emptyRegion.set(true);
                     try {
                         if (getNavigator() != null)
@@ -585,6 +597,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         kitchenListLoading.set(true);
+        checkApiSuccess();
         String json = "";
         if (getDataManager().getCurrentLat() == null) {
 
@@ -622,6 +635,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                             @Override
                             public void onResponse(JSONObject response) {
+                                flagKitchen = true;
                                 kitchenListLoading.set(false);
                                 if (response != null) {
 
@@ -740,6 +754,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 //   Log.e("", ""+error.getMessage());
+                                flagKitchen = true;
+                                checkApiSuccess();
                                 if (pageid.get() == 1)
                                     fullEmpty.set(true);
                                 pageid.set(pageid.get() - 1);
@@ -1215,6 +1231,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_COLLECTION_ICON_LIST, KitchenResponse.Result.class, new CollectionRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId()), new Response.Listener<KitchenResponse.Result>() {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
+
+
+                    flagCollocetion = true;
+                    checkApiSuccess();
                     if (response != null) {
 
                         if (response.getCollection() != null && response.getCollection().size() > 0) {
@@ -1234,7 +1254,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    flagCollocetion = true;
+                    checkApiSuccess();
                 }
             }, AppConstants.API_VERSION_ONE);
             MvvmApp.getInstance().addToRequestQueue(gsonRequest);

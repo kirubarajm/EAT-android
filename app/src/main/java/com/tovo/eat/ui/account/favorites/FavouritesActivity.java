@@ -109,6 +109,7 @@ public class FavouritesActivity extends BaseActivity<ActivityFavouritesBinding, 
 
         Intent intent = MainActivity.newIntent(FavouritesActivity.this);
         intent.putExtra("cart", true);
+        intent.putExtra("screenName", AppConstants.SCREEN_FAVOURITES);
         startActivity(intent);
         finish();
     }

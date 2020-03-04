@@ -54,13 +54,14 @@ public class KitchenDishItemViewModel {
 
     KitchenDishResponse.Result response = new KitchenDishResponse.Result();
 
+    String screenName = "";
 
     Integer favID;
 
     public ObservableBoolean isVeg=new ObservableBoolean();
 
 
-    public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response,boolean serviceablekitchen) {
+    public KitchenDishItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, KitchenDishResponse.Result response,boolean serviceablekitchen,String screenName) {
 
         this.originalResult = response;
         this.mListener = mListener;
@@ -68,6 +69,7 @@ public class KitchenDishItemViewModel {
         this.response = response;
         this.serviceableKitchen.set(serviceablekitchen);
 
+        this.screenName = screenName;
 
         //  this.date.set(mSalesList.getDate());
         Gson sGson = new GsonBuilder().create();
@@ -178,6 +180,15 @@ public class KitchenDishItemViewModel {
             quantity.set(quantity.get() + 1);
             new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
             new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+
+
+
+            new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+
+
+
+
+
         } else {
            // mListener.productNotAvailable();
 
@@ -254,6 +265,10 @@ public class KitchenDishItemViewModel {
         results.clear();
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+
+        new Analytics().removeFromCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+
+
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
 
@@ -336,6 +351,10 @@ public class KitchenDishItemViewModel {
 
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
+
+        new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+
+
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
 

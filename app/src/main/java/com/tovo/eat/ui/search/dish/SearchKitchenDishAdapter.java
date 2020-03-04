@@ -1,7 +1,5 @@
 package com.tovo.eat.ui.search.dish;
 
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,8 +14,6 @@ import android.view.ViewGroup;
 
 import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
-import com.tovo.eat.databinding.ListItemCollectionDishesBinding;
-import com.tovo.eat.databinding.ListItemCollectionsBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
 import com.tovo.eat.databinding.ListItemKitchenDishesBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
@@ -33,16 +29,17 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
+    public boolean serviceablekitchen = true;
     KitchenDishResponse.Result response;
     private List<KitchenDishResponse.Productlist> item_list;
     private LiveProductsAdapterListener mLiveProductsAdapterListener;
     private DataManager dataManager;
-    public boolean serviceablekitchen = true;
+    String strScreenName="";
 
-    public SearchKitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, KitchenDishResponse.Result response,DataManager dataManager) {
+    public SearchKitchenDishAdapter(List<KitchenDishResponse.Productlist> item_list, KitchenDishResponse.Result response, DataManager dataManager) {
         this.item_list = item_list;
-        this.response=response;
-        this.dataManager=dataManager;
+        this.response = response;
+        this.dataManager = dataManager;
     }
 
 
@@ -55,6 +52,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
         this.serviceablekitchen = status;
 
     }
+
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         switch (i) {
@@ -105,9 +103,14 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
         item_list.clear();
     }
 
+    public void setScreenName(String strScreenName) {
+       this.strScreenName = strScreenName;
+    }
 
-    public void setListener(LiveProductsAdapterListener listener) {
+
+    public void setListener(LiveProductsAdapterListener listener,String screenName) {
         this.mLiveProductsAdapterListener = listener;
+        this.strScreenName = screenName;
     }
 
 
@@ -119,17 +122,19 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         void dishRefresh();
 
-        void  addDishFavourite(Integer dishId, String fav);
+        void addDishFavourite(Integer dishId, String fav);
 
         void productNotAvailable();
 
-        void  removeDishFavourite(Integer favId);
+        void removeDishFavourite(Integer favId);
+
         void showToast(String msg);
+
         void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
 
-    public class EmptyViewHolder extends BaseViewHolder  {
+    public class EmptyViewHolder extends BaseViewHolder {
 
         private final ListItemEmptyBinding mBinding;
 
@@ -163,7 +168,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
             if (item_list.isEmpty()) return;
             final KitchenDishResponse.Productlist blog = item_list.get(position);
 
-            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, response,serviceablekitchen);
+            mLiveProductsItemViewModel = new KitchenDishItemViewModel(this, blog, response, serviceablekitchen,strScreenName);
             mListItemLiveProductsBinding.setKitchenDishItemViewModel(mLiveProductsItemViewModel);
 
             // Immediate Binding
@@ -173,26 +178,24 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
             mListItemLiveProductsBinding.executePendingBindings();
 
 
-
-            Typeface font = Typeface.createFromAsset(MvvmApp.getInstance(). getAssets(), "Poppins-Medium.otf");
+            Typeface font = Typeface.createFromAsset(MvvmApp.getInstance().getAssets(), "Poppins-Medium.otf");
             Typeface font2 = Typeface.createFromAsset(MvvmApp.getInstance().getAssets(), "icomoon.ttf");
-            String vegIcon=MvvmApp.getInstance().getResources().getString(R.string.icon_veg);
-            SpannableStringBuilder SS = new SpannableStringBuilder(blog.getProductName() +" "+ vegIcon);
+            String vegIcon = MvvmApp.getInstance().getResources().getString(R.string.icon_veg);
+            SpannableStringBuilder SS = new SpannableStringBuilder(blog.getProductName() + " " + vegIcon);
             SS.setSpan(new CustomTypefaceSpan("", font), 0, blog.getProductName().length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-            SS.setSpan(new CustomTypefaceSpan("", font2), blog.getProductName().length()+ 1, blog.getProductName().length()+ 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            SS.setSpan(new CustomTypefaceSpan("", font2), blog.getProductName().length() + 1, blog.getProductName().length() + 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
-            SS.setSpan(new RelativeSizeSpan(0.6f), blog.getProductName().length()+ 1, blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            SS.setSpan(new RelativeSizeSpan(0.6f), blog.getProductName().length() + 1, blog.getProductName().length() + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            if (blog.getVegtype().equals("0")){
-                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.green)), blog.getProductName().length()+ 1,  blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }else {
-                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.red)), blog.getProductName().length()+ 1,  blog.getProductName().length()+ 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (blog.getVegtype().equals("0")) {
+                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.green)), blog.getProductName().length() + 1, blog.getProductName().length() + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                SS.setSpan(new ForegroundColorSpan(MvvmApp.getInstance().getResources().getColor(R.color.red)), blog.getProductName().length() + 1, blog.getProductName().length() + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             mListItemLiveProductsBinding.name.setText(SS);
 
 
-
-            if (!serviceablekitchen){
+            if (!serviceablekitchen) {
 
                /* mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
 
@@ -209,10 +212,10 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
                 matrix.setSaturation(0);
 
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);*/
-              //  mListItemLiveProductsBinding.image.setColorFilter(filter);
+                //  mListItemLiveProductsBinding.image.setColorFilter(filter);
 
 
-            }else if (blog.getNextAvailable()){
+            } else if (blog.getNextAvailable()) {
 
                /* mListItemLiveProductsBinding.addDish.setVisibility(View.GONE);
 
@@ -227,12 +230,9 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
                 matrix.setSaturation(0);
 
                 ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);*/
-            }else {
+            } else {
                 mListItemLiveProductsBinding.addDish.setVisibility(View.VISIBLE);
             }
-
-
-
 
 
         }
@@ -277,7 +277,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         @Override
         public void addFavourites(Integer dishId, String fav) {
-            mLiveProductsAdapterListener.addDishFavourite(dishId,fav);
+            mLiveProductsAdapterListener.addDishFavourite(dishId, fav);
         }
 
         @Override
@@ -310,7 +310,7 @@ public class SearchKitchenDishAdapter extends RecyclerView.Adapter<BaseViewHolde
 
         @Override
         public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
-            mLiveProductsAdapterListener.otherKitchenDish(makeitId,productId,quantity,price);
+            mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
         }
 
     }

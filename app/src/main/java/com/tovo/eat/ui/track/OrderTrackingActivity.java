@@ -270,6 +270,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         createMarker();
 
+        metricsTrackingPage();
 
     }
 
@@ -550,12 +551,6 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void callDeliveryMan(String number) {
         new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_CALL_DELIVERY_EXECUTIVE);
-
-        if (mOrderTrackingViewModel.getDataManager().getOrderId()!=null) {
-            String orderId = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
-            new Analytics().trackOrderPageMetrics(orderId, AppConstants.SCREEN_DIAL);
-        }
-
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:" + Uri.encode(number.trim())));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -642,21 +637,12 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_BACK_BUTTON);
-        if (mOrderTrackingViewModel.getDataManager().getOrderId()!=null) {
-            String orderId = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
-            new Analytics().trackOrderPageMetrics(orderId, AppConstants.SCREEN_HOME);
-        }
         super.onBackPressed();
     }
 
     @Override
     public void orderDetails(Long orderId) {
         new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_ORDER_DETAILS);
-
-        if (mOrderTrackingViewModel.getDataManager().getOrderId()!=null) {
-            String orderIdAnalytics = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
-            new Analytics().trackOrderPageMetrics(orderIdAnalytics, AppConstants.SCREEN_ORDER_DETAILS);
-        }
 
         Intent intent = OrderDetailsActivity.newIntent(this);
         intent.putExtra("orderId",
@@ -1174,6 +1160,13 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     @Override
     public void canceled() {
 
+    }
+
+    public void metricsTrackingPage(){
+        if (mOrderTrackingViewModel.getDataManager().getOrderId()!=null) {
+            String orderId = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
+            new Analytics().trackOrderPageMetrics(AppConstants.SCREEN_HOME,orderId, AppConstants.SCREEN_DIAL);
+        }
     }
 }
 

@@ -220,6 +220,9 @@ public class CartPageResponse {
         @SerializedName("productid")
         @Expose
         private Integer productid;
+        @SerializedName("isfav")
+        @Expose
+        public String isfav;
         @SerializedName("product_name")
         @Expose
         private String productName;
@@ -313,6 +316,15 @@ public class CartPageResponse {
         @SerializedName("cartquantity")
         @Expose
         private Integer cartquantity;
+
+
+        public String getIsfav() {
+            return isfav;
+        }
+
+        public void setIsfav(String isfav) {
+            this.isfav = isfav;
+        }
 
         public String getProdDesc() {
             return prodDesc;
