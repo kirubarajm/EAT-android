@@ -15,7 +15,6 @@ public class KitchenDetailsListRequest {
     @Expose
     private Long makeit_userid;
 
-
     @SerializedName("eatuserid")
     @Expose
     private Long eatuserid;

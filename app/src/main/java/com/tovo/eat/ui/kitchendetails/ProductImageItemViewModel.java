@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
+import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavTodaysMenuItemViewModel {
+public class ProductImageItemViewModel {
 
     public final ObservableField<String> producttype = new ObservableField<>();
     public final ObservableField<String> product_name = new ObservableField<>();
@@ -41,25 +42,44 @@ public class FavTodaysMenuItemViewModel {
     public final ObservableBoolean isFavouriteMenu = new ObservableBoolean();
     public final ObservableBoolean serviceableKitchen = new ObservableBoolean();
     public final ObservableBoolean isAddClicked = new ObservableBoolean();
+    public final ObservableBoolean productBestSellerTag = new ObservableBoolean();
+    public final ObservableBoolean productWithTag = new ObservableBoolean();
+    public final ObservableBoolean productWithOutTag = new ObservableBoolean();
     public final DishItemViewModelListener mListener;
-    private final KitchenDishResponse.Productlist dishList;
+    private final KitchenDetailsResponse.ProductList dishList;
 
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
-
+DataManager dataManager;
     Integer favID;
 
 
-    public FavTodaysMenuItemViewModel(DishItemViewModelListener mListener, KitchenDishResponse.Productlist dishList, boolean sericeable) {
+
+
+
+    public ProductImageItemViewModel(DishItemViewModelListener mListener, KitchenDetailsResponse.ProductList dishList,DataManager dataManager) {
 
         this.mListener = mListener;
         this.dishList = dishList;
-
-        this.serviceableKitchen.set(sericeable);
+this.dataManager=dataManager;
+        this.serviceableKitchen.set(dishList.isServiceablestatus());
 
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
+
+
+
+        if (dishList.getProduct_tag()==1){
+            productBestSellerTag.set(true);
+            productWithTag.set(true);
+        }else  if (dishList.getProduct_tag()==2){
+            productBestSellerTag.set(true);
+            productWithTag.set(true);
+        }else {
+            productBestSellerTag.set(false);
+            productWithTag.set(false);
+        }
 
 
         if (dishList.getFavid() != null)
@@ -85,7 +105,7 @@ public class FavTodaysMenuItemViewModel {
         productDes.set(dishList.getProdDesc());
 
 
-        if (null != dishList.getNextAvailable() && dishList.getNextAvailable()) {
+        if (dishList.getNextAvailable()) {
             this.nextAvailable.set(dishList.getNextAvailable());
             this.serviceableKitchen.set(false);
             this.nextAvailableTime.set(dishList.getNextAvailableTime());
@@ -183,7 +203,7 @@ public class FavTodaysMenuItemViewModel {
         results.clear();
 
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
@@ -226,7 +246,7 @@ public class FavTodaysMenuItemViewModel {
         cartRequestPojo.setCartitems(results);
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
-        mListener.saveCart(json);
+       dataManager.setCartDetails(json);
 
         Log.e("cart", json);
         mListener.refresh();
@@ -236,7 +256,6 @@ public class FavTodaysMenuItemViewModel {
 
     public void subClicked() {
 
-        mListener.subQuantity();
 
         quantity.set(quantity.get() - 1);
 
@@ -246,7 +265,7 @@ public class FavTodaysMenuItemViewModel {
         new Analytics().removeFromCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
 
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
@@ -301,14 +320,14 @@ public class FavTodaysMenuItemViewModel {
 
         if (results.size() == 0) {
 
-            mListener.saveCart(null);
+          dataManager.setCartDetails(null);
 
         } else {
 
             cartRequestPojo.setCartitems(results);
             Gson gson = new Gson();
             String json = gson.toJson(cartRequestPojo);
-            mListener.saveCart(json);
+            dataManager.setCartDetails(json);
         }
 
 
@@ -316,7 +335,7 @@ public class FavTodaysMenuItemViewModel {
     }
 
     public void enableAdd() {
-        mListener.enableAdd();
+
         isAddClicked.set(true);
         quantity.set(1);
         sQuantity.set(String.valueOf(quantity.get()));
@@ -325,7 +344,7 @@ public class FavTodaysMenuItemViewModel {
         new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
 
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
 
         if (cartRequestPojo == null)
@@ -380,8 +399,7 @@ public class FavTodaysMenuItemViewModel {
         cartRequestPojo.setCartitems(results);
         Gson gson = new Gson();
         String json = gson.toJson(cartRequestPojo);
-        mListener.saveCart(json);
-
+      dataManager.setCartDetails(json);
         mListener.refresh();
 
         Log.e("cart", json);
@@ -391,7 +409,6 @@ public class FavTodaysMenuItemViewModel {
 
 
     public void fav() {
-        mListener.onItemClick(dishList);
 
         if (isFavourite.get()) {
             removeFavourite();
@@ -439,7 +456,7 @@ public class FavTodaysMenuItemViewModel {
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
 
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(mListener.getEatId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_FAV_URL, CommonResponse.class, new DishFavRequest(String.valueOf(dataManager.getCurrentUserId()), String.valueOf(kitchenId)), new Response.Listener<CommonResponse>() {
                 @Override
                 public void onResponse(CommonResponse response) {
                     if (response != null) {
@@ -463,33 +480,11 @@ public class FavTodaysMenuItemViewModel {
     }
 
 
-    public void onItemClick() {
-        mListener.onItemClick(dishList);
-    }
-
     public interface DishItemViewModelListener {
-        void onItemClick(KitchenDishResponse.Productlist blogUrl);
-
-        String addQuantity();
-
-        void subQuantity();
-
-        void enableAdd();
-
-        void saveCart(String jsonCartDetails);
-
-        void checkAllCart();
-
-        void addFavourites(Integer dishId, String fav);
-
-        void removeFavourites(Integer favId);
-
 
         void productNotAvailable(int quantity, String productname);
 
         void refresh();
-
-        Long getEatId();
 
         void showToast(String msg);
 

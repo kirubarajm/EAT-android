@@ -73,7 +73,6 @@ import com.tovo.eat.ui.filter.FilterAdapter;
 import com.tovo.eat.ui.filter.FilterItems;
 import com.tovo.eat.ui.home.homemenu.OffersAdapter;
 import com.tovo.eat.ui.home.homemenu.RegionsCardAdapter;
-import com.tovo.eat.ui.home.homemenu.collection.CollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.collection.FilterCollectionAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishAdapter;
 import com.tovo.eat.ui.home.homemenu.dish.DishResponse;
@@ -82,16 +81,13 @@ import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.home.homemenu.story.StoriesCardAdapter;
 import com.tovo.eat.ui.home.homemenu.story.StoriesResponse;
 import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.DelayBitmapTransformation;
-import com.tovo.eat.ui.home.homemenu.story.library.glideProgressBar.LoggingListener;
 import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.ui.home.region.RegionsResponse;
 import com.tovo.eat.ui.home.region.title.RegionsCardTitleAdapter;
 import com.tovo.eat.ui.home.region.viewmore.RegionsListAdapter;
-import com.tovo.eat.ui.kitchendetails.FavoriteAdapter;
-import com.tovo.eat.ui.kitchendetails.FoodBadgeAdapter;
-import com.tovo.eat.ui.kitchendetails.MenuKitchenInfoCommonImageAdapter;
-import com.tovo.eat.ui.kitchendetails.SpecialitiesAdapter;
-import com.tovo.eat.ui.kitchendetails.TodaysMenuAdapter;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
+import com.tovo.eat.ui.kitchendetails.KitchenHeaderAdapter;
+import com.tovo.eat.ui.kitchendetails.KitchenProductsAdapter;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
@@ -198,6 +194,15 @@ public final class BindingUtils {
         }
     }
 
+@BindingAdapter({"adapter"})
+    public static void addKitchenProductsItems(RecyclerView recyclerView, List<KitchenDetailsResponse.Product> response) {
+        KitchenProductsAdapter adapter = (KitchenProductsAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response, recyclerView.getContext());
+        }
+    }
+
 
     @BindingAdapter({"adapter"})
     public static void addSearchItems(RecyclerView recyclerView, List<SearchResponse.Result> response) {
@@ -227,23 +232,6 @@ public final class BindingUtils {
         }
     }
 
-    @BindingAdapter({"favoriteadapter"})
-    public static void addFavTodaysMenuItems(RecyclerView recyclerView, List<KitchenDishResponse.Productlist> dishes) {
-        FavoriteAdapter adapter = (FavoriteAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(dishes);
-        }
-    }
-
-    @BindingAdapter({"todaysMenuadapter"})
-    public static void addTodaysMenuItems(RecyclerView recyclerView, List<KitchenDishResponse.Productlist> dishes) {
-        TodaysMenuAdapter adapter = (TodaysMenuAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(dishes);
-        }
-    }
 
      @BindingAdapter({"suggestionadapter"})
     public static void addSuggestionMenuItems(RecyclerView recyclerView, List<KitchenDishResponse.Productlist> dishes) {
@@ -266,6 +254,14 @@ public final class BindingUtils {
         }
     }
 
+    @BindingAdapter({"adapter"})
+    public static void addKitchenHeaderItems(RecyclerView recyclerView, List<KitchenDetailsResponse.KitchenPage> results) {
+        KitchenHeaderAdapter adapter = (KitchenHeaderAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(results);
+        }
+    }
 
     @BindingAdapter({"cardadapter"})
     public static void addRegionCardItems(RecyclerView recyclerView, List<RegionsResponse.Result> dishes) {
@@ -304,32 +300,6 @@ public final class BindingUtils {
         }
     }
 
-    @BindingAdapter({"foodBadgesadapter"})
-    public static void addFoodBadgesCardItems(RecyclerView recyclerView, List<KitchenDishResponse.Foodbadge> response) {
-        FoodBadgeAdapter adapter = (FoodBadgeAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(response);
-        }
-    }
-
-    @BindingAdapter({"specialitiesadapter"})
-    public static void addSpecialitiesCardItems(RecyclerView recyclerView, List<KitchenDishResponse.Specialitem> response) {
-        SpecialitiesAdapter adapter = (SpecialitiesAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(response);
-        }
-    }
-
-    @BindingAdapter({"kitchenCommonadapter"})
-    public static void addKitchenCommonItems(RecyclerView recyclerView, List<KitchenDishResponse.Kitchenmenuimage> blogs) {
-        MenuKitchenInfoCommonImageAdapter adapter = (MenuKitchenInfoCommonImageAdapter) recyclerView.getAdapter();
-        if (adapter != null) {
-          /*  adapter.clearItems();
-            adapter.addItems(blogs);*/
-        }
-    }
 
     @BindingAdapter({"adapter"})
     public static void addCartDishItems(RecyclerView recyclerView, List<CartPageResponse.Item> dishes) {

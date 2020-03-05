@@ -7,8 +7,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="favTodaysMenuItemViewModel"
-            type="com.tovo.eat.ui.kitchendetails.FavTodaysMenuItemViewModel" />
+            name="productImageItemViewModel"
+            type="com.tovo.eat.ui.kitchendetails.ProductImageItemViewModel" />
     </data>
 
     <!--<LinearLayout
@@ -34,14 +34,14 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:visibility="@{favTodaysMenuItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
-                    imageUrl="@{favTodaysMenuItemViewModel.image}"
+                    android:visibility="@{productImageItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
+                    imageUrl="@{productImageItemViewModel.image}"
                     loader="@{loader}"
                     android:layout_width="120dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter" />
                 <ImageView
-                    android:visibility="@{favTodaysMenuItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
+                    android:visibility="@{productImageItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
                     android:background="#A6FFFCFC"
                     android:layout_width="120dp"
                     android:layout_height="80dp"
@@ -64,7 +64,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:src="@{favTodaysMenuItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
+                    android:src="@{productImageItemViewModel.isFavourite?@drawable/ic_fav_selected :@drawable/ic_star_black_24dp}"
                     android:visibility="gone" />&ndash;&gt;
 
 
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
-                    android:visibility="@{favTodaysMenuItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
+                    android:visibility="@{productImageItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
                     android:layout_marginEnd="15dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
@@ -93,8 +93,8 @@
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                            android:paddingTop="3dp"
                             android:layout_centerInParent="true"
-                            android:onClick="@{()->favTodaysMenuItemViewModel.enableAdd()}"
-                            android:visibility="@{favTodaysMenuItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
+                            android:onClick="@{()->productImageItemViewModel.enableAdd()}"
+                            android:visibility="@{productImageItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/add"
@@ -107,7 +107,7 @@
                         android:id="@+id/num_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="@{favTodaysMenuItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                        android:visibility="@{productImageItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:paddingTop="3dp"
@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:onClick="@{()->favTodaysMenuItemViewModel.subClicked()}"
+                            android:onClick="@{()->productImageItemViewModel.subClicked()}"
                             android:text="@string/minus"
                             android:textAlignment="center"
                             android:textColor="@color/eat_color"
@@ -138,7 +138,7 @@
                             android:layout_centerInParent="true"
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"
-                            android:text="@{favTodaysMenuItemViewModel.sQuantity}"
+                            android:text="@{productImageItemViewModel.sQuantity}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -154,7 +154,7 @@
                             android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:onClick="@{()->favTodaysMenuItemViewModel.addClicked()}"
+                            android:onClick="@{()->productImageItemViewModel.addClicked()}"
                             android:paddingTop="3dp"
                             android:text="@string/plus"
                             android:textAlignment="center"
@@ -186,7 +186,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@{favTodaysMenuItemViewModel.product_name}"
+                            android:text="@{productImageItemViewModel.product_name}"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:layout_alignParentTop="true"
@@ -202,7 +202,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@+id/name"
                             android:text="@string/icon_veg"
-                            android:textColor="@{favTodaysMenuItemViewModel.isVeg?@color/green:@color/red}"
+                            android:textColor="@{productImageItemViewModel.isVeg?@color/green:@color/red}"
                             android:textSize="8sp" />
 
 
@@ -219,7 +219,7 @@
 
                         <RelativeLayout
                             android:id="@+id/nxtAvailable"
-                            android:visibility="@{favTodaysMenuItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
+                            android:visibility="@{productImageItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
                             android:layout_marginEnd="7dp"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
@@ -236,7 +236,7 @@
                                 android:layout_width="wrap_content"
                                 android:textAlignment="center"
                                 android:layout_height="wrap_content"
-                                android:text="@{favTodaysMenuItemViewModel.nextAvailableTime}"
+                                android:text="@{productImageItemViewModel.nextAvailableTime}"
                                 android:textColor="@color/dark_gray"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
@@ -256,7 +256,7 @@
                         android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{favTodaysMenuItemViewModel.producttype}"
+                        android:text="@{productImageItemViewModel.producttype}"
                         android:textColor="@color/medium_gray"
                         android:textSize="10sp" />
 
@@ -281,7 +281,7 @@
                             android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{favTodaysMenuItemViewModel.sprice}"
+                            android:text="@{productImageItemViewModel.sprice}"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -289,7 +289,7 @@
                     <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{favTodaysMenuItemViewModel.productDes}"
+                        android:text="@{productImageItemViewModel.productDes}"
                         android:textColor="@color/medium_gray"
                         android:textSize="12sp" />
                         </LinearLayout>
@@ -312,8 +312,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@{favTodaysMenuItemViewModel.isFavourite?@color/red:@color/light_gray}"
-                android:onClick="@{()->favTodaysMenuItemViewModel.fav()}">
+                android:background="@{productImageItemViewModel.isFavourite?@color/red:@color/light_gray}"
+                android:onClick="@{()->productImageItemViewModel.fav()}">
 
 
                 <com.tovo.eat.utilities.fonts.TovoTextView
@@ -322,7 +322,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/icon_fav"
-                    android:textColor="@{favTodaysMenuItemViewModel.isFavourite?@color/white:@color/red}"
+                    android:textColor="@{productImageItemViewModel.isFavourite?@color/white:@color/red}"
                     android:textSize="25dp" />
 
 
@@ -349,14 +349,14 @@
 
             <ImageView
                 android:id="@+id/image"
-                android:visibility="@{favTodaysMenuItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
-                imageUrl="@{favTodaysMenuItemViewModel.image}"
+                android:visibility="@{productImageItemViewModel.isFavouriteMenu?View.VISIBLE:View.GONE}"
+                imageUrl="@{productImageItemViewModel.image}"
                 loader="@{loader}"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter" />
             <ImageView
-                android:visibility="@{favTodaysMenuItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}"
+                android:visibility="@{productImageItemViewModel.serviceableKitchen?View.GONE:View.VISIBLE}"
                 android:background="#BCFFFCFC"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
@@ -415,8 +415,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@{favTodaysMenuItemViewModel.product_name}"
-                            android:textColor="@{favTodaysMenuItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
+                            android:text="@{productImageItemViewModel.product_name}"
+                            android:textColor="@{productImageItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
                             android:textSize="14sp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentStart="true"
@@ -432,7 +432,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@+id/name"
                             android:text="@string/icon_veg"
-                            android:textColor="@{favTodaysMenuItemViewModel.isVeg?@color/green:@color/red}"
+                            android:textColor="@{productImageItemViewModel.isVeg?@color/green:@color/red}"
                             android:textSize="8sp" />
 
                     </LinearLayout>
@@ -458,19 +458,19 @@
 
                             <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                 android:maxWidth="100dp"
-                                android:visibility="@{favTodaysMenuItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
+                                android:visibility="@{productImageItemViewModel.nextAvailable?View.VISIBLE:View.GONE}"
                                 android:padding="5dp"
                                 android:background="@drawable/curve_stroke_lightgray"
                                 android:layout_marginStart="3dp"
                                 android:layout_width="wrap_content"
                                 android:textAlignment="center"
                                 android:layout_height="wrap_content"
-                                android:text="@{favTodaysMenuItemViewModel.nextAvailableTime}"
+                                android:text="@{productImageItemViewModel.nextAvailableTime}"
                                 android:textColor="@color/dark_gray"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
                             <RelativeLayout
-                                android:visibility="@{favTodaysMenuItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
+                                android:visibility="@{productImageItemViewModel.serviceableKitchen?View.VISIBLE:View.GONE}"
                                 android:layout_width="70dp"
                                 android:layout_height="30dp"
                                 android:layout_marginEnd="15dp"
@@ -480,8 +480,8 @@
                                     android:paddingTop="3dp"
                                     android:layout_centerInParent="true"
                                     android:id="@+id/add"
-                                    android:visibility="@{favTodaysMenuItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
-                                    android:onClick="@{()->favTodaysMenuItemViewModel.enableAdd()}"
+                                    android:visibility="@{productImageItemViewModel.isAddClicked?View.GONE:View.VISIBLE}"
+                                    android:onClick="@{()->productImageItemViewModel.enableAdd()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/add"
@@ -497,7 +497,7 @@
                                     android:id="@+id/num_picker"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:visibility="@{favTodaysMenuItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
+                                    android:visibility="@{productImageItemViewModel.isAddClicked?View.VISIBLE:View.GONE}">
 
                                     <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                                         android:paddingTop="3dp"
@@ -506,7 +506,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentStart="true"
                                         android:layout_centerVertical="true"
-                                        android:onClick="@{()->favTodaysMenuItemViewModel.subClicked()}"
+                                        android:onClick="@{()->productImageItemViewModel.subClicked()}"
                                         android:text="@string/minus"
                                         android:textAlignment="center"
                                         android:textColor="@color/eat_color"
@@ -526,7 +526,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
-                                        android:text="@{favTodaysMenuItemViewModel.sQuantity}"
+                                        android:text="@{productImageItemViewModel.sQuantity}"
                                         android:textAlignment="center"
                                         android:textColor="@color/black"
                                         android:textSize="14sp" />
@@ -545,7 +545,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentEnd="true"
                                         android:layout_centerVertical="true"
-                                        android:onClick="@{()->favTodaysMenuItemViewModel.addClicked()}"
+                                        android:onClick="@{()->productImageItemViewModel.addClicked()}"
                                         android:text="@string/plus"
                                         android:textAlignment="center"
                                         android:textColor="@color/eat_color"
@@ -573,7 +573,7 @@
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{favTodaysMenuItemViewModel.producttype}"
+                                android:text="@{productImageItemViewModel.producttype}"
                                 android:textColor="@color/medium_gray"
                                 android:textSize="10sp" />
 
@@ -592,15 +592,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/icon_inr"
-                                    android:textColor="@{favTodaysMenuItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
+                                    android:textColor="@{productImageItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
                                     android:textSize="10sp" />
 
                                 <com.tovo.eat.utilities.fonts.poppins.ContentTextView
                                     android:id="@+id/amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@{favTodaysMenuItemViewModel.sprice}"
-                                    android:textColor="@{favTodaysMenuItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
+                                    android:text="@{productImageItemViewModel.sprice}"
+                                    android:textColor="@{productImageItemViewModel.serviceableKitchen?@color/black:@color/medium_gray}"
                                     android:textSize="14sp" />
                             </LinearLayout>
 
@@ -608,7 +608,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{favTodaysMenuItemViewModel.productDes}"
+                                android:text="@{productImageItemViewModel.productDes}"
                                 android:textColor="@color/medium_gray"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -633,8 +633,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@{favTodaysMenuItemViewModel.isFavourite?@color/red:@color/light_gray}"
-                android:onClick="@{()->favTodaysMenuItemViewModel.fav()}">
+                android:background="@{productImageItemViewModel.isFavourite?@color/red:@color/light_gray}"
+                android:onClick="@{()->productImageItemViewModel.fav()}">
 
 
                 <com.tovo.eat.utilities.fonts.TovoTextView
@@ -643,7 +643,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/icon_fav"
-                    android:textColor="@{favTodaysMenuItemViewModel.isFavourite?@color/white:@color/red}"
+                    android:textColor="@{productImageItemViewModel.isFavourite?@color/white:@color/red}"
                     android:textSize="25dp" />
 
 
