@@ -181,6 +181,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
         Intent intent = MainActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("cart", true);
+        intent.putExtra("screenName", AppConstants.SCREEN_KITCHEN_DETAILS);
         startActivity(intent);
         finish();
     }

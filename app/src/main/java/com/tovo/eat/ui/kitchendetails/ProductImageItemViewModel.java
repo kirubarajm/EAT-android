@@ -56,8 +56,6 @@ DataManager dataManager;
 
 
 
-
-
     public ProductImageItemViewModel(DishItemViewModelListener mListener, KitchenDetailsResponse.ProductList dishList,DataManager dataManager) {
 
         this.mListener = mListener;
