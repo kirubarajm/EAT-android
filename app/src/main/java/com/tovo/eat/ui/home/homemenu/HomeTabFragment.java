@@ -213,7 +213,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             for (int j = 0; j < regionListAnalytics.size(); j++) {
                 regionForListAnalytics.add(regionListAnalytics.get(j).getRegionname());
                 regionCount = regionForListAnalytics.size();
-                regionSb.append(regionListAnalytics.get(j).getRegionname()).append(",");
+                regionSb.append(regionListAnalytics.get(j).getRegionid()).append(",");
             }
 
             String regionList = regionSb.toString();
@@ -221,10 +221,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
             String addressTitle = mHomeTabViewModel.getDataManager().getCurrentAddressTitle();
 
-            String strRegionList = regionList.substring(0, regionList.length() - 1);
+            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
+            if (regionList.length()>0) {
+                strRegionList = regionList.substring(0, regionList.length() - 1);
+            }
+            if (strServiceableKitchenSb.length()>0){
+                strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
+            }
+            if (strUnServiceableKitchenSb.length()>0){
+                strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
+            }
 
             new Analytics().appOpensMetrics(screenName,serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
-                    strServiceableKitchenSb, strUnServiceableKitchenSb, strRegionList);
+                    strServiceableKitchen, strUnServiceableKitchen, strRegionList);
         } catch (Exception e) {
             e.printStackTrace();
         }

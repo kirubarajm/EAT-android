@@ -126,9 +126,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         customerName.get();
     }
 
-    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics() {
-        return (kitchenItemViewModels);
-    }
+
 
     public ObservableList<RegionsResponse.Result> getRegionListAnalytics() {
         return (regionItemViewModels);
@@ -164,6 +162,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         return kitchenItemViewModels;
     }
 
+    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics() {
+        return kitchenItemViewModels;
+    }
 
     public MutableLiveData<List<KitchenResponse.Result>> getKitchenItemsLiveData() {
         return kitchenItemsLiveData;
@@ -459,8 +460,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_LIST, RegionsResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<RegionsResponse>() {
                 @Override
                 public void onResponse(RegionsResponse response) {
-                    flagRegion = true;
-                    checkApiSuccess();
                     if (response != null) {
 
                         try {
@@ -503,7 +502,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         e.printStackTrace();
                         emptyRegion.set(true);
                     }
-
+                    flagRegion = true;
+                    checkApiSuccess();
                 }
 
             }, new Response.ErrorListener() {
@@ -597,7 +597,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
         kitchenListLoading.set(true);
-        checkApiSuccess();
         String json = "";
         if (getDataManager().getCurrentLat() == null) {
 
@@ -635,7 +634,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                             @Override
                             public void onResponse(JSONObject response) {
-                                flagKitchen = true;
                                 kitchenListLoading.set(false);
                                 if (response != null) {
 
@@ -747,8 +745,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }*/
-
-
+                                flagKitchen = true;
+                                checkApiSuccess();
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -1232,9 +1230,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                 @Override
                 public void onResponse(KitchenResponse.Result response) {
 
-
-                    flagCollocetion = true;
-                    checkApiSuccess();
                     if (response != null) {
 
                         if (response.getCollection() != null && response.getCollection().size() > 0) {
@@ -1250,6 +1245,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                         }
 
                     }
+                    flagCollocetion = true;
+                    checkApiSuccess();
                 }
             }, new Response.ErrorListener() {
                 @Override

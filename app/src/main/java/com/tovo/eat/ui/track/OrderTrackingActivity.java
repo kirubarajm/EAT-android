@@ -17,7 +17,6 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -69,7 +68,6 @@ import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +81,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 
 public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBinding, OrderTrackingViewModel> implements
-            OrderTrackingNavigator, OnMapReadyCallback, HasSupportFragmentInjector {
+        OrderTrackingNavigator, OnMapReadyCallback, HasSupportFragmentInjector {
 
 
     private static final String TAG = OrderTrackingActivity.class.getSimpleName();
@@ -416,7 +414,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         } else if (id == R.id.order_cancel) {
             new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_HELP);
             Intent intent = OrderHelpActivity.newIntent(this);
-            if (mOrderTrackingViewModel.orderTrackingResponse!=null&&mOrderTrackingViewModel.orderTrackingResponse.getResult().size()>0) {
+            if (mOrderTrackingViewModel.orderTrackingResponse != null && mOrderTrackingViewModel.orderTrackingResponse.getResult().size() > 0) {
                 intent.putExtra("name", mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getName());
                 intent.putExtra("number", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getMoveitdetail().getPhoneno()));
                 intent.putExtra("charge", String.valueOf(mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getPrice() - mOrderTrackingViewModel.orderTrackingResponse.getResult().get(0).getServiceCharge()));
@@ -693,11 +691,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         DatabaseReference ref = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location");
         GeoFire geoFire = new GeoFire(ref);
- Query locationDataQuery = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location").child(String.valueOf(moveitId));
-
-
-
-
+        Query locationDataQuery = FirebaseDatabase.getInstance("https://moveit-a9128.firebaseio.com/").getReference("location").child(String.valueOf(moveitId));
 
 
         locationDataQuery.addValueEventListener(new ValueEventListener() {
@@ -706,22 +700,22 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 //The dataSnapshot should hold the actual data about the location
                 //  dataSnapshot.getChild("name").getValue(String.class); //should return the name of the location and dataSnapshot.getChild("description").getValue(String.class); //should return the description of the locations
 
-                if (dataSnapshot.child("l").getValue()!=null) {
+                if (dataSnapshot.child("l").getValue() != null) {
 
                     List<Double> gg = (List<Double>) dataSnapshot.child("l").getValue();
                     moveitLatLng = new LatLng(gg.get(0), gg.get(1));
 
                     //if (distance(cusLatLng.latitude, cusLatLng.longitude, gg.get(0), gg.get(1), "K") <= 2) {
-                        //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
+                    //  mOrderTrackingViewModel.orderDeliveryStatus.set("Your food is almost there");
 
-                        if (moveitLocationMarker == null) {
-                            if (mMap != null)
-                                moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
-                        }
+                    if (moveitLocationMarker == null) {
+                        if (mMap != null)
+                            moveitLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(moveit_marker)).position(moveitLatLng));
+                    }
 
-                        showMarker1(moveitLatLng);
-                        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
-                   // }
+                    showMarker1(moveitLatLng);
+                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveitLatLng, 20));
+                    // }
                 }
 
 
@@ -1162,10 +1156,14 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
     }
 
-    public void metricsTrackingPage(){
-        if (mOrderTrackingViewModel.getDataManager().getOrderId()!=null) {
-            String orderId = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
-            new Analytics().trackOrderPageMetrics(AppConstants.SCREEN_HOME,orderId, AppConstants.SCREEN_DIAL);
+    public void metricsTrackingPage() {
+        try {
+            if (mOrderTrackingViewModel.getDataManager().getOrderId() != null) {
+                String orderId = String.valueOf(mOrderTrackingViewModel.getDataManager().getOrderId());
+                new Analytics().trackOrderPageMetrics(AppConstants.SCREEN_HOME, orderId, AppConstants.SCREEN_DIAL);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -103,7 +103,6 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
 
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -29,15 +29,17 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
     /**
      * /////For analytics
      */
-    public long analyticsRegionId ;
-    ArrayList<String>  analyticsServiceableStringArray;
-    ArrayList<String>  analyticsUnServiceableStringArray;
-    public Integer serviceableCount,unServiceableCount;
+    public long analyticsRegionId;
+    public Integer serviceableCount = 0, unServiceableCount = 0;
     /**
      *
      */
 
     public ObservableList<KitchenResponse.Result> kitchenListItemViewModels = new ObservableArrayList<>();
+    ArrayList<String> analyticsServiceableStringArray;
+    String strServiceableList = "";
+    String strUnServiceableList = "";
+    ArrayList<String> analyticsUnServiceableStringArray;
     private MutableLiveData<List<KitchenResponse.Result>> kitchenListItemsLiveData;
 
     public RegionDetailsViewModel(DataManager dataManager) {
@@ -63,11 +65,8 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
         getNavigator().goBack();
     }
 
-
     public void fetchRepos(Integer regionId) {
-
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
-
         try {
             setIsLoading(true);
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_REGION_KITCHEN_LIST, KitchenResponse.class, new RegionDetailsRequest(getDataManager().getCurrentLat(), getDataManager().getCurrentLng(), getDataManager().getCurrentUserId(), regionId, getDataManager().getVegType()), new Response.Listener<KitchenResponse>() {
@@ -91,16 +90,23 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
 
                                 analyticsServiceableStringArray = new ArrayList<>();
                                 analyticsUnServiceableStringArray = new ArrayList<>();
-                                for (int i=0;i<response.getResult().size();i++){
+                                StringBuilder serviceableKitchenSb = new StringBuilder();
+                                StringBuilder unServiceableKitchenSb = new StringBuilder();
+                                for (int i = 0; i < response.getResult().size(); i++) {
                                     if (response.getResult().get(i).getServiceablestatus()) {
                                         analyticsServiceableStringArray.add(String.valueOf(response.getResult().get(i).getMakeituserid()));
-                                    }else {
+                                        serviceableKitchenSb.append(response.getResult().get(i).getMakeituserid()).append(",");
+                                    } else {
                                         analyticsUnServiceableStringArray.add(String.valueOf(response.getResult().get(i).getMakeituserid()));
+                                        unServiceableKitchenSb.append(response.getResult().get(i).getMakeituserid()).append(",");
                                     }
                                 }
 
+                                strServiceableList = serviceableKitchenSb.toString();
+                                strUnServiceableList = unServiceableKitchenSb.toString();
+
                                 serviceableCount = Integer.valueOf(String.valueOf(analyticsServiceableStringArray.size()));
-                                unServiceableCount = Integer.valueOf(String.valueOf( analyticsUnServiceableStringArray.size()));
+                                unServiceableCount = Integer.valueOf(String.valueOf(analyticsUnServiceableStringArray.size()));
                             }
                     }
                     if (getNavigator() != null)
@@ -118,11 +124,7 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
         } catch (NullPointerException e) {
             e.printStackTrace();
         } catch (Exception ee) {
-
             ee.printStackTrace();
-
         }
     }
-
-
 }

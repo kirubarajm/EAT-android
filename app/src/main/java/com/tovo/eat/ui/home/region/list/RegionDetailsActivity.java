@@ -12,7 +12,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -21,7 +20,6 @@ import com.tovo.eat.BR;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegionDetailsBinding;
 import com.tovo.eat.ui.base.BaseActivity;
-import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenAdapter;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenResponse;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsActivity;
@@ -202,7 +200,7 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
     @Override
     public void onItemClickData(Long kitchenId) {
         new Analytics().sendClickData(AppConstants.SCREEN_REGION_DETAILS, AppConstants.CLICK_KITCHEN);
-        new Analytics().selectKitchen(AppConstants.ANALYTICYS_REGION_KITCHEN,kitchenId);
+        new Analytics().selectKitchen(AppConstants.ANALYTICYS_REGION_KITCHEN, kitchenId);
         Intent intent = KitchenDetailsActivity.newIntent(RegionDetailsActivity.this);
         intent.putExtra("kitchenId", kitchenId);
         startActivity(intent);
@@ -288,10 +286,20 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
         super.onDestroy();
     }
 
-    public void metricsRegionPage(){
-        new Analytics().regionPageMetrics(analyticsScreenName,mRegionDetailsViewModel.analyticsRegionId,mRegionDetailsViewModel.regionName.get(), mRegionDetailsViewModel.serviceableCount,
-                mRegionDetailsViewModel.unServiceableCount,mRegionDetailsViewModel.analyticsServiceableStringArray,
-                mRegionDetailsViewModel.analyticsUnServiceableStringArray);
+    public void metricsRegionPage() {
+        try {
+            String strServiceableKitchen = "", strUnServiceableKitchen = "";
+            if (mRegionDetailsViewModel.strServiceableList.length() > 0) {
+                strServiceableKitchen = mRegionDetailsViewModel.strServiceableList.substring(0, mRegionDetailsViewModel.strServiceableList.length() - 1);
+            }
+            if (mRegionDetailsViewModel.strUnServiceableList.length() > 0) {
+                strUnServiceableKitchen = mRegionDetailsViewModel.strUnServiceableList.substring(0, mRegionDetailsViewModel.strUnServiceableList.length() - 1);
+            }
+            new Analytics().regionPageMetrics(analyticsScreenName, mRegionDetailsViewModel.analyticsRegionId, mRegionDetailsViewModel.regionName.get(),
+                    mRegionDetailsViewModel.serviceableCount, mRegionDetailsViewModel.unServiceableCount, strServiceableKitchen, strUnServiceableKitchen);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
