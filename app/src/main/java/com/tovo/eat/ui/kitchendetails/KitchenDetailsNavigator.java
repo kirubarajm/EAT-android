@@ -11,7 +11,7 @@ public interface KitchenDetailsNavigator {
 
     void toastMessage(String msg);
 
-    void dishListLoaded(KitchenDishResponse response);
+    void dishListLoaded(KitchenDetailsResponse response);
 
     void viewCart();
 
@@ -21,8 +21,6 @@ public interface KitchenDetailsNavigator {
 
     void loadError();
 
-
-    void update(List<KitchenDishResponse.Kitchenmenuimage> kitchenmenuimageArrayList);
 
 
 }

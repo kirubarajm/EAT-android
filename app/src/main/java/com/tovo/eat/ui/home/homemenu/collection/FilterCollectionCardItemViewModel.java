@@ -40,7 +40,14 @@ public class FilterCollectionCardItemViewModel {
        // title.set(collection.getHeading());
         content.set(collection.getName());
         imageUrl.set(collection.getIcon());
-        status.set(collection.getCollectionstatus());
+
+        if (collection.getCollectionstatus()!=null){
+            status.set(collection.getCollectionstatus());
+        }
+
+      //  status.set(collection.getCollectionstatus());
+
+    //    status.set(true);
 
     }
 

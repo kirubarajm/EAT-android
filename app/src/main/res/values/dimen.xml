@@ -6,5 +6,8 @@
     <dimen name="speech_bubble_spacing">5dp</dimen>
     <dimen name="speech_bubble_tail">25dp</dimen>
 
+    <dimen name="product_tag">22dp</dimen>
+    <dimen name="product_notag">10dp</dimen>
+
 
 </resources>

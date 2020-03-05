@@ -366,7 +366,6 @@ public class KitchenAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
 
 
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerStory.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
             mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             InfinityStoriesAdapter storiesAdapter = new InfinityStoriesAdapter(item_list.get(position).getStory(),position);
             mListItemLiveProductsBinding.recyclerStory.setLayoutManager(mLayoutManager);
