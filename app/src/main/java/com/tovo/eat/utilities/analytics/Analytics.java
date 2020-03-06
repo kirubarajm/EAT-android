@@ -433,6 +433,29 @@ public class Analytics {
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_OPENS, bundle);
     }
 
+    /////APP OPENS
+    public void appHomeMetrics(String previousPage, int serviceableCount, int unServiceableCount, int regionCount, String addressType, /*String nextPage,*/
+                                String serviceableKitchens,String unServiceableKitchens,String regionList,int scroll) {
+        if (BuildConfig.ENABLE_DEBUG) return;
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.APP_HOME_PREVIOUS_PAGE, previousPage);
+        bundle.putInt(AppConstants.APP_HOME_SERVICEABLE_COUNT, serviceableCount);
+        bundle.putInt(AppConstants.APP_HOME_UNSERVICEABLE_COUNT, unServiceableCount);
+        bundle.putInt(AppConstants.APP_HOME_REGION_COUNT, regionCount);
+        bundle.putString(AppConstants.APP_HOME_ADDRESS_TYPE, addressType);
+        //bundle.putString(AppConstants.APP_HOME_NEXT_PAGE, nextPage);
+        bundle.putString(AppConstants.APP_HOME_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
+        bundle.putString(AppConstants.APP_HOME_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
+        bundle.putString(AppConstants.APP_HOME_REGIONS_LIST, regionList);
+        bundle.putInt(AppConstants.APP_HOME_SCROLL, scroll);
+
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_APP_HOME, bundle);
+    }
+
     /////KITCHEN PAGE
     public void kitchenPageMetrics(long makeitId, String eta, int rating, int productFavSectionCount, int productOtherCombosSectionCount,
                                    int productOtherItemsSectionCount, int nextAvailableProductCount, boolean serviceability, String homeMakerBadge,

@@ -29,7 +29,7 @@ public interface HomeTabNavigator {
     void closeAddressAlert();
 
     void scrollToTop();
-    void checkApiSuccessMetrics();
+    void checkApiSuccessMetrics(int pageid);
 
     void showPromotions(String url,boolean fullScreen, int type,int promotionid);
 

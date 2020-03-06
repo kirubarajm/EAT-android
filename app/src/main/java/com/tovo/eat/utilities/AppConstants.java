@@ -478,6 +478,19 @@ public class AppConstants {
     public static final String APP_OPENS_UNSERVICEABLE_KITCHEN_LIST = "ao_unservkid";
     public static final String APP_OPENS_REGIONS_LIST = "ao_reglist";
 
+    /////METRICS FOR APP HOME
+    public static final String METRICS_APP_HOME = "met_home";
+    public static final String APP_HOME_PREVIOUS_PAGE = "home_prepg";
+    public static final String APP_HOME_SERVICEABLE_COUNT = "home_servcount";
+    public static final String APP_HOME_UNSERVICEABLE_COUNT = "home_unservcount";
+    public static final String APP_HOME_REGION_COUNT = "home_regcount";
+    public static final String APP_HOME_ADDRESS_TYPE = "home_addtag";
+    //public static final String APP_HOME_NEXT_PAGE = "home_nxtp";
+    public static final String APP_HOME_SERVICEABLE_KITCHEN_LIST = "home_servkid";
+    public static final String APP_HOME_UNSERVICEABLE_KITCHEN_LIST = "home_unservkid";
+    public static final String APP_HOME_REGIONS_LIST = "home_reglist";
+    public static final String APP_HOME_SCROLL = "home_scroll";
+
     /////METRICS FOR KITCHEN PAGE
     public static final String METRICS_KITCHEN_PAGE = "met_kp";
     public static final String KITCHEN_PAGE_MAKEIT_ID = "kp_kid";

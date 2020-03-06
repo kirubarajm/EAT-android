@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.text.Html;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -265,8 +266,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             }
 
-                            headerContent1.set(response.getResult().get(0).getKitchen_page_header_content1());
-                            headerContent2.set(response.getResult().get(0).getKitchen_page_header_content2());
+                            //headerContent1.set(String.valueOf(Html.fromHtml(response.getResult().get(0).getKitchen_page_header_content1())));
+                            //headerContent2.set(response.getResult().get(0).getKitchen_page_header_content2());
                             makeitName.set("by "+response.getResult().get(0).getMakeitusername());
 
                             if (response.getResult().get(0).getKitchenPage() != null && response.getResult().get(0).getKitchenPage().size() > 0) {

@@ -140,7 +140,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public void checkApiSuccess() {
        if (flagCollocetion&&flagKitchen&&flagRegion){
            if (getNavigator()!=null){
-               getNavigator().checkApiSuccessMetrics();
+               getNavigator().checkApiSuccessMetrics(pageid.get());
            }
        }
     }
@@ -159,10 +159,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     public ObservableList<KitchenResponse.Result> getKitchenItemViewModels() {
-        return kitchenItemViewModels;
-    }
-
-    public ObservableList<KitchenResponse.Result> getKitchenListAnalytics() {
         return kitchenItemViewModels;
     }
 

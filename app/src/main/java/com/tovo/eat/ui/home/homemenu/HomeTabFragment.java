@@ -114,6 +114,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private boolean isLastPage = false;
     private int totalPage = 10;
     private boolean isLoading = false;
+    int pgId=0;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -193,7 +194,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             StringBuilder unServiceableKitchenSb = new StringBuilder();
             StringBuilder regionSb = new StringBuilder();
 
-            kicthenListAnalytics = mHomeTabViewModel.getKitchenListAnalytics();
+            kicthenListAnalytics = mHomeTabViewModel.getKitchenItemViewModels();
             regionListAnalytics = mHomeTabViewModel.getRegionListAnalytics();
 
             for (int i = 0; i < kicthenListAnalytics.size(); i++) {
@@ -234,6 +235,64 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
             new Analytics().appOpensMetrics(screenName,serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
                     strServiceableKitchen, strUnServiceableKitchen, strRegionList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void metricsAppHome(String screenName) {
+        try {
+            kicthenListAnalytics = new ArrayList<>();
+            regionListAnalytics = new ArrayList<>();
+            serviceableKitchenListAnalytics = new ArrayList<>();
+            unServiceableKitchenListAnalytics = new ArrayList<>();
+            regionForListAnalytics = new ArrayList<>();
+            int serviceableCount = 0, unServiceableCount = 0, regionCount = 0;
+            StringBuilder serviceableKitchenSb = new StringBuilder();
+            StringBuilder unServiceableKitchenSb = new StringBuilder();
+            StringBuilder regionSb = new StringBuilder();
+
+            kicthenListAnalytics = mHomeTabViewModel.getKitchenItemViewModels();
+            regionListAnalytics = mHomeTabViewModel.getRegionListAnalytics();
+
+            for (int i = 0; i < kicthenListAnalytics.size(); i++) {
+                if (kicthenListAnalytics.get(i).getType() == 0) {
+                    if (kicthenListAnalytics.get(i).getServiceablestatus()) {
+                        serviceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        serviceableCount = serviceableKitchenListAnalytics.size();
+                        serviceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    } else {
+                        unServiceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        unServiceableCount = unServiceableKitchenListAnalytics.size();
+                        unServiceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    }
+                }
+            }
+
+            for (int j = 0; j < regionListAnalytics.size(); j++) {
+                regionForListAnalytics.add(regionListAnalytics.get(j).getRegionname());
+                regionCount = regionForListAnalytics.size();
+                regionSb.append(regionListAnalytics.get(j).getRegionid()).append(",");
+            }
+
+            String regionList = regionSb.toString();
+            String strServiceableKitchenSb = serviceableKitchenSb.toString();
+            String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
+            String addressTitle = mHomeTabViewModel.getDataManager().getCurrentAddressTitle();
+
+            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
+            if (regionList.length()>0) {
+                strRegionList = regionList.substring(0, regionList.length() - 1);
+            }
+            if (strServiceableKitchenSb.length()>0){
+                strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
+            }
+            if (strUnServiceableKitchenSb.length()>0){
+                strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
+            }
+
+            new Analytics().appHomeMetrics(screenName,serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
+                    strServiceableKitchen, strUnServiceableKitchen, strRegionList,pgId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -376,8 +435,14 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     }
 
     @Override
-    public void checkApiSuccessMetrics() {
-        metricsAppOpens("");
+    public void checkApiSuccessMetrics(int pageid) {
+        subscribeToLiveData();
+        this.pgId = pageid;
+        if (pageid==1) {
+            metricsAppOpens("");
+        }else {
+            metricsAppHome("");
+        }
     }
 
     @Override

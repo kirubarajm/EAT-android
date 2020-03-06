@@ -169,7 +169,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void dishListLoaded(KitchenDetailsResponse response) {
         stopKitchenLoader();
-        mFragmentDishBinding.headerContent1.setText(Html.fromHtml(response.getResult().get(0).getKitchen_page_header_content1()));
+        String strContent = response.getResult().get(0).getKitchen_page_header_content1();
+        mFragmentDishBinding.headerContent1.setText(Html.fromHtml(strContent));
         mFragmentDishBinding.headerContent2.setText(Html.fromHtml(response.getResult().get(0).getKitchen_page_header_content2()));
     }
 
