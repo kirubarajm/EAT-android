@@ -499,6 +499,7 @@ public class AppConstants {
     public static final String KITCHEN_PAGE_PRODUCT_FAVORITE_SECTION_COUNT = "kp_favp";
     public static final String KITCHEN_PAGE_PRODUCT_OTHER_COMBOS_SECTION_COUNT = "kp_comp";
     public static final String KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_SECTION_COUNT = "kp_itemp";
+    public static final String KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_COMBO_TDYS_MENU_COUNT = "kp_favp_comp_itemp";
     public static final String KITCHEN_PAGE_NEXT_AVAILABLE_PRODUCT_COUNT = "kp_nap";
     public static final String KITCHEN_PAGE_SERVICEABILITY = "kp_serv";
     public static final String KITCHEN_PAGE_HOME_MAKER_BADGE = "kp_bdge";

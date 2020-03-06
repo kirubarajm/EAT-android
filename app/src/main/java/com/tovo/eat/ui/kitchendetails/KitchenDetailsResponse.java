@@ -288,7 +288,10 @@ public class KitchenDetailsResponse {
             }else {
                 return false;
             }
+        }
 
+        public Integer getNextAvailableAnalytics() {
+            return nextAvailable;
         }
 
         public void setNextAvailable(Integer nextAvailable) {
@@ -302,7 +305,6 @@ public class KitchenDetailsResponse {
         public void setNextAvailableTime(String nextAvailableTime) {
             this.nextAvailableTime = nextAvailableTime;
         }
-
     }
 
     public class Result {
@@ -331,6 +333,29 @@ public class KitchenDetailsResponse {
         @SerializedName("makeitimg")
         @Expose
         private String makeitimg;
+        @SerializedName("rating")
+        @Expose
+        private Double rating;
+        @SerializedName("eta")
+        @Expose
+        private String eta;
+
+
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
+        }
+
+        public Double getRating() {
+            return rating;
+        }
+
+        public void setRating(Double rating) {
+            this.rating = rating;
+        }
 
         @SerializedName("kitchen_page_header_content1")
         @Expose

@@ -106,7 +106,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         mProductLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentDishBinding.recyclerviewProducts.setLayoutManager(mProductLayoutManager);
         mFragmentDishBinding.recyclerviewProducts.setAdapter(mKitchenProductsAdapter);
-
     }
 
 

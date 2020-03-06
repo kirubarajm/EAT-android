@@ -5,7 +5,6 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
-import android.text.Html;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,13 +15,13 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigator> {
@@ -76,12 +75,10 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
         productListViewModels.addAll(productList);
     }
 
-     public void addHeadersToList(List<KitchenDetailsResponse.KitchenPage> headers) {
+    public void addHeadersToList(List<KitchenDetailsResponse.KitchenPage> headers) {
         headerItemViewModels.clear();
-         headerItemViewModels.addAll(headers);
+        headerItemViewModels.addAll(headers);
     }
-
-
 
 
     public MutableLiveData<List<KitchenDetailsResponse.Product>> getProductListLiveData() {
@@ -268,7 +265,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                             //headerContent1.set(String.valueOf(Html.fromHtml(response.getResult().get(0).getKitchen_page_header_content1())));
                             //headerContent2.set(response.getResult().get(0).getKitchen_page_header_content2());
-                            makeitName.set("by "+response.getResult().get(0).getMakeitusername());
+                            makeitName.set("by " + response.getResult().get(0).getMakeitusername());
 
                             if (response.getResult().get(0).getKitchenPage() != null && response.getResult().get(0).getKitchenPage().size() > 0) {
 
@@ -303,8 +300,26 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             isProductAvailable.set(false);
                         }
                     }
-
                     getNavigator().dishListLoaded(response);
+                    try {
+                        /////For Analytics
+                        if (response != null && response.getResult() != null && response.getResult().size() > 0) {
+                            int nextAvlbeCount = 0;
+                            if (response.getResult().get(0).getProduct() != null && response.getResult().get(0).getProduct().size() > 0) {
+                                for (int i = 0; i < response.getResult().get(0).getProduct().size(); i++) {
+                                    for (int j = 0; j < response.getResult().get(0).getProduct().get(i).getProductList().size(); j++) {
+                                        if (response.getResult().get(0).getProduct().get(i).getProductList().get(j).getNextAvailableAnalytics() == 1) {
+                                            nextAvlbeCount++;
+                                        }
+                                    }
+                                }
+                                new Analytics().kitchenPageMetrics(makeitId, response.getResult().get(0).getEta(), response.getResult().get(0).getRating(), response.getResult().get(0).getProduct(), nextAvlbeCount, response.getResult().get(0).getServiceablestatus(), response.getResult().get(0).getMemberType(),
+                                        response.getResult().get(0).getIsfav(), "0", "");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -350,8 +365,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             }
 
 
-
-
                             if (response.getResult().get(0).getKitchenPage() != null && response.getResult().get(0).getKitchenPage().size() > 0) {
 
                                 headerItemLiveData.setValue(response.getResult().get(0).getKitchenPage());
@@ -384,8 +397,6 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         } else {
                             isProductAvailable.set(false);
                         }
-
-
                     }
                 }
             }, new Response.ErrorListener() {
