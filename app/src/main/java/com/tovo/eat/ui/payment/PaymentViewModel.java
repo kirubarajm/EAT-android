@@ -137,7 +137,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
 
     public void cashOnDelivery() {
 
-        new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_ORDER_PLACED);
+        //new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_ORDER_PLACED);
+
 
         new Analytics().sendClickData(AppConstants.SCREEN_PAYMENT, AppConstants.CLICK_COD);
 
@@ -186,7 +187,8 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                 Gson gson = new Gson();
                 String json = gson.toJson(placeOrderRequestPojo1);
 
-
+                getDataManager().getCouponId();
+                getDataManager().getRefundId();
                 setIsLoading(true);
 
 
@@ -276,7 +278,7 @@ public class PaymentViewModel extends BaseViewModel<PaymentNavigator> {
                     cashOnDelivery();
                 } else {
                     clickable.set(true);
-                    new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_USER_REGISTRATION);
+                   // new Analytics().paymentMethodPageMetrics("","cash",AppConstants.SCREEN_USER_REGISTRATION);
                     getNavigator().postRegistration(AppConstants.COD_REQUESTCODE);
                 }
             }

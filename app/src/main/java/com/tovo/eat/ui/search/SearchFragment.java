@@ -377,10 +377,24 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding, SearchVi
                     regionSb.append(searchItemViewModels.get(i).getName()).append(",");
                 }
             }
-            String strRegion = regionSb.toString();String strKitchen = kitchenSb.toString();String strDish = dishSb.toString();
-            new Analytics().searchMetrics("",searchText, regionCount, kitchenCount, dishCount, searchClicked.getType(), searchClicked.getId(),
-                    nextPage, strRegion.substring(0, strRegion.length() - 1), strKitchen.substring(0, strKitchen.length() - 1),
-                    strDish.substring(0, strDish.length() - 1));
+            String strRegion = regionSb.toString();
+            String strKitchen = kitchenSb.toString();
+            String strDish = dishSb.toString();
+            String Region="",Kitchen="",Dish="";
+
+            if (!strRegion.equals(""))
+            {
+                Region  = strRegion.substring(0, strRegion.length() - 1);
+            }
+            if (!strKitchen.equals(""))
+            {
+                Kitchen  = strKitchen.substring(0, strKitchen.length() - 1);
+            } if (!strDish.equals(""))
+            {
+                Dish  = strDish.substring(0, strDish.length() - 1);
+            }
+            new Analytics().searchMetrics("",searchText, regionCount, kitchenCount, dishCount, searchClicked.getType(),
+                    searchClicked.getId(), nextPage,Region ,Kitchen ,Dish);
         } catch (Exception e) {
             e.printStackTrace();
         }

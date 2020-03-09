@@ -422,7 +422,4 @@ public class PaymentActivity extends BaseActivity<ActivityPaymentBinding, Paymen
 
     }
 
-    public void metricsPaymentPage(){
-        new Analytics().paymentMethodPageMetrics("","back click",AppConstants.SCREEN_CART_PAGE);
-    }
 }
