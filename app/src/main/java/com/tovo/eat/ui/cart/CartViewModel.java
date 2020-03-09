@@ -342,7 +342,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
     public String getCartPojoDetails() {
 
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
 
 
@@ -424,8 +424,8 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void fetchRepos() {
-        if (getNavigator()!=null)
-        getNavigator().clearToolTips();
+        if (getNavigator() != null)
+            getNavigator().clearToolTips();
 
         promocode.set(getDataManager().getCouponCode());
 
@@ -553,7 +553,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         favId = cartPageResponse.getResult().get(0).getFavid();
 
 
-                                    if (cartPageResponse.getResult().get(0).getAmountdetails()!=null){
+                                    if (cartPageResponse.getResult().get(0).getAmountdetails() != null) {
                                         lowCostStatus.set(cartPageResponse.getResult().get(0).getAmountdetails().isProductCostLimitStatus());
                                         lowCost.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitMessage());
                                         lowCostShort.set(cartPageResponse.getResult().get(0).getAmountdetails().getProductCostLimitShortMessage());
@@ -604,7 +604,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                         xfactorClick.set(true);
 
-                        if (getNavigator()!=null){
+                        if (getNavigator() != null) {
                             getNavigator().metricsCartOpen();
                         }
                     }
@@ -654,7 +654,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void paymentModeCheck(String instructions) {
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
         new Analytics().sendClickData(AppConstants.SCREEN_CART_PAGE, AppConstants.CLICK_PROCEED_TO_PAY);
 
@@ -807,7 +807,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void cashMode() {
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
         if (getDataManager().getEmailStatus()) {
             try {
@@ -920,7 +920,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void funnelMode() {
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
         try {
 
@@ -1034,7 +1034,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
 
     public void xfactor(String instructions) {
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
         xfactorClick.set(false);
         try {
@@ -1105,8 +1105,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                     getDataManager().orderInstruction(instructions);
 
-                                    if (getDataManager().getTotalOrders() == 0) {
-
+                                   /* if (getDataManager().getTotalOrders() == 0) {
 
                                         if (totalAmount == 0) {
                                             if (getDataManager().getRefundId() != 0) {
@@ -1138,7 +1137,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                             }
 
                                         }
-                                    } else {
+                                    } else {*/
 
                                         if (getDataManager().getEmailStatus()) {
                                             if (totalAmount == 0) {
@@ -1173,7 +1172,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                             if (getNavigator() != null)
                                                 getNavigator().postRegistration("cart", grand_total.get());
 
-                                        }
+                                       // }
 
                                     }
 
@@ -1227,7 +1226,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     }
 
     public void fetchSuggestionProducts(Long kitchenId) {
-        if (getNavigator()!=null)
+        if (getNavigator() != null)
             getNavigator().clearToolTips();
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
@@ -1246,9 +1245,9 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                             if (response.getResult().get(0).getProductlist() != null && response.getResult().get(0).getProductlist().size() > 0) {
 
-                                if (response.getResult().get(0).getProductlist().size() > 1){
+                                if (response.getResult().get(0).getProductlist().size() > 1) {
                                     suggestedProduct.set(true);
-                                }else {
+                                } else {
                                     suggestedProduct.set(false);
                                 }
 
@@ -1284,7 +1283,7 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
                                 suggestionViewLiveData.setValue(suggestionProductlists);
 
-                                if (suggestionProductlists.size()<1){
+                                if (suggestionProductlists.size() < 1) {
                                     suggestedProduct.set(false);
                                 }
 

@@ -44,6 +44,7 @@ import com.tovo.eat.ui.track.OrderTrackingResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,7 +100,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     List<StoriesResponse.Result> storiesResponseList = new ArrayList<>();
     boolean collectionAdded = false;
     boolean couponAdded = false;
-    private MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
+    public MutableLiveData<List<KitchenResponse.Result>> kitchenItemsLiveData;
     private MutableLiveData<List<RegionsResponse.Result>> regionItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Story>> storiesItemsLiveData;
     private MutableLiveData<List<KitchenResponse.Collection>> collectionItemLiveData;
@@ -653,49 +654,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                                 showFunnel.set(false);
                                             }
 
-
-
-
-                                          /*  if (collectionItemViewModels.size() > 0) {
-                                                IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
-                                                kitchenResponse1.setCollection(collectionItemViewModels);
-                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                                collectionAdded = true;
->>>>>>> infinity_screen
-                                            }
-
-                                            if (couponListItemViewModels.size() > 0) {
-
-                                                if (kitchenResponse.getResult().size() > 4) {
-                                                    IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
-                                                    kitchenResponse2.setCoupons(couponListItemViewModels);
-                                                    kitchenResponse.getResult().add(2, kitchenResponse2);
-                                                    couponAdded = true;
-                                                } else {
-                                                    IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
-                                                    kitchenResponse2.setCoupons(couponListItemViewModels);
-                                                    kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
-                                                    couponAdded = true;
-                                                }
-
-                                            }*/
-
-                                    /*    IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
-                                        kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-                                        kitchenItemViewModels.clear();
-                                        kitchenItemViewModels.add(3, kitchenResponse1);
-                                        kitchenResponse.setResult(kitchenItemViewModels);
-*/
-                                            //  kitchenItemsLiveData.setValue(null);
-
-                                            //  kitchenItemsLiveData.setValue(kitchenResponse.getResult());
-
                                             kitchenItemsLiveData.postValue(kitchenResponse.getResult());
+                                            metricsAppHome(kitchenResponse.getResult());
 
-
-                                            //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
-                                            //   addKitchenItemsToList(kitchenItemViewModelstemp);
                                             try {
                                                 if (getNavigator() != null)
                                                     getNavigator().kitchenLoaded();
@@ -875,49 +836,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
 
-                                      /*  if (collectionItemViewModels.size() > 0) {
-                                            IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
-                                            kitchenResponse1.setCollection(collectionItemViewModels);
-                                            kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2), kitchenResponse1);
-                                            collectionAdded = true;
->>>>>>> infinity_screen
-                                        }
-
-
-                                        if (couponListItemViewModels.size() > 0) {
-
-
-                                            if (kitchenResponse.getResult().size() > 4) {
-                                                IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
-                                                kitchenResponse2.setCoupons(couponListItemViewModels);
-                                                kitchenResponse.getResult().add(2, kitchenResponse2);
-                                                couponAdded = true;
-                                            } else {
-                                                IssuesListResponse.Result kitchenResponse2 = new IssuesListResponse.Result();
-                                                kitchenResponse2.setCoupons(couponListItemViewModels);
-                                                kitchenResponse.getResult().add(Math.round(kitchenResponse.getResult().size() / 2) + 1, kitchenResponse2);
-                                                couponAdded = true;
-                                            }
-
-
-                                        }*/
-
-
-                                    /*    IssuesListResponse.Result kitchenResponse1 = new IssuesListResponse.Result();
-                                        kitchenResponse1.setMakeitbrandname("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-                                        kitchenItemViewModels.clear();
-                                        kitchenItemViewModels.add(3, kitchenResponse1);
-                                        kitchenResponse.setResult(kitchenItemViewModels);
-*/
-                                        //  kitchenItemsLiveData.setValue(null);
-
-
-                                        //kitchenItemsLiveData.setValue(kitchenResponse.getResult());
                                         kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
-                                        //  kitchenItemViewModelstemp.addAll(kitchenResponse.getResult());
-                                        //   addKitchenItemsToList(kitchenItemViewModelstemp);
+
+                                        metricsAppHome(kitchenResponse.getResult());
+
                                         try {
 
                                             getNavigator().kitchenLoaded();
@@ -1441,6 +1364,73 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
 
 
+    }
+    public void metricsAppHome(List<KitchenResponse.Result> kitchenItemViewModel) {
+
+        List<KitchenResponse.Result> kicthenListAnalytics;
+        List<RegionsResponse.Result> regionListAnalytics;
+        ArrayList<String> serviceableKitchenListAnalytics;
+        ArrayList<String> unServiceableKitchenListAnalytics;
+        ArrayList<String> regionForListAnalytics;
+
+
+        try {
+            kicthenListAnalytics = new ArrayList<>();
+            regionListAnalytics = new ArrayList<>();
+            serviceableKitchenListAnalytics = new ArrayList<>();
+            unServiceableKitchenListAnalytics = new ArrayList<>();
+            regionForListAnalytics = new ArrayList<>();
+            int serviceableCount = 0, unServiceableCount = 0, regionCount = 0;
+            StringBuilder serviceableKitchenSb = new StringBuilder();
+            StringBuilder unServiceableKitchenSb = new StringBuilder();
+            StringBuilder regionSb = new StringBuilder();
+
+            //  kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+            kicthenListAnalytics = kitchenItemsLiveData.getValue();
+            kicthenListAnalytics.addAll(kitchenItemViewModel);
+            regionListAnalytics = regionItemViewModels;
+
+            for (int i = 0; i < kicthenListAnalytics.size(); i++) {
+                if (kicthenListAnalytics.get(i).getType() == 0) {
+                    if (kicthenListAnalytics.get(i).getServiceablestatus()) {
+                        serviceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        serviceableCount = serviceableKitchenListAnalytics.size();
+                        serviceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    } else {
+                        unServiceableKitchenListAnalytics.add(String.valueOf(kicthenListAnalytics.get(i).getMakeituserid()));
+                        unServiceableCount = unServiceableKitchenListAnalytics.size();
+                        unServiceableKitchenSb.append(kicthenListAnalytics.get(i).getMakeituserid()).append(",");
+                    }
+                }
+            }
+
+            for (int j = 0; j < regionListAnalytics.size(); j++) {
+                regionForListAnalytics.add(regionListAnalytics.get(j).getRegionname());
+                regionCount = regionForListAnalytics.size();
+                regionSb.append(regionListAnalytics.get(j).getRegionid()).append(",");
+            }
+
+            String regionList = regionSb.toString();
+            String strServiceableKitchenSb = serviceableKitchenSb.toString();
+            String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
+            String addressTitle = getDataManager().getCurrentAddressTitle();
+
+            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
+            if (regionList.length()>0) {
+                strRegionList = regionList.substring(0, regionList.length() - 1);
+            }
+            if (strServiceableKitchenSb.length()>0){
+                strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
+            }
+            if (strUnServiceableKitchenSb.length()>0){
+                strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
+            }
+
+            new Analytics().appHomeMetrics("",serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
+                    strServiceableKitchen, strUnServiceableKitchen, strRegionList,pageid.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

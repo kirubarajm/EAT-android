@@ -26,6 +26,8 @@ import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivityRegistrationBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.orderplaced.OrderPlacedActivity;
+import com.tovo.eat.ui.payment.PaymentActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -95,16 +97,31 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         Toast.makeText(getApplicationContext(), strSucess, Toast.LENGTH_SHORT).show();
 
 
-        Intent intent=new Intent();
+        /*Intent intent=new Intent();
         intent.putExtra("status",true);
         setResult(Activity.RESULT_OK,intent);
-        finish();//finishing activity
+        finish();//finishing activity*/
+
+
+        Intent intent = PaymentActivity.newIntent(RegistrationActivity.this);
+        intent.putExtra("amount", total);
+        startActivity(intent);
+
 
     }
 
     @Override
     public void regFailure() {
        // Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void orderCompleted() {
+
+        Intent newIntent = OrderPlacedActivity.newIntent(RegistrationActivity.this);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(newIntent);
+        finish();
     }
 
     @Override
@@ -203,6 +220,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         if (intent.getExtras() != null) {
             fromScreen = intent.getExtras().getString("type");
             total = intent.getExtras().getString("amount");
+            mRegistrationActivityViewModel.grandTotal=total;
         }
 
 

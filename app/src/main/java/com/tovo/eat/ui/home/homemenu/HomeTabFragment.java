@@ -194,8 +194,8 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             StringBuilder unServiceableKitchenSb = new StringBuilder();
             StringBuilder regionSb = new StringBuilder();
 
-            kicthenListAnalytics = mHomeTabViewModel.getKitchenItemViewModels();
-            regionListAnalytics = mHomeTabViewModel.getRegionListAnalytics();
+            kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+            regionListAnalytics = mHomeTabViewModel.regionItemViewModels;
 
             for (int i = 0; i < kicthenListAnalytics.size(); i++) {
                 if (kicthenListAnalytics.get(i).getType() == 0) {
@@ -252,8 +252,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             StringBuilder unServiceableKitchenSb = new StringBuilder();
             StringBuilder regionSb = new StringBuilder();
 
-            kicthenListAnalytics = mHomeTabViewModel.getKitchenItemViewModels();
-            regionListAnalytics = mHomeTabViewModel.getRegionListAnalytics();
+          //  kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+            kicthenListAnalytics = mHomeTabViewModel.kitchenItemsLiveData.getValue();
+            regionListAnalytics = mHomeTabViewModel.regionItemViewModels;
 
             for (int i = 0; i < kicthenListAnalytics.size(); i++) {
                 if (kicthenListAnalytics.get(i).getType() == 0) {
@@ -436,12 +437,11 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void checkApiSuccessMetrics(int pageid) {
-        subscribeToLiveData();
         this.pgId = pageid;
         if (pageid==1) {
             metricsAppOpens("");
         }else {
-            metricsAppHome("");
+         //   metricsAppHome("");
         }
     }
 

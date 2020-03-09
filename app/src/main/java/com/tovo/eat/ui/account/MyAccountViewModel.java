@@ -34,12 +34,10 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         //fetchUserDetails();
 
 
-
-
     }
 
 
-    public void loadUserDetails(){
+    public void loadUserDetails() {
         userName.set(getDataManager().getCurrentUserName());
         userEmail.set(getDataManager().getCurrentUserEmail());
         userPhoneNo.set(getDataManager().getCurrentUserPhNo());
@@ -99,9 +97,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
             ee.printStackTrace();
 
         }
-
     }
-
 
     public void feedbackAndSupport() {
         getNavigator().feedbackAndSupport();
@@ -124,8 +120,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().setCurrentLat(0.0);
         getDataManager().setCurrentLng(0.0);
 
-
-        getDataManager().updateCurrentAddress(null,null,0.0,0.0,null,0L);
+        getDataManager().updateCurrentAddress(null, null, 0.0, 0.0, null, 0L);
         getDataManager().updateUserGender(false);
         getDataManager().updateEmailStatus(false);
         getDataManager().updateUserPasswordStatus(false);
@@ -143,7 +138,7 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().saveRegionId(0);
         getDataManager().saveCouponId(0);
         getDataManager().saveRatingOrderId(0L);
-        getDataManager().saveRatingSkipDate(null,0);
+        getDataManager().saveRatingSkipDate(null, 0);
         getDataManager().saveRatingSkipDate(0);
         getDataManager().saveRatingAppStatus(false);
         getDataManager().saveIsFilterApplied(false);
@@ -156,8 +151,9 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
         getDataManager().officeAddressadded(false);
         getDataManager().isFavClicked(false);
         getDataManager().appStartedAgain(false);
-        getDataManager().saveFirstLocation(null,null,null);
-
+        getDataManager().saveFirstLocation(null, null, null);
+        getDataManager().setHomeAddressAdded(false);
+        getDataManager().setOfficeAddressAdded(false);
 
     }
 
@@ -191,15 +187,15 @@ public class MyAccountViewModel extends BaseViewModel<MyAccountNavigator> {
                             // userPhoneNo.set(getDataManager().getCurrentUserPhNo());
                             if (response.getResult() != null && response.getResult().size() > 0) {
 
-                                if (response.getResult().get(0).getRegionid()==0){
+                                if (response.getResult().get(0).getRegionid() == 0) {
                                     regionname.set(response.getResult().get(0).getOtherHometown());
-                                }else {
+                                } else {
                                     regionname.set(response.getResult().get(0).getRegionname());
 
                                 }
 
 
-                             //   regionname.set(response.getResult().get(0).getRegionname());
+                                //   regionname.set(response.getResult().get(0).getRegionname());
 
                                 if (response.getResult().get(0).getGender() == 1) {
 

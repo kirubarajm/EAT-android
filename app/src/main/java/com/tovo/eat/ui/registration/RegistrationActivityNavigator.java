@@ -14,6 +14,8 @@ public interface RegistrationActivityNavigator {
 
     void regFailure();
 
+    void orderCompleted();
+
     void regionList(List<RegionResponse.Result> regionList);
 
     void showToast(String msg);
