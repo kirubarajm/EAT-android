@@ -87,8 +87,8 @@ public class CartDishItemViewModel {
         if (checkQuantity + 1 <= dishList.getQuantity()) {
             quantity.set(quantity.get() + 1);
 
-            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
-
+            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                    String.valueOf(dishList.getIsfav()),"+1");
         } else {
             Toast.makeText(MvvmApp.getInstance(), "Only " + dishList.getQuantity() + " Quantity of " + dishList.getProductName() + " Available", Toast.LENGTH_SHORT).show();
             return;
@@ -147,7 +147,8 @@ public class CartDishItemViewModel {
 
         quantity.set(quantity.get() - 1);
 
-        new Analytics().removeFromCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                String.valueOf(dishList.getIsfav()),"-1");
 
 
         sQuantity.set(String.valueOf(quantity.get()));
@@ -221,7 +222,8 @@ public class CartDishItemViewModel {
         quantity.set(1);
         sQuantity.set(String.valueOf(quantity.get()));
 
-        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_CART_PAGE,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                String.valueOf(dishList.getIsfav()),"+1");
 
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(mListener.addQuantity(), CartRequestPojo.class);

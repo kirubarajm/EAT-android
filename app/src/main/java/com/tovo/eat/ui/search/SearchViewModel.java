@@ -26,6 +26,7 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
 import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.utilities.analytics.Analytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,8 +64,8 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
 
     }
 
-    public ObservableList<SearchResponse.Result> getSearchListAnalytics()    {
-        return(searchItemViewModels);
+    public ObservableList<SearchResponse.Result> getSearchListAnalytics() {
+        return (searchItemViewModels);
     }
 
 
@@ -159,17 +160,50 @@ public class SearchViewModel extends BaseViewModel<SearchNavigator> {
             GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_EXPLORE_SEARCH, SearchResponse.class, new SearchRequest(data), new Response.Listener<SearchResponse>() {
                 @Override
                 public void onResponse(SearchResponse response) {
+                    if (response.getResult() != null) {
+                        searchItemsLiveData.setValue(response.getResult());
+                        try {
+                            StringBuilder dishSb = new StringBuilder();
+                            StringBuilder kitchenSb = new StringBuilder();
+                            StringBuilder regionSb = new StringBuilder();
+                            int dishCount = 0, kitchenCount = 0, regionCount = 0;
+                            for (int i = 0; i < searchItemViewModels.size(); i++) {
+                                if (searchItemViewModels.get(i).getType() == 1) {
+                                    dishCount++;
+                                    dishSb.append(searchItemViewModels.get(i).getName()).append(",");
+                                } else if (searchItemViewModels.get(i).getType() == 2) {
+                                    kitchenCount++;
+                                    kitchenSb.append(searchItemViewModels.get(i).getName()).append(",");
+                                } else if (searchItemViewModels.get(i).getType() == 3) {
+                                    regionCount++;
+                                    regionSb.append(searchItemViewModels.get(i).getName()).append(",");
+                                }
+                            }
+                            String strRegion = regionSb.toString();
+                            String strKitchen = kitchenSb.toString();
+                            String strDish = dishSb.toString();
+                            String Region = "", Kitchen = "", Dish = "";
 
-
-                    searchItemsLiveData.setValue(response.getResult());
+                            if (!strRegion.equals("")) {
+                                Region = strRegion.substring(0, strRegion.length() - 1);
+                            }
+                            if (!strKitchen.equals("")) {
+                                Kitchen = strKitchen.substring(0, strKitchen.length() - 1);
+                            }
+                            if (!strDish.equals("")) {
+                                Dish = strDish.substring(0, strDish.length() - 1);
+                            }
+                            new Analytics().searchSuggestionPageMetrics(data, regionCount, Region, kitchenCount, Kitchen, dishCount, Dish);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     if (getNavigator() != null)
                         getNavigator().listLoaded();
-
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
 
                 }
             }, AppConstants.API_VERSION_ONE);

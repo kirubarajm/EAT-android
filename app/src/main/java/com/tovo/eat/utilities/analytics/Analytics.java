@@ -425,7 +425,6 @@ public class Analytics {
         bundle.putInt(AppConstants.APP_OPENS_UNSERVICEABLE_COUNT, unServiceableCount);
         bundle.putInt(AppConstants.APP_OPENS_REGION_COUNT, regionCount);
         bundle.putString(AppConstants.APP_OPENS_ADDRESS_TYPE, addressType);
-        //bundle.putString(AppConstants.APP_OPENS_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.APP_OPENS_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
         bundle.putString(AppConstants.APP_OPENS_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
         bundle.putString(AppConstants.APP_OPENS_REGIONS_LIST, regionList);
@@ -447,7 +446,6 @@ public class Analytics {
         bundle.putInt(AppConstants.APP_HOME_UNSERVICEABLE_COUNT, unServiceableCount);
         bundle.putInt(AppConstants.APP_HOME_REGION_COUNT, regionCount);
         bundle.putString(AppConstants.APP_HOME_ADDRESS_TYPE, addressType);
-        //bundle.putString(AppConstants.APP_HOME_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.APP_HOME_SERVICEABLE_KITCHEN_LIST, serviceableKitchens);
         bundle.putString(AppConstants.APP_HOME_UNSERVICEABLE_KITCHEN_LIST, unServiceableKitchens);
         bundle.putString(AppConstants.APP_HOME_REGIONS_LIST, regionList);
@@ -470,12 +468,9 @@ public class Analytics {
             bundle.putLong(AppConstants.KITCHEN_PAGE_MAKEIT_ID, makeitId);
             bundle.putString(AppConstants.KITCHEN_PAGE_ETA, eta);
             bundle.putDouble(AppConstants.KITCHEN_PAGE_RATING, rating);
-            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_FAVORITE_SECTION_COUNT, productFavSectionCount);
-            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_COMBOS_SECTION_COUNT, productOtherCombosSectionCount);
-            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_SECTION_COUNT, productOtherItemsSectionCount);
             if (favOtherItemsTdysmenu != null && favOtherItemsTdysmenu.size() > 0) {
                 for (int i = 0; i < favOtherItemsTdysmenu.size(); i++) {
-                    bundle.putInt(favOtherItemsTdysmenu.get(i).getTitle().replace(" ", "_"), favOtherItemsTdysmenu.get(i).getProductList().size());
+                    bundle.putInt("kp" + favOtherItemsTdysmenu.get(i).getTitle().replace(" ", "_").toLowerCase(), favOtherItemsTdysmenu.get(i).getProductList().size());
                 }
             }
             bundle.putInt(AppConstants.KITCHEN_PAGE_NEXT_AVAILABLE_PRODUCT_COUNT, nextAvailableProductCount);
@@ -483,7 +478,6 @@ public class Analytics {
             bundle.putInt(AppConstants.KITCHEN_PAGE_HOME_MAKER_BADGE, homeMakerBadge);
             bundle.putString(AppConstants.KITCHEN_PAGE_FAVORITE_BY_USER, favoriteByUser);
             bundle.putString(AppConstants.KITCHEN_PAGE_VEG_ONLY, vegOnly);
-            //bundle.putString(AppConstants.KITCHEN_NEXT_PAGE, nextPage);
 
             mFirebaseAnalytics.logEvent(AppConstants.METRICS_KITCHEN_PAGE, bundle);
         } catch (Exception e) {
@@ -505,7 +499,6 @@ public class Analytics {
         bundle.putString(AppConstants.REGION_PAGE_REGION_NAME, regionName);
         bundle.putInt(AppConstants.REGION_PAGE_SERVICEABLE_COUNT, serviceableCount);
         bundle.putInt(AppConstants.REGION_PAGE_UNSERVICEABLE_COUNT, unServiceableCount);
-        //bundle.putString(AppConstants.REGION_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.REGION_PAGE_SERVICEABLE_KITCHEN_LIST, serviceableKitchensList);
         bundle.putString(AppConstants.REGION_PAGE_UNSERVICEABLE_KITCHEN_LIST, unserviceableKitchensList);
 
@@ -514,8 +507,7 @@ public class Analytics {
 
     /////SEARCH
     public void searchMetrics(String prevPage, String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
-                              int uniqueId, String nextPage, String regionSuggestionList, String kitchenSuggestionList,
-                              String dishSuggestionList) {
+                              int uniqueId, String nextPage, String regionSuggestionList, String kitchenSuggestionList, String dishSuggestionList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -526,20 +518,18 @@ public class Analytics {
         bundle.putString(AppConstants.SEARCH_PREVOIUS_PAGE, prevPage);
         bundle.putInt(AppConstants.REGION_SUGGESTION_COUNT, regionSuggestionCount);
         bundle.putInt(AppConstants.KITCHEN_SUGGESTION_COUNT, kitchenSuggestionCount);
-        bundle.putInt(AppConstants.KITCHEN_SUGGESTION_COUNT, kitchenSuggestionCount);
         bundle.putInt(AppConstants.DISH_SUGGESTION_COUNT, dishSuggestionCount);
         bundle.putInt(AppConstants.TYPE, type);
         bundle.putInt(AppConstants.UNIQUE_ID, uniqueId);
-        //bundle.putString(AppConstants.SEARCH_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.REGION_SUGGESTION_LIST, regionSuggestionList);
         bundle.putString(AppConstants.KITCHEN_SUGGESTION_LIST, kitchenSuggestionList);
-        bundle.putString(AppConstants.dish_SUGGESTION_LIST, dishSuggestionList);
+        bundle.putString(AppConstants.DISH_SUGGESTION_LIST, dishSuggestionList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH, bundle);
     }
 
     /////ADD TO CART
-    public void addToCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite) {
+    public void addToCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite, String action) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -552,28 +542,9 @@ public class Analytics {
         bundle.putInt(AppConstants.ADD_TO_CART_QUANTITY, quantity);
         //bundle.putString(AppConstants.ADD_TO_CART_PRODUCT_TYPE, productType);
         bundle.putString(AppConstants.ADD_TO_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
-        //bundle.putString(AppConstants.ADD_TO_CART_NEXT_PAGE, nextPage);
+        bundle.putString(AppConstants.ADD_TO_CART_ACTION, action);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_ADD_TO_CART, bundle);
-    }
-
-    /////REMOVE FROM CART
-    public void removeFromCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite) {
-        if (BuildConfig.ENABLE_DEBUG) return;
-        if (mFirebaseAnalytics == null) {
-            addProperties();
-        }
-        Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putInt(AppConstants.REMOVE_FROM_CART_PRODUCT_ID, productId);
-        bundle.putString(AppConstants.REMOVE_FROM_CART_CURRENT_PAGE, currentPage);
-        bundle.putInt(AppConstants.REMOVE_FROM_CART_PRICE, price);
-        bundle.putInt(AppConstants.REMOVE_FROM_CART_QUANTITY, quantity);
-        //bundle.putString(AppConstants.REMOVE_FROM_CART_PRODUCT_TYPE, productType);
-        bundle.putString(AppConstants.REMOVE_FROM_CART_IS_FAVORITE_PRODUCT, isProductFavorite);
-        //bundle.putString(AppConstants.REMOVE_FROM_CART_NEXT_PAGE, nextPage);
-
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_REMOVE_FROM_CART, bundle);
     }
 
     /////OPEN CART PAGE
@@ -590,7 +561,6 @@ public class Analytics {
         bundle.putInt(AppConstants.OPEN_CART_PAGE_TOTAL_AMOUNT, totalAmt);
         bundle.putString(AppConstants.OPEN_CART_PAGE_PROMO_CODE, promoCode);
         bundle.putString(AppConstants.OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE, deliveryAddressType);
-        //bundle.putString(AppConstants.OPEN_CART_NEXT_PAGE, nextPage);
         bundle.putString(AppConstants.OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST, cartProductIdQtyList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_OPEN_CART_PAGE, bundle);
@@ -606,7 +576,6 @@ public class Analytics {
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.PAYMENT_METHOD_PAGE_COD_OR_ONLINE, codOrOnline);
         bundle.putString(AppConstants.PAYMENT_METHOD_PREVIOUS_PAGE, prevPage);
-        //bundle.putString(AppConstants.PAYMENT_METHOD_PAGE_NEXT_PAGE, nextPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_PAYMENT_METHOD_PAGE, bundle);
     }
@@ -621,10 +590,28 @@ public class Analytics {
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putString(AppConstants.TRACK_ORDER_PAGE_ORDER_ID, orderId);
         bundle.putString(AppConstants.TRACK_ORDER_PREVIOUS_PAGE, prevPage);
-        //bundle.putString(AppConstants.TRACK_ORDER_NEXT_PAGE, nextPage);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_TRACK_ORDER_PAGE, bundle);
     }
 
+    /////SEARCH SUGGESTION PAGE
+    public void searchSuggestionPageMetrics(String suggestionWord, int regionCount, String regionList,int kitchenCount,String kitchenList,int dishCount,
+                                            String dishList) {
+        if (BuildConfig.ENABLE_DEBUG) return;
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putString(AppConstants.SEARCH_SUGGESTION_WORD, suggestionWord);
+        bundle.putInt(AppConstants.SEARCH_SUGGESTION_REGION_COUNT, regionCount);
+        bundle.putString(AppConstants.SEARCH_SUGGESTION_REGION_LIST, regionList);
+        bundle.putInt(AppConstants.SEARCH_SUGGESTION_KITCHEN_COUNT, kitchenCount);
+        bundle.putString(AppConstants.SEARCH_SUGGESTION_KITCHEN_LIST, kitchenList);
+        bundle.putInt(AppConstants.SEARCH_SUGGESTION_DISH_COUNT, dishCount);
+        bundle.putString(AppConstants.SEARCH_SUGGESTION_DISH_LIST, dishList);
+
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH_SUGGESTION, bundle);
+    }
 
 }

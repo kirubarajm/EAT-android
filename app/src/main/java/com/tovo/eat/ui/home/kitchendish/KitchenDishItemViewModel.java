@@ -183,7 +183,8 @@ public class KitchenDishItemViewModel {
 
 
 
-            new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+            new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                    String.valueOf(dishList.getIsfav()),"+1");
 
 
 
@@ -266,7 +267,8 @@ public class KitchenDishItemViewModel {
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         new Analytics().removeFromCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
 
-        new Analytics().removeFromCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+        new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                String.valueOf(dishList.getIsfav()),"-1");
 
 
         Gson sGson = new GsonBuilder().create();
@@ -352,7 +354,8 @@ public class KitchenDishItemViewModel {
         new Analytics(dishList.getProductid(),dishList.getProductName(),dishList.getPrice(),quantity.get(),String.valueOf(dishList.getMakeitUserid()));
         new Analytics().addtoCart(dishList.getProductid(),dishList.getProductName(),quantity.get(),dishList.getPrice());
 
-        new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
+        new Analytics().addToCartPageMetrics(screenName,dishList.getProductid(),dishList.getPrice(),quantity.get(),
+                String.valueOf(dishList.getIsfav()),"+1");
 
 
         if (cartRequestPojo == null)
