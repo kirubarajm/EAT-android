@@ -177,21 +177,17 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             mFragmentDishBinding.headerContent2.setText(Html.fromHtml(strContent2));
     }
 
-
     @Override
     public void viewCart() {
 
         new Analytics().kitchenViewcart(AppConstants.CLICK_KITCHEN_VIEW_CART, kitchenID);
-
         Intent intent = MainActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("cart", true);
         intent.putExtra("screenName", AppConstants.SCREEN_KITCHEN_DETAILS);
         startActivity(intent);
         finish();
 
-
     }
-
 
     @Override
     public void goBack() {

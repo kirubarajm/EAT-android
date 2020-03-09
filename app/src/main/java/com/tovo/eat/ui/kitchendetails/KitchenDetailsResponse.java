@@ -7,15 +7,15 @@ import java.util.List;
 
 public class KitchenDetailsResponse {
 
+    @SerializedName("result")
+    @Expose
+    public List<Result> result = null;
     @SerializedName("success")
     @Expose
     private Boolean success;
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("result")
-    @Expose
-    private List<Result> result = null;
 
     public Boolean getSuccess() {
         return success;
@@ -290,12 +290,12 @@ public class KitchenDetailsResponse {
             }
         }
 
-        public Integer getNextAvailableAnalytics() {
-            return nextAvailable;
-        }
-
         public void setNextAvailable(Integer nextAvailable) {
             this.nextAvailable = nextAvailable;
+        }
+
+        public Integer getNextAvailableAnalytics() {
+            return nextAvailable;
         }
 
         public String getNextAvailableTime() {
@@ -339,34 +339,12 @@ public class KitchenDetailsResponse {
         @SerializedName("eta")
         @Expose
         private String eta;
-
-
-        public String getEta() {
-            return eta;
-        }
-
-        public void setEta(String eta) {
-            this.eta = eta;
-        }
-
-        public Double getRating() {
-            return rating;
-        }
-
-        public void setRating(Double rating) {
-            this.rating = rating;
-        }
-
         @SerializedName("kitchen_page_header_content1")
         @Expose
         private String kitchen_page_header_content1;
-
         @SerializedName("kitchen_page_header_content2")
         @Expose
         private String kitchen_page_header_content2;
-
-
-
         @SerializedName("favid")
         @Expose
         private Integer favid;
@@ -383,6 +361,21 @@ public class KitchenDetailsResponse {
         @Expose
         private List<KitchenPage> kitchenPage = null;
 
+        public String getEta() {
+            return eta;
+        }
+
+        public void setEta(String eta) {
+            this.eta = eta;
+        }
+
+        public Double getRating() {
+            return rating;
+        }
+
+        public void setRating(Double rating) {
+            this.rating = rating;
+        }
 
         public String getKitchen_page_header_content1() {
             return kitchen_page_header_content1;

@@ -251,6 +251,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
 
+
                             serviceablestatus.set(response.getResult().get(0).getServiceablestatus());
 
                             if (response.getResult().get(0).getProduct() != null && response.getResult().get(0).getProduct().size() > 0) {
@@ -351,6 +352,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                         totalCart();
 
                         if (response.getResult() != null && response.getResult().size() > 0) {
+
 
                             serviceablestatus.set(response.getResult().get(0).getServiceablestatus());
 
