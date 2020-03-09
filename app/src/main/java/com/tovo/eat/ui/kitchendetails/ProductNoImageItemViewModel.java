@@ -192,6 +192,7 @@ public class ProductNoImageItemViewModel {
             quantity.set(quantity.get() + 1);
             new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
             new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
+            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
         } else {
             mListener.productNotAvailable(dishList.getQuantity(), dishList.getProductName());
             return;
@@ -264,6 +265,7 @@ public class ProductNoImageItemViewModel {
         results.clear();
         new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
         new Analytics().removeFromCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
+        new Analytics().removeFromCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson( dataManager.getCartDetails(), CartRequestPojo.class);
 
@@ -341,6 +343,7 @@ public class ProductNoImageItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
         new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
         new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(), String.valueOf(dishList.getIsfav()));
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 

@@ -8,10 +8,10 @@ import android.os.Bundle;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tovo.eat.BuildConfig;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -413,7 +413,7 @@ public class Analytics {
      */
     /////APP OPENS
     public void appOpensMetrics(String previousPage, int serviceableCount, int unServiceableCount, int regionCount, String addressType, /*String nextPage,*/
-                                String serviceableKitchens,String unServiceableKitchens,String regionList) {
+                                String serviceableKitchens, String unServiceableKitchens, String regionList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -435,7 +435,7 @@ public class Analytics {
 
     /////APP OPENS
     public void appHomeMetrics(String previousPage, int serviceableCount, int unServiceableCount, int regionCount, String addressType, /*String nextPage,*/
-                                String serviceableKitchens,String unServiceableKitchens,String regionList,int scroll) {
+                               String serviceableKitchens, String unServiceableKitchens, String regionList, int scroll) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -457,35 +457,43 @@ public class Analytics {
     }
 
     /////KITCHEN PAGE
-    public void kitchenPageMetrics(long makeitId, String eta, int rating, int productFavSectionCount, int productOtherCombosSectionCount,
-                                   int productOtherItemsSectionCount, int nextAvailableProductCount, boolean serviceability, String homeMakerBadge,
-                                   boolean favoriteByUser, String vegOnly,String nextPage) {
-        if (BuildConfig.ENABLE_DEBUG) return;
-        if (mFirebaseAnalytics == null) {
-            addProperties();
+    public void kitchenPageMetrics(long makeitId, String eta, double rating, List<KitchenDetailsResponse.Product> favOtherItemsTdysmenu /*int productFavSectionCount, int productOtherCombosSectionCount,
+                                   int productOtherItemsSectionCount,*/, int nextAvailableProductCount, boolean serviceability, int homeMakerBadge,
+                                   String favoriteByUser, String vegOnly, String nextPage) {
+        try {
+            if (BuildConfig.ENABLE_DEBUG) return;
+            if (mFirebaseAnalytics == null) {
+                addProperties();
+            }
+            Bundle bundle = new Bundle();
+            bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+            bundle.putLong(AppConstants.KITCHEN_PAGE_MAKEIT_ID, makeitId);
+            bundle.putString(AppConstants.KITCHEN_PAGE_ETA, eta);
+            bundle.putDouble(AppConstants.KITCHEN_PAGE_RATING, rating);
+            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_FAVORITE_SECTION_COUNT, productFavSectionCount);
+            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_COMBOS_SECTION_COUNT, productOtherCombosSectionCount);
+            //bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_SECTION_COUNT, productOtherItemsSectionCount);
+            if (favOtherItemsTdysmenu != null && favOtherItemsTdysmenu.size() > 0) {
+                for (int i = 0; i < favOtherItemsTdysmenu.size(); i++) {
+                    bundle.putInt(favOtherItemsTdysmenu.get(i).getTitle().replace(" ", "_"), favOtherItemsTdysmenu.get(i).getProductList().size());
+                }
+            }
+            bundle.putInt(AppConstants.KITCHEN_PAGE_NEXT_AVAILABLE_PRODUCT_COUNT, nextAvailableProductCount);
+            bundle.putBoolean(AppConstants.KITCHEN_PAGE_SERVICEABILITY, serviceability);
+            bundle.putInt(AppConstants.KITCHEN_PAGE_HOME_MAKER_BADGE, homeMakerBadge);
+            bundle.putString(AppConstants.KITCHEN_PAGE_FAVORITE_BY_USER, favoriteByUser);
+            bundle.putString(AppConstants.KITCHEN_PAGE_VEG_ONLY, vegOnly);
+            //bundle.putString(AppConstants.KITCHEN_NEXT_PAGE, nextPage);
+
+            mFirebaseAnalytics.logEvent(AppConstants.METRICS_KITCHEN_PAGE, bundle);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        bundle.putLong(AppConstants.KITCHEN_PAGE_MAKEIT_ID, makeitId);
-        bundle.putString(AppConstants.KITCHEN_PAGE_ETA, eta);
-        bundle.putInt(AppConstants.KITCHEN_PAGE_RATING, rating);
-        bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_FAVORITE_SECTION_COUNT, productFavSectionCount);
-        bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_COMBOS_SECTION_COUNT, productOtherCombosSectionCount);
-        bundle.putInt(AppConstants.KITCHEN_PAGE_PRODUCT_OTHER_ITEMS_SECTION_COUNT, productOtherItemsSectionCount);
-        bundle.putInt(AppConstants.KITCHEN_PAGE_NEXT_AVAILABLE_PRODUCT_COUNT, nextAvailableProductCount);
-        bundle.putBoolean(AppConstants.KITCHEN_PAGE_SERVICEABILITY, serviceability);
-        bundle.putString(AppConstants.KITCHEN_PAGE_HOME_MAKER_BADGE, homeMakerBadge);
-        bundle.putBoolean(AppConstants.KITCHEN_PAGE_FAVORITE_BY_USER, favoriteByUser);
-        bundle.putString(AppConstants.KITCHEN_PAGE_VEG_ONLY, vegOnly);
-        //bundle.putString(AppConstants.KITCHEN_NEXT_PAGE, nextPage);
-
-
-        mFirebaseAnalytics.logEvent(AppConstants.METRICS_KITCHEN_PAGE, bundle);
     }
 
     /////REGION PAGE
     public void regionPageMetrics(String previousPage, long regionId, String regionName, int serviceableCount, int unServiceableCount,/*String nextPage,*/String serviceableKitchensList
-            ,String unserviceableKitchensList) {
+            , String unserviceableKitchensList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -506,7 +514,7 @@ public class Analytics {
 
     /////SEARCH
     public void searchMetrics(String prevPage, String wordSearched, int regionSuggestionCount, int kitchenSuggestionCount, int dishSuggestionCount, int type,
-                              int uniqueId,String nextPage,String regionSuggestionList,String kitchenSuggestionList,
+                              int uniqueId, String nextPage, String regionSuggestionList, String kitchenSuggestionList,
                               String dishSuggestionList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
@@ -548,6 +556,7 @@ public class Analytics {
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_ADD_TO_CART, bundle);
     }
+
     /////REMOVE FROM CART
     public void removeFromCartPageMetrics(String currentPage, int productId, int price, int quantity, String isProductFavorite) {
         if (BuildConfig.ENABLE_DEBUG) return;
@@ -568,7 +577,7 @@ public class Analytics {
     }
 
     /////OPEN CART PAGE
-    public void openCartPageMetrics(String previousScreen, long makeitId, int totalAmt, String promoCode, String deliveryAddressType,String nextPage,String cartProductIdQtyList) {
+    public void openCartPageMetrics(String previousScreen, long makeitId, int totalAmt, String promoCode, String deliveryAddressType, String nextPage, String cartProductIdQtyList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
 
@@ -588,7 +597,7 @@ public class Analytics {
     }
 
     /////PAYMENT METHOD PAGE
-    public void paymentMethodPageMetrics(String prevPage, String codOrOnline,String nextPage) {
+    public void paymentMethodPageMetrics(String prevPage, String codOrOnline, String nextPage) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -603,7 +612,7 @@ public class Analytics {
     }
 
     /////TRACK ORDER PAGE
-    public void trackOrderPageMetrics(String prevPage, String orderId,String nextPage) {
+    public void trackOrderPageMetrics(String prevPage, String orderId, String nextPage) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
