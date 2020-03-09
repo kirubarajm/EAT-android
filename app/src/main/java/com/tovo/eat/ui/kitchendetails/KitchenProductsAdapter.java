@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.tovo.eat.data.DataManager;
@@ -134,30 +135,36 @@ public class KitchenProductsAdapter extends RecyclerView.Adapter<BaseViewHolder>
             //   mListItemLiveProductsBinding.setKitchenItemViewModel(mLiveProductsItemViewModel);
             mListItemLiveProductsBinding.executePendingBindings();
 
-            mListItemLiveProductsBinding.title.setText(blog.getTitle());
-
-            if (blog.getType() == 1) {
 
 
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(mListItemLiveProductsBinding.recyclerProducts.getContext(), 2);
-                //mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                ProductsImageAdapter productsImageAdapter = new ProductsImageAdapter(item_list.get(position).getProductList(), dataManager);
-                mListItemLiveProductsBinding.recyclerProducts.setLayoutManager(gridLayoutManager);
-                mListItemLiveProductsBinding.recyclerProducts.setAdapter(productsImageAdapter);
-                productsImageAdapter.setListener(KitchenProductsAdapter.this);
+            if (blog.getProductList()!=null&&blog.getProductList().size()>0) {
+
+                mListItemLiveProductsBinding.title.setText(blog.getTitle());
+                mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
+                mListItemLiveProductsBinding.separator.setVisibility(View.VISIBLE);
 
 
-            } else {
-                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerProducts.getContext(), LinearLayoutManager.VERTICAL, false);
-                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                ProductsNoImageAdapter productsImageAdapter = new ProductsNoImageAdapter(item_list.get(position).getProductList(), dataManager);
-                mListItemLiveProductsBinding.recyclerProducts.setLayoutManager(mLayoutManager);
-                mListItemLiveProductsBinding.recyclerProducts.setAdapter(productsImageAdapter);
-                productsImageAdapter.setListener(KitchenProductsAdapter.this);
+                if (blog.getType() == 1) {
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(mListItemLiveProductsBinding.recyclerProducts.getContext(), 2);
+                    //mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    ProductsImageAdapter productsImageAdapter = new ProductsImageAdapter(item_list.get(position).getProductList(), dataManager);
+                    mListItemLiveProductsBinding.recyclerProducts.setLayoutManager(gridLayoutManager);
+                    mListItemLiveProductsBinding.recyclerProducts.setAdapter(productsImageAdapter);
+                    productsImageAdapter.setListener(KitchenProductsAdapter.this);
 
+                } else {
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(mListItemLiveProductsBinding.recyclerProducts.getContext(), LinearLayoutManager.VERTICAL, false);
+                    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    ProductsNoImageAdapter productsImageAdapter = new ProductsNoImageAdapter(item_list.get(position).getProductList(), dataManager);
+                    mListItemLiveProductsBinding.recyclerProducts.setLayoutManager(mLayoutManager);
+                    mListItemLiveProductsBinding.recyclerProducts.setAdapter(productsImageAdapter);
+                    productsImageAdapter.setListener(KitchenProductsAdapter.this);
 
+                }
+            }else {
+                mListItemLiveProductsBinding.title.setVisibility(View.GONE);
+                mListItemLiveProductsBinding.separator.setVisibility(View.GONE);
             }
-
 
         }
 

@@ -24,8 +24,8 @@
             android:layout_gravity="center_horizontal"
             android:id="@+id/image"
             imageUrl="@{kitchenImageItemViewModel.icon}"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="center" />
 
         <com.tovo.eat.utilities.fonts.poppins.ContentTextView

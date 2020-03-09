@@ -43,7 +43,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     LinearLayoutManager mLayoutManager;
     @Inject
     KitchenProductsAdapter mKitchenProductsAdapter;
-@Inject
+    @Inject
     KitchenHeaderAdapter mKitchenHeaderAdapter;
 
     @Inject
@@ -169,9 +169,13 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void dishListLoaded(KitchenDetailsResponse response) {
         stopKitchenLoader();
-        String strContent = response.getResult().get(0).getKitchen_page_header_content1();
-        mFragmentDishBinding.headerContent1.setText(Html.fromHtml(strContent));
-        mFragmentDishBinding.headerContent2.setText(Html.fromHtml(response.getResult().get(0).getKitchen_page_header_content2()));
+        String strContent1 = response.getResult().get(0).getKitchen_page_header_content1();
+        String strContent2 = response.getResult().get(0).getKitchen_page_header_content2();
+
+        if (strContent1 != null)
+            mFragmentDishBinding.headerContent1.setText(Html.fromHtml(strContent1));
+        if (strContent2 != null)
+            mFragmentDishBinding.headerContent2.setText(Html.fromHtml(strContent2));
     }
 
 
@@ -185,6 +189,8 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         intent.putExtra("screenName", AppConstants.SCREEN_KITCHEN_DETAILS);
         startActivity(intent);
         finish();
+
+
     }
 
 
