@@ -142,8 +142,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:background="@android:color/white"
+                    tools:itemCount="2"
                     app:adapter="@{kitchenDetailsViewModel.headerItemViewModels}"
-                    tools:listitem="@layout/list_item_coupon" />
+                    tools:listitem="@layout/list_item_kitchen_header" />
 
 
                 <LinearLayout
@@ -185,7 +186,7 @@
                     android:layout_marginTop="15dp"
                     android:background="@android:color/white"
                     app:adapter="@{kitchenDetailsViewModel.productListViewModels}"
-                    tools:listitem="@layout/list_item_coupon" />
+                    tools:listitem="@layout/list_item_products" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -200,13 +201,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.tovo.eat.utilities.fonts.TovoTextView
+                        <ImageView
                             android:layout_gravity="center_horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="50sp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/no_products"
                             android:text="@string/icon_error"/>
-
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="match_parent"

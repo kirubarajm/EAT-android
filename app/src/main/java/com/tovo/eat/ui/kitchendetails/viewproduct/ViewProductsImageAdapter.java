@@ -1,32 +1,21 @@
-package com.tovo.eat.ui.kitchendetails;
+package com.tovo.eat.ui.kitchendetails.viewproduct;
 
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.tovo.eat.R;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemDishImageBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
-import com.tovo.eat.databinding.ListItemFavBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
-import com.tovo.eat.utilities.CustomTypefaceSpan;
-import com.tovo.eat.utilities.MvvmApp;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
+import com.tovo.eat.ui.kitchendetails.ProductImageItemViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class ViewProductsImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private static final int VIEW_TYPE_NORMAL = 1;
     private static final int VIEW_TYPE_EMPTY = 0;
@@ -37,7 +26,7 @@ public class ProductsImageAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 DataManager dataManager;
 
 
-    public ProductsImageAdapter(List<KitchenDetailsResponse.ProductList> result,DataManager dataManager) {
+    public ViewProductsImageAdapter(List<KitchenDetailsResponse.ProductList> result, DataManager dataManager) {
         this.item_list = result;
         this.dataManager=dataManager;
     //  this.type=type;
@@ -97,7 +86,7 @@ DataManager dataManager;
         void productNotAvailable(int quantity, String productname);
 
         void showToast(String msg);
-       void productImageClick(List<KitchenDetailsResponse.ProductList> productList);
+
         void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
     }
 
@@ -175,7 +164,7 @@ DataManager dataManager;
 
         @Override
         public void productImageClick(KitchenDetailsResponse.ProductList productList) {
-            mLiveProductsAdapterListener.productImageClick(item_list);
+
         }
 
         @Override

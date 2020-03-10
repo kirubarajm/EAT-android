@@ -1,8 +1,12 @@
 package com.tovo.eat.ui.kitchendetails;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class KitchenDetailsResponse {
@@ -118,7 +122,7 @@ public class KitchenDetailsResponse {
 
     }
 
-    public class ProductList {
+    public  static class ProductList implements Parcelable {
 
         @SerializedName("makeit_userid")
         @Expose
@@ -169,6 +173,69 @@ public class KitchenDetailsResponse {
         @SerializedName("serviceablestatus")
         @Expose
         private boolean serviceablestatus;
+
+        protected ProductList(Parcel in) {
+            if (in.readByte() == 0) {
+                makeitUserid = null;
+            } else {
+                makeitUserid = in.readLong();
+            }
+            if (in.readByte() == 0) {
+                productid = null;
+            } else {
+                productid = in.readInt();
+            }
+            if (in.readByte() == 0) {
+                product_tag = null;
+            } else {
+                product_tag = in.readInt();
+            }
+            if (in.readByte() == 0) {
+                price = null;
+            } else {
+                price = in.readInt();
+            }
+            productName = in.readString();
+            productimage = in.readString();
+            image = in.readString();
+            if (in.readByte() == 0) {
+                quantity = null;
+            } else {
+                quantity = in.readInt();
+            }
+            vegtype = in.readString();
+            prodDesc = in.readString();
+            if (in.readByte() == 0) {
+                isfav = null;
+            } else {
+                isfav = in.readInt();
+            }
+            if (in.readByte() == 0) {
+                favid = null;
+            } else {
+                favid = in.readInt();
+            }
+            cuisinename = in.readString();
+            if (in.readByte() == 0) {
+                nextAvailable = null;
+            } else {
+                nextAvailable = in.readInt();
+            }
+            nextAvailableTime = in.readString();
+            serviceablestatus = in.readByte() != 0;
+        }
+
+        public static final Creator<ProductList> CREATOR = new Creator<ProductList>() {
+            @Override
+            public ProductList createFromParcel(Parcel in) {
+                return new ProductList(in);
+            }
+
+            @Override
+            public ProductList[] newArray(int size) {
+                return new ProductList[size];
+            }
+        };
 
         public Integer getProduct_tag() {
             return product_tag;
@@ -304,6 +371,71 @@ public class KitchenDetailsResponse {
 
         public void setNextAvailableTime(String nextAvailableTime) {
             this.nextAvailableTime = nextAvailableTime;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            if (makeitUserid == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeLong(makeitUserid);
+            }
+            if (productid == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(productid);
+            }
+            if (product_tag == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(product_tag);
+            }
+            if (price == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(price);
+            }
+            dest.writeString(productName);
+            dest.writeString(productimage);
+            dest.writeString(image);
+            if (quantity == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(quantity);
+            }
+            dest.writeString(vegtype);
+            dest.writeString(prodDesc);
+            if (isfav == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(isfav);
+            }
+            if (favid == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(favid);
+            }
+            dest.writeString(cuisinename);
+            if (nextAvailable == null) {
+                dest.writeByte((byte) 0);
+            } else {
+                dest.writeByte((byte) 1);
+                dest.writeInt(nextAvailable);
+            }
+            dest.writeString(nextAvailableTime);
+            dest.writeByte((byte) (serviceablestatus ? 1 : 0));
         }
     }
 

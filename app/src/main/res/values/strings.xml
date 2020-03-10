@@ -648,7 +648,7 @@
     <string name="queries_empty_sub_title"> Kindly let us know. We are always here for you!</string>
 
     <string name="veg_dish_empty_title">No veg products available.</string>
-    <string name="veg_dish_empty_sub_title"> Kindly visit another kitchen!</string>
+    <string name="veg_dish_empty_sub_title"> Kindly explore another kitchens</string>
     <!--Address empty-->
     <string name="collection_empty_title">Sorry!</string>
     <string name="collection_empty_sub_title"> This collection has no kitchen or dishes. </string>

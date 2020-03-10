@@ -483,11 +483,18 @@ this.dataManager=dataManager;
     }
 
 
+
+    public void productImageClick(){
+        mListener.productImageClick(dishList);
+    }
+
     public interface DishItemViewModelListener {
 
         void productNotAvailable(int quantity, String productname);
 
         void refresh();
+
+        void productImageClick(KitchenDetailsResponse.ProductList productList);
 
         void showToast(String msg);
 

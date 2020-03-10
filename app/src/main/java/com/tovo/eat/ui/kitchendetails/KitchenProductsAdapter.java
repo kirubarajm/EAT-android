@@ -83,6 +83,11 @@ public class KitchenProductsAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     @Override
+    public void productImageClick(List<KitchenDetailsResponse.ProductList> productList) {
+        mLiveProductsAdapterListener.productImageClick(productList);
+    }
+
+    @Override
     public void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price) {
         mLiveProductsAdapterListener.otherKitchenDish(makeitId, productId, quantity, price);
     }
@@ -96,6 +101,7 @@ public class KitchenProductsAdapter extends RecyclerView.Adapter<BaseViewHolder>
         void showToast(String msg);
 
         void otherKitchenDish(Long makeitId, Integer productId, Integer quantity, Integer price);
+       void productImageClick(List<KitchenDetailsResponse.ProductList> productList);
     }
 
     public class EmptyViewHolder extends BaseViewHolder {

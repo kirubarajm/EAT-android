@@ -1,4 +1,4 @@
-package com.tovo.eat.ui.kitchendetails;
+package com.tovo.eat.ui.kitchendetails.viewproduct;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,23 +8,20 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Html;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tovo.eat.BR;
 import com.tovo.eat.R;
-import com.tovo.eat.databinding.ActivityKitchenDetailsBinding;
+import com.tovo.eat.databinding.ActivityViewFavProductBinding;
 import com.tovo.eat.ui.base.BaseActivity;
 import com.tovo.eat.ui.home.MainActivity;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
 import com.tovo.eat.ui.kitchendetails.dialog.AddKitchenDishListener;
 import com.tovo.eat.ui.kitchendetails.dialog.DialogChangeKitchen;
-import com.tovo.eat.ui.kitchendetails.viewproduct.ViewProductActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
@@ -39,32 +36,29 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsBinding, KitchenDetailsViewModel> implements KitchenDetailsNavigator,
-        AddKitchenDishListener, HasSupportFragmentInjector, KitchenProductsAdapter.LiveProductsAdapterListener {
+public class ViewProductActivity extends BaseActivity<ActivityViewFavProductBinding, ViewProductViewModel> implements ViewProductNavigator,
+        AddKitchenDishListener, HasSupportFragmentInjector, ViewProductsImageAdapter.LiveProductsAdapterListener {
 
     @Inject
-    KitchenDetailsViewModel mKitchenDetailsViewModel;
+    ViewProductViewModel mViewProductViewModel;
     @Inject
     LinearLayoutManager mLayoutManager;
     @Inject
-    KitchenProductsAdapter mKitchenProductsAdapter;
-    @Inject
-    KitchenHeaderAdapter mKitchenHeaderAdapter;
-
+    ViewProductsImageAdapter mKitchenProductsAdapter;
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-    ActivityKitchenDetailsBinding mFragmentDishBinding;
-    Long kitchenID;
-    int totalCount;
+    ActivityViewFavProductBinding mFragmentDishBinding;
     Analytics analytics;
     String pageName = AppConstants.SCREEN_KITCHEN_DETAILS;
+    Long kitchenID;
+
+    List<KitchenDetailsResponse.ProductList> productList = new ArrayList<>();
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             if (!checkWifiConnect()) {
-                Intent inIntent = InternetErrorFragment.newIntent(KitchenDetailsActivity.this);
+                Intent inIntent = InternetErrorFragment.newIntent(ViewProductActivity.this);
                 inIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(inIntent, AppConstants.INTERNET_ERROR_REQUEST_CODE);
             }
@@ -75,19 +69,16 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     public static Intent newIntent(Context context) {
 
-        return new Intent(context, KitchenDetailsActivity.class);
+        return new Intent(context, ViewProductActivity.class);
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mKitchenDetailsViewModel.setNavigator(this);
+        mViewProductViewModel.setNavigator(this);
         mFragmentDishBinding = getViewDataBinding();
         mKitchenProductsAdapter.setListener(this);
-
-        startKitchenLoader();
-        subscribeToLiveDataKitchenImages();
 
         analytics = new Analytics(this, pageName);
 
@@ -95,60 +86,34 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getLong("kitchenId");
-            mKitchenDetailsViewModel.makeitId = kitchenID;
+            mViewProductViewModel.kitchenName.set(intent.getExtras().getString("name"));
+            productList = intent.getExtras().getParcelableArrayList("products");
+            if (productList != null)
+                mViewProductViewModel.productListViewModels.addAll(productList);
+            mViewProductViewModel.makeitId = kitchenID;
         }
 
-        setTitle(mKitchenDetailsViewModel.kitchenName.get());
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
-        mFragmentDishBinding.recyclerviewKitchenHeader.setLayoutManager(gridLayoutManager);
-        mFragmentDishBinding.recyclerviewKitchenHeader.setAdapter(mKitchenHeaderAdapter);
-
-
-        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
-
-        LinearLayoutManager mProductLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mProductLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mFragmentDishBinding.recyclerviewProducts.setLayoutManager(mProductLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
+        mFragmentDishBinding.recyclerviewProducts.setLayoutManager(gridLayoutManager);
         mFragmentDishBinding.recyclerviewProducts.setAdapter(mKitchenProductsAdapter);
-    }
-
-
-    private void subscribeToLiveDataKitchenImages() {
-
-
-        mKitchenDetailsViewModel.getProductListLiveData().observe(this,
-                productsViewModel -> mKitchenDetailsViewModel.addProductsToList(productsViewModel));
-
-        mKitchenDetailsViewModel.getHeaderItemLiveData().observe(this,
-                headersViewModel -> mKitchenDetailsViewModel.addHeadersToList(headersViewModel));
-
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public int getBindingVariable() {
-        return BR.kitchenDetailsViewModel;
+        return BR.viewProductViewModel;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_kitchen_details;
+        return R.layout.activity_view_fav_product;
     }
 
     @Override
-    public KitchenDetailsViewModel getViewModel() {
-        return mKitchenDetailsViewModel;
+    public ViewProductViewModel getViewModel() {
+        return mViewProductViewModel;
     }
 
     @Override
@@ -170,31 +135,12 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     }
 
-    @Override
-    public void productImageClick(List<KitchenDetailsResponse.ProductList> productList) {
-        Intent intent = ViewProductActivity.newIntent(KitchenDetailsActivity.this);
-        intent.putExtra("name", mKitchenDetailsViewModel.kitchenName.get());
-        intent.putParcelableArrayListExtra("products", (ArrayList<? extends Parcelable>) productList);
-        startActivity(intent);
-    }
-
-    @Override
-    public void dishListLoaded(KitchenDetailsResponse response) {
-        stopKitchenLoader();
-        String strContent1 = response.getResult().get(0).getKitchen_page_header_content1();
-        String strContent2 = response.getResult().get(0).getKitchen_page_header_content2();
-
-        if (strContent1 != null)
-            mFragmentDishBinding.headerContent1.setText(Html.fromHtml(strContent1));
-        if (strContent2 != null)
-            mFragmentDishBinding.headerContent2.setText(Html.fromHtml(strContent2));
-    }
 
     @Override
     public void viewCart() {
 
         new Analytics().kitchenViewcart(AppConstants.CLICK_KITCHEN_VIEW_CART, kitchenID);
-        Intent intent = MainActivity.newIntent(KitchenDetailsActivity.this);
+        Intent intent = MainActivity.newIntent(ViewProductActivity.this);
         intent.putExtra("cart", true);
         intent.putExtra("screenName", AppConstants.SCREEN_KITCHEN_DETAILS);
         startActivity(intent);
@@ -207,16 +153,10 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         onBackPressed();
     }
 
-    @Override
-    public void loadError() {
-        stopKitchenLoader();
-    }
-
 
     @Override
     public void onResume() {
         super.onResume();
-        mKitchenDetailsViewModel.fetchRepos(kitchenID);
         registerWifiReceiver();
 
     }
@@ -230,7 +170,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void productNotAvailable(int quantity, String productname) {
-        Toast.makeText(KitchenDetailsActivity.this, "Only " + quantity + " Quantity of " + productname + " Available", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewProductActivity.this, "Only " + quantity + " Quantity of " + productname + " Available", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -238,9 +178,6 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     @Override
     public void confirmClick(boolean status) {
 
-        if (true) {
-            mKitchenDetailsViewModel.fetchRepos(kitchenID);
-        }
 
     }
 
@@ -314,7 +251,7 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
 
     @Override
     public void dishRefresh() {
-        mKitchenDetailsViewModel.totalCart();
+        mViewProductViewModel.totalCart();
     }
 
 

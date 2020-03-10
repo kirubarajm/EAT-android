@@ -88,6 +88,7 @@ import com.tovo.eat.ui.home.region.viewmore.RegionsListAdapter;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
 import com.tovo.eat.ui.kitchendetails.KitchenHeaderAdapter;
 import com.tovo.eat.ui.kitchendetails.KitchenProductsAdapter;
+import com.tovo.eat.ui.kitchendetails.viewproduct.ViewProductsImageAdapter;
 import com.tovo.eat.ui.registration.RegionAdapter;
 import com.tovo.eat.ui.registration.RegionResponse;
 import com.tovo.eat.ui.search.SearchAdapter;
@@ -200,6 +201,16 @@ public final class BindingUtils {
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(response, recyclerView.getContext());
+        }
+    }
+
+
+@BindingAdapter({"adapter"})
+    public static void addKitchenImageProductsItems(RecyclerView recyclerView, List<KitchenDetailsResponse.ProductList> response) {
+       ViewProductsImageAdapter adapter = (ViewProductsImageAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.clearItems();
+            adapter.addItems(response);
         }
     }
 

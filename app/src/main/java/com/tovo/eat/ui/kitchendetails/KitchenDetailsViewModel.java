@@ -260,7 +260,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             } else {
 
                                 isProductAvailable.set(false);
-                                noProductsString.set("Currently not serviceable.");
+                                noProductsString.set("No products found!");
 
                             }
 
