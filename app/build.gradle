@@ -56,6 +56,7 @@ android {
             //  buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
+
             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
 
             minifyEnabled false

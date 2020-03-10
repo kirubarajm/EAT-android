@@ -545,8 +545,6 @@ public class AppConstants {
     public static final String OPEN_CART_PAGE_PROMO_CODE = "cart_promo";
     public static final String OPEN_CART_PAGE_DELIVERY_ADDRESS_TYPE = "cart_addtag";
     public static final String OPEN_CART_PRODUCT_ID_AND_QUANTITY_LIST = "cart_pid_qty_list";
-    public static final String OPEN_CART_PRODUCT_ID = "cart_pid_list";
-    public static final String OPEN_CART_QUANTITY = "cart_pqty_list";
 
     /////METRICS FOR PAYMENT METHOD PAGE
     public static final String METRICS_PAYMENT_METHOD_PAGE = "met_pay";
@@ -568,4 +566,13 @@ public class AppConstants {
     public static final String SEARCH_SUGGESTION_DISH_COUNT = "srsug_dishc";
     public static final String SEARCH_SUGGESTION_DISH_LIST = "srsug_dish_list";
 
+    /////METRICS FOR PROCEED TO PAY
+    public static final String METRICS_PROCEED_TO_PAY = "met_ptp";
+    public static final String PROCEED_TO_PAY_KITCHEN_ID = "ptp_kid";
+    public static final String PROCEED_TO_PAY_PRODUCT_ID_LIST = "ptp_pid_list";
+    public static final String PROCEED_TO_PAY_PRODUCT_QUANTITY_LIST = "ptp_pqtyi";
+    public static final String PROCEED_TO_PAY_AMOUNT = "ptp_amt";
+    public static final String PROCEED_TO_PAY_PROMO_CODE = "ptp_promo";
+    public static final String PROCEED_TO_PAY_REFUND_ID = "ptp_refid";
+    public static final String PROCEED_TO_PAY_PREVIOUS_PAGE = "ptp_prepg";
 }

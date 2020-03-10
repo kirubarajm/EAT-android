@@ -115,6 +115,7 @@ public class CartActivity extends BaseFragment<ActivityCartBinding, CartViewMode
         Bundle bundle = getArguments();
         if (bundle!=null){
             screenName = bundle.getString("screenName");
+            mCartViewModel.previousPage.set(screenName);
         }
         analytics = new Analytics(getActivity(), pageName);
     }
