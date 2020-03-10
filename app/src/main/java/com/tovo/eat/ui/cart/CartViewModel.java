@@ -77,19 +77,16 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
     public final ObservableBoolean refundChecked = new ObservableBoolean();
     public final ObservableBoolean instructionClicked = new ObservableBoolean();
     public final ObservableBoolean xfactorClick = new ObservableBoolean();
+    public final ObservableField<String> previousPage = new ObservableField<>();
     public List<KitchenDishResponse.Productlist> suggestionProductlists = new ArrayList<>();
     public List<KitchenDishResponse.Productlist> suggestionProductlistsTemp = new ArrayList<>();
     public ObservableList<KitchenDishResponse.Productlist> suggestionViewModels = new ObservableArrayList<>();
     public MutableLiveData<List<KitchenDishResponse.Productlist>> suggestionViewLiveData;
     public ObservableList<CartPageResponse.Item> cartDishItemViewModels = new ObservableArrayList<>();
     public ObservableList<RefundListResponse.Result> refundListItemViewModels = new ObservableArrayList<>();
-
-
     public MutableLiveData<List<CartPageResponse.Cartdetail>> cartBillLiveData;
     public ObservableList<CartPageResponse.Cartdetail> cartdetails = new ObservableArrayList<>();
     public int funnelStatus = 0;
-
-
     int favId;
     Long makeitId;
     int totalAmount;
@@ -660,6 +657,24 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
 
         new Analytics().proceedToPay(Integer.parseInt(grand_total.get()));
 
+        try {
+            /////Analytics
+            Gson sGson = new GsonBuilder().create();
+            CartRequestPojo cartRequestPojo = sGson.fromJson(getDataManager().getCartDetails(), CartRequestPojo.class);
+            StringBuilder productIdList = new StringBuilder();
+            StringBuilder productQtyList = new StringBuilder();
+            for (int i = 0; i < cartRequestPojo.getCartitems().size(); i++) {
+                productIdList.append(cartRequestPojo.getCartitems().get(i).getProductid()).append(",");
+                productQtyList.append(cartRequestPojo.getCartitems().get(i).getQuantity()).append(",");
+            }
+            String strProductIdList = productIdList.substring(0, productIdList.length() - 1);
+            String strProductQtyList = productQtyList.substring(0, productQtyList.length() - 1);
+            new Analytics().proceedToPayPageMetrics(makeitId, strProductIdList, strProductQtyList, grand_total.get(), getDataManager().getCouponId(), getDataManager().getRefundId(), previousPage.get());
+            //////////
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (funnelStatus == 0) {
 
             if (available.get()) {
@@ -1139,40 +1154,40 @@ public class CartViewModel extends BaseViewModel<CartNavigator> {
                                         }
                                     } else {*/
 
-                                        if (getDataManager().getEmailStatus()) {
-                                            if (totalAmount == 0) {
-                                                if (getDataManager().getRefundId() != 0) {
+                                    if (getDataManager().getEmailStatus()) {
+                                        if (totalAmount == 0) {
+                                            if (getDataManager().getRefundId() != 0) {
 
-                                                    if (refundBalance.get() > 0) {
-                                                        if (getNavigator() != null)
-                                                            getNavigator().refundAlert();
-                                                    } else {
-                                                        if (getNavigator() != null)
-                                                            getNavigator().paymentGateway(grand_total.get());
-                                                    }
-                                                } else {
-                                                    cashMode();
-                                                }
-                                            } else {
-                                                if (getDataManager().getRefundId() != 0) {
-
-                                                    if (refundBalance.get() > 0) {
-                                                        if (getNavigator() != null)
-                                                            getNavigator().refundAlert();
-                                                    } else {
-                                                        if (getNavigator() != null)
-                                                            getNavigator().paymentGateway(grand_total.get());
-                                                    }
+                                                if (refundBalance.get() > 0) {
+                                                    if (getNavigator() != null)
+                                                        getNavigator().refundAlert();
                                                 } else {
                                                     if (getNavigator() != null)
                                                         getNavigator().paymentGateway(grand_total.get());
                                                 }
+                                            } else {
+                                                cashMode();
                                             }
                                         } else {
-                                            if (getNavigator() != null)
-                                                getNavigator().postRegistration("cart", grand_total.get());
+                                            if (getDataManager().getRefundId() != 0) {
 
-                                       // }
+                                                if (refundBalance.get() > 0) {
+                                                    if (getNavigator() != null)
+                                                        getNavigator().refundAlert();
+                                                } else {
+                                                    if (getNavigator() != null)
+                                                        getNavigator().paymentGateway(grand_total.get());
+                                                }
+                                            } else {
+                                                if (getNavigator() != null)
+                                                    getNavigator().paymentGateway(grand_total.get());
+                                            }
+                                        }
+                                    } else {
+                                        if (getNavigator() != null)
+                                            getNavigator().postRegistration("cart", grand_total.get());
+
+                                        // }
 
                                     }
 

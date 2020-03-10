@@ -595,7 +595,7 @@ public class Analytics {
     }
 
     /////SEARCH SUGGESTION PAGE
-    public void searchSuggestionPageMetrics(String suggestionWord, int regionCount, String regionList,int kitchenCount,String kitchenList,int dishCount,
+    public void searchSuggestionPageMetrics(String suggestionWord, int regionCount, String regionList, int kitchenCount, String kitchenList, int dishCount,
                                             String dishList) {
         if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
@@ -612,6 +612,25 @@ public class Analytics {
         bundle.putString(AppConstants.SEARCH_SUGGESTION_DISH_LIST, dishList);
 
         mFirebaseAnalytics.logEvent(AppConstants.METRICS_SEARCH_SUGGESTION, bundle);
+    }
+
+    /////PROCEED TO PAY
+    public void proceedToPayPageMetrics(long kitchenId, String productIdList, String productQtyList, String totalAmt, int promoCodeId, int refundId, String previousPage) {
+        if (BuildConfig.ENABLE_DEBUG) return;
+        if (mFirebaseAnalytics == null) {
+            addProperties();
+        }
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
+        bundle.putLong(AppConstants.PROCEED_TO_PAY_KITCHEN_ID, kitchenId);
+        bundle.putString(AppConstants.PROCEED_TO_PAY_PRODUCT_ID_LIST, productIdList);
+        bundle.putString(AppConstants.PROCEED_TO_PAY_PRODUCT_QUANTITY_LIST, productQtyList);
+        bundle.putString(AppConstants.PROCEED_TO_PAY_AMOUNT, totalAmt);
+        bundle.putInt(AppConstants.PROCEED_TO_PAY_PROMO_CODE, promoCodeId);
+        bundle.putInt(AppConstants.PROCEED_TO_PAY_REFUND_ID, refundId);
+        bundle.putString(AppConstants.PROCEED_TO_PAY_PREVIOUS_PAGE, previousPage);
+
+        mFirebaseAnalytics.logEvent(AppConstants.METRICS_PROCEED_TO_PAY, bundle);
     }
 
 }
