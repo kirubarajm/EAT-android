@@ -15,7 +15,7 @@
 
     <RelativeLayout
         android:id="@+id/cartLoader"
-        android:background="@color/white"
+        android:background="#95FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

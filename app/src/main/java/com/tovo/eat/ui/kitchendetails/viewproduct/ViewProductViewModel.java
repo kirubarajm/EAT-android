@@ -15,6 +15,7 @@ import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.home.homemenu.kitchen.KitchenFavRequest;
+import com.tovo.eat.ui.kitchendetails.KitchenDetailsListRequest;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
@@ -28,6 +29,8 @@ public class ViewProductViewModel extends BaseViewModel<ViewProductNavigator> {
 
 
     public ObservableList<KitchenDetailsResponse.ProductList> productListViewModels = new ObservableArrayList<>();
+    public MutableLiveData<List<KitchenDetailsResponse.ProductList>> productListLiveData;
+
 
     public ObservableField<String> kitchenName = new ObservableField<>();
     public ObservableField<String> subtitle = new ObservableField<>();
@@ -35,6 +38,7 @@ public class ViewProductViewModel extends BaseViewModel<ViewProductNavigator> {
     public ObservableField<String> cartPrice = new ObservableField<>();
     public ObservableField<String> items = new ObservableField<>();
     public ObservableBoolean cart = new ObservableBoolean();
+    public ObservableBoolean loading = new ObservableBoolean();
     public ObservableBoolean isFavourite = new ObservableBoolean();
     public ObservableBoolean isProductAvailable = new ObservableBoolean();
     public ObservableField<String> region = new ObservableField<>();
@@ -45,9 +49,19 @@ public class ViewProductViewModel extends BaseViewModel<ViewProductNavigator> {
     public ViewProductViewModel(DataManager dataManager) {
         super(dataManager);
         subtitle.set("Bestsellers and recommended");
+        productListLiveData = new MutableLiveData<>();
     }
     public void goBack() {
         getNavigator().goBack();
+    }
+
+    public void addProductsToList(List<KitchenDetailsResponse.ProductList> productList) {
+        productListViewModels.clear();
+        productListViewModels.addAll(productList);
+    }
+
+    public MutableLiveData<List<KitchenDetailsResponse.ProductList>> getProductListLiveData() {
+        return productListLiveData;
     }
 
     public void fav() {
@@ -170,5 +184,45 @@ public class ViewProductViewModel extends BaseViewModel<ViewProductNavigator> {
         getNavigator().viewCart();
     }
 
+    public void fetchRepos(Long kitchenId,int vegtype) {
+loading.set(true);
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.POST, AppConstants.EAT_KITCHEN_DISH_LIST_URL, KitchenDetailsResponse.class,
+                    new KitchenDetailsListRequest(String.valueOf(getDataManager().getCurrentLat()), String.valueOf(getDataManager().getCurrentLng()),
+                            kitchenId, getDataManager().getCurrentUserId(), vegtype), new Response.Listener<KitchenDetailsResponse>() {
+                @Override
+                public void onResponse(KitchenDetailsResponse response) {
+                    if (response != null) {
+                        setIsLoading(false);
+                        totalCart();
 
+                        if (response.getResult() != null && response.getResult().size() > 0) {
+
+                            if (response.getResult().get(0).getProduct() != null && response.getResult().get(0).getProduct().size() > 0) {
+                                productListLiveData.setValue(response.getResult().get(0).getProduct().get(0).getProductList());
+                            }
+
+
+                        } else {
+                            isProductAvailable.set(false);
+                        }
+                    }
+                    loading.set(false);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    setIsLoading(false);
+                    loading.set(false);
+                }
+            }, AppConstants.API_VERSION_TWO_TWO);
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
 }

@@ -51,6 +51,7 @@ public class ViewProductActivity extends BaseActivity<ActivityViewFavProductBind
     Analytics analytics;
     String pageName = AppConstants.SCREEN_KITCHEN_DETAILS;
     Long kitchenID;
+    int vegtype;
 
     List<KitchenDetailsResponse.ProductList> productList = new ArrayList<>();
 
@@ -83,13 +84,22 @@ public class ViewProductActivity extends BaseActivity<ActivityViewFavProductBind
         analytics = new Analytics(this, pageName);
 
 
+        mViewProductViewModel.getProductListLiveData().observe(this,
+                productsViewModel -> mViewProductViewModel.addProductsToList(productsViewModel));
+
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             kitchenID = intent.getExtras().getLong("kitchenId");
+            vegtype = intent.getExtras().getInt("vegtype");
+
+
             mViewProductViewModel.kitchenName.set(intent.getExtras().getString("name"));
-            productList = intent.getExtras().getParcelableArrayList("products");
+          /*  productList = intent.getExtras().getParcelableArrayList("products");
             if (productList != null)
-                mViewProductViewModel.productListViewModels.addAll(productList);
+                mViewProductViewModel.productListViewModels.addAll(productList);*/
+
+          mViewProductViewModel.fetchRepos(kitchenID,vegtype);
             mViewProductViewModel.makeitId = kitchenID;
         }
 

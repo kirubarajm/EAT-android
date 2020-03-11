@@ -243,13 +243,13 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                 @Override
                 public void onResponse(JSONObject response) {
 
-
                     if (response != null) {
                         KitchenDishResponse KitchenDishResponse;
                         Gson sGson = new GsonBuilder().create();
                         KitchenDishResponse = sGson.fromJson(response.toString(), KitchenDishResponse.class);
 
-                        if (KitchenDishResponse != null)
+                        if (KitchenDishResponse != null) {
+                            searched.set(KitchenDishResponse.getCollectionName());
                             if (KitchenDishResponse.getResult() != null)
                                 if (KitchenDishResponse.getResult().size() > 0) {
                                     dishItemsLiveData.setValue(KitchenDishResponse.getResult());
@@ -259,7 +259,7 @@ public class SearchDishViewModel extends BaseViewModel<SearchDishNavigator> {
                                 } else {
                                     noData.set(true);
                                 }
-
+                        }
                     } else {
                         noData.set(true);
                     }

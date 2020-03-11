@@ -18,6 +18,7 @@
         android:background="@color/white">
 
 
+
         <RelativeLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
@@ -56,10 +57,10 @@
 
 
                     <LinearLayout
-                        android:layout_margin="10dp"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="10dp"
                         android:orientation="vertical">
 
 
@@ -142,8 +143,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:background="@android:color/white"
-                    tools:itemCount="2"
                     app:adapter="@{kitchenDetailsViewModel.headerItemViewModels}"
+                    tools:itemCount="2"
                     tools:listitem="@layout/list_item_kitchen_header" />
 
 
@@ -179,12 +180,12 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:visibility="@{kitchenDetailsViewModel.isProductAvailable?View.VISIBLE:View.GONE}"
                     android:id="@+id/recyclerview_products"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:background="@android:color/white"
+                    android:visibility="@{kitchenDetailsViewModel.isProductAvailable?View.VISIBLE:View.GONE}"
                     app:adapter="@{kitchenDetailsViewModel.productListViewModels}"
                     tools:listitem="@layout/list_item_products" />
 
@@ -195,34 +196,34 @@
 
 
                     <LinearLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_margin="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
                             android:src="@drawable/no_products"
-                            android:text="@string/icon_error"/>
+                            android:text="@string/icon_error" />
 
                         <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:textAlignment="center"
                             android:text="@{kitchenDetailsViewModel.noProductsString}"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <com.tovo.eat.utilities.fonts.poppins.ContentTextView
-                            android:textAlignment="center"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="@string/veg_dish_empty_sub_title"
+                            android:textAlignment="center"
                             android:textColor="@color/dark_gray"
                             android:textSize="12sp" />
 
@@ -230,7 +231,6 @@
 
 
                 </RelativeLayout>
-
 
 
             </LinearLayout>
@@ -320,6 +320,17 @@
                 android:text="@string/view_cart"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#95FFFFFF"
+            android:visibility="@{kitchenDetailsViewModel.loading?View.VISIBLE:View.GONE}">
+
+            <include layout="@layout/page_loader" />
 
         </RelativeLayout>
 

@@ -40,12 +40,34 @@
             android:name=".ui.home.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-        </activity>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_home"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="portrait">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_signin"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+
 
         </activity>
 
@@ -81,7 +103,18 @@
 
         <activity
             android:name=".ui.track.OrderTrackingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_order"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity"
@@ -142,10 +175,37 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.region.list.RegionDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_region"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+
+        </activity>
+
+
         <activity
             android:name=".ui.search.dish.SearchDishActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_collection"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.account.edit.EditAccountActivity"
             android:screenOrientation="portrait" />
@@ -157,7 +217,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.kitchendetails.KitchenDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_kitchen"
+                    android:scheme="@string/deeplink_scheme" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".ui.signup.tandc.TermsAndConditionActivity"
             android:screenOrientation="portrait">

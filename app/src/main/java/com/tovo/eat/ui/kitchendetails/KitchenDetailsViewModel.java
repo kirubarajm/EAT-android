@@ -47,6 +47,8 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
     public ObservableBoolean isProductAvailable = new ObservableBoolean();
     public ObservableBoolean serviceablestatus = new ObservableBoolean();
 
+    public ObservableBoolean loading = new ObservableBoolean();
+
     public ObservableField<String> region = new ObservableField<>();
     public ObservableField<String> localityName = new ObservableField<>();
 
@@ -236,6 +238,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
     public void fetchRepos(Long kitchenId) {
 
+loading.set(true);
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
@@ -321,11 +324,15 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
+                    loading.set(false);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setIsLoading(false);
+                    loading.set(false);
                     if (getNavigator() != null)
                         getNavigator().loadError();
                 }
@@ -339,6 +346,7 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
 
 
     public void fetchVegProducts() {
+        loading.set(true);
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
         try {
             setIsLoading(true);
@@ -400,10 +408,14 @@ public class KitchenDetailsViewModel extends BaseViewModel<KitchenDetailsNavigat
                             isProductAvailable.set(false);
                         }
                     }
+
+                    loading.set(false);
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    loading.set(false);
                     setIsLoading(false);
                     if (getNavigator() != null)
                         getNavigator().dishListLoaded(null);

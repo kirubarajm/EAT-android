@@ -159,8 +159,8 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         if (intent.getExtras() != null) {
             if (intent.getExtras().getInt("cid") != 0) {
                 collectionId = intent.getExtras().getInt("cid");
-                collectionTitle = intent.getExtras().getString("title");
-                mSearchDishViewModel.searched.set(collectionTitle);
+             //   collectionTitle = intent.getExtras().getString("title");
+               // mSearchDishViewModel.searched.set(collectionTitle);
                 mSearchDishViewModel.fetchKitchens(collectionId);
             }
         }

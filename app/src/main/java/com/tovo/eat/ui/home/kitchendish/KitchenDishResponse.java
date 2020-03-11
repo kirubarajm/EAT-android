@@ -12,6 +12,9 @@ public class KitchenDishResponse {
     @SerializedName("status")
     @Expose
     public Boolean status;
+    @SerializedName("collection_name")
+    @Expose
+    public String collectionName;
     @SerializedName("result")
     @Expose
     public List<Result> result = null;
@@ -26,6 +29,14 @@ public class KitchenDishResponse {
 
     public List<Result> getResult() {
         return result;
+    }
+
+    public String getCollectionName() {
+        return collectionName;
+    }
+
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
     }
 
     public static class Result {

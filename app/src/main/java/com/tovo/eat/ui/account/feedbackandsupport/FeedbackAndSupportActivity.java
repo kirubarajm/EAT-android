@@ -81,53 +81,49 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     }
 
     private void openRequestList() {
+
+        Configuration requestActivityConfig = RequestActivity.builder()
+                .withTags("userid:"+mFeedbackAndSupportActivityViewModel.getDataManager().getCurrentUserId())
+                .config();
+
         RequestListActivity.builder()
-                .show(FeedbackAndSupportActivity.this);
+                .show(FeedbackAndSupportActivity.this,requestActivityConfig);
+
     }
-
-
     @Override
     public void faqs() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_FAQ);
         Intent intent = FaqActivity.newIntent(this);
         startActivity(intent);
     }
-
     @Override
     public void goBack() {
         onBackPressed();
     }
-
     @Override
     public void onBackPressed() {
         new Analytics().sendClickData(pageName, AppConstants.CLICK_BACK_BUTTON);
         super.onBackPressed();
     }
-
     @Override
     public int getBindingVariable() {
         return BR.feedBackSupportViewModel;
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_feedback_support;
     }
-
     @Override
     public FeedbackAndSupportActivityViewModel getViewModel() {
         return mFeedbackAndSupportActivityViewModel;
     }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFeedbackAndSupportActivityViewModel.setNavigator(this);
         mActivityFeedbackSupportBinding = getViewDataBinding();
-
         analytics = new Analytics(this, pageName);
     }
-
     @Override
     protected void onResume() {
         super.onResume();

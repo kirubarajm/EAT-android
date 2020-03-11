@@ -33,12 +33,10 @@ import java.util.Map;
 public class RegistrationActivityViewModel extends BaseViewModel<RegistrationActivityNavigator> {
 
     public ObservableList<RegionResponse.Result> regionItemViewModels = new ObservableArrayList<>();
+    public String grandTotal = "";
     List<RegionResponse.Result> regionList;
     Response.ErrorListener errorListener;
     private MutableLiveData<List<RegionResponse.Result>> regionItemsLiveData;
-
-
-    public String grandTotal="";
 
 
     public RegistrationActivityViewModel(DataManager dataManager) {
@@ -60,7 +58,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
     public void userProceed() {
         new Analytics().sendClickData(AppConstants.SCREEN_GET_EMAIL, AppConstants.CLICK_SAVE);
         if (getNavigator() != null)
-        getNavigator().usersRegistrationMain();
+            getNavigator().usersRegistrationMain();
     }
 
     public void userRegistrationServiceCall(String strEmail) {
@@ -76,11 +74,11 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
 
                             getDataManager().updateUserPasswordStatus(true);
                             getDataManager().updateEmailStatus(true);
+                            getDataManager().setCurrentUserEmail(strEmail);
 
-
-                            if (grandTotal!=null&&grandTotal.equals("0")){
+                            if (grandTotal != null && grandTotal.equals("0")) {
                                 cashMode();
-                            }else {
+                            } else {
                                 if (getNavigator() != null)
                                     getNavigator().regSuccess(response.getMessage());
                             }
@@ -122,7 +120,7 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
                     if (response != null) {
                         regionList = response.getResult();
                         if (getNavigator() != null)
-                        getNavigator().regionList(regionList);
+                            getNavigator().regionList(regionList);
                     }
                 }
             }, errorListener = new Response.ErrorListener() {
@@ -139,7 +137,6 @@ public class RegistrationActivityViewModel extends BaseViewModel<RegistrationAct
 
         }
     }
-
 
 
     public void cashMode() {

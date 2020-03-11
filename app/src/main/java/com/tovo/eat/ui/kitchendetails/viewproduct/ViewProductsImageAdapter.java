@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.databinding.ListItemDishImageBinding;
 import com.tovo.eat.databinding.ListItemEmptyBinding;
+import com.tovo.eat.databinding.ListItemViewDishImageBinding;
 import com.tovo.eat.ui.base.BaseViewHolder;
 import com.tovo.eat.ui.home.homemenu.kitchen.EmptyItemViewModel;
 import com.tovo.eat.ui.kitchendetails.KitchenDetailsResponse;
@@ -34,7 +35,7 @@ DataManager dataManager;
 
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        ListItemDishImageBinding blogViewBinding = ListItemDishImageBinding.inflate(LayoutInflater.from(parent.getContext()),
+        ListItemViewDishImageBinding blogViewBinding = ListItemViewDishImageBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false);
         return new LiveProductsViewHolder(blogViewBinding);
 
@@ -112,10 +113,10 @@ DataManager dataManager;
     }
 
     public class LiveProductsViewHolder extends BaseViewHolder implements ProductImageItemViewModel.DishItemViewModelListener {
-        ListItemDishImageBinding mListItemLiveProductsBinding;
+        ListItemViewDishImageBinding mListItemLiveProductsBinding;
         ProductImageItemViewModel mLiveProductsItemViewModel;
 
-        public LiveProductsViewHolder(ListItemDishImageBinding binding) {
+        public LiveProductsViewHolder(ListItemViewDishImageBinding binding) {
             super(binding.getRoot());
             this.mListItemLiveProductsBinding = binding;
 

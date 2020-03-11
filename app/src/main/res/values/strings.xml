@@ -702,4 +702,16 @@
 
     <string name="push_error_device_not_compatible">Your device doesn\'t support push notifications</string>
     <string name="push_notification_fallback_title">Someone replied to your ticket</string>
+
+    <!--deeplink-->
+    <string name="deeplink_host">com.eat</string>
+    <string name="deeplink_scheme">https</string>
+    <string name="deeplink_path_home">/home</string>
+    <string name="deeplink_path_kitchen">/kitchen</string>
+    <string name="deeplink_path_order">/order</string>
+    <string name="deeplink_path_region">/region</string>
+    <string name="deeplink_path_collection">/collection</string>
+    <string name="deeplink_path_app">/app</string>
+    <string name="deeplink_path_signin">/signin</string>
+
 </resources>

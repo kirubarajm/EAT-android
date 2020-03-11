@@ -45,6 +45,7 @@
                 android:visibility="@{productImageItemViewModel.productWithTag?View.VISIBLE:View.GONE}"/>
 
             <ImageView
+                android:layout_marginStart="12dp"
                 android:onClick="@{()->productImageItemViewModel.productImageClick()}"
                 android:visibility="@{productImageItemViewModel.productWithTag?View.GONE:View.VISIBLE}"
                 imageUrl="@{productImageItemViewModel.image}"
@@ -52,6 +53,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitStart"/>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:onClick="@{()->productImageItemViewModel.fav()}">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@{productImageItemViewModel.isFavourite?@drawable/ic_fav:@drawable/ic_unfav}" />
+
+            </RelativeLayout>
+
 
 
             <ImageView
@@ -80,6 +101,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:layout_marginStart="12dp"
             android:visibility="@{productImageItemViewModel.productWithTag?View.GONE:View.VISIBLE}"
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -135,6 +157,7 @@
                             android:layout_gravity="top"
                             android:layout_marginStart="5dp"
                             android:maxLines="2"
+                            android:minLines="2"
                             android:ellipsize="end"
                             android:layout_marginTop="1dp"
                             android:text="@{productImageItemViewModel.product_name}"

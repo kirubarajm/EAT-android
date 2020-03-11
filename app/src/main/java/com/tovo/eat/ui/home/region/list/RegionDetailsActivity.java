@@ -171,7 +171,6 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-
             mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
             mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
             analyticsScreenName = intent.getExtras().getString("next_page");

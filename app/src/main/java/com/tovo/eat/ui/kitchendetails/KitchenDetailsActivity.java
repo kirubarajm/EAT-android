@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -98,6 +99,18 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
             mKitchenDetailsViewModel.makeitId = kitchenID;
         }
 
+        if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals("https"))) {
+            Uri data = intent.getData();
+            List<String> pathSegments = data.getPathSegments();
+            if (pathSegments.size() > 0) {
+                kitchenID = Long.valueOf(pathSegments.get(1));
+            }
+        }
+
+
+
+
         setTitle(mKitchenDetailsViewModel.kitchenName.get());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
@@ -174,7 +187,9 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
     public void productImageClick(List<KitchenDetailsResponse.ProductList> productList) {
         Intent intent = ViewProductActivity.newIntent(KitchenDetailsActivity.this);
         intent.putExtra("name", mKitchenDetailsViewModel.kitchenName.get());
-        intent.putParcelableArrayListExtra("products", (ArrayList<? extends Parcelable>) productList);
+        intent.putExtra("kitchenId", mKitchenDetailsViewModel.makeitId);
+        intent.putExtra("vegtype", mKitchenDetailsViewModel.vegid);
+        //intent.putParcelableArrayListExtra("products", (ArrayList<? extends Parcelable>) productList);
         startActivity(intent);
     }
 
