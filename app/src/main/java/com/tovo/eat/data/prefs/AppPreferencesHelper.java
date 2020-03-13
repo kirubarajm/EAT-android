@@ -636,7 +636,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getPromotionShowedDate() {
-        return  mPrefs.getString(PREF_KEY_PROMOTION_SEEN_DATE, null);
+        return  mPrefs.getString(PREF_KEY_PROMOTION_SEEN_DATE, " ");
     }
 
     @Override

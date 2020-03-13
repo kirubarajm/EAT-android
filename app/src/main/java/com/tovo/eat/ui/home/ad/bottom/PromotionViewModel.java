@@ -39,6 +39,8 @@ public class PromotionViewModel extends BaseViewModel<PromotionNavigator> {
 
         getDataManager().savePromotionShowedDate(currentdate);
 
+        String dd=getDataManager().getPromotionShowedDate();
+
        getDataManager().savePromotionDisplayedCount(getDataManager().getPromotionDisplayedCount() + 1);
 
         getDataManager().savePromotionSeen(true);

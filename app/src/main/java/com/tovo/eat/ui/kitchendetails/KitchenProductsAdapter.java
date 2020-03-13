@@ -144,7 +144,6 @@ public class KitchenProductsAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
 
             if (blog.getProductList()!=null&&blog.getProductList().size()>0) {
-
                 mListItemLiveProductsBinding.title.setText(blog.getTitle());
                 mListItemLiveProductsBinding.title.setVisibility(View.VISIBLE);
                 mListItemLiveProductsBinding.separator.setVisibility(View.VISIBLE);

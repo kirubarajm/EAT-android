@@ -1315,7 +1315,9 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                                             String currentdate = df.format(c);
 
-                                            if (getDataManager().getPromotionShowedDate() == null || !getDataManager().getPromotionShowedDate().equals(currentdate)) {
+                                            String promotionDate=getDataManager().getPromotionShowedDate();
+
+                                            if (!getDataManager().getPromotionShowedDate().equals(currentdate)) {
 
                                            //     if (!getDataManager().getPromotionSeen()) {
 

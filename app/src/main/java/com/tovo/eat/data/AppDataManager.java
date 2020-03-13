@@ -823,7 +823,7 @@ mPreferencesHelper.setChatOrderid(orderid);
 
     @Override
     public String getPromotionShowedDate() {
-        return null;
+        return mPreferencesHelper.getPromotionShowedDate();
     }
 
     @Override
