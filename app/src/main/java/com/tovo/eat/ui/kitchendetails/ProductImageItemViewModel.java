@@ -72,7 +72,7 @@ this.dataManager=dataManager;
             productBestSellerTag.set(true);
             productWithTag.set(true);
         }else  if (dishList.getProduct_tag()==2){
-            productBestSellerTag.set(true);
+            productBestSellerTag.set(false);
             productWithTag.set(true);
         }else {
             productBestSellerTag.set(false);

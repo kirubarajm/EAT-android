@@ -682,6 +682,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
 
 
+        if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
+            Uri data = intent.getData();
+            List<String> pathSegments = data.getPathSegments();
+                if(data.getLastPathSegment().equals("cart")) cart=true;
+
+        }else if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
+            Uri data = intent.getData();
+            List<String> pathSegments = data.getPathSegments();
+                if(data.getLastPathSegment().equals("cart")) cart=true;
+
+        }
+
+
+
+
         if (!mMainViewModel.isAddressAdded()) {
             startLoader();
             startLocationTracking();

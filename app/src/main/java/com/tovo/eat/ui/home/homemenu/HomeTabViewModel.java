@@ -1317,16 +1317,18 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             if (getDataManager().getPromotionShowedDate() == null || !getDataManager().getPromotionShowedDate().equals(currentdate)) {
 
-                                                if (!getDataManager().getPromotionSeen()) {
+                                           //     if (!getDataManager().getPromotionSeen()) {
 
                                                     if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
                                                         getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
                                                     }
 
-                                                }
+                                            //    }
 
                                             }
+
+
                                         } else {
                                             getDataManager().savePromotionDisplayedCount(0);
                                             getDataManager().savePromotionSeen(false);

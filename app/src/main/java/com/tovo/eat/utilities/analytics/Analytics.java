@@ -146,17 +146,6 @@ public class Analytics {
     }
 
 
-    public void sendClickDataWithoutUserid(String screen_name, String click) {
-        if (BuildConfig.ENABLE_DEBUG) return;
-
-        if (mFirebaseAnalytics == null)
-            addProperties();
-
-        Bundle params = new Bundle();
-        params.putString("screen_name", screen_name);
-
-        mFirebaseAnalytics.logEvent(click, params);
-    }
 
 
     public void addtoCart(int productid, String productName, int quantiy, int price) {

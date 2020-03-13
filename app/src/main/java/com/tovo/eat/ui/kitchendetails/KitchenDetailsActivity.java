@@ -100,16 +100,28 @@ public class KitchenDetailsActivity extends BaseActivity<ActivityKitchenDetailsB
         }
 
         if (intent != null && intent.getData() != null
-                && (intent.getData().getScheme().equals("https"))) {
+                && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
             Uri data = intent.getData();
-            List<String> pathSegments = data.getPathSegments();
-            if (pathSegments.size() > 0) {
-                kitchenID = Long.valueOf(pathSegments.get(1));
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+                    kitchenID = Long.valueOf(data.getLastPathSegment());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }else if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
+            Uri data = intent.getData();
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+                    kitchenID = Long.valueOf(data.getLastPathSegment());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
-
-
-
 
         setTitle(mKitchenDetailsViewModel.kitchenName.get());
 

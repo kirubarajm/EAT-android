@@ -123,39 +123,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         return fragment;
     }
 
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        Activity a;
-
-        if (context instanceof Activity){
-            a=(Activity) context;
-
-            try {
-                filterListener = (FilterListener ) a;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(a.toString()
-                        + " must implement MyInterface ");
-            }
-
-        }
-
-    }*/
-
-    public static void scrollToView(final NestedScrollView nestedScrollView, final View viewToScrollTo) {
-        final int[] xYPos = new int[2];
-        viewToScrollTo.getLocationOnScreen(xYPos);
-        final int[] scrollxYPos = new int[2];
-        nestedScrollView.getLocationOnScreen(scrollxYPos);
-        int yPosition = xYPos[1];
-        if (yPosition < 0) {
-            yPosition = 0;
-        }
-        nestedScrollView.scrollTo(0, (nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1).getMeasuredHeight() - nestedScrollView.getMeasuredHeight()));
-    }
-
     @Override
     public int getBindingVariable() {
         return BR.homeTabViewModel;
@@ -310,39 +277,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void favourites() {
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_FAVOURITES);
 
-        //metricsAppOpens(AppConstants.SCREEN_HOME);//////Metrics
-
 
         Intent intent = FavouritesActivity.newIntent(getContext());
         startActivity(intent);
-/*
-        ZopimChat.init(getString(R.string.zopim_account_id));
-
-        final VisitorInfo.Builder build = new VisitorInfo.Builder().email("test@tovogroup.com");
-        build.name("TestUser");
-        build.note("This is order related issue. Order id : 2222222");
-        build.phoneNumber("9751795821");
-        ZopimChat.setVisitorInfo(build.build());
-
-// build pre chat form config
-        PreChatForm preChatForm = new PreChatForm.Builder()
-                .name(PreChatForm.Field.OPTIONAL)
-                .email(PreChatForm.Field.OPTIONAL)
-                .phoneNumber(PreChatForm.Field.NOT_REQUIRED)
-                .department(PreChatForm.Field.REQUIRED)
-                .message(PreChatForm.Field.NOT_REQUIRED)
-                .build();
-
-// build session config
-        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig()
-                .preChatForm(preChatForm)
-                .department("A department")
-                .tags("Order history");
-
-// start chat activity with config
-        ZopimChatActivity.startActivity(getActivity(), config);*/
-
-
     }
 
     @Override
@@ -363,10 +300,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         this.regionsResponse = regionResponse;
         stopRegioneLoader();
         initCountryText();
-
-
-
-
 
 
     }
@@ -414,6 +347,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
         Intent intent = OrderTrackingActivity.newIntent(getContext());
+        intent.putExtra("orderid",mHomeTabViewModel.getDataManager().getOrderId());
         startActivity(intent);
 
     }
@@ -432,7 +366,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void scrollToTop() {
 
 
-        mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
+    //    mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
     }
 
     @Override
@@ -977,73 +911,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         });
 
 
-    }
-
-    private void doApiCall() {
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    itemCount++;
-                }
-
-                // check weather is last page or not
-                if (currentPage < totalPage) {
-
-                } else {
-                    isLastPage = true;
-                }
-                isLoading = false;
-
-                mHomeTabViewModel.kitchenListLoading.set(false);
-
-            }
-        }, 1500);
-    }
-
-
-    @NonNull
-    private InfiniteScrollListener createInfiniteScrollListener() {
-        return new InfiniteScrollListener(MAX_ITEMS_PER_REQUEST, mLayoutManager) {
-            @Override
-            public void onScrolledToEnd(final int firstVisibleItemPosition) {
-                Toast.makeText(getContext(), "loading...", Toast.LENGTH_SHORT).show();
-
-                //    mHomeTabViewModel.fetchKitchen();
-
-
-               /* int start = ++page * MAX_ITEMS_PER_REQUEST;
-                final boolean allItemsLoaded = start >= mHomeTabViewModel.kitchenItemViewModels.size();
-                if (allItemsLoaded) {
-                    Toast.makeText(getContext(), "loading...", Toast.LENGTH_SHORT).show();
-                } else {
-                    int end = start + MAX_ITEMS_PER_REQUEST;
-                    mHomeTabViewModel.fetchKitchen();
-                }*/
-            }
-
-
-        /*return new InfiniteScrollListener(20   , mLayoutManager) {
-            @Override public void onScrolledToEnd(final int firstVisibleItemPosition) {
-                if (!mHomeTabViewModel.kitchenListLoading.get()) {
-                    mHomeTabViewModel.kitchenListLoading.set(true);
-                    mHomeTabViewModel.fetchKitchen();
-                }
-
-
-                *//*int start = ++page * MAX_ITEMS_PER_REQUEST;
-                final boolean allItemsLoaded = start >= items.size();
-                if (allItemsLoaded) {
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    int end = start + MAX_ITEMS_PER_REQUEST;
-                    final List<String> itemsLocal = getItemsToBeLoaded(start, end);
-                    refreshView(recyclerView, new MyAdapter(itemsLocal), firstVisibleItemPosition);
-                }*//*
-            }*/
-        };
     }
 
     @Override

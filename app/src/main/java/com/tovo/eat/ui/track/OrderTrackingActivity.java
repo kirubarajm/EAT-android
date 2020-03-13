@@ -98,6 +98,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
     boolean liveTracking = true;
     CountDownTimer countDownTimer;
 
+    Long orderid=0L;
 
     Analytics analytics;
     String pageName = AppConstants.SCREEN_CURRENT_ORDER_TRACKING;
@@ -270,6 +271,37 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
         metricsTrackingPage();
 
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            orderid = intent.getExtras().getLong("orderid",mOrderTrackingViewModel.getDataManager().getOrderId());
+        }
+
+
+        if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
+            Uri data = intent.getData();
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+                    orderid = Long.valueOf(data.getLastPathSegment());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }else if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
+            Uri data = intent.getData();
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+                    orderid = Long.valueOf(data.getLastPathSegment());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     @Override
@@ -348,7 +380,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
 
             } catch (Exception ee) {
                 ee.printStackTrace();
-                mOrderTrackingViewModel.getOrderDetails();
+                mOrderTrackingViewModel.getOrderDetails(orderid);
             }
         }
 
@@ -409,7 +441,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         if (id == android.R.id.home) {
             finish();
         } else if (id == R.id.refresh) {
-            mOrderTrackingViewModel.getOrderDetails();
+            mOrderTrackingViewModel.getOrderDetails(orderid);
             new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_REFRESH);
         } else if (id == R.id.order_cancel) {
             new Analytics().sendClickData(AppConstants.SCREEN_CURRENT_ORDER_TRACKING, AppConstants.CLICK_HELP);
@@ -477,7 +509,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
         //startLocationTracking();
         super.onResume();
         registerWifiReceiver();
-        mOrderTrackingViewModel.getOrderDetails();
+        mOrderTrackingViewModel.getOrderDetails(orderid);
     }
 
     private DirectionsResult getDirectionsDetails(String origin, String destination, TravelMode mode) throws ApiException {
@@ -599,7 +631,7 @@ public class OrderTrackingActivity extends BaseActivity<ActivityOrderTrackingBin
                 } catch (Exception ee) {
                     ee.printStackTrace();
 
-                    mOrderTrackingViewModel.getOrderDetails();
+                    mOrderTrackingViewModel.getOrderDetails(orderid);
                 }
 
             }

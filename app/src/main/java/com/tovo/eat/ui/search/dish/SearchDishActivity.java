@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -158,12 +161,41 @@ public class SearchDishActivity extends BaseActivity<ActivitySearchDishBinding, 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             if (intent.getExtras().getInt("cid") != 0) {
-                collectionId = intent.getExtras().getInt("cid");
+                collectionId = intent.getExtras().getInt("cid",0);
              //   collectionTitle = intent.getExtras().getString("title");
                // mSearchDishViewModel.searched.set(collectionTitle);
                 mSearchDishViewModel.fetchKitchens(collectionId);
             }
         }
+
+
+
+        if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
+            Uri data = intent.getData();
+
+            if (data!=null){
+                try {
+                    mSearchDishViewModel.fetchKitchens(Integer.valueOf(data.getLastPathSegment()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }else if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
+            Uri data = intent.getData();
+
+            if (data!=null){
+                try {
+                    mSearchDishViewModel.fetchKitchens(Integer.valueOf(data.getLastPathSegment()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
 
     }
 

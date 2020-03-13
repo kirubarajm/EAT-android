@@ -13,8 +13,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 26
-        versionName "1.1.7"
+        versionCode 27
+        versionName "1.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -24,7 +24,7 @@ android {
             minifyEnabled false
 
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
-           // buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
@@ -36,7 +36,7 @@ android {
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
             // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
            //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:4000"'
-             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -52,12 +52,12 @@ android {
             buildConfigField "String", 'DUNZO_URL', '"https://api.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?"'
             buildConfigField "String", 'RAZORPAY_KEY', '"rzp_live_bCMW6sG1GWp36Q"'
-            //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //  buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
             // buildConfigField "String", 'BASE_URL', '"https://eatalltime.global:4433"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
 
-            buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+           // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
 
             minifyEnabled false
             resValue("bool", "FIREBASE_ANALYTICS_DEACTIVATED", "false")
@@ -243,6 +243,9 @@ dependencies {
     implementation group: 'com.zendesk', name: 'support', version: '4.0.0'
     implementation group: 'com.zendesk', name: 'messaging', version: '4.0.0'
     implementation group: 'com.zendesk', name: 'answerbot', version: '2.0.0'
+
+
+  //  implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

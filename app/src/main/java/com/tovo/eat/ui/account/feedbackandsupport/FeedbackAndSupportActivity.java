@@ -83,6 +83,7 @@ public class FeedbackAndSupportActivity extends BaseActivity<ActivityFeedbackSup
     private void openRequestList() {
 
         Configuration requestActivityConfig = RequestActivity.builder()
+                .withRequestSubject("Query from "+mFeedbackAndSupportActivityViewModel.getDataManager().getCurrentUserName()+"-"+mFeedbackAndSupportActivityViewModel.getDataManager().getCurrentUserId())
                 .withTags("userid:"+mFeedbackAndSupportActivityViewModel.getDataManager().getCurrentUserId())
                 .config();
 

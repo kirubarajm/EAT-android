@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -171,12 +172,50 @@ public class RegionDetailsActivity extends BaseActivity<ActivityRegionDetailsBin
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
-            mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));
+        /*    mRegionDetailsViewModel.detailImageUrl.set(intent.getExtras().getString("image"));
+            mRegionDetailsViewModel.tagline.set(intent.getExtras().getString("tagline"));*/
             analyticsScreenName = intent.getExtras().getString("next_page");
-            mRegionDetailsViewModel.fetchRepos(intent.getExtras().getInt("id"));
-            subscribeToLiveData();
+            int id = intent.getExtras().getInt("id", 0);
+            if (id != 0)
+                mRegionDetailsViewModel.fetchRepos(id);
         }
+        subscribeToLiveData();
+
+        if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
+            Uri data = intent.getData();
+
+
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+
+                    mRegionDetailsViewModel.fetchRepos(Integer.valueOf(data.getLastPathSegment()));
+                    analyticsScreenName = "DeepLink";
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }else if (intent != null && intent.getData() != null
+                && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
+            Uri data = intent.getData();
+
+
+            if (data!=null) {
+//                List<String> pathSegments = data.getPathSegments();
+                try {
+
+                    mRegionDetailsViewModel.fetchRepos(Integer.valueOf(data.getLastPathSegment()));
+                    analyticsScreenName = "DeepLink";
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
     }
 
     @Override

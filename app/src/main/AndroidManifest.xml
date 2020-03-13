@@ -17,7 +17,7 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
- <!--   <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!--   <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <application
         android:name=".utilities.MvvmApp"
         android:allowBackup="false"
@@ -31,10 +31,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-
-
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".ui.home.MainActivity"
@@ -47,8 +46,22 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="@string/deeplink_host"
-                    android:pathPrefix="@string/deeplink_path_home"
+                    android:pathPrefix="@string/deeplink_path_cart"
                     android:scheme="@string/deeplink_scheme" />
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_home"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
+
+                 <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_cart"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
+
+
+
             </intent-filter>
 
         </activity>
@@ -60,12 +73,21 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="@string/deeplink_host"
                     android:pathPrefix="@string/deeplink_path_signin"
                     android:scheme="@string/deeplink_scheme" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_signin"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
+
             </intent-filter>
 
 
@@ -103,16 +125,24 @@
 
         <activity
             android:name=".ui.track.OrderTrackingActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="@string/deeplink_host"
                     android:pathPrefix="@string/deeplink_path_order"
                     android:scheme="@string/deeplink_scheme" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_order"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
             </intent-filter>
         </activity>
 
@@ -154,11 +184,11 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
+
             </intent-filter>
 
 
@@ -175,17 +205,24 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.region.list.RegionDetailsActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="@string/deeplink_host"
                     android:pathPrefix="@string/deeplink_path_region"
                     android:scheme="@string/deeplink_scheme" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_region"
+                    android:scheme="@string/deferred_deeplink_scheme" />
             </intent-filter>
 
         </activity>
@@ -193,16 +230,24 @@
 
         <activity
             android:name=".ui.search.dish.SearchDishActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="@string/deeplink_host"
                     android:pathPrefix="@string/deeplink_path_collection"
                     android:scheme="@string/deeplink_scheme" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_collection"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
             </intent-filter>
 
         </activity>
@@ -217,17 +262,26 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.kitchendetails.KitchenDetailsActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="@string/deeplink_host"
                     android:pathPrefix="@string/deeplink_path_kitchen"
                     android:scheme="@string/deeplink_scheme" />
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_kitchen"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
+
             </intent-filter>
 
 
@@ -262,7 +316,30 @@
 
         <activity
             android:name=".ui.cart.coupon.CouponListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/deeplink_host"
+                    android:pathPrefix="@string/deeplink_path_offer"
+                    android:scheme="@string/deeplink_scheme" />
+
+
+                <data
+                    android:host="@string/deferred_deeplink_host"
+                    android:pathPrefix="@string/deferred_deeplink_path_offer"
+                    android:scheme="@string/deferred_deeplink_scheme" />
+
+            </intent-filter>
+
+
+        </activity>
 
         <activity
             android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity"
@@ -302,8 +379,6 @@
         </receiver>
 
 
-
-
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="@bool/FIREBASE_PERFORMANCE_ENABLED" />
@@ -322,26 +397,29 @@
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/freshchat_file_provider_paths" />
 
-        <meta-data android:name="com.facebook.sdk.CodelessDebugLogEnabled"
+        <meta-data
+            android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_bCMW6sG1GWp36Q" />
 
-       <!-- <meta-data
+        <!-- <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="${RAZORPAY_KEY}"
             />-->
-         <!-- <meta-data
+        <!-- <meta-data
                     android:name="com.razorpay.ApiKey"
                     android:value="rzp_test_3cduMl5T89iR9G"
                     />-->
 
-        <activity android:name="zendesk.support.request.RequestActivity"
+        <activity
+            android:name="zendesk.support.request.RequestActivity"
             android:theme="@style/ZendeskSupportTheme" />
 
-        <activity android:name="zendesk.support.requestlist.RequestListActivity"
+        <activity
+            android:name="zendesk.support.requestlist.RequestListActivity"
             android:theme="@style/ZendeskSupportTheme" />
         <activity android:name=".ui.kitchendetails.viewproduct.ViewProductActivity" />
 

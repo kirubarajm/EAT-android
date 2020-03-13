@@ -122,14 +122,14 @@ public class OrderTrackingViewModel extends BaseViewModel<OrderTrackingNavigator
 
     }
 
-    public void getOrderDetails() {
+    public void getOrderDetails(Long orderid) {
 
 
         if (!MvvmApp.getInstance().onCheckNetWork()) return;
 
         try {
             setIsLoading(true);
-            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_DETAILS_URL + getDataManager().getOrderId(), OrderTrackingResponse.class, new Response.Listener<OrderTrackingResponse>() {
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ORDER_DETAILS_URL + orderid, OrderTrackingResponse.class, new Response.Listener<OrderTrackingResponse>() {
                 @Override
                 public void onResponse(OrderTrackingResponse response) {
 

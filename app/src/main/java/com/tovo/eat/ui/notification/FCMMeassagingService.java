@@ -20,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.JsonObject;
 import com.tovo.eat.R;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.prefs.AppPreferencesHelper;
@@ -42,10 +41,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-
-import zendesk.core.Zendesk;
-import zendesk.support.Support;
-import zendesk.support.request.RequestActivity;
 
 public class FCMMeassagingService extends FirebaseMessagingService {
 
@@ -71,13 +66,13 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         final String pageId = remoteMessage.getData().get("pageid");
 
 
-        Log.e("Remote message data",data.toString());
+        Log.e("Remote message data", data.toString());
 
-        String chatData=remoteMessage.getData().get("data");
+        String chatData = remoteMessage.getData().get("data");
 
-        String author=null;
-        String chatMessage=null;
-        if (chatData!=null) {
+        String author = null;
+        String chatMessage = null;
+        if (chatData != null) {
             try {
                 JSONObject jsonObject = new JSONObject(chatData);
                 author = jsonObject.getString("author");
@@ -88,7 +83,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
             }
         }
         if (author != null) {
-            showZendeskChatNotification(getString(R.string.app_name),chatMessage);
+            if (chatMessage != null && !chatMessage.isEmpty())
+                showZendeskChatNotification(getString(R.string.app_name), chatMessage);
         } else {
             if (data != null) {
                 if (pageId != null) {
@@ -131,7 +127,8 @@ public class FCMMeassagingService extends FirebaseMessagingService {
                 Pageid_eat_query_replay:9,
                 Pageid_eat_rating:10
                 Pageid_order_placed:11
-                Pageid_promotion:12*/
+                Pageid_promotion:12
+                Pageid_zendesk:13*/
 
         Bundle bundle = new Bundle();
         Intent intent;
@@ -337,11 +334,9 @@ public class FCMMeassagingService extends FirebaseMessagingService {
         showNotification(requestId, data);*/
 
 
-
         String pageId = data.get("pageid");
         String title = data.get("title");
         String message = data.get("message");
-
 
 
         Bundle bundle = new Bundle();
@@ -387,8 +382,6 @@ public class FCMMeassagingService extends FirebaseMessagingService {
 
         assert notificationManager != null;
         notificationManager.notify(0, notificationBuilder.build());
-
-
 
 
     }

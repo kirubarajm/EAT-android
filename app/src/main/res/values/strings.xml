@@ -704,14 +704,32 @@
     <string name="push_notification_fallback_title">Someone replied to your ticket</string>
 
     <!--deeplink-->
-    <string name="deeplink_host">com.eat</string>
-    <string name="deeplink_scheme">https</string>
-    <string name="deeplink_path_home">/home</string>
-    <string name="deeplink_path_kitchen">/kitchen</string>
-    <string name="deeplink_path_order">/order</string>
-    <string name="deeplink_path_region">/region</string>
-    <string name="deeplink_path_collection">/collection</string>
-    <string name="deeplink_path_app">/app</string>
-    <string name="deeplink_path_signin">/signin</string>
+    <string name="deeplink_host">eatalltime.co.in</string>
+    <string name="deeplink_scheme">http</string>
+    <string name="deeplink_path_home">/applink/home</string>
+    <string name="deeplink_path_kitchen">/applink/kitchen</string>
+    <string name="deeplink_path_order">/applink/order</string>
+    <string name="deeplink_path_region">/applink/region</string>
+    <string name="deeplink_path_collection">/applink/collection</string>
+    <string name="deeplink_path_app">/applink/start</string>
+    <string name="deeplink_path_signin">/applink/signin</string>
+    <string name="deeplink_path_offer">/applink/offer</string>
+    <string name="deeplink_path_cart">/applink/cart</string>
+
+ <string name="deferred_deeplink_host">app</string>
+    <string name="deferred_deeplink_scheme">eatfromhome</string>
+    <string name="deferred_deeplink_path_home">/home</string>
+    <string name="deferred_deeplink_path_kitchen">/kitchen</string>
+    <string name="deferred_deeplink_path_order">/order</string>
+    <string name="deferred_deeplink_path_region">/region</string>
+    <string name="deferred_deeplink_path_collection">/collection</string>
+    <string name="deferred_deeplink_path_app">/start</string>
+    <string name="deferred_deeplink_path_signin">/signin</string>d
+    <string name="deferred_deeplink_path_offer">/offer</string>
+    <string name="deferred_deeplink_path_cart">/cart</string>
+
+
+
+
 
 </resources>

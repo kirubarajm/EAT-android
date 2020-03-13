@@ -12,7 +12,6 @@ import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
 import com.tovo.eat.ui.home.homemenu.dish.DishFavRequest;
-import com.tovo.eat.ui.home.kitchendish.KitchenDishResponse;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CartRequestPojo;
 import com.tovo.eat.utilities.CommonResponse;
@@ -49,7 +48,7 @@ public class ProductNoImageItemViewModel {
     public final DishItemViewModelListener mListener;
     public final ObservableField<String> nextAvailableTime = new ObservableField<>();
     public final ObservableBoolean nextAvailable = new ObservableBoolean();
-    private final KitchenDetailsResponse.ProductList   dishList;
+    private final KitchenDetailsResponse.ProductList dishList;
     List<CartRequestPojo.Cartitem> results = new ArrayList<>();
     CartRequestPojo cartRequestPojo = new CartRequestPojo();
     CartRequestPojo.Cartitem cartRequestPojoCartitem = new CartRequestPojo.Cartitem();
@@ -69,14 +68,14 @@ public class ProductNoImageItemViewModel {
         cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
 
-        if (dishList.getProduct_tag()==1){
+        if (dishList.getProduct_tag() != null && dishList.getProduct_tag() == 1) {
             tagName.set("Bestseller");
             productTag.set(true);
 
-        }else  if (dishList.getProduct_tag()==2){
-            tagName.set("Toprated");
+        } else if (dishList.getProduct_tag() != null && dishList.getProduct_tag() == 2) {
+            tagName.set("Top rated");
             productTag.set(true);
-        }else {
+        } else {
             tagName.set("");
             productTag.set(false);
         }
@@ -192,8 +191,8 @@ public class ProductNoImageItemViewModel {
             quantity.set(quantity.get() + 1);
             new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
             new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
-            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(),
-                    String.valueOf(dishList.getIsfav()),"+1");
+            new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS, dishList.getProductid(), dishList.getPrice(), quantity.get(),
+                    String.valueOf(dishList.getIsfav()), "+1");
         } else {
             mListener.productNotAvailable(dishList.getQuantity(), dishList.getProductName());
             return;
@@ -205,7 +204,7 @@ public class ProductNoImageItemViewModel {
         results.clear();
 
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson( dataManager.getCartDetails(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
@@ -266,10 +265,10 @@ public class ProductNoImageItemViewModel {
         results.clear();
         new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
         new Analytics().removeFromCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
-        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(),
-                String.valueOf(dishList.getIsfav()),"-1");
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS, dishList.getProductid(), dishList.getPrice(), quantity.get(),
+                String.valueOf(dishList.getIsfav()), "-1");
         Gson sGson = new GsonBuilder().create();
-        cartRequestPojo = sGson.fromJson( dataManager.getCartDetails(), CartRequestPojo.class);
+        cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 
         if (cartRequestPojo == null)
             cartRequestPojo = new CartRequestPojo();
@@ -345,8 +344,8 @@ public class ProductNoImageItemViewModel {
         sQuantity.set(String.valueOf(quantity.get()));
         new Analytics(dishList.getProductid(), dishList.getProductName(), dishList.getPrice(), quantity.get(), String.valueOf(dishList.getMakeitUserid()));
         new Analytics().addtoCart(dishList.getProductid(), dishList.getProductName(), quantity.get(), dishList.getPrice());
-        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS,dishList.getProductid(),dishList.getPrice(),quantity.get(),
-                String.valueOf(dishList.getIsfav()),"+1");
+        new Analytics().addToCartPageMetrics(AppConstants.SCREEN_KITCHEN_DETAILS, dishList.getProductid(), dishList.getPrice(), quantity.get(),
+                String.valueOf(dishList.getIsfav()), "+1");
         Gson sGson = new GsonBuilder().create();
         cartRequestPojo = sGson.fromJson(dataManager.getCartDetails(), CartRequestPojo.class);
 

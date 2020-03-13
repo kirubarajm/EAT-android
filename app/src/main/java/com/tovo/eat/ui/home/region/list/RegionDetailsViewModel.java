@@ -80,10 +80,14 @@ public class RegionDetailsViewModel extends BaseViewModel<RegionDetailsNavigator
                                 /////For analytics
                                 analyticsRegionId = Long.valueOf(response.getResult().get(0).getRegionid());
 
-
                                 kitchenListItemsLiveData.setValue(response.getResult());
-                                regionName.set(response.getResult().get(0).getRegionname());
-                                totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getResult().get(0).getRegionname());
+                                regionName.set(response.getRegionname());
+                                totalKitchens.set(response.getResult().size() + " Homes specialize in " + response.getRegionname());
+
+                                detailImageUrl.set(response.getRegionDetailImage());
+                                tagline.set(response.getTagline());
+
+
 
                                 if (getNavigator() != null)
                                     getNavigator().listLoaded();

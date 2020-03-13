@@ -20,9 +20,47 @@ public class KitchenResponse  implements Serializable {
     @SerializedName("pagecount")
     @Expose
     private Integer pagecount = 0;
+
+    @SerializedName("region_detail_image")
+    @Expose
+    private String regionDetailImage;
+
+     @SerializedName("tagline")
+    @Expose
+    private String tagline;
+
+     @SerializedName("regionname")
+    @Expose
+    private String regionname;
+
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
+
+
+    public String getRegionDetailImage() {
+        return regionDetailImage;
+    }
+
+    public void setRegionDetailImage(String regionDetailImage) {
+        this.regionDetailImage = regionDetailImage;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getRegionname() {
+        return regionname;
+    }
+
+    public void setRegionname(String regionname) {
+        this.regionname = regionname;
+    }
 
     public Boolean getSuccess() {
         return success;
