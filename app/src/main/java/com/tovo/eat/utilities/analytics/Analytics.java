@@ -31,14 +31,12 @@ public class Analytics {
             userid = appPreferencesHelper.getCurrentUserId();
 
         } catch (Exception e) {
-
             SharedPreferences settings = MvvmApp.getInstance().getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
             // settings.edit().clear().apply();
             int uid = settings.getInt("PREF_KEY_CURRENT_USER_ID", 0);
             int aid = settings.getInt("CURRENT_ADDRESS_ID", 0);
             int oid = settings.getInt("PREF_KEY_ORDER_ID", 0);
             int roid = settings.getInt("RATING_ORDER_ID", 0);
-
             appPreferencesHelper.setCurrentUserId((long) uid);
             appPreferencesHelper.setAddressId((long) aid);
             appPreferencesHelper.setOrderId((long) oid);
@@ -149,7 +147,7 @@ public class Analytics {
 
 
     public void addtoCart(int productid, String productName, int quantiy, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null)
             addProperties();
@@ -162,13 +160,13 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_PRODUCT_NAME, productName);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ADD_TO_CART, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_ADD_TO_CART, bundle);*/
 
 
     }
 
     public void removeFromCart(int productid, String productName, int quantiy, int price) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+        /*if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -182,7 +180,7 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_PRODUCT_NAME, productName);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
         bundle.putInt(FirebaseAnalytics.Param.VALUE, price);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REMOVE_FROM_CART, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_REMOVE_FROM_CART, bundle);*/
 
 
     }
@@ -266,7 +264,7 @@ public class Analytics {
     }
 
     public void search(String type, String name, String suggestion) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -277,7 +275,7 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_NAME, name);
         bundle.putString(AppConstants.ANALYTICYS_SEARCH_SUGGESTION, suggestion);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_SEARCH_CLICKED, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_SEARCH_CLICKED, bundle);*/
     }
 
     public void story(int id, String title) {
@@ -324,7 +322,7 @@ public class Analytics {
 
 
     public void queriesChat(String query, String message) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+      /*  if (BuildConfig.ENABLE_DEBUG) return;
         if (mFirebaseAnalytics == null) {
             addProperties();
         }
@@ -332,11 +330,11 @@ public class Analytics {
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
         bundle.putString(AppConstants.ANALYTICYS_CHAT_MESSAGE, message);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.SCREEN_QUERY_CHAT, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.SCREEN_QUERY_CHAT, bundle);*/
     }
 
     public void makeQuery(String query) {
-        if (BuildConfig.ENABLE_DEBUG) return;
+       /* if (BuildConfig.ENABLE_DEBUG) return;
 
         if (mFirebaseAnalytics == null) {
             addProperties();
@@ -344,7 +342,7 @@ public class Analytics {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.ANALYTICYS_QUERIES, query);
         bundle.putLong(AppConstants.ANALYTICYS_USER_ID, userid);
-        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_MAKE_QUERIES, bundle);
+        mFirebaseAnalytics.logEvent(AppConstants.ANALYTICYS_MAKE_QUERIES, bundle);*/
     }
 
     public void repeatOrder(String orderid) {

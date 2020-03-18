@@ -161,7 +161,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             StringBuilder unServiceableKitchenSb = new StringBuilder();
             StringBuilder regionSb = new StringBuilder();
 
-            kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+//            kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+
+            //     kicthenListAnalytics = mHomeTabViewModel.getKitchenItemsLiveData().getValue();
+
+           /* mHomeTabViewModel.getKitchenItemsLiveData().observe(this,
+                    kitchenItemViewModel -> mHomeTabViewModel.addTempKitchenItemsToList(kitchenItemViewModel));*/
+
+
+
+            kicthenListAnalytics=mHomeTabViewModel.kitchenItemViewModelsTemp;
+
             regionListAnalytics = mHomeTabViewModel.regionItemViewModels;
 
             for (int i = 0; i < kicthenListAnalytics.size(); i++) {
@@ -219,7 +229,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             StringBuilder unServiceableKitchenSb = new StringBuilder();
             StringBuilder regionSb = new StringBuilder();
 
-          //  kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
+            //  kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModels;
             kicthenListAnalytics = mHomeTabViewModel.kitchenItemsLiveData.getValue();
             regionListAnalytics = mHomeTabViewModel.regionItemViewModels;
 
@@ -366,7 +376,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     public void scrollToTop() {
 
 
-    //    mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
+        //    mFragmentHomeBinding.fullScroll.smoothScrollTo(0, 0);
     }
 
     @Override
@@ -375,7 +385,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         if (pageid==1) {
             metricsAppOpens("");
         }else {
-         //   metricsAppHome("");
+            //   metricsAppHome("");
         }
     }
 

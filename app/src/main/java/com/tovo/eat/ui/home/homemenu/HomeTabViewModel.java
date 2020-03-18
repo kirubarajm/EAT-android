@@ -85,6 +85,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     public ObservableBoolean regionTitleLoaded = new ObservableBoolean();
     public ObservableBoolean kitchenListLoading = new ObservableBoolean();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModels = new ObservableArrayList<>();
+    public ObservableList<KitchenResponse.Result> kitchenItemViewModelsTemp = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Result> kitchenItemViewModelstemp = new ObservableArrayList<>();
     public ObservableList<KitchenResponse.Collection> collectionItemViewModels = new ObservableArrayList<>();
     public ObservableList<RegionsResponse.Result> regionItemViewModels = new ObservableArrayList<>();
@@ -139,11 +140,11 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void checkApiSuccess() {
-       if (flagCollocetion&&flagKitchen&&flagRegion){
-           if (getNavigator()!=null){
-               getNavigator().checkApiSuccessMetrics(pageid.get());
-           }
-       }
+        if (flagCollocetion&&flagKitchen&&flagRegion){
+            if (getNavigator()!=null){
+                getNavigator().checkApiSuccessMetrics(pageid.get());
+            }
+        }
     }
 
     public void loadAllApis() {
@@ -167,6 +168,10 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         return kitchenItemsLiveData;
     }
 
+    public ObservableList<KitchenResponse.Result> getKitchenItemAnalyticsViewModels() {
+        return kitchenItemViewModels;
+    }
+
 
     public void addKitchenItemsToList(List<KitchenResponse.Result> ordersItems) {
 
@@ -178,6 +183,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
 
     }
+
+
 
     public MutableLiveData<List<KitchenResponse.Collection>> getCollectionItemLiveData() {
         return collectionItemLiveData;
@@ -656,6 +663,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             kitchenItemsLiveData.postValue(kitchenResponse.getResult());
                                             metricsAppHome(kitchenResponse.getResult());
+                                            kitchenItemViewModelsTemp.addAll(kitchenResponse.getResult());
 
                                             try {
                                                 if (getNavigator() != null)
@@ -1319,14 +1327,14 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
                                             if (!getDataManager().getPromotionShowedDate().equals(currentdate)) {
 
-                                           //     if (!getDataManager().getPromotionSeen()) {
+                                                //     if (!getDataManager().getPromotionSeen()) {
 
-                                                    if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
-                                                        getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
+                                                if (getDataManager().getPromotionDisplayedCount() <= response.getResult().get(0).getNumberoftimes()) {
+                                                    getNavigator().showPromotions(response.getResult().get(0).getPromotionUrl(), response.getResult().get(0).getFullScreen(), response.getResult().get(0).getPromotionType(), response.getResult().get(0).getPid());
 
-                                                    }
+                                                }
 
-                                            //    }
+                                                //    }
 
                                             }
 
