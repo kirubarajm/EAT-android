@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="@color/tracking_back"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="2dp"
+            android:text="Device location off"
+            android:textSize="12sp" />
+
+        <com.tovo.eat.utilities.fonts.poppins.ContentTextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Switch on your device location to improve your food ordering experience"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/noThanks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/curve_stroke_gray_add"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="10dp"
+                android:textAllCaps="true"
+                android:paddingBottom="2dp"
+                android:text="No thanks"
+                android:textSize="12sp" />
+
+            <com.tovo.eat.utilities.fonts.poppins.SubTitleTextView
+                android:id="@+id/enable"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/curve_stroke_gray_add"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="10dp"
+                android:textAllCaps="true"
+                android:paddingBottom="2dp"
+                android:text="Enable location"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

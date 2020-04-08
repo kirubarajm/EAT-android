@@ -32,6 +32,7 @@ public interface HomeTabNavigator {
     void checkApiSuccessMetrics(int pageid);
 
     void showPromotions(String url,boolean fullScreen, int type,int promotionid);
+    void addressListLoaded(boolean available);
 
-
+    void getMainLocation();
 }

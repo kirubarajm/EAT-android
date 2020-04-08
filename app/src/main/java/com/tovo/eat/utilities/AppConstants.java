@@ -93,6 +93,7 @@ public class AppConstants {
     public static final int PACKAGING_IMAGE_REQUEST_CODE = 3;
     public static final int SIGNATURE_REQUEST_CODE = 4;
     public static final int GPS_REQUEST = 500;
+    public static final int GPS_NORMAL_REQUEST = 5522;
     public static final int HOME_ADDRESS_CODE = 5556;
     public static final int CART_REQUESTCODE = 111;
     public static final int COD_REQUESTCODE = 222;

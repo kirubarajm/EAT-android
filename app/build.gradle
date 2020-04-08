@@ -13,8 +13,8 @@ android {
         applicationId "com.tovo.eat"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 27
-        versionName "1.1.8"
+        versionCode 28
+        versionName "1.1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -22,9 +22,8 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in:4000"'
-            buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
+          //  buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://eatalltime.co.in"'
             //buildConfigField "String", 'BASE_URL', '"http://192.168.1.101:4000"'
@@ -35,8 +34,8 @@ android {
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:4000"'
             //buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:6000"'
             // buildConfigField "String", 'BASE_URL', '"http://157.245.104.126:5000"'
-           //buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:4000"'
-            // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
+         // buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:4000"'
+             buildConfigField "String", 'BASE_URL', '"http://68.183.87.233:5000"'
 
             buildConfigField "String", 'DUNZO_URL', '"https://apis-staging.dunzo.in/api/v1/tasks/"'
             buildConfigField "String", 'DUNZO_STATUS', '"/status?test=true"'
@@ -244,6 +243,7 @@ dependencies {
     implementation group: 'com.zendesk', name: 'messaging', version: '4.0.0'
     implementation group: 'com.zendesk', name: 'answerbot', version: '2.0.0'
 
+    implementation 'com.android.installreferrer:installreferrer:1.1.2'
 
   //  implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.0'
 

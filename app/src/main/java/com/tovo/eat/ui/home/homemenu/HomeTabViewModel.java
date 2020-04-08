@@ -26,10 +26,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tovo.eat.api.remote.GsonRequest;
 import com.tovo.eat.data.DataManager;
+import com.tovo.eat.ui.address.list.AddressListResponse;
 import com.tovo.eat.ui.base.BaseViewModel;
 import com.tovo.eat.ui.cart.coupon.CouponListResponse;
 import com.tovo.eat.ui.filter.FilterRequestPojo;
 import com.tovo.eat.ui.home.LiveOrderResponsePojo;
+import com.tovo.eat.ui.home.MainActivity;
 import com.tovo.eat.ui.home.ad.bottom.PromotionRequest;
 import com.tovo.eat.ui.home.ad.bottom.PromotionResponse;
 import com.tovo.eat.ui.home.homemenu.collection.CollectionRequest;
@@ -108,6 +110,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     private MutableLiveData<List<CouponListResponse.Result>> couponListItemsLiveData;
     private long orderId;
 
+    AddressListResponse addressList;
+
     public HomeTabViewModel(DataManager dataManager) {
         super(dataManager);
         kitchenItemsLiveData = new MutableLiveData<>();
@@ -129,7 +133,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
 
-
     public ObservableList<RegionsResponse.Result> getRegionListAnalytics() {
         return (regionItemViewModels);
     }
@@ -140,8 +143,8 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
     }
 
     public void checkApiSuccess() {
-        if (flagCollocetion&&flagKitchen&&flagRegion){
-            if (getNavigator()!=null){
+        if (flagCollocetion && flagKitchen && flagRegion) {
+            if (getNavigator() != null) {
                 getNavigator().checkApiSuccessMetrics(pageid.get());
             }
         }
@@ -183,7 +186,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
         }
 
     }
-
 
 
     public MutableLiveData<List<KitchenResponse.Collection>> getCollectionItemLiveData() {
@@ -843,7 +845,6 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                         emptyKitchen.set(false);
 
 
-
                                         kitchenItemsLiveData.postValue(kitchenResponse.getResult());
 
 
@@ -1323,7 +1324,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
                                             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                                             String currentdate = df.format(c);
 
-                                            String promotionDate=getDataManager().getPromotionShowedDate();
+                                            String promotionDate = getDataManager().getPromotionShowedDate();
 
                                             if (!getDataManager().getPromotionShowedDate().equals(currentdate)) {
 
@@ -1377,6 +1378,7 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
 
 
     }
+
     public void metricsAppHome(List<KitchenResponse.Result> kitchenItemViewModel) {
 
         List<KitchenResponse.Result> kicthenListAnalytics;
@@ -1427,22 +1429,85 @@ public class HomeTabViewModel extends BaseViewModel<HomeTabNavigator> {
             String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
             String addressTitle = getDataManager().getCurrentAddressTitle();
 
-            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
-            if (regionList.length()>0) {
+            String strRegionList = "", strServiceableKitchen = "", strUnServiceableKitchen = "";
+            if (regionList.length() > 0) {
                 strRegionList = regionList.substring(0, regionList.length() - 1);
             }
-            if (strServiceableKitchenSb.length()>0){
+            if (strServiceableKitchenSb.length() > 0) {
                 strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
             }
-            if (strUnServiceableKitchenSb.length()>0){
+            if (strUnServiceableKitchenSb.length() > 0) {
                 strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
             }
 
-            new Analytics().appHomeMetrics("",serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
-                    strServiceableKitchen, strUnServiceableKitchen, strRegionList,pageid.get());
+            new Analytics().appHomeMetrics("", serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
+                    strServiceableKitchen, strUnServiceableKitchen, strRegionList, pageid.get());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void getAddressList() {
+
+        if (!MvvmApp.getInstance().onCheckNetWork()) return;
+        try {
+            setIsLoading(true);
+            GsonRequest gsonRequest = new GsonRequest(Request.Method.GET, AppConstants.EAT_ADD_ADDRESS_LIST_URL + getDataManager().getCurrentUserId(), AddressListResponse.class, new Response.Listener<AddressListResponse>() {
+                @Override
+                public void onResponse(AddressListResponse response) {
+                    if (response != null && response.getResult().size() > 0) {
+                        addressList = response;
+                        getNavigator().addressListLoaded(true);
+                    } else {
+                        getNavigator().addressListLoaded(false);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    getNavigator().addressListLoaded(false);
+                }
+            }, AppConstants.API_VERSION_ONE);
+
+
+            MvvmApp.getInstance().addToRequestQueue(gsonRequest);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            getNavigator().addressListLoaded(false);
+        } catch (Exception ee) {
+            getNavigator().addressListLoaded(false);
+            ee.printStackTrace();
+
+        }
+    }
+
+    public void changeAddress(int pos) {
+        String title = addressList.getResult().get(pos).getAddressTitle();
+        String address = addressList.getResult().get(pos).getAddress();
+        String area = addressList.getResult().get(pos).getLocality();
+        long aid = addressList.getResult().get(pos).getAid();
+        double lat = addressList.getResult().get(pos).getLat();
+        double lng = addressList.getResult().get(pos).getLon();
+        getDataManager().updateCurrentAddress(title, address, lat, lng, area, aid);
+        getDataManager().setCurrentAddress(address);
+        updateAddressTitle();
+
+        String tit = getDataManager().getCurrentAddressTitle();
+        String tit2 = getDataManager().getCurrentAddress();
+        String tit3 = getDataManager().getCurrentAddressArea();
+        String tit4 = getDataManager().getCurrentLat();
+
+        pageid.set(0);
+
+        if (isAddressAdded()) {
+           fetchKitchen();
+            favIcon.set(true);
+
+        } else {
+            getNavigator().getMainLocation();
+        }
+
     }
 
 }

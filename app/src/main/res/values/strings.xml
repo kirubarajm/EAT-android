@@ -727,7 +727,7 @@
     <string name="deferred_deeplink_path_signin">/signin</string>d
     <string name="deferred_deeplink_path_offer">/offer</string>
     <string name="deferred_deeplink_path_cart">/cart</string>
-        <string name="dfdr">Today�s Combos</string>
+
 
 
 </resources>

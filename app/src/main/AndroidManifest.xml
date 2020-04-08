@@ -26,7 +26,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher"
-        android:screenOrientation="portrait"
+        android:screenOrientation="locked"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -37,7 +37,7 @@
 
         <activity
             android:name=".ui.home.MainActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:windowSoftInputMode="adjustPan">
 
             <intent-filter>
@@ -68,7 +68,7 @@
 
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
             <intent-filter>
@@ -95,37 +95,37 @@
 
         <activity
             android:name=".ui.address.add.AddAddressActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.address.list.AddressListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.address.select.SelectAddressListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.feedbackandsupport.FeedbackAndSupportActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.feedbackandsupport.support.SupportActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.feedbackandsupport.support.replies.chat.ChatActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.feedbackandsupport.support.replies.RepliesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.feedbackandsupport.feedback.FeedbackActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
         </activity>
         <activity
             android:name=".ui.account.referrals.ReferralsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
 
         <activity
             android:name=".ui.track.OrderTrackingActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -148,18 +148,18 @@
 
         <activity
             android:name=".ui.account.orderhistory.historylist.OrderHistoryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.orderhistory.ordersview.OrderHistoryActivityView"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
 
 
         <activity
             android:name=".ui.signup.opt.OtpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.signup.namegender.NameGenderActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
         </activity>
@@ -167,20 +167,20 @@
 
         <activity
             android:name=".ui.registration.RegistrationActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
         </activity>
 
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
         </activity>
 
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -196,16 +196,16 @@
 
         <activity
             android:name=".ui.address.edit.EditAddressActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.orderplaced.OrderPlacedActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.payment.PaymentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.home.region.list.RegionDetailsActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
             <intent-filter>
@@ -230,7 +230,7 @@
 
         <activity
             android:name=".ui.search.dish.SearchDishActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -253,16 +253,16 @@
         </activity>
         <activity
             android:name=".ui.account.edit.EditAccountActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.track.orderdetails.OrderDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.track.help.OrderHelpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.kitchendetails.KitchenDetailsActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
             <intent-filter>
@@ -288,35 +288,35 @@
         </activity>
         <activity
             android:name=".ui.signup.tandc.TermsAndConditionActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
         </activity>
         <activity
             android:name=".ui.signup.privacy.PrivacyActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
         </activity>
 
         <activity
             android:name=".ui.signup.faqs.FaqActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.home.region.viewmore.RegionListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".ui.account.favorites.FavouritesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
 
         <activity
             android:name=".ui.signup.fagsandsupport.FaqsAndSupportActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
 
 
         <activity
             android:name=".ui.cart.coupon.CouponListActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
             <intent-filter>
@@ -343,17 +343,17 @@
 
         <activity
             android:name=".ui.home.homemenu.story.storiesactivity.StoriesTabActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="locked">
 
 
         </activity>
 
         <activity
             android:name=".ui.update.UpdateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity
             android:name=".utilities.nointernet.InternetErrorFragment"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="locked" />
         <activity android:name=".ui.cart.funnel.FunnelActivity" />
         <activity android:name=".ui.account.chatsupport.HistoryHelpActivity" />
         <activity android:name=".ui.account.feedbackandsupport.helpcenter.HelpActivity" />

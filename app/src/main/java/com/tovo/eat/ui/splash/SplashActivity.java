@@ -13,8 +13,14 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.RemoteException;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.android.installreferrer.api.InstallReferrerClient;
+import com.android.installreferrer.api.InstallReferrerStateListener;
+import com.android.installreferrer.api.ReferrerDetails;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.ActivitySplashBinding;
 import com.tovo.eat.ui.account.feedbackandsupport.support.replies.RepliesActivity;
@@ -29,6 +35,12 @@ import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.nointernet.InternetErrorFragment;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -111,12 +123,74 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashAc
         mActivitySplashBinding = getViewDataBinding();
         mSplashActivityViewModel.setNavigator(this);
 
-
         prefManager = new PrefManager(this);
 
 
+        /*final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(SplashActivity.this).build();
+        referrerClient.startConnection(new InstallReferrerStateListener() {
+
+            @Override
+            public void onInstallReferrerSetupFinished(int responseCode) {
+                switch (responseCode) {
+                    case InstallReferrerClient.InstallReferrerResponse.OK:
+
+                        try {
+                            ReferrerDetails response = referrerClient.getInstallReferrer();
+                            String installReferrer = response.getInstallReferrer();
+
+                          *//*  long referrerClickTime = response.getReferrerClickTimestampSeconds();
+                            long appInstallTime = response.getInstallBeginTimestampSeconds();
+                            boolean instantExperienceLaunched = response.getGooglePlayInstantParam();
+                            Log.e("Referrer",installReferrer);
+                            Log.e("Referrer", String.valueOf(response.getGooglePlayInstantParam()));*//*
+
+                            HashMap<String, String> values = new HashMap<>();
+
+                                try {
+                                    if (installReferrer != null) {
+                                        String referrers[] = installReferrer.split("&");
+
+                                        for (String referrerValue : referrers) {
+                                            String keyValue[] = referrerValue.split("=");
+                                            values.put(URLDecoder.decode(keyValue[0], "UTF-8"), URLDecoder.decode(keyValue[1], "UTF-8"));
+                                        }
+
+                                        Log.e("TAG", "UTM medium:" + values.get("utm_medium"));
+                                        Log.e("TAG", "UTM term:" + values.get("utm_term"));
 
 
+                                        Toast.makeText(SplashActivity.this, values.get("utm_term"), Toast.LENGTH_SHORT).show();
+
+
+                                    }
+                                } catch (Exception e) {
+
+                                }
+                            // handle referrer string
+
+                        } catch (RemoteException  e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
+                        // API not available on the current Play Store app
+                        Log.e("Referrer","Not supported");
+                        break;
+                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
+                        // Connection could not be established
+                        Log.e("Referrer","unavailable");
+                        break;
+                }
+            }
+
+            @Override
+            public void onInstallReferrerServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+                Log.e("Referrer","disconnected");
+            }
+        });*/
         mSplashActivityViewModel.clearLatLng();
 
 

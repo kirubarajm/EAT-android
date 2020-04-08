@@ -37,6 +37,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -142,14 +144,13 @@ public class MvvmApp extends Application implements HasActivityInjector {
                 .inject(this);
 
 
-
         // Init Support SDK
         Zendesk.INSTANCE.init(this, getResources().getString(R.string.zd_url),
                 getResources().getString(R.string.zd_appid),
                 getResources().getString(R.string.zd_oauth));
         Support.INSTANCE.init(Zendesk.INSTANCE);
 
-       // ZopimChat.init(getString(R.string.zopim_account_id));
+        // ZopimChat.init(getString(R.string.zopim_account_id));
 
 
         PushUtils.registerWithZendesk();
@@ -165,6 +166,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
         AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(MvvmApp.getInstance(), AppConstants.PREF_NAME);
         appPreferencesHelper.setRatingAppStatus(true);
 
+        FacebookSdk.fullyInitialize();
+        AppEventsLogger.activateApp(this);
 
         if (!BuildConfig.ENABLE_DEBUG)
             Crashlytics.getInstance();

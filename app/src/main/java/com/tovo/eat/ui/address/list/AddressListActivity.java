@@ -236,7 +236,7 @@ public class AddressListActivity extends BaseActivity<ActivityAddressListBinding
 
     public void turnOnGps() {
 
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+        new GpsUtils(this,AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
                 // turn on GPS

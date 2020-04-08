@@ -36,8 +36,12 @@ public class GpsUtils {
     private LocationManager locationManager;
     private LocationRequest locationRequest;
 
-    public GpsUtils(Context context) {
+    int requestCode=0;
+
+    public GpsUtils(Context context,  int requestCode) {
         this.context = context;
+        this.requestCode=requestCode;
+
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mSettingsClient = LocationServices.getSettingsClient(context);
         locationRequest = LocationRequest.create();
@@ -87,7 +91,7 @@ public class GpsUtils {
                                         // Show the dialog by calling startResolutionForResult(), and check the
                                         // result in onActivityResult().
                                         ResolvableApiException rae = (ResolvableApiException) e;
-                                        rae.startResolutionForResult((Activity) context, AppConstants.GPS_REQUEST);
+                                        rae.startResolutionForResult((Activity) context, requestCode);
                                     } catch (IntentSender.SendIntentException sie) {
                                         Log.i(TAG, "PendingIntent unable to execute request.");
                                     }

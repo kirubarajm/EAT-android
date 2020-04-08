@@ -171,7 +171,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
         isFirstTime = true;
 
         //check gps and turn on gps alert
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+        new GpsUtils(this,AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
                 isGPS = isGPSEnable;
@@ -246,7 +246,7 @@ public class EditAddressActivity extends BaseActivity<ActivityEditAddressBinding
 
     public void turnOnGps() {
 
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+        new GpsUtils(this,AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
                 if (isGPSEnable) {

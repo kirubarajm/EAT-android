@@ -6,15 +6,21 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class AddressListResponse {
-
     @SerializedName("success")
     @Expose
     private Boolean success;
+    @SerializedName("location_radius")
+    @Expose
+    private int locationRadius=0;
     @SerializedName("result")
     @Expose
     private List<Result> result = null;
-
-
+    public int getLocationRadius() {
+        return locationRadius;
+    }
+    public void setLocationRadius(int locationRadius) {
+        this.locationRadius = locationRadius;
+    }
     public Boolean getSuccess() {
         return success;
     }

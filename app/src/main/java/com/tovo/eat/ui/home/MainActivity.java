@@ -124,6 +124,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     boolean downloading;
 
+    boolean forceLocation = false;
+
 
     BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
         @Override
@@ -225,7 +227,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         stopLoader();
         try {
             Bundle bundle = new Bundle();
-            bundle.putString("screenName",screenName);
+            bundle.putString("screenName", screenName);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             CartActivity fragment = new CartActivity();
             fragment.setArguments(bundle);
@@ -509,14 +511,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
         if (requestCode == AppConstants.GPS_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_ON);
-                getLocation();
-            } else {
-                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_NO_THANKS);
-                showLocationDialog();
-            }
+         //   if (forceLocation) {
+                if (resultCode == RESULT_OK) {
+                    new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_ON);
+                    getLocation();
+                } else {
+                    new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_NO_THANKS);
+                    showLocationDialog();
+                }
+         //   }
+            forceLocation=false;
         } else if (requestCode == AppConstants.HOME_ADDRESS_CODE) {
 
             //if (resultCode == RESULT_OK)
@@ -686,17 +696,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 && (intent.getData().getScheme().equals(getString(R.string.deferred_deeplink_scheme)))) {
             Uri data = intent.getData();
             List<String> pathSegments = data.getPathSegments();
-                if(data.getLastPathSegment().equals("cart")) cart=true;
+            if (data.getLastPathSegment().equals("cart")) cart = true;
 
-        }else if (intent != null && intent.getData() != null
+        } else if (intent != null && intent.getData() != null
                 && (intent.getData().getScheme().equals(getString(R.string.deeplink_scheme)))) {
             Uri data = intent.getData();
             List<String> pathSegments = data.getPathSegments();
-                if(data.getLastPathSegment().equals("cart")) cart=true;
+            if (data.getLastPathSegment().equals("cart")) cart = true;
 
         }
-
-
 
 
         if (!mMainViewModel.isAddressAdded()) {
@@ -810,10 +818,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
 
     public void startLocationTracking() {
-
+        forceLocation = true;
         if (checkPermissions()) {
 
-            new GpsUtils(MainActivity.this).turnGPSOn(new GpsUtils.onGpsListener() {
+            new GpsUtils(MainActivity.this,AppConstants.GPS_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
                 @Override
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS

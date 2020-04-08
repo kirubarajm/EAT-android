@@ -1,16 +1,31 @@
 package com.tovo.eat.ui.home.homemenu;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -30,6 +45,7 @@ import android.widget.Toast;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipView;
 import com.tovo.eat.BR;
+import com.tovo.eat.BuildConfig;
 import com.tovo.eat.R;
 import com.tovo.eat.databinding.FragmentHomeBinding;
 import com.tovo.eat.ui.account.favorites.FavouritesActivity;
@@ -55,6 +71,7 @@ import com.tovo.eat.ui.track.OrderTrackingActivity;
 import com.tovo.eat.utilities.AppConstants;
 import com.tovo.eat.utilities.CustomTypefaceSpan;
 import com.tovo.eat.utilities.GpsUtils;
+import com.tovo.eat.utilities.MvvmApp;
 import com.tovo.eat.utilities.SingleShotLocationProvider;
 import com.tovo.eat.utilities.analytics.Analytics;
 import com.tovo.eat.utilities.card.CardSliderLayoutManager;
@@ -67,16 +84,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LOCATION_SERVICE;
 import static com.tovo.eat.utilities.scroll.PaginationListener.PAGE_START;
 
 public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabViewModel> implements HomeTabNavigator,
         StartFilter, KitchenAdapter.LiveProductsAdapterListener, RegionsCardAdapter.LiveProductsAdapterListener, StoriesCardAdapter.StoriesAdapterListener, FilterCollectionAdapter.FilterCollectionAdapterListener {
 
-
+    boolean locationAlertShowing = false;
     public static final String TAG = HomeTabFragment.class.getSimpleName();
     private static final int MAX_ITEMS_PER_REQUEST = 6;
     private static final int NUMBER_OF_ITEMS = 100;
     private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1201;
     @Inject
     HomeTabViewModel mHomeTabViewModel;
     @Inject
@@ -114,7 +134,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     private boolean isLastPage = false;
     private int totalPage = 10;
     private boolean isLoading = false;
-    int pgId=0;
+    int pgId = 0;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle();
@@ -169,8 +189,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                     kitchenItemViewModel -> mHomeTabViewModel.addTempKitchenItemsToList(kitchenItemViewModel));*/
 
 
-
-            kicthenListAnalytics=mHomeTabViewModel.kitchenItemViewModelsTemp;
+            kicthenListAnalytics = mHomeTabViewModel.kitchenItemViewModelsTemp;
 
             regionListAnalytics = mHomeTabViewModel.regionItemViewModels;
 
@@ -199,18 +218,18 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
             String addressTitle = mHomeTabViewModel.getDataManager().getCurrentAddressTitle();
 
-            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
-            if (regionList.length()>0) {
+            String strRegionList = "", strServiceableKitchen = "", strUnServiceableKitchen = "";
+            if (regionList.length() > 0) {
                 strRegionList = regionList.substring(0, regionList.length() - 1);
             }
-            if (strServiceableKitchenSb.length()>0){
+            if (strServiceableKitchenSb.length() > 0) {
                 strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
             }
-            if (strUnServiceableKitchenSb.length()>0){
+            if (strUnServiceableKitchenSb.length() > 0) {
                 strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
             }
 
-            new Analytics().appOpensMetrics(screenName,serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
+            new Analytics().appOpensMetrics(screenName, serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
                     strServiceableKitchen, strUnServiceableKitchen, strRegionList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,19 +277,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             String strUnServiceableKitchenSb = unServiceableKitchenSb.toString();
             String addressTitle = mHomeTabViewModel.getDataManager().getCurrentAddressTitle();
 
-            String strRegionList="",strServiceableKitchen="",strUnServiceableKitchen="";
-            if (regionList.length()>0) {
+            String strRegionList = "", strServiceableKitchen = "", strUnServiceableKitchen = "";
+            if (regionList.length() > 0) {
                 strRegionList = regionList.substring(0, regionList.length() - 1);
             }
-            if (strServiceableKitchenSb.length()>0){
+            if (strServiceableKitchenSb.length() > 0) {
                 strServiceableKitchen = strServiceableKitchenSb.substring(0, strServiceableKitchenSb.length() - 1);
             }
-            if (strUnServiceableKitchenSb.length()>0){
+            if (strUnServiceableKitchenSb.length() > 0) {
                 strUnServiceableKitchen = strUnServiceableKitchenSb.substring(0, strUnServiceableKitchenSb.length() - 1);
             }
 
-            new Analytics().appHomeMetrics(screenName,serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
-                    strServiceableKitchen, strUnServiceableKitchen, strRegionList,pgId);
+            new Analytics().appHomeMetrics(screenName, serviceableCount, unServiceableCount, regionCount, addressTitle, /*screenName,*/
+                    strServiceableKitchen, strUnServiceableKitchen, strRegionList, pgId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -298,7 +317,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     @Override
     public void loaded() {
-        setUp();
+        // setUp();
         mHomeTabViewModel.loadAllApis();
         mHomeTabViewModel.favIcon.set(true);
 
@@ -357,7 +376,7 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
         new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_ORDER_TRACK);
         Intent intent = OrderTrackingActivity.newIntent(getContext());
-        intent.putExtra("orderid",mHomeTabViewModel.getDataManager().getOrderId());
+        intent.putExtra("orderid", mHomeTabViewModel.getDataManager().getOrderId());
         startActivity(intent);
 
     }
@@ -382,9 +401,9 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
     @Override
     public void checkApiSuccessMetrics(int pageid) {
         this.pgId = pageid;
-        if (pageid==1) {
+        if (pageid == 1) {
             metricsAppOpens("");
-        }else {
+        } else {
             //   metricsAppHome("");
         }
     }
@@ -400,6 +419,169 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         PromotionFragment bottomSheetFragment = new PromotionFragment();
         bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+    @Override
+    public void addressListLoaded(boolean available) {
+
+        if (available) {
+
+            LocationManager locationManager = (LocationManager) getBaseActivity().getSystemService(LOCATION_SERVICE);
+
+           /* if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+                getLocation();
+
+            } else {
+                showGetLocationAlert();
+            }*/
+
+            boolean isNetworkEnabled = locationManager
+                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            boolean isGPSEnabled = locationManager
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (isGPSEnabled) {
+                getLocation();
+            } else {
+                if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //     ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        // public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        // int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        requestPermissions();
+                        return;
+                    }
+                    if (checkPermissions()) {
+                        Location location = locationManager
+                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        if (location != null) {
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            float[] results = new float[1];
+                            double smallestDistance = Integer.MAX_VALUE;
+                            int pos = 0;
+                            double distance = 0.0;
+                            for (int i = 0; i < mHomeTabViewModel.addressList.getResult().size(); i++) {
+                                distance = distance(latitude, longitude, mHomeTabViewModel.addressList.getResult().get(i).getLat(),
+                                        mHomeTabViewModel.addressList.getResult().get(i).getLon(), "K");
+                                if (smallestDistance == -1 || distance < smallestDistance) {
+                                    smallestDistance = distance;
+                                    pos = i;
+                                }
+                                if (i == (mHomeTabViewModel.addressList.getResult().size() - 1)) {
+                                    if (smallestDistance <= mHomeTabViewModel.addressList.getLocationRadius()) {
+                                        mHomeTabViewModel.changeAddress(pos);
+                                        showAddressAler();
+                                    } else {
+                                        showAddressAler();
+                                    }
+                                }
+                            }
+                        } else {
+                            showGetLocationAlert();
+                        }
+
+                    } else {
+                        requestPermissions();
+                    }
+
+
+                } else {
+                    showGetLocationAlert();
+                }
+            }
+           /* if (isNetworkEnabled) {
+                // no network provider is enabled
+                // Log.e(“Network-GPS”, “Disable”);
+            } else {
+                if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    locationManager.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,
+                            MIN_TIME_BW_UPDATES,
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, new LocationListener() {
+                                @Override
+                                public void onLocationChanged(Location location) {
+                                    double latitude = location.getLatitude();
+                                    double longitude = location.getLongitude();
+                                    Toast.makeText(MainActivity.this, latitude + "\n" + longitude, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                                }
+
+                                @Override
+                                public void onProviderEnabled(String provider) {
+
+                                }
+
+                                @Override
+                                public void onProviderDisabled(String provider) {
+
+                                }
+                            });
+                    // Log.e(“Network”, “Network”);
+                    if (locationManager != null) {
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        Location location = locationManager
+                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        if (location != null) {
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+
+                            Toast.makeText(MainActivity.this, latitude + "\n" + longitude, Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+                }
+            }*/
+
+        } else {
+            showAddressAler();
+
+/*
+            if (mHomeTabViewModel.isAddressAdded()) {
+             //   setUp();
+                mHomeTabViewModel.loadAllApis();
+                mHomeTabViewModel.favIcon.set(true);
+
+            } else {
+                ((MainActivity) getActivity()).startLocationTracking();
+            }*/
+        }
+
+    }
+
+    @Override
+    public void getMainLocation() {
+        ((MainActivity) getActivity()).startLocationTracking();
     }
 
     @Override
@@ -433,25 +615,17 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         progressDialog.setCancelable(true);
 
 
+        setUp();
+
         startStoriesLoader();
         startRegionLoader();
         startKitchenLoader();
         regionsResponse = new RegionsResponse();
 
+
+        //  startLocationTrackingForAddress();
+
         if (mHomeTabViewModel.isAddressAdded()) {
-
-            if (mHomeTabViewModel.getDataManager().getAddressId() != 0L) {
-
-                if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
-
-                    // startLocationTrackingForAddress();
-
-                    showAddressAler();
-
-                }
-            }
-
-            setUp();
             mHomeTabViewModel.loadAllApis();
             mHomeTabViewModel.favIcon.set(true);
 
@@ -459,12 +633,24 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             ((MainActivity) getActivity()).startLocationTracking();
         }
 
+        if (mHomeTabViewModel.getDataManager().getAppStartedAgain()) {
+            mHomeTabViewModel.getAddressList();
+        }
+       /* if (mHomeTabViewModel.isAddressAdded()) {
+            setUp();
+            mHomeTabViewModel.loadAllApis();
+            mHomeTabViewModel.favIcon.set(true);
+
+        } else {
+            ((MainActivity) getActivity()).startLocationTracking();
+        }*/
+
 
         mFragmentHomeBinding.fullScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                closeAddressAlert();
+                // closeAddressAlert();
 
             }
         });
@@ -481,24 +667,106 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+
     public void startLocationTrackingForAddress() {
 
+        if (checkPermissions()) {
 
-        new GpsUtils(getBaseActivity()).turnGPSOn(new GpsUtils.onGpsListener() {
+
+            new GpsUtils(getContext(), AppConstants.GPS_NORMAL_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
+                @Override
+                public void gpsStatus(boolean isGPSEnable) {
+                    // turn on GPS
+                    if (isGPSEnable) {
+                        getLocation();
+
+                    } else {
+                        //  turnOnGps();
+                        showLocationDialog();
+                    }
+                }
+
+            });
+        } else {
+            requestPermissions();
+        }
+
+    }
+
+    public void showGetLocationAlert() {
+        locationAlertShowing = true;
+       /// if (mWifiReceiver != null)
+          registerWifiReceiver();
+
+        ToolTip toolTip = new ToolTip()
+                .withContentView(LayoutInflater.from(getContext()).inflate(R.layout.tool_tip_getlocation, null))
+                // .withText("Now delivering to "+mHomeTabViewModel.getDataManager().getCurrentAddress())
+                .withColor(getResources().getColor(R.color.tracking_back))
+                .withShadow()
+                .withTextColor(Color.BLACK)
+                .withAnimationType(ToolTip.AnimationType.FROM_TOP);
+        myToolTipView = mFragmentHomeBinding.activityMainTooltipframelayout.showToolTipForView(toolTip, mFragmentHomeBinding.delAddress);
+
+        TextView noThanks = myToolTipView.findViewById(R.id.noThanks);
+        TextView enableLocation = myToolTipView.findViewById(R.id.enable);
+
+        noThanks.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
-                if (isGPSEnable) {
-                    getLocation();
+            public void onClick(View view) {
+                //    mHomeTabViewModel.getDataManager().setAppStartedAgain(false);
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                    myToolTipView = null;
+                    mHomeTabViewModel.getDataManager().appStartedAgain(false);
+                }
+                locationAlertShowing = false;
+                if (mWifiReceiver != null)
+                    getContext().unregisterReceiver(mWifiReceiver);
+                showAddressAler();
+/*
+                if (mHomeTabViewModel.isAddressAdded()) {
+                 //   setUp();
+                    mHomeTabViewModel.loadAllApis();
+                    mHomeTabViewModel.favIcon.set(true);
 
                 } else {
-                    //  turnOnGps();
-                    showLocationDialog();
-                }
-            }
+                    ((MainActivity) getActivity()).startLocationTracking();
+                }*/
 
+
+            }
         });
 
+        enableLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //  mHomeTabViewModel.getDataManager().setAppStartedAgain(false);
+                if (myToolTipView != null) {
+                    myToolTipView.remove();
+                    myToolTipView = null;
+                    mHomeTabViewModel.getDataManager().appStartedAgain(false);
+                }
+                locationAlertShowing = false;
+                if (mWifiReceiver != null)
+                    getContext().unregisterReceiver(mWifiReceiver);
+                if (checkPermissions()) {
+
+                    new GpsUtils(getContext(), AppConstants.GPS_NORMAL_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
+                        @Override
+                        public void gpsStatus(boolean isGPSEnable) {
+                            if (isGPSEnable) {
+                                getLocation();
+                            }
+
+                        }
+                    });
+                } else {
+                    requestPermissions();
+                }
+
+
+            }
+        });
 
     }
 
@@ -552,6 +820,19 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
 
     }
 
+    public double getRadius(double sLat, double sLng) {
+
+        float[] results = new float[1];
+
+        Location.distanceBetween(sLat,
+                sLat,
+                mHomeTabViewModel.addressList.getResult().get(0).getLat(),
+                mHomeTabViewModel.addressList.getResult().get(0).getLon(), results);
+
+
+        return results[0];
+
+    }
 
     public void getLocation() {
 
@@ -560,15 +841,70 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override
                     public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                        float[] results = new float[1];
+                        double smallestDistance = Integer.MAX_VALUE;
+
+                        int pos = 0;
+
+                        double distance = 0.0;
+
                         if (location != null)
 
-                            if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
+                            for (int i = 0; i < mHomeTabViewModel.addressList.getResult().size(); i++) {
+
+                                /*distance = getRadius(location.latitude,
+                                        location.longitude);*/
 
 
-                                showAddressAler();
+                                distance = distance(location.latitude, location.longitude, mHomeTabViewModel.addressList.getResult().get(i).getLat(),
+                                        mHomeTabViewModel.addressList.getResult().get(i).getLon(), "K");
+
+                                if (smallestDistance == -1 || distance < smallestDistance) {
+                                    smallestDistance = distance;
+                                    pos = i;
+                                }
+
+
+                                if (i == (mHomeTabViewModel.addressList.getResult().size() - 1)) {
+                                    //this is the last iteration of for loop
+
+
+                                    int radius=mHomeTabViewModel.addressList.getLocationRadius();
+
+                                    if (smallestDistance <=radius) {
+                                        mHomeTabViewModel.changeAddress(pos);
+                                        /*if (mHomeTabViewModel.isAddressAdded()) {
+                                            //setUp();
+                                            mHomeTabViewModel.loadAllApis();
+                                            mHomeTabViewModel.favIcon.set(true);
+
+                                        } else {
+                                            ((MainActivity) getActivity()).startLocationTracking();
+                                        }*/
+                                        showAddressAler();
+                                    } else {
+
+                                        showAddressAler();
+
+                                       /* if (mHomeTabViewModel.isAddressAdded()) {
+                                           // setUp();
+                                            mHomeTabViewModel.loadAllApis();
+                                            mHomeTabViewModel.favIcon.set(true);
+
+                                        } else {
+                                            ((MainActivity) getActivity()).startLocationTracking();
+                                        }*/
+                                    }
+                                }
 
 
                             }
+
+                           /* if (distance(location.latitude, location.longitude, Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLat()), Double.parseDouble(mHomeTabViewModel.getDataManager().getCurrentLng()), "K") > 1) {
+                                showAddressAler();
+
+
+                            }*/
 
 
                     }
@@ -646,108 +982,6 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         mFragmentHomeBinding.recyclerviewOrders.setAdapter(adapter);
 
         mFragmentHomeBinding.recyclerviewOrders.setNestedScrollingEnabled(false);
-
-
-
-        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new com.tovo.eat.utilities.scroll.EndlessRecyclerOnScrollListener(mLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-
-                if ( !mHomeTabViewModel.paginationLoading.get()){
-                    mHomeTabViewModel.paginationLoading.set(true);
-                    Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                        mHomeTabViewModel.fetchKitchenFilter();
-                    } else {
-                        mHomeTabViewModel.fetchKitchen();
-                    }
-                }
-
-            }
-        });*/
-        //   createInfiniteScrollListener();
-
-
-       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new PaginationListener(mLayoutManager) {
-            @Override
-            protected void loadMoreItems() {
-                if ( !mHomeTabViewModel.paginationLoading.get()){
-                    mHomeTabViewModel.paginationLoading.set(true);
-                    Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                    if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                        mHomeTabViewModel.fetchKitchenFilter();
-                    } else {
-                        mHomeTabViewModel.fetchKitchen();
-                    }
-                }
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return false;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return false;
-            }
-
-        });*/
-
-
-
-        /*mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-              int  totalItemCount = 100;
-
-               int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-                if (!mHomeTabViewModel.paginationLoading.get() && totalItemCount!=0&& totalItemCount <= (lastVisibleItem + 6)) {
-
-                    if ( !mHomeTabViewModel.paginationLoading.get()){
-                        mHomeTabViewModel.paginationLoading.set(true);
-                        Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                        if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                            mHomeTabViewModel.fetchKitchenFilter();
-                        } else {
-                            mHomeTabViewModel.fetchKitchen();
-                        }
-                    }
-                }
-            }
-        });*/
-
-
-       /* mFragmentHomeBinding.recyclerviewOrders.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                if ( !mHomeTabViewModel.paginationLoading.get()) {
-                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == mHomeTabViewModel.kitchenItemViewModels.size() - 1) {
-
-                        if ( !mHomeTabViewModel.paginationLoading.get()){
-                            mHomeTabViewModel.paginationLoading.set(true);
-                               Toast.makeText(getContext(), "Loading...", Toast.LENGTH_SHORT).show();
-                            if (mHomeTabViewModel.getDataManager().isFilterApplied()) {
-                                mHomeTabViewModel.fetchKitchenFilter();
-                            } else {
-                                mHomeTabViewModel.fetchKitchen();
-                            }
-                        }
-
-                    }
-                }
-            }
-        });*/
 
         mFragmentHomeBinding.fullScroll.setNestedScrollingEnabled(false);
 
@@ -1317,11 +1551,28 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
             mHomeTabViewModel.fetchRepos(0);
             mHomeTabViewModel.fetchKitchen();
             //   }
-
-        } else if (requestCode == AppConstants.GPS_REQUEST) {
-
         }
+        if (requestCode == AppConstants.GPS_NORMAL_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                new Analytics().sendClickData(AppConstants.SCREEN_HOME, AppConstants.CLICK_GPS_ON);
+                getLocation();
+            } else {
+
+                showAddressAler();
+
+                /*if (mHomeTabViewModel.isAddressAdded()) {
+                    //setUp();
+                    mHomeTabViewModel.loadAllApis();
+                    mHomeTabViewModel.favIcon.set(true);
+
+                } else {
+                    ((MainActivity) getActivity()).startLocationTracking();
+                }*/
+            }
+        }
+
     }
+
 
     public void startLoader() {
 
@@ -1387,4 +1638,120 @@ public class HomeTabFragment extends BaseFragment<FragmentHomeBinding, HomeTabVi
         intent.putExtra("title", collection.getName());
         startActivity(intent);
     }
+
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(getBaseActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+        if (shouldProvideRationale) {
+            //   Log.i(TAG, "Displaying permission rationale to provide additional context.");
+
+            Snackbar snackbar = Snackbar.make(mFragmentHomeBinding.homemain, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            snackbar.setActionTextColor(getResources().getColor(R.color.white));
+            View snackbarView = snackbar.getView();
+            int snackbarTextId = android.support.design.R.id.snackbar_text;
+            TextView textView = snackbarView.findViewById(snackbarTextId);
+            textView.setTextColor(getResources().getColor(R.color.white));
+            snackbarView.setBackgroundColor((getResources().getColor(R.color.black)));
+
+            snackbar.setAction("Ok", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(getBaseActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            REQUEST_PERMISSIONS_REQUEST_CODE);
+                }
+            });
+            snackbar.show();
+
+        } else {
+
+
+            ActivityCompat.requestPermissions(getBaseActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        /*  Log.i(TAG, "onRequestPermissionResult");*/
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+                /*   Log.i(TAG, "User interaction was cancelled.");*/
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                /*  Log.i(TAG, "Permission granted.");*/
+
+
+                new GpsUtils(getContext(), AppConstants.GPS_NORMAL_REQUEST).turnGPSOn(new GpsUtils.onGpsListener() {
+                    @Override
+                    public void gpsStatus(boolean isGPSEnable) {
+                        if (isGPSEnable) {
+                            getLocation();
+                        }
+
+                    }
+                });
+
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                /*  Log.i(TAG, "Permission granted.");*/
+                showAddressAler();
+                /*if (mHomeTabViewModel.isAddressAdded()) {
+                    //setUp();
+                    mHomeTabViewModel.loadAllApis();
+                    mHomeTabViewModel.favIcon.set(true);
+
+                } else {
+                    ((MainActivity) getActivity()).startLocationTracking();
+                }*/
+            }
+        }
+    }
+
+    BroadcastReceiver mWifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (locationAlertShowing) {
+                LocationManager locationManager = (LocationManager) getBaseActivity().getSystemService(LOCATION_SERVICE);
+                boolean isGPSEnabled = locationManager
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
+                if (isGPSEnabled) {
+                    getLocation();
+                    if (myToolTipView != null) {
+                        myToolTipView.remove();
+                        myToolTipView = null;
+                        mHomeTabViewModel.getDataManager().appStartedAgain(false);
+                    }
+                    locationAlertShowing = false;
+                    if (mWifiReceiver != null)
+                        getContext().unregisterReceiver(mWifiReceiver);
+                }
+            }
+        }
+    };
+
+    private void registerWifiReceiver() {
+        /*IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);*/
+        IntentFilter filter = new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION);
+        filter.addAction(Intent.ACTION_PROVIDER_CHANGED);
+        getContext().registerReceiver(mWifiReceiver, filter);
+
+    }
+
+
 }
